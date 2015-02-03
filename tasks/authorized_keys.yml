@@ -1,0 +1,10 @@
+---
+
+- name: authorized_keys > Copying authorized keys
+  authorized_key:
+    user: "{{ item.0.user }}"
+    key:  "{{ lookup('file', '../../../files/users/authorized_keys/' ~ item.1) }}"
+    key_options: "{{ item.0.options|default([])|join(',') }}"
+  with_subelements:
+    - elao_users.authorized_keys|default([])
+    - keys

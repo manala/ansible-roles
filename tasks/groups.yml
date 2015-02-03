@@ -1,0 +1,7 @@
+---
+
+- name: groups > Groups configuration
+  group:
+    name:   "{{ item.name }}"
+    system: "{% if item.system|default(false) %}yes{% else %}no{% endif %}"
+  with_items: elao_users.groups|default([])
