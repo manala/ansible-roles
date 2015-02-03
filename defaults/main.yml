@@ -1,0 +1,7 @@
+---
+
+elao_network_config:
+  hosts:            []
+  resolv:
+    searches:       []
+    nameservers:    []
