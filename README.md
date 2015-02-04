@@ -41,6 +41,7 @@ None
 `elao_users.users`|Array|Array|List of unix users.
 `elao_users.groups`|Array|Array|List of unix group
 `elao_users.authorized_keys`|Array|Array|List of authorized ssh keys
+`elao_users.authorized_keys_dir`|NULL|String|Path to keys storage directory
 `elao_users_config_adduser`|true|Boolean|If "yes" each created user will be given their own group to use as a default.  If "no", each created user will be placed in the group whose gid is USERS_GID
 
 ### Configuration example
