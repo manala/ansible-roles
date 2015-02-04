@@ -1,0 +1,11 @@
+---
+
+- name: config > Disable password authentication
+  lineinfile:
+    dest:     /etc/ssh/sshd_config 
+    line:     'PasswordAuthentication no'
+    regexp:   '^#PasswordAuthentication yes'
+    state:    present
+    backrefs: yes
+  notify:
+    - ssh reload
