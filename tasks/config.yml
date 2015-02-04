@@ -1,6 +1,6 @@
 ---
 
-- name: Hosts file configuration
+- name: config > Hosts file configuration
   lineinfile:
     dest:   /etc/hosts
     regexp: "{{ item.name|replace('.','\\.') }}"
@@ -8,7 +8,7 @@
   with_items: elao_network_config.hosts
   when: elao_network_config.hosts|length > 0
 
-- name: Resolv file configuration
+- name: config > Resolv file configuration
   template:
     src:  resolv.conf.j2
     dest: /etc/resolv.conf
