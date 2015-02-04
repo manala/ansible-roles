@@ -50,9 +50,10 @@ None
 ---
 
 elao_users:
-  users:           []
-  groups:          []
-  authorized_keys: []
+  users:                []
+  groups:               []
+  authorized_keys:      []
+  authorized_keys_dir:  "{{ playbook_dir ~ '/files/users/keys/' }}"
 
 elao_users_config_adduser:
   usergroups: true
