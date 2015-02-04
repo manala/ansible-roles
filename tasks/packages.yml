@@ -1,1 +1,8 @@
-packages.yml
+---
+
+- name: packages > Installing packages requirements
+  apt:
+    pkg:   "{{ item }}"
+    state: present
+  with_items:
+    - sudo
