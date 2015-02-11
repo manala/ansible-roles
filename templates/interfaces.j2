@@ -18,7 +18,7 @@ iface {{ key }} {{  interface.family }} {{  interface.method }}
     broadcast {{ interface.broadcast }}
     {% endif %}
     
-    {% if interface.broadcast is defined %}
+    {% if interface.options is defined %}
     {% for option in interface.options %}
         {{ option }}
     {% endfor %}
