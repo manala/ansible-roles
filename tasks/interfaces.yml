@@ -1,0 +1,7 @@
+--- 
+
+- name: interfaces > Configuring network interfaces
+  template:
+    src:  interfaces.j2
+    dest: /etc/network/interfaces
+  when: elao_network_interfaces|length > 0

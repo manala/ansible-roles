@@ -5,3 +5,35 @@ elao_network_config:
   resolv:
     searches:       []
     nameservers:    []
+
+elao_network_interfaces:
+        lo:
+            family:    inet
+            method:    loopback
+            options:   []
+
+        vmbr0:
+            family:    inet
+            method:    static
+            address:   94.23.206.57
+            netmask:   255.255.255.0
+            gateway:   94.23.206.254
+            network:   94.23.206.0
+            broadcast: 94.23.206.255
+            options:
+                - bridge_ports  eth0
+                - bridge_stp    off
+                - bridge_fd     0
+
+        vmbr1:
+            family:    inet
+            method:    static
+            address:   172.16.0.1
+            netmask:   255.255.255.0
+            gateway:   172.16.0.254
+            network:   172.16.0.0
+            broadcast: 172.16.0.255
+            options:
+                - bridge_ports  eth1
+                - bridge_stp    off
+                - bridge_fd     0
