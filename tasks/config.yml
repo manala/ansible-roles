@@ -1,0 +1,51 @@
+---
+
+- name: config > Writing params file.
+  copy:
+    src:   "{{ item }}"
+    dest:  /etc/shorewall/{{ item }}
+    owner: root
+    group: root
+    mode:  0644
+  with_items:
+    - params
+
+- name: config > Writing policy file.
+  template:
+    src:  "{{ elao_shorewall_files.policy|default('policy.j2') }}"
+    dest: /etc/shorewall/policy
+  when: (elao_shorewall_config.policy is defined and elao_shorewall_config.policy|length > 0) or elao_shorewall_files.policy is defined
+  notify:
+    - shorewall restart
+
+- name: config > Writing masq file.
+  template:
+    src:  "{{ elao_shorewall_files.masq|default('masq.j2') }}"
+    dest: /etc/shorewall/masq
+  when: (elao_shorewall_config.masq is defined and elao_shorewall_config.masq|length > 0) or elao_shorewall_files.masq is defined
+  notify:
+    - shorewall restart
+
+- name: config > Writing interfaces file.
+  template:
+    src:  "{{ elao_shorewall_files.interfaces|default('interfaces.j2') }}"
+    dest: /etc/shorewall/interfaces
+  when: (elao_shorewall_config.zones is defined and elao_shorewall_config.zones|length > 0) or elao_shorewall_files.interfaces is defined
+  notify:
+    - shorewall restart
+
+- name: config > Writing zones file.
+  template:
+    src:  "{{ elao_shorewall_files.zones|default('zones.j2') }}"
+    dest: /etc/shorewall/zones
+  when: (elao_shorewall_config.zones is defined and elao_shorewall_config.zones|length > 0) or elao_shorewall_files.zones is defined
+  notify:
+    - shorewall restart
+
+- name: config > Writing rules file.
+  template:
+    src:  "{{ elao_shorewall_files.rules|default('rules.j2') }}"
+    dest: /etc/shorewall/rules
+  when: (elao_shorewall_config.rules is defined and elao_shorewall_config.rules|length > 0) or elao_shorewall_files.rules is defined
+  notify:
+    - shorewall restart

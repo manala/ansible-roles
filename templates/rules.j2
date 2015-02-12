@@ -1,0 +1,16 @@
+#ACTION          SOURCE                   DEST                        PROTO   DEST        SOURCE     ORIGINAL
+#                                                                             PORT        PORT(S)    DEST
+{% for item in elao_shorewall_config.rules -%}
+{% if item.action is not defined %}
+
+# {{ item }}
+{% else %}
+{{ item.action }} {% for i in range(16 - item.action|length) %} {% endfor %}
+{{- item.source }} {% for i in range(24 - item.source|length) %} {% endfor %}
+{{- item.dest }} {% for i in range(27 - item.dest|length) %} {% endfor %}
+{{- item.proto|default('-') }} {% for i in range(7 - item.proto|default('-')|length) %} {% endfor %}
+{{- item.dest_port|default('-') }} {% for i in range(11 - item.dest_port|default('-')|length) %} {% endfor %}
+{{- item.source_port|default('-') }} {% for i in range(11 - item.source_port|default('-')|length) %} {% endfor %}
+{{- item.original_dest|default('-') }} {% for i in range(11 - item.original_dest|default('-')|length) %} {% endfor %}
+{% endif %}
+{% endfor %} 

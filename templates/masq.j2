@@ -1,0 +1,6 @@
+#INTERFACE      SOURCE          ADDRESS         PROTO   PORT(S) IPSEC   MARK
+{% for item in elao_shorewall_config.masq -%}
+{{ item.interface }}{% for i in range(16 - item.interface|length) %} {% endfor %}
+{{- item.source }}
+{% endfor %}  
+# LAST LINE -- DO NOT REMOVE

@@ -1,0 +1,9 @@
+---
+
+elao_shorewall_files: {}
+
+elao_shorewall_config:
+  zones:  {}
+  rules:  {}
+  masq:   {}
+  policy: {}
