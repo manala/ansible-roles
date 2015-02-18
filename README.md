@@ -30,7 +30,9 @@ dependencies:
 
 ## Role Handlers
 
-None
+|Name|Type|Description|
+|----|-----------|-------|
+`shorewall restart`|Service|Restart shorewall
 
 ## Role Variables (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 
