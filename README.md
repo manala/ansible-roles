@@ -2,7 +2,7 @@
 
 # Ansible Role: Shorewall
 
-This role will assume the setup of [shorewall] (http://shorewall.net/)
+This role will assume the setup of [shorewall](http://shorewall.net/)
 
 It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 
@@ -36,17 +36,18 @@ dependencies:
 
 ## Role Variables (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 
-### Custom configuration definition
+### Configuration templates
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_shorewall_files.zones`|Null|String (filepath)|Custom path to zones file.
-`elao_shorewall_files.interfaces`|Null|String (filepath)|Custom path to interfaces file.
-`elao_shorewall_files.rules`|Null|String (filepath)|Custom path to rules file.
-`elao_shorewall_files.masq`|Null|String (filepath)|Custom path to masq file.
-`elao_shorewall_files.policy`|Null|String (filepath)|Custom path to policy file.
+`elao_shorewall_config_templates.policy`|policy.j2|String (path)|Path to policy template.
+`elao_shorewall_config_templates.masq`|masq.j2|String (path)|Path to masq template.
+`elao_shorewall_config_templates.interfaces`|interfaces.j2|String (path)|Path to interfaces template.
+`elao_shorewall_config_templates.zones`|zones.j2|String (path)|Path to zones template.
+`elao_shorewall_config_templates.rules`|rules.j2|String (path)|Path to rules template.
 
-### Default configuration definition (provided by the role)
+
+### Configuration definitions
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
@@ -57,40 +58,42 @@ dependencies:
 
 ### Configuration example
 
-#### Shorewall configuration with custom template files
+#### Shorewall configuration with custom templates
 
 ```
 ---
 
-elao_shorewall_files:
-    zones:       "{{ playbook_dir ~ '/files/shorewall/zones.j2' }}"
-    interfaces:  "{{ playbook_dir ~ '/files/shorewall/interfaces.j2' }}"
-    rules:       "{{ playbook_dir ~ '/files/shorewall/rules.j2' }}"
-    masq:        "{{ playbook_dir ~ '/files/shorewall/masq.j2' }}"
-    policy:      "{{ playbook_dir ~ '/files/shorewall/policy.j2' }}"
+elao_shorewall_config_templates:
+    policy:      "{{ playbook_dir ~ '/templates/shorewall/policy.j2' }}"
+    masq:        "{{ playbook_dir ~ '/templates/shorewall/masq.j2' }}"
+    interfaces:  "{{ playbook_dir ~ '/templates/shorewall/interfaces.j2' }}"
+    zones:       "{{ playbook_dir ~ '/templates/shorewall/zones.j2' }}"
+    rules:       "{{ playbook_dir ~ '/templates/shorewall/rules.j2' }}"
+    
+    
 
 ```
 
-#### Shorewall configuration with default template files (provided by the role)
+#### Shorewall configuration with default templates
 ```
 elao_shorewall_config:
   zones:
-    fw:
-      type:         firewall
-    net:
-      type:         ipv4
+    - name: fw
+      type: firewall
+    - name: net
+      type: ipv4
       interface:
         name:       vmbr0
         broadcast:  detect
         options:    "blacklist,routeback,bridge,nosmurfs"
-    dmz:
-      type:         ipv4
+    - name: dmz
+      type: ipv4
       interface:
         name:       venet0
         broadcast:  detect
         options:    routeback
-    vrack:
-      type:         ipv4
+    - name: vrack
+      type: ipv4
       interface:
         name:       vmbr1
         broadcast:  detect

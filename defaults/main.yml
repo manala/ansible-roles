@@ -1,9 +1,14 @@
 ---
 
-elao_shorewall_files: {}
+elao_shorewall_config_templates:
+  policy:     policy.j2
+  masq:       masq.j2
+  interfaces: interfaces.j2
+  zones:      zones.j2
+  rules:      rules.j2
 
 elao_shorewall_config:
+  policy: {}
+  masq:   {}
   zones:  {}
   rules:  {}
-  masq:   {}
-  policy: {}
