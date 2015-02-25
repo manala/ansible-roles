@@ -1,14 +1,14 @@
 ---
 
   # Ensure ssh known hosts file is present
-- name: known hosts file
+- name: known_hosts > File.
   copy:
     dest:    /etc/ssh/ssh_known_hosts
     content: ""
     force:   no
   when: elao_ssh_known_hosts|length > 0
 
-- name: known hosts check
+- name: known_hosts > Check.
   shell: "ssh-keygen -f /etc/ssh/ssh_known_hosts -F {{ item }}"
   with_items: elao_ssh_known_hosts
   register: elao_ssh_known_hosts_check
@@ -16,7 +16,7 @@
   always_run: yes
   changed_when: false
 
-- name: known hosts set
+- name: known_hosts > Set.
   shell: "ssh-keyscan -H -T 10 {{ item.item }} >> /etc/ssh/ssh_known_hosts"
   with_items: elao_ssh_known_hosts_check.results
   when: (elao_ssh_known_hosts|length > 0) and (item.stdout == "")
