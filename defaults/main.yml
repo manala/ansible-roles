@@ -1,0 +1,9 @@
+---
+
+elao_ssh_known_hosts: []
+elao_ssh_sudo_auth: false
+
+elao_ssh_config:
+  daemon:
+    password_authentication: true
+    accept_env: LANG LC_*
