@@ -1,7 +1,7 @@
 #ZONE   TYPE            OPTIONS         IN                      OUT
 #                                       OPTIONS                 OPTIONS
 
-{% for name, zone in elao_shorewall_config.zones.iteritems() -%}
-    {{ name }}{% for i in range(8 - name|length) %} {% endfor %}
+{% for zone in elao_shorewall_config.zones -%}
+    {{ zone.name }}{% for i in range(8 - zone.name|length) %} {% endfor %}
     {{- zone.type }}
 {% endfor %}

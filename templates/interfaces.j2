@@ -1,8 +1,8 @@
 #ZONE    INTERFACE    BROADCAST    OPTIONS
 
-{% for name, zone in elao_shorewall_config.zones.iteritems() %}
+{% for zone in elao_shorewall_config.zones %}
 {% if zone.interface is defined -%}
-{{ name }}{% for i in range(9 - name|length) %} {% endfor %}
+{{ zone.name }}{% for i in range(9 - zone.name|length) %} {% endfor %}
 {{- zone.interface.name }}{% for i in range(13 - zone.interface.name|length) %} {% endfor %}
 {{- zone.interface.broadcast }}{% for i in range(13 - zone.interface.broadcast|length) %} {% endfor %}
 {{- zone.interface.options }}
