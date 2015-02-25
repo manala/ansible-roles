@@ -1,22 +1,22 @@
 ---
 
-- name: packages > pam-ssh-agent-auth config sudoers
+- name: sudo_auth > Config sudoers
   template:
     src:  sudoers/pam_ssh_agent_auth.j2
     dest: /etc/sudoers.d/pam_ssh_agent_auth
   notify:
     - sudo restart
 
-- name: packages > pam-ssh-agent-auth package copy
+- name: sudo_auth > Copy package
   copy:
     src:  packages/pam-ssh-agent-auth_0.10.2-1_amd64.deb
     dest: /opt/pam-ssh-agent-auth_0.10.2-1_amd64.deb
 
-- name: packages > pam-ssh-agent-auth package install
+- name: sudo_auth > Install package
   apt:
     deb: /opt/pam-ssh-agent-auth_0.10.2-1_amd64.deb
 
-- name: packages > pam-ssh-agent-auth config pam
+- name: sudo_auth > Config pam
   lineinfile:
     dest:         /etc/pam.d/sudo
     line:         'auth sufficient pam_ssh_agent_auth.so file=~/.ssh/authorized_keys'

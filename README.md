@@ -3,8 +3,10 @@
 # Ansible Role: SSH
 
 This role will assume the following configuration:
-- Allow users members of the sudo group to sudo
-- Disable the SSH password authentication
+- Allow sudo authentication over ssh
+- Enable/Disable the SSH daemon password authentication
+- Set the SSH daemon accepted environment variables
+- Set ssh know hosts
 
 It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 
@@ -39,7 +41,12 @@ dependencies:
 
 ## Role Variables
 
-None
+|Name|Default|Type|Description|
+|----|----|-----------|-------|
+`elao_ssh_known_hosts`|Empty collection|Collection|Ssh known hosts.
+`elao_ssh_sudo_auth`|false|Binary|Allow sudo authentication over ssh.
+`elao_ssh_config.daemon.password_authentication`|true|Binary|Enable/Disable the SSH daemon password authentication.
+`elao_ssh_config.daemon.accept_env`|LANG LC_*|String|SSH daemon accepted environment variables.
 
 ## Example playbook
 

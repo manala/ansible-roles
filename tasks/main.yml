@@ -1,4 +1,6 @@
 ---
 
-- include: packages.yml
+- include: sudo_auth.yml
+  when: elao_ssh_sudo_auth
 - include: config.yml
+- include: known_hosts.yml
