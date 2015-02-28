@@ -1,0 +1,12 @@
+---
+
+elao_vim_as_default: true
+elao_vim_config_template: ~ #"{{ playbook_dir ~ '/templates/vim/vimrc.local.j2' }}"
+
+elao_vim_config:
+    syntax: "on"
+    set:    "encoding=utf8"
+    set:    "background=dark"
+    set:    "showcmd"
+    set:    "showmatch"
+    set:    "mouse=a"
