@@ -1,0 +1,23 @@
+--- 
+
+- name: pinning > Get old files
+  shell: ls /etc/apt/preferences.d/
+  register: files_to_clean
+
+- name: pinning > Clean up old files
+  file: >   
+    path="/etc/apt/preferences.d/{{ item }}"
+    state=absent
+  when:       files_to_clean.stdout_lines > 0
+  with_items: files_to_clean.stdout_lines
+
+- name: pinning > Writing rules
+  template:
+    src:    "{{ elao_packages_repositories_config_template if (elao_packages_repositories_config_template is defined and elao_packages_repositories_config_template is not none) else 'pinning.j2' }}"
+    dest:   /etc/apt/preferences.d/{{ item.name }}
+    owner:  root
+    group:  root
+    mode:   0644
+  when:         elao_packages_repositories_pinning is defined and elao_packages_repositories_pinning|length
+  with_items:   
+    - "{{ elao_packages_repositories_pinning }}"

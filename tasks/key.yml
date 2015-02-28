@@ -1,0 +1,9 @@
+---
+
+- name: key > Writing GPG keys
+  apt_key:
+    url:   "{{ item.gpg_key }}"
+    state: "{{ item.state }}"
+  when: (elao_packages_repositories is defined and elao_packages_repositories|length) and (item.gpg_key is defined and item.gpg_key is not none)
+  with_items: 
+    - elao_packages_repositories

@@ -1,0 +1,11 @@
+---
+
+- name: repository > Adding source repositories
+  apt_repository:
+    repo:         "{{ item.source }}"
+    state:        "{{ item.state }}"
+    update_cache: yes
+  with_items:     
+    - "{{ elao_packages_repositories }}"
+  when: elao_packages_repositories and elao_packages_repositories|length
+

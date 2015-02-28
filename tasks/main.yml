@@ -1,0 +1,5 @@
+---
+
+- include: key.yml
+- include: repository.yml
+- include: pinning.yml

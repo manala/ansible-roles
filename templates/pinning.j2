@@ -1,0 +1,5 @@
+{% for rule in elao_packages_repositories_pinning -%}
+Package:        {{ rule.package }}
+Pin:            {{ rule.pin }}
+Pin-Priority:   {{ rule.priority }}
+{% endfor %}
