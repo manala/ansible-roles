@@ -1,4 +1,4 @@
 ---
 
-elao_motd_config_template:  ~
-elao_motd_config_message:   "California - 1993"
+elao_motd_template: ~
+elao_motd_message:  "California - 1993"
