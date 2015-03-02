@@ -1,6 +1,3 @@
 ---
 
-- name: template
-  template:
-    src:  "{{ elao_motd_config_template if (elao_motd_config_template is defined and elao_motd_config_template is not none) else 'motd.j2' }}"
-    dest: /etc/motd
+- include: template.yml
