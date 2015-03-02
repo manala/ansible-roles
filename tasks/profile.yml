@@ -1,0 +1,14 @@
+---
+
+- name: profile > Creating zprofile directory
+  file:
+    path:  "{{ elao_zsh_profile_path if (elao_zsh_profile_path is defined and elao_zsh_profile_path is not none) else '/etc/zprofile.d' }}"
+    state: directory
+
+- name: profile > Copying zprofile
+  template:
+    src:   "{{ elao_zsh_zprofile_template if (elao_zsh_zprofile_template is defined and elao_zsh_zprofile_template is not none) else 'zprofile.j2' }}"
+    dest:  /etc/zsh/zprofile
+    owner: root
+    group: root
+    mode:  0644
