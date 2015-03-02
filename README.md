@@ -2,7 +2,7 @@
 
 # Ansible Role: Message Of The Day
 
-This role is far simple, functionally useless and because of this essential. It will setup your Message Of The Day on your linux boxes.
+This role is far simple, functionally useless and because of this, essential. It will setup your Message Of The Day on your linux boxes.
 
 It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 
@@ -36,16 +36,27 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
+`elao_motd_type`|elao|String|Predefined type of motd.
 `elao_motd_template`|None|String (path)|Path to custom motd.
 `elao_motd_message`|None|String|A custom message
 
 ### Configuration example
 
+Use predefined type with custom message:
+
 ```
 ---
 
-elao_motd_template:  "{{ playbook_dir ~ '/templates/motd/motd.j2' }}"
-elao_motd_message:   "My awesome message"
+elao_motd_type:     elao
+elao_motd_message:  "My awesome message"
+```
+
+Use custom template:
+
+```
+---
+
+elao_motd_template:  "{{ playbook_dir ~ '/templates/motd.j2' }}"
 ```
 
 ## Example playbook

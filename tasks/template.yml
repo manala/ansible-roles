@@ -2,5 +2,5 @@
 
 - name: template
   template:
-    src:  "{{ elao_motd_template if (elao_motd_template is defined and elao_motd_template is not none) else 'motd.j2' }}"
+    src:  "{{ elao_motd_template if (elao_motd_template is not none) else elao_motd_type ~ '.j2' }}"
     dest: /etc/motd
