@@ -36,16 +36,16 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_motd_config_template`|None|String (path)|Path to custom motd.
-`elao_motd_config_message`|None|String|A custom message
+`elao_motd_template`|None|String (path)|Path to custom motd.
+`elao_motd_message`|None|String|A custom message
 
 ### Configuration example
 
 ```
 ---
 
-elao_motd_config_template:  "{{ playbook_dir ~ '/templates/motd/motd.j2' }}"
-elao_motd_config_message:   "My awesome message"
+elao_motd_template:  "{{ playbook_dir ~ '/templates/motd/motd.j2' }}"
+elao_motd_message:   "My awesome message"
 ```
 
 ## Example playbook
