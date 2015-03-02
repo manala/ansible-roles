@@ -1,0 +1,14 @@
+---
+
+- name: users > Loading ohmyzsh template
+  template:
+    src:   zshrc.j2
+    dest: "{{ item.home|default('/root' if item.name == 'root' else '/home/' ~ item.name) }}/.zshrc"
+    owner: "{{ item.name }}"
+  with_items: elao_ohmyzsh_users
+
+- name: users > Updating shell
+  user:
+    name: "{{ item.name }}"
+    shell: /bin/zsh
+  with_items: elao_ohmyzsh_users

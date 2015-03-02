@@ -1,0 +1,16 @@
+---
+
+galaxy_info:
+
+  author:              elao
+  description:         An oh-my-zsh role for elao symfony standard vagrant box
+  company:             elao
+  license:             MIT
+  min_ansible_version: 1.7.0
+  platforms:
+    - name: Debian
+  versions:
+    - wheezy
+  categories:
+    - development
+    - web
