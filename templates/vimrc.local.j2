@@ -1,3 +1,9 @@
-{% for key, config in elao_vim_config.iteritems() -%}
-    {{ key }}  {{ config }}
+{% for key, config in elao_vim_config.iteritems() %}
+{% if key == 'set' %}
+{% for entry in config %}
+set {{ entry }}
+{% endfor %}
+{% else %}
+{{ key }} {{ config }}
+{% endif %}  
 {% endfor %}

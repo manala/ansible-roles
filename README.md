@@ -55,13 +55,16 @@ elao_vim_config_template: "{{ playbook_dir ~ '/templates/vim/vimrc.local.j2' }}
 
 elao_vim_config:
     syntax: "on"
-    set:    "encoding=utf8"
-    set:    "background=dark"
-    set:    "showcmd"
-    set:    "showmatch"
-    set:    "mouse=a"
-
+    set:
+      - "encoding=utf8"
+      - "mouse=a"
+      - "expandtab"     # Use spaces instead of tabs
+      - "smarttab"      # Be smart when using tabs ;)
+      - "shiftwidth=4"  # 1 tab == 4 spaces
+      - "tabstop=4"
 ```
+
+For vim experienced users you can provide your own custom template with the `elao_vim_config_template` key
 
 ## Example playbook
 
