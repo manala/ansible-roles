@@ -1,0 +1,8 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_telegraf_config_template }}"
+    dest: "{{ manala_telegraf_config_file }}"
+  notify:
+    - telegraf restart

@@ -1,0 +1,19 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+{% set section = 'inputs.disk' -%}
+
+# Read metrics about disk usage by mount point
+[[{{ section }}]]
+  # By default, telegraf gather stats for all mountpoints.
+  # Setting mountpoints will restrict the stats to the specified mountpoints.
+  {{ macros.config_row(config, 'mount_points', '# mount_points = ["/"]', 0, true) }}
+
+{{ macros.config(config, [
+  'mount_points',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

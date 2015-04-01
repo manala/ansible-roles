@@ -1,0 +1,20 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+{% set section = 'inputs.net' -%}
+
+# Read metrics about network interface usage
+[[{{ section }}]]
+  # By default, telegraf gathers stats from any up interface (excluding loopback)
+  # Setting interfaces will tell it to gather these explicit interfaces,
+  # regardless of status.
+  {{ macros.config_row(config, 'interfaces', '# interfaces = ["eth0", ... ]', 0, true) }}
+
+{{ macros.config(config, [
+  'interfaces',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}
