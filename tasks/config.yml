@@ -1,0 +1,14 @@
+---
+
+- name: config > Writing config file.
+  template:
+    src:  config.json.j2
+    dest: "{{ elao_composer_home_path }}/config.json"
+    mode: 0644
+
+- name: config > Writing auth file.
+  template:
+    src:  auth.json.j2
+    dest: "{{ elao_composer_home_path }}/auth.json"
+    mode: 0644
+

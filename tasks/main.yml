@@ -1,0 +1,7 @@
+---
+
+- include: requirements.yml
+- include: packages.yml
+- include: install.yml
+- include: config.yml
+- include: path.yml

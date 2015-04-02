@@ -1,0 +1,9 @@
+---
+
+# Paths
+elao_composer_bin_path:   /usr/local/bin
+elao_composer_home_path:  /usr/local/lib/composer
+
+# Config
+elao_composer_config:
+  auth: {}

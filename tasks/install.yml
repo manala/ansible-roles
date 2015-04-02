@@ -1,0 +1,24 @@
+---
+
+- name: install > Download and install composer.
+  shell: "curl -sS https://getcomposer.org/installer | php -- --install-dir={{ elao_composer_bin_path }} --filename=composer"
+  args:
+    creates: "{{ elao_composer_bin_path }}"
+
+- name: install > Create home directory.
+  file:
+    path:  "{{ elao_composer_home_path }}"
+    state: directory
+
+- name: install > Set environment variables.
+  lineinfile:
+    dest:  /etc/environment
+    line:  "COMPOSER_HOME={{ elao_composer_home_path }}"
+    state: present
+
+- name: install > Setup sudoers.
+  template:
+    src:  composer_env.j2
+    dest: /etc/sudoers.d/composer_env
+  notify:
+    - sudo restart

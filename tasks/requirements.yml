@@ -1,0 +1,7 @@
+---
+
+- name: requirements > Check php-cli >= 5.3.2, you can use https://github.com/ElaoInfra/ansible-role-php.
+  shell: "php --version"
+  register: _php_version
+  always_run: yes
+
