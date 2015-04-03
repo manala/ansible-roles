@@ -71,7 +71,7 @@ elao_apt_repositories:
     key:
       url: http://www.dotdeb.org/dotdeb.gpg
       id:  "89DF5277"
-    ppreferences:
+    preferences:
       - package:  "*"
         pin:      origin packages.dotdeb.org
         priority: 100
