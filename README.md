@@ -75,9 +75,6 @@ elao_apt_repositories:
       - package:  "*"
         pin:      origin packages.dotdeb.org
         priority: 100
-      - package:  "*"
-        pin:      origin packages.dotdeb.org
-        priority: 100
     state: present
   - name: dotdeb_php55
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php55 all
