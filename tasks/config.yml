@@ -3,5 +3,11 @@
 - name: config > Git configuration
   template:
     src:    "{{ elao_git_config_template if (elao_git_config_template is not none) else 'gitconfig.j2' }}"
-    dest:   "{{ elao_git_config_filepath if (elao_git_config_filepath is not none) else '/etc/gitconfig' }}"
+    dest:   /etc/gitconfig
   when: elao_git_config_template or (elao_git_config is defined and elao_git_config | length)
+
+- name: config > Git clean configuration
+  file:
+    path:  /etc/gitconfig
+    state: absent
+  when: not elao_git_config_template and (elao_git_config is not defined or elao_git_config | length < 1)

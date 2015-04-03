@@ -41,7 +41,6 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_git_config_filepath`|None|String|Filepath to the gitconfig.
 `elao_git_config_template`|None|String (path)|Path to a custom config template
 `elao_git_config`|Array|List|List of git config options
 
@@ -51,8 +50,6 @@ None
 ---
 
 elao_git_config_template: "{{ playbook_dir ~ '/templates/git/gitconfig.j2' }}"
-
-elao_git_config_filepath: "/etc/gitconfig"
 
 elao_git_config:
   user:
