@@ -1,0 +1,16 @@
+---
+
+# User
+elao_phpmyadmin_user:       root
+elao_phpmyadmin_user_group: root
+
+# Paths
+elao_phpmyadmin_path:        /opt/phpmyadmin
+elao_phpmyadmin_config_path: "{{ elao_phpmyadmin_path }}/config.inc.php"
+elao_phpmyadmin_site_path:   "{{ elao_phpmyadmin_path }}"
+
+# Config
+elao_phpmyadmin_config:
+  blowfish_secret: ''
+  servers:
+    - host: localhost

@@ -1,0 +1,8 @@
+---
+
+- name: config
+  template:
+    src:   config.inc.php.j2
+    dest:  "{{ elao_phpmyadmin_config_path }}"
+    owner: "{{ elao_phpmyadmin_user }}"
+    group: "{{ elao_phpmyadmin_user_group }}"
