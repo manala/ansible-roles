@@ -1,0 +1,23 @@
+---
+
+elao_bind_zones: []
+
+elao_bind_options:
+    directory:          "\"/var/cache/bind\""
+    dnssec-validation:  auto
+    allow-transfer:     "{ none; }"
+    allow-recursion:    "{ none; }"
+    allow-query-cache:  "{ none; }"
+    allow-query:        "{ none; }"
+    auth-nxdomain:      "no;    # conform to RFC1035"
+    listen-on-v6:       "{ any; }"
+    version:            none
+
+elao_bind_dir:
+    logs:               /var/log/bind
+    zones:              /etc/bind/zones
+
+elao_bind_config_templates:
+    named_conf:         named.conf.j2
+    named_conf_local:   named.conf.local.j2
+    named_conf_options: named.conf.options.j2
