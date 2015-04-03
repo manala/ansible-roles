@@ -92,7 +92,7 @@ elao_git_config:
         ci:             commit
 ```
 
-For vim experienced users you can provide your own custom template with the `elao_vim_config_template` key
+For git experienced users you can provide your own custom template with the `elao_git_config_template` key
 
 ## Example playbook
 

@@ -14,11 +14,6 @@ galaxy_info:
   - name: Debian
     versions:
     - wheezy (7.X)
-
-  #
-  # Below are all categories currently available. Just as with
-  # the platforms above, uncomment those that apply to your role.
-  #
   categories:
   - system
   - developpement
