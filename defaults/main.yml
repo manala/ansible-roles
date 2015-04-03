@@ -1,0 +1,5 @@
+---
+
+# Config
+elao_mysql_config_template: ~
+elao_mysql_config:          {}

@@ -1,0 +1,9 @@
+---
+
+- name: services > Start mysql if not running.
+  service:
+    name:    "{{ item }}"
+    state:   started
+    enabled: yes
+  with_items:
+    - mysql
