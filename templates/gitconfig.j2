@@ -1,10 +1,6 @@
-{% for entries in elao_git_config %}
-{% for key, config in entries.iteritems() %}
-[{{ key }}{% if config.has_key('option') %} "{{ config.get('option') }}"{% endif %}]
+{% for section, config in elao_git_config.iteritems() %}
+[{{ section }}]
 {% for entry, value in config.iteritems() -%}
-{% if entry != "option" %}
-    {{ entry }} = {{ value }}
-{% endif %}
-{% endfor %}
+    {{ entry }} = {{ value }}
 {% endfor %}
 {% endfor %}

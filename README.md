@@ -55,41 +55,45 @@ elao_git_config_template: "{{ playbook_dir ~ '/templates/git/gitconfig.j2' }}"
 elao_git_config_filepath: "/etc/gitconfig"
 
 elao_git_config:
-    - user:
-        name:           "Guewen FAIVRE"
-        email:          "guewen.faivre@elao.com"
+  user:
+    name:           "Guewen FAIVRE"
+    email:          "guewen.faivre@elao.com"
 
-    - core:
-        autocrlf:       input
-        compression:    9
-        excludesfile:   "~/.gitignore_global"
-        filemode:       false
+  core:
+    autocrlf:       input
+    compression:    9
+    excludesfile:   "~/.gitignore_global"
+    filemode:       false
 
-    - color:
-        ui:             "true"
+  remote "france":
+    url:            git://repohost/project1.git
+    fetch:          +refs/heads/*:refs/remotes/origin/*
 
-    - color:
-        option:         branch
-        current:        yellow reverse
-        local:          yellow
-        remote:         green
+  color:
+    ui:             "true"
 
-    - color:
-        option:         diff
-        meta:           yellow bold
-        frag:           magenta bold
-        old:            red bold
-        new:            green bold
+  color:
+    option:         branch
+    current:        yellow reverse
+    local:          yellow
+    remote:         green
 
-    - color:
-        option:         status
-        added:          yellow
-        changed:        green
-        untracked:      red
-    
-    - alias:
-        br:             branch -av
-        ci:             commit
+  color:
+    option:         diff
+    meta:           yellow bold
+    frag:           magenta bold
+    old:            red bold
+    new:            green bold
+
+  color:
+    option:         status
+    added:          yellow
+    changed:        green
+    untracked:      red
+
+  alias:
+    br:             branch -av
+    ci:             commit
 ```
 
 For git experienced users you can provide your own custom template with the `elao_git_config_template` key
