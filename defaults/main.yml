@@ -1,11 +1,3 @@
 ---
 
-elao_packages_repositories: {}
-
-elao_packages_repositories_config_template: ~
-
-elao_packages_repositories_pinning:
-    - name:     dotdeb
-      package:  "*"
-      pin:      origin packages.dotdeb.org
-      priority: 100
+elao_apt_repositories: []

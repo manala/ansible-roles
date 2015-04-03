@@ -1,0 +1,34 @@
+---
+
+- name: repositories > Handle repositories keys
+  apt_key:
+    url:   "{{ item.key.url }}"
+    id:    "{{ item.key.id }}"
+    state: "{{ item.state|default('present') }}"
+  with_items: elao_apt_repositories
+  when: (elao_apt_repositories and elao_apt_repositories|length) and (item.key is defined)
+
+- name: repositories > Handle repositories sources
+  apt_repository:
+    repo:         "{{ item.source }}"
+    state:        "{{ item.state|default('present') }}"
+    update_cache: yes
+  with_items: elao_apt_repositories
+  when: elao_apt_repositories and elao_apt_repositories|length
+
+- name: repositories > Handle preferences absence
+  file:
+    path:  /etc/apt/preferences.d/{{ item.name }}
+    state: absent
+  with_items: elao_apt_repositories
+  when: (elao_apt_repositories and elao_apt_repositories|length) and ((item.preferences is not defined) or (item.state|default('present') != 'present'))
+
+- name: repositories > Handle preferences
+  template:
+    src:   preferences.j2
+    dest:  /etc/apt/preferences.d/{{ item.name }}
+    owner: root
+    group: root
+    mode:  0644
+  with_items: elao_apt_repositories
+  when: (elao_apt_repositories and elao_apt_repositories|length) and ((item.preferences is defined) and (item.state|default('present') == 'present'))

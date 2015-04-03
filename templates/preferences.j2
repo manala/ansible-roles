@@ -1,0 +1,6 @@
+{% for preference in item.preferences -%}
+Package:      {{ preference.package }}
+Pin:          {{ preference.pin }}
+Pin-Priority: {{ preference.priority }}
+
+{% endfor %}
