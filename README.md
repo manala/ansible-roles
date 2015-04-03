@@ -45,6 +45,8 @@ dependencies:
 
 ```
 
+elao_mysql_config_template: "{{ playbook_dir ~ '/templates/mysql/mysql.cnf.j2' }}"
+
 elao_mysql_config:
   client:
     port:                   3306

@@ -2,16 +2,16 @@
 
 - name: config > Mysql configuration.
   template:
-    src: "{{ elao_mysql_config_template if elao_mysql_config_template is not none else 'mysqld.cnf.j2' }}"
-    dest: /etc/mysql/conf.d/mysqld.cnf
-  when: elao_mysql_config is defined and elao_mysql_config | length
+    src: "{{ elao_mysql_config_template if elao_mysql_config_template is not none else 'my.cnf.j2' }}"
+    dest: /etc/mysql/conf.d/my.cnf
+  when: elao_mysql_config_template or (elao_mysql_config is defined and elao_mysql_config | length)
   notify:
     - mysql restart
 
 - name: config > Mysql clean configuration.
   file:
-    path:  /etc/mysql/conf.d/mysqld.cnf
+    path:  /etc/mysql/conf.d/my.cnf
     state: absent
-  when: elao_mysql_config is not defined or elao_mysql_config | length < 1
+  when: not elao_mysql_config_template and (elao_mysql_config is not defined or elao_mysql_config | length < 1)
   notify:
     - mysql restart
