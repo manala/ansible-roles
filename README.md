@@ -42,12 +42,12 @@ None
 
 ### Configuration example
 
-Use predefined type with custom message:
+Use predefined type (elao|cow|turkey|stegosaurus) with custom message:
 
 ```
 ---
 
-elao_motd_type:     elao
+elao_motd_type:     turkey
 elao_motd_message:  "My awesome message"
 ```
 
