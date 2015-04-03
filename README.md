@@ -82,6 +82,10 @@ elao_apt_repositories:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php56 all
   - name: backports
     source: deb http://cdn.debian.net/debian {{ ansible_distribution_release }}-backports main
+    preferences:
+      - package:  git*
+        pin:      release a=wheezy-backports
+        priority: 900
 ```
 
 ## Example playbook
