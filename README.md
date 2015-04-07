@@ -86,6 +86,11 @@ elao_apt_repositories:
       - package:  git*
         pin:      release a=wheezy-backports
         priority: 900
+  - name: varnish
+    source: deb https://repo.varnish-cache.org/debian/ {{ ansible_distribution_release }} varnish-4.0
+    key:
+      url: https://repo.varnish-cache.org/debian/GPG-key.txt
+      id:  "C4DEFFEB"
 ```
 
 ## Example playbook
