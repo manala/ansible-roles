@@ -1,24 +1,19 @@
 ---
 
 galaxy_info:
-  author: ELAO
-  company: ELAO
-  license: MIT
+
+  author:              Elao
+  company:             Elao
   description: >
     This role will assume the following configuration:
       - Install zsh package
       - Setup a default zprofile file
       - Setup a zprofile dir for local files definition
-
+  license:             MIT
   min_ansible_version: 1.7.2
   platforms:
-  - name: Debian
-    versions:
-    - wheezy (7.X)
-
-  #
-  # Below are all categories currently available. Just as with
-  # the platforms above, uncomment those that apply to your role.
-  #
+    - name: Debian
+      versions:
+        - wheezy
   categories:
-  - system
+    - system
