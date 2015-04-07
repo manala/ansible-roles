@@ -1,0 +1,9 @@
+---
+
+- name: packages > Add dependencies.
+  apt:
+    name:  "{{ item }}"
+    force: true
+    state: present
+  with_items:
+    - apt-transport-https
