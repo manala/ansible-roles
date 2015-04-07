@@ -1,1 +1,16 @@
 ---
+
+galaxy_info:
+
+  author:              Elao
+  company:             Elao
+  description: >
+    Setup of users accounts and ssh keys
+  license:             MIT
+  min_ansible_version: 1.7.0
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+  categories:
+    - system
