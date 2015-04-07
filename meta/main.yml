@@ -1,22 +1,19 @@
 ---
 
 galaxy_info:
-  author: ELAO
-  company: ELAO
-  license: MIT
+
+  author:              Elao
+  company:             Elao
   description: >
-    Ansible role for bind setup and configuration.
+    Ansible role for bind setup and configuration
+  license:             MIT
   min_ansible_version: 1.7.2
   platforms:
-  - name: Debian
-    versions:
-    - wheezy (7.X)
-    - jessie (Testing)
-  #
-  # Below are all categories currently available. Just as with
-  # the platforms above, uncomment those that apply to your role.
-  #
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
   categories:
-  - networking
-  - system
-  - linux
+    - networking
+    - system
+    - linux
