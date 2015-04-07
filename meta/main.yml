@@ -2,15 +2,16 @@
 
 galaxy_info:
 
-  author:              elao
-  description:         Setup your Message Of The Day for your linux boxes
-  company:             elao
+  author:              Elao
+  company:             Elao
+  description: >
+    Setup your Message Of The Day for your linux boxes
   license:             MIT
   min_ansible_version: 1.7.0
   platforms:
     - name: Debian
-  versions:
-    - wheezy
+      versions:
+        - wheezy
   categories:
     - development
     - web
