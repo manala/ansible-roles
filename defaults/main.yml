@@ -1,0 +1,31 @@
+---
+
+elao_postgresql_version: ~
+
+elao_postgresql_config_template: ~
+elao_postgresql_config: ~
+
+elao_postgresql_config_hba_template: ~
+elao_postgresql_config_hba:
+  # Database administrative login by Unix domain socket
+  - type: local
+    database: all
+    user: postgres
+    method: peer
+  # "local" is for Unix domain socket connections only
+  - type: local
+    database: all
+    user: all
+    method: peer
+  # IPv4 local connections:
+  - type: host
+    database: all
+    user: all
+    address: 127.0.0.1/32
+    method: md5
+  # IPv6 local connections:
+  - type: host
+    database: all
+    user: all
+    address: ::1/128
+    method: md5
