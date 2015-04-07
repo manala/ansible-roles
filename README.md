@@ -91,6 +91,10 @@ elao_apt_repositories:
     key:
       url: https://repo.varnish-cache.org/debian/GPG-key.txt
       id:  "C4DEFFEB"
+    preferences:
+      - package:  varnish*
+        pin:      origin repo.varnish-cache.org
+        priority: 900
 ```
 
 ## Example playbook
