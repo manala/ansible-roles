@@ -2,16 +2,15 @@
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    A phpMyAdmin role for elao symfony standard vagrant box
+  author:              ELAO
+  company:             ELAO
+  description:         An apt-repositories role for elao symfony standard vagrant box
   license:             MIT
-  min_ansible_version: 1.7.0
+  min_ansible_version: 1.7.2
   platforms:
     - name: Debian
-    versions:
-      - wheezy
+  versions:
+    - wheezy
   categories:
     - development
     - web
