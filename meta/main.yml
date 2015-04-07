@@ -2,15 +2,16 @@
 
 galaxy_info:
 
-  author:              ELAO
-  description:         A composer role for elao symfony standard vagrant box
-  company:             ELAO
+  author:              Elao
+  company:             Elao
+  description: >
+    A composer role for elao symfony standard vagrant box
   license:             MIT
   min_ansible_version: 1.7.2
   platforms:
     - name: Debian
-  versions:
-    - wheezy (7.X)
+    versions:
+      - wheezy
   categories:
     - development
     - web
