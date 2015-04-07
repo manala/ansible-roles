@@ -8,17 +8,12 @@ galaxy_info:
     This role will assume the configuration of the hosts resolution by:
         Modifying the /etc/hosts definition
         Modifying the /etc/resolv.conf contents
-
   min_ansible_version: 1.7.2
   platforms:
   - name: Debian
     versions:
-    - wheezy (7.X)
-    - jessie (Testing)
-  #
-  # Below are all categories currently available. Just as with
-  # the platforms above, uncomment those that apply to your role.
-  #
+    - wheezy
+    - jessie
   categories:
   - networking
   - system
