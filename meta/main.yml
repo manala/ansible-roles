@@ -5,7 +5,7 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    Setup phpMyAdmin
+    Install and config phpMyAdmin via composer
   license:             MIT
   min_ansible_version: 1.9.0
   platforms:
