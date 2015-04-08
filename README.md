@@ -95,6 +95,15 @@ elao_apt_repositories:
       - package:  varnish*
         pin:      origin repo.varnish-cache.org
         priority: 900
+  - name: nginx
+    source: deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
+    key:
+      url: http://nginx.org/keys/nginx_signing.key
+      id:  "7BD9BF62"
+    preferences:
+      - package:  nginx*
+        pin:      origin nginx.org
+        priority: 900
 ```
 
 ## Example playbook
