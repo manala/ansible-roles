@@ -59,7 +59,7 @@ elao_apt_repositories:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id:  "D50582E6"
   - name:   proxmox
-    source: deb https://enterprise.proxmox.com/debian wheezy pve-enterprise
+    source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
     state:  absent
   - name: postgresql
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
@@ -84,7 +84,7 @@ elao_apt_repositories:
     source: deb http://cdn.debian.net/debian {{ ansible_distribution_release }}-backports main
     preferences:
       - package:  git*
-        pin:      release a=wheezy-backports
+        pin:      release a={{ ansible_distribution_release }}-backports
         priority: 900
   - name: varnish
     source: deb https://repo.varnish-cache.org/debian/ {{ ansible_distribution_release }} varnish-4.0
