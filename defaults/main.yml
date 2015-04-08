@@ -1,13 +1,11 @@
 ---
 
 # User
-elao_phpmyadmin_user:       root
-elao_phpmyadmin_user_group: root
+elao_phpmyadmin_user:       ~
+elao_phpmyadmin_user_group: ~
 
-# Paths
-elao_phpmyadmin_path:        /opt/phpmyadmin
-elao_phpmyadmin_config_path: "{{ elao_phpmyadmin_path }}/config.inc.php"
-elao_phpmyadmin_site_path:   "{{ elao_phpmyadmin_path }}"
+# Path
+elao_phpmyadmin_path: /opt/phpmyadmin
 
 # Config
 elao_phpmyadmin_config:

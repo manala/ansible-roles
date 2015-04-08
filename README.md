@@ -1,36 +1,68 @@
-Ansible Role - phpMyAdmin
-=========================
+<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
-A phpMyAdmin role to install phpMyAdmin on elao symfony standard vagrant box
+# Ansible Role: phpMyAdmin
 
+This role will install and config phpMyAdmin via composer.
 
-Requirements
-------------
+It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 
-This role only run on elao symfony standard vagrant box. See https://vagrantcloud.com/elao/symfony-standard-debian
+## Requirements
 
+- Ansible 1.9.0+
 
-Role Variables
---------------
+## Dependencies
 
-    elao_mysql_phpmyadmin_host: phppgadmin  # phpMyAdmin host
+- Composer
 
+## Installation
 
-Example Playbook
-----------------
+Using ansible galaxy:
+
+```bash
+ansible-galaxy install elao.phpmyadmin
+```
+You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+```yaml
+dependencies:
+  - { role: elao.phpmyadmin }
+```
+
+## Example playbook
 
     - hosts: servers
       roles:
-         - { role: elao.mysql-phpmyadmin}
+         - { role: elao.phpmyadmin }
 
+## Role Variables
 
-License
--------
+### Definition
+
+|Name|Default|Type|Description|
+|----|-------|----|-----------|
+`elao_phpmyadmin_user`|None|String|User
+`elao_phpmyadmin_user_group`|None|String|User group
+`elao_phpmyadmin_path`|/opt/phpmyadmin|String|Path
+`elao_phpmyadmin_config`|Array|Dictionnary|Config
+`elao_phpmyadmin_config.blowfish_secret`|''|String|Blowfish secret
+`elao_phpmyadmin_config.servers`|Array|Array|Servers
+`elao_phpmyadmin_config.servers.host`|localhost|String|Host
+
+### Configuration example
+
+```
+---
+
+elao_phpmyadmin_config:
+  blowfish_secret: 'ThisSecretIsNotSoSecret'
+  servers:
+    - host: localhost
+```
+
+# Licence
 
 MIT
 
+# Author information
 
-Author Information
-------------------
-
-http://www.elao.com/
+ELAO [**(http://www.elao.com/)**](http://www.elao.com)

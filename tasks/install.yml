@@ -1,14 +1,15 @@
 ---
 
-- name: install
-  shell: composer create-project phpmyadmin/phpmyadmin --stability=dev --no-dev --keep-vcs --no-interaction {{ elao_phpmyadmin_path }}
+- name: install > Composer create project
+  command: composer create-project phpmyadmin/phpmyadmin --stability=dev --no-dev --prefer-dist --no-interaction {{ elao_phpmyadmin_path }}
   args:
     creates: "{{ elao_phpmyadmin_path }}/composer.json"
 
-- name: install permissions
+- name: install > Permissions
   file:
     path:    "{{ elao_phpmyadmin_path }}"
     state:   directory
-    owner:   "{{ elao_phpmyadmin_user }}"
-    group:   "{{ elao_phpmyadmin_user_group }}"
+    owner:   "{{ elao_phpmyadmin_user|ternary(elao_phpmyadmin_user,omit) }}"
+    group:   "{{ elao_phpmyadmin_user_group|ternary(elao_phpmyadmin_user_group,omit) }}"
     recurse: yes
+  when: elao_phpmyadmin_user or elao_phpmyadmin_user_group

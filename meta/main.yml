@@ -5,9 +5,9 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    A phpMyAdmin role for elao symfony standard vagrant box
+    Setup phpMyAdmin
   license:             MIT
-  min_ansible_version: 1.7.0
+  min_ansible_version: 1.9.0
   platforms:
     - name: Debian
       versions:
