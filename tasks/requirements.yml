@@ -4,20 +4,22 @@
   command: "php --version"
   always_run: yes
   failed_when: false
-  register: _elao_php_version
+  changed_when: false
+  register: _elao_php_version_check_output
 
-- name: requirements > Php version
+- name: requirements > Php version check fail
   fail:
     msg: Need php cli >= 5.3.2, you can use https://github.com/ElaoInfra/ansible-role-php
-  when: (_elao_php_version.stdout is not defined) or (not _elao_php_version.stdout_lines[0]|regex_replace('PHP (\d*\.\d*\.\d*).*', '\\1')|version_compare('5.3.2', '>='))
+  when: (_elao_php_version_check_output.stdout is not defined) or (not _elao_php_version_check_output.stdout_lines[0]|regex_replace('PHP (\d*\.\d*\.\d*).*', '\\1')|version_compare('5.3.2', '>='))
 
 - name: requirements > Curl check
   command: "curl --version"
   always_run: yes
   failed_when: false
-  register: _elao_curl_version
+  changed_when: false
+  register: _elao_curl_check_output
 
-- name: requirements > Curl
+- name: requirements > Curl check fail
   fail:
     msg: Need curl, you can use https://github.com/ElaoInfra/ansible-role-curl
-  when: (_elao_curl_version.stdout is not defined)
+  when: (_elao_curl_check_output.stdout is not defined)
