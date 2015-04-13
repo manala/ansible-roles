@@ -1,0 +1,9 @@
+---
+
+# Config
+elao_nginx_config_template: config/http_default.conf.j2
+elao_nginx_config: {}
+
+# Configs
+elao_nginx_configs_path: /etc/nginx/conf.d
+elao_nginx_configs: []

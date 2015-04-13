@@ -1,0 +1,6 @@
+---
+
+- name: test > Test
+  command:      "nginx -t"
+  when:         (_elao_nginx_config_template_output is defined and _elao_nginx_config_template_output.changed) or (_elao_nginx_configs_templates_output is defined and _elao_nginx_configs_templates_output.changed) or (_elao_nginx_configs_clean_output is defined and _elao_nginx_configs_clean_output.changed)
+  changed_when: false

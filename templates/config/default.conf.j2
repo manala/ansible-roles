@@ -1,0 +1,15 @@
+{%- import '_macros.j2' as macros with context -%}
+
+user                     {{ elao_nginx_config.user }};
+worker_processes         {{ elao_nginx_config.worker_processes|default(1) }};
+pid                      {{ elao_nginx_config.pid|default('/var/run/nginx.pid') }};
+
+{{ macros.config(elao_nginx_config, ['user', 'worker_processes', 'pid'], 18) }}
+
+events {
+    worker_connections {{ config_events.worker_connections|default(768) }};
+
+{{ macros.config(config_events, ['worker_connections'], 19, '    ') -}}
+}
+
+include {{ elao_nginx_configs_path }}/*.conf;
