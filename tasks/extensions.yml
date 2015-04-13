@@ -1,0 +1,27 @@
+---
+
+- name: extensions > Register enabled extensions.
+  shell: dpkg --get-selections 'php5-*'|grep -v deinstall|cut -f 1
+  register: elao_php_extensions_enabled_output
+  always_run: yes
+  ignore_errors: true
+  changed_when: false
+
+- set_fact:
+    elao_php_extensions_enabled: "{{ elao_php_extensions_enabled_output.stdout_lines|difference(elao_php_extensions_exclude)|list }}"
+
+- name: extensions > Install packages.
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: elao_php_extensions|map('regex_replace','^(.*)$','php5-\\1')|difference(elao_php_extensions_enabled)
+  notify:
+    - php fpm restart
+
+- name: extensions > Remove packages.
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items: elao_php_extensions_enabled|difference(elao_php_extensions|map('regex_replace','^(.*)$','php5-\\1'))
+  notify:
+    - php fpm restart

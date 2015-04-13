@@ -1,0 +1,26 @@
+---
+
+- name: fpm_pools > Create config files.
+  template:
+    src: "{{ item.template if item.template is not undefined else 'fpm_pools/default.conf.j2' }}"
+    dest: "{{ elao_php_fpm_pools_path }}/{{ item.name }}"
+  notify:
+    - php fpm restart
+  with_items: elao_php_fpm_pools
+
+# cleanup config files
+- name: fpm_pools > Cleanup configuration - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ elao_php_fpm_pools_path }}"
+  register: _elao_php_fpm_pools_find_output
+  changed_when: false
+
+- name: fpm_pools > Cleanup configuration - remove files
+  file:
+    path:  "{{ elao_php_fpm_pools_path }}/{{ item }}"
+    state: absent
+  when: item not in elao_php_fpm_pools|map(attribute='name')
+  with_items: _elao_php_fpm_pools_find_output.stdout_lines
+  notify:
+    - php fpm restart

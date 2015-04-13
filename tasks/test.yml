@@ -1,0 +1,5 @@
+- name: "test > Check php-fpm configuration."
+  command: "php5-fpm -t"
+  when: "'fpm' in elao_php_sapis"
+  changed_when: false
+

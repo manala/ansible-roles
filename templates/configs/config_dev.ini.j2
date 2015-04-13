@@ -1,0 +1,40 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default({}) -%}
+
+display_errors                               = {{ 'On' if config.display_errors|default(true) else 'Off' }}
+display_startup_errors                       = {{ 'On' if config.display_startup_errors|default(true) else 'Off' }}
+error_reporting                              = {{ config.error_reporting|default('E_ALL') }}
+html_errors                                  = {{ 'On' if config.html_errors|default(true) else 'Off' }}
+log_errors                                   = {{ 'On' if config.log_errors|default(true) else 'Off' }}
+max_input_time                               = {{ config.max_input_time|default(60) }}
+output_buffering                             = {{ config.output_buffering|default(4096) }}
+register_argc_argv                           = {{ 'On' if config.register_argc_argv|default(false) else 'Off' }}
+request_order                                = "{{ config.request_order|default('GP') }}"
+short_open_tag                               = {{ 'On' if config.short_open_tag|default(false) else 'Off' }}
+track_errors                                 = {{ 'On' if config.track_errors|default(true) else 'Off' }}
+variables_order                              = "{{ config.request_order|default('GPCS') }}"
+expose_php                                   = {{ 'On' if config.expose_php|default(true) else 'Off' }}
+memory_limit                                 = {{ config.memory_limit|default('512M') }}
+session.gc_divisor                           = {{ config["session.gc_divisor"]|default(1000) }}
+session.hash_bits_per_character              = {{ config["session.hash_bits_per_character"]|default(5) }}
+url_rewriter.tags                            = "{{ config.url_rewriter|default('a=href,area=href,frame=src,input=src,form=fakeentry') }}"
+
+{{ macros.config(config, [
+  'display_errors',
+  'display_startup_errors',
+  'error_reporting',
+  'html_errors',
+  'log_errors',
+  'max_input_time',
+  'output_buffering',
+  'register_argc_argv',
+  'request_order',
+  'short_open_tag',
+  'track_errors',
+  'variables_order',
+  'expose_php',
+  'memory_limit',
+  'session.gc_divisor',
+  'session.hash_bits_per_character',
+  'url_rewriter.tags'], 46) -}}

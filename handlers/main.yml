@@ -1,0 +1,11 @@
+---
+
+- name: php fpm restart
+  service:
+    name:  php5-fpm
+    state: restarted
+  when: "'fpm' in elao_php_sapis"
+
+- name: php cli restart
+  debug:
+    msg: "skip php-cli restart"
