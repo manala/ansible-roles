@@ -86,6 +86,9 @@ elao_apt_repositories:
       - package:  git*
         pin:      release a={{ ansible_distribution_release }}-backports
         priority: 900
+      - package:  haproxy*
+        pin:      release a={{ ansible_distribution_release }}-backports
+        priority: 900
   - name: varnish
     source: deb https://repo.varnish-cache.org/debian/ {{ ansible_distribution_release }} varnish-4.0
     key:
