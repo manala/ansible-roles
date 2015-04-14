@@ -13,6 +13,7 @@
   command: "find -type f -printf '%P\n'"
   args:
     chdir: "{{ elao_nginx_configs_path }}"
+  changed_when: false
   register: _elao_nginx_configs_find_output
 
 - name: configs > Clean
