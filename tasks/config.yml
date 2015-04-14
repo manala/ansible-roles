@@ -1,0 +1,8 @@
+---
+
+- name: config > Config
+  template:
+    src:  "{{ elao_haproxy_config_template }}"
+    dest: "{{ elao_haproxy_config_path }}"
+  notify:
+    - haproxy restart

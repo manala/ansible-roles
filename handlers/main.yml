@@ -1,0 +1,12 @@
+---
+
+- name: haproxy restart
+  command: "haproxy -c -f {{ elao_haproxy_config_path }}"
+  changed_when: true
+  notify:
+    - do haproxy restart
+
+- name: do haproxy restart
+  service:
+    name:  haproxy
+    state: restarted

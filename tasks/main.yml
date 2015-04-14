@@ -1,0 +1,6 @@
+---
+
+- include: install.yml
+- include: errorfiles.yml
+- include: config.yml
+- include: services.yml

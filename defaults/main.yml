@@ -1,0 +1,24 @@
+---
+
+# Errorfiles
+elao_haproxy_errorfiles_path: /etc/haproxy/errors
+elao_haproxy_errorfiles:
+  - name: 400.http
+    template: errorfiles/400.http.j2
+  - name: 403.http
+    template: errorfiles/403.http.j2
+  - name: 408.http
+    template: errorfiles/408.http.j2
+  - name: 500.http
+    template: errorfiles/500.http.j2
+  - name: 502.http
+    template: errorfiles/502.http.j2
+  - name: 503.http
+    template: errorfiles/503.http.j2
+  - name: 504.http
+    template: errorfiles/504.http.j2
+
+# Config
+elao_haproxy_config_path: /etc/haproxy/haproxy.cfg
+elao_haproxy_config_template: config/http_default.cfg.j2
+elao_haproxy_config: {}

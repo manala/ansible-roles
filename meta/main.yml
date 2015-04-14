@@ -1,0 +1,17 @@
+---
+
+galaxy_info:
+
+  author:              Elao
+  company:             Elao
+  description: >
+    Setup and config haproxy
+  license: MIT
+  min_ansible_version: 1.7.2
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+  categories:
+    - development
+    - web
