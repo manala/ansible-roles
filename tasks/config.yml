@@ -4,6 +4,5 @@
   template:
     src: "{{ elao_nginx_config_template }}"
     dest: /etc/nginx/nginx.conf
-  register: _elao_nginx_config_template_output
   notify:
     - nginx restart

@@ -4,7 +4,6 @@
   template:
     src:  "{{ item.template|default('configs/default.conf.j2') }}"
     dest: "{{ elao_nginx_configs_path }}/{{ item.name }}"
-  register: _elao_nginx_configs_templates_output
   with_items: elao_nginx_configs
   notify:
     - nginx restart
@@ -22,6 +21,5 @@
     state: absent
   when: item not in elao_nginx_configs|map(attribute='name')
   with_items: _elao_nginx_configs_find_output.stdout_lines
-  register: _elao_nginx_configs_clean_output
   notify:
     - nginx restart

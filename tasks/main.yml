@@ -4,5 +4,4 @@
 - include: install.yml
 - include: config.yml
 - include: configs.yml
-- include: test.yml
 - include: services.yml
