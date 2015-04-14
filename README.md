@@ -55,7 +55,7 @@ elao_nginx_configs:
     template: configs/server_default.conf.j2
     config:
       listen: 8080
-      location /: ~
+      location /:
         root:  /srv/foo
 ```
 
