@@ -1,6 +1,13 @@
 ---
 
 - name: php fpm restart
+  command: "php5-fpm -t"
+  when: "'fpm' in elao_php_sapis"
+  changed_when: true
+  notify:
+    - do php fpm restart
+
+- name: do php fpm restart
   service:
     name:  php5-fpm
     state: restarted

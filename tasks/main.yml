@@ -2,11 +2,10 @@
 
 - include: install.yml
 - include: extensions.yml
-- include: services.yml
 - include: configs.yml _elao_php_sapi=fpm
   when: "'fpm' in elao_php_sapis"
 - include: configs.yml _elao_php_sapi=cli
   when: "'cli' in elao_php_sapis"
 - include: fpm_pools.yml
   when: "'fpm' in elao_php_sapis"
-- include: test.yml
+- include: services.yml
