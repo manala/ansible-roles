@@ -107,6 +107,15 @@ elao_apt_repositories:
       - package:  nginx*
         pin:      origin nginx.org
         priority: 900
+  - name: nodejs
+    source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  "68576280"
+    preferences:
+      - package:  nodejs
+        pin:      origin deb.nodesource.com
+        priority: 900
 ```
 
 ## Example playbook
