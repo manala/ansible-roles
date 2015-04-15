@@ -1,0 +1,7 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default({}) -%}
+
+[group:{{ config.name }}]
+programs={{ config.programs }}  ; each refers to 'x' in [program:x] definitions
+{{ macros.config(config, ['name', 'programs']) }}

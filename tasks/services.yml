@@ -1,0 +1,23 @@
+---
+
+- name: services > Default
+  template:
+    src:   services/default.j2
+    dest:  /etc/default/supervisor
+    owner: root
+    mode:  0644
+
+- name: services > Init
+  template:
+    src:   services/init.j2
+    dest:  /etc/init.d/supervisor
+    owner: root
+    mode:  0755
+
+- name: services > Services
+  service:
+    name:    "{{ item }}"
+    state:   started
+    enabled: yes
+  with_items:
+    - supervisor

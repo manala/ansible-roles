@@ -1,0 +1,25 @@
+---
+
+- name: requirements > Pip check
+  command: "pip --version"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_pip_check_output
+
+- name: requirements > Pip check fail
+  fail:
+    msg: Need pip
+  when: _elao_pip_check_output.stdout is not defined
+
+- name: requirements > Supervisor package check
+  command: "dpkg -s supervisor"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_supervisor_package_check_output
+
+- name: requirements > Supervisor package check fail
+  fail:
+    msg: Package "supervisor" must *not* be installed
+  when: _elao_supervisor_package_check_output.rc == 0

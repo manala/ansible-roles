@@ -1,0 +1,27 @@
+---
+
+- name: install > Config dirs
+  file:
+    path:  "{{ item }}"
+    state: directory
+    owner: root
+    mode:  0755
+  with_items:
+    - /etc/supervisor
+    - /etc/supervisor/conf.d
+
+- name: install > Config dir
+  file:
+    path:  /etc/supervisor
+    state: directory
+    owner: root
+    mode:  0755
+
+- name: config > Config
+  template:
+    src:   config/default.conf.j2
+    dest:  /etc/supervisor/supervisord.conf
+    owner: root
+    mode:  0644
+  notify:
+    - supervisor restart

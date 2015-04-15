@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default({}) -%}
+
+[program:{{ config.name }}]
+
+command={{ config.command }} ; the program (relative uses PATH, can take args)
+{{ macros.config(config, ['name', 'command']) }}

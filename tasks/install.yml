@@ -1,0 +1,15 @@
+---
+
+- name: install > Packages
+  pip:
+    name:  "{{ item }}"
+    state: present
+  with_items:
+    - supervisor
+
+- name: install > Log dir
+  file:
+    path:  /var/log/supervisor
+    state: directory
+    owner: root
+    mode:  0755

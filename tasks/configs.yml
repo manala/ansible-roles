@@ -1,0 +1,25 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template|default('configs/default.conf.j2') }}"
+    dest: "/etc/supervisor/conf.d/{{ item.name }}"
+  with_items: elao_supervisor_configs
+  notify:
+    - supervisor restart
+
+- name: configs > Find
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "/etc/supervisor/conf.d"
+  changed_when: false
+  register: _elao_supervisor_configs_find_output
+
+- name: configs > Clean
+  file:
+    path:  "/etc/supervisor/conf.d/{{ item }}"
+    state: absent
+  when: item not in elao_supervisor_configs|map(attribute='name')
+  with_items: _elao_supervisor_configs_find_output.stdout_lines
+  notify:
+    - supervisor restart
