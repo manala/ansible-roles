@@ -1,0 +1,8 @@
+---
+
+- name: config > Config
+  lineinfile:
+    dest:  /etc/environment
+    line:  "{{ item.key }}={{ item.value }}"
+    state: present
+  with_dict: elao_env_config
