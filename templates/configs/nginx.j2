@@ -1,0 +1,65 @@
+{%- import '_macros.j2' as macros with context -%}
+{% set config = item.config|default({}) -%}
+/var/log/nginx/*.log {
+{% if config.weekly is not defined
+   and config.monthly is not defined
+   and config.daily is not defined
+   and config.size is not defined %}
+    daily
+{% endif %}
+{% if config.daily|default(false) %}
+    daily
+{% endif %}
+{% if config.weekly|default(false) %}
+    weekly
+{% endif %}
+{% if config.monthly|default(false) %}
+    monthly
+{% endif %}
+{% if config.size|default(false) %}
+    size {{ config.size }}
+{% endif %}
+{% if config.missingok is not defined or config.missingok %}
+    missingok
+{% endif %}
+    rotate {{ config.rotate|default(52) }}
+{% if config.compress is not defined or config.compress %}
+    compress
+{% endif %}
+{% if config.delaycompress is not defined or config.delaycompress %}
+    delaycompress
+{% endif %}
+{% if config.notifempty is not defined or config.notifempty %}
+    notifempty
+{% endif %}
+{% if config.create is not defined %}
+    create 0640 www-data adm
+{% else %}
+    create{% if config.create is string %} {{ config.create }}{% endif %}
+{% endif %}
+{% if config.sharedscripts is not defined or config.sharedscripts %}
+    sharedscripts
+{% endif %}
+    prerotate
+        if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+            run-parts /etc/logrotate.d/httpd-prerotate; \
+        fi; \
+    endscript
+    postrotate
+        [ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`
+    endscript
+
+{{ macros.config(config, [
+  'daily',
+  'weekly',
+  'monthly',
+  'size',
+  'missingok',
+  'compress',
+  'delaycompress',
+  'notifempty',
+  'sharedscripts',
+  'rotate',
+  'create',
+  'compress'], 0, 4) -}}
+}

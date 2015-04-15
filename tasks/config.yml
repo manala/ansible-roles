@@ -1,0 +1,6 @@
+---
+
+- name: config > Config
+  template:
+    src: "{{ elao_logrotate_config_template }}"
+    dest: /etc/logrotate.conf
