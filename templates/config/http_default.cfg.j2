@@ -31,7 +31,7 @@ global
     ssl-default-bind-ciphers {{ config_global['ssl-default-bind-ciphers']|default('kEECDH+aRSA+AES:kRSA+AES:+AES256:RC4-SHA:!kEDH:!LOW:!EXP:!MD5:!aNULL:!eNULL') }}
     ssl-default-bind-options {{ config_global['ssl-default-bind-options']|default('no-sslv3') }}
 
-{{ macros.config(config_global, ['log', 'chroot', 'stats', 'user', 'group', 'daemon', 'ca-base', 'crt-base', 'ssl-default-bind-ciphers', 'ssl-default-bind-options'], 25, '    ') -}}
+{{ macros.config(config_global, ['log', 'chroot', 'stats', 'user', 'group', 'daemon', 'ca-base', 'crt-base', 'ssl-default-bind-ciphers', 'ssl-default-bind-options'], 25, 4) -}}
 
 {% set config_defaults = elao_haproxy_config.defaults|default({}) %}
 
@@ -67,6 +67,6 @@ defaults
     errorfile {{ errorfile }}
     {% endfor %}
 
-{{ macros.config(config_defaults, ['log', 'mode', 'option', 'timeout', 'errorfile'], 18, '    ') -}}
+{{ macros.config(config_defaults, ['log', 'mode', 'option', 'timeout', 'errorfile'], 18, 4) -}}
 
 {{ macros.config(elao_haproxy_config, ['global', 'defaults']) -}}

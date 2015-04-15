@@ -1,20 +1,19 @@
-{% macro config(parameters, exclusions = [], align = 12, indent = '') -%}
+{% macro config(parameters, exclusions = [], align = 12, indent = 0) -%}
     {% for key, value in parameters.iteritems() -%}
         {% if key not in exclusions %}
 {%- if value is none -%}
 {% elif key in ['daemon'] and value %}
-    {{- indent }}{{ key.ljust(align - 2) }}
+{{ key.ljust(align - 2)|indent(indent, true) }}
 {% elif value is string %}
-    {{- indent }}{{ key.ljust(align - 2) }} {{ value }}
+{{ key.ljust(align - 2)|indent(indent, true) }} {{ value }}
 {% elif value is number %}
-    {{- indent }}{{ key.ljust(align - 2) }} {{ value }}
+{{ key.ljust(align - 2)|indent(indent, true) }} {{ value }}
 {% elif value is mapping %}
-{{ indent }}{{ key }}
-{{ config(value, [], align, indent ~ '    ') }}
-{{- indent }}
+{{ key|indent(indent, true) }}
+{{ config(value, [], align, indent + 4) }}
 {% else -%}
 {% for subvalue in value %}
-    {{- indent }}{{ key.ljust(align - 2) }} {{ subvalue }}
+{{ key.ljust(align - 2)|indent(indent, true) }} {{ subvalue }}
 {% endfor %}
 {% endif %}
         {%- endif %}
