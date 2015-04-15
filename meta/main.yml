@@ -5,7 +5,7 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    Foo bar
+    Setup and config logrotate
   license: MIT
   min_ansible_version: 1.7.2
   platforms:
