@@ -1,22 +1,22 @@
-{%- macro config(parameters, exclusions = [], align = 0, indent = '') -%}
+{%- macro config(parameters, exclusions = [], align = 0, indent = 0) -%}
     {% for key, value in parameters.iteritems() -%}
         {% if key not in exclusions %}
 {%- if value is none -%}
 {% elif value is sameas true %}
-    {{- indent }}{{ key.ljust(align - 2) }} on;
+{{ key.ljust(align - 2)|indent(indent, true) }} on;
 {% elif value is sameas false %}
-    {{- indent }}{{ key.ljust(align - 2) }} off;
+{{ key.ljust(align - 2)|indent(indent, true) }} off;
 {% elif value is string %}
-    {{- indent }}{{ key.ljust(align - 2) }} {{ value }};
+{{ key.ljust(align - 2)|indent(indent, true) }} {{ value }};
 {% elif value is number %}
-    {{- indent }}{{ key.ljust(align - 2) }} {{ value }};
+{{ key.ljust(align - 2)|indent(indent, true) }} {{ value }};
 {% elif value is mapping %}
-{{ indent }}{{ key }} {
-{{ config(value, [], 0, indent ~ '    ') }}
-{{- indent }}}
+{{ key|indent(indent, true) }} {
+{{ config(value, [], 0, indent + 4) }}
+{{ '}'|indent(indent, true) }}
 {% else -%}
 {% for subvalue in value %}
-    {{- indent }}{{ key.ljust(align - 2) }} {{ subvalue }};
+{{ key.ljust(align - 2)|indent(indent, true) }} {{ subvalue }};
 {% endfor %}
 {% endif %}
         {%- endif %}

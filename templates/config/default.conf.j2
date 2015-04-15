@@ -9,7 +9,7 @@ pid                      {{ elao_nginx_config.pid|default('/var/run/nginx.pid') 
 events {
     worker_connections {{ config_events.worker_connections|default(768) }};
 
-{{ macros.config(config_events, ['worker_connections'], 19, '    ') -}}
+{{ macros.config(config_events, ['worker_connections'], 19, 4) -}}
 }
 
 include {{ elao_nginx_configs_path }}/*.conf;

@@ -6,5 +6,5 @@ server {
     listen       {{ config.listen|default(80) }};
     server_name  {{ config.server_name|default('localhost') }};
 
-{{ macros.config(config, ['listen', 'server_name'], 19, '    ') -}}
+{{ macros.config(config, ['listen', 'server_name'], 19, 4) -}}
 }

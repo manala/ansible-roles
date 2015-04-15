@@ -11,7 +11,7 @@ pid              {{ elao_nginx_config.pid|default('/var/run/nginx.pid') }};
 events {
     worker_connections {{ config_events.worker_connections|default(768) }};
 
-{{ macros.config(config_events, ['worker_connections'], 19, '    ') -}}
+{{ macros.config(config_events, ['worker_connections'], 19, 4) -}}
 }
 
 {% set config_http = elao_nginx_config.http|default({}) -%}
@@ -28,5 +28,5 @@ http {
 
     include {{ elao_nginx_configs_path }}/*.conf;
 
-{{ macros.config(config_http, ['include', 'default_type'], 19, '    ') -}}
+{{ macros.config(config_http, ['include', 'default_type'], 19, 4) -}}
 }
