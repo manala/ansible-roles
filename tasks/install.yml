@@ -1,0 +1,6 @@
+---
+
+- name: install > Download and install npm
+  shell: "curl -L https://www.npmjs.com/install.sh | sh"
+  args:
+    creates: "/usr/bin/npm"
