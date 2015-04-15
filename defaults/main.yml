@@ -1,0 +1,4 @@
+---
+
+elao_mongodb_config: {}
+elao_mongodb_config_template: config/default.conf.j2
