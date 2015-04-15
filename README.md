@@ -116,6 +116,15 @@ elao_apt_repositories:
       - package:  nodejs
         pin:      origin deb.nodesource.com
         priority: 900
+  - name: mongodb
+    source: deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.0 main
+    key:
+      url: http://docs.mongodb.org/10gen-gpg-key.asc
+      id:  7F0CEB10
+    preferences:
+      - package:  mongodb-*
+        pin:      origin docs.mongodb.org
+        priority: 900
 ```
 
 ## Example playbook
