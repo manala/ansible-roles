@@ -16,4 +16,4 @@
 - name: requirements > Find check fail
   fail:
     msg: Need find
-  when: (_elao_find_check_output.stdout is not defined)
+  when: _elao_find_check_output.stdout is not defined
