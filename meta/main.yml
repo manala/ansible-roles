@@ -7,7 +7,7 @@ galaxy_info:
   description: >
     Setup and configure npm.
   license: MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.8
   platforms:
     - name: Debian
       versions:

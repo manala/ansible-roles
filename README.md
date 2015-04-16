@@ -36,6 +36,9 @@ dependencies:
 
 ```yaml
 elao_npm_packages:
+  - name:     gulp
+    version:  3
+    global:   true
   - name:     coffee-script
     path:     /app/path
     version:  1.6.1
