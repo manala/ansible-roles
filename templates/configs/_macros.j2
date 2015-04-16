@@ -1,0 +1,19 @@
+{%- macro config(parameters, exclusions = [], align = 0, indent = 0) -%}
+    {% for key, value in parameters.iteritems() -%}
+        {% if key not in exclusions %}
+{% if value is none or value is sameas false %}
+{% elif value is sameas true %}
+{{ key|indent(indent, true) }}
+{% elif value is string or value is number %}
+{{ key.ljust(align)|indent(indent, true) }} = {{ value }}
+{% elif value is mapping %}
+[{{ key|indent(indent, true) }}]
+{{ config(value, [], 0, indent) -}}
+{% elif value is sequence %}
+{% for subvalue in value %}
+{{ key.ljust(align)|indent(indent, true) }} = {{ subvalue }}
+{% endfor %}
+{% endif %}
+        {%- endif %}
+    {%- endfor %}
+{%- endmacro -%}
