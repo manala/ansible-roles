@@ -30,9 +30,9 @@ dependencies:
 
 ## Role Handlers
 
-| Name             | Type    | Description            |
-| ---------------- | ------- | ---------------------- |
-| `mongod restart` | Service | Restart mongodb server |
+| Name              | Type    | Description            |
+| ----------------- | ------- | ---------------------- |
+| `mongodb restart` | Service | Restart mongodb server |
 
 ## Role Variables
 

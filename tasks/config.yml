@@ -5,4 +5,4 @@
     src: "{{ elao_mongodb_config_template }}"
     dest: /etc/mongod.conf
   notify:
-    - mongod restart
+    - mongodb restart
