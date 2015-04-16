@@ -4,5 +4,4 @@
   template:
     src:  "{{ item.template|default('configs/default.j2') }}"
     dest: "{{ elao_logrotate_configs_path }}/{{ item.name }}"
-  register: _elao_nginx_configs_templates_output
   with_items: elao_logrotate_configs

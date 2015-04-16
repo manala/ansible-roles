@@ -58,7 +58,7 @@ elao_logrotate_config:
 ```yaml
 elao_logrotate_configs:
   - name:      nginx
-    template:  configs/nginx.j2
+    template:  configs/nginx_default.j2
     config:
       size:    100M
 ```
