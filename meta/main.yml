@@ -5,7 +5,7 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    This role will assume the basic setup of fail2ban, enhancements will soon appended.
+    This role will assume the basic setup of fail2ban.
   license:             MIT
   min_ansible_version: 1.7.2
   platforms:
