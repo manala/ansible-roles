@@ -1,4 +1,4 @@
-{%- macro config(parameters, exclusions = [], align = 0, indent = 0) -%}
+{%- macro config(parameters, exclusions = []) -%}
     {% for key, value in parameters.iteritems() -%}
         {% if key not in exclusions %}
 {% if value is none or value is sameas false %}
