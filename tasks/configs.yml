@@ -1,0 +1,28 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template|default(elao_mysql_configs_template) }}"
+    dest: "{{ elao_mysql_configs_dir }}/{{ item.file }}"
+  register: _elao_mysql_configs_templates_output
+  with_items: elao_mysql_configs
+  notify:
+    - mysql restart
+
+- name: configs > Find
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ elao_mysql_configs_dir }}"
+  changed_when: false
+  register: _elao_mysql_configs_find_output
+  when: elao_mysql_configs_exclusive
+
+- name: configs > Clean
+  file:
+    path:  "{{ elao_mysql_configs_dir }}/{{ item }}"
+    state: absent
+  when: elao_mysql_configs_exclusive and (item not in elao_mysql_configs|map(attribute='file'))
+  with_items: _elao_mysql_configs_find_output.stdout_lines
+  register: _elao_mysql_configs_clean_output
+  notify:
+    - mysql restart

@@ -10,10 +10,6 @@ It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used a
 
 - Ansible 1.7.2+
 
-## Dependencies
-
-None
-
 ## Installation
 
 Using ansible galaxy:
@@ -30,42 +26,54 @@ dependencies:
 
 ## Role Handlers
 
-    mysql restart  # Restart MySQL server
+| Name          | Type    | Description          |
+| ------------- | ------- | -------------------- |
+| mysql restart | Service | Restart MySQL server |
 
 ## Role Variables
 
-### Definition
-
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-|`elao_mysql_config_template`|None|String (path)|Path to a custom config template
-|`elao_mysql_config`|Array|List|List of mysql config options
+| Name                           | Default                | Type          | Description                                            |
+| -----------------------------  | ---------------------- | ------------- | ------------------------------------------------------ |
+| `elao_mysql_configs_dir`       | /etc/mysql/conf.d      | String (path) | Configurations directory path                          |
+| `elao_mysql_configs_template`  | configs/default.cnf.j2 | String (path) | Default configuration template                         |
+| `elao_mysql_configs_exclusive` | false                  | Boolean       | Whether to remove all other non-specified config files |
+| `elao_mysql_configs`           | [ ]                    | Array         | Mysql configuration files                              |
 
 ### Configuration example
 
 ```
+# use a default custom template
+elao_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.cnf.j2' }}"
 
-elao_mysql_config_template: "{{ playbook_dir ~ '/templates/mysql/mysql.cnf.j2' }}"
+# clean configs directory
+elao_mysql_configs_exclusive: true
 
-elao_mysql_config:
-  client:
-    port:                   3306
-    socket:                 /var/run/mysqld/mysqld.sock
-  mysqld_safe:
-    nice:                   0
-    socket:                 /var/run/mysqld/mysqld.sock
-  mysqld:
-    user:                   mysql
-    socket:                 /var/run/mysqld/mysqld.sock
-    bind_address:           127.0.0.1
-    port:                   3306
-    character_set_server:   utf8
-    collation_server:       utf8_general_ci
-    max_connections:        100
-    thread_concurrency:     10
-    slow_query_log:         1
-    slow_query_log_file:    /var/log/mysql/mysql-slow.log
-    long_query_time:        2
+elao_mysql_configs:
+  - file: my.cnf
+    template: configs/default.cnf.j2
+    config:
+      client:
+        port:                   3306
+        socket:                 /var/run/mysqld/mysqld.sock
+      mysqld_safe:
+        nice:                   0
+        socket:                 /var/run/mysqld/mysqld.sock
+      mysqld:
+        user:                   mysql
+        socket:                 /var/run/mysqld/mysqld.sock
+        bind_address:           127.0.0.1
+        port:                   3306
+        character_set_server:   utf8
+        collation_server:       utf8_general_ci
+        max_connections:        100
+        thread_concurrency:     10
+        slow_query_log:         1
+        slow_query_log_file:    /var/log/mysql/mysql-slow.log
+        long_query_time:        2
+  - file: mysqld_safe_syslog.cnf
+    config:
+      mysqld_safe:
+        syslog: true
 
 ```
 
