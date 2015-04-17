@@ -6,7 +6,7 @@ galaxy_info:
 
   author:              ELAO
   company:             ELAO
-  description:         An apt-repositories role for elao symfony standard vagrant box
+  description:         An apt role for elao symfony standard vagrant box
   license:             MIT
   min_ansible_version: 1.7.2
   platforms:

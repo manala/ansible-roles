@@ -1,6 +1,6 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
-# Ansible Role: Apt repositories
+# Ansible Role: Apt
 
 This role will add third party sources to the package manager by:
 - Adding source URL as new repository
@@ -22,7 +22,7 @@ None.
 Using ansible galaxy:
 
 ```bash
-ansible-galaxy install elao.apt-repositories
+ansible-galaxy install elao.apt
 ```
 
 ## Role Handlers
@@ -35,16 +35,16 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_apt_repositories`|Array|Dictionnary|Collection of repositories.
-`elao_apt_repositories.name`|-|String|Name of the repository (alphanumeric, no spaces).
-`elao_apt_repositories.source`|-|String|A source string for the repository.
-`elao_apt_repositories.key.url`|-|String (URL)|URL to the secure key.
-`elao_apt_repositories.key.id`|-|String|Id of the secure key.
-`elao_apt_repositories.state`|-|String|Used to specify if repository should ben absent or present
-`elao_apt_repositories.preferences`|Array|Dictionnary|Collection of preferences
-`elao_apt_repositories.preferences.package`|-|String|Packages involved
-`elao_apt_repositories.preferences.pin`|-|String|Pin directives
-`elao_apt_repositories.preferences.priority`|-|Integer|Priority level of the rule
+`elao_apt`|Array|Dictionnary|Collection of repositories.
+`elao_apt.name`|-|String|Name of the repository (alphanumeric, no spaces).
+`elao_apt.source`|-|String|A source string for the repository.
+`elao_apt.key.url`|-|String (URL)|URL to the secure key.
+`elao_apt.key.id`|-|String|Id of the secure key.
+`elao_apt.state`|-|String|Used to specify if repository should ben absent or present
+`elao_apt.preferences`|Array|Dictionnary|Collection of preferences
+`elao_apt.preferences.package`|-|String|Packages involved
+`elao_apt.preferences.pin`|-|String|Pin directives
+`elao_apt.preferences.priority`|-|Integer|Priority level of the rule
 
 
 ### Configuration example
@@ -52,7 +52,7 @@ None
 ```
 ---
 
-elao_apt_repositories:
+elao_apt:
   - name:   jenkins
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key:
@@ -72,7 +72,11 @@ elao_apt_repositories:
       url: http://www.dotdeb.org/dotdeb.gpg
       id:  "89DF5277"
     preferences:
-      - package:  "*"
+      - package:  "php*"
+        pin:      origin packages.dotdeb.org
+        priority: 100
+    preferences:
+      - package:  "mysql*"
         pin:      origin packages.dotdeb.org
         priority: 100
     state: present
@@ -131,7 +135,7 @@ elao_apt_repositories:
 
     - hosts: servers
       roles:
-         - { role: elao.apt-repositories }
+         - { role: elao.apt }
 
 # Licence
 

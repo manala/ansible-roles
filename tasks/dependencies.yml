@@ -1,6 +1,6 @@
 ---
 
-- name: packages > Add dependencies.
+- name: dependencies > Packages
   apt:
     name:  "{{ item }}"
     force: true
