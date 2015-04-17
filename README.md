@@ -40,7 +40,6 @@ dependencies:
 |----|-------|----|-----------|
 `elao_nginx_config_template`|config/http_default.conf.j2|String|Main config template
 `elao_nginx_config`|{}|Array|Main config
-`elao_nginx_configs_path`|/etc/nginx/conf.d|String|Configs path
 `elao_nginx_configs`|{}|Array|Configs
 
 ### Configuration example

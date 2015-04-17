@@ -26,7 +26,7 @@ http {
     sendfile           {{ 'on' if config_http.sendfile|default(true) else 'off' }};
     keepalive_timeout  {{ config_http.keepalive_timeout|default('65') }};
 
-    include {{ elao_nginx_configs_path }}/*.conf;
+    include {{ elao_nginx_configs_dir }}/*.conf;
 
 {{ macros.config(config_http, ['include', 'default_type'], 19, 4) -}}
 }

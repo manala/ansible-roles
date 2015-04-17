@@ -3,7 +3,7 @@
 - name: configs > Templates
   template:
     src:  "{{ item.template|default('configs/default.conf.j2') }}"
-    dest: "{{ elao_nginx_configs_path }}/{{ item.name }}"
+    dest: "{{ elao_nginx_configs_dir }}/{{ item.name }}"
   with_items: elao_nginx_configs
   notify:
     - nginx restart
@@ -11,13 +11,13 @@
 - name: configs > Find
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ elao_nginx_configs_path }}"
+    chdir: "{{ elao_nginx_configs_dir }}"
   changed_when: false
   register: _elao_nginx_configs_find_output
 
 - name: configs > Clean
   file:
-    path:  "{{ elao_nginx_configs_path }}/{{ item }}"
+    path:  "{{ elao_nginx_configs_dir }}/{{ item }}"
     state: absent
   when: item not in elao_nginx_configs|map(attribute='name')
   with_items: _elao_nginx_configs_find_output.stdout_lines
