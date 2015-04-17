@@ -22,4 +22,4 @@
 - name: requirements > Curl check fail
   fail:
     msg: Need curl, you can use https://github.com/ElaoInfra/ansible-role-curl
-  when: (_elao_curl_check_output.stdout is not defined)
+  when: _elao_curl_check_output.stdout is not defined
