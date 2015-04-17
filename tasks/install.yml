@@ -1,8 +1,8 @@
 ---
 
-- name: packages > Installing required packages
+- name: install > Packages
   apt:
     name:  "{{ item }}"
-    state: latest
+    state: present
   with_items:
     - git

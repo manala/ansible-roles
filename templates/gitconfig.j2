@@ -1,6 +1,0 @@
-{% for section, config in elao_git_config.iteritems() %}
-[{{ section }}]
-{% for entry, value in config.iteritems() -%}
-    {{ entry }} = {{ value }}
-{% endfor %}
-{% endfor %}

@@ -41,7 +41,7 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_git_config_template`|None|String (path)|Path to a custom config template
+`elao_git_config_template`|config/default.j2|String (path)|Path to a custom config template
 `elao_git_config`|Array|List|List of git config options
 
 ### Configuration example
@@ -49,7 +49,7 @@ None
 ```
 ---
 
-elao_git_config_template: "{{ playbook_dir ~ '/templates/git/gitconfig.j2' }}"
+elao_git_config_template: "{{ playbook_dir ~ '/templates/git/config.j2' }}"
 
 elao_git_config:
   user:

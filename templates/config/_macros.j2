@@ -1,0 +1,12 @@
+{%- macro config(parameters, exclusions = []) -%}
+    {% for key, value in parameters.iteritems() -%}
+        {% if key not in exclusions %}
+{% if value is string or value is number %}
+{{ key }} = {{ value }}
+{% elif value is mapping %}
+[{{ key }}]
+{{ config(value) }}
+{% endif %}
+        {%- endif %}
+    {%- endfor %}
+{%- endmacro -%}

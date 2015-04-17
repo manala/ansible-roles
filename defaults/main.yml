@@ -1,4 +1,5 @@
 ---
 
-elao_git_config_template: ~
-elao_git_config:          {}
+elao_git_config_file:     /etc/gitconfig
+elao_git_config_template: config/default.j2
+elao_git_config: {}
