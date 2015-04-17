@@ -22,6 +22,6 @@
   apt:
     name: "{{ item }}"
     state: absent
-  with_items: elao_php_extensions_enabled|difference(elao_php_extensions|map('regex_replace','^(.*)$','php5-\\1'))
+  with_items: elao_php_extensions_enabled|difference(elao_php_extensions|map('regex_replace','^(.*)$','php5-\\1')|list)
   notify:
     - php fpm restart
