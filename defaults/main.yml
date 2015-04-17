@@ -4,15 +4,19 @@
 elao_php_sapis: ['cli', 'fpm']
 
 # PHP config files
-elao_php_configs_path: /etc/php5
+elao_php_configs_dir: /etc/php5
+elao_php_configs_template: configs/default.ini.j2
+elao_php_configs_exclusive: false
 elao_php_configs: []
 elao_php_fpm_configs: []
 elao_php_cli_configs: []
 
 # PHP fpm pools
-elao_php_fpm_pools_path: /etc/php5/fpm/pool.d
+elao_php_fpm_pools_dir: /etc/php5/fpm/pool.d
+elao_php_fpm_pools_template: fpm_pools/default.conf.j2
+elao_php_fpm_pools_exclusive: false
 elao_php_fpm_pools:
-  - name: www.conf
+  - file: www.conf
 
 # Extensions
 elao_php_extensions: []

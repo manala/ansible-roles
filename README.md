@@ -30,23 +30,26 @@ dependencies:
 
 ## Role Handlers
 
-|Name|Type|Description|
-|----|----|-----------|
-|`php fpm restart`|Service|Restart php-fpm
+| Name              | Type    | Description     |
+| ----------------- | ------- | --------------- |
+| `php fpm restart` | Service | Restart php-fpm |
 
 ## Role Variables
 
-| Name                      | Default              | Type   | Description                              |
-| ------------------------- | -------------------- | ------ | ---------------------------------------- |
-| `elao_php_sapis`          | [cli, fpm]           | Array  | A list of the PHP SAPIs to install.      |
-| `elao_php_extensions`     | [ ]                  | Array  | A list of the php extensions to install. |
-| `elao_php_configs_path`   | /etc/php5            | String | Configs base path.                       |
-| `elao_php_configs`        | [ ]                  | Array  | Shared configurations.                   |
-| `elao_php_fpm_configs`    | [ ]                  | Array  | PHP fpm additional configurations.       |
-| `elao_php_cli_configs`    | [ ]                  | Array  | PHP cli additional configurations.       |
-| `elao_php_fpm_pools_path` | /etc/php5/fpm/pool.d | String | PHP fpm pools base path.                 |
-| `elao_php_fpm_pools`      | [ {name: www.conf} ] | Array  | PHP fpm pools base path.                 |
-
+| Name                           | Default                   | Type    | Description                                            |
+| ------------------------------ | --------------------      | ------  | ------------------------------------------------------ |
+| `elao_php_sapis`               | [cli, fpm]                | Array   | A list of the PHP SAPIs to install.                    |
+| `elao_php_extensions`          | [ ]                       | Array   | A list of the php extensions to install.               |
+| `elao_php_configs_dir`         | /etc/php5                 | String  | Configs directory path.                                |
+| `elao_php_configs_template`    | configs/default.ini.j2    | String  | Default configuration template.                        |
+| `elao_php_configs_exclusive`   | false                     | Boolean | Whether to remove all other non-specified config files |
+| `elao_php_configs`             | [ ]                       | Array   | Shared configurations.                                 |
+| `elao_php_fpm_configs`         | [ ]                       | Array   | PHP fpm additional configurations.                     |
+| `elao_php_cli_configs`         | [ ]                       | Array   | PHP cli additional configurations.                     |
+| `elao_php_fpm_pools_dir`       | /etc/php5/fpm/pool.d      | String  | PHP fpm pools directory path.                          |
+| `elao_php_fpm_pools_template`  | fpm_pools/default.conf.j2 | String  | Default pool template.                                 |
+| `elao_php_fpm_pools_exclusive` | false                     | Boolean | Whether to remove all other non-specified pool files   |
+| `elao_php_fpm_pools`           | [ {name: www.conf} ]      | Array   | PHP fpm pools configurations.                          |
 
 ### Configuration example
 
@@ -61,9 +64,9 @@ elao_php_extensions:
 
 elao_php_configs:
   # Load PHP extensions.
-  - name:             10-extensions.ini
+  - file:             10-extensions.ini
     template:         configs/extensions.ini.j2
-  - name:             default.ini
+  - file:             default.ini
     config:
       date.timezone:  UTC
 ```
@@ -79,22 +82,63 @@ elao_php_extensions:
   - intl
 
 elao_php_configs:
-  - name:      10-extensions.ini
+  - file:      10-extensions.ini
     template:  configs/extensions.ini.j2
-  - name: default.ini
+  - file: default.ini
     config:
       date.timezone: UTC
 
-elao_php_cli_configs:
-  - name:     default-cli.ini
+elao_php_fpm_configs:
+  - file: env_dev.ini
     # A development environment template with some preconfigured directives.
     template: configs/config_dev.ini.j2
     config:
-      # We override the default memory limit.
-      memory_limit:      1024M
+      # default parameters
+      display_errors :                   'On'
+      display_startup_errors :           'On'
+      error_reporting :                  E_ALL
+      html_errors :                      'On'
+      log_errors :                       'On'
+      max_input_time :                   60
+      output_buffering :                 4096
+      register_argc_argv :               'Off'
+      request_order :                    GP
+      short_open_tag :                   'Off'
+      track_errors :                     'On'
+      variables_order :                  GPCS
+      expose_php :                       'On'
+      memory_limit :                     512M
+      session.gc_divisor :               1000
+      session.hash_bits_per_character :  5
+      url_rewriter.tags :                a=href,area=href,frame=src,input=src,form=fakeentry
       # And add extra parameters.
-      session.name:      sid
-      php_post_max_size: 32M
+      session.name:                      sid
+      php_post_max_size:                 32M
+  - file: env_prod.ini
+    # A production environment template with some preconfigured directives.
+    template: configs/config_prod.ini.j2
+    config:
+      # default parameters
+      display_errors :                   'Off'
+      display_startup_errors :           'Off'
+      error_reporting :                  E_ALL & ~E_DEPRECATED & ~E_STRICT
+      html_errors :                      'On'
+      log_errors :                       'On'
+      max_input_time :                   60
+      output_buffering :                 4096
+      register_argc_argv :               'Off'
+      request_order :                    GP
+      short_open_tag :                   'Off'
+      track_errors :                     'Off'
+      variables_order :                  GPCS
+      expose_php :                       'Off'
+      memory_limit :                     512M
+      session.gc_divisor :               1000
+      session.hash_bits_per_character :  5
+      url_rewriter.tags :                a=href,area=href,frame=src,input=src,form=fakeentry
+      # And add extra parameters.
+      session.name:                      sid
+      php_post_max_size:                 32M
 ```
 
 #### PHP fpm pools
@@ -103,7 +147,7 @@ elao_php_cli_configs:
 elao_php_sapis: ['cli', 'fpm']
 
 elao_php_fpm_pools:
-  - name:      www.conf
+  - file:      www.conf
     # default template
     template: fpm_pools/default.conf.j2
     config:
@@ -123,7 +167,7 @@ elao_php_fpm_pools:
       # add extra parameters
       request_slowlog_timeout:   30s
       env[HOSTNAME]:             $HOSTNAME
-      php_flag[display_errors]:  true
+      php_flag[display_errors]:  'true'
 ```
 
 ## Example playbook

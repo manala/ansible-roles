@@ -2,13 +2,13 @@
 
 # ensure conf.d are not symbolic link
 - name: "configs > {{ _elao_php_sapi }} - Delete symbolic link conf.d directories."
-  command: "find {{ elao_php_configs_path }}/{{ _elao_php_sapi }}/conf.d -type l -delete"
+  command: "find {{ elao_php_configs_dir }}/{{ _elao_php_sapi }}/conf.d -type l -delete"
   changed_when: false
   ignore_errors: true
 
 - name: "configs > {{ _elao_php_sapi }} - Ensure conf.d are directories"
   file:
-    path: "{{ elao_php_configs_path }}/{{ _elao_php_sapi }}/conf.d"
+    path: "{{ elao_php_configs_dir }}/{{ _elao_php_sapi }}/conf.d"
     state: directory
     owner: root
     group: root
@@ -17,34 +17,35 @@
 # php configuration
 - name: "configs > {{ _elao_php_sapi }} - Ensure directories exist."
   file:
-    path: "{{ elao_php_configs_path }}/{{ _elao_php_sapi }}/conf.d/{{ item.name|dirname }}"
+    path: "{{ elao_php_configs_dir }}/{{ _elao_php_sapi }}/conf.d/{{ item.file|dirname }}"
     state: directory
     recurse: yes
     owner: root
     group: root
     mode: 0755
-  when: item.name|dirname
+  when: item.file|dirname
   with_items: elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs
 
 - name: "configs > {{ _elao_php_sapi }} - Create configs files."
   template:
-    src: "{{ item.template if item.template is not undefined else 'configs/default.ini.j2' }}"
-    dest: "{{ elao_php_configs_path }}/{{ _elao_php_sapi }}/conf.d/{{ item.name }}"
+    src: "{{ item.template if item.template is not undefined else elao_php_configs_template }}"
+    dest: "{{ elao_php_configs_dir }}/{{ _elao_php_sapi }}/conf.d/{{ item.file }}"
   notify:
     - php {{_elao_php_sapi}} restart
   with_items: elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs
 
 # cleanup config files
 - name: "configs > {{ _elao_php_sapi }} - Cleanup configuration - find files"
-  command: "find {{ elao_php_configs_path }}/{{ _elao_php_sapi }}/conf.d -type f -printf '%P\n'"
+  command: "find {{ elao_php_configs_dir }}/{{ _elao_php_sapi }}/conf.d -type f -printf '%P\n'"
   register: _elao_php_{{ _elao_php_sapi }}_configs_find_output
   changed_when: false
+  when: elao_php_configs_exclusive
 
 - name: "configs > {{ _elao_php_sapi }} - Cleanup configuration - remove files"
   file:
-    path:  "{{ elao_php_configs_path }}/{{ _elao_php_sapi }}/conf.d/{{ item }}"
+    path:  "{{ elao_php_configs_dir }}/{{ _elao_php_sapi }}/conf.d/{{ item }}"
     state: absent
-  when: "item not in (elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs)|map(attribute='name')"
+  when: "elao_php_configs_exclusive and (item not in (elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs)|map(attribute='file'))"
   with_items: _elao_php_{{ _elao_php_sapi }}_configs_find_output.stdout_lines
   notify:
     - php {{ _elao_php_sapi }} restart
