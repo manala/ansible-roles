@@ -1,5 +1,5 @@
 ---
 
-elao_motd_type:     elao
-elao_motd_template: ~
-elao_motd_message:  "California - 1993"
+elao_motd_file:     /etc/motd
+elao_motd_template: template/elao.j2
+elao_motd:          "California - 1993"

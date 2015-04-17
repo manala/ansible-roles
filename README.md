@@ -36,9 +36,8 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_motd_type`|elao|String|Predefined type of motd.
-`elao_motd_template`|None|String (path)|Path to custom motd.
-`elao_motd_message`|None|String|A custom message
+`elao_motd_template`|template/elao.j2|String (path)|Path to custom motd.
+`elao_motd`|California 1993|String|A custom message
 
 ### Configuration example
 
@@ -47,8 +46,8 @@ Use predefined type (elao|cow|turkey|stegosaurus) with custom message:
 ```
 ---
 
-elao_motd_type:     turkey
-elao_motd_message:  "My awesome message"
+elao_motd_template: template/turkey.j2
+elao_motd:          "My awesome message"
 ```
 
 Use custom template:
