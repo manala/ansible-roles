@@ -4,4 +4,8 @@ extension={{ extension }}.so
 extension=mysqli.so
 extension=mysql.so
 {% endif %}
+{% if extension == 'pgsql' %}
+extension=pdo_pgsql.so
+extension=pdo.so
+{% endif %}
 {% endfor %}
