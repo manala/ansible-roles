@@ -129,6 +129,15 @@ elao_apt:
       - package:  mongodb-*
         pin:      origin docs.mongodb.org
         priority: 900
+  - name: ruby
+    source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
+    key:
+      url: http://deb.bearstech.com/bearstech-archive.gpg
+      id:  "90158EE0"
+    preferences:
+      - package:  ruby*
+        pin:      origin deb.bearstech.com
+        priority: 900
 ```
 
 ## Example playbook
