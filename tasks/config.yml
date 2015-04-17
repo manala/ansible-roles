@@ -1,16 +1,9 @@
 ---
 
-- name: config > Defining configuration
+- name: config > Config
   template:
-    src:    "{{ elao_vim_config_template if (elao_vim_config_template is defined and elao_vim_config_template is not none) else 'vimrc.local.j2' }}"
-    dest:   /etc/vim/vimrc.local
+    src:    "{{ elao_vim_config_template }}"
+    dest:   "{{ elao_vim_config_file }}"
     owner:  root
     group:  root
     mode:   0644
-  when:     elao_vim_config is defined and elao_vim_config|length
-
-- name: config > Setting default editor
-  alternatives:
-    name: editor
-    path: /usr/bin/vim.basic
-  when: elao_vim_as_default
