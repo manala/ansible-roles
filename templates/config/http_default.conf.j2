@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-user             {{ elao_nginx_config.user }};
+user             {{ elao_nginx_config.user|default(elao_nginx_default_user) }};
 worker_processes {{ elao_nginx_config.worker_processes|default(1) }};
 pid              {{ elao_nginx_config.pid|default('/var/run/nginx.pid') }};
 

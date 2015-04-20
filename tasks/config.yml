@@ -1,5 +1,19 @@
 ---
 
+- name: config > Find nginx user
+  shell: |
+    if id -u nginx >/dev/null 2>&1; then
+      echo "nginx"
+    else
+      echo "www-data"
+    fi
+  register: _elao_nginx_config_user_output
+  when: elao_nginx_config.user is undefined
+
+- set_fact:
+    elao_nginx_default_user: "{{ _elao_nginx_config_user_output.stdout }}"
+  when: elao_nginx_config.user is undefined
+
 - name: config > Config
   template:
     src: "{{ elao_nginx_config_template }}"
