@@ -57,6 +57,17 @@ elao_nginx_configs:
       listen: 8080
       location /:
         root:  /srv/foo
+  - name: symfony2.conf
+    template: configs/server_symfony2.conf.j2
+    config:
+      server_name: symfony2.dev
+      root: /srv/symfony2/web
+      indexes:
+        - app
+        - app_dev
+        - app_test
+      client_max_body_size: 8G
+
 ```
 
 ## Example playbook
