@@ -12,4 +12,4 @@ events {
 {{ macros.config(config_events, ['worker_connections'], 19, 4) -}}
 }
 
-include {{ elao_nginx_configs_path }}/*.conf;
+include {{ elao_nginx_configs_dir }}/*.conf;

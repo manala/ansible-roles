@@ -16,7 +16,7 @@
 
 - name: config > Config
   template:
-    src: "{{ elao_nginx_config_template }}"
-    dest: /etc/nginx/nginx.conf
+    src:  "{{ elao_nginx_config_template }}"
+    dest: "{{ elao_nginx_config_file }}"
   notify:
     - nginx restart
