@@ -1,5 +1,9 @@
 {% for extension in elao_php_extensions %}
+{% if extension in ['xdebug'] %}
+zend_extension={{ extension }}.so
+{% else %}
 extension={{ extension }}.so
+{% endif %}
 {% if extension == 'mysqlnd' %}
 extension=mysqli.so
 extension=mysql.so
