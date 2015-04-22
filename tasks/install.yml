@@ -6,3 +6,4 @@
     state: present
   with_items:
     - postgresql-{{ elao_postgresql_version }}
+    - postgresql-contrib-{{ elao_postgresql_version }}
