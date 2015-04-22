@@ -47,7 +47,6 @@ None
 `elao_users.authorized_keys.user`|-|String|Username.
 `elao_users.authorized_keys.keys`|Array|Array|Collection of user's ssh keys.
 `elao_users.authorized_keys.options`|Array|Array|List of ssh options for the user.
-`elao_users.authorized_keys_dir`|NULL|String|Path to keys storage directory
 `elao_users_config_adduser`|true|Boolean|If "yes" each created user will be given their own group to use as a default.  If "no", each created user will be placed in the group whose gid is USERS_GID
 
 ### Configuration example
@@ -73,7 +72,6 @@ elao_users:
       options:
         - no-pty
         - no-X11-forwarding
-  authorized_keys_dir:  "{{ playbook_dir ~ '/files/users/keys/' }}"
 
 elao_users_config_adduser:
   usergroups: true
