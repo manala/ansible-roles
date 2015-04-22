@@ -9,6 +9,7 @@
     fi
   register: _elao_nginx_config_user_output
   when: elao_nginx_config.user is undefined
+  changed_when: false
 
 - set_fact:
     elao_nginx_default_user: "{{ _elao_nginx_config_user_output.stdout }}"
