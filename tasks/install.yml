@@ -1,0 +1,8 @@
+---
+
+- name: install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+  with_items:
+    - sudo
