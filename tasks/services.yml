@@ -1,0 +1,16 @@
+---
+
+- name: services > Add init.d file
+  template:
+    src:   services/init.j2
+    dest:  /etc/init.d/phantomjs
+    owner: root
+    mode:  0755
+
+- name: services > Services
+  service:
+    name:    "{{ item }}"
+    state:   started
+    enabled: yes
+  with_items:
+    - phantomjs

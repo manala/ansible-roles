@@ -1,0 +1,4 @@
+- name: config > Config
+  template:
+    src:  "{{ elao_phantomjs_config_template }}"
+    dest: "{{ elao_phantomjs_config_file }}"
