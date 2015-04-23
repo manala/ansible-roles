@@ -36,16 +36,20 @@ None.
 
 ### Configuration paths
 
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-|`elao_composer_bin_path`|/usr/local/bin|String|Composer bin path.
-|`elao_composer_home_path`|/usr/local/lib/composer|String|Composer home path.
+| Name                                        | Default                        | Type        | Description            |
+| ------------------------------------------- | ------------------------------ | ----------- | ---------------------- |
+| `elao_composer_bin`                         | /usr/local/bin/composer        | String      | Composer bin path.     |
+| `elao_composer_home`                        | /etc/composer                  | String      | Composer home path.    |
+| `elao_composer_config.config['bin-dir']`    | /usr/local/bin                 | String      | Vendors binaries path. |
+| `elao_composer_config.config['cache-dir']`  | ~/.composer/cache              | String      | Composer cache path.   |
+| `elao_composer_config.config['vendor-dir']` | /usr/local/lib/composer/vendor | String      | Vendors path.          |
+| `elao_composer_config_auth`                 | { }                            | Array       | Composer auth config.  |
 
 ### Configuration definitions
 
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-|`elao_composer_config.auth`|Emptycollection|Collection|Definition of composer authentication.
+| Name                        | Default         | Type        | Description                            |
+| --------------------------- | --------------- | ----------- | -------------------------------------- |
+| `elao_composer_config.auth` | Emptycollection | Collection  | Definition of composer authentication. |
 
 ### Configuration example
 
@@ -56,6 +60,16 @@ elao_composer_config:
   auth:
     github-oauth:
       github.com: <your-github-token>
+```
+
+#### Composer configuration with global packages
+
+```
+elao_composer_packages:
+  - name:     phpunit/phpunit
+    version:  '@stable'
+  - name:     squizlabs/php_codesniffer
+    version:  '@stable'
 ```
 
 ## Example playbook

@@ -1,0 +1,12 @@
+---
+
+- name: packages > retrieve vendor directory
+  command: "composer config vendor-dir -d {{ elao_composer_home }} --absolute"
+  register: elao_composer_packages_vendor_dir_output
+  changed_when: false
+
+- name: packages > Setup composer packages
+  command: "composer require -d {{ elao_composer_home}} {{ item.name }}{% if item.version is defined %}={{item.version}}{% endif %}"
+  args:
+    creates: "{{ elao_composer_packages_vendor_dir_output.stdout }}/{{ item.name }}"
+  with_items: elao_composer_packages

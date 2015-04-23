@@ -1,9 +1,0 @@
-{
-    {% for auth_name, auth in elao_composer_config.auth.iteritems() -%}
-    "{{ auth_name }}": {
-        {% for key, value in auth.iteritems() -%}
-        "{{ key }}": "{{ value }}"
-        {% endfor %}
-    }
-    {% endfor %}
-}

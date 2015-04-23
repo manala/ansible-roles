@@ -1,9 +1,18 @@
 ---
 
 # Paths
-elao_composer_bin_path:   /usr/local/bin
-elao_composer_home_path:  /usr/local/lib/composer
+elao_composer_bin:   /usr/local/bin/composer
+elao_composer_home:  /etc/composer
 
 # Config
 elao_composer_config:
-  auth: {}
+  config:
+    'bin-dir': /usr/local/bin
+    'cache-dir': ~/.composer/cache
+    'vendor-dir': /usr/local/lib/composer/vendor
+elao_composer_config_template: config/config.json.j2
+elao_composer_config_auth: {}
+elao_composer_config_auth_template: config/auth.json.j2
+
+# Packages
+elao_composer_packages: []

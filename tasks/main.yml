@@ -3,3 +3,4 @@
 - include: requirements.yml
 - include: install.yml
 - include: config.yml
+- include: packages.yml
