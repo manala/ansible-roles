@@ -1,6 +1,12 @@
 ---
 
-- name: packages > retrieve vendor directory
+- name: packages > Ensure composer.json is present.
+  file:
+    path: "{{ elao_composer_home }}/composer.json"
+    state: touch
+  changed_when: false
+
+- name: packages > Retrieve vendor directory
   command: "composer config vendor-dir -d {{ elao_composer_home }} --absolute"
   register: elao_composer_packages_vendor_dir_output
   changed_when: false
