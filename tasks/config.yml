@@ -1,6 +1,6 @@
 ---
 
-- name: install > Ensure base directory exists
+- name: config > Ensure base directory exists
   file:
     path:  "{{ elao_supervisor_config_file | dirname }}"
     state: directory

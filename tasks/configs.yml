@@ -1,9 +1,16 @@
 ---
 
+- name: configs > Ensure configs directory exists
+  file:
+    path:  "{{ elao_supervisor_configs_dir }}"
+    state: directory
+    owner: root
+    mode:  0755
+
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default('configs/default.conf.j2') }}"
-    dest: "/etc/supervisor/conf.d/{{ item.file }}"
+    src:  "{{ item.template|default(elao_supervisor_configs_template) }}"
+    dest: "{{ elao_supervisor_configs_dir }}/{{ item.file }}"
   with_items: elao_supervisor_configs
   notify:
     - supervisor restart
@@ -11,13 +18,13 @@
 - name: configs > Find
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "/etc/supervisor/conf.d"
+    chdir: "{{ elao_supervisor_configs_dir }}"
   changed_when: false
   register: _elao_supervisor_configs_find_output
 
 - name: configs > Clean
   file:
-    path:  "/etc/supervisor/conf.d/{{ item }}"
+    path:  "{{ elao_supervisor_configs_dir }}/{{ item }}"
     state: absent
   when: item not in elao_supervisor_configs|map(attribute='file')
   with_items: _elao_supervisor_configs_find_output.stdout_lines
