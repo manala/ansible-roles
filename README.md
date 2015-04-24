@@ -30,17 +30,17 @@ dependencies:
 
 ## Role Handlers
 
-|Name|Type|Description|
-|----|----|-----------|
-`nginx restart`|Service|Restart nginx server
+| Name            | Type    | Description          |
+| --------------- | ------- | -------------------- |
+| `nginx restart` | Service | Restart nginx server |
 
 ## Role Variables
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-`elao_nginx_config_template`|config/http_default.conf.j2|String|Main config template
-`elao_nginx_config`|{}|Array|Main config
-`elao_nginx_configs`|{}|Array|Configs
+| Name                         | Default                     | Type   | Description          |
+| ---------------------------- | --------------------------- | ------ | -------------------- |
+| `elao_nginx_config_template` | config/http_default.conf.j2 | String | Main config template |
+| `elao_nginx_config`          | {}                          | Array  | Main config          |
+| `elao_nginx_configs`         | {}                          | Array  | Configs              |
 
 ### Configuration example
 
@@ -50,13 +50,13 @@ elao_nginx_config:
   events:
     worker_connections: 1024
 elao_nginx_configs:
-  - name: test.conf
+  - file: test.conf
     template: configs/server_default.conf.j2
     config:
       listen: 8080
       location /:
         root:  /srv/foo
-  - name: symfony2.conf
+  - file: symfony2.conf
     template: configs/server_symfony2.conf.j2
     config:
       server_name: symfony2.dev
