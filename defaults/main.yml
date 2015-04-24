@@ -1,5 +1,8 @@
 ---
 
 # Config
+elao_supervisor_config_template: config/default.conf.j2
+elao_supervisor_config_file: /etc/supervisor/supervisord.conf
 elao_supervisor_config: {}
+
 elao_supervisor_configs: []

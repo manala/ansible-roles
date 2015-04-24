@@ -3,7 +3,7 @@
 - name: configs > Templates
   template:
     src:  "{{ item.template|default('configs/default.conf.j2') }}"
-    dest: "/etc/supervisor/conf.d/{{ item.name }}"
+    dest: "/etc/supervisor/conf.d/{{ item.file }}"
   with_items: elao_supervisor_configs
   notify:
     - supervisor restart

@@ -44,15 +44,15 @@ dependencies:
 ### Configuration example
 
 ```yaml
-elao_config_config:
+elao_supervisor_config:
   loglevel: info
 ```
 
 Enable http server
 
 ```yaml
-elao_config_configs:
-  - name:     inet_http_server.conf
+elao_supervisor_configs:
+  - file:     inet_http_server.conf
     template: configs/inet_http_server_default.conf.j2
     config:
       port:     "*:9001"
@@ -61,8 +61,8 @@ elao_config_configs:
 Program
 
 ```yaml
-elao_config_configs:
-  - name:     foo.conf
+elao_supervisor_configs:
+  - file:     foo.conf
     template: configs/program_default.conf.j2
     config:
       name: foo
