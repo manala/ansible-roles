@@ -19,7 +19,7 @@
   file:
     path:  "/etc/supervisor/conf.d/{{ item }}"
     state: absent
-  when: item not in elao_supervisor_configs|map(attribute='name')
+  when: item not in elao_supervisor_configs|map(attribute='file')
   with_items: _elao_supervisor_configs_find_output.stdout_lines
   notify:
     - supervisor restart

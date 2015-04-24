@@ -2,7 +2,7 @@
 
 - name: install > Ensure base directory exists
   file:
-    path:  "{{ elao_supervisor_config_file | basedir }}"
+    path:  "{{ elao_supervisor_config_file | dirname }}"
     state: directory
     owner: root
     mode:  0755

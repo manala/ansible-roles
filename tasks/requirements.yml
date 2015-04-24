@@ -13,7 +13,7 @@
   when: _elao_pip_check_output.stdout is not defined
 
 - name: requirements > Supervisor package check
-  command: "dpkg -s supervisor"
+  shell: dpkg --get-selections 'supervisor' | grep -v deinstall
   always_run: yes
   failed_when: false
   changed_when: false
