@@ -39,10 +39,7 @@ None.
 | Name                                        | Default                        | Type        | Description            |
 | ------------------------------------------- | ------------------------------ | ----------- | ---------------------- |
 | `elao_composer_bin`                         | /usr/local/bin/composer        | String      | Composer bin path.     |
-| `elao_composer_home`                        | /etc/composer                  | String      | Composer home path.    |
-| `elao_composer_config.config['bin-dir']`    | /usr/local/bin                 | String      | Vendors binaries path. |
-| `elao_composer_config.config['cache-dir']`  | ~/.composer/cache              | String      | Composer cache path.   |
-| `elao_composer_config.config['vendor-dir']` | /usr/local/lib/composer/vendor | String      | Vendors path.          |
+| `elao_composer_home`                        | ~/.composer                    | String      | Composer home path.    |
 | `elao_composer_config_auth`                 | { }                            | Array       | Composer auth config.  |
 
 ### Configuration definitions
@@ -65,11 +62,14 @@ elao_composer_config:
 #### Composer configuration with global packages
 
 ```
+elao_composer_home: /home/vagrant/.composer
 elao_composer_packages:
   - name:     phpunit/phpunit
     version:  '@stable'
+    bin_dir:  /usr/local/bin
   - name:     squizlabs/php_codesniffer
     version:  '@stable'
+    bin_dir:  /usr/local/bin
 ```
 
 ## Example playbook
