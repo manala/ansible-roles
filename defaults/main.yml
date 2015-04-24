@@ -2,3 +2,4 @@
 
 elao_zsh_profile_path: ~
 elao_zsh_zprofile_template: ~
+elao_zsh_bin: /bin/zsh
