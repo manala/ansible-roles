@@ -4,18 +4,12 @@
 
 This role will assume the following configuration:
 - Install zsh package
-- Setup a default zprofile file
-- Setup a zprofile dir for local files definition
 
 It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 
 ## Requirements
 
 - Ansible 1.7.2+
-
-## Dependencies
-
-None.
 
 ## Installation
 
@@ -29,26 +23,6 @@ You can add this role as a dependency for other roles by adding the role to the 
 ```yaml
 dependencies:
   - { role: elao.zsh }
-```
-
-## Role Handlers
-
-None
-
-## Role Variables
-
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-`elao_zsh_profile_path`|None|String (Path)|Path to local definitions.
-`elao_zsh_zprofile_template`|None|String|Path to custom zprofile template.
-
-### Configuration example
-
-```
----
-
-elao_zsh_profile_path: "/etc/zprofile.d/"
-elao_zsh_zprofile_template: "{{ playbook_dir ~ '/templates/zsh/zprofile.j2' }}"
 ```
 
 ## Example playbook

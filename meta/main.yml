@@ -9,8 +9,6 @@ galaxy_info:
   description: >
     This role will assume the following configuration:
       - Install zsh package
-      - Setup a default zprofile file
-      - Setup a zprofile dir for local files definition
   license:             MIT
   min_ansible_version: 1.7.2
   platforms:

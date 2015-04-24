@@ -1,4 +1,3 @@
 ---
 
-- include: packages.yml
-- include: profile.yml
+- include: install.yml
