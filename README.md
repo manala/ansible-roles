@@ -66,7 +66,7 @@ elao_nginx_configs:
         - app_dev
         - app_test
       client_max_body_size: 8G
-  - name: pma.conf
+  - file: pma.conf
     template: configs/server_php.conf.j2
     config:
       server_name:    pma.my_domain.com
