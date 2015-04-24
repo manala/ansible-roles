@@ -12,7 +12,7 @@ server {
     location / {
         index {{ config.indexes|default(['app'])|first }}.php;
         try_files $uri @rewrite;
-        {{ macros.config(config["location /"]|default({}), [], 0, 8) }}
+        {{ macros.config(config['location /']|default({}), [], 0, 8) }}
     }
 
     location @rewrite {
@@ -28,6 +28,6 @@ server {
         fastcgi_pass {{ config.fastcgi_pass|default('127.0.0.1:9000') }};
     }
 
-{{ macros.config(config, ['listen', 'server_name', 'root', 'indexes'], 0, 4) -}}
+{{ macros.config(config, ['listen', 'server_name', 'root', 'indexes', 'fastcgi_pass', 'location /'], 0, 4) -}}
 }
 
