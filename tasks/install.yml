@@ -15,10 +15,3 @@
     dest:  /etc/environment
     line:  "COMPOSER_HOME={{ elao_composer_home }}"
     state: present
-
-- name: install > Sudoers
-  template:
-    src:  sudoer.j2
-    dest: /etc/sudoers.d/composer
-  notify:
-    - sudo restart
