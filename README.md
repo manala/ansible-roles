@@ -37,11 +37,11 @@ None
 ### Definition
 
 | Name                                 | Default | Type        | Description                                                 |
-| ----________________________________ | ------- | ----------- | ----------------------------------------------------------- |
+| -------------------------------------| ------- | ----------- | ----------------------------------------------------------- |
 | `elao_users`                         | Array   | Array       | List of unix users.                                         |
 | `elao_users.name`                    | -       | String      | Username.                                                   |
 | `elao_users.group`                   | -       | String      | User's primary group.                                       |
-| `elao_users.groups`                  | -       | String      | Array of user's secondary groups.                           |
+| `elao_users.groups`                  | -       | Array       | Array of user's secondary groups.                           |
 | `elao_users_groups`                  | -       | Array       | Array of groups to be created.                              |
 | `elao_users_groups.name`             | -       | String      | Name of the group to manage.                                |
 | `elao_users_groups.system`           | -       | Boolean     | If yes, indicates that the group created is a system group. |
