@@ -3,8 +3,9 @@
 - name: users > Configuring users accounts
   user:
     name:       "{{ item.name }}"
-    group:      "{{ item.group }}"
+    group:      "{{ item.group|default(omit) }}"
     groups:     "{{ item.groups|default([])|join(',') }}"
-    createhome: "{{ item.createHome|default(omit) }}"
+    shell:      "{{ item.shell|default(omit) }}"
+    createhome: "{{ item.createhome|default(omit) }}"
     system:     "{{ item.system|default(omit) }}"
   with_items: elao_users
