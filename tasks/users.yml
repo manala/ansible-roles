@@ -8,4 +8,3 @@
     createhome: "{{ item.createHome|default(omit) }}"
     system:     "{{ item.system|default(omit) }}"
   with_items: elao_users
-  when: item.name != 'root'
