@@ -1,8 +1,0 @@
----
-
-- name: config > Adduser file configuration
-  lineinfile:
-    dest:     /etc/adduser.conf 
-    regexp:   ^USERGROUPS=
-    line:     USERGROUPS={{ 'yes' if elao_users_config_adduser.usergroups else 'no' }}
-    backrefs: yes

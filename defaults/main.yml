@@ -1,9 +1,5 @@
 ---
 
-elao_users:
-  users:                []
-  groups:               []
-  authorized_keys:      []
-
-elao_users_config_adduser:
-  usergroups: true
+elao_users:                  []
+elao_users_groups:           []
+elao_users_authorized_keys:  []
