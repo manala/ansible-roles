@@ -1,6 +1,5 @@
 ---
 
-- include: config.yml
 - include: groups.yml
 - include: users.yml
 - include: authorized_keys.yml

@@ -5,7 +5,6 @@
     name:       "{{ item.name }}"
     group:      "{{ item.group }}"
     groups:     "{{ item.groups|default([])|join(',') }}"
-    createhome: "{% if item.home|default(true) %}yes{% else %}no{% endif %}"
-    system:     "{% if item.system|default(false) %}yes{% else %}no{% endif %}"
-  with_items: elao_users.users
-  when: item.name != 'root'
+    createhome: "{{ item.createHome|default(omit) }}"
+    system:     "{{ item.system|default(omit) }}"
+  with_items: elao_users

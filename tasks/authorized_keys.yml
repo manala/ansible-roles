@@ -6,5 +6,5 @@
     key:  "{{ item.1 }}"
     key_options: "{{ item.0.options|default([])|join(',') }}"
   with_subelements:
-    - elao_users.authorized_keys|default([])
+    - elao_users_authorized_keys|default([])
     - keys

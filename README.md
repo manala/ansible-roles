@@ -36,18 +36,19 @@ None
 
 ### Definition
 
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-`elao_users.users`|Array|Array|List of unix users.
-`elao_users.users.name`|-|String|Username.
-`elao_users.users.group`|-|String|User's primary group.
-`elao_users.users.groups`|-|String|Array of user's secondary groups.
-`elao_users.groups`|-|Array|Array of groups to be created.
-`elao_users.authorized_keys`|Array|Array|List of authorized ssh keys
-`elao_users.authorized_keys.user`|-|String|Username.
-`elao_users.authorized_keys.keys`|Array|Array|Collection of user's ssh keys.
-`elao_users.authorized_keys.options`|Array|Array|List of ssh options for the user.
-`elao_users_config_adduser`|true|Boolean|If "yes" each created user will be given their own group to use as a default.  If "no", each created user will be placed in the group whose gid is USERS_GID
+| Name                                 | Default | Type        | Description                                                 |
+| ----________________________________ | ------- | ----------- | ----------------------------------------------------------- |
+| `elao_users`                         | Array   | Array       | List of unix users.                                         |
+| `elao_users.name`                    | -       | String      | Username.                                                   |
+| `elao_users.group`                   | -       | String      | User's primary group.                                       |
+| `elao_users.groups`                  | -       | String      | Array of user's secondary groups.                           |
+| `elao_users_groups`                  | -       | Array       | Array of groups to be created.                              |
+| `elao_users_groups.name`             | -       | String      | Name of the group to manage.                                |
+| `elao_users_groups.system`           | -       | Boolean     | If yes, indicates that the group created is a system group. |
+| `elao_users_authorized_keys`         | Array   | Array       | List of authorized ssh keys                                 |
+| `elao_users_authorized_keys.user`    | -       | String      | Username.                                                   |
+| `elao_users_authorized_keys.keys`    | Array   | Array       | Collection of user's ssh keys.                              |
+| `elao_users_authorized_keys.options` | Array   | Array       | List of ssh options for the user.                           |
 
 ### Configuration example
 
@@ -55,26 +56,31 @@ None
 ---
 
 elao_users:
-  users:
-    - name:             gateway
-      group:            users
-  groups:               []
-  authorized_keys:
-    - user:             gateway
-      keys:
-        root:
-            - user-1@elao.com.pub
-            - user-2@elao.com.pub
-            - user-3@elao.com.pub
-        elao:
-            - user-2@elao.com.pub
-            - user-4@elao.com.pub
-      options:
-        - no-pty
-        - no-X11-forwarding
+  - name: deploy
+    group: users
+    groups: []
 
-elao_users_config_adduser:
-  usergroups: true
+elao_users_groups:
+  - name: ops
+    system: false
+
+elao_users_authorized_keys:
+  - user: gateway
+    keys:
+      - user-1@elao.com.pub
+      - user-2@elao.com.pub
+  - user: root
+    keys:
+      - user-1@elao.com.pub
+      - user-2@elao.com.pub
+      - user-3@elao.com.pub
+  - user: elao
+    keys:
+      - user-2@elao.com.pub
+      - user-4@elao.com.pub
+    options:
+      - no-pty
+      - no-X11-forwarding
 ```
 
 ## Example playbook
