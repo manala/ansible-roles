@@ -1,3 +1,6 @@
 ---
 
+elao_ohmyzsh_dir:   /usr/local/share/oh-my-zsh
+
+# Users
 elao_ohmyzsh_users: []

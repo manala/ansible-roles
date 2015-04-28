@@ -1,16 +1,7 @@
 ---
 
-# Due to a kind of regression with ansible 1.8, we need to check if the repo
-# has already been cloned before clone it for the first (and only) time
-# See: https://github.com/ansible/ansible-modules-core/issues/426
-
-- name: install > Clone check
-  stat:
-    path: /usr/local/share/oh-my-zsh
-  register: result
-
-- name: install > Cloning repository
+- name: install > Git repository
   git:
-    repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: /usr/local/share/oh-my-zsh
-  when: not result.stat.exists
+    repo:   https://github.com/robbyrussell/oh-my-zsh.git
+    dest:   "{{ elao_ohmyzsh_dir }}"
+    update: no

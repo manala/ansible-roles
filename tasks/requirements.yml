@@ -1,0 +1,25 @@
+---
+
+- name: requirements > Git check
+  command: "git --version"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_git_check_output
+
+- name: requirements > Git check fail
+  fail:
+    msg: Need git, you can use https://github.com/ElaoInfra/ansible-role-git
+  when: _elao_git_check_output.stdout is not defined
+
+- name: requirements > Zsh check
+  command: "zsh --version"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_zsh_check_output
+
+- name: requirements > Zsh check fail
+  fail:
+    msg: Need zsh, you can use https://github.com/ElaoInfra/ansible-role-zsh
+  when: _elao_zsh_check_output.stdout is not defined
