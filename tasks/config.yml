@@ -1,21 +1,8 @@
 ---
 
-- name: config > Daemon - Password authentication
-  lineinfile:
-    dest:     /etc/ssh/sshd_config 
-    line:     PasswordAuthentication {{ 'yes' if elao_ssh_config.daemon.password_authentication|default(true) else 'no' }}
-    regexp:   '^#PasswordAuthentication yes'
-    state:    present
-    backrefs: yes
-  notify:
-    - ssh reload
-
-- name: config > Daemon - Accepted environment variables
-  lineinfile:
-    dest:     /etc/ssh/sshd_config 
-    line:     AcceptEnv {{ elao_ssh_config.daemon.accept_env|default('LANG LC_*') }}
-    regexp:   '^AcceptEnv'
-    state:    present
-    backrefs: yes
+- name: config > Config sshd
+  template:
+    src:  "{{ elao_ssh_config_sshd_template }}"
+    dest: "{{ elao_ssh_config_sshd_file }}"
   notify:
     - ssh reload

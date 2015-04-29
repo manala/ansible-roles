@@ -3,7 +3,7 @@
 elao_ssh_known_hosts: []
 elao_ssh_sudo_auth: false
 
-elao_ssh_config:
-  daemon:
-    password_authentication: true
-    accept_env: LANG LC_*
+# Config - Sshd
+elao_ssh_config_sshd_file:     /etc/ssh/sshd_config
+elao_ssh_config_sshd_template: config/sshd/{{ ansible_distribution|lower }}_{{ ansible_distribution_release }}_default.j2
+elao_ssh_config_sshd: {}
