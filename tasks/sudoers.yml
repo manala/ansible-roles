@@ -1,0 +1,22 @@
+---
+
+- name: sudoers > Templates
+  template:
+    src:  "{{ item.template|default('sudoers/default.j2') }}"
+    dest: "{{ elao_sudo_sudoers_dir }}/{{ item.file }}"
+    mode: 0440
+  with_items: elao_sudo_sudoers
+
+- name: configs > Find
+  command: "find -type f \\( ! -iname 'README' \\) -printf '%P\n'"
+  args:
+    chdir: "{{ elao_sudo_sudoers_dir }}"
+  changed_when: false
+  register: _elao_sudo_sudoers_find_output
+
+- name: configs > Clean
+  file:
+    path:  "{{ elao_sudo_sudoers_dir }}/{{ item }}"
+    state: absent
+  when: item not in elao_sudo_sudoers|map(attribute='file')
+  with_items: _elao_sudo_sudoers_find_output.stdout_lines

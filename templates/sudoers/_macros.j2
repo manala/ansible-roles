@@ -1,0 +1,17 @@
+{%- macro config(parameters, exclusions = []) -%}
+    {% for parameter in parameters -%}
+{% if parameter is string or parameter is number %}
+{{ parameter }}
+{% elif parameter is mapping %}
+{% for key, value in parameter.iteritems() -%}
+{% if value is string or parameter is number %}
+{{ key }} {{ value }}
+{% elif value is sequence %}
+{% for subvalue in value %}
+{{ key }} {{ subvalue }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+    {%- endfor %}
+{%- endmacro -%}
