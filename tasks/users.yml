@@ -3,6 +3,7 @@
 - name: users > Configuring users accounts
   user:
     name:       "{{ item.name }}"
+    password:   "{{ item.password|default(omit) }}"
     group:      "{{ item.group|default(omit) }}"
     groups:     "{{ item.groups|default([])|join(',') }}"
     shell:      "{{ item.shell|default(omit) }}"
