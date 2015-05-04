@@ -1,5 +1,8 @@
 ---
 
 - include: install.yml
+  when: "(elao_mysql_tasks_include is none or 'install' in elao_mysql_tasks_include) and ('install' not in elao_mysql_tasks_exlude)"
 - include: configs.yml
+  when: "(elao_mysql_tasks_include is none or 'configs' in elao_mysql_tasks_include) and ('configs' not in elao_mysql_tasks_exlude)"
 - include: services.yml
+  when: "(elao_mysql_tasks_include is none or 'services' in elao_mysql_tasks_include) and ('services' not in elao_mysql_tasks_exlude)"

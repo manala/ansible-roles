@@ -34,6 +34,8 @@ dependencies:
 
 | Name                           | Default                | Type          | Description                                            |
 | -----------------------------  | ---------------------- | ------------- | ------------------------------------------------------ |
+| `elao_mysql_tasks_include`     | ~                      | Array         | Execute only specified tasks                           |
+| `elao_mysql_tasks_exlude`      | [ ]                    | Array         | Exclude tasks (install, configs, services)             |
 | `elao_mysql_configs_dir`       | /etc/mysql/conf.d      | String (path) | Configurations directory path                          |
 | `elao_mysql_configs_template`  | configs/default.cnf.j2 | String (path) | Default configuration template                         |
 | `elao_mysql_configs_exclusive` | false                  | Boolean       | Whether to remove all other non-specified config files |
