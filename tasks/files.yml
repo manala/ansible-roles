@@ -1,0 +1,19 @@
+---
+
+- name: files > Sets attributes of files
+  file:
+    path:      "{{ item.path }}"
+    follow:    "{{ item.follow|default(omit) }}"
+    force:     "{{ item.force|default(omit) }}"
+    group:     "{{ item.group|default(omit) }}"
+    mode:      "{{ item.mode|default(omit) }}"
+    owner:     "{{ item.owner|default(omit) }}"
+    recurse:   "{{ item.recurse|default(omit) }}"
+    setlevel:  "{{ item.setlevel|default(omit) }}"
+    setrole:   "{{ item.setrole|default(omit) }}"
+    setype:    "{{ item.setype|default(omit) }}"
+    seuser:    "{{ item.seuser|default(omit) }}"
+    src:       "{{ item.src|default(omit) }}"
+    state:     "{{ item.state|default(omit) }}"
+  with_items: elao_files
+
