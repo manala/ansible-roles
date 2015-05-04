@@ -1,0 +1,33 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default({}) -%}
+
+server {
+    listen       {{ config.listen|default('*:80') }};
+    server_name  {{ config.server_name|default('localhost') }};
+    root         {{ config.root|default('html') }};
+
+    location / {
+        index {{ config.indexes|default(['app'])|first }}.php;
+        try_files $uri $uri/ /index.php?$args;
+        {{ macros.config(config['location /']|default({}), [], 0, 8) }}
+    }
+
+    # Add trailing slash to */wp-admin requests.
+    rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+
+    # Do not allow access to files giving away your WordPress version
+    location ~ /(\.|wp-config.php|readme.html|licence.txt) {
+        return 404;
+    }
+
+    location ~ \.php(/|$) {
+            include fastcgi_params;
+
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            fastcgi_pass {{ config.fastcgi_pass|default('127.0.0.1:9000') }};
+            fastcgi_index {{ config.fastcgi_index|default('index.php') }};
+    }
+
+{{ macros.config(config, ['listen', 'server_name', 'root', 'indexes', 'fastcgi_index', 'fastcgi_pass', 'location /'], 0, 4) -}}
+}
