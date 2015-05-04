@@ -10,10 +10,12 @@
   register: _elao_nginx_config_user_output
   when: elao_nginx_config.user is undefined
   changed_when: false
+  always_run: true
 
 - set_fact:
     elao_nginx_default_user: "{{ _elao_nginx_config_user_output.stdout }}"
   when: elao_nginx_config.user is undefined
+  always_run: true
 
 - name: config > Config
   template:

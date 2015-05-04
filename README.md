@@ -66,7 +66,13 @@ elao_nginx_configs:
         - app_dev
         - app_test
       client_max_body_size: 8G
-  - name: pma.conf
+  - file: wp.conf
+    template: configs/server_wordpress.conf.j2
+    config:
+      listen: 80
+      location /:
+        root:  /srv/wordpress/
+  - file: pma.conf
     template: configs/server_php.conf.j2
     config:
       server_name:    pma.my_domain.com
