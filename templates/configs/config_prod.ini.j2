@@ -2,19 +2,19 @@
 
 {% set config = item.config|default({}) -%}
 
-display_errors                               = {{ 'On' if config.display_errors|default(false) else 'Off' }}
-display_startup_errors                       = {{ 'On' if config.display_startup_errors|default(false) else 'Off' }}
+display_errors                               = {{ config.display_errors|default('Off') }}
+display_startup_errors                       = {{ config.display_startup_errors|default('Off') }}
 error_reporting                              = {{ config.error_reporting|default('E_ALL & ~E_DEPRECATED & ~E_STRICT') }}
-html_errors                                  = {{ 'On' if config.html_errors|default(true) else 'Off' }}
-log_errors                                   = {{ 'On' if config.log_errors|default(true) else 'Off' }}
+html_errors                                  = {{ config.html_errors|default('On') }}
+log_errors                                   = {{ config.log_errors|default('On') }}
 max_input_time                               = {{ config.max_input_time|default(60) }}
 output_buffering                             = {{ config.output_buffering|default(4096) }}
-register_argc_argv                           = {{ 'On' if config.register_argc_argv|default(false) else 'Off' }}
+register_argc_argv                           = {{ config.register_argc_argv|default('Off') }}
 request_order                                = "{{ config.request_order|default('GP') }}"
-short_open_tag                               = {{ 'On' if config.short_open_tag|default(false) else 'Off' }}
-track_errors                                 = {{ 'On' if config.track_errors|default(false) else 'Off' }}
+short_open_tag                               = {{ config.short_open_tag|default('Off') }}
+track_errors                                 = {{ config.track_errors|default('Off') }}
 variables_order                              = "{{ config.request_order|default('GPCS') }}"
-expose_php                                   = {{ 'On' if config.expose_php|default(false) else 'Off' }}
+expose_php                                   = {{ config.expose_php|default('Off') }}
 memory_limit                                 = {{ config.memory_limit|default('512M') }}
 session.gc_divisor                           = {{ config["session.gc_divisor"]|default(1000) }}
 session.hash_bits_per_character              = {{ config["session.hash_bits_per_character"]|default(5) }}
