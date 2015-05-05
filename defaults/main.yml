@@ -2,9 +2,9 @@
 
 # Config
 elao_supervisor_config_template:  config/default.conf.j2
-elao_supervisor_config_file:      /etc/supervisor/supervisord.conf
+elao_supervisor_config_file:      /etc/supervisord.conf
 elao_supervisor_config:           {}
 
 elao_supervisor_configs_template:  configs/default.conf.j2
-elao_supervisor_configs_dir:       /etc/supervisor/conf.d
+elao_supervisor_configs_dir:       /etc/supervisor.d
 elao_supervisor_configs:           []

@@ -46,7 +46,7 @@ serverurl={{ config_supervisorctl.serverurl|default('unix:///var/run//supervisor
 {% set config_include = elao_supervisor_config.include|default({}) -%}
 
 [include]
-files = {{ config_include.childlogdir|default('/etc/supervisor/conf.d/*.conf') }}
+files = {{ config_include.childlogdir|default(elao_supervisor_configs_dir ~ '/*.conf') }}
 {{ macros.config(config_include, ['files']) }}
 
 {{ macros.config(elao_supervisor_config, ['unix_http_server', 'supervisord', 'config_supervisorctl', 'include']) }}
