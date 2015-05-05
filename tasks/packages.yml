@@ -1,0 +1,8 @@
+---
+
+- name: packages > Manage packages
+  apt:
+    name:  "{{ item.name }}"
+    force: true
+    state: "{{ item.state|default(omit) }}"
+  with_items: elao_apt_packages

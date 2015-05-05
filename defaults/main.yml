@@ -1,3 +1,9 @@
 ---
 
-elao_apt: []
+elao_apt_repositories: []
+
+elao_apt_preferences_dir: /etc/apt/preferences.d
+elao_apt_preferences_template: preferences/default.j2
+elao_apt_preferences: []
+
+elao_apt_packages: []

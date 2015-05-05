@@ -1,0 +1,5 @@
+{% set config = item.config|default({}) -%}
+
+Package:      {{ config.Package }}
+Pin:          {{ config.Pin }}
+Pin-Priority: {{ config['Pin-Priority'] }}
