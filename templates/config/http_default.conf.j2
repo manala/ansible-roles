@@ -4,7 +4,7 @@ user             {{ elao_nginx_config.user|default(elao_nginx_default_user) }};
 worker_processes {{ elao_nginx_config.worker_processes|default(1) }};
 pid              {{ elao_nginx_config.pid|default('/var/run/nginx.pid') }};
 
-{{ macros.config(elao_nginx_config, ['user', 'worker_processes', 'pid', 'events'], 18) }}
+{{ macros.config(elao_nginx_config, ['user', 'worker_processes', 'pid', 'events', 'http'], 18) }}
 
 {% set config_events = elao_nginx_config.events|default({}) -%}
 
@@ -22,11 +22,11 @@ http {
     {% endfor -%}
     default_type       {{ config_http.default_type|default('application/octet-stream') }};
     access_log         {{ config_http.default_type|default('/var/log/nginx/access.log') }};
-    access_log         {{ config_http.default_type|default('/var/log/nginx/error.log') }};
+    error_log          {{ config_http.default_type|default('/var/log/nginx/error.log') }};
     sendfile           {{ 'on' if config_http.sendfile|default(true) else 'off' }};
     keepalive_timeout  {{ config_http.keepalive_timeout|default('65') }};
 
     include {{ elao_nginx_configs_dir }}/*.conf;
 
-{{ macros.config(config_http, ['include', 'default_type'], 19, 4) -}}
+{{ macros.config(config_http, ['include', 'default_type', 'access_log', 'error_log', 'sendfile', 'keepalive_timeout'], 19, 4) -}}
 }
