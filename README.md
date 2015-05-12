@@ -115,6 +115,16 @@ elao_apt_preferences:
       Package:       php* mysql*
       Pin:           origin packages.dotdeb.org
       Pin-Priority:  100
+  - file: php
+    config:
+      Package:       php*
+      Pin:           origin packages.dotdeb.org
+      Pin-Priority:  900
+  - file: mysql
+    config:
+      Package:       mysql*
+      Pin:           origin packages.dotdeb.org
+      Pin-Priority:  900
   # Backports
   - file: backports
     config:
