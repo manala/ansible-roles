@@ -8,6 +8,7 @@
 - name: install > Packages
   npm:
     name:    "{{ item }}"
+    version: ~1
     state:   present
     global:  true
   with_items:
