@@ -1,9 +1,11 @@
 ---
 
-elao_ssh_known_hosts: []
-elao_ssh_sudo_auth: false
+# Config
+elao_ssh_config_file:     /etc/ssh/ssh_config
+elao_ssh_config_template: config/base.j2
+elao_ssh_config: []
 
 # Config - Sshd
 elao_ssh_config_sshd_file:     /etc/ssh/sshd_config
-elao_ssh_config_sshd_template: config/sshd/{{ ansible_distribution|lower }}_{{ ansible_distribution_release }}_default.j2
-elao_ssh_config_sshd: {}
+elao_ssh_config_sshd_template: config/sshd/base.j2
+elao_ssh_config_sshd: []

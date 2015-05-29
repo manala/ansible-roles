@@ -1,10 +1,5 @@
 ---
 
-- name: sudo restart
-  service:
-    name:  sudo
-    state: restarted
-
 - name: ssh reload
   service:
     name:  ssh

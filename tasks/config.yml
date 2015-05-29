@@ -1,6 +1,11 @@
 ---
 
-- name: config > Config sshd
+- name: config > Template
+  template:
+    src:  "{{ elao_ssh_config_template }}"
+    dest: "{{ elao_ssh_config_file }}"
+
+- name: config > Template sshd
   template:
     src:  "{{ elao_ssh_config_sshd_template }}"
     dest: "{{ elao_ssh_config_sshd_file }}"
