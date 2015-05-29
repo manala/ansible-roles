@@ -1,0 +1,5 @@
+---
+
+elao_influxdb_version: latest
+
+elao_influxdb_config: {}
