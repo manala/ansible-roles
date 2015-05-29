@@ -1,0 +1,5 @@
+---
+
+- include: install.yml
+- include: configs.yml
+- include: services.yml
