@@ -1,7 +1,5 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% if elao_vim_config.syntax|default(none) == 'on' %}
-syntax on
-{% endif %}
+{% set config = elao_vim_config -%}
 
-{{ macros.config(elao_vim_config, ['syntax']) -}}
+{{ macros.config(config) -}}
