@@ -34,7 +34,24 @@ None
 
 ## Role Variables
 
-None
+### Definition
+
+| Name                    | Default        | Type   | Description            |
+| ----------------------- | -------------- | ------ | -----------------------|
+| `elao_sudo_sudoers_dir` | /etc/sudoers.d | String | Sudoers directory.     |
+| `elao_sudo_sudoers`     | [ ]            | Array  | Collection of sudoers. |
+
+### Configuration example
+
+```
+---
+
+elao_sudo_sudoers:
+  - file: vagrant
+    config:
+      - vagrant: ALL=NOPASSWD:ALL
+
+```
 
 ## Example playbook
 

@@ -4,7 +4,7 @@
 {{ parameter }}
 {% elif parameter is mapping %}
 {% for key, value in parameter.iteritems() -%}
-{% if value is string or parameter is number %}
+{% if value is string or value is number %}
 {{ key }} {{ value }}
 {% elif value is sequence %}
 {% for subvalue in value %}
