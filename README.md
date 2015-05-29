@@ -46,126 +46,117 @@ None
 | `elao_apt_preferences.config.Package`      | -                      | String       | Packages involved.                  |
 | `elao_apt_preferences.config.Pin`          | -                      | String       | Pin directives.                     |
 | `elao_apt_preferences.config.Pin-Priority` | -                      | Integer      | Priority level of the rule.         |
+| `elao_apt_update`                          | False                  | Bool         | Execute apt update.                 |
 
 ### Configuration example
 
 ```
 ---
 
+elao_apt_packages: true
+
 elao_apt_packages:
   - name: mysql-client
   - name: mysql-server
     state: absent
 
+# Use full description, or pre defined patterns
 elao_apt_repositories:
-  # Remove proxmox entreprise
-  - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
-    state:  absent
-  # Jenkins
+  - backports
+  - postgresql
+  - dotdeb
+  - dotdebb_php55
+  - dotdebb_php56
+  - nginx
+  - varnish
+  - nodesource
+  - mongodb
+  - bearstech
+  # Use pre-defined template...
+  - jenkins
+  # ... or full description
   - source: deb http://pkg.jenkins-ci.org/debian binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id:  D50582E6
-  # postgreSQL
-  - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
-    key:
-      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-      id:  ACCC4CF8
-  # Dotdeb
-  - source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
-    key:
-      url: http://www.dotdeb.org/dotdeb.gpg
-      id:  89DF5277
-  # Dotdeb PHP 5.5
-  - source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php55 all
-  # Dotdeb PHP 5.6
-  - source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php56 all
-  # Backports
-  - source: deb http://cdn.debian.net/debian {{ ansible_distribution_release }}-backports main
-  # Varnish
-  - source: deb https://repo.varnish-cache.org/debian/ {{ ansible_distribution_release }} varnish-4.0
-    key:
-      url: https://repo.varnish-cache.org/debian/GPG-key.txt
-      id:  C4DEFFEB
-  # Nginx
-  - source: deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
-    key:
-      url: http://nginx.org/keys/nginx_signing.key
-      id:  7BD9BF62
-  # NodeJS
-  - source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
-    key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      id:  68576280
-  # MongoDB
-  - source: deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.0 main
-    key:
-      url: http://docs.mongodb.org/10gen-gpg-key.asc
-      id:  7F0CEB10
-  # Ruby
-  - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
-    key:
-      url: http://deb.bearstech.com/bearstech-archive.gpg
-      id:  90158EE0
+  # Remove proxmox entreprise
+  - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+    state:  absent
 
 elao_apt_preferences:
-  # Dotdeb
+  # Dotdeb (low priority by default)
   - file: dotdeb
     config:
-      Package:       php* mysql*
-      Pin:           origin packages.dotdeb.org
-      Pin-Priority:  100
+      - Package:      '*'
+      - Pin:          origin packages.dotdeb.org
+      - Pin-Priority: 100
+  # Php
   - file: php
     config:
-      Package:       php*
-      Pin:           origin packages.dotdeb.org
-      Pin-Priority:  900
+      - Package:       php*
+      - Pin:           origin packages.dotdeb.org
+      - Pin-Priority:  900
+  # Mysql
   - file: mysql
     config:
-      Package:       mysql*
-      Pin:           origin packages.dotdeb.org
-      Pin-Priority:  900
-  # Backports
-  - file: backports
-    config:
-      Package:       git* haproxy*
-      Pin:           release a={{ ansible_distribution_release }}-backports
-      Pin-Priority:  900
-  # Haproxy
-  - file: haproxy
-    config:
-      Package:       haproxy*
-      Pin:           release a={{ ansible_distribution_release }}-backports
-      Pin-Priority:  900
-  # Varnish
-  - file: varnish
-    config:
-      Package:       varnish*
-      Pin:           origin repo.varnish-cache.org
-      Pin-Priority:  900
+      - Package:       mysql*
+      - Pin:           origin packages.dotdeb.org
+      - Pin-Priority:  900
   # Nginx
   - file: nginx
     config:
-      Package:       nginx*
-      Pin:           origin nginx.org
-      Pin-Priority:  900
+      - Package:       nginx*
+      - Pin:           origin nginx.org
+      - Pin-Priority:  900
+  # Ruby
+  - file: ruby
+    config:
+      - Package:       ruby*
+      - Pin:           origin deb.bearstech.com
+      - Pin-Priority:  900
   # NodeJS
   - file: nodejs
     config:
-      Package:       nodejs
-      Pin:           origin deb.nodesource.com
-      Pin-Priority:  900
+      - Package:       nodejs
+      - Pin:           origin deb.nodesource.com
+      - Pin-Priority:  900
+  # Haproxy
+  - file: haproxy
+    config:
+      - Package:       haproxy*
+      - Pin:           release a={{ ansible_distribution_release }}-backports
+      - Pin-Priority:  900
+  # Varnish
+  - file: varnish
+    config:
+      - Package:       varnish*
+      - Pin:           origin repo.varnish-cache.org
+      - Pin-Priority:  900
   # MongoDB
   - file: mongodb
     config:
       Package:       mongodb-*
       Pin:           origin docs.mongodb.org
       Pin-Priority:  900
-  - file: ruby
+  # Backports
+  - file: backports
     config:
-      Package:       ruby*
-      Pin:           origin deb.bearstech.com
-      Pin-Priority:  900
+      - Package:       git* haproxy*
+      - Pin:           release a={{ ansible_distribution_release }}-backports
+      - Pin-Priority:  900
+  # Git
+  - file: backports
+    config:
+      - Package:       git*
+      - Pin:           release a={{ ansible_distribution_release }}-backports
+      - Pin-Priority:  900
+  # Haproxy
+  - file: backports
+    config:
+      - Package:       haproxy*
+      - Pin:           release a={{ ansible_distribution_release }}-backports
+      - Pin-Priority:  900
+
 ```
 
 ## Example playbook

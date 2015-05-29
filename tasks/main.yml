@@ -4,4 +4,5 @@
 - include: repositories.yml
 - include: preferences.yml
 - include: update.yml
+  when: elao_apt_update
 - include: packages.yml

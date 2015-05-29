@@ -1,9 +1,62 @@
 ---
 
+# Repositories
 elao_apt_repositories: []
+elao_apt_repositories_patterns:
+  backports:
+    source: deb http://cdn.debian.net/debian {{ ansible_distribution_release }}-backports main
+  dotdeb:
+    source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
+    key:
+      url: http://www.dotdeb.org/dotdeb.gpg
+      id:  89DF5277
+  dotdebb_php55:
+    source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php55 all
+  dotdebb_php56:
+    source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php56 all
+  nginx:
+    source: deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
+    key:
+      url: http://nginx.org/keys/nginx_signing.key
+      id:  7BD9BF62
+  bearstech:
+    source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
+    key:
+      url: http://deb.bearstech.com/bearstech-archive.gpg
+      id:  90158EE0
+  nodesource:
+    source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  68576280
+  postgresql:
+    source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+    key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      id:  ACCC4CF8
+  mongodb:
+    source: deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.0 main
+    key:
+      url: http://docs.mongodb.org/10gen-gpg-key.asc
+      id:  7F0CEB10
+  varnish:
+    source: deb https://repo.varnish-cache.org/debian/ {{ ansible_distribution_release }} varnish-4.0
+    key:
+      url: https://repo.varnish-cache.org/debian/GPG-key.txt
+      id:  C4DEFFEB
+  jenkins:
+    source: deb http://pkg.jenkins-ci.org/debian binary/
+    key:
+      url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+      id:  D50582E6
 
+# Preferences
 elao_apt_preferences_dir: /etc/apt/preferences.d
 elao_apt_preferences_template: preferences/default.j2
 elao_apt_preferences: []
 
+# Packages
 elao_apt_packages: []
+
+# Update
+elao_apt_update: false

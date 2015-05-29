@@ -1,5 +1,3 @@
-{% set config = item.config|default({}) -%}
+{%- import '_macros.j2' as macros with context -%}
 
-Package:      {{ config.Package }}
-Pin:          {{ config.Pin }}
-Pin-Priority: {{ config['Pin-Priority'] }}
+{{ macros.config(item.config|default([])) -}}
