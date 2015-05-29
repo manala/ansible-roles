@@ -1,0 +1,103 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- set config = item.config|default([]) -%}
+
+# Path to your oh-my-zsh installation.
+{{ macros.config_row(config, 'export ZSH', elao_ohmyzsh_dir) }}
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+{{ macros.config_row(config, 'ZSH_THEME', 'robbyrussell') }}
+
+# Uncomment the following line to use case-sensitive completion.
+{{ macros.config_row(config, 'CASE_SENSITIVE', '# CASE_SENSITIVE="true"', true) }}
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+{{ macros.config_row(config, 'DISABLE_AUTO_UPDATE', '# DISABLE_AUTO_UPDATE="true"', true) }}
+
+# Uncomment the following line to change how often to auto-update (in days).
+{{ macros.config_row(config, 'UPDATE_ZSH_DAYS', '# export UPDATE_ZSH_DAYS=13', true) }}
+
+# Uncomment the following line to disable colors in ls.
+{{ macros.config_row(config, 'DISABLE_LS_COLORS', '# DISABLE_LS_COLORS="true"', true) }}
+
+# Uncomment the following line to disable auto-setting terminal title.
+{{ macros.config_row(config, 'DISABLE_AUTO_TITLE', '# DISABLE_AUTO_TITLE="true"', true) }}
+
+# Uncomment the following line to enable command auto-correction.
+{{ macros.config_row(config, 'ENABLE_CORRECTION', '# ENABLE_CORRECTION="true"', true) }}
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+{{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', '# COMPLETION_WAITING_DOTS="true"', true) }}
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+{{ macros.config_row(config, 'DISABLE_UNTRACKED_FILES_DIRTY', '# DISABLE_UNTRACKED_FILES_DIRTY="true"', true) }}
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+{{ macros.config_row(config, 'HIST_STAMPS', '# HIST_STAMPS="mm/dd/yyyy"', true) }}
+
+# Would you like to use another custom folder than $ZSH/custom?
+{{ macros.config_row(config, 'ZSH_CUSTOM', elao_ohmyzsh_custom_dir) }}
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+{{ macros.config_row(config, 'plugins', '(git)') }}
+
+# User configuration
+
+{{ macros.config_row(config, 'export PATH', '# export PATH=$HOME/bin:/usr/local/bin:$PATH', true) }}
+{{ macros.config_row(config, 'export MANPATH', '# export MANPATH="/usr/local/man:$MANPATH"', true) }}
+
+source $ZSH/oh-my-zsh.sh
+
+# You may need to manually set your language environment
+{{ macros.config_row(config, 'export LANG', '# export LANG=en_US.UTF-8', true) }}
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+{{ macros.config_row(config, 'export ARCHFLAGS', '# export ARCHFLAGS="-arch x86_64"', true) }}
+
+# ssh
+{{ macros.config_row(config, 'export SSH_KEY_PATH', '# export SSH_KEY_PATH="~/.ssh/dsa_id"', true) }}
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+{{ macros.config_row(config, 'alias', '#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"', true) }}
+
+{{ macros.config(config, [
+    'export ZSH',
+    'ZSH_THEME',
+    'CASE_SENSITIVE',
+    'DISABLE_AUTO_UPDATE',
+    'UPDATE ZSH_DAYS',
+    'DISABLE_LS_COLORS',
+    'DISABLE_AUTO_TITLE',
+    'ENABLE_CORRECTION',
+    'COMPLETION_WAITING_DOTS',
+    'DISABLE_UNTRACKED_FILES_DIRTY',
+    'HIST_STAMPS',
+    'ZSH_CUSTOM',
+    'plugins',
+    'export PATH',
+    'export MANPATH',
+    'export LANG',
+    'export ARCHFLAGS',
+    'export SSH_KEY_PATH',
+    'alias'
+]) }}
