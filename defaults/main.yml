@@ -1,4 +1,6 @@
 ---
 
+# Sudoers
 elao_sudo_sudoers_dir: /etc/sudoers.d
+elao_sudo_sudoers_template: sudoers/empty.j2
 elao_sudo_sudoers: []

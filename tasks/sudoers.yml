@@ -2,7 +2,7 @@
 
 - name: sudoers > Templates
   template:
-    src:  "{{ item.template|default('sudoers/default.j2') }}"
+    src:  "{{ item.template|default(elao_sudo_sudoers_template) }}"
     dest: "{{ elao_sudo_sudoers_dir }}/{{ item.file }}"
     mode: 0440
   with_items: elao_sudo_sudoers
