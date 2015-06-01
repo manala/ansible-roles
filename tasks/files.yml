@@ -17,3 +17,11 @@
     state:    "{{ item.state|default(omit) }}"
   with_items: elao_files
 
+- name: files > Acls
+  acl:
+    name:  "{{ item.0.path }}"
+    entry: "{{ item.1 }}"
+    state: present
+  with_subelements:
+    - "{{ elao_files|selectattr('acls', 'defined')|list }}"
+    - acls
