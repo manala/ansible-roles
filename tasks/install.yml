@@ -4,14 +4,3 @@
   shell: "curl -sS https://getcomposer.org/installer | php -- --install-dir={{ elao_composer_bin | dirname }} --filename={{ elao_composer_bin | basename }}"
   args:
     creates: "{{ elao_composer_bin }}"
-
-- name: install > Ensure home directory exist
-  file:
-    path:  "{{ elao_composer_home }}"
-    state: directory
-
-- name: install > Environment variables
-  lineinfile:
-    dest:  /etc/environment
-    line:  "COMPOSER_HOME={{ elao_composer_home }}"
-    state: present
