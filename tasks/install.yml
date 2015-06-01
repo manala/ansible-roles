@@ -1,0 +1,41 @@
+---
+
+- name: install > Check package
+  command: "dpkg -s pam-ssh-agent-auth"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_pam_ssh_agent_auth_package_check_output
+
+- name: install > Copy package
+  copy:
+    src:  pam-ssh-agent-auth_0.10.2-1_amd64.deb
+    dest: /tmp/pam-ssh-agent-auth_0.10.2-1_amd64.deb
+  when: _elao_pam_ssh_agent_auth_package_check_output.rc != 0
+
+- name: install > Install package
+  apt:
+    deb: /tmp/pam-ssh-agent-auth_0.10.2-1_amd64.deb
+  when: _elao_pam_ssh_agent_auth_package_check_output.rc != 0
+
+- name: install > Remove package
+  file:
+    path:  /tmp/pam-ssh-agent-auth_0.10.2-1_amd64.deb
+    state: absent
+  when: _elao_pam_ssh_agent_auth_package_check_output.rc != 0
+
+- name: install > Sudoers
+  template:
+    src:  install/sudoers.j2
+    dest: /etc/sudoers.d/pam_ssh_agent_auth
+  notify:
+    - sudo restart
+
+- name: install > Pam
+  lineinfile:
+    dest:         /etc/pam.d/sudo
+    line:         'auth sufficient pam_ssh_agent_auth.so file=%h/.ssh/authorized_keys'
+    insertbefore: '^@include common-auth'
+    state:        present
+  notify:
+    - sudo restart
