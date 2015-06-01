@@ -2,22 +2,21 @@
 
 - name: fpm_pools > Create config files.
   template:
-    src: "{{ item.template if item.template is not undefined else elao_php_fpm_pools_template }}"
+    src: "{{ item.template|default(elao_php_fpm_pools_template) }}"
     dest: "{{ elao_php_fpm_pools_dir }}/{{ item.file }}"
   notify:
     - php fpm restart
   with_items: elao_php_fpm_pools
 
-# cleanup config files
-- name: fpm_pools > Cleanup configuration - find files
+- name: fpm_pools > Exclusive - find files
   command: "find -type f -printf '%P\n'"
   args:
     chdir: "{{ elao_php_fpm_pools_dir }}"
-  register: _elao_php_fpm_pools_find_output
   changed_when: false
+  register: _elao_php_fpm_pools_find_output
   when: elao_php_fpm_pools_exclusive
 
-- name: fpm_pools > Cleanup configuration - remove files
+- name: fpm_pools > Exclusive - remove files
   file:
     path:  "{{ elao_php_fpm_pools_dir }}/{{ item }}"
     state: absent

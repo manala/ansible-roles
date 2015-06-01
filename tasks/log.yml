@@ -1,0 +1,24 @@
+---
+
+- name: log > Directory
+  file:
+    path:  "{{  elao_php_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode:  0755
+
+- name: log > File
+  file:
+    path:  "{{  elao_php_log_dir }}/error.log"
+    state: touch
+    owner: www-data
+    mode:  0640
+
+- name: log > Logrotate
+  template:
+    src:   log/logrotate.j2
+    dest:  /etc/logrotate.d/php5
+    owner: root
+    group: root
+    mode:  0644
