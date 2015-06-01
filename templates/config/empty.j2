@@ -1,10 +1,10 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_phantomjs_config -%}
+
 # Defaults for phantomjs initscript
 # sourced by /etc/init.d/phantomjs
 # installed at /etc/default/phantomjs by the maintainer scripts
 
 # Additional options that are passed to the Daemon.
-DAEMON_OPTS="
-{% for key, value in elao_phantomjs_config.iteritems() -%}
-             --{{ key }}={{ value }}{{ '"' if loop.last else ' \\' }}
-{% endfor %}
-
+DAEMON_OPTS="{{ macros.config(config) }}"
