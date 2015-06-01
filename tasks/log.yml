@@ -12,7 +12,7 @@
   file:
     path:  "{{  elao_php_log_dir }}/error.log"
     state: touch
-    owner: www-data
+    owner: "{{ elao_php_user }}"
     mode:  0640
 
 - name: log > Logrotate
