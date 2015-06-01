@@ -1,0 +1,8 @@
+---
+
+- name: log > Dir
+  file:
+    path:  "{{ elao_supervisor_log_dir }}"
+    state: directory
+    owner: root
+    mode:  0755

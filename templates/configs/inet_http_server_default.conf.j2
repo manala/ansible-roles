@@ -1,7 +1,0 @@
-{%- import '_macros.j2' as macros with context -%}
-
-{% set config = item.config|default({}) -%}
-
-[inet_http_server]         ; inet (TCP) server disabled by default
-port={{ config.port|default('127.0.0.1:9001') }} ; (ip_address:port specifier, *:port for all iface)
-{{ macros.config(config, ['port']) }}
