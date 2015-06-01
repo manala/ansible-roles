@@ -1,6 +1,7 @@
 ---
 
 - include: install.yml
+- include: log.yml
 - include: config.yml
 - include: configs.yml
 - include: services.yml

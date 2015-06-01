@@ -8,18 +8,19 @@
   notify:
     - nginx restart
 
-- name: configs > Find
+- name: configs > Exclusive - find files
   command: "find -type f -printf '%P\n'"
   args:
     chdir: "{{ elao_nginx_configs_dir }}"
   changed_when: false
   register: _elao_nginx_configs_find_output
+  when: elao_nginx_configs_exclusive
 
-- name: configs > Clean
+- name: configs > Exclusive - remove files
   file:
     path:  "{{ elao_nginx_configs_dir }}/{{ item }}"
     state: absent
-  when: item not in elao_nginx_configs|map(attribute='file')
+  when: elao_nginx_configs_exclusive and (item not in elao_nginx_configs|map(attribute='file'))
   with_items: _elao_nginx_configs_find_output.stdout_lines
   notify:
     - nginx restart

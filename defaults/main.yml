@@ -2,10 +2,17 @@
 
 # Config
 elao_nginx_config_file:      /etc/nginx/nginx.conf
-elao_nginx_config_template:  config/http_default.conf.j2
-elao_nginx_config:           {}
+elao_nginx_config_template:  config/http_base.conf.j2
+elao_nginx_config:           []
 
 # Configs
+elao_nginx_configs_exclusive: false
 elao_nginx_configs_dir:       /etc/nginx/conf.d
-elao_nginx_configs_template:  configs/default.conf.j2
+elao_nginx_configs_template:  configs/empty.conf.j2
 elao_nginx_configs:           []
+
+# User
+elao_nginx_user: www-data
+
+# Log
+elao_nginx_log_dir: /var/log/nginx
