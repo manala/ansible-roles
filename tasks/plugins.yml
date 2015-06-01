@@ -1,0 +1,28 @@
+---
+
+- name: plugins > Stats playbook plugins directory
+  stat:
+    path: "{{ playbook_dir ~ '/files/sensu/plugins/' }}"
+  register: _elao_sensu_playbook_plugins
+
+- name: plugins > Copy roles plugins files
+  copy:
+    src: "{{ item }}"
+    dest: /etc/sensu/plugins/
+    mode: 0755
+  with_items:
+    - sensu/plugins/
+    - "{{ elao_sensu_plugins_dir }}"
+  notify:
+    - sensu restart
+
+- name: plugins > Copy playbook plugins files
+  copy:
+    src: "{{ item }}"
+    dest: /etc/sensu/plugins/
+    mode: 0755
+  with_items:
+    - "{{ playbook_dir ~ '/files/sensu/plugins/' }}"
+  when: _elao_sensu_playbook_plugins.stat.exists
+  notify:
+    - sensu restart

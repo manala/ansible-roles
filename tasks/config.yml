@@ -1,0 +1,8 @@
+---
+
+- name: config > Config
+  template:
+    src:  "{{ elao_sensu_config_template }}"
+    dest: "{{ elao_sensu_config_file }}"
+  notify:
+    - sensu restart

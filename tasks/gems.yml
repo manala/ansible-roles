@@ -1,0 +1,18 @@
+---
+
+- set_fact:
+    _elao_sensu_embedded_ruby: "{{ elao_sensu_config.EMBEDDED_RUBY|default(false) }}"
+
+- name: packages > Setup gem packages
+  gem:
+    name:                  "{{ item.name }}"
+    executable:            "{{ item.executable|default('/opt/sensu/embedded/bin/gem' if _elao_sensu_embedded_ruby else omit) }}"
+    gem_source:            "{{ item.gem_source|default(omit) }}"
+    include_dependencies:  "{{ item.include_dependencies|default(omit) }}"
+    pre_release:           "{{ item.pre_release|default(omit) }}"
+    repository:            "{{ item.repository|default(omit) }}"
+    state:                 "{{ item.state|default(omit) }}"
+    user_install:          "{{ item.user_install|default(false) }}"
+    version:               "{{ item.version|default(omit) }}"
+  with_items: elao_sensu_gems
+

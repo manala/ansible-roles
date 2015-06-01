@@ -1,0 +1,25 @@
+---
+
+elao_sensu_services:         []
+
+elao_sensu_gems:             []
+
+# Config
+elao_sensu_config_template:  config/default.j2
+elao_sensu_config_file:      /etc/default/sensu
+elao_sensu_config:           {}
+
+# Configs
+elao_sensu_configs_dir:       /etc/sensu/conf.d
+elao_sensu_configs_template:  configs/default.json.j2
+elao_sensu_configs:           []
+
+# Additional  plugins to copy
+elao_sensu_plugins_dir:       []
+
+# Additional handlers to copy
+elao_sensu_handlers_dir:      []
+
+# Additional extensions to copy
+elao_sensu_extensions_dir:    []
+

@@ -1,0 +1,14 @@
+---
+
+- include: install.yml
+- include: config.yml
+- include: gems.yml
+  when: "'sensu-client' in elao_sensu_services or 'sensu-server' in elao_sensu_services"
+- include: plugins.yml
+  when: "'sensu-client' in elao_sensu_services"
+- include: handlers.yml
+  when: "'sensu-server' in elao_sensu_services"
+- include: extensions.yml
+  when: "'sensu-server' in elao_sensu_services"
+- include: configs.yml
+- include: services.yml

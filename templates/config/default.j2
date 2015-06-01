@@ -1,0 +1,11 @@
+{% for key, value in elao_sensu_config.iteritems() -%}
+	{{ key }}=
+    {%- if value is sameas true -%}
+        true
+    {%- elif value is sameas false -%}
+        false
+    {%- else  -%}
+        {{ value }}
+    {%- endif -%}
+    {{- '\n' -}}
+{% endfor %}
