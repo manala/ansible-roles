@@ -1,0 +1,257 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_grafana_config -%}
+
+{% set config_paths = [] -%}
+{% set config_server = [] -%}
+{% set config_database = [] -%}
+{% set config_session = [] -%}
+{% set config_analytics = [] -%}
+{% set config_security = [] -%}
+{% set config_users = [] -%}
+{% set config_auth_anonymous = [] -%}
+{% set config_auth_github = [] -%}
+{% set config_auth_google = [] -%}
+{% set config_log = [] -%}
+{% set config_log_console = [] -%}
+{% set config_log_file = [] -%}
+{% set config_event_publisher = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'paths' -%}
+            {%- if config_paths.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'server' -%}
+            {%- if config_server.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'database' -%}
+            {%- if config_database.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'session' -%}
+            {%- if config_session.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'analytics' -%}
+            {%- if config_analytics.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'security' -%}
+            {%- if config_security.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'users' -%}
+            {%- if config_users.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.anonymous' -%}
+            {%- if config_auth_anonymous.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.github' -%}
+            {%- if config_auth_github.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.google' -%}
+            {%- if config_auth_google.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log' -%}
+            {%- if config_log.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log.console' -%}
+            {%- if config_log_console.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log.file' -%}
+            {%- if config_log_file.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'event_publisher' -%}
+            {%- if config_event_publisher.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+
+##################### Grafana Configuration Example #####################
+#
+# Everything has defaults so you only need to uncomment things you want to
+# change
+
+{{ macros.config_row(config, 'app_mode', '; app_mode = production', 0, true) }}
+
+#################################### Paths ####################################
+[paths]
+# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is useD)
+#
+{{ macros.config_row(config_paths, 'data', ';data = /var/lib/grafana', 0, true) }}
+
+#
+# Directory where grafana can store logs
+#
+{{ macros.config_row(config_paths, 'logs', ';logs = /var/log/grafana', 0, true) }}
+
+#################################### Server ####################################
+[server]
+# Protocol (http or https)
+{{ macros.config_row(config_server, 'protocol', ';protocol = http', 0, true) }}
+
+# The ip address to bind to, empty will bind to all interfaces
+{{ macros.config_row(config_server, 'http_addr', ';http_addr = ', 0, true) }}
+
+# The http port  to use
+{{ macros.config_row(config_server, 'http_port', ';http_port = 3000', 0, true) }}
+
+# The public facing domain name used to access grafana from a browser
+{{ macros.config_row(config_server, 'domain', ';domain = localhost', 0, true) }}
+
+# The full public facing url
+{{ macros.config_row(config_server, 'root_url', ';root_url = %(protocol)s://%(domain)s:%(http_port)s/', 0, true) }}
+
+# Log web requests
+{{ macros.config_row(config_server, 'router_logging', ';router_logging = false', 0, true) }}
+
+# the path relative working path
+{{ macros.config_row(config_server, 'static_root_path', ';static_root_path = public', 0, true) }}
+
+# enable gzip
+{{ macros.config_row(config_server, 'enable_gzip', ';enable_gzip = false', 0, true) }}
+
+# https certs & key file
+{{ macros.config_row(config_server, 'cert_file', ';cert_file = ', 0, true) }}
+{{ macros.config_row(config_server, 'cert_key', ';cert_key = ', 0, true) }}
+
+#################################### Database ####################################
+[database]
+# Either "mysql", "postgres" or "sqlite3", it's your choice
+{{ macros.config_row(config_database, 'type', ';type = sqlite3', 0, true) }}
+{{ macros.config_row(config_database, 'host', ';host = 127.0.0.1:3306', 0, true) }}
+{{ macros.config_row(config_database, 'name', ';name = grafana', 0, true) }}
+{{ macros.config_row(config_database, 'user', ';user = root', 0, true) }}
+{{ macros.config_row(config_database, 'password', ';password = ', 0, true) }}
+
+# For "postgres" only, either "disable", "require" or "verify-full"
+{{ macros.config_row(config_database, 'ssl_mode', ';ssl_mode = disable', 0, true) }}
+
+# For "sqlite3" only, path relative to data_path setting
+{{ macros.config_row(config_database, 'path', ';path = grafana.db', 0, true) }}
+
+#################################### Session ####################################
+[session]
+# Either "memory", "file", "redis", "mysql", default is "memory"
+;provider = file
+
+# Provider config options
+# memory: not have any config yet
+# file: session dir path, is relative to grafana data_path
+# redis: config like redis server addr, poolSize, password, e.g. `127.0.0.1:6379,100,grafana`
+# mysql: go-sql-driver/mysql dsn config string, e.g. `user:password@tcp(127.0.0.1)/database_name`
+;provider_config = sessions
+
+# Session cookie name
+;cookie_name = grafana_sess
+
+# If you use session in https only, default is false
+;cookie_secure = false
+
+# Session life time, default is 86400
+;session_life_time = 86400
+
+#################################### Analytics ####################################
+[analytics]
+# Server reporting, sends usage counters to stats.grafana.org every 24 hours.
+# No ip addresses are being tracked, only simple counters to track
+# running instances, dashboard and error counts. It is very helpful to us.
+# Change this option to false to disable reporting.
+;reporting_enabled = true
+
+# Google Analytics universal tracking code, only enabled if you specify an id here
+;google_analytics_ua_id =
+
+#################################### Security ####################################
+[security]
+# default admin user, created on startup
+{{ macros.config_row(config_security, 'admin_user', ';admin_user = admin', 0, true) }}
+
+# default admin password, can be changed before first start of grafana,  or in profile settings
+{{ macros.config_row(config_security, 'admin_password', ';admin_password = admin', 0, true) }}
+
+# used for signing
+{{ macros.config_row(config_security, 'secret_key', ';secret_key = SW2YcwTIb9zpOOhoPsM', 0, true) }}
+
+# Auto-login remember days
+{{ macros.config_row(config_security, 'login_remember_days', ';login_remember_days = 7', 0, true) }}
+{{ macros.config_row(config_security, 'cookie_username', ';cookie_username = grafana_user', 0, true) }}
+{{ macros.config_row(config_security, 'cookie_remember_name', ';cookie_remember_name = grafana_remember', 0, true) }}
+
+#################################### Users ####################################
+[users]
+# disable user signup / registration
+;allow_sign_up = true
+
+# Allow non admin users to create organizations
+;allow_org_create = true
+
+# Set to true to automatically assign new users to the default organization (id 1)
+;auto_assign_org = true
+
+# Default role new users will be automatically assigned (if disabled above is set to true)
+;auto_assign_org_role = Viewer
+
+#################################### Anonymous Auth ##########################
+[auth.anonymous]
+# enable anonymous access
+;enabled = false
+
+# specify organization name that should be used for unauthenticated users
+;org_name = Main Org.
+
+# specify role for unauthenticated users
+;org_role = Viewer
+
+#################################### Github Auth ##########################
+[auth.github]
+;enabled = false
+;client_id = some_id
+;client_secret = some_secret
+;scopes = user:email
+;auth_url = https://github.com/login/oauth/authorize
+;token_url = https://github.com/login/oauth/access_token
+;api_url = https://api.github.com/user
+# Uncomment bellow to only allow specific email domains
+; allowed_domains = mycompany.com othercompany.com
+
+#################################### Google Auth ##########################
+[auth.google]
+;enabled = false
+;client_id = some_client_id
+;client_secret = some_client_secret
+;scopes = https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
+;auth_url = https://accounts.google.com/o/oauth2/auth
+;token_url = https://accounts.google.com/o/oauth2/token
+;api_url = https://www.googleapis.com/oauth2/v1/userinfo
+# Uncomment bellow to only allow specific email domains
+; allowed_domains = mycompany.com othercompany.com
+
+#################################### Logging ##########################
+[log]
+# Either "console", "file", default is "console"
+# Use comma to separate multiple modes, e.g. "console, file"
+;mode = console, file
+
+# Buffer length of channel, keep it as it is if you don't know what it is.
+;buffer_len = 10000
+
+# Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
+;level = Info
+
+# For "console" mode only
+[log.console]
+;level =
+
+# For "file" mode only
+[log.file]
+;level =
+# This enables automated log rotate(switch of following options), default is true
+;log_rotate = true
+
+# Max line number of single file, default is 1000000
+;max_lines = 1000000
+
+# Max size shift of single file, default is 28 means 1 << 28, 256MB
+;max_lines_shift = 28
+
+# Segment log daily, default is true
+;daily_rotate = true
+
+# Expired days of log file(delete after max days), default is 7
+;max_days = 7
+
+#################################### AMPQ Event Publisher ##########################
+[event_publisher]
+;enabled = false
+;rabbitmq_url = amqp://localhost/
+;exchange = grafana_events
+
+
+{{ macros.config(config, ['app_mode', 'paths', 'server']) }}
+

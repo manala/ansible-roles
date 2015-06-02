@@ -1,0 +1,18 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  author:              Elao
+  company:             Elao
+  description: >
+    Install and configure grafana.
+  license: MIT
+  min_ansible_version: 1.7.2
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+  categories:
+    - monitoring

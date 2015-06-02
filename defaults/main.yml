@@ -1,0 +1,8 @@
+---
+
+elao_grafana_version: 2.0.2
+
+# Config
+elao_grafana_config_file:      /etc/grafana/grafana.ini
+elao_grafana_config_template:  config/base.ini.j2
+elao_grafana_config:           []
