@@ -2,6 +2,6 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default('configs/default.j2') }}"
-    dest: "{{ elao_logrotate_configs_path }}/{{ item.name }}"
+    src:  "{{ item.template|default(elao_logrotate_configs_template) }}"
+    dest: "{{ elao_logrotate_configs_dir }}/{{ item.file }}"
   with_items: elao_logrotate_configs

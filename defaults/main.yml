@@ -1,7 +1,6 @@
 ---
 
-elao_logrotate_config_template: config/default.conf.j2
-elao_logrotate_config: {}
-
-elao_logrotate_configs_path: /etc/logrotate.d
-elao_logrotate_configs: []
+# Configs
+elao_logrotate_configs_dir:      /etc/logrotate.d
+elao_logrotate_configs_template: configs/empty.j2
+elao_logrotate_configs:          []

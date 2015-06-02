@@ -1,28 +1,60 @@
-{%- macro config(parameters, exclusions = [], align = 0, indent = 0) -%}
-    {% for key, value in parameters.iteritems() -%}
-        {% if key not in exclusions %}
-{%- if value is none -%}
-{% elif key in ['prerotate', 'postrotate', 'firstaction', 'lastaction'] %}
-{{ key.ljust(align)|indent(indent, true) }}
-{{ value|indent(indent + 4, true) }}
-{{ 'endscript'|indent(indent, true) }}
-{% elif value is sameas true %}
-{{ key.ljust(align)|indent(indent, true) }}
-{% elif value is sameas false %}
-{{ key.ljust(align)|indent(indent, true) }}
-{% elif value is string %}
-{{ key.ljust(align)|indent(indent, true) }} {{ value }}
-{% elif value is number %}
-{{ key.ljust(align)|indent(indent, true) }} {{ value }}
-{% elif value is mapping %}
-{{ key|indent(indent, true) }} {
-{{ config(value, [], 0, indent + 4) -}}
-{{ '}'|indent(indent, true) }}
-{% else -%}
-{% for subvalue in value %}
-{{ key.ljust(align)|indent(indent, true) }} {{ subvalue }}
-{% endfor %}
-{% endif %}
-        {%- endif %}
-    {%- endfor %}
+{%- macro config(parameters, exclusions = [], indent = 0) -%}
+    {%- for parameter in parameters -%}
+        {%- if parameter is string or parameter is number -%}
+            {{ parameter|indent(indent, true) }}{{ '\n' }}
+        {%- elif parameter is mapping -%}
+            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+                {%- if parameter_key not in exclusions -%}
+                    {{ _config_parameter(parameter_key, parameter_value, indent) }}{{ '\n' }}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro config_row(parameters, key, default, indent = 0, placeholder = false) -%}
+    {%- set vars = {'values': []} -%}
+    {%- for parameter in parameters -%}
+        {%- if parameter is mapping -%}
+            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+                {%- if parameter_key == key -%}
+                    {%- if vars.update({'values': vars['values'] + [parameter_value]}) -%}{%- endif -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if vars['values']|length -%}
+        {%- for value in vars['values'] -%}
+            {{ _config_parameter(key, value, indent) }}{% if not loop.last %}{{ '\n' }}{% endif %}
+        {%- endfor -%}
+    {%- else -%}
+        {%- if placeholder -%}
+            {{ default }}
+        {%- else -%}
+            {%- for value in (default if (default is sequence and default is not string) else [default]) -%}
+                {{ _config_parameter(key, value, indent) }}{% if not loop.last %}{{ '\n' }}{% endif %}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro _config_parameter(key, value, indent = 0) -%}
+    {%- if value is sequence and value is not string -%}
+        {{ key|indent(indent, true) }} {{ '{\n' }}{{ config(value, [], indent + 4) }}{{ '}'|indent(indent, true) }}
+    {%- else -%}
+        {{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro _config_parameter_key(key) -%}
+    {{ key }}
+{%- endmacro -%}
+
+{%- macro _config_parameter_value(value) -%}
+    {%- if value is sameas none -%}
+    {%- elif value is string -%}
+        {{ value }}
+    {%- elif value is number -%}
+        {{ value }}
+    {%- endif -%}
 {%- endmacro -%}

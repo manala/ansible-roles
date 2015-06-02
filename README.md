@@ -36,55 +36,25 @@ None
 
 | Name                             | Default                | Type   | Description          |
 | -------------------------------- | ---------------------- | ------ | -------------------- |
-| `elao_logrotate_config_template` | config/default.conf.j2 | String | Main config template |
-| `elao_logrotate_config`          | {}                     | Array  | Main config          |
-| `elao_logrotate_configs_path`    | /etc/logrotate.d       | String | Configs path         |
+| `elao_logrotate_configs_dir`     | /etc/logrotate.d       | String | Configs path         |
 | `elao_logrotate_configs`         | []                     | Array  | Configs              |
 
 ### Configuration examples
 
-```yaml
-elao_logrotate_config:
-  daily: true
-  create: 0640 www-data adm
-  ifempty: true
-  rotate: 5
-  prerotate: |
-    if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
-      run-parts /etc/logrotate.d/httpd-prerotate; \
-    fi; \
-```
 
 ```yaml
 elao_logrotate_configs:
-  - name:      nginx
-    template:  configs/nginx_default.j2
+  - file: nginx_example
     config:
-      size:    100M
-```
-
-```yaml
-elao_logrotate_configs:
-  - name: nginx_example
-    config:
-      ? |
-        /var/log/nginx/example/access.log
-        /var/log/nginx/example/error.log
-      :
-        size:           200M
-        missingok:      true
-        rotate:         0
-        compress:       true
-        delaycompress:  true
-        notifempty:     true
-        create:         0640 www-data adm
-        sharedscripts:  true
-        prerotate: |
-          if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
-            run-parts /etc/logrotate.d/httpd-prerotate; \
-          fi \
-        postrotate: |
-          [ -s /run/nginx.pid ] && kill -USR1 `cat /run/nginx.pid`
+      - /var/log/nginx/example/*.log:
+        - size:          200M
+        - missingok
+        - rotate:        0
+        - compress
+        - delaycompress:
+        - notifempty
+        - create:        0640 www-data adm
+        - sharedscripts
 ```
 
 ## Example playbook
