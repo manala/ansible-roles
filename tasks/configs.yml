@@ -9,7 +9,7 @@
   notify:
     - mysql restart
 
-- name: configs > Find
+- name: configs > Exclusive - find files
   command: "find -type f -printf '%P\n'"
   args:
     chdir: "{{ elao_mysql_configs_dir }}"
@@ -17,7 +17,7 @@
   register: _elao_mysql_configs_find_output
   when: elao_mysql_configs_exclusive
 
-- name: configs > Clean
+- name: configs > Exclusive - remove files
   file:
     path:  "{{ elao_mysql_configs_dir }}/{{ item }}"
     state: absent

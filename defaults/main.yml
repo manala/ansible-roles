@@ -1,9 +1,11 @@
 ---
 
+# Tasks
 elao_mysql_tasks_include: ~
 elao_mysql_tasks_exlude: []
 
-elao_mysql_configs_dir: /etc/mysql/conf.d
-elao_mysql_configs_template: configs/default.cnf.j2
+# Configs
 elao_mysql_configs_exclusive: false
-elao_mysql_configs: []
+elao_mysql_configs_dir:       /etc/mysql/conf.d
+elao_mysql_configs_template:  configs/empty.cnf.j2
+elao_mysql_configs:           []
