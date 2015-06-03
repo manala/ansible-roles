@@ -58,5 +58,6 @@ elao_apt_preferences: []
 # Packages
 elao_apt_packages: []
 
-# Update
-elao_apt_update: false
+# Update / Upgrade
+elao_apt_update:  false
+elao_apt_upgrade: false
