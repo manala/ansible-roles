@@ -49,6 +49,11 @@ elao_apt_repositories_patterns:
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id:  D50582E6
+  sensu:
+    source: deb http://repos.sensuapp.org/apt sensu main
+    key:
+      url: http://repos.sensuapp.org/apt/pubkey.gpg
+      id:  7580C77F
 
 # Preferences
 elao_apt_preferences_dir: /etc/apt/preferences.d
