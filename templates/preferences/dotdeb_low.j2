@@ -1,0 +1,19 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{% set config_values = {
+    'package': '*'
+} -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'Package' -%}
+            {%- if config_values.update({'package': config_parameters}) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+Package:      {{ config_values.package }}
+Pin:          {{ elao_apt_repositories_patterns.dotdeb.pin }}
+Pin-Priority: 100
