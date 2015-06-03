@@ -72,6 +72,7 @@ elao_apt_repositories_patterns:
       id:  7580C77F
   rabbitmq:
     source: deb http://www.rabbitmq.com/debian/ testing main
+    pin:    origin www.rabbitmq.com
     key:
       url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
       id:  056E8E56
