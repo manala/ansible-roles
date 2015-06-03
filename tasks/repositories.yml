@@ -17,15 +17,15 @@
 
 - name: repositories > Patterns keys
   apt_key:
-    url:   "{{ elao_apt_repositories_patterns[item].key.url }}"
-    id:    "{{ elao_apt_repositories_patterns[item].key.id }}"
-    state: "{{ elao_apt_repositories_patterns[item].state|default('present') }}"
+    url:   "{{ elao_apt_repositories_patterns[item.split('/')[0]].key.url }}"
+    id:    "{{ elao_apt_repositories_patterns[item.split('/')[0]].key.id }}"
+    state: "{{ item.split('/')[1]|default('present') }}"
   with_items: "{{ elao_apt_repositories|select('string')|list }}"
-  when: elao_apt_repositories_patterns[item].key is defined
+  when: elao_apt_repositories_patterns[item.split('/')[0]].key is defined
 
 - name: repositories > Patterns sources
   apt_repository:
-    repo:         "{{ elao_apt_repositories_patterns[item].source }}"
-    state:        present
+    repo:         "{{ elao_apt_repositories_patterns[item.split('/')[0]].source }}"
+    state:        "{{ item.split('/')[1]|default('present') }}"
     update_cache: yes
   with_items: "{{ elao_apt_repositories|select('string')|list }}"
