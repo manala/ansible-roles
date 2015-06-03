@@ -15,7 +15,7 @@
     update_cache: yes
   with_items: "{{ elao_apt_repositories|select('mapping')|list }}"
 
-- name: repositories > Templates keys
+- name: repositories > Patterns keys
   apt_key:
     url:   "{{ elao_apt_repositories_patterns[item].key.url }}"
     id:    "{{ elao_apt_repositories_patterns[item].key.id }}"
@@ -23,7 +23,7 @@
   with_items: "{{ elao_apt_repositories|select('string')|list }}"
   when: elao_apt_repositories_patterns[item].key is defined
 
-- name: repositories > Templates sources
+- name: repositories > Patterns sources
   apt_repository:
     repo:         "{{ elao_apt_repositories_patterns[item].source }}"
     state:        present
