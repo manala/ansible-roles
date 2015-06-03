@@ -1,0 +1,11 @@
+---
+
+- name: timezone > Template
+  template:
+    src:   "{{ elao_timezone_template }}"
+    dest:  "{{ elao_timezone_file }}"
+    owner: root
+    group: root
+    mode:  0644
+  notify:
+    - dpkg-reconfigure tzdata
