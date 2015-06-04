@@ -10,7 +10,7 @@ galaxy_info:
     This role will assume the configuration of the hosts resolution by:
         Modifying the /etc/hosts definition
         Modifying the /etc/resolv.conf contents
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.9.0
   platforms:
   - name: Debian
     versions:

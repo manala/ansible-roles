@@ -1,9 +1,15 @@
 ---
 
-elao_network_config:
-  hosts:            []
-  resolv:
-    searches:       []
-    nameservers:    []
+# Hosts
+elao_network_hosts_file: /etc/hosts
+elao_network_hosts: []
 
-elao_network_interfaces: []
+# Resolv
+elao_network_resolv_file:     /etc/resolv.conf
+elao_network_resolv_template: ~
+elao_network_resolv_config:   []
+
+# Interfaces
+elao_network_interfaces_file:     /etc/network/interfaces_
+elao_network_interfaces_template: ~
+elao_network_interfaces_config:   []
