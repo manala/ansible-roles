@@ -11,9 +11,9 @@ elao_apt_repositories_patterns:
     key:
       url: http://www.dotdeb.org/dotdeb.gpg
       id:  89DF5277
-  dotdebb_php55:
+  dotdeb_php55:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php55 all
-  dotdebb_php56:
+  dotdeb_php56:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php56 all
   nginx:
     source: deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
