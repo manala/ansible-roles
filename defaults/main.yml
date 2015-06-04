@@ -88,6 +88,7 @@ elao_apt_preferences_patterns:
   rabbitmq:   rabbitmq*
   redis:      redis*
   logentries: logentries*
+  sensu:      sensu*
 
 # Packages
 elao_apt_packages: []
