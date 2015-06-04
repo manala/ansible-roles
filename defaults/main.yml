@@ -67,21 +67,27 @@ elao_apt_repositories_patterns:
       id:  056E8E56
   proxmox_enterprise:
     source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+  logentries:
+    source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+    key:
+      url: https://pgp.mit.edu/pks/lookup?op=get&search=0xA5270289C43C79AD
+      id:  C43C79AD
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
 elao_apt_preferences_template: preferences/empty.j2
 elao_apt_preferences:          []
 elao_apt_preferences_patterns:
-  vim:      vim*
-  git:      git*
-  php:      php*
-  mysql:    mysql*
-  nginx:    nginx*
-  ruby:     ruby*
-  nodejs:   nodejs*
-  rabbitmq: rabbitmq*
-  redis:    redis*
+  vim:        vim*
+  git:        git*
+  php:        php*
+  mysql:      mysql*
+  nginx:      nginx*
+  ruby:       ruby*
+  nodejs:     nodejs*
+  rabbitmq:   rabbitmq*
+  redis:      redis*
+  logentries: logentries*
 
 # Packages
 elao_apt_packages: []
