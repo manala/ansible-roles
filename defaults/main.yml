@@ -82,6 +82,7 @@ elao_apt_preferences_patterns:
   nodejs:   nodejs*
   rabbitmq: rabbitmq*
   redis:    redis*
+  haproxy:  haproxy*
 
 # Packages
 elao_apt_packages: []
