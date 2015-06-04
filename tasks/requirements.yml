@@ -23,15 +23,3 @@
   fail:
     msg: Package "supervisor" must *not* be installed
   when: _elao_supervisor_package_check_output.rc == 0
-
-- name: requirements > Find check
-  command: "find --version"
-  always_run: yes
-  failed_when: false
-  changed_when: false
-  register: _elao_find_check_output
-
-- name: requirements > Find check fail
-  fail:
-    msg: Need find
-  when: _elao_find_check_output.stdout is not defined
