@@ -11,9 +11,9 @@ elao_apt_repositories_patterns:
     key:
       url: http://www.dotdeb.org/dotdeb.gpg
       id:  89DF5277
-  dotdebb_php55:
+  dotdeb_php55:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php55 all
-  dotdebb_php56:
+  dotdeb_php56:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }}-php56 all
   nginx:
     source: deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
@@ -67,22 +67,29 @@ elao_apt_repositories_patterns:
       id:  056E8E56
   proxmox_enterprise:
     source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+  logentries:
+    source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+    key:
+      url: https://pgp.mit.edu/pks/lookup?op=get&search=0xA5270289C43C79AD
+      id:  C43C79AD
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
 elao_apt_preferences_template: preferences/empty.j2
 elao_apt_preferences:          []
 elao_apt_preferences_patterns:
-  vim:      vim*
-  git:      git*
-  php:      php*
-  mysql:    mysql*
-  nginx:    nginx*
-  ruby:     ruby*
-  nodejs:   nodejs*
-  rabbitmq: rabbitmq*
-  redis:    redis*
-  haproxy:  haproxy*
+  vim:        vim*
+  git:        git*
+  php:        php*
+  mysql:      mysql*
+  nginx:      nginx*
+  ruby:       ruby*
+  nodejs:     nodejs*
+  rabbitmq:   rabbitmq*
+  redis:      redis*
+  logentries: logentries*
+  sensu:      sensu*
+  haproxy:    haproxy*
 
 # Packages
 elao_apt_packages: []
