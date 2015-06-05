@@ -1,8 +1,0 @@
----
-
-- name: packages > Installing required packages.
-  apt:
-    name:  "{{ item }}"
-    state: latest
-  with_items:
-    - bind9

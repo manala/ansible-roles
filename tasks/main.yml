@@ -1,5 +1,7 @@
 ---
 
-- include: packages.yml
-- include: config.yml
+- include: install.yml
+- include: log.yml
+- include: configs.yml
+- include: zones.yml
 - include: services.yml
