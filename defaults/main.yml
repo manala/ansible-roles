@@ -72,6 +72,11 @@ elao_apt_repositories_patterns:
     key:
       url: https://pgp.mit.edu/pks/lookup?op=get&search=0xA5270289C43C79AD
       id:  C43C79AD
+  galera:
+    source: deb http://releases.galeracluster.com/debian {{ ansible_distribution_release }} main
+    key:
+      url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD669017EBC19DDBA
+      id:  BC19DDBA
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
@@ -90,6 +95,7 @@ elao_apt_preferences_patterns:
   logentries: logentries*
   sensu:      sensu*
   haproxy:    haproxy*
+  galera:     galera*
 
 # Packages
 elao_apt_packages: []
