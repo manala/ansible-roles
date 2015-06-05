@@ -1,8 +1,9 @@
 ---
 
-- name: config > Config
+- name: config > Template
   template:
     src:  "{{ elao_haproxy_config_template }}"
-    dest: "{{ elao_haproxy_config_path }}"
+    dest: "{{ elao_haproxy_config_file }}"
   notify:
     - haproxy restart
+  when: elao_haproxy_config_template is not none

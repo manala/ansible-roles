@@ -3,23 +3,7 @@
 - name: errorfiles > Templates
   template:
     src:  "{{ item.template }}"
-    dest: "{{ elao_haproxy_errorfiles_path }}/{{ item.name }}"
+    dest: "{{ elao_haproxy_errorfiles_dir }}/{{ item.file }}"
   with_items: elao_haproxy_errorfiles
-  notify:
-    - haproxy restart
-
-- name: errorfiles > Find
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: "{{ elao_haproxy_errorfiles_path }}"
-  changed_when: false
-  register: _elao_haproxy_errorfiles_find_output
-
-- name: errorfiles > Clean
-  file:
-    path:  "{{ elao_haproxy_errorfiles_path }}/{{ item }}"
-    state: absent
-  when: item not in elao_haproxy_errorfiles|map(attribute='name')
-  with_items: _elao_haproxy_errorfiles_find_output.stdout_lines
   notify:
     - haproxy restart
