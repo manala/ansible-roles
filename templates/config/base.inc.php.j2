@@ -1,0 +1,196 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_phpmyadmin_config -%}
+
+<?php
+/* vim: set expandtab sw=4 ts=4 sts=4: */
+/**
+ * phpMyAdmin sample configuration, you can use it as base for
+ * manual configuration. For easier setup you can use setup/
+ *
+ * All directives are explained in documentation in the doc/ folder
+ * or at <http://docs.phpmyadmin.net/>.
+ *
+ * @package PhpMyAdmin
+ */
+
+/*
+ * This is needed for cookie based authentication to encrypt password in
+ * cookie
+ */
+{{ macros.config_row(config, 'blowfish_secret', '') }} /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+
+/*
+ * Servers configuration
+ */
+{% for config_server_name, config_server in elao_phpmyadmin_config_servers.iteritems() %}
+/* Authentication type */
+{{ macros.config_row(config_server, 'auth_type', 'cookie', false, config_server_name) }}
+/* Server parameters */
+{{ macros.config_row(config_server, 'host', 'localhost', false, config_server_name) }}
+{{ macros.config_row(config_server, 'connect_type', 'tcp', false, config_server_name) }}
+{{ macros.config_row(config_server, 'compress', false, false, config_server_name) }}
+{{ macros.config_row(config_server, 'AllowNoPassword', false, false, config_server_name) }}
+
+/*
+ * phpMyAdmin configuration storage settings.
+ */
+
+/* User used to manipulate with storage */
+{{ macros.config_row(config_server, 'controlhost', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controlhost\'] = \'\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'controlport', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controlport\'] = \'\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'controluser', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controluser\'] = \'pma\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'controlpass', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controlpass\'] = \'pmapass\';', true, config_server_name) }}
+
+/* Storage database and tables */
+{{ macros.config_row(config_server, 'pmadb', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'pmadb\'] = \'phpmyadmin\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'bookmarktable', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'bookmarktable\'] = \'pma__bookmark\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'relation', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'relation\'] = \'pma__relation\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'table_info', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'table_info\'] = \'pma__table_info\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'table_coords', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'table_coords\'] = \'pma__table_coords\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'pdf_pages', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'pdf_pages\'] = \'pma__pdf_pages\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'column_info', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'column_info\'] = \'pma__column_info\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'history', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'history\'] = \'pma__history\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'table_uiprefs', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'table_uiprefs\'] = \'pma__table_uiprefs\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'tracking', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'tracking\'] = \'pma__tracking\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'userconfig', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'userconfig\'] = \'pma__userconfig\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'recent', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'recent\'] = \'pma__recent\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'favorite', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'favorite\'] = \'pma__favorite\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'users', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'users\'] = \'pma__users\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'usergroups', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'usergroups\'] = \'pma__usergroups\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'navigationhiding', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'navigationhiding\'] = \'pma__navigationhiding\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'savedsearches', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'savedsearches\'] = \'pma__savedsearches\';', true, config_server_name) }}
+{{ macros.config_row(config_server, 'central_columns', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'central_columns\'] = \'pma__central_columns\';', true, config_server_name) }}
+/* Contrib / Swekey authentication */
+{{ macros.config_row(config_server, 'auth_swekey_config', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'auth_swekey_config\'] = \'/etc/swekey-pma.conf\';', true, config_server_name) }}
+
+{{ macros.config(config_server, [
+    'auth_type',
+    'host',
+    'connect_type',
+    'compress',
+    'AllowNoPassword',
+    'controlhost',
+    'controlport',
+    'controluser',
+    'controlpass',
+    'pmadb',
+    'bookmarktable',
+    'relation',
+    'table_info',
+    'table_coords',
+    'pdf_pages',
+    'column_info',
+    'history',
+    'table_uiprefs',
+    'tracking',
+    'userconfig',
+    'recent',
+    'favorite',
+    'users',
+    'usergroups',
+    'navigationhiding',
+    'savedsearches',
+    'central_columns',
+    'auth_swekey_config'
+], config_server_name) }}
+{% endfor %}
+
+/*
+ * End of servers configuration
+ */
+
+/*
+ * Directories for saving/loading files from server
+ */
+{{ macros.config_row(config, 'UploadDir', '') }}
+{{ macros.config_row(config, 'SaveDir', '') }}
+
+/**
+ * Whether to display icons or text or both icons and text in table row
+ * action segment. Value can be either of 'icons', 'text' or 'both'.
+ */
+{{ macros.config_row(config, 'RowActionType', '//$cfg[\'RowActionType\'] = \'both\';', true) }}
+
+/**
+ * Defines whether a user should be displayed a "show all (records)"
+ * button in browse mode or not.
+ * default = false
+ */
+{{ macros.config_row(config, 'ShowAll', '//$cfg[\'ShowAll\'] = true;', true) }}
+
+/**
+ * Number of rows displayed when browsing a result set. If the result
+ * set contains more rows, "Previous" and "Next".
+ * default = 30
+ */
+{{ macros.config_row(config, 'MaxRows', '//$cfg[\'MaxRows\'] = 50;', true) }}
+
+/**
+ * disallow editing of binary fields
+ * valid values are:
+ *   false    allow editing
+ *   'blob'   allow editing except for BLOB fields
+ *   'noblob' disallow editing except for BLOB fields
+ *   'all'    disallow editing
+ * default = blob
+ */
+{{ macros.config_row(config, 'ProtectBinary', '//$cfg[\'ProtectBinary\'] = \'false\';', true) }}
+
+/**
+ * Default language to use, if not browser-defined or user-defined
+ * (you find all languages in the locale folder)
+ * uncomment the desired line:
+ * default = 'en'
+ */
+{{ macros.config_row(config, 'DefaultLang', '//$cfg[\'DefaultLang\'] = \'en\';\n//$cfg[\'DefaultLang\'] = \'de\';', true) }}
+
+/**
+ * How many columns should be used for table display of a database?
+ * (a value larger than 1 results in some information being hidden)
+ * default = 1
+ */
+{{ macros.config_row(config, 'PropertiesNumColumns', '//$cfg[\'PropertiesNumColumns\'] = 2;', true) }}
+
+/**
+ * Set to true if you want DB-based query history.If false, this utilizes
+ * JS-routines to display query history (lost by window close)
+ *
+ * This requires configuration storage enabled, see above.
+ * default = false
+ */
+{{ macros.config_row(config, 'QueryHistoryDB', '//$cfg[\'QueryHistoryDB\'] = true;', true) }}
+
+/**
+ * When using DB-based query history, how many entries should be kept?
+ *
+ * default = 25
+ */
+{{ macros.config_row(config, 'QueryHistoryMax', '//$cfg[\'QueryHistoryMax\'] = 100;', true) }}
+
+/**
+ * Should error reporting be enabled for JavaScript errors
+ *
+ * default = 'ask'
+ */
+{{ macros.config_row(config, 'SendErrorReports', '//$cfg[\'SendErrorReports\'] = \'ask\';', true) }}
+
+/*
+ * You can find more configuration options in the documentation
+ * in the doc/ folder or at <http://docs.phpmyadmin.net/>.
+ */
+
+{{ macros.config(config, [
+    'blowfish_secret',
+    'UploadDir',
+    'SaveDir',
+    'RowActionType',
+    'ShowAll',
+    'MaxRows',
+    'ProtectBinary',
+    'DefaultLang',
+    'PropertiesNumColumns',
+    'QueryHistoryDB',
+    'QueryHistoryMax',
+    'SendErrorReports'
+]) }}

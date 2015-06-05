@@ -4,9 +4,10 @@
   command: "composer --version"
   always_run: yes
   failed_when: false
-  register: _elao_composer_version
+  changed_when: false
+  register: _elao_composer_check_output
 
 - name: requirements > Composer
   fail:
     msg: Need composer, you can use https://github.com/ElaoInfra/ansible-role-composer
-  when: (_elao_composer_version.stdout is not defined)
+  when: (_elao_composer_check_output.stdout is not defined)
