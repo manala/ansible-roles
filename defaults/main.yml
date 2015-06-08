@@ -1,3 +1,5 @@
 ---
 
-elao_env_config: {}
+# Env
+elao_env_file: /etc/environment
+elao_env:      []
