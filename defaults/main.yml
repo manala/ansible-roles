@@ -2,7 +2,7 @@
 
 # Config
 elao_supervisor_config_file:     /etc/supervisord.conf
-elao_supervisor_config_template: config/base.conf.j2
+elao_supervisor_config_template: ~
 elao_supervisor_config:          []
 
 # Configs
