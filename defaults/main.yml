@@ -1,9 +1,9 @@
 ---
 
 # Config
-elao_nginx_config_file:      /etc/nginx/nginx.conf
-elao_nginx_config_template:  config/http_base.conf.j2
-elao_nginx_config:           []
+elao_nginx_config_file:     /etc/nginx/nginx.conf
+elao_nginx_config_template: ~
+elao_nginx_config:          []
 
 # Configs
 elao_nginx_configs_exclusive: false
