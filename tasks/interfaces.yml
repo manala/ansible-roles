@@ -4,4 +4,4 @@
   template:
     src:  "{{ elao_network_interfaces_template|ternary(elao_network_interfaces_template, 'interfaces/empty.j2') }}"
     dest: "{{ elao_network_interfaces_file }}"
-  when: (elao_network_interfaces_config is not none) or (elao_network_interfaces_config|length)
+  when: (elao_network_interfaces_template is not none) or (elao_network_interfaces_config|length)
