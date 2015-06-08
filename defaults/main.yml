@@ -1,9 +1,9 @@
 ---
 
 # Dirs
-elao_ohmyzsh_dir: /usr/local/share/oh-my-zsh
+elao_ohmyzsh_dir:        /usr/local/share/oh-my-zsh
 elao_ohmyzsh_custom_dir: $HOME/.oh-my-zsh/custom
 
 # Users
 elao_ohmyzsh_users_template: users/base.j2
-elao_ohmyzsh_users: []
+elao_ohmyzsh_users:          []
