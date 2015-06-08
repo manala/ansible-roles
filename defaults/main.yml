@@ -2,10 +2,10 @@
 
 # Config
 elao_ssh_config_file:     /etc/ssh/ssh_config
-elao_ssh_config_template: config/base.j2
-elao_ssh_config: []
+elao_ssh_config_template: ~
+elao_ssh_config:          []
 
 # Config - Sshd
 elao_ssh_config_sshd_file:     /etc/ssh/sshd_config
-elao_ssh_config_sshd_template: config/sshd/base.j2
-elao_ssh_config_sshd: []
+elao_ssh_config_sshd_template: ~
+elao_ssh_config_sshd:          []

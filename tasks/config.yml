@@ -2,12 +2,14 @@
 
 - name: config > Template
   template:
-    src:  "{{ elao_ssh_config_template }}"
+    src:  "{{ elao_ssh_config_template|ternary(elao_ssh_config_template, 'config/base.j2') }}"
     dest: "{{ elao_ssh_config_file }}"
+  when: (elao_ssh_config_template is not none) or (elao_ssh_config|length)
 
 - name: config > Template sshd
   template:
-    src:  "{{ elao_ssh_config_sshd_template }}"
+    src:  "{{ elao_ssh_config_sshd_template|ternary(elao_ssh_config_sshd_template, 'config/sshd/base.j2') }}"
     dest: "{{ elao_ssh_config_sshd_file }}"
+  when: (elao_ssh_config_sshd_template is not none) or (elao_ssh_config_sshd|length)
   notify:
     - ssh reload
