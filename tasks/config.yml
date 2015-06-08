@@ -1,4 +1,7 @@
-- name: config > Config
+---
+
+- name: config > Template
   template:
-    src:  "{{ elao_phantomjs_config_template }}"
+    src:  "{{ elao_phantomjs_config_template|ternary(elao_phantomjs_config_template, 'config/empty.j2') }}"
     dest: "{{ elao_phantomjs_config_file }}"
+  when: (elao_phantomjs_config_template is not none) or (elao_phantomjs_config|length)

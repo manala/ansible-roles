@@ -1,6 +1,6 @@
 ---
 
 # Config
-elao_phantomjs_config_file: /etc/default/phantomjs
-elao_phantomjs_config_template: config/empty.j2
-elao_phantomjs_config: []
+elao_phantomjs_config_file:     /etc/default/phantomjs
+elao_phantomjs_config_template: ~
+elao_phantomjs_config:          []
