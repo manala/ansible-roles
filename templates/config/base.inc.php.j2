@@ -23,48 +23,51 @@
 /*
  * Servers configuration
  */
-{% for config_server_name, config_server in elao_phpmyadmin_config_servers.iteritems() %}
+{% for config_server in elao_phpmyadmin_config_servers %}
+
+{%- set config_server_config = config_server.config|default([]) -%}
+
 /* Authentication type */
-{{ macros.config_row(config_server, 'auth_type', 'cookie', false, config_server_name) }}
+{{ macros.config_row(config_server_config, 'auth_type', 'cookie', false, config_server.id) }}
 /* Server parameters */
-{{ macros.config_row(config_server, 'host', 'localhost', false, config_server_name) }}
-{{ macros.config_row(config_server, 'connect_type', 'tcp', false, config_server_name) }}
-{{ macros.config_row(config_server, 'compress', false, false, config_server_name) }}
-{{ macros.config_row(config_server, 'AllowNoPassword', false, false, config_server_name) }}
+{{ macros.config_row(config_server_config, 'host', 'localhost', false, config_server.id) }}
+{{ macros.config_row(config_server_config, 'connect_type', 'tcp', false, config_server.id) }}
+{{ macros.config_row(config_server_config, 'compress', false, false, config_server.id) }}
+{{ macros.config_row(config_server_config, 'AllowNoPassword', false, false, config_server.id) }}
 
 /*
  * phpMyAdmin configuration storage settings.
  */
 
 /* User used to manipulate with storage */
-{{ macros.config_row(config_server, 'controlhost', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controlhost\'] = \'\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'controlport', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controlport\'] = \'\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'controluser', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controluser\'] = \'pma\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'controlpass', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'controlpass\'] = \'pmapass\';', true, config_server_name) }}
+{{ macros.config_row(config_server_config, 'controlhost', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'controlhost\'] = \'\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'controlport', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'controlport\'] = \'\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'controluser', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'controluser\'] = \'pma\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'controlpass', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'controlpass\'] = \'pmapass\';', true, config_server.id) }}
 
 /* Storage database and tables */
-{{ macros.config_row(config_server, 'pmadb', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'pmadb\'] = \'phpmyadmin\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'bookmarktable', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'bookmarktable\'] = \'pma__bookmark\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'relation', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'relation\'] = \'pma__relation\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'table_info', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'table_info\'] = \'pma__table_info\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'table_coords', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'table_coords\'] = \'pma__table_coords\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'pdf_pages', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'pdf_pages\'] = \'pma__pdf_pages\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'column_info', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'column_info\'] = \'pma__column_info\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'history', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'history\'] = \'pma__history\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'table_uiprefs', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'table_uiprefs\'] = \'pma__table_uiprefs\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'tracking', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'tracking\'] = \'pma__tracking\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'userconfig', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'userconfig\'] = \'pma__userconfig\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'recent', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'recent\'] = \'pma__recent\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'favorite', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'favorite\'] = \'pma__favorite\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'users', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'users\'] = \'pma__users\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'usergroups', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'usergroups\'] = \'pma__usergroups\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'navigationhiding', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'navigationhiding\'] = \'pma__navigationhiding\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'savedsearches', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'savedsearches\'] = \'pma__savedsearches\';', true, config_server_name) }}
-{{ macros.config_row(config_server, 'central_columns', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'central_columns\'] = \'pma__central_columns\';', true, config_server_name) }}
+{{ macros.config_row(config_server_config, 'pmadb', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'pmadb\'] = \'phpmyadmin\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'bookmarktable', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'bookmarktable\'] = \'pma__bookmark\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'relation', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'relation\'] = \'pma__relation\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'table_info', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'table_info\'] = \'pma__table_info\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'table_coords', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'table_coords\'] = \'pma__table_coords\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'pdf_pages', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'pdf_pages\'] = \'pma__pdf_pages\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'column_info', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'column_info\'] = \'pma__column_info\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'history', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'history\'] = \'pma__history\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'table_uiprefs', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'table_uiprefs\'] = \'pma__table_uiprefs\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'tracking', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'tracking\'] = \'pma__tracking\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'userconfig', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'userconfig\'] = \'pma__userconfig\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'recent', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'recent\'] = \'pma__recent\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'favorite', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'favorite\'] = \'pma__favorite\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'users', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'users\'] = \'pma__users\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'usergroups', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'usergroups\'] = \'pma__usergroups\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'navigationhiding', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'navigationhiding\'] = \'pma__navigationhiding\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'savedsearches', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'savedsearches\'] = \'pma__savedsearches\';', true, config_server.id) }}
+{{ macros.config_row(config_server_config, 'central_columns', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'central_columns\'] = \'pma__central_columns\';', true, config_server.id) }}
 /* Contrib / Swekey authentication */
-{{ macros.config_row(config_server, 'auth_swekey_config', '// $cfg[\'Servers\'][' ~ config_server_name ~ '][\'auth_swekey_config\'] = \'/etc/swekey-pma.conf\';', true, config_server_name) }}
+{{ macros.config_row(config_server_config, 'auth_swekey_config', '// $cfg[\'Servers\'][' ~ config_server.id ~ '][\'auth_swekey_config\'] = \'/etc/swekey-pma.conf\';', true, config_server.id) }}
 
-{{ macros.config(config_server, [
+{{ macros.config(config_server_config, [
     'auth_type',
     'host',
     'connect_type',
@@ -93,7 +96,7 @@
     'savedsearches',
     'central_columns',
     'auth_swekey_config'
-], config_server_name) }}
+], config_server.id) }}
 {% endfor %}
 
 /*
