@@ -10,6 +10,6 @@ elao_network_resolv_template: ~
 elao_network_resolv_config:   []
 
 # Interfaces
-elao_network_interfaces_file:     /etc/network/interfaces_
+elao_network_interfaces_file:     /etc/network/interfaces
 elao_network_interfaces_template: ~
 elao_network_interfaces_config:   []
