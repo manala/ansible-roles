@@ -4,5 +4,5 @@
   apt:
     name:  "{{ item.name }}"
     force: "{{ item.force|default(omit) }}"
-    state: "{{ item.state|default(omit) }}"
+    state: "{{ item.state|default('present') }}"
   with_items: elao_apt_packages
