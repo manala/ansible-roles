@@ -1,5 +1,5 @@
 ---
 
 elao_timezone_file:     /etc/timezone
-elao_timezone_template: timezone/timezone.j2
-elao_timezone:          Etc/UTC
+elao_timezone_template: ~
+elao_timezone:          ~

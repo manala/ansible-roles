@@ -9,7 +9,7 @@ galaxy_info:
   description: >
     Setup timezone
   license: MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.9.0
   platforms:
     - name: Debian
       versions:

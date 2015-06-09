@@ -2,10 +2,11 @@
 
 - name: timezone > Template
   template:
-    src:   "{{ elao_timezone_template }}"
+    src:   "{{ elao_timezone_template|ternary(elao_timezone_template, 'timezone/timezone.j2') }}"
     dest:  "{{ elao_timezone_file }}"
     owner: root
     group: root
     mode:  0644
+  when: (elao_timezone_template is not none) or (elao_timezone is not none)
   notify:
     - dpkg-reconfigure tzdata
