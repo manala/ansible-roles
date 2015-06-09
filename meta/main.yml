@@ -11,7 +11,7 @@ galaxy_info:
         - Installing package
         - Allow vim configuration by using the `/etc/vim/vimrc.local` file
   license:             MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.9.0
   platforms:
     - name: Debian
       versions:

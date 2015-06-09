@@ -2,8 +2,9 @@
 
 - name: config > Config
   template:
-    src:    "{{ elao_vim_config_template }}"
-    dest:   "{{ elao_vim_config_file }}"
-    owner:  root
-    group:  root
-    mode:   0644
+    src:   "{{ elao_vim_config_template|ternary(elao_vim_config_template, 'config/empty.j2') }}"
+    dest:  "{{ elao_vim_config_file }}"
+    owner: root
+    group: root
+    mode:  0644
+  when: (elao_vim_config_template is not none) or (elao_vim_config|length)
