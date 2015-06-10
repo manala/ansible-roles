@@ -7,16 +7,19 @@
     mode: 0440
   with_items: elao_sudo_sudoers
 
-- name: configs > Find
+- name: sudoers > Exclusive - find files
   command: "find -type f \\( ! -iname 'README' \\) -printf '%P\n'"
   args:
     chdir: "{{ elao_sudo_sudoers_dir }}"
   changed_when: false
   register: _elao_sudo_sudoers_find_output
+  when: elao_sudo_sudoers_exclusive
 
-- name: configs > Clean
+- name: sudoers > Exclusive - remove files
   file:
     path:  "{{ elao_sudo_sudoers_dir }}/{{ item }}"
     state: absent
-  when: item not in elao_sudo_sudoers|map(attribute='file')
+  when: elao_sudo_sudoers_exclusive and (item not in elao_sudo_sudoers|map(attribute='file'))
   with_items: _elao_sudo_sudoers_find_output.stdout_lines
+  notify:
+    - sudo restart
