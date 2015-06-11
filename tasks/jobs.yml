@@ -1,6 +1,6 @@
 ---
 
-- name: jobs > Manage crontab entries
+- name: jobs > Cron
   cron:
     name:       "{{ item.name }}"
     job:        "{{ item.job|default(omit) }}"

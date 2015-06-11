@@ -9,7 +9,7 @@ galaxy_info:
   description: >
     A cron role to manage crontab entries.
   license: MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.8.0
   platforms:
     - name: Debian
       versions:
