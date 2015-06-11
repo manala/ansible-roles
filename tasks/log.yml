@@ -8,10 +8,14 @@
     group: root
     mode:  0755
 
+- name: log > File touch
+  command: "touch {{ elao_php_log_dir }}/error.log"
+  args:
+    creates: "{{ elao_php_log_dir }}/error.log"
+
 - name: log > File
   file:
-    path:  "{{  elao_php_log_dir }}/error.log"
-    state: touch
+    path:  "{{ elao_php_log_dir }}/error.log"
     owner: "{{ elao_php_user }}"
     mode:  0640
 
