@@ -1,6 +1,6 @@
 ---
 
-- name: files > Attributes
+- name: files > File
   file:
     path:     "{{ item.path }}"
     follow:   "{{ item.follow|default(omit) }}"
@@ -14,8 +14,18 @@
     setype:   "{{ item.setype|default(omit) }}"
     seuser:   "{{ item.seuser|default(omit) }}"
     src:      "{{ item.src|default(omit) }}"
-    state:    "{{ item.state|default(omit) }}"
-  with_items: elao_files
+    state:    "{{ item.state|default('file') }}"
+  with_items: "{{ elao_files|selectattr('content', 'undefined')|list }}"
+
+- name: files > Content
+  copy:
+    dest:    "{{ item.path }}"
+    content: "{{ item.content }}"
+    force:   "{{ item.force|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+    owner:   "{{ item.owner|default(omit) }}"
+  with_items: "{{ elao_files|selectattr('content', 'defined')|list }}"
 
 - name: files > Acls
   acl:
