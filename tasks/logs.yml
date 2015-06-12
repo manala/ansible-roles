@@ -1,6 +1,6 @@
 ---
 
-- name: log > Directory
+- name: logs > Directory
   file:
     path:  "{{  elao_php_log_dir }}"
     state: directory
@@ -8,21 +8,13 @@
     group: root
     mode:  0755
 
-- name: log > File touch
+- name: logs > File touch
   command: "touch {{ elao_php_log_dir }}/error.log"
   args:
     creates: "{{ elao_php_log_dir }}/error.log"
 
-- name: log > File
+- name: logs > File
   file:
     path:  "{{ elao_php_log_dir }}/error.log"
     owner: "{{ elao_php_user }}"
     mode:  0640
-
-- name: log > Logrotate
-  template:
-    src:   log/logrotate.j2
-    dest:  /etc/logrotate.d/php5
-    owner: root
-    group: root
-    mode:  0644

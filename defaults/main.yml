@@ -30,5 +30,10 @@ elao_php_extensions_exclude:
 elao_php_user:  www-data
 elao_php_group: www-data
 
-# Log
+# Logs
 elao_php_log_dir: /var/log/php5
+
+# Logrotate
+elao_php_logrotate_file:     /etc/logrotate.d/php5
+elao_php_logrotate_template: ~
+elao_php_logrotate_config:   []

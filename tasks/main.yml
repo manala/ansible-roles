@@ -1,7 +1,8 @@
 ---
 
 - include: install.yml
-- include: log.yml
+- include: logs.yml
+- include: logrotate.yml
 - include: extensions.yml
 - include: configs.yml _elao_php_sapi=fpm
   when: "'fpm' in elao_php_sapis"
