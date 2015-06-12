@@ -1,0 +1,8 @@
+---
+
+- name: logs > Directory
+  file:
+    path:  "{{ elao_bind_log_dir }}"
+    state: directory
+    owner: "{{ elao_bind_user }}"
+    group: "{{ elao_bind_group }}"

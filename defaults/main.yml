@@ -4,8 +4,13 @@
 elao_bind_user:  bind
 elao_bind_group: bind
 
-# Log
+# Logs
 elao_bind_log_dir: /var/log/bind
+
+# Logrotate
+elao_bind_logrotate_file:     /etc/logrotate.d/bind
+elao_bind_logrotate_template: ~
+elao_bind_logrotate_config:   []
 
 # Configs
 elao_bind_configs_dir: /etc/bind

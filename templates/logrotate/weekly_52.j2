@@ -1,12 +1,12 @@
 {{ elao_bind_log_dir }}/*.log {
-    daily
-    rotate 14
+    weekly
+    rotate 52
     compress
     delaycompress
     missingok
     notifempty
     create 0664 {{ elao_bind_user }} {{ elao_bind_group }}
     postrotate
-      /etc/init.d/bind9 reload > /dev/null
+        /etc/init.d/bind9 reload > /dev/null
     endscript
 }
