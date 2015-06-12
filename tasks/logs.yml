@@ -1,6 +1,6 @@
 ---
 
-- name: log > Dir
+- name: logs > Dir
   file:
     path:  "{{ elao_supervisor_log_dir }}"
     state: directory
