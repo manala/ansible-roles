@@ -1,0 +1,19 @@
+---
+
+- name: logrotate > Template base
+  template:
+    src:   logrotate/base.j2
+    dest:  "{{ elao_nginx_logrotate_file }}"
+    owner: root
+    group: root
+    mode:  0644
+  when: (elao_nginx_logrotate_template is none) and (not elao_nginx_logrotate_config|length)
+
+- name: logrotate > Template
+  template:
+    src:   "{{ elao_nginx_logrotate_template|ternary(elao_nginx_logrotate_template, 'logrotate/empty.j2') }}"
+    dest:  "{{ elao_nginx_logrotate_file }}"
+    owner: root
+    group: root
+    mode:  0644
+  when: (elao_nginx_logrotate_template is not none) or (elao_nginx_logrotate_config|length)

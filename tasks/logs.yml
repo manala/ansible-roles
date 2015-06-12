@@ -1,14 +1,6 @@
 ---
 
-- name: log > Logrotate
-  template:
-    src:  log/logrotate.j2
-    dest: /etc/logrotate.d/nginx
-    owner: root
-    group: root
-    mode:  0644
-
-- name: log > Files
+- name: logs > Files
   file:
     path:  "{{ item }}"
     owner: "{{ elao_nginx_user }}"
