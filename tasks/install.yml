@@ -21,3 +21,4 @@
   template:
     src:   install/init.j2
     dest:  /etc/init.d/heka
+    mode:  0755
