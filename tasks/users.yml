@@ -1,0 +1,16 @@
+---
+
+- name: user > Install python-mysqldb package
+  apt:
+    name: python-mysqldb
+  when: elao_mysql_users|length > 0
+
+- name: users > Create mysql users
+  mysql_user:
+    name:     "{{ item.name }}"
+    password: "{{ item.password }}"
+    host:     "{{ item.host|default('localhost') }}"
+    priv:     "{{ item.priv }}"
+    state:    "{{ item.state|default(omit) }}"
+  with_items: elao_mysql_users
+
