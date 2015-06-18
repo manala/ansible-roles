@@ -1,0 +1,7 @@
+---
+
+# Config
+elao_redis_config_file:     /etc/redis/redis.conf
+elao_redis_config_template: ~
+elao_redis_config:          []
+
