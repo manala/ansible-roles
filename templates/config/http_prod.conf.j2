@@ -41,8 +41,6 @@ http {
 
 {{ macros.config_row(config_http, 'keepalive_timeout', 65, 4) }}
 
-{{ macros.config_row(config_http, 'gzip', '#gzip  on;', 4, true) }}
-
 {{ macros.config_row(config_http, 'include', [
     '/etc/nginx/mime.types',
     elao_nginx_configs_dir ~ '/*.conf'
@@ -55,7 +53,6 @@ http {
     'sendfile',
     'tcp_nopush',
     'keepalive_timeout',
-    'gzip',
     'include'
 ], 4) -}}
 }

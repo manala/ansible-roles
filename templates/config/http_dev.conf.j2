@@ -42,8 +42,6 @@ http {
 
 {{ macros.config_row(config_http, 'keepalive_timeout', 65, 4) }}
 
-{{ macros.config_row(config_http, 'gzip', '#gzip  on;', 4, true) }}
-
 {# See: http://www.nicogiraud.com/blog/nginx-erreur-502-bad-gateway-sur-les-requetes-en-post.html #}
 {{ macros.config_row(config_http, 'fastcgi_buffer_size', '128k', 4) }}
 {{ macros.config_row(config_http, 'fastcgi_buffers', '4 256k', 4) }}
@@ -61,7 +59,6 @@ http {
     'sendfile',
     'tcp_nopush',
     'keepalive_timeout',
-    'gzip',
     'include',
     'fastcgi_buffer_size',
     'fastcgi_buffers',
