@@ -2,7 +2,7 @@
 
 {% set config = item.config|default([]) -%}
 
-{{ macros.config_row(config, 'gzip', true) }}
+{{ macros.config_row(config, 'gzip', false) }}
 {{ macros.config_row(config, 'gzip_disable', 'msie6') }}
 {{ macros.config_row(config, 'gzip_vary', true) }}
 {{ macros.config_row(config, 'gzip_proxied', 'expired no-cache no-store private auth') }}
