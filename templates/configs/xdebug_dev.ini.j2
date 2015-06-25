@@ -2,8 +2,6 @@
 
 {% set config = item.config|default([]) -%}
 
-zend_extension = xdebug.so
-
 {{ macros.config_row(config, 'xdebug.default_enable', 1) }}
 {{ macros.config_row(config, 'xdebug.remote_enable', 1) }}
 {{ macros.config_row(config, 'xdebug.remote_connect_back', 1) }}
