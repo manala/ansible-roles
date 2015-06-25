@@ -4,10 +4,12 @@
 - include: logs.yml
 - include: logrotate.yml
 - include: extensions.yml
-- include: configs.yml _elao_php_sapi=fpm
-  when: "'fpm' in elao_php_sapis"
-- include: configs.yml _elao_php_sapi=cli
-  when: "'cli' in elao_php_sapis"
+- include: configs_global.yml
+  when: elao_php_configs_global
+- include: configs_sapi.yml _elao_php_sapi=fpm
+  when: (not elao_php_configs_global) and ('fpm' in elao_php_sapis)
+- include: configs_sapi.yml _elao_php_sapi=cli
+  when: (not elao_php_configs_global) and ('cli' in elao_php_sapis)
 - include: fpm_pools.yml
-  when: "'fpm' in elao_php_sapis"
+  when: ('fpm' in elao_php_sapis)
 - include: services.yml
