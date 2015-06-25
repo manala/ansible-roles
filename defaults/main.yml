@@ -4,8 +4,8 @@
 elao_php_sapis: ['cli', 'fpm']
 
 # Configs
-elao_php_configs_dir: /etc/php5
 elao_php_configs_template: configs/empty.ini.j2
+elao_php_configs_dir_base:  /etc/php5
 elao_php_configs_exclusive: false
 elao_php_configs: []
 elao_php_fpm_configs: []

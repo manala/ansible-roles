@@ -40,7 +40,7 @@ dependencies:
 | ------------------------------ | --------------------      | ------  | ------------------------------------------------------ |
 | `elao_php_sapis`               | [cli, fpm]                | Array   | A list of the PHP SAPIs to install.                    |
 | `elao_php_extensions`          | [ ]                       | Array   | A list of the php extensions to install.               |
-| `elao_php_configs_dir`         | /etc/php5                 | String  | Configs directory path.                                |
+| `elao_php_configs_dir_base`    | /etc/php5                 | String  | Configs directory path.                                |
 | `elao_php_configs_template`    | configs/default.ini.j2    | String  | Default configuration template.                        |
 | `elao_php_configs_exclusive`   | false                     | Boolean | Whether to remove all other non-specified config files |
 | `elao_php_configs`             | [ ]                       | Array   | Shared configurations.                                 |
