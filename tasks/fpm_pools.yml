@@ -1,14 +1,14 @@
 ---
 
-- name: fpm_pools > Create config files.
+- name: fpm_pools > Templates
   template:
-    src: "{{ item.template|default(elao_php_fpm_pools_template) }}"
+    src:  "{{ item.template|default(elao_php_fpm_pools_template) }}"
     dest: "{{ elao_php_fpm_pools_dir }}/{{ item.file }}"
   notify:
     - php fpm restart
   with_items: elao_php_fpm_pools
 
-- name: fpm_pools > Exclusive - find files
+- name: fpm_pools > Exclusive - Find files
   command: "find -type f -printf '%P\n'"
   args:
     chdir: "{{ elao_php_fpm_pools_dir }}"
@@ -16,7 +16,7 @@
   register: _elao_php_fpm_pools_find_output
   when: elao_php_fpm_pools_exclusive
 
-- name: fpm_pools > Exclusive - remove files
+- name: fpm_pools > Exclusive - Remove files
   file:
     path:  "{{ elao_php_fpm_pools_dir }}/{{ item }}"
     state: absent
