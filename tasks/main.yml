@@ -1,0 +1,6 @@
+---
+
+- include: requirements.yml
+- include: install.yml
+- include: services.yml
+

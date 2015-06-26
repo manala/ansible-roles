@@ -1,0 +1,14 @@
+---
+
+- name: requirements > Java check
+  command: "java -version"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_java_check_output
+
+- name: requirements > Java check fail
+  fail:
+    msg: Need java, you can use https://github.com/ElaoInfra/ansible-role-java
+  when: _elao_java_check_output.stdout is not defined
+
