@@ -82,26 +82,32 @@ elao_apt_repositories_patterns:
     key:
       url: https://packagecloud.io/gpg.key
       id:  D59097AB
+  elasticsearch:
+    source: deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main
+    key:
+      url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+      id:  D88E42B4
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
 elao_apt_preferences_template: preferences/empty.j2
 elao_apt_preferences:          []
 elao_apt_preferences_patterns:
-  vim:        vim*
-  git:        git*
-  php:        php*
-  mysql:      mysql*
-  nginx:      nginx*
-  ruby:       ruby*
-  nodejs:     nodejs*
-  rabbitmq:   rabbitmq*
-  redis:      redis*
-  logentries: logentries*
-  sensu:      sensu*
-  haproxy:    haproxy*
-  galera:     galera*
-  grafana:    grafana*
+  vim:           vim*
+  git:           git*
+  php:           php*
+  mysql:         mysql*
+  nginx:         nginx*
+  ruby:          ruby*
+  nodejs:        nodejs*
+  rabbitmq:      rabbitmq*
+  redis:         redis*
+  logentries:    logentries*
+  sensu:         sensu*
+  haproxy:       haproxy*
+  galera:        galera*
+  grafana:       grafana*
+  elasticsearch: elasticsearch*
 
 # Packages
 elao_apt_packages: []
