@@ -1,6 +1,6 @@
 ---
 
-- name: services > Start mysql if not running.
+- name: services > Ensure mysql is running
   service:
     name:    "{{ item }}"
     state:   started
