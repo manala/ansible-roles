@@ -1,6 +1,6 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
-# Ansible Role: phpMyAdmin
+# Ansible Role: phpPgAdmin
 
 This role will install and config phpPgAdmin via composer.
 
