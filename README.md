@@ -30,9 +30,9 @@ dependencies:
 
 ## Role Handlers
 
-| Name                   | Type    | Description          |
-| ---------------------- | ------- | -------------------- |
-| `redis-server restart` | Service | Restart redis server |
+| Name            | Type    | Description          |
+| --------------- | ------- | -------------------- |
+| `redis restart` | Service | Restart redis server |
 
 ## Role Variables
 

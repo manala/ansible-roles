@@ -7,7 +7,7 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    Setup and configure redis-server
+    Setup and configure redis
   license: MIT
   min_ansible_version: 1.9.0
   platforms:

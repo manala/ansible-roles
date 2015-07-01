@@ -6,5 +6,4 @@
     dest:  "{{ elao_redis_config_file }}"
   when: (elao_redis_config_template is not none) or (elao_redis_config|length)
   notify:
-    - redis-server restart
-
+    - redis restart
