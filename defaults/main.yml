@@ -1,0 +1,14 @@
+---
+
+# User / Group
+elao_phppgadmin_user:  ~
+elao_phppgadmin_group: ~
+
+# Dir
+elao_phppgadmin_dir: /opt/phppgadmin
+
+# Config
+elao_phppgadmin_config_file:     "{{ elao_phppgadmin_dir }}/conf/config.inc.php"
+elao_phppgadmin_config_template: ~
+elao_phppgadmin_config:          []
+elao_phppgadmin_config_servers:  {}

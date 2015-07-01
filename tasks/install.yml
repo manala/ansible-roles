@@ -1,0 +1,15 @@
+---
+
+- name: install > Composer create project
+  command: composer create-project phppgadmin/phppgadmin --stability=dev --no-dev --prefer-dist --no-interaction {{ elao_phppgadmin_dir }}
+  args:
+    creates: "{{ elao_phppgadmin_dir }}/composer.json"
+
+- name: install > Permissions
+  file:
+    path:    "{{ elao_phppgadmin_dir }}"
+    state:   directory
+    owner:   "{{ elao_phppgadmin_user|ternary(elao_phppgadmin_user, omit) }}"
+    group:   "{{ elao_phppgadmin_group|ternary(elao_phppgadmin_group, omit) }}"
+    recurse: yes
+  when: elao_phppgadmin_user or elao_phppgadmin_group

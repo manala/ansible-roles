@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:   "{{ elao_phppgadmin_config_template|ternary(elao_phppgadmin_config_template, 'config/base.inc.php.j2') }}"
+    dest:  "{{ elao_phppgadmin_config_file }}"
+    owner: "{{ elao_phppgadmin_user|ternary(elao_phppgadmin_user, omit) }}"
+    group: "{{ elao_phppgadmin_group|ternary(elao_phppgadmin_group, omit) }}"
+  when: (elao_phppgadmin_config_template is not none) or (elao_phppgadmin_config|length) or (elao_phppgadmin_config_servers|length)
