@@ -87,6 +87,11 @@ elao_apt_repositories_patterns:
     key:
       url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
       id:  D88E42B4
+  mongodb:
+    source:  deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen
+    key:
+      url: http://docs.mongodb.org/10gen-gpg-key.asc
+      id:  7F0CEB10
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
@@ -109,6 +114,7 @@ elao_apt_preferences_patterns:
   grafana:       grafana*
   elasticsearch: elasticsearch*
   postgresql:    postgresql*
+  mongodb:       mongodb*
 
 # Packages
 elao_apt_packages: []
