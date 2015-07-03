@@ -5,4 +5,7 @@
     name:  "{{ item }}"
     state: present
   with_items:
-  - mongodb-org
+    - mongodb-org
+    - mongodb-org-server
+    - mongodb-org-shell
+    - mongodb-org-tools

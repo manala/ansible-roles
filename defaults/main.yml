@@ -1,4 +1,6 @@
 ---
 
-elao_mongodb_config: {}
-elao_mongodb_config_template: config/default.conf.j2
+# Config
+elao_mongodb_config_file:     "/etc/mongod.conf"
+elao_mongodb_config_template: ~
+elao_mongodb_config:          []
