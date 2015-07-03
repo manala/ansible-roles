@@ -1,5 +1,12 @@
 ---
 
+- name: files > Force non empty dirs to symlinks
+  command: "find {{ item.path|dirname }} -name {{ item.path|basename }} -type d -exec rm -r {} \\;"
+  failed_when: false
+  changed_when: false
+  when: item.state == 'link'
+  with_items: "{{ elao_files|selectattr('force', 'sameas', true)|list }}"
+
 - name: files > File
   file:
     path:     "{{ item.path }}"
