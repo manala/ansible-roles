@@ -1,35 +1,9 @@
 ---
 
-- name: config > Create conf.d directory
-  file:
-    path: /etc/postgresql/{{ elao_postgresql_version }}/main/conf.d
-    owner: postgres
-    group: postgres
-    mode: 0755
-    state: directory
-
-- name: config > Include conf.d
-  lineinfile:
-    dest: /etc/postgresql/{{ elao_postgresql_version }}/main/postgresql.conf
-    line: "{{ \"include_dir 'conf.d'\" if elao_postgresql_version | version_compare('9.3', '>=') else \"include 'conf.d/postgresql.conf'\" }}"
-
-- name: config > PostgreSQL configuration
-  template:
-    src: "{{ elao_postgresql_config_template if elao_postgresql_config_template is not none else 'postgresql.conf.j2' }}"
-    dest: /etc/postgresql/{{ elao_postgresql_version }}/main/conf.d/postgresql.conf
-    owner: postgres
-    group: postgres
-    mode: 0644
-  when: elao_postgresql_config_template or (elao_postgresql_config | default({}) | length)
-  with_dict:
-    elao_postgresql_config
-  notify:
-    - postgresql restart
-
 - name: config > PostgreSQL host-based authentication (hba) configuration
   template:
-    src: "{{ elao_postgresql_config_hba_template if elao_postgresql_config_hba_template is not none else 'pg_hba.conf.j2' }}"
+    src: "{{ elao_postgresql_config_hba_template }}"
     dest: /etc/postgresql/{{ elao_postgresql_version }}/main/pg_hba.conf
-  when: elao_postgresql_config_hba_template or (elao_postgresql_config_hba | default({}) | length)
+  when: elao_postgresql_config_hba_template is not none
   notify:
     - postgresql restart

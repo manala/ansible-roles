@@ -1,6 +1,6 @@
 ---
 
-- name: services > Start postgreSQL if not running.
+- name: services > Ensure postgresql is running
   service:
     name:    "{{ item }}"
     state:   started
