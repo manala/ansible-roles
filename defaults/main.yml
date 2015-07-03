@@ -102,6 +102,7 @@ elao_apt_preferences_patterns:
   haproxy:    haproxy*
   galera:     galera*
   grafana:    grafana*
+  postgresql: postgresql*
 
 # Packages
 elao_apt_packages: []
