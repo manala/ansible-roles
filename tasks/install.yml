@@ -1,0 +1,15 @@
+---
+
+- name: install > Composer create project
+  command: composer create-project erik-dubbelboer/php-redis-admin --no-dev --no-interaction {{ elao_phpredisadmin_dir }}
+  args:
+    creates: "{{ elao_phpredisadmin_dir }}/composer.json"
+
+- name: install > Permissions
+  file:
+    path:    "{{ elao_phpredisadmin_dir }}"
+    state:   directory
+    owner:   "{{ elao_phpredisadmin_user|ternary(elao_phpredisadmin_user, omit) }}"
+    group:   "{{ elao_phpredisadmin_group|ternary(elao_phpredisadmin_group, omit) }}"
+    recurse: yes
+  when: elao_phpredisadmin_user or elao_phpredisadmin_group

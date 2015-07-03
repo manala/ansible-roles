@@ -1,0 +1,14 @@
+---
+
+# User / Group
+elao_phpredisadmin_user:  ~
+elao_phpredisadmin_group: ~
+
+# Dir
+elao_phpredisadmin_dir: /opt/phpredisadmin
+
+# Config
+elao_phpredisadmin_config_file:     "{{ elao_phpredisadmin_dir }}/includes/config.inc.php"
+elao_phpredisadmin_config_template: ~
+elao_phpredisadmin_config:          []
+elao_phpredisadmin_config_servers:  {}

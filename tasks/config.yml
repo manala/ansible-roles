@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:   "{{ elao_phpredisadmin_config_template|ternary(elao_phpredisadmin_config_template, 'includes/base.inc.php.j2') }}"
+    dest:  "{{ elao_phpredisadmin_config_file }}"
+    owner: "{{ elao_phpredisadmin_user|ternary(elao_phpredisadmin_user, omit) }}"
+    group: "{{ elao_phpredisadmin_group|ternary(elao_phpredisadmin_group, omit) }}"
+  when: (elao_phpredisadmin_config_template is not none) or (elao_phpredisadmin_config|length) or (elao_phpredisadmin_config_servers|length)
