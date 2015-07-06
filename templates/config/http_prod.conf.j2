@@ -41,10 +41,9 @@ http {
 
 {{ macros.config_row(config_http, 'keepalive_timeout', 65, 4) }}
 
-{{ macros.config_row(config_http, 'include', [
-    '/etc/nginx/mime.types',
-    elao_nginx_configs_dir ~ '/*.conf'
-], 4) }}
+    include mime.types;
+    include {{ elao_nginx_configs_dir }}/*.conf;
+{{ macros.config_row(config_http, 'include', [], 4) }}
 {{ macros.config(config_http, [
     'server_tokens',
     'default_type',
