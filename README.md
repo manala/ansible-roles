@@ -32,7 +32,7 @@ dependencies:
 
 | Name         | Type     | Description           |
 | ------------ | -------- | --------------------- |
-| cron restart | Service  |  Restart cron service |
+| cron restart | Service  |  Restart cron service |
 
 ## Role Variables
 
