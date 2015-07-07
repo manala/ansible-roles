@@ -38,8 +38,8 @@ dependencies:
 
 | Name                           | Default                | Type    | Description       |
 | ------------------------------ | ---------------------- | ------- | ----------------- |
-| `elao_mongodb_config`          | {}                     | Array   |  Main config.     |
-| `elao_mongodb_config_template` | config/default.conf.j2 | String  |  Config template. |
+| `elao_mongodb_config`          | {}                     | Array   |  Main config.     |
+| `elao_mongodb_config_template` | config/default.conf.j2 | String  |  Config template. |
 
 ### Configuration example
 
