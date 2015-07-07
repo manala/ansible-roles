@@ -34,7 +34,7 @@ dependencies:
 
 | Name                           | Default                | Type          | Description                                            |
 | -----------------------------  | ---------------------- | ------------- | ------------------------------------------------------ |
-| `elao_mysql_tasks_include`     | ~                      | Array         | Execute only specified tasks                           |
+| `elao_mysql_tasks_include`     | ~                      | Array         | Execute only specified tasks                           |
 | `elao_mysql_tasks_exlude`      | [ ]                    | Array         | Exclude tasks (install, configs, services)             |
 | `elao_mysql_configs_dir`       | /etc/mysql/conf.d      | String (path) | Configurations directory path                          |
 | `elao_mysql_configs_template`  | configs/default.cnf.j2 | String (path) | Default configuration template                         |
@@ -45,7 +45,7 @@ dependencies:
 
 ```
 # use a default custom template
-elao_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.cnf.j2' }}"
+elao_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.cnf.j2' }}"
 
 # clean configs directory
 elao_mysql_configs_exclusive: true
