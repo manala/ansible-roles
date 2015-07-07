@@ -2,7 +2,7 @@
 
 - name: preferences > Templates
   template:
-    src:  "{{ item.template|default(elao_apt_preferences_template) }}"
+    src:  "{{ item.template|default(elao_apt_preferences_template) }}"
     dest: "{{ elao_apt_preferences_dir }}/{{ item.file }}"
   with_items: "{{ elao_apt_preferences|select('mapping')|list }}"
 
