@@ -12,52 +12,52 @@
     {%- endfor -%}
 {%- endfor -%}
 
-# This is the ssh client system-wide configuration file.  See
-# ssh_config(5) for more information.  This file provides defaults for
+# This is the ssh client system-wide configuration file.  See
+# ssh_config(5) for more information.  This file provides defaults for
 # users, and the values can be changed in per-user configuration files
 # or on the command line.
 
 # Configuration data is parsed as follows:
-#  1. command line options
-#  2. user-specific file
-#  3. system-wide file
+#  1. command line options
+#  2. user-specific file
+#  3. system-wide file
 # Any configuration value is only changed the first time it is set.
 # Thus, host-specific definitions should be at the beginning of the
 # configuration file, and defaults at the end.
 
-# Site-wide defaults for some commonly used options.  For a comprehensive
+# Site-wide defaults for some commonly used options.  For a comprehensive
 # list of available options, their meanings and defaults, please see the
 # ssh_config(5) man page.
 
 Host *
-{{ macros.config_row(config_host_asterisk, 'ForwardAgent', '#   ForwardAgent no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'ForwardAgent', '#   ForwardAgent no', 0, true) }}
 {{ macros.config_row(config_host_asterisk, 'ForwardX11', '#   ForwardX11 no', 0, true) }}
 {{ macros.config_row(config_host_asterisk, 'ForwardX11Trusted', '#   ForwardX11Trusted yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'RhostsRSAAuthentication', '#   RhostsRSAAuthentication no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'RSAAuthentication', '#   RSAAuthentication yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'PasswordAuthentication', '#   PasswordAuthentication yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'HostbasedAuthentication', '#   HostbasedAuthentication no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIAuthentication', '#   GSSAPIAuthentication no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIDelegateCredentials', '#   GSSAPIDelegateCredentials no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIKeyExchange', '#   GSSAPIKeyExchange no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPITrustDNS', '#   GSSAPITrustDNS no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'BatchMode', '#   BatchMode no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'CheckHostIP', '#   CheckHostIP yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'AddressFamily', '#   AddressFamily any', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'ConnectTimeout', '#   ConnectTimeout 0', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'StrictHostKeyChecking', '#   StrictHostKeyChecking ask', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'RhostsRSAAuthentication', '#   RhostsRSAAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'RSAAuthentication', '#   RSAAuthentication yes', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'PasswordAuthentication', '#   PasswordAuthentication yes', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'HostbasedAuthentication', '#   HostbasedAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'GSSAPIAuthentication', '#   GSSAPIAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'GSSAPIDelegateCredentials', '#   GSSAPIDelegateCredentials no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'GSSAPIKeyExchange', '#   GSSAPIKeyExchange no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'GSSAPITrustDNS', '#   GSSAPITrustDNS no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'BatchMode', '#   BatchMode no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'CheckHostIP', '#   CheckHostIP yes', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'AddressFamily', '#   AddressFamily any', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'ConnectTimeout', '#   ConnectTimeout 0', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'StrictHostKeyChecking', '#   StrictHostKeyChecking ask', 0, true) }}
 {{ macros.config_row(config_host_asterisk, 'IdentityFile', '#   IdentityFile ~/.ssh/identity\n#   IdentityFile ~/.ssh/id_rsa\n#   IdentityFile ~/.ssh/id_dsa', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Port', '#   Port 22', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Protocol', '#   Protocol 2,1', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Cipher', '#   Cipher 3des', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Ciphers', '#   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'MACs', '#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'EscapeChar', '#   EscapeChar ~', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Tunnel', '#   Tunnel no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'TunnelDevice', '#   TunnelDevice any:any', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'PermitLocalCommand', '#   PermitLocalCommand no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'VisualHostKey', '#   VisualHostKey no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'ProxyCommand', '#   ProxyCommand ssh -q -W %h:%p gateway.example.com', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'Port', '#   Port 22', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'Protocol', '#   Protocol 2,1', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'Cipher', '#   Cipher 3des', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'Ciphers', '#   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'MACs', '#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'EscapeChar', '#   EscapeChar ~', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'Tunnel', '#   Tunnel no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'TunnelDevice', '#   TunnelDevice any:any', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'PermitLocalCommand', '#   PermitLocalCommand no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'VisualHostKey', '#   VisualHostKey no', 0, true) }}
+{{ macros.config_row(config_host_asterisk, 'ProxyCommand', '#   ProxyCommand ssh -q -W %h:%p gateway.example.com', 0, true) }}
 {{ macros.config_row(config_host_asterisk, 'SendEnv', 'LANG LC_*', 4) }}
 {{ macros.config_row(config_host_asterisk, 'HashKnownHosts', true, 4) }}
 {{ macros.config_row(config_host_asterisk, 'GSSAPIAuthentication', true, 4) }}

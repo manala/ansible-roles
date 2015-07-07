@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{%- set config = elao_ssh_config_sshd -%}
+{%- set config = elao_ssh_config_sshd -%}
 
 # What ports, IPs and protocols we listen for
 {{ macros.config_row(config, 'Port', 22) }}
