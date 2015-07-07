@@ -50,7 +50,7 @@ None
 ```
 ---
 
-elao_git_config_template: "{{ playbook_dir }}/templates/git/config.j2"
+elao_git_config_template: "{{ playbook_dir }}/templates/git/config.j2"
 
 elao_git_config:
   - user:
