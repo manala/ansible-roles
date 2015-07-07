@@ -64,13 +64,13 @@ dependencies:
 ---
 
 elao_shorewall_config_templates:
-    policy:      "{{ playbook_dir ~ '/templates/shorewall/policy.j2' }}"
-    masq:        "{{ playbook_dir ~ '/templates/shorewall/masq.j2' }}"
-    interfaces:  "{{ playbook_dir ~ '/templates/shorewall/interfaces.j2' }}"
-    zones:       "{{ playbook_dir ~ '/templates/shorewall/zones.j2' }}"
-    rules:       "{{ playbook_dir ~ '/templates/shorewall/rules.j2' }}"
-    
-    
+    policy:      "{{ playbook_dir ~ '/templates/shorewall/policy.j2' }}"
+    masq:        "{{ playbook_dir ~ '/templates/shorewall/masq.j2' }}"
+    interfaces:  "{{ playbook_dir ~ '/templates/shorewall/interfaces.j2' }}"
+    zones:       "{{ playbook_dir ~ '/templates/shorewall/zones.j2' }}"
+    rules:       "{{ playbook_dir ~ '/templates/shorewall/rules.j2' }}"
+
+
 
 ```
 
