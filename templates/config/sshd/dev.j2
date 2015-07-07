@@ -33,6 +33,7 @@
 {{ macros.config_row(config, 'Subsystem', 'sftp /usr/lib/openssh/sftp-server') }}
 {{ macros.config_row(config, 'UsePAM', true) }}
 {{ macros.config_row(config, 'UseDNS', false) }}
+{{ macros.config_row(config, 'PasswordAuthentication', true) }}
 
 {{ macros.config(config, [
     'Port',
@@ -60,5 +61,6 @@
     'TCPKeepAlive',
     'AcceptEnv',
     'Subsystem',
-    'UsePAM'
+    'UsePAM',
+    'PasswordAuthentication'
 ]) }}
