@@ -44,7 +44,7 @@ None
 ```
 ---
 
-elao_vim_config_template: "{{ playbook_dir ~ '/templates/vim/config.j2' }}"
+elao_vim_config_template: "{{ playbook_dir ~ '/templates/vim/config.j2' }}"
 
 elao_vim_config:
     syntax:     "on"
