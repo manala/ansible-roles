@@ -50,7 +50,7 @@ elao_haproxy_errorfiles:
   - name: 400.http
     template: errorfiles/400.http.j2
   - name: maintenance.http
-    template: "{{ playbook_dir ~ '/templates/haproxy/errorfiles/maintenance.http.j2' }}"
+    template: "{{ playbook_dir ~ '/templates/haproxy/errorfiles/maintenance.http.j2' }}"
 ```
 
 Use default config template, and set/add custom parameters
@@ -82,7 +82,7 @@ elao_haproxy_config:
 Use custom config template
 
 ```yaml
-elao_haproxy_config_template: "{{ playbook_dir ~ '/templates/haproxy/haproxy.cfg.j2' }}"
+elao_haproxy_config_template: "{{ playbook_dir ~ '/templates/haproxy/haproxy.cfg.j2' }}"
 ```
 
 ## Example playbook
