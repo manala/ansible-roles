@@ -32,7 +32,7 @@ dependencies:
 
 | Name              | Default | Type  | Description            |
 | ----------------- | ------- | ----- | ---------------------- |
-| `elao_env_config` | {}      | Array |  Environment variables |
+| `elao_env_config` | {}      | Array |  Environment variables |
 
 ### Configuration example
 
