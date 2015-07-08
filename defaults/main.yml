@@ -88,7 +88,7 @@ elao_apt_repositories_patterns:
       url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
       id:  D88E42B4
   mongodb:
-    source:  deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen
+    source: deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen
     key:
       url: http://docs.mongodb.org/10gen-gpg-key.asc
       id:  7F0CEB10
