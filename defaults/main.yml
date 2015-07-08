@@ -92,6 +92,8 @@ elao_apt_repositories_patterns:
     key:
       url: http://docs.mongodb.org/10gen-gpg-key.asc
       id:  7F0CEB10
+  ppa_ansible:
+    source: ppa:ansible/ansible
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
