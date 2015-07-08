@@ -55,7 +55,7 @@ Use custom template:
 ```
 ---
 
-elao_motd_template:  "{{ playbook_dir ~ '/templates/motd.j2' }}"
+elao_motd_template:  "{{ playbook_dir ~ '/templates/motd.j2' }}"
 ```
 
 ## Example playbook
