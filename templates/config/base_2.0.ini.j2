@@ -12,16 +12,10 @@
 {% set config_auth_anonymous = [] -%}
 {% set config_auth_github = [] -%}
 {% set config_auth_google = [] -%}
-{% set config_auth_proxy = [] -%}
-{% set config_auth_basic = [] -%}
-{% set config_auth_ldap = [] -%}
-{% set config_smtp = [] -%}
-{% set config_emails = [] -%}
 {% set config_log = [] -%}
 {% set config_log_console = [] -%}
 {% set config_log_file = [] -%}
 {% set config_event_publisher = [] -%}
-{% set config_dashboards_json = [] -%}
 
 {%- for configs in config -%}
     {%- for config_name, config_parameters in configs.iteritems() -%}
@@ -41,20 +35,10 @@
             {%- if config_users.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'auth.anonymous' -%}
             {%- if config_auth_anonymous.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'auth.google' -%}
-            {%- if config_auth_google.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'auth.github' -%}
             {%- if config_auth_github.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'auth.proxy' -%}
-            {%- if config_auth_proxy.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'auth.basic' -%}
-            {%- if config_auth_basic.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'auth.ldap' -%}
-            {%- if config_auth_ldap.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'smtp' -%}
-            {%- if config_smtp.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'emails' -%}
-            {%- if config_emails.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.google' -%}
+            {%- if config_auth_google.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'log' -%}
             {%- if config_log.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'log.console' -%}
@@ -63,8 +47,6 @@
             {%- if config_log_file.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'event_publisher' -%}
             {%- if config_event_publisher.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'dashboards.json' -%}
-            {%- if config_dashboards_json.extend(config_parameters) -%}{%- endif -%}
         {%- endif -%}
     {%- endfor -%}
 {%- endfor -%}
@@ -79,9 +61,10 @@
 
 #################################### Paths ####################################
 [paths]
-# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is used)
+# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is useD)
 #
 {{ macros.config_row(config_paths, 'data', ';data = /var/lib/grafana', 0, true) }}
+
 #
 # Directory where grafana can store logs
 #
@@ -93,17 +76,13 @@
 {{ macros.config_row(config_server, 'protocol', ';protocol = http', 0, true) }}
 
 # The ip address to bind to, empty will bind to all interfaces
-{{ macros.config_row(config_server, 'http_addr', ';http_addr =', 0, true) }}
+{{ macros.config_row(config_server, 'http_addr', ';http_addr = ', 0, true) }}
 
 # The http port  to use
 {{ macros.config_row(config_server, 'http_port', ';http_port = 3000', 0, true) }}
 
 # The public facing domain name used to access grafana from a browser
 {{ macros.config_row(config_server, 'domain', ';domain = localhost', 0, true) }}
-
-# Redirect to correct domain if host header does not match domain
-# Prevents DNS rebinding attacks
-{{ macros.config_row(config_server, 'enforce_domain', ';enforce_domain = false', 0, true) }}
 
 # The full public facing url
 {{ macros.config_row(config_server, 'root_url', ';root_url = %(protocol)s://%(domain)s:%(http_port)s/', 0, true) }}
@@ -118,8 +97,8 @@
 {{ macros.config_row(config_server, 'enable_gzip', ';enable_gzip = false', 0, true) }}
 
 # https certs & key file
-{{ macros.config_row(config_server, 'cert_file', ';cert_file =', 0, true) }}
-{{ macros.config_row(config_server, 'cert_key', ';cert_key =', 0, true) }}
+{{ macros.config_row(config_server, 'cert_file', ';cert_file = ', 0, true) }}
+{{ macros.config_row(config_server, 'cert_key', ';cert_key = ', 0, true) }}
 
 #################################### Database ####################################
 [database]
@@ -128,7 +107,7 @@
 {{ macros.config_row(config_database, 'host', ';host = 127.0.0.1:3306', 0, true) }}
 {{ macros.config_row(config_database, 'name', ';name = grafana', 0, true) }}
 {{ macros.config_row(config_database, 'user', ';user = root', 0, true) }}
-{{ macros.config_row(config_database, 'password', ';password =', 0, true) }}
+{{ macros.config_row(config_database, 'password', ';password = ', 0, true) }}
 
 # For "postgres" only, either "disable", "require" or "verify-full"
 {{ macros.config_row(config_database, 'ssl_mode', ';ssl_mode = disable', 0, true) }}
@@ -138,15 +117,14 @@
 
 #################################### Session ####################################
 [session]
-# Either "memory", "file", "redis", "mysql", "postgresql", default is "file"
+# Either "memory", "file", "redis", "mysql", default is "memory"
 {{ macros.config_row(config_session, 'provider', ';provider = file', 0, true) }}
 
 # Provider config options
 # memory: not have any config yet
 # file: session dir path, is relative to grafana data_path
-# redis: config like redis server e.g. `addr=127.0.0.1:6379,pool_size=100,db=grafana`
-# mysql: go-sql-driver/mysql dsn config string, e.g. `user:password@tcp(127.0.0.1:3306)/database_name`
-# postgres: user=a password=b host=localhost port=5432 dbname=c sslmode=disable
+# redis: config like redis server addr, poolSize, password, e.g. `127.0.0.1:6379,100,grafana`
+# mysql: go-sql-driver/mysql dsn config string, e.g. `user:password@tcp(127.0.0.1)/database_name`
 {{ macros.config_row(config_session, 'provider_config', ';provider_config = sessions', 0, true) }}
 
 # Session cookie name
@@ -178,15 +156,12 @@
 {{ macros.config_row(config_security, 'admin_password', ';admin_password = admin', 0, true) }}
 
 # used for signing
-{{ macros.config_row(config_security, 'secret_key', ';secret_key = SW2YcwTIb9zpOOhoPsMm', 0, true) }}
+{{ macros.config_row(config_security, 'secret_key', ';secret_key = SW2YcwTIb9zpOOhoPsM', 0, true) }}
 
 # Auto-login remember days
 {{ macros.config_row(config_security, 'login_remember_days', ';login_remember_days = 7', 0, true) }}
 {{ macros.config_row(config_security, 'cookie_username', ';cookie_username = grafana_user', 0, true) }}
 {{ macros.config_row(config_security, 'cookie_remember_name', ';cookie_remember_name = grafana_remember', 0, true) }}
-
-# disable gravatar profile images
-{{ macros.config_row(config_security, 'disable_gravatar', ';disable_gravatar = false', 0, true) }}
 
 #################################### Users ####################################
 [users]
@@ -216,58 +191,27 @@
 #################################### Github Auth ##########################
 [auth.github]
 {{ macros.config_row(config_auth_github, 'enabled', ';enabled = false', 0, true) }}
-{{ macros.config_row(config_auth_github, 'allow_sign_up', ';allow_sign_up = false', 0, true) }}
 {{ macros.config_row(config_auth_github, 'client_id', ';client_id = some_id', 0, true) }}
 {{ macros.config_row(config_auth_github, 'client_secret', ';client_secret = some_secret', 0, true) }}
-{{ macros.config_row(config_auth_github, 'scopes', ';scopes = user:email,read:org', 0, true) }}
+{{ macros.config_row(config_auth_github, 'scopes', ';scopes = user:email', 0, true) }}
 {{ macros.config_row(config_auth_github, 'auth_url', ';auth_url = https://github.com/login/oauth/authorize', 0, true) }}
 {{ macros.config_row(config_auth_github, 'token_url', ';token_url = https://github.com/login/oauth/access_token', 0, true) }}
 {{ macros.config_row(config_auth_github, 'api_url', ';api_url = https://api.github.com/user', 0, true) }}
-{{ macros.config_row(config_auth_github, 'team_ids', ';team_ids =', 0, true) }}
-{{ macros.config_row(config_auth_github, 'allowed_domains', ';allowed_domains =', 0, true) }}
-{{ macros.config_row(config_auth_github, 'allowed_organizations', ';allowed_organizations =', 0, true) }}
+# Uncomment bellow to only allow specific email domains
+{{ macros.config_row(config_auth_github, 'allowed_domains', '; allowed_domains = mycompany.com othercompany.com', 0, true) }}
 
 #################################### Google Auth ##########################
 [auth.google]
 {{ macros.config_row(config_auth_google, 'enabled', ';enabled = false', 0, true) }}
-{{ macros.config_row(config_auth_google, 'allow_sign_up', ';allow_sign_up = false', 0, true) }}
 {{ macros.config_row(config_auth_google, 'client_id', ';client_id = some_client_id', 0, true) }}
 {{ macros.config_row(config_auth_google, 'client_secret', ';client_secret = some_client_secret', 0, true) }}
 {{ macros.config_row(config_auth_google, 'scopes', ';scopes = https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email', 0, true) }}
 {{ macros.config_row(config_auth_google, 'auth_url', ';auth_url = https://accounts.google.com/o/oauth2/auth', 0, true) }}
 {{ macros.config_row(config_auth_google, 'token_url', ';token_url = https://accounts.google.com/o/oauth2/token', 0, true) }}
 {{ macros.config_row(config_auth_google, 'api_url', ';api_url = https://www.googleapis.com/oauth2/v1/userinfo', 0, true) }}
-{{ macros.config_row(config_auth_google, 'allowed_domains', '; allowed_domains =', 0, true) }}
-
-#################################### Auth Proxy ##########################
-[auth.proxy]
-{{ macros.config_row(config_auth_proxy, 'enabled', ';enabled = false', 0, true) }}
-{{ macros.config_row(config_auth_proxy, 'header_name', ';header_name = X-WEBAUTH-USER', 0, true) }}
-{{ macros.config_row(config_auth_proxy, 'header_property', ';header_property = username', 0, true) }}
-{{ macros.config_row(config_auth_proxy, 'auto_sign_up', ';auto_sign_up = true', 0, true) }}
-
-#################################### Basic Auth ##########################
-[auth.basic]
-{{ macros.config_row(config_auth_basic, 'enabled', ';enabled = true', 0, true) }}
-
-#################################### Auth LDAP ##########################
-[auth.ldap]
-{{ macros.config_row(config_auth_ldap, 'enabled', ';enabled = false', 0, true) }}
-{{ macros.config_row(config_auth_ldap, 'config_file', ';config_file = /etc/grafana/ldap.toml', 0, true) }}
-
-#################################### SMTP / Emailing ##########################
-[smtp]
-{{ macros.config_row(config_smtp, 'enabled', ';enabled = false', 0, true) }}
-{{ macros.config_row(config_smtp, 'host', ';host = localhost:25', 0, true) }}
-{{ macros.config_row(config_smtp, 'user', ';user =', 0, true) }}
-{{ macros.config_row(config_smtp, 'password', ';password =', 0, true) }}
-{{ macros.config_row(config_smtp, 'cert_file', ';cert_file =', 0, true) }}
-{{ macros.config_row(config_smtp, 'key_file', ';key_file =', 0, true) }}
-{{ macros.config_row(config_smtp, 'skip_verify', ';skip_verify = false', 0, true) }}
-{{ macros.config_row(config_smtp, 'from_address', ';from_address = admin@grafana.localhost', 0, true) }}
-
-[emails]
-{{ macros.config_row(config_emails, 'welcome_email_on_sign_up', ';welcome_email_on_sign_up = false', 0, true) }}
+# Uncomment bellow to only allow specific email domains
+{{ macros.config_row(config_auth_google, 'allowed_domains', '; allowed_domains = mycompany.com othercompany.com', 0, true) }}
+{{ macros.config_row(config_auth_google, 'allow_sign_up', ';allow_sign_up = false', 0, true) }}
 
 #################################### Logging ##########################
 [log]
@@ -309,10 +253,21 @@
 {{ macros.config_row(config_event_publisher, 'rabbitmq_url', ';rabbitmq_url = amqp://localhost/', 0, true) }}
 {{ macros.config_row(config_event_publisher, 'exchange', ';exchange = grafana_events', 0, true) }}
 
-;#################################### Dashboard JSON files ##########################
-[dashboards.json]
-{{ macros.config_row(config_dashboards_json, 'enabled', ';enabled = false', 0, true) }}
-{{ macros.config_row(config_dashboards_json, 'path', ';path = /var/lib/grafana/dashboards', 0, true) }}
 
-
-
+{{ macros.config(config, [
+    'app_mode',
+    'paths',
+    'server',
+    'database',
+    'session',
+    'analytics',
+    'security',
+    'users',
+    'auth.anonymous',
+    'auth.github',
+    'auth.google',
+    'log',
+    'log.console',
+    'log.file',
+    'event_publisher'
+]) }}
