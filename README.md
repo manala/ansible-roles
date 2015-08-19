@@ -38,7 +38,6 @@ dependencies:
 
 | Name                         | Default                  | Type   | Description |
 | ---------------------------- | ------------------------ | ------ | ----------- |
-| elao_grafana_version         | 2.0.2                    | string |             |
 | elao_grafana_config_file     | /etc/grafana/grafana.ini | string |             |
 | elao_grafana_config_template | config/base.ini.j2       | string |             |
 | elao_grafana_config          | []                       | Array  |             |
