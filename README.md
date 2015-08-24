@@ -25,7 +25,7 @@ You can add this role as a dependency for other roles by adding the role to the 
 
 ```yaml
 dependencies:
-  - { role: elao. }
+  - { role: elao.redis }
 ```
 
 ## Role Handlers
