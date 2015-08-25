@@ -1,6 +1,6 @@
 ---
 
-- name: packages > Installing required packages.
+- name: install > Packages
   apt:
     name:  "{{ item }}"
     state: present
