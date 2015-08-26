@@ -117,6 +117,7 @@ elao_apt_preferences_patterns:
   elasticsearch: elasticsearch*
   postgresql:    postgresql*
   mongodb:       mongodb*
+  keepalived:    keepalived*
 
 # Packages
 elao_apt_packages: []
