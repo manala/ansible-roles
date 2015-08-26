@@ -1,0 +1,6 @@
+---
+
+# Config
+elao_keepalived_config_file:     /etc/keepalived/keepalived.conf
+elao_keepalived_config_template: ~
+elao_keepalived_config:          []
