@@ -1,0 +1,13 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_phantomjs_config -%}
+
+# Defaults for phantomjs initscript
+# sourced by /etc/init.d/phantomjs
+# installed at /etc/default/phantomjs by the maintainer scripts
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="{{ macros.config_row(config, 'webdriver', 4444) }} {{ macros.config_row(config, 'webdriver-logfile', '/var/log/phantomjs.log') }}{{ (' ' ~ macros.config(config, [
+    'webdriver',
+    'webdriver-logfile'
+])).rstrip() }}"
