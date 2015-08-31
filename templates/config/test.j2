@@ -1,0 +1,27 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_ssh_config -%}
+
+{% set config_host_asterisk = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'Host *' -%}
+            {%- if config_host_asterisk.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+Host *
+{{ macros.config_row(config_host_asterisk, 'HashKnownHosts', true, 4) }}
+{{ macros.config_row(config_host_asterisk, 'GSSAPIAuthentication', true, 4) }}
+{{ macros.config_row(config_host_asterisk, 'GSSAPIDelegateCredentials', false, 4) }}
+{{ macros.config_row(config_host_asterisk, 'StrictHostKeyChecking', false, 4) }}
+{{ macros.config(config_host_asterisk, [
+    'HashKnownHosts',
+    'GSSAPIAuthentication',
+    'GSSAPIDelegateCredentials',
+    'StrictHostKeyChecking'
+], 4) }}
+
+{{ macros.config(config, ['Host *']) }}
