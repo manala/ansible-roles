@@ -1,0 +1,8 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ elao_oauth2_proxy_config_template }}"
+    dest: "{{ elao_oauth2_proxy_config_file }}"
+  notify:
+    - oauth2-proxy restart

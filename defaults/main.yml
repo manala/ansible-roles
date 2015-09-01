@@ -1,0 +1,6 @@
+---
+
+# Config
+elao_oauth2_proxy_config_file:      /etc/oauth2-proxy/config.cfg
+elao_oauth2_proxy_config_template:  config/base.cfg.j2
+elao_oauth2_proxy_config:           []

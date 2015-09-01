@@ -1,0 +1,25 @@
+---
+
+- name: install > Check package
+  command: "dpkg -s oauth2-proxy"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_oauth2_proxy_package_check_output
+
+- name: install > Copy package
+  copy:
+    src:  oauth2-proxy_2.0.1-1_amd64.deb
+    dest: /tmp/oauth2-proxy_2.0.1-1_amd64.deb
+  when: _elao_oauth2_proxy_package_check_output.rc != 0
+
+- name: install > Install package
+  apt:
+    deb: /tmp/oauth2-proxy_2.0.1-1_amd64.deb
+  when: _elao_oauth2_proxy_package_check_output.rc != 0
+
+- name: install > Remove package
+  file:
+    path:  /tmp/oauth2-proxy_2.0.1-1_amd64.deb
+    state: absent
+  when: _elao_oauth2_proxy_package_check_output.rc != 0
