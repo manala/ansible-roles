@@ -21,6 +21,8 @@ DAEMON=/usr/bin/oauth2-proxy
 DAEMON_ARGS="-config=/etc/oauth2-proxy/config.cfg"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/oauth2-proxy
+USER=oauth2-proxy
+GROUP=$USER
 
 STDOUT_LOG="/var/log/oauth2-proxy/$NAME.log"
 STDERR_LOG="/var/log/oauth2-proxy/$NAME.error.log"
@@ -41,6 +43,14 @@ STDERR_LOG="/var/log/oauth2-proxy/$NAME.error.log"
 
 VERBOSE=true
 
+get_pid() {
+    cat "$PIDFILE"
+}
+
+is_running() {
+    [ -f "$PIDFILE" ] && ps `get_pid` > /dev/null 2>&1
+}
+
 #
 # Function that starts the daemon/service
 #
@@ -52,13 +62,15 @@ do_start()
     #   2 if daemon could not be started
     start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON --test > /dev/null \
         || return 1
-    #start-stop-daemon --start --quiet \
-    #    --make-pidfile --pidfile $PIDFILE --background \
-    #    --startas /bin/bash -- -c "exec $DAEMON $DAEMON_ARGS > $STDOUT_LOG 2> $STDERR_LOG" \
-    #|| return 2
-    start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON -- \
-        $DAEMON_ARGS > $STDOUT_LOG 2> $STDERR_LOG \
-        || return 2    
+
+    start-stop-daemon --make-pidfile --pidfile $PIDFILE --chuid $USER:$GROUP \
+        --background --no-close --exec $DAEMON --start -- $DAEMON_ARGS \
+        >> $STDOUT_LOG 2>> $STDERR_LOG
+
+    sleep 0.1
+    if ! is_running; then
+        return 2
+    fi
 }
 
 #
@@ -81,7 +93,7 @@ do_stop()
     # needed by services started subsequently.  A last resort is to
     # sleep for some time.
     start-stop-daemon --stop --quiet --oknodo --retry=0/1/KILL/5 --exec $DAEMON
-    [ "$?" = 2 ] && return 2    
+    [ "$?" = 2 ] && return 2
     # Many daemons don't delete their pidfiles when they exit.
     rm -f $PIDFILE
     return "$RETVAL"

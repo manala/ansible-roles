@@ -30,4 +30,9 @@ case "${1}" in
         ;;
 esac
 
+if [ -x "/etc/init.d/oauth2-proxy" ]; then
+    update-rc.d oauth2-proxy defaults >/dev/null
+    invoke-rc.d oauth2-proxy start || exit $?
+fi
+
 exit 0
