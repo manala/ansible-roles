@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+if [ -x "/etc/init.d/oauth2-proxy" ]; then
+    invoke-rc.d oauth2-proxy stop || exit $?
+fi

@@ -1,0 +1,5 @@
+./usr/bin/oauth2-proxy
+./etc/oauth2-proxy/config.cfg
+./etc/init.d/oauth2-proxy
+./etc/logrotate.d/oauth2-proxy
+./var/log/oauth2-proxy

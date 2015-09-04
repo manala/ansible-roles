@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+if [ "${1}" = "purge" ]
+then
+    userdel oauth2-proxy || true
+    rm -rf /var/log/oauth2-proxy
+fi
+
+if [ "$1" = "purge" ] ; then
+    update-rc.d oauth2-proxy remove >/dev/null
+fi

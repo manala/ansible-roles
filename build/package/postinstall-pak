@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -eu
+
+USER="oauth2-proxy"
+GROUP="$USER"
+
+case "${1}" in
+    configure)
+        adduser \
+            --home /var/run/oauth2-proxy \
+            --quiet \
+            --system \
+            --group \
+            ${USER}
+
+        for DIR in /var/log/oauth2-proxy
+        do
+            mkdir -p ${DIR}
+            chown -R ${USER}:${GROUP} ${DIR}
+        done
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`${1}'" >&2
+        exit 1
+        ;;
+esac
+
+exit 0
