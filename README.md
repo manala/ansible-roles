@@ -38,7 +38,7 @@ dependencies:
 
 | Name                                | Default                      | Type   | Description          |
 | ----------------------------------- | ---------------------------- | ------ | -------------------- |
-| `elao_oauth2_proxy_package_version` | 2.0.1-3~elao                 | String | Package version      |
+| `elao_oauth2_proxy_package_version` | 2.0.1-elao3                  | String | Package version      |
 | `elao_oauth2_proxy_config_file`     | /etc/oauth2-proxy/config.cfg | String | Config file          |
 | `elao_oauth2_proxy_config_template` | config/base.cfg.j2           | String | Config template      |
 | `elao_oauth2_proxy_config`          | []                           | Array  | Config               |
