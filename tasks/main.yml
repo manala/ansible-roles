@@ -3,4 +3,4 @@
 - include: requirements.yml
 - include: install.yml
 - include: services.yml
-
+- include: plugins.yml

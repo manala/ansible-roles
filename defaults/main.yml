@@ -1,2 +1,6 @@
 ---
 
+elao_elasticsearch_dir: /usr/share/elasticsearch
+
+# Plugins
+elao_elasticsearch_plugins: []

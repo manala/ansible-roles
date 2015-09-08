@@ -1,0 +1,10 @@
+---
+
+- name: plugins > Check
+  shell: "{{ elao_elasticsearch_dir }}/bin/plugin --list | grep -P -o '^    - \\K\\w+'"
+  register: _elao_elasticsearch_plugins_check_output
+
+- name: plugins > Install
+  command: "{{ elao_elasticsearch_dir }}/bin/plugin --install {{ item.repository|ternary(item.repository, item.name) }}"
+  when: item.name not in _elao_elasticsearch_plugins_check_output.stdout_lines
+  with_items: "{{ elao_elasticsearch_plugins }}"
