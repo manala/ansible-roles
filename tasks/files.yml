@@ -22,7 +22,7 @@
     seuser:   "{{ item.seuser|default(omit) }}"
     src:      "{{ item.src|default(omit) }}"
     state:    "{{ item.state|default('file') }}"
-  with_items: "{{ elao_files|selectattr('content', 'undefined')|selectattr('template', 'undefined')|list }}"
+  with_items: "{{ elao_files|selectattr('content', 'undefined')|selectattr('template', 'undefined')|selectattr('dest', 'undefined')|list }}"
 
 - name: files > Content
   copy:
@@ -33,6 +33,16 @@
     mode:    "{{ item.mode|default(omit) }}"
     owner:   "{{ item.owner|default(omit) }}"
   with_items: "{{ elao_files|selectattr('content', 'defined')|list }}"
+
+- name: files > Copy
+  copy:
+    src:     "{{ item.src }}"
+    dest:    "{{ item.dest }}"
+    force:   "{{ item.force|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+    owner:   "{{ item.owner|default(omit) }}"
+  with_items: "{{ elao_files|selectattr('dest', 'defined')|list }}"
 
 - name: files > Template
   template:
