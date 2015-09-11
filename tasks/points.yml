@@ -1,0 +1,10 @@
+---
+
+- name: points > Mount points
+  mount:
+    name:   "{{ item.name }}"
+    fstype: "{{ item.fstype }}"
+    src:    "{{ item.src }}"
+    opts:   "{{ item.opts|default(omit) }}"
+    state:  "{{ item.state|default('present') }}"
+  with_items: elao_mount_points
