@@ -142,6 +142,7 @@
 #   like in the following example:
 #
 #   save ""
+
 {{ macros.config_row(config, 'save', ['900 1', '300 10', '60 10000']) }}
 
 # By default Redis will stop accepting writes if RDB snapshots are enabled
@@ -771,7 +772,7 @@
 # "CONFIG SET latency-monitor-threshold <milliseconds>" if needed.
 {{ macros.config_row(config, 'latency-monitor-threshold', 0) }}
 
-############################# Event notification ##############################
+############################# EVENT NOTIFICATION ##############################
 
 # Redis can notify Pub/Sub clients about events happening in the key space.
 # This feature is documented at http://redis.io/topics/notifications
