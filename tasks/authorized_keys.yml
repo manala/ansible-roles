@@ -2,9 +2,10 @@
 
 - name: authorized_keys > Copying authorized keys
   authorized_key:
-    user: "{{ item.0.user }}"
-    key:  "{{ item.1 }}"
+    user:        "{{ item.0.user }}"
+    key:         "{{ item.1 if item.1 is string else item.1.key }}"
     key_options: "{{ item.0.options|default([])|join(',') }}"
+    state:       "{{ 'present' if item.1 is string else item.1.state|default('present') }}"
   with_subelements:
     - elao_users_authorized_keys|default([])
     - keys
