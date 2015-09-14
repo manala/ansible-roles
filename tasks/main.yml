@@ -2,3 +2,4 @@
 
 - include: requirements.yml
 - include: install.yml
+- include: sudo.yml
