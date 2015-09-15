@@ -2,3 +2,4 @@
 
 - include: install.yml
 - include: config.yml
+- include: repositories.yml

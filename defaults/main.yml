@@ -4,3 +4,6 @@
 elao_git_config_file:     /etc/gitconfig
 elao_git_config_template: ~
 elao_git_config:          []
+
+# Repositories
+elao_git_repositories: []
