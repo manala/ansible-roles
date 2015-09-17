@@ -1,0 +1,13 @@
+---
+
+- name: theme > Directory
+  file:
+    path:  "{{ elao_ohmyzsh_dir }}/custom/themes"
+    state: directory
+
+- name: themes > Templates
+  template:
+    src:   "themes/{{ item }}.j2"
+    dest:  "{{ elao_ohmyzsh_dir }}/custom/themes/{{ item }}"
+  with_items:
+    - elao-dev.zsh-theme

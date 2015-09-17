@@ -31,10 +31,10 @@
 {{ macros.config_row(config, 'DISABLE_AUTO_TITLE', '# DISABLE_AUTO_TITLE="true"', true) }}
 
 # Uncomment the following line to enable command auto-correction.
-{{ macros.config_row(config, 'ENABLE_CORRECTION', '# ENABLE_CORRECTION="true"', true) }}
+{{ macros.config_row(config, 'ENABLE_CORRECTION', true) }}
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-{{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', '# COMPLETION_WAITING_DOTS="true"', true) }}
+{{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', true) }}
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -53,7 +53,7 @@
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-{{ macros.config_row(config, 'plugins', '(git debian common-aliases history history-substring-search npm composer symfony2)') }}
+{{ macros.config_row(config, 'plugins', '(git debian common-aliases history history-substring-search)') }}
 
 # User configuration
 
