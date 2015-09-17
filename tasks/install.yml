@@ -4,4 +4,4 @@
   git:
     repo:   https://github.com/robbyrussell/oh-my-zsh.git
     dest:   "{{ elao_ohmyzsh_dir }}"
-    update: no
+    update: "{{ elao_ohmyzsh_update|bool }}"
