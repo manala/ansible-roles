@@ -11,3 +11,5 @@
     dest:  "{{ elao_ohmyzsh_dir }}/custom/themes/{{ item }}"
   with_items:
     - elao-dev.zsh-theme
+    - elao-demo.zsh-theme
+    - elao-prod.zsh-theme
