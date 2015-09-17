@@ -1,7 +1,7 @@
 ---
 
-# Dirs
-elao_ohmyzsh_dir:        /usr/local/share/oh-my-zsh
+# Dir
+elao_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 
 # Update
 elao_ohmyzsh_update: false
