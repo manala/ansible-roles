@@ -2,5 +2,10 @@
 
 elao_elasticsearch_dir: /usr/share/elasticsearch
 
+# Config
+elao_elasticsearch_config_file:     /etc/elasticsearch/elasticsearch.yml
+elao_elasticsearch_config_template: config/base.yml.j2
+elao_elasticsearch_config:          []
+
 # Plugins
 elao_elasticsearch_plugins: []
