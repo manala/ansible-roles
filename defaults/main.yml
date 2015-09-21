@@ -1,5 +1,5 @@
 ---
 
-elao_influxdb_version: latest
+elao_influxdb_version: 0.9.4.1
 
 elao_influxdb_config: {}
