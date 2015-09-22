@@ -1,6 +1,6 @@
 ---
 
-- name: user > Install python-mysqldb package
+- name: users > Install python-mysqldb package
   apt:
     name: python-mysqldb
   when: elao_mysql_users|length > 0
@@ -13,4 +13,3 @@
     priv:     "{{ item.priv }}"
     state:    "{{ item.state|default(omit) }}"
   with_items: elao_mysql_users
-

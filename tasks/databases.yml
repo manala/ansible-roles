@@ -1,11 +1,11 @@
 ---
 
-- name: user > Install python-mysqldb package
+- name: databases > Install python-mysqldb package
   apt:
     name: python-mysqldb
   when: elao_mysql_databases|length > 0
 
-- name: users > Create mysql databases
+- name: databases > Create mysql databases
   mysql_db:
     name:      "{{ item.name }}"
     encoding:  "{{ item.encoding|default('utf8') }}"
