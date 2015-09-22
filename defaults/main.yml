@@ -10,8 +10,8 @@ elao_mysql_configs_dir:       /etc/mysql/conf.d
 elao_mysql_configs_template:  configs/empty.cnf.j2
 elao_mysql_configs:           []
 
-# Mysql users
+# Users
 elao_mysql_users: []
 
-# Mysql databases
+# Databases
 elao_mysql_databases: []
