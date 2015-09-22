@@ -2,3 +2,6 @@
 
 - include: install.yml
 - include: services.yml
+- include: databases.yml
+- include: users.yml
+- include: privileges.yml

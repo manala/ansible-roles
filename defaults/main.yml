@@ -3,3 +3,5 @@
 elao_influxdb_version: 0.9.4.1
 
 elao_influxdb_config: {}
+
+elao_influxdb_influx_bin: /opt/influxdb/influx

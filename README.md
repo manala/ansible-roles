@@ -30,16 +30,31 @@ dependencies:
 
 ## Role Variables
 
-| Name                  | Default | Type   | Description |
-| --------------------- | ------- | ------ | ----------- |
-| elao_influxdb_version | latest  | string |             |
+| Name                     | Default | Type   | Description |
+| ------------------------ | ------- | ------ | ----------- |
+| elao_influxdb_version    | latest  | string |             |
+| elao_influxdb_databases  | []      | array  | Databases   |
+| elao_influxdb_users      | []      | array  | Users       |
+| elao_influxdb_privileges | []      | array  | Privileges  |
 
 ### Configuration example
 
 ```yaml
-elao_influxdb_config:
-  foo: bar
+############
+# InfluxDB #
+############
+
+elao_influxdb_databases:
+  - my_db
+
+elao_influxdb_users:
+ - { database: my_db, name: my_user, password: my_user }
+
+elao_influxdb_privileges:
+ - { database: my_db, user: my_user, grant: ALL }
 ```
+
+See InfluxDB documentation for more information about [databases](https://influxdb.com/docs/v0.9/administration/administration.html#database-management) [users](https://influxdb.com/docs/v0.9/administration/administration.html#user-management) and [privileges](https://influxdb.com/docs/v0.9/administration/administration.html#privilege-control)
 
 ## Example playbook
 
