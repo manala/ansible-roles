@@ -8,7 +8,7 @@
 - name: users > Create mysql users
   mysql_user:
     name:     "{{ item.name }}"
-    password: "{{ item.password }}"
+    password: "{{ item.password|default(omit) }}"
     host:     "{{ item.host|default('localhost') }}"
     priv:     "{{ item.priv }}"
     state:    "{{ item.state|default(omit) }}"
