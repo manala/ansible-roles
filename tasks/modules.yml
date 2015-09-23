@@ -1,0 +1,16 @@
+---
+
+- name: modules > Enable/disable kernel modules.
+  modprobe:
+    name:   "{{ item.name }}"
+    params: "{{ item.params|default(omit) }}"
+    state:  "{{ item.state|default(omit) }}"
+  with_items: elao_system_modprobe
+
+- name: modules > Enable/disable kernel modules on boot.
+  lineinfile:
+    dest:  /etc/modules
+    line:  "{{ item.name }}"
+    state: "{{ item.state|default(omit) }}"
+  with_items: elao_system_modprobe
+
