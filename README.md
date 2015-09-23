@@ -44,7 +44,6 @@ dependencies:
 `elao_phppgadmin_user_group`|None|String|User group
 `elao_phppgadmin_path`|/opt/phppgadmin|String|Path
 `elao_phppgadmin_config`|Array|Dictionnary|Config
-`elao_phppgadmin_config.blowfish_secret`|''|String|Blowfish secret
 `elao_phppgadmin_config.servers`|Array|Array|Servers
 `elao_phppgadmin_config.servers.host`|localhost|String|Host
 
