@@ -1,3 +1,32 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_postgresql_config_hba if elao_postgresql_config_hba|length else [
+    '# DO NOT DISABLE!',
+    '# If you change this first entry you will need to make sure that the',
+    '# database superuser can access the database using some other method.',
+    '# Noninteractive access to all databases is required during automatic',
+    '# maintenance (custom daily cronjobs, replication, and similar tasks).',
+    '#',
+    '# Database administrative login by Unix domain socket',
+    'local   all             postgres                                peer',
+    '',
+    '# TYPE  DATABASE        USER            ADDRESS                 METHOD',
+    '',
+    '# "local" is for Unix domain socket connections only',
+    'local   all             all                                     peer',
+    '# IPv4 local connections:',
+    'host    all             all             127.0.0.1/32            trust',
+    '# IPv6 local connections:',
+    'host    all             all             ::1/128                 trust',
+    '# Allow replication connections from localhost, by a user with the',
+    '# replication privilege.',
+    '#local   replication     postgres                                peer',
+    '#host    replication     postgres        127.0.0.1/32            md5',
+    '#host    replication     postgres        ::1/128                 md5',
+    '# Allow all connections over TCP/IP networks'
+    'host     all             all             0.0.0.0/0               trust'
+] -%}
+
 # PostgreSQL Client Authentication Configuration File
 # ===================================================
 #
@@ -75,25 +104,4 @@
 
 
 
-# DO NOT DISABLE!
-# If you change this first entry you will need to make sure that the
-# database superuser can access the database using some other method.
-# Noninteractive access to all databases is required during automatic
-# maintenance (custom daily cronjobs, replication, and similar tasks).
-#
-# Database administrative login by Unix domain socket
-local   all             postgres                                peer
-
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-
-# "local" is for Unix domain socket connections only
-local   all             all                                     peer
-# IPv4 local connections:
-host    all             all             127.0.0.1/32            trust
-# IPv6 local connections:
-host    all             all             ::1/128                 trust
-# Allow replication connections from localhost, by a user with the
-# replication privilege.
-#local   replication     postgres                                peer
-#host    replication     postgres        127.0.0.1/32            md5
-#host    replication     postgres        ::1/128                 md5
+{{ macros.config(config) }}
