@@ -4,5 +4,7 @@
 elao_postgresql_version: ~
 
 # Config
+elao_postgresql_config_template:     ~
+elao_postgresql_config:              []
 elao_postgresql_config_hba_template: ~
 elao_postgresql_config_hba:          []

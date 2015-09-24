@@ -1,5 +1,12 @@
 ---
 
+- name: config > PostgreSQL configuration
+  template:
+    src: "{{ elao_postgresql_config_template }}"
+    dest: /etc/postgresql/{{ elao_postgresql_version }}/main/postgresql.conf
+  when: elao_postgresql_config_template is not none
+  register: _elao_postgresql_config_result
+
 - name: config > PostgreSQL host-based authentication (hba) configuration
   template:
     src: "{{ elao_postgresql_config_hba_template }}"
