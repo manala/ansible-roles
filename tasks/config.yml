@@ -5,5 +5,10 @@
     src: "{{ elao_postgresql_config_hba_template }}"
     dest: /etc/postgresql/{{ elao_postgresql_version }}/main/pg_hba.conf
   when: elao_postgresql_config_hba_template is not none
-  notify:
-    - postgresql restart
+  register: _elao_postgresql_config_hba_result
+
+- name: config > Restart service
+  service:
+    name:  postgresql
+    state: restarted
+  when: _elao_postgresql_config_result.changed or _elao_postgresql_config_hba_result.changed
