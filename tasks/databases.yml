@@ -1,0 +1,13 @@
+---
+
+- name: databases > Install python-psycopg2 package
+  apt:
+    name: python-psycopg2
+  when: elao_postgresql_databases|length > 0
+
+- name: databases > Create postgresql databases
+  postgresql_db:
+    name:       "{{ item.name }}"
+    state:      "{{ item.state|default(omit) }}"
+    login_host: "{{ elao_postgresql_login_host }}"
+  with_items: elao_postgresql_databases

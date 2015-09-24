@@ -1,0 +1,15 @@
+---
+
+- name: users > Install python-psycopg2 package
+  apt:
+    name: python-psycopg2
+  when: elao_postgresql_users|length > 0
+
+- name: users > Create postgresql users
+  postgresql_user:
+    name:       "{{ item.name }}"
+    password:   "{{ item.password|default(omit) }}"
+    priv:       "{{ item.priv|default(omit) }}"
+    state:      "{{ item.state|default(omit) }}"
+    login_host: "{{ elao_postgresql_login_host }}"
+  with_items: elao_postgresql_users

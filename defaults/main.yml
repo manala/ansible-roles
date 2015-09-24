@@ -8,3 +8,12 @@ elao_postgresql_config_template:     ~
 elao_postgresql_config:              []
 elao_postgresql_config_hba_template: ~
 elao_postgresql_config_hba:          []
+
+# Login
+elao_postgresql_login_host: localhost
+
+# Users
+elao_postgresql_users: []
+
+# Databases
+elao_postgresql_databases: []
