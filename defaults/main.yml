@@ -83,7 +83,7 @@ elao_apt_repositories_patterns:
       url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD669017EBC19DDBA
       id:  BC19DDBA
   grafana:
-    source: deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main
+    source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
     key:
       url: https://packagecloud.io/gpg.key
       id:  D59097AB
