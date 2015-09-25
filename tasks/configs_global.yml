@@ -1,6 +1,6 @@
 ---
 
-- name: configs > Global - Templates
+- name: configs_global > Templates
   template:
     src:  "{{ item.template|default(elao_php_configs_template) }}"
     dest: "{{ elao_php_configs_dir_base }}/conf.d/{{ item.file }}"
@@ -11,7 +11,7 @@
     - php fpm restart
   with_items: elao_php_configs
 
-- name: configs > Global - Exclusive - Find files
+- name: configs_global > Exclusive - Find files
   # configs files coming with php5 packages are nothing but symlinks,
   # so that we can distinguich them from our own files
   command: "find -type f -printf '%P\n'"
@@ -21,7 +21,7 @@
   register: _elao_php_configs_global_find_output
   when: elao_php_configs_exclusive
 
-- name: configs > Global - Exclusive - Remove files
+- name: configs_global > Exclusive - Remove files
   file:
     path:  "{{ elao_php_configs_dir_base }}/conf.d/{{ item }}"
     state: absent
