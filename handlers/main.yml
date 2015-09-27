@@ -1,7 +1,7 @@
 ---
 
 - name: php fpm restart
-  command: "php5-fpm -t"
+  command: "php{{ (elao_php_version == 5)|ternary(5, '') }}-fpm{{ (elao_php_version == 5)|ternary('', elao_php_version) }} -t"
   when: "'fpm' in elao_php_sapis"
   changed_when: true
   notify:
@@ -9,7 +9,7 @@
 
 - name: do php fpm restart
   service:
-    name:  php5-fpm
+    name:  "php{{ elao_php_version }}-fpm"
     state: restarted
   when: "'fpm' in elao_php_sapis"
 

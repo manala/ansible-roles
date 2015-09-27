@@ -1,10 +1,13 @@
 ---
 
+# Version
+elao_php_version: 5
+
 # Sapis
 elao_php_sapis: ['cli', 'fpm']
 
 # Configs
-elao_php_configs_dir_base:  /etc/php5
+elao_php_configs_dir_base:  "/etc/php{{ (elao_php_version == 5)|ternary(5, '/' ~ elao_php_version) }}"
 elao_php_configs_template:  configs/empty.ini.j2
 elao_php_configs_exclusive: false
 elao_php_configs_global:    false
@@ -13,7 +16,7 @@ elao_php_fpm_configs:       []
 elao_php_cli_configs:       []
 
 # Fpm pools
-elao_php_fpm_pools_dir:       /etc/php5/fpm/pool.d
+elao_php_fpm_pools_dir:       "/etc/php{{ (elao_php_version == 5)|ternary(5, '/' ~ elao_php_version) }}/fpm/pool.d"
 elao_php_fpm_pools_template:  fpm_pools/empty.conf.j2
 elao_php_fpm_pools_exclusive: false
 elao_php_fpm_pools:
@@ -22,20 +25,17 @@ elao_php_fpm_pools:
 
 # Extensions
 elao_php_extensions: []
-elao_php_extensions_exclude:
-  - php5-common
-  - php5-cli
-  - php5-fpm
+elao_php_extensions_exclude: "{{ (elao_php_version == 5)|ternary(['php5-common', 'php5-cli', 'php5-fpm'], ['php-common']) }}"
 
 # User
 elao_php_user:  www-data
 elao_php_group: www-data
 
 # Logs
-elao_php_log_dir: /var/log/php5
+elao_php_log_dir: "/var/log/php{{ elao_php_version }}"
 
 # Logrotate
-elao_php_logrotate_file:     /etc/logrotate.d/php5
+elao_php_logrotate_file:     "/etc/logrotate.d/php{{ elao_php_version }}"
 elao_php_logrotate_template: ~
 elao_php_logrotate_config:   []
 
