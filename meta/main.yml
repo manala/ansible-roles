@@ -8,7 +8,7 @@ galaxy_info:
   company:             ELAO
   description:         An apt role for elao symfony standard vagrant box
   license:             MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.8.0
   platforms:
     - name: Debian
       versions:
