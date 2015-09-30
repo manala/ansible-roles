@@ -1,7 +1,7 @@
 ---
 
 # Version
-elao_php_version: 5
+elao_php_version: ~
 
 # Sapis
 elao_php_sapis: ['cli', 'fpm']
