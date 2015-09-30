@@ -2,12 +2,6 @@
 
 - name: preferences > Templates
   template:
-    src:  "{{ item.template|default(elao_apt_preferences_template) }}"
-    dest: "{{ elao_apt_preferences_dir }}/{{ item.file }}"
-  with_items: "{{ elao_apt_preferences|select('mapping')|list }}"
-
-- name: preferences > Patterns templates
-  template:
-    src:  preferences/_pattern.j2
-    dest: "{{ elao_apt_preferences_dir }}/{{ item.split('@')[0] }}"
-  with_items: "{{ elao_apt_preferences|select('string')|list }}"
+    src:  "{{ ('preferences/_pattern.j2') if (item is string) else (item.template|default(elao_apt_preferences_template)) }}"
+    dest: "{{ elao_apt_preferences_dir }}/{{ ((item.split('@')[1].split(':')[0]) if (item.split('@')[0] in ['', '*', '~']) else (item.split('@')[0])) if (item is string) else (item.file) }}"
+  with_items: elao_apt_preferences
