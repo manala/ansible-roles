@@ -36,6 +36,7 @@ None
 
 | Name                                       | Default                | Type         | Description                         |
 | ------------------------------------------ | ---------------------- | ------------ | ----------------------------------- |
+| `elao_apt_update`                          | False                  | Bool         | Execute apt update.                 |
 | `elao_apt_repositories`                    | [ ]                    | Array        | Collection of repositories.         |
 | `elao_apt_repositories.source`             | -                      | String       | A source string for the repository. |
 | `elao_apt_repositories.key.url`            | -                      | String (URL) | URL to the secure key.              |
@@ -46,19 +47,34 @@ None
 | `elao_apt_preferences.config.Package`      | -                      | String       | Packages involved.                  |
 | `elao_apt_preferences.config.Pin`          | -                      | String       | Pin directives.                     |
 | `elao_apt_preferences.config.Pin-Priority` | -                      | Integer      | Priority level of the rule.         |
-| `elao_apt_update`                          | False                  | Bool         | Execute apt update.                 |
+| `elao_apt_packages`                        | [ ]                    | Array        | Collection of packages.             |
 
 ### Configuration example
+
+Packages, concise:
+
+```
+---
+elao_apt_packages:
+  - bzip2 # Name of package
+```
+
+Packages, verbose:
+
+```
+---
+elao_apt_packages:
+  - name:  bzip2  # Required
+    state: absent # Optionnal, default 'present'
+    force: true   # Optionnal
+```
+
+Others:
 
 ```
 ---
 
-elao_apt_packages: true
-
-elao_apt_packages:
-  - name: mysql-client
-  - name: mysql-server
-    state: absent
+elao_apt_update: true
 
 # Use full description, or pre defined patterns
 elao_apt_repositories:

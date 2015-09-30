@@ -2,7 +2,7 @@
 
 - name: packages > Manage packages
   apt:
-    name:  "{{ item.name }}"
+    name:  "{{ (item) if (item is string) else (item.name) }}"
     force: "{{ item.force|default(omit) }}"
     state: "{{ item.state|default('present') }}"
   with_items: elao_apt_packages
