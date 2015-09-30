@@ -1,0 +1,17 @@
+---
+
+- name: applications > Download
+  get_url:
+    url:  "{{ ((elao_php_applications_patterns[item.split('@')[0]].source_version|replace('%version%', item.split('@')[1])) if (item.split('@')|length > 1) else (elao_php_applications_patterns[item.split('@')[0]].source)) if (item is string) else (item.source) }}"
+    dest: "{{ elao_php_applications_dir }}/{{ ((item.split('@')[0] ~ '_' ~ item.split('@')[1]) if (item.split('@')|length > 1) else (item.split('@')[0])) if (item is string) else (item.name) }}"
+    mode: 0755
+  with_items: elao_php_applications
+
+- name: applications > Link versions
+  file:
+    state: link
+    force: yes
+    src:   "{{ item.split('@')[0] ~ '_' ~ item.split('@')[1] }}"
+    dest:  "{{ elao_php_applications_dir }}/{{ item.split('@')[0] }}"
+  when: item.split('@')|length > 1
+  with_items: elao_php_applications
