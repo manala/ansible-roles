@@ -1,0 +1,9 @@
+---
+
+- name: install > Packages
+  npm:
+    name:   "{{ item }}"
+    state:  present
+    global: true
+  with_items:
+    - rtail

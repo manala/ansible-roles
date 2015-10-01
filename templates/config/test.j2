@@ -1,0 +1,12 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = elao_rtail_config -%}
+
+# Defaults for rtail initscript
+# sourced by /etc/init.d/rtail
+# installed at /etc/default/rtail by the maintainer scripts
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="{{ macros.config_row(config, 'web-host', '0.0.0.0') }} {{ (' ' ~ macros.config(config, [
+    'web-host'
+])).rstrip() }}"

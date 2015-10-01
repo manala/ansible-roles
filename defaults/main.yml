@@ -1,0 +1,6 @@
+---
+
+# Config
+elao_rtail_config_file:     /etc/default/rtail
+elao_rtail_config_template: ~
+elao_rtail_config:          []
