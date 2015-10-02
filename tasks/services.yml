@@ -2,7 +2,8 @@
 
 - name: services > Services
   service:
-    name:  "{{ item }}"
-    state: started
+    name:    "{{ item }}"
+    state:   started
+    enabled: yes
   with_items:
     - grafana-server
