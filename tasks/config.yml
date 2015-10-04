@@ -5,3 +5,5 @@
     src:  "{{ elao_rtail_config_template|ternary(elao_rtail_config_template, 'config/empty.j2') }}"
     dest: "{{ elao_rtail_config_file }}"
   when: (elao_rtail_config_template is not none) or (elao_rtail_config|length)
+  notify:
+    - rtail restart
