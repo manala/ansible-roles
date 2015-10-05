@@ -2,14 +2,14 @@
 
 - name: repositories > From preferences pass 1
   set_fact:
-    item: "{{ (item.split('@')[1]).split(':')[0] }}"
+    _elao_apt_preferences_repositories_item: "{{ (item.split('@')[1]).split(':')[0] }}"
   with_items: elao_apt_preferences
   when: item is string
   register: _elao_apt_preferences_repositories
 
 - name: repositories > From preferences pass 2
   set_fact:
-    _elao_apt_preferences_repositories: "{{ _elao_apt_preferences_repositories.results|rejectattr('skipped', 'defined')|map(attribute='ansible_facts.item')|list|unique }}"
+    _elao_apt_preferences_repositories: "{{ _elao_apt_preferences_repositories.results|rejectattr('skipped', 'defined')|map(attribute='ansible_facts._elao_apt_preferences_repositories_item')|list|unique }}"
 
 - name: repositories > Keys
   apt_key:
