@@ -1,0 +1,8 @@
+---
+
+# User / Group
+elao_opcache_dashboard_user:  ~
+elao_opcache_dashboard_group: ~
+
+# Dir
+elao_opcache_dashboard_dir: /opt/opcache-dashboard

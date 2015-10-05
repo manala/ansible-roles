@@ -1,0 +1,19 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  author:              Elao
+  company:             Elao
+  description: >
+    Install and config OPcache Dashboard via composer
+  license:             MIT
+  min_ansible_version: 1.9.0
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+  categories:
+    - development
+    - web
