@@ -1,11 +1,11 @@
 ---
 
-- name: install > download package
+- name: install > Download package
   get_url:
     url: https://s3.amazonaws.com/influxdb/influxdb_{{ elao_influxdb_version }}_amd64.deb
     dest: /opt/influxdb_{{ elao_influxdb_version }}_amd64.deb
 
-- name: install > install package
+- name: install > Install package
   apt:
     deb: /opt/influxdb_{{ elao_influxdb_version }}_amd64.deb
 

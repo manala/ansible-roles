@@ -2,5 +2,5 @@
 
 - name: influxdb restart
   service:
-    name: influxdb
+    name:  influxdb
     state: restarted
