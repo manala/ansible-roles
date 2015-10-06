@@ -4,6 +4,9 @@
 elao_phpmyadmin_user:  ~
 elao_phpmyadmin_group: ~
 
+# Version
+elao_phpmyadmin_version: ~
+
 # Dir
 elao_phpmyadmin_dir: /opt/phpmyadmin
 
