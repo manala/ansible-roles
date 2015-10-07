@@ -2,7 +2,7 @@
 
 # Ansible Role: Supervisor
 
-This role will assume the setup ofSupervisor
+This role will assume the setup of Supervisor
 
 It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 

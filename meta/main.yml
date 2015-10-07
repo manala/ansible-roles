@@ -7,7 +7,7 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    Foo bar
+    Supervisor role
   license: MIT
   min_ansible_version: 1.9.0
   platforms:
