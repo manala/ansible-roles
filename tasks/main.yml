@@ -3,6 +3,6 @@
 - include: requirements.yml
 - include: install.yml
 - include: config.yml
-- include: services.yml
+- include: services.yml tags=elao_services
 - include: databases.yml
 - include: users.yml
