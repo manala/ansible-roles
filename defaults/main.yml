@@ -1,0 +1,7 @@
+---
+
+# Configs
+elao_dnsmasq_configs_exclusive: false
+elao_dnsmasq_configs_dir:       /etc/dnsmasq.d
+elao_dnsmasq_configs_template:  configs/empty.conf.j2
+elao_dnsmasq_configs:           []
