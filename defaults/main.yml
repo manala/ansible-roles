@@ -2,3 +2,7 @@
 
 # Bin
 elao_composer_bin: /usr/local/bin/composer
+
+# Users - Auth
+elao_composer_users_auth_template: users/auth/empty.json.j2
+elao_composer_users_auth: []
