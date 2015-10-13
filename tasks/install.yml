@@ -1,6 +1,7 @@
 ---
 
-- name: install > Download and install composer
-  shell: "curl -sS https://getcomposer.org/installer | php -- --install-dir={{ elao_composer_bin | dirname }} --filename={{ elao_composer_bin | basename }}"
-  args:
-    creates: "{{ elao_composer_bin }}"
+- name: install > Download
+  get_url:
+    url:  https://getcomposer.org/composer.phar
+    dest: "{{ elao_composer_bin }}"
+    mode: 0755
