@@ -51,7 +51,7 @@ elao_postgresql_version: 9.4
 ## PostgreSQL with custom configuration files:
 
 ```
-elao_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.conf.j2' }}"
+elao_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.conf.j2' }}"
 ```
 
 ## Example playbook
