@@ -43,7 +43,7 @@ dependencies:
 ### Configuration example
 
 ```yaml
-elao_timezone: Malbosquet/Ardèche
+elao_timezone: Europe/Paris
 ```
 
 ## Example playbook
