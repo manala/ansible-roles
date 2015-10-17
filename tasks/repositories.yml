@@ -5,11 +5,12 @@
     _elao_apt_preferences_repositories_item: "{{ (item.split('@')[1]).split(':')[0] }}"
   with_items: elao_apt_preferences
   when: item is string
-  register: _elao_apt_preferences_repositories
+  register: _elao_apt_preferences_repositories_pass
 
 - name: repositories > From preferences pass 2
   set_fact:
-    _elao_apt_preferences_repositories: "{{ _elao_apt_preferences_repositories.results|rejectattr('skipped', 'defined')|map(attribute='ansible_facts._elao_apt_preferences_repositories_item')|list|unique }}"
+    _elao_apt_preferences_repositories: "{{ _elao_apt_preferences_repositories_pass.results|rejectattr('skipped', 'defined')|map(attribute='ansible_facts._elao_apt_preferences_repositories_item')|list|unique }}"
+  when: _elao_apt_preferences_repositories_pass.results is defined
 
 - name: repositories > Keys
   apt_key:
@@ -31,7 +32,7 @@
     url:   "{{ elao_apt_repositories_patterns[item.split('/')[0]].key.url }}"
     id:    "{{ elao_apt_repositories_patterns[item.split('/')[0]].key.id }}"
     state: "{{ item.split('/')[1]|default('present') }}"
-  with_items: "{{ (_elao_apt_preferences_repositories + elao_apt_repositories|select('string')|list)|unique }}"
+  with_items: "{{ (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique }}"
   when: elao_apt_repositories_patterns[item.split('/')[0]].key is defined
 
 - name: repositories > Patterns sources
@@ -39,4 +40,4 @@
     repo:         "{{ elao_apt_repositories_patterns[item.split('/')[0]].source }}"
     state:        "{{ item.split('/')[1]|default('present') }}"
     update_cache: yes
-  with_items: "{{ (_elao_apt_preferences_repositories + elao_apt_repositories|select('string')|list)|unique }}"
+  with_items: "{{ (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique }}"
