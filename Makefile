@@ -47,6 +47,17 @@ build-packages:
 	    --volume `pwd`:/srv \
 	    --workdir /srv \
 	    --tty \
+	    debian:jessie \
+	    sh -c '\
+	        apt-get update && \
+	        apt-get install -y make && \
+	        make build-package@debian-jessie \
+	    '
+	docker run \
+	    --rm \
+	    --volume `pwd`:/srv \
+	    --workdir /srv \
+	    --tty \
 	    ubuntu:trusty \
 	    sh -c '\
 	        apt-get update && \
@@ -66,6 +77,19 @@ build-package@debian-wheezy:
 	# Move package files
 	rm -f /srv/files/debian_wheezy/*.deb
 	mv ~/*.deb /srv/files/debian_wheezy
+
+build-package@debian-jessie:
+	apt-get install -y wget build-essential debhelper autotools-dev libssl-dev libpam0g-dev devscripts
+	# Get origin package
+	wget ${PACKAGE_SOURCE}/v${PACKAGE_VERSION}/pam_ssh_agent_auth-${PACKAGE_VERSION}.tar.bz2 -O ~/package.tar.bz2
+	# Extract origin package
+	mkdir -p ~/package
+	tar xfv ~/package.tar.bz2 -C ~/package --strip-components=1
+	# Build package
+	cd ~/package && debuild -i -us -uc -b
+	# Move package files
+	rm -f /srv/files/debian_jessie/*.deb
+	mv ~/*.deb /srv/files/debian_jessie
 
 build-package@ubuntu-trusty:
 	apt-get install -y wget build-essential debhelper autotools-dev libssl-dev libpam0g-dev devscripts
