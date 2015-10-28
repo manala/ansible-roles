@@ -11,6 +11,14 @@ elao_apt_sources_list:          []
 # Repositories
 elao_apt_repositories: []
 elao_apt_repositories_patterns:
+  security:
+    source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
+  security_src:
+    source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
+  updates:
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+  updates_src:
+    source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
   backports:
     source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main
     pin:    release a={{ ansible_distribution_release }}-backports
