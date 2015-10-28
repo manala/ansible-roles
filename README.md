@@ -5,10 +5,8 @@
 This role will add third party sources to the package manager by:
 - Adding source URL as new repository
 - Adding secure key specified
-- Managing packages prefereces files (aka. pinning)
+- Managing packages preferences files (aka. pinning)
 - Installing packages
-
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
 
 ## Requirements
 
@@ -23,7 +21,7 @@ None.
 Using ansible galaxy:
 
 ```bash
-ansible-galaxy install elao.apt
+ansible-galaxy install elao.apt,1.0
 ```
 
 ## Role Handlers
@@ -34,152 +32,189 @@ None
 
 ### Definition
 
-| Name                                       | Default                | Type         | Description                         |
-| ------------------------------------------ | ---------------------- | ------------ | ----------------------------------- |
-| `elao_apt_update`                          | False                  | Bool         | Execute apt update.                 |
-| `elao_apt_repositories`                    | [ ]                    | Array        | Collection of repositories.         |
-| `elao_apt_repositories.source`             | -                      | String       | A source string for the repository. |
-| `elao_apt_repositories.key.url`            | -                      | String (URL) | URL to the secure key.              |
-| `elao_apt_repositories.key.id`             | -                      | String       | Id of the secure key.               |
-| `elao_apt_preferences`                     | [ ]                    | Array        | Collection of preferences.          |
-| `elao_apt_preferences.file`                | -                      | String       | Preference file name.               |
-| `elao_apt_preferences.template`            | preferences/default.js | String       | Preference template.                |
-| `elao_apt_preferences.config.Package`      | -                      | String       | Packages involved.                  |
-| `elao_apt_preferences.config.Pin`          | -                      | String       | Pin directives.                     |
-| `elao_apt_preferences.config.Pin-Priority` | -                      | Integer      | Priority level of the rule.         |
-| `elao_apt_packages`                        | [ ]                    | Array        | Collection of packages.             |
+| Name                    | Default  | Type  | Description                |
+| ----------------------- | -------- | ----- | -------------------------- |
+| `elao_apt_update`       | False    | Bool  | Update                     |
+| `elao_apt_upgrade`      | False    | Bool  | Upgrade                    |
+| `elao_apt_components`   | ['main'] | Array | Collection of components   |
+| `elao_apt_sources_list` | []       | Array | Collection of sources      |
+| `elao_apt_repositories` | []       | Array | Collection of repositories |
+| `elao_apt_preferences`  | []       | Array | Collection of preferences  |
+| `elao_apt_packages`     | []       | Array | Collection of packages     |
 
-### Configuration example
+### Example
 
-Packages, concise:
-
-```
----
-elao_apt_packages:
-  - bzip2 # Name of package
-```
-
-Packages, verbose:
-
-```
----
-elao_apt_packages:
-  - name:  bzip2  # Required
-    state: absent # Optionnal, default 'present'
-    force: true   # Optionnal
+```yaml
+- hosts: all
+  vars:
+    elao_apt_update: true
+    elao_apt_repositories:
+      - contrib
+    elao_apt_preferences:
+      - git@backports
+      - ~@dotdeb:100
+      - php@dotdeb_php56
+      - nginx@nginx
+    elao_apt_packages:
+      - ttf-mscorefonts-installer
+  roles:
+    - role: elao.apt
 ```
 
-Others:
+### Update
 
-```
----
+Update packages
 
+```yaml
 elao_apt_update: true
+```
 
-# Use full description, or pre defined patterns
+### Upgrade
+
+Upgrade packages
+
+```yaml
+elao_apt_upgrade: true
+```
+
+### Components
+
+Specify apt components
+
+```yaml
+elao_apt_components: ['main', 'contrib', 'non-free']
+```
+
+### Sources list
+
+Define manually each sources
+
+```yaml
+elao_apt_sources_list:
+  - deb: http://httpredir.debian.org/debian wheezy main
+  - deb http://httpredir.debian.org/debian wheezy contrib
+```
+
+Or use predefined templates
+
+```yaml
+elao_apt_sources_list_template: sources_list/base.list.j2
+```
+
+Or combine both
+
+```yaml
+elao_apt_sources_list_template: sources_list/base_src.list.j2
+elao_apt_sources_list:
+  - deb-src: http://httpredir.debian.org/debian wheezy main
+  - deb-src http://httpredir.debian.org/debian wheezy contrib
+```
+
+### Repositories
+
+Concise, pattern based
+
+```yaml
 elao_apt_repositories:
+  - security
+  - security_src
+  - updates
+  - updates_src
   - backports
-  - postgresql
   - dotdeb
-  - dotdebb_php55
-  - dotdebb_php56
+  - dotdeb_php54
+  - dotdeb_php55
+  - dotdeb_php56
   - nginx
-  - varnish
-  - nodesource
-  - mongodb
   - bearstech
-  # Use pre-defined template...
+  - nodesource_0_10
+  - nodesource_0_12
+  - nodesource_4
+  - postgresql
+  - mongodb_3_0
+  - varnish_4_0
   - jenkins
-  # ... or full description
+  - sensu
+  - rabbitmq
+  - proxmox_enterprise
+  - logentries
+  - galera
+  - grafana
+  - elasticsearch_1_5
+  - elasticsearch_1_6
+  - elasticsearch_1_7
+  - mongodb
+  - ppa_ansible
+```
+
+Verbose, pattern based
+
+```yaml
+elao_apt_repositories:
+  - pattern: backports
+    state:   absent
+```
+
+Verbose
+
+```yaml
+elao_apt_repositories:
   - source: deb http://pkg.jenkins-ci.org/debian binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id:  D50582E6
-  # Remove proxmox entreprise
   - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
     state:  absent
+```
 
+### Preferences
+
+Concise, pattern based
+
+Format: [preference pattern]@[repository pattern]:[pin priority]
+
+Note that referenced repositories will automatically be include as present using "elao_apt_repositories" process.
+
+```yaml
 elao_apt_preferences:
-  # Dotdeb (low priority by default)
+  - git@backports # git* from backports reposotiry, high priority
+  - ~@dotdeb:100  # all from dotdeb repository, low priority
+  - php@dotdeb    # php* from backports reposotiry, high priority
+```
+
+Verbose
+
+```yaml
+elao_apt_preferences:
   - file: dotdeb
     config:
       - Package:      '*'
       - Pin:          origin packages.dotdeb.org
       - Pin-Priority: 100
-  # Php
   - file: php
     config:
       - Package:       php*
       - Pin:           origin packages.dotdeb.org
       - Pin-Priority:  900
-  # Mysql
-  - file: mysql
-    config:
-      - Package:       mysql*
-      - Pin:           origin packages.dotdeb.org
-      - Pin-Priority:  900
-  # Nginx
-  - file: nginx
-    config:
-      - Package:       nginx*
-      - Pin:           origin nginx.org
-      - Pin-Priority:  900
-  # Ruby
-  - file: ruby
-    config:
-      - Package:       ruby*
-      - Pin:           origin deb.bearstech.com
-      - Pin-Priority:  900
-  # NodeJS
-  - file: nodejs
-    config:
-      - Package:       nodejs
-      - Pin:           origin deb.nodesource.com
-      - Pin-Priority:  900
-  # Haproxy
-  - file: haproxy
-    config:
-      - Package:       haproxy*
-      - Pin:           release a={{ ansible_distribution_release }}-backports
-      - Pin-Priority:  900
-  # Varnish
-  - file: varnish
-    config:
-      - Package:       varnish*
-      - Pin:           origin repo.varnish-cache.org
-      - Pin-Priority:  900
-  # MongoDB
-  - file: mongodb
-    config:
-      Package:       mongodb-*
-      Pin:           origin docs.mongodb.org
-      Pin-Priority:  900
-  # Backports
-  - file: backports
-    config:
-      - Package:       git* haproxy*
-      - Pin:           release a={{ ansible_distribution_release }}-backports
-      - Pin-Priority:  900
-  # Git
-  - file: backports
-    config:
-      - Package:       git*
-      - Pin:           release a={{ ansible_distribution_release }}-backports
-      - Pin-Priority:  900
-  # Haproxy
-  - file: backports
-    config:
-      - Package:       haproxy*
-      - Pin:           release a={{ ansible_distribution_release }}-backports
-      - Pin-Priority:  900
-
 ```
 
-## Example playbook
+### Packages
 
-    - hosts: servers
-      roles:
-         - { role: elao.apt }
+Concise
+
+```yaml
+elao_apt_packages:
+  - vim # Name of package
+```
+
+Verbose
+
+```yaml
+elao_apt_packages:
+  - name:  bzip2  # Name of package, required
+    state: absent # State of package, optionnal, default 'present'
+    force: true   # Force installation, optionnal
+```
 
 # Licence
 
