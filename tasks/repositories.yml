@@ -14,30 +14,30 @@
 
 - name: repositories > Keys
   apt_key:
-    url:   "{{ item.key.url }}"
-    id:    "{{ item.key.id }}"
+    url:   "{{ (item.key.url) if (item.key is defined) else elao_apt_repositories_patterns[item.pattern].key.url }}"
+    id:    "{{ (item.key.id) if (item.key is defined) else elao_apt_repositories_patterns[item.pattern].key.id }}"
     state: "{{ item.state|default('present') }}"
   with_items: "{{ elao_apt_repositories|select('mapping')|list }}"
-  when: item.key is defined
+  when: (item.key is defined) or (elao_apt_repositories_patterns[item.pattern].key is defined)
 
 - name: repositories > Sources
   apt_repository:
-    repo:         "{{ item.source }}"
+    repo:         "{{ item.source|default(elao_apt_repositories_patterns[item.pattern].source) }}"
     state:        "{{ item.state|default('present') }}"
     update_cache: yes
   with_items: "{{ elao_apt_repositories|select('mapping')|list }}"
 
-- name: repositories > Patterns keys
+- name: repositories > String patterns keys
   apt_key:
-    url:   "{{ elao_apt_repositories_patterns[item.split('/')[0]].key.url }}"
-    id:    "{{ elao_apt_repositories_patterns[item.split('/')[0]].key.id }}"
-    state: "{{ item.split('/')[1]|default('present') }}"
+    url:   "{{ elao_apt_repositories_patterns[item].key.url }}"
+    id:    "{{ elao_apt_repositories_patterns[item].key.id }}"
+    state: present
   with_items: "{{ (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique }}"
-  when: elao_apt_repositories_patterns[item.split('/')[0]].key is defined
+  when: elao_apt_repositories_patterns[item].key is defined
 
-- name: repositories > Patterns sources
+- name: repositories > String pattern sources
   apt_repository:
-    repo:         "{{ elao_apt_repositories_patterns[item.split('/')[0]].source }}"
-    state:        "{{ item.split('/')[1]|default('present') }}"
+    repo:         "{{ elao_apt_repositories_patterns[item].source }}"
+    state:        present
     update_cache: yes
   with_items: "{{ (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique }}"
