@@ -1,0 +1,7 @@
+---
+
+- name: sources_list > Template
+  template:
+    src:  "{{ elao_apt_sources_list_template|ternary(elao_apt_sources_list_template, 'sources_list/empty.list.j2') }}"
+    dest: "{{ elao_apt_sources_list_file }}"
+  when: (elao_apt_sources_list_template is not none) or (elao_apt_sources_list|length)

@@ -1,5 +1,13 @@
 ---
 
+# Components
+elao_apt_components: ['main']
+
+# Sources list
+elao_apt_sources_list_file:     /etc/apt/sources.list
+elao_apt_sources_list_template: ~
+elao_apt_sources_list:          []
+
 # Repositories
 elao_apt_repositories: []
 elao_apt_repositories_patterns:

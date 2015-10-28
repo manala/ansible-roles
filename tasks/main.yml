@@ -1,6 +1,7 @@
 ---
 
 - include: dependencies.yml
+- include: sources_list.yml
 - include: repositories.yml
 - include: preferences.yml
 - include: update.yml
