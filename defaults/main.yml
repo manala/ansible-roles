@@ -4,7 +4,7 @@
 elao_apt_repositories: []
 elao_apt_repositories_patterns:
   backports:
-    source: deb http://cdn.debian.net/debian {{ ansible_distribution_release }}-backports main
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main
     pin:    release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
