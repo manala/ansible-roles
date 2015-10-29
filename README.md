@@ -98,13 +98,13 @@ elao_apt_sources_list:
 Or use predefined templates
 
 ```yaml
-elao_apt_sources_list_template: sources_list/base.list.j2
+elao_apt_sources_list_template: sources_list/debian.list.j2
 ```
 
 Or combine both
 
 ```yaml
-elao_apt_sources_list_template: sources_list/base_src.list.j2
+elao_apt_sources_list_template: sources_list/debian_src.list.j2
 elao_apt_sources_list:
   - deb-src: http://httpredir.debian.org/debian wheezy main
   - deb-src http://httpredir.debian.org/debian wheezy contrib
@@ -116,11 +116,15 @@ Concise, pattern based
 
 ```yaml
 elao_apt_repositories:
-  - security
-  - security_src
-  - updates
-  - updates_src
-  - backports
+  - debian_security
+  - debian_security_src
+  - debian_updates
+  - debian_updates_src
+  - debian_backports
+  - ubuntu_security
+  - ubuntu_updates
+  - ubuntu_partner
+  - ubuntu_backports
   - dotdeb
   - dotdeb_php54
   - dotdeb_php55

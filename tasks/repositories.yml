@@ -12,6 +12,11 @@
     _elao_apt_preferences_repositories: "{{ _elao_apt_preferences_repositories_pass.results|rejectattr('skipped', 'defined')|map(attribute='ansible_facts._elao_apt_preferences_repositories_item')|list|unique }}"
   when: _elao_apt_preferences_repositories_pass.results is defined
 
+- name: repositories > Deprecation - Pattern 'backports'
+  fail:
+    msg: "Repository pattern 'backports' is deprecated, please specify 'debian_backports' or 'ubuntu_backports'"
+  when: "{{ 'backports' in (elao_apt_repositories|select('mapping')|rejectattr('pattern', 'undefined')|map(attribute='pattern')|list + (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique) }}"
+
 - name: repositories > Deprecation - Pattern 'mongodb'
   fail:
     msg: "Repository pattern 'mongodb' is deprecated, please specify version like 'mongodb_3_0'"

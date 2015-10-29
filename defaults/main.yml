@@ -11,16 +11,25 @@ elao_apt_sources_list:          []
 # Repositories
 elao_apt_repositories: []
 elao_apt_repositories_patterns:
-  security:
+  debian_security:
     source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
-  security_src:
+  debian_security_src:
     source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
-  updates:
+  debian_updates:
     source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
-  updates_src:
+  debian_updates_src:
     source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
-  backports:
-    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main
+  debian_backports:
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ elao_apt_components|join(' ') }}
+    pin:    release a={{ ansible_distribution_release }}-backports
+  ubuntu_security:
+    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ elao_apt_components|join(' ') }}
+  ubuntu_updates:
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+  ubuntu_partner:
+    source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
+  ubuntu_backports:
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ elao_apt_components|join(' ') }}
     pin:    release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
