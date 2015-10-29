@@ -102,6 +102,8 @@ elao_apt_repositories_patterns:
     key:
       url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
       id:  056E8E56
+  proxmox:
+    source: deb http://download.proxmox.com/debian {{ ansible_distribution_release }} pve-no-subscription
   proxmox_enterprise:
     source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
   logentries:

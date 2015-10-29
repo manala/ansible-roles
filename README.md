@@ -141,6 +141,7 @@ elao_apt_repositories:
   - jenkins
   - sensu
   - rabbitmq
+  - proxmox
   - proxmox_enterprise
   - logentries
   - galera
