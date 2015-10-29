@@ -132,6 +132,7 @@ elao_apt_repositories:
   - nodesource_4
   - postgresql
   - mongodb_3_0
+  - mongodb_3_1
   - varnish_4_0
   - jenkins
   - sensu
@@ -143,7 +144,6 @@ elao_apt_repositories:
   - elasticsearch_1_5
   - elasticsearch_1_6
   - elasticsearch_1_7
-  - mongodb
   - ppa_ansible
 ```
 
