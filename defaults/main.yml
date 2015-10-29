@@ -34,7 +34,7 @@ elao_apt_repositories_patterns:
   dotdeb_php56:
     source: deb http://packages.dotdeb.org wheezy-php56 all
   nginx:
-    source: deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
+    source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
     key:
       url: http://nginx.org/keys/nginx_signing.key
       id:  7BD9BF62
@@ -69,9 +69,9 @@ elao_apt_repositories_patterns:
       url: http://docs.mongodb.org/10gen-gpg-key.asc
       id:  7F0CEB10
   varnish_4_0:
-    source: deb https://repo.varnish-cache.org/debian/ {{ ansible_distribution_release }} varnish-4.0
+    source: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
     key:
-      url: https://repo.varnish-cache.org/debian/GPG-key.txt
+      url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
       id:  C4DEFFEB
   jenkins:
     source: deb http://pkg.jenkins-ci.org/debian binary/
@@ -96,7 +96,7 @@ elao_apt_repositories_patterns:
       url: https://pgp.mit.edu/pks/lookup?op=get&search=0xA5270289C43C79AD
       id:  C43C79AD
   galera:
-    source: deb http://releases.galeracluster.com/debian {{ ansible_distribution_release }} main
+    source: deb http://releases.galeracluster.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key:
       url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD669017EBC19DDBA
       id:  BC19DDBA
