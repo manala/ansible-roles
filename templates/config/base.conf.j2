@@ -2,7 +2,12 @@
 
 {% set config = elao_redis_config -%}
 
-# Redis configuration file example
+# Redis configuration file example.
+#
+# Note that in order to read the configuration file, Redis must be
+# started with the file path as first argument:
+#
+# ./redis-server /path/to/redis.conf
 
 # Note on units: when memory size is needed, it is possible to specify
 # it in the usual form of 1k 5GB 4M and so forth:
@@ -71,7 +76,7 @@
 # incoming connections. There is no default, so Redis will not listen
 # on a unix socket when not specified.
 #
-# unixsocket /tmp/redis.sock
+# unixsocket /var/run/redis/redis.sock
 # unixsocketperm 700
 
 # Close the connection after a client is idle for N seconds (0 to disable)
