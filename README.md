@@ -183,7 +183,7 @@ Note that referenced repositories will automatically be include as present using
 ```yaml
 elao_apt_preferences:
   - git@backports # git* from backports reposotiry, high priority
-  - ~@dotdeb:100  # all from dotdeb repository, low priority
+  - ~@dotdeb:100  # * from dotdeb repository, low priority
   - php@dotdeb    # php* from backports reposotiry, high priority
 ```
 
