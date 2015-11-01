@@ -172,6 +172,12 @@ elao_apt_repositories:
     state:  absent
 ```
 
+Exclusivity (all repositories non defined by role will be deleted)
+
+```yaml
+elao_apt_repositories_exclusive: true
+```
+
 ### Preferences
 
 Concise, pattern based
