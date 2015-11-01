@@ -1,53 +1,52 @@
 ---
 
-- name: repositories > From preferences pass 1
+# Get repositories patterns from preferences
+# Following "bar@foo" syntax, get the right part, in this case, "foo"
+- name: repositories > From preferences
   set_fact:
-    _elao_apt_preferences_repositories_item: "{{ (item.split('@')[1]).split(':')[0] }}"
-  with_items: elao_apt_preferences
-  when: item is string
-  register: _elao_apt_preferences_repositories_pass
+    __item: "{{ (item.split('@')[1]).split(':')[0] }}"
+  with_items: elao_apt_preferences|select('string')|list
+  register: __elao_apt_preferences_repositories
 
-- name: repositories > From preferences pass 2
+# Expand string based repositories into arrays
+# foo -> {pattern: 'foo'}
+- name: repositories > Expand patterns
   set_fact:
-    _elao_apt_preferences_repositories: "{{ _elao_apt_preferences_repositories_pass.results|rejectattr('skipped', 'defined')|map(attribute='ansible_facts._elao_apt_preferences_repositories_item')|list|unique }}"
-  when: _elao_apt_preferences_repositories_pass.results is defined
+    __item: "{{ ({'pattern': item}) if (item is string) else (item) }}"
+  with_items: (elao_apt_repositories + ((__elao_apt_preferences_repositories.results|map(attribute='ansible_facts.__item')|list) if (__elao_apt_preferences_repositories.results is defined) else ([])))|unique
+  register: __elao_apt_repositories
 
+# Deprecation
 - name: repositories > Deprecation - Pattern 'backports'
   fail:
     msg: "Repository pattern 'backports' is deprecated, please specify 'debian_backports' or 'ubuntu_backports'"
-  when: "{{ 'backports' in (elao_apt_repositories|select('mapping')|rejectattr('pattern', 'undefined')|map(attribute='pattern')|list + (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique) }}"
+  when: "{{ 'backports' in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
 
+# Deprecation
 - name: repositories > Deprecation - Pattern 'mongodb'
   fail:
     msg: "Repository pattern 'mongodb' is deprecated, please specify version like 'mongodb_3_0'"
-  when: "{{ 'mongodb' in (elao_apt_repositories|select('mapping')|rejectattr('pattern', 'undefined')|map(attribute='pattern')|list + (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique) }}"
+  when: "{{ 'mongodb' in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
 
-- name: repositories > Keys
+# Replace pattern based repositories by their values
+# {pattern: 'foo'} -> {src: 'deb http://foo.com/debian }
+- name: repositories > Apply patterns
+  set_fact:
+    __item: "{{ ({'source': elao_apt_repositories_patterns[item.pattern].source, 'key': elao_apt_repositories_patterns[item.pattern].key|default(none)}) if (item.pattern is defined) else (item) }}"
+  with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
+  register: __elao_apt_repositories
+
+- name: repositories > Key
   apt_key:
-    url:   "{{ (item.key.url) if (item.key is defined) else elao_apt_repositories_patterns[item.pattern].key.url }}"
-    id:    "{{ (item.key.id) if (item.key is defined) else elao_apt_repositories_patterns[item.pattern].key.id }}"
+    url:   "{{ item.key.url }}"
+    id:    "{{ item.key.id }}"
     state: "{{ item.state|default('present') }}"
-  with_items: "{{ elao_apt_repositories|select('mapping')|list }}"
-  when: (item.key is defined) or (elao_apt_repositories_patterns[item.pattern].key is defined)
+  with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
+  when: item.key is defined and (item.key is not none)
 
-- name: repositories > Sources
+- name: repositories > Source
   apt_repository:
-    repo:         "{{ item.source|default(elao_apt_repositories_patterns[item.pattern].source) }}"
+    repo:         "{{ item.source }}"
     state:        "{{ item.state|default('present') }}"
     update_cache: yes
-  with_items: "{{ elao_apt_repositories|select('mapping')|list }}"
-
-- name: repositories > String patterns keys
-  apt_key:
-    url:   "{{ elao_apt_repositories_patterns[item].key.url }}"
-    id:    "{{ elao_apt_repositories_patterns[item].key.id }}"
-    state: present
-  with_items: "{{ (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique }}"
-  when: elao_apt_repositories_patterns[item].key is defined
-
-- name: repositories > String pattern sources
-  apt_repository:
-    repo:         "{{ elao_apt_repositories_patterns[item].source }}"
-    state:        present
-    update_cache: yes
-  with_items: "{{ (_elao_apt_preferences_repositories|default([]) + elao_apt_repositories|select('string')|list)|unique }}"
+  with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
