@@ -4,8 +4,6 @@
 
 This role will assume the basic installation of sudo
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
-
 ## Requirements
 
 - Ansible 1.7.2+
@@ -19,45 +17,43 @@ None.
 Using ansible galaxy:
 
 ```bash
-ansible-galaxy install elao.sudo
-```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
-
-```yaml
-dependencies:
-  - { role: elao.sudo }
+ansible-galaxy install elao.sudo,1.0
 ```
 
 ## Role Handlers
 
-None
+|Name|Type|Description|
+|----|-----------|-------|
+`sudo restart`|Service|Restart sudo service
 
 ## Role Variables
 
 ### Definition
 
-| Name                    | Default        | Type   | Description            |
-| ----------------------- | -------------- | ------ | -----------------------|
-| `elao_sudo_sudoers_dir` | /etc/sudoers.d | String | Sudoers directory.     |
-| `elao_sudo_sudoers`     | [ ]            | Array  | Collection of sudoers. |
+| Name                          | Default | Type    | Description               |
+| ----------------------------- | ------- | ------- | ------------------------- |
+| `elao_sudo_sudoers_exclusive` | false   | Boolean | Sudoers files exclusivity |
+| `elao_sudo_sudoers`           | []      | Array   | Collection of sudoers     |
 
-### Configuration example
+### Example
+
+```yaml
+- hosts: all
+  vars:
+    elao_sudo_sudoers:
+      - file: vagrant
+        config:
+          - vagrant: ALL=NOPASSWD:ALL
+  roles:
+    - role: elao.sudo
 
 ```
----
 
-elao_sudo_sudoers:
-  - file: vagrant
-    config:
-      - vagrant: ALL=NOPASSWD:ALL
+Exclusivity (all sudoers non defined by role will be deleted)
 
+```yaml
+elao_sudo_sudoers_exclusive: true
 ```
-
-## Example playbook
-
-    - hosts: servers
-      roles:
-         - { role: elao.sudo }
 
 # Licence
 

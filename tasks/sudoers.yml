@@ -2,7 +2,7 @@
 
 - name: sudoers > Templates
   template:
-    src:  "{{ item.template|default(elao_sudo_sudoers_template) }}"
+    src:  "{{ item.template|default('sudoers/empty.j2') }}"
     dest: "{{ elao_sudo_sudoers_dir }}/{{ item.file }}"
     mode: 0440
   with_items: elao_sudo_sudoers
@@ -12,7 +12,7 @@
   args:
     chdir: "{{ elao_sudo_sudoers_dir }}"
   changed_when: false
-  register: _elao_sudo_sudoers_find_output
+  register: __elao_sudo_sudoers_find
   when: elao_sudo_sudoers_exclusive
 
 - name: sudoers > Exclusive - remove files
@@ -20,6 +20,6 @@
     path:  "{{ elao_sudo_sudoers_dir }}/{{ item }}"
     state: absent
   when: elao_sudo_sudoers_exclusive and (item not in elao_sudo_sudoers|map(attribute='file'))
-  with_items: _elao_sudo_sudoers_find_output.stdout_lines
+  with_items: __elao_sudo_sudoers_find.stdout_lines
   notify:
     - sudo restart
