@@ -50,3 +50,21 @@
     state:        "{{ item.state|default('present') }}"
     update_cache: yes
   with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
+
+- name: repositories > Exclusive - find files
+  command: "find -type f -name '*.list' -printf '%P\n'"
+  args:
+    chdir: "{{ elao_apt_repositories_dir }}"
+  changed_when: false
+  register: __elao_apt_repositories_find_output
+  when: elao_apt_repositories_exclusive
+
+# Here come the tricky part
+# Simulate what file name ansible apt_repository module will give
+# Something like "deb http://nginx.org/packages/debian/ wheezy nginx" -> "nginx_org_packages_debian.list"
+- name: repositories > Exclusive - remove files
+  file:
+    path:  "{{ elao_apt_repositories_dir }}/{{ item }}"
+    state: absent
+  when: "{{ elao_apt_repositories_exclusive and (item not in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.source')|map('regex_replace', '^deb https?:\\/\\/([^ ]+)[ ].*$', '\\\\1')|map('replace', '.', ' ')|map('replace', '/', ' ')|map('trim')|map('replace', ' ', '_')|map('regex_replace', '(.*)', '\\\\1.list')|list) }}"
+  with_items: __elao_apt_repositories_find_output.stdout_lines

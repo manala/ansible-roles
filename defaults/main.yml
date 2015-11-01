@@ -9,7 +9,9 @@ elao_apt_sources_list_template: ~
 elao_apt_sources_list:          []
 
 # Repositories
-elao_apt_repositories: []
+elao_apt_repositories_exclusive: false
+elao_apt_repositories_dir:       /etc/apt/sources.list.d
+elao_apt_repositories:           []
 elao_apt_repositories_patterns:
   debian_security:
     source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
