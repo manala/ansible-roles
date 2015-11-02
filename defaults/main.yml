@@ -69,6 +69,11 @@ elao_apt_repositories_patterns:
     key:
       url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
       id:  68576280
+  nodesource_5:
+    source: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  68576280
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key:
