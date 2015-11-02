@@ -150,6 +150,7 @@ elao_apt_repositories:
   - elasticsearch_1_6
   - elasticsearch_1_7
   - ppa_ansible
+  - blackfire
 ```
 
 Verbose, pattern based

@@ -145,6 +145,11 @@ elao_apt_repositories_patterns:
       id:  D88E42B4
   ppa_ansible:
     source: ppa:ansible/ansible
+  blackfire:
+    source: deb http://packages.blackfire.io/debian any main
+    key:
+      url: https://packagecloud.io/gpg.key
+      id:  D59097AB
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
