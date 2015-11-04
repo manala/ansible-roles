@@ -20,20 +20,20 @@
 - name: repositories > Deprecation - Pattern 'backports'
   fail:
     msg: "Repository pattern 'backports' is deprecated, please specify 'debian_backports' or 'ubuntu_backports'"
-  when: "{{ 'backports' in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
+  when: "{{ not __elao_apt_repositories|skipped and 'backports' in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
 
 # Deprecation
 - name: repositories > Deprecation - Pattern 'mongodb'
   fail:
     msg: "Repository pattern 'mongodb' is deprecated, please specify version like 'mongodb_3_0'"
-  when: "{{ 'mongodb' in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
+  when: "{{ not __elao_apt_repositories|skipped and 'mongodb' in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
 
 # Replace pattern based repositories by their values
 # {pattern: 'foo'} -> {src: 'deb http://foo.com/debian }
 - name: repositories > Apply patterns
   set_fact:
     __item: "{{ ({'source': elao_apt_repositories_patterns[item.pattern].source, 'key': elao_apt_repositories_patterns[item.pattern].key|default(none)}) if (item.pattern is defined) else (item) }}"
-  with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
+  with_items: (__elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list) if (not __elao_apt_repositories|skipped) else ([])
   register: __elao_apt_repositories
 
 - name: repositories > Key
@@ -41,7 +41,7 @@
     url:   "{{ item.key.url }}"
     id:    "{{ item.key.id }}"
     state: "{{ item.state|default('present') }}"
-  with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
+  with_items: (__elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list) if (not __elao_apt_repositories|skipped) else ([])
   when: item.key is defined and (item.key is not none)
 
 - name: repositories > Source
@@ -49,7 +49,7 @@
     repo:         "{{ item.source }}"
     state:        "{{ item.state|default('present') }}"
     update_cache: yes
-  with_items: __elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list
+  with_items: (__elao_apt_repositories.results|map(attribute='ansible_facts.__item')|list) if (not __elao_apt_repositories|skipped) else ([])
 
 - name: repositories > Exclusive - find files
   command: "find -type f -name '*.list' -printf '%P\n'"
@@ -67,4 +67,4 @@
     path:  "{{ elao_apt_repositories_dir }}/{{ item }}"
     state: absent
   when: "{{ elao_apt_repositories_exclusive and (item not in __elao_apt_repositories.results|map(attribute='ansible_facts.__item.source')|map('regex_replace', '^deb https?:\\/\\/([^ ]+)[ ].*$', '\\\\1')|map('replace', '.', ' ')|map('replace', '/', ' ')|map('trim')|map('replace', ' ', '_')|map('regex_replace', '(.*)', '\\\\1.list')|list) }}"
-  with_items: __elao_apt_repositories_find_output.stdout_lines
+  with_items: (__elao_apt_repositories_find_output.stdout_lines) if (not __elao_apt_repositories_find_output|skipped) else ([])
