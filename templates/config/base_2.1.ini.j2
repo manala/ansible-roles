@@ -75,7 +75,6 @@
 # Everything has defaults so you only need to uncomment things you want to
 # change
 
-# possible values : production, development
 {{ macros.config_row(config, 'app_mode', '; app_mode = production', 0, true) }}
 
 #################################### Paths ####################################
@@ -139,7 +138,7 @@
 
 #################################### Session ####################################
 [session]
-# Either "memory", "file", "redis", "mysql", "postgres", default is "file"
+# Either "memory", "file", "redis", "mysql", "postgresql", default is "file"
 {{ macros.config_row(config_session, 'provider', ';provider = file', 0, true) }}
 
 # Provider config options
@@ -189,9 +188,6 @@
 # disable gravatar profile images
 {{ macros.config_row(config_security, 'disable_gravatar', ';disable_gravatar = false', 0, true) }}
 
-# data source proxy whitelist (ip_or_domain:port seperated by spaces)
-{{ macros.config_row(config_security, 'data_source_proxy_whitelist', ';data_source_proxy_whitelist =', 0, true) }}
-
 #################################### Users ####################################
 [users]
 # disable user signup / registration
@@ -228,6 +224,7 @@
 {{ macros.config_row(config_auth_github, 'token_url', ';token_url = https://github.com/login/oauth/access_token', 0, true) }}
 {{ macros.config_row(config_auth_github, 'api_url', ';api_url = https://api.github.com/user', 0, true) }}
 {{ macros.config_row(config_auth_github, 'team_ids', ';team_ids =', 0, true) }}
+{{ macros.config_row(config_auth_github, 'allowed_domains', ';allowed_domains =', 0, true) }}
 {{ macros.config_row(config_auth_github, 'allowed_organizations', ';allowed_organizations =', 0, true) }}
 
 #################################### Google Auth ##########################
