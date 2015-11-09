@@ -7,4 +7,5 @@
     accept_hostkey: "{{ item.accept_hostkey|default(omit) }}"
     clone:          "{{ item.clone|default(omit) }}"
     update:         "{{ item.update|default(true)|bool }}"
+    version:        "{{ item.version|default(omit) }}"
   with_items: elao_git_repositories
