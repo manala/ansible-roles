@@ -8,6 +8,6 @@
 - name: databases > Create postgresql databases
   postgresql_db:
     name:       "{{ item.name }}"
-    state:      "{{ item.state|default(omit) }}"
+    state:      "{{ item.state|default('present') }}"
     login_host: "{{ elao_postgresql_login_host }}"
   with_items: elao_postgresql_databases
