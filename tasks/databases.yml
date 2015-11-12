@@ -7,7 +7,7 @@
 
 - name: databases > Create postgresql databases
   postgresql_db:
-    name:       "{{ item.name }}"
+    name:       "{{ (item) if (item is string) else (item.name) }}"
     owner:      "{{ item.owner|default(omit) }}"
     state:      "{{ item.state|default('present') }}"
     login_host: "{{ elao_postgresql_login_host }}"
