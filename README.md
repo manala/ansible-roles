@@ -1,5 +1,7 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
+[![Ansible Role](https://img.shields.io/ansible/role/5534.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5534) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
+
 # Ansible Role: Sudo
 
 This role will assume the basic installation of sudo
@@ -30,10 +32,11 @@ ansible-galaxy install elao.sudo,1.0
 
 ### Definition
 
-| Name                          | Default | Type    | Description               |
-| ----------------------------- | ------- | ------- | ------------------------- |
-| `elao_sudo_sudoers_exclusive` | false   | Boolean | Sudoers files exclusivity |
-| `elao_sudo_sudoers`           | []      | Array   | Collection of sudoers     |
+| Name                          | Default         | Type    | Description                       |
+| ----------------------------- | --------------- | ------- | --------------------------------- |
+| `elao_sudo_sudoers_exclusive` | false           | Boolean | Sudoers files exclusivity         |
+| `elao_sudo_sudoers_dir`       | /etc/sudoers.d  | String  | Path to sudo configuration files  |
+| `elao_sudo_sudoers`           | []              | Array   | Collection of sudoers             |
 
 ### Example
 
