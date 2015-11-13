@@ -30,10 +30,10 @@ dependencies:
 
 ## Role Variables
 
-| Name                   | Default | Type  | Description                              |
-| ---------------------- | ------- | ----- | ---------------------------------------- |
-| `elao_system_modprobe` | { }     | Array | Kernel modules to enable/disable         |
-| `elao_system_sysctl`   | { }     | Array | Kernel parameters to configure           |
+| Name                     | Default | Type  | Description                              |
+| ------------------------ | ------- | ----- | ---------------------------------------- |
+| `elao_system_modprobe`   | []      | Array | Kernel modules to enable/disable         |
+| `elao_system_sysctl`     | []      | Array | Kernel parameters to configure           |
 
 ### Configuration example
 
