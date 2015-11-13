@@ -1,5 +1,7 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
+[![Ansible Role](https://img.shields.io/ansible/role/5559.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5559) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
+
 # Ansible Role: Apt
 
 This role will add third party sources to the package manager by:
@@ -7,6 +9,8 @@ This role will add third party sources to the package manager by:
 - Adding secure key specified
 - Managing packages preferences files (aka. pinning)
 - Installing packages
+
+It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
