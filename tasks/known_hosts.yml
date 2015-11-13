@@ -1,6 +1,6 @@
 ---
 
-- name: knonwn_hosts > Known hosts
+- name: known_hosts > Known hosts
   known_hosts:
     host:  "{{ item.host }}"
     key:   "{{ item.key|default(omit) }}"
