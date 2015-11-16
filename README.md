@@ -1,14 +1,16 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
+[![Ansible Role](https://img.shields.io/ansible/role/5535.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5535) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
+
 # Ansible Role: Users
 
 This role will assume the setup of users accounts and ssh keys:
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+- Ansible 1.8.0+
 
 ## Dependencies
 
@@ -19,7 +21,7 @@ None.
 Using ansible galaxy:
 
 ```bash
-ansible-galaxy install elao.users
+ansible-galaxy install elao.users,1.0
 ```
 You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
 
@@ -33,8 +35,6 @@ dependencies:
 None
 
 ## Role Variables
-
-### Definition
 
 | Name                                 | Default | Type        | Description                                                 |
 | -------------------------------------| ------- | ----------- | ----------------------------------------------------------- |
@@ -50,37 +50,61 @@ None
 | `elao_users_authorized_keys.keys`    | Array   | Array       | Collection of user's ssh keys.                              |
 | `elao_users_authorized_keys.options` | Array   | Array       | List of ssh options for the user.                           |
 
-### Configuration example
+### Defining users
 
-```
----
+The `elao_users`key will allow to define our users by:
 
+- A name
+- A main group
+- Some secondary groups
+
+#### Example
+
+```yaml
 elao_users:
-  - name: deploy
-    group: users
-    groups: []
+  - name:   deploy
+    group:  users
+    groups: ['sudo']
+```
 
+### Creating group
+
+You can create your own group by using the `elao_users_groups` by specifying: 
+
+- A name
+- If the group is a "system group"
+
+#### Example
+
+```yaml
 elao_users_groups:
   - name: ops
     system: false
+```
 
+### Managing users keys
+
+#### Example
+
+```yaml
 elao_users_authorized_keys:
   - user: gateway
     keys:
-      - user-1@elao.com.pub
-      - user-2@elao.com.pub
-  - user: root
-    keys:
-      - user-1@elao.com.pub
-      - user-2@elao.com.pub
-      - user-3@elao.com.pub
-  - user: elao
-    keys:
-      - user-2@elao.com.pub
-      - user-4@elao.com.pub
+      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-1@elao.com.pub') }}"
+        state: absent
+      - "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-2@elao.com.pub') }}"
     options:
       - no-pty
       - no-X11-forwarding
+  - user: root
+    keys:
+      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-1@elao.com.pub') }}"
+      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-2@elao.com.pub') }}"
+      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-3@elao.com.pub') }}"
+  - user: elao
+    keys:
+      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-3@elao.com.pub') }}"
+      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-4@elao.com.pub') }}"
 ```
 
 ## Example playbook
