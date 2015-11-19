@@ -4,4 +4,5 @@
   group:
     name:   "{{ item.name }}"
     system: "{{ item.system|default(false) }}"
+    state:  "{{ item.state|default('present') }}"
   with_items: elao_users_groups|default([])
