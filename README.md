@@ -1,5 +1,7 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
+[![Ansible Role](https://img.shields.io/ansible/role/5541.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5541) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
+
 # Ansible Role: GIT
 
 This role will assume the setup and configuration of git by:
@@ -7,11 +9,11 @@ This role will assume the setup and configuration of git by:
 - Define the gitconfig file
 - Allow setup of the giconfig file
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+- Ansible 1.9.0+
 
 ## Dependencies
 
@@ -22,7 +24,7 @@ None.
 Using ansible galaxy:
 
 ```bash
-ansible-galaxy install elao.git
+ansible-galaxy install elao.git,1.0
 ```
 You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
 
@@ -37,20 +39,40 @@ None
 
 ## Role Variables
 
-### Definition
+| Name                       | Default           | Type          | Description                      |
+|--------------------------- |------------------ |-------------- |--------------------------------- |
+| `elao_git_config_file`     | /etc/gitconfig    | String (path) | Path to config file              |
+| `elao_git_config_template` | config/empty.j2   | String (path) | Path to config template          |
+| `elao_git_config`          | []                | Array         | List of git config options       |
+| `elao_git_repositories`    | []                | Array         | List of repositories to checkout |
 
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-`elao_git_config_file`|/etc/gitconfig|String (path)|Path to config file
-`elao_git_config_template`|config/default.j2|String (path)|Path to config template
-`elao_git_config`|Array|List|List of git config options
+### GIT configuration
 
-### Configuration example
+The `elao_git_config_file` key allow you to specify the path to the config file.
 
-```
+#### Example:
+
+```yaml
 ---
 
-elao_git_config_template: "{{ playbook_dir }}/templates/git/config.j2"
+elao_git_config_file: "{{ playbook_dir }}/templates/git/config.j2"
+```
+
+The `elao_git_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
+
+- base (Simple template with no default configuration)
+- dev (This configuration will provide options for Vagrant VM, like ohmyzsh)
+- test
+- prod (For production purpose. Light configuration template)
+
+GIT experienced users can provide their own custom template with the `elao_git_config_template` key.
+
+The `elao_git_config` key allow to define git config keys like the following:
+
+#### Example:
+
+```yaml
+---
 
 elao_git_config:
   - user:
@@ -92,10 +114,31 @@ elao_git_config:
   - alias:
     - br:             branch -av
     - ci:             commit
-
 ```
 
-For git experienced users you can provide your own custom template with the `elao_git_config_template` key
+### Auto-checkout of required repositories
+
+The `elao_git_repositories` key is a "special one", it's designed to allow automatic checkout of specified repositories:
+
+#### Variables
+
+| Name      | Default      | Type       | Description                                                     |
+|-----------|------------- |----------- |---------------------------------------------------------------- |
+| `repo`    | ~ (required) | String     | git, SSH, or HTTP protocol address of the git repository        |
+| `dest`    | ~ (required) | String     | PAbsolute path of where the repository should be checked out to |
+| `version` | HEAD         | String     | What version of the repository to check out                     |
+| `update`  | true         | Boolean    | If no, do not retrieve new revisions from the origin repository |
+
+#### Example:
+
+```yaml
+---
+elao_git_repositories:
+  - repo:    https://github.com/symfony/symfony1.git
+    dest:    /usr/share/symfony/symfony-1.4
+    version: v1.4.20
+    update:  false
+```
 
 ## Example playbook
 
