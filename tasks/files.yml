@@ -22,7 +22,18 @@
     seuser:   "{{ item.seuser|default(omit) }}"
     src:      "{{ item.src|default(omit) }}"
     state:    "{{ item.state|default('file') }}"
-  with_items: "{{ elao_files|selectattr('content', 'undefined')|selectattr('template', 'undefined')|selectattr('dest', 'undefined')|list }}"
+  with_items: "{{ elao_files|selectattr('content', 'undefined')|selectattr('template', 'undefined')|selectattr('dest', 'undefined')|selectattr('url', 'undefined')|list }}"
+
+- name: files > Url
+  get_url:
+    url:            "{{ item.url }}"
+    dest:           "{{ item.path }}"
+    force:          "{{ item.force|default(false) }}"
+    group:          "{{ item.group|default(omit) }}"
+    mode:           "{{ item.mode|default(omit) }}"
+    owner:          "{{ item.owner|default(omit) }}"
+    validate_certs: "{{ item.owner|default(true)|bool }}"
+  with_items: "{{ elao_files|selectattr('url', 'defined')|selectattr('path', 'defined')|list }}"
 
 - name: files > Content
   copy:
