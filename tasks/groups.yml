@@ -3,6 +3,6 @@
 - name: groups > Groups configuration
   group:
     name:   "{{ item.name }}"
-    system: "{{ item.system|default(false) }}"
+    system: "{{ item.system|default(false)|bool }}"
     state:  "{{ item.state|default('present') }}"
   with_items: elao_users_groups|default([])
