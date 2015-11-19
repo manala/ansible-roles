@@ -3,5 +3,5 @@
 - name: groups > Groups configuration
   group:
     name:   "{{ item.name }}"
-    system: "{{ item.system|default(omit) }}"
+    system: "{{ item.system|default(false) }}"
   with_items: elao_users_groups|default([])
