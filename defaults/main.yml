@@ -1,5 +1,8 @@
 ---
 
+# Bin
+elao_vim_bin: /usr/bin/vim.basic
+
 # Config
 elao_vim_config_file:     /etc/vim/vimrc.local
 elao_vim_config_template: ~
