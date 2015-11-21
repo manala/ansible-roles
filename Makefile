@@ -39,9 +39,9 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 ## Build
-build: build-packages
+build: build@debian-wheezy
 
-build-packages:
+build@debian-wheezy:
 	docker run \
 	    --rm \
 	    --volume `pwd`:/srv \
