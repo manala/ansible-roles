@@ -77,3 +77,8 @@
 {{ macros.config_row(config, 'cookie_refresh', '# cookie_refresh = ""', 0, true) }}
 {{ macros.config_row(config, 'cookie_secure', '# cookie_secure = true', 0, true) }}
 {{ macros.config_row(config, 'cookie_httponly', '# cookie_httponly = true', 0, true) }}
+
+## Bypass authentication for requests path's that match (may be given multiple times)
+{{ macros.config_row(config, 'skip_auth_regex', '# skip_auth_regex = [
+#     "/foo"
+# ]', 0, true) }}

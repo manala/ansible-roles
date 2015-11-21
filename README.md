@@ -62,6 +62,8 @@ elao_oauth2_proxy_config:
   - cookie_refresh: 1h
   - cookie_secure: true
   - cookie_httponly: true
+  - skip_auth_regex:
+    - /foo
 ```
 
 ## Example playbook
