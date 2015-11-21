@@ -1,6 +1,6 @@
 ---
 
-- name: users > Configuring users accounts
+- name: users > Accounts
   user:
     name:       "{{ item.name }}"
     password:   "{{ item.password|default(omit) }}"
@@ -10,3 +10,12 @@
     createhome: "{{ item.createhome|default(omit) }}"
     system:     "{{ item.system|default(omit) }}"
   with_items: elao_users
+
+- name: users > Authorized keys
+  authorized_key:
+    user:      "{{ item.0 }}"
+    key:       "{{ item.1 }}"
+    exclusive: true
+  with_together:
+    - "{{ elao_users|selectattr('authorized_keys', 'defined')|map(attribute='name')|list }}"
+    - "{{ elao_users|selectattr('authorized_keys', 'defined')|map(attribute='authorized_keys')|map('join', '\n')|list }}"
