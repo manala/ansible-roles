@@ -3,7 +3,7 @@
 - name: users > Templates
   template:
     src:   "{{ item.template|default(elao_ohmyzsh_users_template) }}"
-    dest:  "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.zshrc"
+    dest:  "~{{ item.user }}/.zshrc"
     owner: "{{ item.user }}"
   with_items: elao_ohmyzsh_users
 
