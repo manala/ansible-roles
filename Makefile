@@ -28,9 +28,9 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 ## Build
-build: build-packages
+build: build@debian-wheezy build@debian-jessie build@ubuntu-trusty
 
-build-packages:
+build@debian-wheezy:
 	docker run \
 	    --rm \
 	    --volume `pwd`:/srv \
@@ -42,6 +42,8 @@ build-packages:
 	        apt-get install -y make && \
 	        make build-package@debian-wheezy \
 	    '
+
+build@debian-jessie:
 	docker run \
 	    --rm \
 	    --volume `pwd`:/srv \
@@ -53,6 +55,8 @@ build-packages:
 	        apt-get install -y make && \
 	        make build-package@debian-jessie \
 	    '
+
+build@ubuntu-trusty:
 	docker run \
 	    --rm \
 	    --volume `pwd`:/srv \
