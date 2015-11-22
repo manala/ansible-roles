@@ -99,6 +99,7 @@ elao_ohmyzsh_users:
       - ZSH_THEME: elao-prod
       - plugins: (git debian common-aliases history history-substring-search)
   - user:     elao
+    group:    root # Default to user primary group, but can be overriden
     template: users/{{ _env }}.j2
     config:
       - ZSH_THEME: elao-prod

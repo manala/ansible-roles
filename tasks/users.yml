@@ -1,11 +1,19 @@
 ---
 
+- name: users > Groups
+  command: "id -g -n {{ item.user }}"
+  with_items: elao_ohmyzsh_users
+  register: __elao_ohmyzsh_users_groups
+
 - name: users > Templates
   template:
-    src:   "{{ item.template|default(elao_ohmyzsh_users_template) }}"
-    dest:  "~{{ item.user }}/.zshrc"
-    owner: "{{ item.user }}"
-  with_items: elao_ohmyzsh_users
+    src:   "{{ item.0.template|default(elao_ohmyzsh_users_template) }}"
+    dest:  "~{{ item.0.user }}/.zshrc"
+    owner: "{{ item.0.user }}"
+    group: "{{ item.0.group|default(item.1) }}"
+  with_together:
+    - elao_ohmyzsh_users
+    - "{{ __elao_ohmyzsh_users_groups.results|map(attribute='stdout')|list }}"
 
 - name: users > Shells
   user:
