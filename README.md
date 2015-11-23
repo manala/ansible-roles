@@ -72,7 +72,6 @@ The `elao_vim_config` is used ton configure vim, you can specify any of the vim 
 elao_vim_config:
     syntax:     "on"
     encoding:   "utf8"
-    mouse:      "a"
     expandtab:  true   # Use spaces instead of tabs
     smarttab:   true   # Be smart when using tabs ;)
     shiftwidth: 4      # 1 tab == 4 spaces
