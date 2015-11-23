@@ -58,17 +58,22 @@ The `elao_users`key will allow to define our users by:
 - A main group
 - Some secondary groups
 - Some exclusive authorized keys
+- Some private/public keys
 
 #### Example
 
 ```yaml
 elao_users:
-  - name:   deploy
+  - name:   foo
     group:  users
     groups: ['sudo']
     authorized_keys:
-      - ssh-rsa Wn59yNyF6k44z6wa98Yqz8QF7U4ywk322C3F3529674Bf64ap8DnUUh9937dSyCFu5wCg22P8d66gS3A95Pp2E4xB6Uge22QrFE34kQsZNTZHdzm9j644JQu7dRczq4cTRRxWpwm98tBYQ36zHdJw7aVX455vf524HmXsV4ed8uDr5p5633d5zCn4ZhnvUW9P8vj5TX5WB67r62ZYPQ22Bt523kS9jW5FCRh77dc5ya6ANX7y7b7q2EaG3N9dFgpwXAYZhbSxGCazbyYpyaQWDQZRWuBsJmDfuCMrtYTHmAPUvgwFZdAtZyzupHdPmYXAFrVBKjwuSYARCCAcZdPXQEqxxeGUKnwaZzhwDyhbTfKumRekYWS foo.bar@example.com
-      - no-port-forwarding,from="10.0.1.*" ssh-rsa vMZphKYbv957yS6wmQ3984dbaG9Vf3XRwJW3MKZ2nK3q5vb6gb7ZPFAuV4y87XeNT9ZB7Q3Y5jnZ5q7vxG7G6YY4tS8q568g22va4P6AG8ScT32V4XyyeDh8EVdgKj3sGV24s36Q3jN8585w2BU2BfHC8t4M44H8nQDhtZMQkRrTgUh5MxZ5MfkKTWRD45rk6HP2g2SX8G5S6e5JU6E28hPNV34f6ZE8AJpKev35dc7T996vB22W8btvQPZ3RZRfCxPknHHZMdfhxpNrDdKKkRFFEVyGGzKbyShUHySTbefYDWbZbgvRSzVcwsjutfWFYSmgmaqTpckaCwVfWRKDNrfeFtZcVkpvCYQjwMWchssZnxZFeHnM bar.foo@example.com
+      - "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
+      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}
+    keys:
+      - name:    id_rsa
+        public:  "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
+        private: "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com') }}"
 ```
 
 ### Creating group
