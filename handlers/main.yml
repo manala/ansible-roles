@@ -1,6 +1,0 @@
----
-
-- name: <skeleton> restart
-  service:
-    name:  <skeleton>
-    state: restarted

@@ -1,0 +1,6 @@
+
+- name: locales_default > Configure default locale.
+  lineinfile:
+    dest:   /etc/default/locale
+    regexp: "LANG="
+    line:   "LANG={{ elao_locales_default }}"

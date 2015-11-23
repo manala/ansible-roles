@@ -7,13 +7,14 @@ galaxy_info:
   author:              Elao
   company:             Elao
   description: >
-    Foo bar
+    Configure system locales
   license: MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 1.9.0
   platforms:
     - name: Debian
       versions:
         - wheezy
+        - jessie
   categories:
     - development
     - web
