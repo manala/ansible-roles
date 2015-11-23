@@ -6,6 +6,7 @@
   with_items: elao_ohmyzsh_users
   when: item.group is not defined
   register: __elao_ohmyzsh_users
+  changed_when: false
 
 # Pair users with their found groups
 - name: users > Pair primary groups
