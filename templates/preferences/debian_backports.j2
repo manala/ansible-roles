@@ -15,5 +15,5 @@
 {%- endfor -%}
 
 Package:      {{ config_values.package }}
-Pin:          {{ elao_apt_repositories_patterns.backports.pin|default('origin ' ~ elao_apt_repositories_patterns.backports.source|regex_replace('deb https?:\/\/([^\/ ]+)[\/ ].*$', '\\1')) }}
+Pin:          {{ elao_apt_repositories_patterns.debian_backports.pin|default('origin ' ~ elao_apt_repositories_patterns.debian_backports.source|regex_replace('deb https?:\/\/([^\/ ]+)[\/ ].*$', '\\1')) }}
 Pin-Priority: 900
