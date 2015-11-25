@@ -20,6 +20,6 @@
     path:  "{{ elao_sudo_sudoers_dir }}/{{ item }}"
     state: absent
   when: elao_sudo_sudoers_exclusive and (item not in elao_sudo_sudoers|map(attribute='file'))
-  with_items: __elao_sudo_sudoers_find.stdout_lines
+  with_items: "{{ __elao_sudo_sudoers_find|skipped|ternary([], __elao_sudo_sudoers_find.stdout_lines) }}"
   notify:
     - sudo restart
