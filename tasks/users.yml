@@ -27,6 +27,7 @@
   when: item.group is not defined
   register: __elao_users
   changed_when: false
+  no_log: true
 
 # Pair users with their found groups
 - name: users > Pair primary groups
@@ -37,11 +38,13 @@
     - elao_users
     - __elao_users.results
   register: __elao_users
+  no_log: true
 
 # Flatten results structure to the original variable
 - name: users > Flatten primary groups
   set_fact:
     elao_users: "{{ __elao_users.results|map(attribute='ansible_facts.__item')|list }}"
+  no_log: true
 
 - name: users > Keys private
   copy:
