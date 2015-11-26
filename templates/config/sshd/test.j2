@@ -7,11 +7,12 @@
 {{ macros.config_row(config, 'HostKey', [
     '/etc/ssh/ssh_host_rsa_key',
     '/etc/ssh/ssh_host_dsa_key',
-    '/etc/ssh/ssh_host_ecdsa_key'
+    '/etc/ssh/ssh_host_ecdsa_key',
+    '/etc/ssh/ssh_host_ed25519_key'
 ]) }}
 {{ macros.config_row(config, 'UsePrivilegeSeparation', true) }}
 {{ macros.config_row(config, 'KeyRegenerationInterval', 3600) }}
-{{ macros.config_row(config, 'ServerKeyBits', 768) }}
+{{ macros.config_row(config, 'ServerKeyBits', 1024) }}
 {{ macros.config_row(config, 'SyslogFacility', 'AUTH') }}
 {{ macros.config_row(config, 'LogLevel', 'INFO') }}
 {{ macros.config_row(config, 'LoginGraceTime', 120) }}
@@ -24,6 +25,7 @@
 {{ macros.config_row(config, 'HostbasedAuthentication', false) }}
 {{ macros.config_row(config, 'PermitEmptyPasswords', false) }}
 {{ macros.config_row(config, 'ChallengeResponseAuthentication', false) }}
+{{ macros.config_row(config, 'PasswordAuthentication', true) }}
 {{ macros.config_row(config, 'X11Forwarding', true) }}
 {{ macros.config_row(config, 'X11DisplayOffset', 10) }}
 {{ macros.config_row(config, 'PrintMotd', false) }}
@@ -33,7 +35,6 @@
 {{ macros.config_row(config, 'Subsystem', 'sftp /usr/lib/openssh/sftp-server') }}
 {{ macros.config_row(config, 'UsePAM', true) }}
 {{ macros.config_row(config, 'UseDNS', false) }}
-{{ macros.config_row(config, 'PasswordAuthentication', true) }}
 
 {{ macros.config(config, [
     'Port',
@@ -54,6 +55,7 @@
     'HostbasedAuthentication',
     'PermitEmptyPasswords',
     'ChallengeResponseAuthentication',
+    'PasswordAuthentication',
     'X11Forwarding',
     'X11DisplayOffset',
     'PrintMotd',
@@ -61,6 +63,5 @@
     'TCPKeepAlive',
     'AcceptEnv',
     'Subsystem',
-    'UsePAM',
-    'PasswordAuthentication'
+    'UsePAM'
 ]) }}
