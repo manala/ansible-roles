@@ -2,7 +2,7 @@
 
 - name: known_hosts > Known hosts
   known_hosts:
-    host:  "{{ item.host }}"
+    host:  "{{ (item) if (item is string) else (item.host) }}"
     key:   "{{ item.key|default(omit) }}"
     state: "{{ item.state|default('present') }}"
     path:  "{{ item.path|default('/etc/ssh/ssh_known_hosts') }}"
