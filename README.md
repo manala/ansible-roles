@@ -9,8 +9,6 @@ It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used a
 ## Requirements
 
 - Ansible 1.7.2+
-- Python
-- Curl
 
 ## Installation
 
