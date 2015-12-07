@@ -25,7 +25,7 @@ elao_php_fpm_pools:
 
 # Extensions
 elao_php_extensions: []
-elao_php_extensions_exclude: "{{ (elao_php_version == 5)|ternary(['php5-common', 'php5-cli', 'php5-fpm'], ['php-common']) }}"
+elao_php_extensions_exclude: "{{ ['common', 'cli', 'fpm']|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\\\1')|list }}"
 
 # User
 elao_php_user:  www-data
