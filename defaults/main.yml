@@ -143,6 +143,10 @@ elao_apt_repositories_patterns:
     key:
       url: https://packages.elastic.co/GPG-KEY-elasticsearch
       id:  D88E42B4
+  elasticsearch_2:
+    source: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
+    key:
+      url: https://packages.elastic.co/GPG-KEY-elasticsearch
       id:  D88E42B4
   ppa_ansible:
     source: ppa:ansible/ansible
