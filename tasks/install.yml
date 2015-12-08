@@ -1,0 +1,34 @@
+---
+
+- name: install > Check package
+  command: "dpkg-query -W -f '${version}\n' mailhog"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: __elao_mailhog_package_version
+
+- name: install > Copy package
+  copy:
+    src:  "{{ ansible_distribution|lower }}_{{ ansible_distribution_release }}/mailhog_{{ elao_mailhog_package_version }}_amd64.deb"
+    dest: /tmp/mailhog.deb
+  when: __elao_mailhog_package_version.rc != 0 or (__elao_mailhog_package_version.stdout != elao_mailhog_package_version)
+
+- name: install > Install package
+  apt:
+    deb: /tmp/mailhog.deb
+  when: __elao_mailhog_package_version.rc != 0 or (__elao_mailhog_package_version.stdout != elao_mailhog_package_version)
+
+- name: install > Remove package
+  file:
+    path:  /tmp/mailhog.deb
+    state: absent
+  when: __elao_mailhog_package_version.rc != 0 or (__elao_mailhog_package_version.stdout != elao_mailhog_package_version)
+
+#- name: install > Version
+#  command:
+
+#- name: install > Download
+#  get_url:
+#    url:  "https://github.com/mailhog/MailHog/releases/download/v{{ elao_mailhog_version }}/MailHog_linux_amd64"
+#    dest: "{{ elao_mailhog_bin }}"
+#    mode: 0755

@@ -1,0 +1,9 @@
+[Unit]
+Description=Web and API based SMTP testing
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/mailhog
+
+[Install]
+WantedBy=multi-user.target
