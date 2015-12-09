@@ -51,9 +51,10 @@ build@debian-jessie:
 	    '
 
 build-package@debian-jessie:
-	# Fpm (prefer git master version, as 1.4 don't support systemd options)
-	apt-get -y install git wget ruby ruby-dev gcc
+	# Fpm (prefer git version, as 1.4 don't support systemd options)
+	apt-get -y install git ruby ruby-dev gcc xz-utils
 	git clone https://github.com/jordansissel/fpm.git ~/fpm
+	cd ~/fpm && git checkout e02526e
 	cd ~/fpm && make install
 	# Dependencies
 	apt-get -y install wget
@@ -66,6 +67,7 @@ build-package@debian-jessie:
 	    --verbose \
 	    -s dir \
 	    -t deb \
+	    --deb-compression xz \
 	    -n ${PACKAGE_NAME} \
 	    -v ${PACKAGE_VERSION} \
 	    --iteration ${PACKAGE_RELEASE} \
