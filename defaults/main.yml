@@ -1,1 +1,5 @@
 ---
+
+# Config
+elao_mailhog_config_template: ~
+elao_mailhog_config:          []

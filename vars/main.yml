@@ -2,3 +2,9 @@
 
 # Install
 elao_mailhog_package_version: 0.1.8-elao1
+
+# Bin
+elao_mailhog_bin: /usr/bin/mailhog
+
+# Config
+elao_mailhog_config_file: /etc/systemd/system/mailhog.service.d/local.conf

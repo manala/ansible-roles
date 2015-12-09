@@ -1,0 +1,12 @@
+---
+
+# See: https://github.com/ansible/ansible-modules-core/issues/191
+- name: systemd reload
+  command: systemctl daemon-reload
+
+- name: mailhog restart
+  service:
+    name:  mailhog
+    state: restarted
+
+
