@@ -14,7 +14,7 @@ PACKAGE_RELEASE     = elao1
 PACKAGE_LICENSE     = MIT
 PACKAGE_HOMEPAGE    = https://github.com/mailhog/MailHog
 
-PACKAGE_MAINTAINER  = infra@elao.com
+PACKAGE_MAINTAINER  = "Elao Infra <infra@elao.com>"
 
 ## Package - Source
 PACKAGE_SOURCE = https://github.com/mailhog/MailHog/releases/download
