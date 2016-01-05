@@ -155,6 +155,11 @@ elao_apt_repositories_patterns:
     key:
       url: https://packagecloud.io/gpg.key
       id:  D59097AB
+  gitlab-ce:
+    source: deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ ansible_distribution_release }} main
+    key:
+      url: https://packages.gitlab.com/gpg.key
+      id:  E15E78F4
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
@@ -179,6 +184,7 @@ elao_apt_preferences_patterns:
   postgresql:    postgresql*
   mongodb:       mongodb*
   keepalived:    keepalived*
+  gitlab-ce:     gitlab-ce*
 
 # Packages
 elao_apt_packages: []
