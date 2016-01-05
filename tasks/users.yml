@@ -9,6 +9,8 @@
     shell:      "{{ item.shell|default(omit) }}"
     createhome: "{{ item.createhome|default(true)|bool }}"
     system:     "{{ item.system|default(false)|bool }}"
+    uid:        "{{ item.uid|default(omit) }}"
+    comment:    "{{ item.comment|default(omit) }}"
   with_items: elao_users
 
 - name: users > Authorized keys

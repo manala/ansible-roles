@@ -5,4 +5,5 @@
     name:   "{{ item.name }}"
     system: "{{ item.system|default(false)|bool }}"
     state:  "{{ item.state|default('present') }}"
+    gid:    "{{ item.gid|default(omit) }}"
   with_items: elao_users_groups|default([])
