@@ -1,7 +1,7 @@
 ---
 
 - name: install > Composer create project
-  command: composer create-project phpmyadmin/phpmyadmin --stability=dev --no-dev --prefer-dist --no-interaction {{ elao_phpmyadmin_dir }}{{ elao_phpmyadmin_version|ternary(' ' ~ elao_phpmyadmin_version, '') }}
+  command: composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev --prefer-dist --no-interaction {{ elao_phpmyadmin_dir }}{{ elao_phpmyadmin_version|ternary(' ' ~ elao_phpmyadmin_version, '') }}
   args:
     creates: "{{ elao_phpmyadmin_dir }}/composer.json"
 
