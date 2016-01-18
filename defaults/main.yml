@@ -55,4 +55,6 @@ elao_php_applications_patterns:
     source_version: https://phar.phpunit.de/phpunit-%version%.phar
   php-cs-fixer:
     source: http://get.sensiolabs.org/php-cs-fixer.phar
+  couscous:
+    source: http://couscous.io/couscous.phar
 elao_php_applications: []
