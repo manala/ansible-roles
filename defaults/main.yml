@@ -160,6 +160,11 @@ elao_apt_repositories_patterns:
     key:
       url: https://packages.gitlab.com/gpg.key
       id:  E15E78F4
+  elao:
+    source: deb https://debian.elao.com {{ ansible_distribution|lower }} main
+    key:
+      url: http://keys.gnupg.net/pks/lookup?op=get&search=0xDCDA85C08C8D73A4
+      id:  8C8D73A4
 
 # Preferences
 elao_apt_preferences_dir:      /etc/apt/preferences.d
