@@ -16,10 +16,34 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install elao.sudo,2.0
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src:     elao.sudo
+  version: 2.0
+```
+
+### Ansible 1 (no longer maintained)
+
+Using ansible galaxy cli:
 
 ```bash
 ansible-galaxy install elao.sudo,1.0
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src:     elao.sudo
+  version: 1.0
 ```
 
 ## Role Handlers
