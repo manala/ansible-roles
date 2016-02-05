@@ -20,16 +20,34 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.ssh
+ansible-galaxy install elao.ssh,2.0
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.ssh }
+- src:     elao.ssh
+  version: 2.0
+```
+
+### Ansible 1 (no longer maintained)
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install elao.ssh,1.0
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src:     elao.ssh
+  version: 1.0
 ```
 
 ## Role Handlers
