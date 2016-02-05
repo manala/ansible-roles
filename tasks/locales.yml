@@ -1,6 +1,6 @@
 ---
 
-- name: locales > Configure locales.
+- name: locales > Handle
   locale_gen:
     name:  "{{ (item) if (item is string) else (item.name) }}"
     state: "{{ item.state|default('present') }}"

@@ -1,5 +1,5 @@
 
-- name: locales_default > Configure default locale.
+- name: locales_default > Configure
   lineinfile:
     dest:   /etc/default/locale
     regexp: "LANG="
