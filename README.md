@@ -18,16 +18,34 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install elao.make,2.0
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src:     elao.make
+  version: 2.0
+```
+
+### Ansible 1 (no longer maintained)
+
+Using ansible galaxy cli:
 
 ```bash
 ansible-galaxy install elao.make,1.0
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.make }
+- src:     elao.make
+  version: 1.0
 ```
 
 ## Example playbook
