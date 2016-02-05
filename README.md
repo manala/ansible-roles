@@ -16,16 +16,36 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+## Installation
+
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.timezone
+ansible-galaxy install elao.timezone,2.0
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.timezone }
+- src:     elao.timezone
+  version: 2.0
+```
+
+### Ansible 1 (no longer maintained)
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install elao.timezone,1.0
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src:     elao.timezone
+  version: 1.0
 ```
 
 ## Role Handlers
