@@ -1,7 +1,9 @@
 ---
 
 - include: install.yml
-- include: services.yml
+- include: version.yml
+- include: config.yml
+- include: services.yml tags=elao_services
 - include: databases.yml
 - include: users.yml
 - include: privileges.yml

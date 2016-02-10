@@ -25,17 +25,21 @@ dependencies:
 
 ## Role Handlers
 
-|Name|Type|Description|
-|----|----|-----------|
+| Name             | Type    | Description             |
+| ---------------- | ------- | ----------------------- |
+| influxdb restart | Service | Restart influxdb server |
 
 ## Role Variables
 
-| Name                     | Default | Type   | Description |
-| ------------------------ | ------- | ------ | ----------- |
-| elao_influxdb_version    | latest  | string |             |
-| elao_influxdb_databases  | []      | array  | Databases   |
-| elao_influxdb_users      | []      | array  | Users       |
-| elao_influxdb_privileges | []      | array  | Privileges  |
+| Name                          | Default                     | Type   | Description                                    |
+| ----------------------------- | --------------------------- | ------ | ---------------------------------------------- |
+| elao_influxdb_version         | 0.10.0-1                    | string | Version to install. Will not performs upgrade. |
+| elao_influxdb_databases       | []                          | array  | Databases                                      |
+| elao_influxdb_users           | []                          | array  | Users                                          |
+| elao_influxdb_privileges      | []                          | array  | Privileges                                     |
+| elao_influxdb_config          | []                          | Array  | Config                                         |
+| elao_influxdb_config_file     | /etc/influxdb/influxdb.conf | string | Config dest                                    |
+| elao_influxdb_config_template | config/base.conf.j2         | string | Config template                                |
 
 ### Configuration example
 
@@ -56,9 +60,21 @@ elao_influxdb_privileges:
  - database: my_db
    user:     my_user
    grant:    ALL
+
+elao_influxdb_config:
+  - reporting-disabled: true
+  # see: https://docs.influxdata.com/influxdb/v0.10/write_protocols/udp/
+  - udp:
+    - enabled: true
+    - bind-address: :8089
+    - database: stats
+    - batch-size: 5000
+    - batch-timeout: 1s
+    - batch-pending: 10
+    - read-buffer: 0
 ```
 
-See InfluxDB documentation for more information about [databases](https://influxdb.com/docs/v0.9/administration/administration.html#database-management) [users](https://influxdb.com/docs/v0.9/administration/administration.html#user-management) and [privileges](https://influxdb.com/docs/v0.9/administration/administration.html#privilege-control)
+See InfluxDB documentation for more information about [databases](https://docs.influxdata.com/influxdb/v0.10/query_language/database_management/), [users and privileges](https://docs.influxdata.com/influxdb/v0.10/administration/authentication_and_authorization/)
 
 ## Example playbook
 
