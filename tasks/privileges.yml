@@ -3,3 +3,4 @@
 - name: privileges > Setup Influx privileges
   command: "{{ elao_influxdb_influx_bin }} -execute 'GRANT {{ item.grant }} ON \"{{ item.database }}\" TO \"{{ item.user }}\"'"
   with_items: elao_influxdb_privileges
+  changed_when: false
