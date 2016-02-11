@@ -1,7 +1,7 @@
 ---
 
 # Version
-elao_influxdb_version: 0.9.4.2
+elao_influxdb_version: 0.10.0-1
 
 # Databases
 elao_influxdb_databases:  []
@@ -13,4 +13,9 @@ elao_influxdb_users:      []
 elao_influxdb_privileges: []
 
 # Bin
-elao_influxdb_influx_bin: /opt/influxdb/influx
+elao_influxdb_influx_bin: /usr/bin/influx
+
+# Config
+elao_influxdb_config_file:     /etc/influxdb/influxdb.conf
+elao_influxdb_config_template: config/base.conf.j2
+elao_influxdb_config:          []

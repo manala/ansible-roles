@@ -1,8 +1,15 @@
 ---
 
 - name: databases > Create Influx databases
+  command: "{{ elao_influxdb_influx_bin }} -execute 'CREATE DATABASE IF NOT EXISTS \"{{ item }}\"'"
+  with_items: elao_influxdb_databases
+  changed_when: false
+  when: "not {{ _elao_influxdb_version_0_9 }}"
+
+- name: databases > Create Influx databases (v0.9)
   command: "{{ elao_influxdb_influx_bin }} -execute 'CREATE DATABASE \"{{ item }}\"'"
   with_items: elao_influxdb_databases
   register: command_result
   failed_when: "command_result.rc != 0 and 'database already exists' not in command_result.stdout"
   changed_when: "command_result.rc == 0"
+  when: _elao_influxdb_version_0_9

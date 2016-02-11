@@ -1,0 +1,17 @@
+---
+
+- name: install > Check package
+  command: "dpkg-query -W -f '${version}\n' influxdb"
+  always_run: yes
+  failed_when: "'no packages found' in _elao_influxdb_package_check_output.stdout"
+  changed_when: false
+  register: _elao_influxdb_package_check_output
+
+- name: install > Set installed version
+  set_fact:
+    _elao_influxdb_intalled_version: _elao_influxdb_package_check_output.stdout
+    _elao_influxdb_version_0_9: "{{ (_elao_influxdb_package_check_output.stdout | version_compare('0.9', '>=')) and (_elao_influxdb_package_check_output.stdout | version_compare('0.10', '<')) }}"
+
+- name: install > Ensure influx bin path
+  set_fact:
+    elao_influxdb_influx_bin: "{{ '/opt/influxdb/influx' if _elao_influxdb_version_0_9|bool else elao_influxdb_influx_bin }}"
