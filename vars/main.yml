@@ -1,8 +1,5 @@
 ---
 
-# Install
-elao_mailhog_package_version: 0.1.8-elao1
-
 # Bin
 elao_mailhog_bin: /usr/bin/mailhog
 

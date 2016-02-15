@@ -11,11 +11,7 @@ It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible s
 
 ## Requirements
 
-- Ansible 1.9.0+
-
-## Dependencies
-
-None.
+A debian repository with mailhog package (such as elao one).
 
 ## Installation
 
