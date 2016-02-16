@@ -1,0 +1,178 @@
+---
+
+# Repositories
+elao_apt_repositories_patterns:
+  debian_security:
+    source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
+  debian_security_src:
+    source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
+  debian_updates:
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+  debian_updates_src:
+    source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+  debian_backports:
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ elao_apt_components|join(' ') }}
+    pin:    release a={{ ansible_distribution_release }}-backports
+  ubuntu_security:
+    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ elao_apt_components|join(' ') }}
+  ubuntu_updates:
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+  ubuntu_partner:
+    source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
+  ubuntu_backports:
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ elao_apt_components|join(' ') }}
+    pin:    release a={{ ansible_distribution_release }}-backports
+  dotdeb:
+    source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
+    key:
+      url: http://www.dotdeb.org/dotdeb.gpg
+      id:  89DF5277
+  dotdeb_php54:
+    source: deb http://packages.dotdeb.org squeeze-php54 all
+  dotdeb_php55:
+    source: deb http://packages.dotdeb.org wheezy-php55 all
+  dotdeb_php56:
+    source: deb http://packages.dotdeb.org wheezy-php56 all
+  nginx:
+    source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
+    key:
+      url: http://nginx.org/keys/nginx_signing.key
+      id:  7BD9BF62
+  bearstech:
+    source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
+    key:
+      url: http://deb.bearstech.com/bearstech-archive.gpg
+      id:  90158EE0
+  nodesource_0_10:
+    source: deb https://deb.nodesource.com/node_0.10 {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  68576280
+  nodesource_0_12:
+    source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  68576280
+  nodesource_4:
+    source: deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  68576280
+  nodesource_5:
+    source: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
+    key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id:  68576280
+  postgresql:
+    source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+    key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      id:  ACCC4CF8
+  mongodb_3_0:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.0 main
+    key:
+      url: http://docs.mongodb.org/10gen-gpg-key.asc
+      id:  7F0CEB10
+  mongodb_3_1:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.1 main
+    key:
+      url: http://docs.mongodb.org/10gen-gpg-key.asc
+      id:  7F0CEB10
+  varnish_4_0:
+    source: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
+    key:
+      url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
+      id:  C4DEFFEB
+  jenkins:
+    source: deb http://pkg.jenkins-ci.org/debian binary/
+    key:
+      url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+      id:  D50582E6
+  sensu:
+    source: deb http://repositories.sensuapp.org/apt sensu main
+    key:
+      url: http://repositories.sensuapp.org/apt/pubkey.gpg
+      id:  EB9C94BB
+  rabbitmq:
+    source: deb http://www.rabbitmq.com/debian/ testing main
+    key:
+      url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+      id:  056E8E56
+  proxmox:
+    source: deb http://download.proxmox.com/debian {{ ansible_distribution_release }} pve-no-subscription
+  proxmox_enterprise:
+    source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+  logentries:
+    source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+    key:
+      url: https://pgp.mit.edu/pks/lookup?op=get&search=0xA5270289C43C79AD
+      id:  C43C79AD
+  galera:
+    source: deb http://releases.galeracluster.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key:
+      url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD669017EBC19DDBA
+      id:  BC19DDBA
+  grafana:
+    source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
+    key:
+      url: https://packagecloud.io/gpg.key
+      id:  D59097AB
+  elasticsearch_1_5:
+    source: deb http://packages.elastic.co/elasticsearch/1.5/debian stable main
+    key:
+      url: https://packages.elastic.co/GPG-KEY-elasticsearch
+      id:  D88E42B4
+  elasticsearch_1_6:
+    source: deb http://packages.elastic.co/elasticsearch/1.6/debian stable main
+    key:
+      url: https://packages.elastic.co/GPG-KEY-elasticsearch
+      id:  D88E42B4
+  elasticsearch_1_7:
+    source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
+    key:
+      url: https://packages.elastic.co/GPG-KEY-elasticsearch
+      id:  D88E42B4
+  elasticsearch_2:
+    source: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
+    key:
+      url: https://packages.elastic.co/GPG-KEY-elasticsearch
+      id:  D88E42B4
+  ppa_ansible:
+    source: ppa:ansible/ansible
+  blackfire:
+    source: deb http://packages.blackfire.io/debian any main
+    key:
+      url: https://packagecloud.io/gpg.key
+      id:  D59097AB
+  gitlab-ce:
+    source: deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ ansible_distribution_release }} main
+    key:
+      url: https://packages.gitlab.com/gpg.key
+      id:  E15E78F4
+  elao:
+    source: deb https://debian.elao.com {{ ansible_distribution_release }} main
+    key:
+      url: http://keys.gnupg.net/pks/lookup?op=get&search=0xDCDA85C08C8D73A4
+      id:  8C8D73A4
+
+# Preferences
+elao_apt_preferences_patterns:
+  vim:           vim*
+  git:           git*
+  php:           php*
+  mysql:         mysql*
+  nginx:         nginx*
+  ruby:          ruby*
+  nodejs:        nodejs*
+  rabbitmq:      rabbitmq*
+  redis:         redis*
+  logentries:    logentries*
+  sensu:         sensu*
+  haproxy:       haproxy*
+  galera:        galera*
+  grafana:       grafana*
+  elasticsearch: elasticsearch*
+  postgresql:    postgresql*
+  mongodb:       mongodb*
+  keepalived:    keepalived*
+  gitlab-ce:     gitlab-ce*
