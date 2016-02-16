@@ -1,8 +1,6 @@
 ---
 
 - include: install.yml
-- include: logs.yml
-- include: logrotate.yml
 - include: config.yml
 - include: configs.yml
 - include: services.yml tags=elao_services

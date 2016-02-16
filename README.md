@@ -66,9 +66,6 @@ Using ansible galaxy requirements file:
 | `elao_nginx_configs_dir`        | /etc/nginx/conf.d           | String  | Path to the main configuration directory    |
 | `elao_nginx_user`               | www-data                    | String  | User running nginx                          |
 | `elao_nginx_log_dir`            | /var/log/nginx              | String  | Directory where Nginx will store is logs    |
-| `elao_nginx_logrotate_file`     | /etc/logrotate.d/nginx      | String  | File where nginx will store logrotate conf  |
-| `elao_nginx_logrotate_template` | None                        | String  | Template to use to configure logrotate      |
-| `elao_nginx_logrotate_config`   | []                          | Array   | Logrotate configuration                     |
 
 
 ### Nginx configuration
