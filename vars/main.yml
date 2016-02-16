@@ -1,0 +1,24 @@
+---
+
+# Extensions
+elao_php_extensions_exclude: "{{ (['common', 'cli', 'fpm'] + ('cli' in elao_php_sapis)|ternary(elao_php_extensions_exclude_cli, []) + ('fpm' in elao_php_sapis)|ternary(elao_php_extensions_exclude_fpm, []))|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\1')|list }}"
+elao_php_extensions_exclude_cli: ['readline']
+elao_php_extensions_exclude_fpm: "{{ (elao_php_version == 5)|ternary(['json'], ['json', 'opcache']) }}"
+
+# Applications
+elao_php_applications_patterns:
+  phpcs:
+    source: https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+  phpcbf:
+    source: https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+  openl10n:
+    source_version: https://github.com/openl10n/openl10n-cli/releases/download/v%version%/openl10n.phar
+  phpunit:
+    source:         https://phar.phpunit.de/phpunit.phar
+    source_version: https://phar.phpunit.de/phpunit-%version%.phar
+  php-cs-fixer:
+    source: http://get.sensiolabs.org/php-cs-fixer.phar
+  couscous:
+    source: http://couscous.io/couscous.phar
+  security-checker:
+    source: http://get.sensiolabs.org/security-checker.phar
