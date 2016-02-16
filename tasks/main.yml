@@ -2,8 +2,6 @@
 
 - include: requirements.yml
 - include: install.yml
-- include: logs.yml
-- include: logrotate.yml
 - include: extensions.yml
 - include: configs_global.yml
   when: elao_php_configs_global

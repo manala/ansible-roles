@@ -34,11 +34,6 @@ elao_php_group: www-data
 # Logs
 elao_php_log_dir: "/var/log/php{{ elao_php_version }}"
 
-# Logrotate
-elao_php_logrotate_file:     "/etc/logrotate.d/php{{ elao_php_version }}"
-elao_php_logrotate_template: ~
-elao_php_logrotate_config:   []
-
 # Applications
 elao_php_applications_dir: /usr/local/bin
 elao_php_applications_patterns:
