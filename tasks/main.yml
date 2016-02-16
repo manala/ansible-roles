@@ -3,4 +3,5 @@
 - include: install.yml
 - include: config.yml
 - include: configs.yml
-- include: services.yml tags=elao_services
+- include: services.yml
+  tags: elao_services
