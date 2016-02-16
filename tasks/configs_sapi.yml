@@ -5,8 +5,8 @@
     src:  "{{ item.template|default(elao_php_configs_template) }}"
     dest: "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d/{{ item.file }}"
   notify:
-  with_items: elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs
     - php {{ __elao_php_sapi }} restart
+  with_items: "{{ elao_php_configs + vars['elao_php_' + __elao_php_sapi + '_configs'] }}"
 
 - name: configs > {{ __elao_php_sapi|capitalize }} - Exclusive - Find files
   # configs files coming with php packages are nothing but symlinks,

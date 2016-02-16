@@ -5,9 +5,13 @@
 - include: extensions.yml
 - include: configs_global.yml
   when: elao_php_configs_global
-- include: configs_sapi.yml _elao_php_sapi=fpm
+- include: configs_sapi.yml
+  vars:
+    __elao_php_sapi: fpm
   when: (not elao_php_configs_global) and ('fpm' in elao_php_sapis)
-- include: configs_sapi.yml _elao_php_sapi=cli
+- include: configs_sapi.yml
+  vars:
+    __elao_php_sapi: cli
   when: (not elao_php_configs_global) and ('cli' in elao_php_sapis)
 - include: fpm_pools.yml
   when: ('fpm' in elao_php_sapis)

@@ -4,4 +4,4 @@
   apt:
     name:  "{{ item }}"
     state: present
-  with_items: elao_php_sapis|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\1')|list
+  with_items: elao_php_sapis|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\1')|list
