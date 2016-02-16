@@ -1,5 +1,6 @@
 ---
 
+# Timezone
 elao_timezone_file:     /etc/timezone
 elao_timezone_template: ~
 elao_timezone:          ~
