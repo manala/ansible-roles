@@ -18,7 +18,7 @@
   args:
     chdir: "{{ elao_php_configs_dir_base }}/conf.d"
   changed_when: false
-  register: _elao_php_configs_global_find_output
+  register: __elao_php_configs_global_find_output
   when: elao_php_configs_exclusive
 
 - name: configs_global > Exclusive - Remove files
@@ -26,7 +26,7 @@
     path:  "{{ elao_php_configs_dir_base }}/conf.d/{{ item }}"
     state: absent
   when: elao_php_configs_exclusive and (item not in elao_php_configs|map(attribute='file'))
-  with_items: _elao_php_configs_global_find_output.stdout_lines
+  with_items: __elao_php_configs_global_find_output.stdout_lines
   # notify parameter could not handle dynamic values, so we have to manually
   # list all available sapis
   notify:

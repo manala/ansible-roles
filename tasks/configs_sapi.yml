@@ -1,28 +1,28 @@
 ---
 
-- name: configs > {{ _elao_php_sapi|capitalize }} - Templates
+- name: configs > {{ __elao_php_sapi|capitalize }} - Templates
   template:
     src:  "{{ item.template|default(elao_php_configs_template) }}"
-    dest: "{{ elao_php_configs_dir_base }}/{{ _elao_php_sapi }}/conf.d/{{ item.file }}"
+    dest: "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d/{{ item.file }}"
   notify:
-    - php {{ _elao_php_sapi }} restart
   with_items: elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs
+    - php {{ __elao_php_sapi }} restart
 
-- name: configs > {{ _elao_php_sapi|capitalize }} - Exclusive - Find files
+- name: configs > {{ __elao_php_sapi|capitalize }} - Exclusive - Find files
   # configs files coming with php packages are nothing but symlinks,
   # so that we can distinguich them from our own files
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ elao_php_configs_dir_base }}/{{ _elao_php_sapi }}/conf.d"
+    chdir: "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d"
   changed_when: false
-  register: _elao_php_configs_sapi_find_output
+  register: __elao_php_configs_sapi_find_output
   when: elao_php_configs_exclusive
 
-- name: configs > {{ _elao_php_sapi|capitalize }} - Exclusive - Remove files
+- name: configs > {{ __elao_php_sapi|capitalize }} - Exclusive - Remove files
   file:
-    path:  "{{ elao_php_configs_dir_base }}/{{ _elao_php_sapi }}/conf.d/{{ item }}"
+    path:  "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d/{{ item }}"
     state: absent
-  when: elao_php_configs_exclusive and (item not in (elao_php_configs + elao_php_{{ _elao_php_sapi }}_configs)|map(attribute='file'))
-  with_items: _elao_php_configs_sapi_find_output.stdout_lines
+  when: elao_php_configs_exclusive and (item not in (elao_php_configs + elao_php_{{ __elao_php_sapi }}_configs)|map(attribute='file'))
+  with_items: __elao_php_configs_sapi_find_output.stdout_lines
   notify:
-    - php {{ _elao_php_sapi }} restart
+    - php {{ __elao_php_sapi }} restart

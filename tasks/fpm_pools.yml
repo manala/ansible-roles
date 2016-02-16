@@ -13,7 +13,7 @@
   args:
     chdir: "{{ elao_php_fpm_pools_dir }}"
   changed_when: false
-  register: _elao_php_fpm_pools_find_output
+  register: __elao_php_fpm_pools_find_output
   when: elao_php_fpm_pools_exclusive
 
 - name: fpm_pools > Exclusive - Remove files
@@ -21,6 +21,6 @@
     path:  "{{ elao_php_fpm_pools_dir }}/{{ item }}"
     state: absent
   when: elao_php_fpm_pools_exclusive and (item not in elao_php_fpm_pools|map(attribute='file'))
-  with_items: _elao_php_fpm_pools_find_output.stdout_lines
+  with_items: __elao_php_fpm_pools_find_output.stdout_lines
   notify:
     - php fpm restart
