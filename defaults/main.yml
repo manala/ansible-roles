@@ -1,5 +1,10 @@
 ---
 
-elao_users:                  []
-elao_users_groups:           []
+# Users
+elao_users: []
+
+# Groups
+elao_users_groups: []
+
+# Authorized keys
 elao_users_authorized_keys:  []
