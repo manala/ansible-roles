@@ -13,7 +13,7 @@
   args:
     chdir: "{{ elao_supervisor_configs_dir }}"
   changed_when: false
-  register: _elao_supervisor_configs_find_output
+  register: __elao_supervisor_configs_find_output
   when: elao_supervisor_configs_exclusive
 
 - name: configs > Clean
@@ -21,6 +21,6 @@
     path:  "{{ elao_supervisor_configs_dir }}/{{ item }}"
     state: absent
   when: elao_supervisor_configs_exclusive and (item not in elao_supervisor_configs|map(attribute='file'))
-  with_items: _elao_supervisor_configs_find_output.stdout_lines
+  with_items: __elao_supervisor_configs_find_output.stdout_lines
   notify:
     - supervisor restart
