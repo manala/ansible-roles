@@ -1,18 +1,9 @@
 ---
 
-- name: config > Ensure base directory exists
-  file:
-    path:  "{{ elao_supervisor_config_file|dirname }}"
-    state: directory
-    owner: root
-    mode:  0755
-
 - name: config > Template
   template:
-    src:   "{{ elao_supervisor_config_template|ternary(elao_supervisor_config_template, 'config/base.conf.j2') }}"
-    dest:  "{{ elao_supervisor_config_file }}"
-    owner: root
-    mode:  0644
+    src:  "{{ elao_supervisor_config_template|ternary(elao_supervisor_config_template, 'config/base.conf.j2') }}"
+    dest: "{{ elao_supervisor_config_file }}"
   when: (elao_supervisor_config_template is not none) or (elao_supervisor_config|length)
   notify:
     - supervisor restart

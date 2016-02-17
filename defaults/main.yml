@@ -1,13 +1,13 @@
 ---
 
 # Config
-elao_supervisor_config_file:     /etc/supervisord.conf
+elao_supervisor_config_file:     /etc/supervisor/supervisord.conf
 elao_supervisor_config_template: ~
 elao_supervisor_config:          []
 
 # Configs
 elao_supervisor_configs_exclusive: false
-elao_supervisor_configs_dir:       /etc/supervisor.d
+elao_supervisor_configs_dir:       /etc/supervisor/conf.d
 elao_supervisor_configs_template:  configs/empty.conf.j2
 elao_supervisor_configs:           []
 

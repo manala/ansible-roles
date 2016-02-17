@@ -1,7 +1,7 @@
 ---
 
 - name: install > Packages
-  pip:
+  apt:
     name:  "{{ item }}"
     state: present
   with_items:
