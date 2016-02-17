@@ -14,7 +14,7 @@ It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible s
 
 ## Requirements
 
-- Ansible 1.8.0+
+None.
 
 ## Dependencies
 
