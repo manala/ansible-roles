@@ -50,9 +50,9 @@ Using ansible galaxy requirements file:
 
 ```yaml
 elao_phantomjs_config:
-  webdriver: 4444
-  'webdriver-logfile': /var/log/phantomjs.log
-  'webdriver-loglevel': DEBUG
+  - webdriver:          4444
+  - webdriver-logfile:  /var/log/phantomjs.log
+  - webdriver-loglevel: DEBUG
 ```
 
 ## Example playbook

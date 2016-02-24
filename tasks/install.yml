@@ -1,15 +1,8 @@
 ---
 
-- name: install > Packages dependencies
-  apt:
-    name:  libfontconfig1
-    state: present
-
 - name: install > Packages
-  npm:
-    name:    "{{ item }}"
-    version: ~1
-    state:   present
-    global:  true
+  apt:
+    name:  "{{ item }}"
+    state: present
   with_items:
     - phantomjs

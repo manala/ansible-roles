@@ -2,9 +2,6 @@
 
 {% set config = elao_phantomjs_config -%}
 
-# Defaults for phantomjs initscript
-# sourced by /etc/init.d/phantomjs
-# installed at /etc/default/phantomjs by the maintainer scripts
-
-# Additional options that are passed to the Daemon.
-DAEMON_OPTS="{{ macros.config(config) }}"
+[Service]
+ExecStart=
+ExecStart={{ elao_phantomjs_bin }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, [], 9).rstrip(' \\\n') }}
