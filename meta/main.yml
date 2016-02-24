@@ -9,11 +9,11 @@ galaxy_info:
   description: >
     Heka role
   license: MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
-        - wheezy
+        - jessie
   categories:
     - development
     - web
