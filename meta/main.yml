@@ -9,11 +9,11 @@ galaxy_info:
   description: >
     Setup Rtail
   license: MIT
-  min_ansible_version: 1.9.0
+  min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
-        - wheezy
+        - jessie
   categories:
     - development
     - web
