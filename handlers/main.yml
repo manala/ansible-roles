@@ -1,5 +1,9 @@
 ---
 
+# See: https://github.com/ansible/ansible-modules-core/issues/191
+- name: systemd reload
+  command: systemctl daemon-reload
+
 - name: rtail restart
   service:
     name:  rtail

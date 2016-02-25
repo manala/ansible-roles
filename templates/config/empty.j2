@@ -2,9 +2,6 @@
 
 {% set config = elao_rtail_config -%}
 
-# Defaults for rtail initscript
-# sourced by /etc/init.d/rtail
-# installed at /etc/default/rtail by the maintainer scripts
-
-# Additional options that are passed to the Daemon.
-DAEMON_OPTS="{{ macros.config(config) }}"
+[Service]
+ExecStart=
+ExecStart=/usr/bin/nodejs /usr/lib/nodejs/rtail/cli/rtail-server.js{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, [], 9).rstrip(' \\\n') }}

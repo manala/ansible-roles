@@ -2,11 +2,7 @@
 
 {% set config = elao_rtail_config -%}
 
-# Defaults for rtail initscript
-# sourced by /etc/init.d/rtail
-# installed at /etc/default/rtail by the maintainer scripts
-
-# Additional options that are passed to the Daemon.
-DAEMON_OPTS="{{ macros.config_row(config, 'web-host', '0.0.0.0') }} {{ (' ' ~ macros.config(config, [
-    'web-host'
-])).rstrip() }}"
+[Service]
+ExecStart=
+ExecStart=/usr/bin/nodejs /usr/lib/nodejs/rtail/cli/rtail-server.js \
+          {{ macros.config_row(config, 'web-host', '0.0.0.0').rstrip(' \\\n') }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, ['web-host'], 9).rstrip(' \\\n') }}

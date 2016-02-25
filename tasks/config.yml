@@ -1,9 +1,19 @@
 ---
 
+- name: config > Directory
+  file:
+    path:  "{{ elao_rtail_config_file|dirname }}"
+    state: directory
+    owner: root
+    group: root
+
 - name: config > Template
   template:
-    src:  "{{ elao_rtail_config_template|ternary(elao_rtail_config_template, 'config/empty.j2') }}"
-    dest: "{{ elao_rtail_config_file }}"
-  when: (elao_rtail_config_template is not none) or (elao_rtail_config|length)
+    src:   "{{ elao_rtail_config_template|ternary(elao_rtail_config_template, 'config/empty.j2') }}"
+    dest:  "{{ elao_rtail_config_file }}"
+    owner: root
+    group: root
   notify:
+    # See: https://github.com/ansible/ansible-modules-core/issues/191
+    - systemd reload
     - rtail restart
