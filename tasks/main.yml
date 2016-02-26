@@ -16,4 +16,5 @@
 - include: fpm_pools.yml
   when: ('fpm' in elao_php_sapis)
 - include: services.yml
+  tags: elao_services
 - include: applications.yml
