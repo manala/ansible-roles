@@ -13,8 +13,3 @@
     dest:  "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer/auth.json"
     owner: "{{ item.user }}"
   with_items: elao_composer_users_auth
-
-  #template:
-  ##  src:  "{{ elao_git_config_template|ternary(elao_git_config_template, 'config/empty.j2') }}"
-   # dest: "{{ elao_git_config_file }}"
-  #when: (elao_git_config_template is not none) or (elao_git_config|length)
