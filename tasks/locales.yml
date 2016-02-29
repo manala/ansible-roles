@@ -4,4 +4,4 @@
   locale_gen:
     name:  "{{ (item) if (item is string) else (item.name) }}"
     state: "{{ item.state|default('present') }}"
-  with_items: elao_locales
+  with_items: "{{ elao_locales }}"
