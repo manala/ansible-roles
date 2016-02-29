@@ -15,7 +15,7 @@
   apt:
     name: "{{ item }}"
     state: present
-  with_items: elao_php_extensions|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\1')|difference(__elao_php_extensions_enabled)
+  with_items: "{{ elao_php_extensions|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\1')|difference(__elao_php_extensions_enabled) }}"
   notify:
     - php fpm restart
 
@@ -23,6 +23,6 @@
   apt:
     name: "{{ item }}"
     state: absent
-  with_items: __elao_php_extensions_enabled|difference(elao_php_extensions|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\1')|list)
+  with_items: "{{ __elao_php_extensions_enabled|difference(elao_php_extensions|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\1')|list) }}"
   notify:
     - php fpm restart

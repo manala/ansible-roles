@@ -23,6 +23,6 @@
     path:  "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d/{{ item }}"
     state: absent
   when: elao_php_configs_exclusive and (item not in (elao_php_configs + elao_php_{{ __elao_php_sapi }}_configs)|map(attribute='file'))
-  with_items: __elao_php_configs_sapi_find_output.stdout_lines
+  with_items: "{{ __elao_php_configs_sapi_find_output.stdout_lines }}"
   notify:
     - php {{ __elao_php_sapi }} restart

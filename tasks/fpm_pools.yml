@@ -6,7 +6,7 @@
     dest: "{{ elao_php_fpm_pools_dir }}/{{ item.file }}"
   notify:
     - php fpm restart
-  with_items: elao_php_fpm_pools
+  with_items: "{{ elao_php_fpm_pools }}"
 
 - name: fpm_pools > Exclusive - Find files
   command: "find -type f -printf '%P\n'"
@@ -21,6 +21,6 @@
     path:  "{{ elao_php_fpm_pools_dir }}/{{ item }}"
     state: absent
   when: elao_php_fpm_pools_exclusive and (item not in elao_php_fpm_pools|map(attribute='file'))
-  with_items: __elao_php_fpm_pools_find_output.stdout_lines
+  with_items: "{{ __elao_php_fpm_pools_find_output.stdout_lines }}"
   notify:
     - php fpm restart
