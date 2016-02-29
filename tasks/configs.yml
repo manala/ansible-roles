@@ -4,7 +4,7 @@
   template:
     src:  "{{ item.template|default(elao_supervisor_configs_template) }}"
     dest: "{{ elao_supervisor_configs_dir }}/{{ item.file }}"
-  with_items: elao_supervisor_configs
+  with_items: "{{ elao_supervisor_configs }}"
   notify:
     - supervisor restart
 
@@ -21,6 +21,6 @@
     path:  "{{ elao_supervisor_configs_dir }}/{{ item }}"
     state: absent
   when: elao_supervisor_configs_exclusive and (item not in elao_supervisor_configs|map(attribute='file'))
-  with_items: __elao_supervisor_configs_find_output.stdout_lines
+  with_items: "{{ __elao_supervisor_configs_find_output.stdout_lines }}"
   notify:
     - supervisor restart
