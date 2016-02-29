@@ -5,7 +5,7 @@
     src:  "{{ item.template|default('sudoers/empty.j2') }}"
     dest: "{{ elao_sudo_sudoers_dir }}/{{ item.file }}"
     mode: 0440
-  with_items: elao_sudo_sudoers
+  with_items: "{{ elao_sudo_sudoers }}"
 
 - name: sudoers > Exclusive - find files
   command: "find -type f \\( ! -iname 'README' \\) -printf '%P\n'"
