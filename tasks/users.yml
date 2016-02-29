@@ -3,7 +3,7 @@
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
   command: "id -g -n {{ item.user }}"
-  with_items: elao_ohmyzsh_users
+  with_items: "{{ elao_ohmyzsh_users }}“
   when: item.group is not defined
   register: __elao_ohmyzsh_users
   changed_when: false
@@ -14,8 +14,8 @@
     # Waiting for the ansible 2 "combine" filter...
     __item: "{% set __item = item.0.update(({}) if (item.1|skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
   with_together:
-    - elao_ohmyzsh_users
-    - __elao_ohmyzsh_users.results
+    - "{{ elao_ohmyzsh_users }}"
+    - "{{ __elao_ohmyzsh_users.results }}"
   register: __elao_ohmyzsh_users
 
 # Flatten results structure to the original variable
@@ -29,10 +29,10 @@
     dest:  "~{{ item.user }}/.zshrc"
     owner: "{{ item.user }}"
     group: "{{ item.group|default(omit) }}"
-  with_items: elao_ohmyzsh_users
+  with_items: "{{ elao_ohmyzsh_users }}"
 
 - name: users > Shells
   user:
     name: "{{ item.user }}"
     shell: /bin/zsh
-  with_items: elao_ohmyzsh_users
+  with_items: "{{ elao_ohmyzsh_users }}"
