@@ -1,24 +1,15 @@
 ---
 
-- name: install > Download package
-  get_url:
-    url:  https://github.com/mozilla-services/heka/releases/download/v{{ elao_heka_version }}/heka_{{ elao_heka_version }}_amd64.deb
-    dest: /opt/heka_{{ elao_heka_version }}_amd64.deb
-
-- name: install > Install package
+- name: install > Packages
   apt:
-    deb: /opt/heka_{{ elao_heka_version }}_amd64.deb
-
-- name: install > Create heka directories
-  file:
-    dest:  "{{ item.path }}"
-    state: directory
+    name:  "{{ item }}"
+    state: present
   with_items:
-    - path:  /etc/heka/conf.d
-    - path:  /var/cache/hekad
+    - heka
 
-- name: install > Copy init.d script
+- name: install > Lua encoders
   template:
-    src:   install/init.j2
-    dest:  /etc/init.d/heka
-    mode:  0755
+    src:  "lua_encoders/{{ item }}.lua.j2"
+    dest: "/usr/share/heka/lua_encoders/{{ item }}.lua"
+  with_items:
+    - rtail

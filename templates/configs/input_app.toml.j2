@@ -1,0 +1,48 @@
+[input_nginx]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/nginx"
+file_match = '(?P<Type>access|error)\.log'
+differentiator = ["nginx.", "Type"]
+
+[input_nginx_app]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/nginx"
+file_match = '(?P<App>[^/]+)\.(?P<Type>access|error)\.log'
+differentiator = ["nginx.", "App", ".", "Type"]
+
+[input_supervisor]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/supervisor"
+file_match = 'supervisord\.log'
+differentiator = ["supervisor"]
+
+[input_supervisor_worker]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/supervisor"
+file_match = 'worker-(?P<Worker>[^/]+)\.log'
+differentiator = ["supervisor.", "Worker"]
+
+[php_fpm]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log"
+file_match = 'php[\d\.]*-fpm\.log'
+differentiator = ["php.fpm"]
+priority = ["File"]
+
+[input_app]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/app"
+file_match = '(?P<Env>[^/]+)\.log'
+differentiator = ["app.", "Env"]
+
+[decoder_app]
+type = "ScribbleDecoder"
+
+    [decoder_app.message_fields]
+    channel = "app"

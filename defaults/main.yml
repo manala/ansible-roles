@@ -1,16 +1,5 @@
 ---
 
-# User
-elao_heka_user:       root
-elao_heka_user_group: root
-
-# Version
-elao_heka_version:  0.9.2
-
-# Config
-elao_heka_config_template: hekad.toml.j2
-elao_heka_config: {}
-
 # Configs
 elao_heka_configs_dir:       /etc/heka/conf.d
 elao_heka_configs_template:  configs/default.conf.j2

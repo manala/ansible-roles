@@ -4,7 +4,7 @@
   template:
     src:  "{{ item.template|default(elao_heka_configs_template) }}"
     dest: "{{ elao_heka_configs_dir }}/{{ item.file }}"
-  with_items: elao_heka_configs
+  with_items: "{{ elao_heka_configs }}"
   notify:
     - heka restart
 
