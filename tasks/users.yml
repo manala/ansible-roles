@@ -11,7 +11,7 @@
     system:     "{{ item.system|default(false)|bool }}"
     uid:        "{{ item.uid|default(omit) }}"
     comment:    "{{ item.comment|default(omit) }}"
-  with_items: elao_users
+  with_items: "{{ elao_users }}"
 
 - name: users > Authorized keys
   authorized_key:
@@ -25,7 +25,7 @@
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
   command: "id -g -n {{ item.name }}"
-  with_items: elao_users
+  with_items: "{{ elao_users }}"
   when: item.group is not defined
   register: __elao_users
   changed_when: false
@@ -37,8 +37,8 @@
     # Waiting for the ansible 2 "combine" filter...
     __item: "{% set __item = item.0.update(({}) if (item.1|skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
   with_together:
-    - elao_users
-    - __elao_users.results
+    - "{{ elao_users }}"
+    - "{{ __elao_users.results }}"
   register: __elao_users
   no_log: true
 
