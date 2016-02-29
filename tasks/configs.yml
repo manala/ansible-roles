@@ -4,7 +4,7 @@
   template:
     src:  "{{ item.template|default(elao_nginx_configs_template) }}"
     dest: "{{ elao_nginx_configs_dir }}/{{ item.file }}"
-  with_items: elao_nginx_configs
+  with_items: "{{ elao_nginx_configs }}"
   notify:
     - nginx restart
 
@@ -21,6 +21,6 @@
     path:  "{{ elao_nginx_configs_dir }}/{{ item }}"
     state: absent
   when: elao_nginx_configs_exclusive and (item not in elao_nginx_configs|map(attribute='file'))
-  with_items: _elao_nginx_configs_find_output.stdout_lines
+  with_items: "{{ _elao_nginx_configs_find_output.stdout_lines }}"
   notify:
     - nginx restart
