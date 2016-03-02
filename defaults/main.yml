@@ -6,7 +6,7 @@ elao_nginx_config_template: ~
 elao_nginx_config:          []
 
 # Configs
-elao_nginx_configs_exclusive: false
+elao_nginx_configs_exclusive: "{{ elao.exclusive|default(false) if (elao is defined) else false }}"
 elao_nginx_configs_dir:       /etc/nginx/conf.d
 elao_nginx_configs_template:  configs/empty.conf.j2
 elao_nginx_configs:           []
