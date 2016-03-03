@@ -58,6 +58,6 @@
     {%- elif value is number -%}
         {{ value }}
     {%- else -%}
-        {{ value }}
+        {{ value | to_json }}
     {%- endif -%}
 {%- endmacro -%}
