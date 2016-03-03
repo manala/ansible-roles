@@ -30,9 +30,9 @@ differentiator = ["supervisor.", "Worker"]
 type = "LogstreamerInput"
 decoder = "decoder_app"
 log_directory = "/var/log"
-file_match = 'php[\d\.]*-fpm\.log'
+file_match = 'php(?P<Version>[\d\.]*)-fpm\.log'
 differentiator = ["php.fpm"]
-priority = ["File"]
+priority = ["Version"]
 
 [input_app]
 type = "LogstreamerInput"
