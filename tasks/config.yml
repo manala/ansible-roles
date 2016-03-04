@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ elao_heka_config_template }}"
+    dest: "{{ elao_heka_config_file }}"
+  when: elao_heka_config_template is not none
+  notify:
+    - heka restart

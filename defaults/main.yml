@@ -1,5 +1,8 @@
 ---
 
+# Config
+elao_heka_config_template: ~
+
 # Configs
 elao_heka_configs_dir:       /etc/heka/conf.d
 elao_heka_configs_template:  configs/default.conf.j2
