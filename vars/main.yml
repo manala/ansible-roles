@@ -149,6 +149,11 @@ elao_apt_repositories_patterns:
     key:
       url: https://packages.gitlab.com/gpg.key
       id:  E15E78F4
+  aptly:
+    source: deb http://repo.aptly.info/ squeeze main
+    key:
+      url: https://www.aptly.info/pubkey.txt
+      id:  2A194991
   elao:
     source: deb https://debian.elao.com {{ ansible_distribution_release }} main
     key:
