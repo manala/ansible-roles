@@ -16,11 +16,23 @@ None.
 
 ## Installation
 
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+### Ansible 2
+
+Not yet supported
+
+### Ansible 1
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install elao.influxdb,1.0
+```
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.influxdb }
+- src:     elao.influxdb
+  version: 1.0
 ```
 
 ## Role Handlers
