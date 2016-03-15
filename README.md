@@ -100,7 +100,7 @@ elao_users:
 
 ### Creating group
 
-You can create your own group by using the `elao_users_groups` by specifying: 
+You can create your own group by using the `elao_users_groups` by specifying:
 
 - A name
 - If the group is a "system group"
