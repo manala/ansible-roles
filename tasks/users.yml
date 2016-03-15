@@ -71,3 +71,23 @@
   with_subelements:
     - "{{ elao_users|selectattr('keys', 'sequence')|list }}"
     - keys
+
+- name: users > Gpg keys public
+  command: "su {{ item.0.name }} -c 'gpg --list-keys {{ item.1.key }} || echo \"{{ item.1.public }}\" | gpg --import'"
+  when: item.1.public is defined
+  register: __manala_users_gpg_keys_public_result
+  changed_when: __manala_users_gpg_keys_public_result.stderr
+  with_subelements:
+    - "{{ elao_users|selectattr('gpg_keys', 'sequence')|list }}"
+    - gpg_keys
+  no_log: true
+
+- name: users > Gpg keys secret
+  command: "su {{ item.0.name }} -c 'gpg --list-secret-keys {{ item.1.key }} || echo \"{{ item.1.secret }}\" | gpg --import --allow-secret-key-import'"
+  when: item.1.secret is defined
+  register: __manala_users_gpg_keys_secret_result
+  changed_when: __manala_users_gpg_keys_secret_result.stderr
+  with_subelements:
+    - "{{ elao_users|selectattr('gpg_keys', 'sequence')|list }}"
+    - gpg_keys
+  no_log: true

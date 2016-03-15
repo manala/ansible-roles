@@ -92,6 +92,10 @@ elao_users:
       - name:    id_rsa
         public:  "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
         private: "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com') }}"
+    gpg_keys:
+      - key:    FOOOBAAR
+        public: "{{ lookup('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com.pub') }}"
+        secret: "{{ lookup('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com') }}"
 ```
 
 ### Creating group
