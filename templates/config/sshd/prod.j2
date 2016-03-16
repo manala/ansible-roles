@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{%- set config = elao_ssh_config_sshd -%}
+{%- set config = manala_ssh_config_sshd -%}
 
 {{ macros.config_row(config, 'Port', 22) }}
 {{ macros.config_row(config, 'Protocol', 2) }}

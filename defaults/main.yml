@@ -1,14 +1,14 @@
 ---
 
 # Config
-elao_ssh_config_file:     /etc/ssh/ssh_config
-elao_ssh_config_template: ~
-elao_ssh_config:          []
+manala_ssh_config_file:     /etc/ssh/ssh_config
+manala_ssh_config_template: ~
+manala_ssh_config:          []
 
 # Config - Sshd
-elao_ssh_config_sshd_file:     /etc/ssh/sshd_config
-elao_ssh_config_sshd_template: ~
-elao_ssh_config_sshd:          []
+manala_ssh_config_sshd_file:     /etc/ssh/sshd_config
+manala_ssh_config_sshd_template: ~
+manala_ssh_config_sshd:          []
 
 # Known hosts
-elao_ssh_known_hosts: []
+manala_ssh_known_hosts: []

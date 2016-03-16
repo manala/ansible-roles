@@ -2,14 +2,14 @@
 
 - name: config > Template
   template:
-    src:  "{{ elao_ssh_config_template|ternary(elao_ssh_config_template, 'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
-    dest: "{{ elao_ssh_config_file }}"
-  when: (elao_ssh_config_template is not none) or (elao_ssh_config|length)
+    src:  "{{ manala_ssh_config_template|ternary(manala_ssh_config_template, 'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
+    dest: "{{ manala_ssh_config_file }}"
+  when: (manala_ssh_config_template is not none) or (manala_ssh_config|length)
 
 - name: config > Template sshd
   template:
-    src:  "{{ elao_ssh_config_sshd_template|ternary(elao_ssh_config_sshd_template, 'config/sshd/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
-    dest: "{{ elao_ssh_config_sshd_file }}"
-  when: (elao_ssh_config_sshd_template is not none) or (elao_ssh_config_sshd|length)
+    src:  "{{ manala_ssh_config_sshd_template|ternary(manala_ssh_config_sshd_template, 'config/sshd/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
+    dest: "{{ manala_ssh_config_sshd_file }}"
+  when: (manala_ssh_config_sshd_template is not none) or (manala_ssh_config_sshd|length)
   notify:
     - ssh reload

@@ -6,4 +6,4 @@
     key:   "{{ item.key|default(omit) }}"
     state: "{{ item.state|default('present') }}"
     path:  "{{ item.path|default('/etc/ssh/ssh_known_hosts') }}"
-  with_items: "{{ elao_ssh_known_hosts }}"
+  with_items: "{{ manala_ssh_known_hosts }}"
