@@ -6,9 +6,11 @@
 
 This role will assume the basic installation of sudo
 
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -21,13 +23,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.sudo,2.0
+ansible-galaxy install manala.sudo,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.sudo
+- src:     manala.sudo
   version: 2.0
 ```
 
@@ -36,13 +38,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.sudo,1.0
+ansible-galaxy install manala.sudo,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.sudo
+- src:     manala.sudo
   version: 1.0
 ```
 
@@ -56,30 +58,30 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-| Name                          | Default         | Type    | Description                       |
-| ----------------------------- | --------------- | ------- | --------------------------------- |
-| `elao_sudo_sudoers_exclusive` | false           | Boolean | Sudoers files exclusivity         |
-| `elao_sudo_sudoers_dir`       | /etc/sudoers.d  | String  | Path to sudo configuration files  |
-| `elao_sudo_sudoers`           | []              | Array   | Collection of sudoers             |
+| Name                            | Default         | Type    | Description                       |
+| ------------------------------- | --------------- | ------- | --------------------------------- |
+| `manala_sudo_sudoers_exclusive` | false           | Boolean | Sudoers files exclusivity         |
+| `manala_sudo_sudoers_dir`       | /etc/sudoers.d  | String  | Path to sudo configuration files  |
+| `manala_sudo_sudoers`           | []              | Array   | Collection of sudoers             |
 
 ### Example
 
 ```yaml
 - hosts: all
   vars:
-    elao_sudo_sudoers:
+    manala_sudo_sudoers:
       - file: vagrant
         config:
           - vagrant: ALL=NOPASSWD:ALL
   roles:
-    - role: elao.sudo
+    - role: manala.sudo
 
 ```
 
 Exclusivity (all sudoers non defined by role will be deleted)
 
 ```yaml
-elao_sudo_sudoers_exclusive: true
+manala_sudo_sudoers_exclusive: true
 ```
 
 # Licence
@@ -88,4 +90,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

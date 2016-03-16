@@ -1,6 +1,6 @@
 ---
 
 # Sudoers
-elao_sudo_sudoers_exclusive: "{{ elao.exclusive|default(false) if (elao is defined) else false }}"
-elao_sudo_sudoers_dir:       /etc/sudoers.d
-elao_sudo_sudoers:           []
+manala_sudo_sudoers_exclusive: false
+manala_sudo_sudoers_dir:       /etc/sudoers.d
+manala_sudo_sudoers:           []

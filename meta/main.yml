@@ -4,11 +4,9 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    Sudo is a program for Unix-like computer operating systems that allows users to run programs with the security privileges of another user.
-    This role will assume the basic installation of sudo
+  author:              Manala
+  company:             Manala
+  description:         Handle sudo
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -16,9 +14,6 @@ galaxy_info:
       versions:
         - wheezy
         - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
+  galaxy_tags:
     - system
-    - security
+    - sudo
