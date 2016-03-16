@@ -10,7 +10,7 @@ This role will add third party sources to the package manager by:
 - Managing packages preferences files (aka. pinning)
 - Installing packages
 
-It's part of the Manala <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
@@ -27,13 +27,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.aptly,2.0
+ansible-galaxy install manala.aptly,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.aptly
+- src:     manala.aptly
   version: 2.0
 ```
 
