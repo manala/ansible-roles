@@ -1,26 +1,26 @@
 ---
 
 # Repositories
-elao_apt_repositories_patterns:
+manala_apt_repositories_patterns:
   debian_security:
-    source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
+    source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   debian_security_src:
-    source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ elao_apt_components|join(' ') }}
+    source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   debian_updates:
-    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   debian_updates_src:
-    source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+    source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   debian_backports:
-    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ elao_apt_components|join(' ') }}
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin:    release a={{ ansible_distribution_release }}-backports
   ubuntu_security:
-    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ elao_apt_components|join(' ') }}
+    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
   ubuntu_updates:
-    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ elao_apt_components|join(' ') }}
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   ubuntu_partner:
     source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
   ubuntu_backports:
-    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ elao_apt_components|join(' ') }}
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin:    release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
@@ -154,14 +154,14 @@ elao_apt_repositories_patterns:
     key:
       url: https://www.aptly.info/pubkey.txt
       id:  2A194991
-  elao:
-    source: deb https://debian.elao.com {{ ansible_distribution_release }} main
+  manala:
+    source: deb http://debian.manala.io {{ ansible_distribution_release }} main
     key:
-      url: http://keys.gnupg.net/pks/lookup?op=get&search=0xDCDA85C08C8D73A4
-      id:  8C8D73A4
+      url: http://keys.gnupg.net/pks/lookup?op=get&search=0xA9E848781394DEA3
+      id:  1394DEA3
 
 # Preferences
-elao_apt_preferences_patterns:
+manala_apt_preferences_patterns:
   vim:           vim*
   git:           git*
   php:           php*

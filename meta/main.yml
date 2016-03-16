@@ -4,9 +4,9 @@ dependencies: []
 
 galaxy_info:
 
-  author:              ELAO
-  company:             ELAO
-  description:         An apt role for elao symfony standard vagrant box
+  author:              Manala
+  company:             Manala
+  description:         Handle apt
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -14,9 +14,6 @@ galaxy_info:
       versions:
         - wheezy
         - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
-    - development
-    - web
+  galaxy_tags:
+    - system
+    - apt

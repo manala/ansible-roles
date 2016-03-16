@@ -15,5 +15,5 @@
 {%- endfor -%}
 
 Package:      {{ config_values.package }}
-Pin:          {{ elao_apt_repositories_patterns.dotdeb.pin|default('origin ' ~ elao_apt_repositories_patterns.dotdeb.source|regex_replace('deb https?:\/\/([^\/ ]+)[\/ ].*$', '\\1')) }}
+Pin:          {{ manala_apt_repositories_patterns.dotdeb.pin|default('origin ' ~ manala_apt_repositories_patterns.dotdeb.source|regex_replace('deb https?:\/\/([^\/ ]+)[\/ ].*$', '\\1')) }}
 Pin-Priority: 900

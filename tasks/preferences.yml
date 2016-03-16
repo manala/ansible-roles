@@ -2,6 +2,6 @@
 
 - name: preferences > Templates
   template:
-    src:  "{{ ('preferences/_pattern.j2') if (item is string) else (item.template|default(elao_apt_preferences_template)) }}"
-    dest: "{{ elao_apt_preferences_dir }}/{{ ((item.split('@')[1].split(':')[0]) if (item.split('@')[0] in ['', '*', '~']) else (item.split('@')[0])) if (item is string) else (item.file) }}"
-  with_items: "{{ elao_apt_preferences }}"
+    src:  "{{ ('preferences/_pattern.j2') if (item is string) else (item.template|default(manala_apt_preferences_template)) }}"
+    dest: "{{ manala_apt_preferences_dir }}/{{ ((item.split('@')[1].split(':')[0]) if (item.split('@')[0] in ['', '*', '~']) else (item.split('@')[0])) if (item is string) else (item.file) }}"
+  with_items: "{{ manala_apt_preferences }}"

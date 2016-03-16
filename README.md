@@ -10,7 +10,7 @@ This role will add third party sources to the package manager by:
 - Managing packages preferences files (aka. pinning)
 - Installing packages
 
-It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
@@ -27,13 +27,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.apt,2.0
+ansible-galaxy install manala.apt,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.apt
+- src:     manala.apt
   version: 2.0
 ```
 
@@ -42,13 +42,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.apt,1.0
+ansible-galaxy install manala.apt,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.apt
+- src:     manala.apt
   version: 1.0
 ```
 
@@ -60,33 +60,33 @@ None
 
 ### Definition
 
-| Name                    | Default  | Type  | Description                |
-| ----------------------- | -------- | ----- | -------------------------- |
-| `elao_apt_update`       | False    | Bool  | Update                     |
-| `elao_apt_upgrade`      | False    | Bool  | Upgrade                    |
-| `elao_apt_components`   | ['main'] | Array | Collection of components   |
-| `elao_apt_sources_list` | []       | Array | Collection of sources      |
-| `elao_apt_repositories` | []       | Array | Collection of repositories |
-| `elao_apt_preferences`  | []       | Array | Collection of preferences  |
-| `elao_apt_packages`     | []       | Array | Collection of packages     |
+| Name                      | Default  | Type  | Description                |
+| ------------------------- | -------- | ----- | -------------------------- |
+| `manala_apt_update`       | False    | Bool  | Update                     |
+| `manala_apt_upgrade`      | False    | Bool  | Upgrade                    |
+| `manala_apt_components`   | ['main'] | Array | Collection of components   |
+| `manala_apt_sources_list` | []       | Array | Collection of sources      |
+| `manala_apt_repositories` | []       | Array | Collection of repositories |
+| `manala_apt_preferences`  | []       | Array | Collection of preferences  |
+| `manala_apt_packages`     | []       | Array | Collection of packages     |
 
 ### Example
 
 ```yaml
 - hosts: all
   vars:
-    elao_apt_update: true
-    elao_apt_repositories:
+    manala_apt_update: true
+    manala_apt_repositories:
       - contrib
-    elao_apt_preferences:
+    manala_apt_preferences:
       - git@backports
       - ~@dotdeb:100
       - php@dotdeb_php56
       - nginx@nginx
-    elao_apt_packages:
+    manala_apt_packages:
       - ttf-mscorefonts-installer
   roles:
-    - role: elao.apt
+    - role: manala.apt
 ```
 
 ### Update
@@ -94,7 +94,7 @@ None
 Update packages
 
 ```yaml
-elao_apt_update: true
+manala_apt_update: true
 ```
 
 ### Upgrade
@@ -102,7 +102,7 @@ elao_apt_update: true
 Upgrade packages
 
 ```yaml
-elao_apt_upgrade: true
+manala_apt_upgrade: true
 ```
 
 ### Components
@@ -110,7 +110,7 @@ elao_apt_upgrade: true
 Specify apt components
 
 ```yaml
-elao_apt_components: ['main', 'contrib', 'non-free']
+manala_apt_components: ['main', 'contrib', 'non-free']
 ```
 
 ### Sources list
@@ -118,7 +118,7 @@ elao_apt_components: ['main', 'contrib', 'non-free']
 Define manually each sources
 
 ```yaml
-elao_apt_sources_list:
+manala_apt_sources_list:
   - deb: http://httpredir.debian.org/debian wheezy main
   - deb http://httpredir.debian.org/debian wheezy contrib
 ```
@@ -126,14 +126,14 @@ elao_apt_sources_list:
 Or use predefined templates
 
 ```yaml
-elao_apt_sources_list_template: sources_list/debian.list.j2
+manala_apt_sources_list_template: sources_list/debian.list.j2
 ```
 
 Or combine both
 
 ```yaml
-elao_apt_sources_list_template: sources_list/debian_src.list.j2
-elao_apt_sources_list:
+manala_apt_sources_list_template: sources_list/debian_src.list.j2
+manala_apt_sources_list:
   - deb-src: http://httpredir.debian.org/debian wheezy main
   - deb-src http://httpredir.debian.org/debian wheezy contrib
 ```
@@ -143,7 +143,7 @@ elao_apt_sources_list:
 Concise, pattern based
 
 ```yaml
-elao_apt_repositories:
+manala_apt_repositories:
   - debian_security
   - debian_security_src
   - debian_updates
@@ -184,7 +184,7 @@ elao_apt_repositories:
 Verbose, pattern based
 
 ```yaml
-elao_apt_repositories:
+manala_apt_repositories:
   - pattern: backports
     state:   absent
 ```
@@ -192,7 +192,7 @@ elao_apt_repositories:
 Verbose
 
 ```yaml
-elao_apt_repositories:
+manala_apt_repositories:
   - source: deb http://pkg.jenkins-ci.org/debian binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
@@ -204,7 +204,7 @@ elao_apt_repositories:
 Exclusivity (all repositories non defined by role will be deleted)
 
 ```yaml
-elao_apt_repositories_exclusive: true
+manala_apt_repositories_exclusive: true
 ```
 
 ### Preferences
@@ -213,10 +213,10 @@ Concise, pattern based
 
 Format: [preference pattern]@[repository pattern]:[pin priority]
 
-Note that referenced repositories will automatically be include as present using "elao_apt_repositories" process.
+Note that referenced repositories will automatically be include as present using "manala_apt_repositories" process.
 
 ```yaml
-elao_apt_preferences:
+manala_apt_preferences:
   - git@backports # git* from backports reposotiry, high priority
   - ~@dotdeb:100  # * from dotdeb repository, low priority
   - php@dotdeb    # php* from backports reposotiry, high priority
@@ -226,7 +226,7 @@ elao_apt_preferences:
 Verbose
 
 ```yaml
-elao_apt_preferences:
+manala_apt_preferences:
   - file: dotdeb
     config:
       - Package:      '*'
@@ -244,14 +244,14 @@ elao_apt_preferences:
 Concise
 
 ```yaml
-elao_apt_packages:
+manala_apt_packages:
   - vim # Name of package
 ```
 
 Verbose
 
 ```yaml
-elao_apt_packages:
+manala_apt_packages:
   - name:  bzip2  # Name of package, required
     state: absent # State of package, optionnal, default 'present'
     force: true   # Force installation, optionnal
@@ -263,4 +263,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

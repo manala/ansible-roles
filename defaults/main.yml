@@ -1,26 +1,26 @@
 ---
 
 # Components
-elao_apt_components: ['main']
+manala_apt_components: ['main']
 
 # Sources list
-elao_apt_sources_list_file:     /etc/apt/sources.list
-elao_apt_sources_list_template: ~
-elao_apt_sources_list:          []
+manala_apt_sources_list_file:     /etc/apt/sources.list
+manala_apt_sources_list_template: ~
+manala_apt_sources_list:          []
 
 # Repositories
-elao_apt_repositories_exclusive: "{{ elao.exclusive|default(false) if (elao is defined) else false }}"
-elao_apt_repositories_dir:       /etc/apt/sources.list.d
-elao_apt_repositories:           []
+manala_apt_repositories_exclusive: false
+manala_apt_repositories_dir:       /etc/apt/sources.list.d
+manala_apt_repositories:           []
 
 # Preferences
-elao_apt_preferences_dir:      /etc/apt/preferences.d
-elao_apt_preferences_template: preferences/empty.j2
-elao_apt_preferences:          []
+manala_apt_preferences_dir:      /etc/apt/preferences.d
+manala_apt_preferences_template: preferences/empty.j2
+manala_apt_preferences:          []
 
 # Packages
-elao_apt_packages: []
+manala_apt_packages: []
 
 # Update / Upgrade
-elao_apt_update:  "{{ elao.update|default(false) if (elao is defined) else false }}"
-elao_apt_upgrade: "{{ elao.upgrade|default(false) if (elao is defined) else false }}"
+manala_apt_update:  false
+manala_apt_upgrade: false
