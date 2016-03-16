@@ -1,20 +1,20 @@
 <img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
 
+[![Ansible Role](https://img.shields.io/ansible/role/5537.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5537) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
+
 # Ansible Role: timezone
 
 This role will assume the setup of timezone
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
 None.
-
-## Installation
 
 ## Installation
 
@@ -23,13 +23,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.timezone,2.0
+ansible-galaxy install manala.timezone,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.timezone
+- src:     manala.timezone
   version: 2.0
 ```
 
@@ -38,13 +38,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.timezone,1.0
+ansible-galaxy install manala.timezone,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.timezone
+- src:     manala.timezone
   version: 1.0
 ```
 
@@ -58,19 +58,19 @@ Using ansible galaxy requirements file:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-|elao_timezone|Etc/UTC|String|Timezone|
+|manala_timezone|Etc/UTC|String|Timezone|
 
 ### Configuration example
 
 ```yaml
-elao_timezone: Europe/Paris
+manala_timezone: Europe/Paris
 ```
 
 ## Example playbook
 
     - hosts: servers
       roles:
-         - { role: elao.timezone }
+         - { role: manala.timezone }
 
 # Licence
 
@@ -78,4 +78,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
