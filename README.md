@@ -8,11 +8,11 @@ This role will assume the following configuration:
 - Install ohmyzsh globally
 - Setup a local zshrc file
 
-It's part of the ELAO [Ansible Stack](http://www.manalas.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+None.
 
 ## Dependencies
 
@@ -25,13 +25,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.ohmyzsh,2.0
+ansible-galaxy install manala.ohmyzsh,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.ohmyzsh
+- src:     manala.ohmyzsh
   version: 2.0
 ```
 
@@ -40,13 +40,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.ohmyzsh,1.0
+ansible-galaxy install manala.ohmyzsh,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.ohmyzsh
+- src:     manala.ohmyzsh
   version: 1.0
 ```
 
@@ -56,16 +56,16 @@ None
 
 ## Role Variables
 
-| Name                          | Default                    | Type      |Description                                                      |
-|------------------------------ |--------------------------- |---------- |---------------------------------------------------------------- |
-| `elao_ohmyzsh_dir`            | /usr/local/share/oh-my-zsh | String    | ohMyZsh installation directory                                  |
-| `elao_ohmyzsh_update`         | false                      | Boolean   | Whether or not we should auto retrieve new revision of ohMyZsh  |
-| `elao_ohmyzsh_users_template` | users/base.j2              | String    | User config template                                            |
-| `elao_ohmyzsh_users`          | []                         | Array     | Collection of users with ohMyZsh custom configurations.         |
+| Name                            | Default                    | Type      |Description                                                      |
+|-------------------------------- |--------------------------- |---------- |---------------------------------------------------------------- |
+| `manala_ohmyzsh_dir`            | /usr/local/share/oh-my-zsh | String    | ohMyZsh installation directory                                  |
+| `manala_ohmyzsh_update`         | false                      | Boolean   | Whether or not we should auto retrieve new revision of ohMyZsh  |
+| `manala_ohmyzsh_users_template` | users/base.j2              | String    | User config template                                            |
+| `manala_ohmyzsh_users`          | []                         | Array     | Collection of users with ohMyZsh custom configurations.         |
 
 ### Oh My Zsh configuration
 
-The `elao_ohmyzsh_users_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
+The `manala_ohmyzsh_users_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
 
 - base (Simple template with common configuration)
 - dev (Dev configuration, provide a different OhMyZsh theme than production template)
@@ -75,28 +75,28 @@ The `elao_ohmyzsh_users_template` key will allow you to use differents main conf
 #### Example
 
 ```
-elao_ohmyzsh_users_template: users/base.j2
+manala_ohmyzsh_users_template: users/base.j2
 ```
 
-The `elao_ohmyzsh_dir` key is used to specify the path where to checkout oh-my-zsh
+The `manala_ohmyzsh_dir` key is used to specify the path where to checkout oh-my-zsh
 
 #### Example
 
 ```
-elao_ohmyzsh_dir: /usr/local/share/oh-my-zsh
+manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 ```
 
-The `elao_ohmyzsh_update` option will allow Oh My Zsh to retrieve new revisions from the repository.
+The `manala_ohmyzsh_update` option will allow Oh My Zsh to retrieve new revisions from the repository.
 
 #### Example
 
 ```
-elao_ohmyzsh_update: false
+manala_ohmyzsh_update: false
 ```
 
 ### User configuration
 
-This part allow you, with the key `elao_ohmyzsh_users`, to configure each user account as following:
+This part allow you, with the key `manala_ohmyzsh_users`, to configure each user account as following:
 
 | Name      | Default                      | Type       | Description                               |
 |-----------|----------------------------- |----------- |------------------------------------------ |
@@ -110,17 +110,17 @@ This part allow you, with the key `elao_ohmyzsh_users`, to configure each user a
 
 _env:        prod
 
-elao_ohmyzsh_users:
+manala_ohmyzsh_users:
   - user:     root
     template: users/{{ _env }}.j2
     config:
-      - ZSH_THEME: elao-prod
+      - ZSH_THEME: manala-prod
       - plugins: (git debian common-aliases history history-substring-search)
-  - user:     elao
+  - user:     foo
     group:    root # Default to user primary group, but can be overriden
     template: users/{{ _env }}.j2
     config:
-      - ZSH_THEME: elao-prod
+      - ZSH_THEME: manala-prod
       - plugins: (git debian common-aliases history history-substring-search)
 ```
 
@@ -128,7 +128,7 @@ elao_ohmyzsh_users:
 
     - hosts: servers
       roles:
-         - { role: elao.ohmyzsh }
+         - { role: manala.ohmyzsh }
 
 # Licence
 
@@ -136,4 +136,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

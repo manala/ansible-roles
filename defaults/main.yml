@@ -1,11 +1,11 @@
 ---
 
 # Dir
-elao_ohmyzsh_dir: /usr/local/share/oh-my-zsh
+manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 
 # Update
-elao_ohmyzsh_update: false
+manala_ohmyzsh_update: false
 
 # Users
-elao_ohmyzsh_users_template: users/base.j2
-elao_ohmyzsh_users:          []
+manala_ohmyzsh_users_template: users/base.j2
+manala_ohmyzsh_users:          []
