@@ -2,6 +2,6 @@
 
 - name: template > Template
   template:
-    src:  "{{ elao_motd_template|ternary(elao_motd_template, 'template/empty.j2') }}"
-    dest: "{{ elao_motd_file }}"
-  when: (elao_motd_template is not none) or (elao_motd is not none)
+    src:  "{{ manala_motd_template|ternary(manala_motd_template, 'template/empty.j2') }}"
+    dest: "{{ manala_motd_file }}"
+  when: (manala_motd_template is not none) or (manala_motd is not none)
