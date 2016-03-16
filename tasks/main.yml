@@ -1,7 +1,7 @@
 ---
 
 - include: locales.yml
-  when: elao_locales|length
+  when: manala_locales|length
 
 - include: locales_default.yml
-  when: elao_locales_default
+  when: manala_locales_default

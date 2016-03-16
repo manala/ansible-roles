@@ -6,11 +6,11 @@
 
 This role will assume the configuration of system locales.
 
-It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+None.
 
 ## Dependencies
 
@@ -23,13 +23,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.locales,2.0
+ansible-galaxy install manala.locales,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.locales
+- src:     manala.locales
   version: 2.0
 ```
 
@@ -38,13 +38,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.locales,1.0
+ansible-galaxy install manala.locales,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.locales
+- src:     manala.locales
   version: 1.0
 ```
 
@@ -54,17 +54,17 @@ None
 
 ## Role Variables
 
-| Name                   | Default  | Type   | Description                                    |
-| ---------------------- | -------- | ------ | ---------------------------------------------- |
-| `elao_locales`         | [ ]      | Array  | Locales to configure                           |
-| `elao_locales_default` | nil      | String | Default locale, stored in /etc/default/locale  |
+| Name                     | Default  | Type   | Description                                    |
+| ------------------------ | -------- | ------ | ---------------------------------------------- |
+| `manala_locales`         | [ ]      | Array  | Locales to configure                           |
+| `manala_locales_default` | nil      | String | Default locale, stored in /etc/default/locale  |
 
 ### Configuration example
 
 ```yaml
-elao_locales_default: C.UTF-8
+manala_locales_default: C.UTF-8
 
-elao_locales:
+manala_locales:
   - fr_FR.UTF-8
   - name: en_EN.UTF-8
     state: absent
@@ -74,7 +74,7 @@ elao_locales:
 
     - hosts: servers
       roles:
-         - { role: elao.locales }
+         - { role: manala.locales }
 
 # Licence
 
@@ -82,4 +82,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

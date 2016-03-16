@@ -3,4 +3,4 @@
   lineinfile:
     dest:   /etc/default/locale
     regexp: "LANG="
-    line:   "LANG={{ elao_locales_default }}"
+    line:   "LANG={{ manala_locales_default }}"

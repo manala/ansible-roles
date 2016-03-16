@@ -1,7 +1,7 @@
 ---
 
 # Locales to configure
-elao_locales: []
+manala_locales: []
 
 # Default locale
-elao_locales_default: ~
+manala_locales_default: ~
