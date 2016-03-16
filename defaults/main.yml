@@ -1,9 +1,9 @@
 ---
 
 # Bin
-elao_vim_bin: /usr/bin/vim.basic
+manala_vim_bin: /usr/bin/vim.basic
 
 # Config
-elao_vim_config_file:     /etc/vim/vimrc.local
-elao_vim_config_template: ~
-elao_vim_config:          []
+manala_vim_config_file:     /etc/vim/vimrc.local
+manala_vim_config_template: ~
+manala_vim_config:          []

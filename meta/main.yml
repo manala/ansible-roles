@@ -4,12 +4,9 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    This role will assume the setup and configuration of Vim by:
-        - Installing package
-        - Allow vim configuration by using the `/etc/vim/vimrc.local` file
+  author:              Manala
+  company:             Manala
+  description:         Handle vim
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -17,9 +14,6 @@ galaxy_info:
       versions:
         - wheezy
         - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
+  galaxy_tags:
     - system
-    - developpement
+    - vim

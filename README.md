@@ -8,11 +8,15 @@ This role will assume the setup and configuration of Vim by:
 - Installing package
 - Allow vim configuration by using the `/etc/vim/vimrc.local` file
 
-It's part of the ELAO [Ansible stack](http://www.manalas.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+None.
+
+## Dependencies
+
+None.
 
 ## Installation
 
@@ -21,13 +25,13 @@ It's part of the ELAO [Ansible stack](http://www.manalas.com) but can be used as
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.vim,2.0
+ansible-galaxy install manala.vim,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.vim
+- src:     manala.vim
   version: 2.0
 ```
 
@@ -36,13 +40,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.vim,1.0
+ansible-galaxy install manala.vim,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.vim
+- src:     manala.vim
   version: 1.0
 ```
 
@@ -52,15 +56,15 @@ None
 
 ## Role Variables
 
-| Name                       | Default              | Type         | Description                        |
-|--------------------------- |--------------------- |------------- |----------------------------------- |
-| `elao_vim_config_template` | config/empty.j2      | String (path)| Path to `vimrc.local` template     |
-| `elao_vim_config_file`     | /etc/vim/vimrc.local | String       | Path to the vim configuration file |
-| `elao_vim_config`          | Array                | List         | List of vim options                |
+| Name                         | Default              | Type         | Description                        |
+|----------------------------- |--------------------- |------------- |----------------------------------- |
+| `manala_vim_config_template` | config/empty.j2      | String (path)| Path to `vimrc.local` template     |
+| `manala_vim_config_file`     | /etc/vim/vimrc.local | String       | Path to the vim configuration file |
+| `manala_vim_config`          | Array                | List         | List of vim options                |
 
 ### Configuring VIM
 
-The `elao_nginx_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
+The `manala_nginx_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
 
 - base (Simple template with common configuration)
 - dev (Development configuration)
@@ -73,20 +77,20 @@ The `elao_nginx_config_template` key will allow you to use differents main confi
 ---
 _env:        prod
 
-elao_vim_config_template: config/{{ _env }}.j2
+manala_vim_config_template: config/{{ _env }}.j2
 ```
-In combination with it you can specify the vim configuration file with the `elao_vim_config_file`:
+In combination with it you can specify the vim configuration file with the `manala_vim_config_file`:
 
 ```yaml
 ---
 
-elao_vim_config_file:     /etc/vim/vimrc.local
+manala_vim_config_file:     /etc/vim/vimrc.local
 ```
 
-The `elao_vim_config` is used ton configure vim, you can specify any of the vim options (see: [http://vimconfig.com/](http://vimconfig.com/)) like following:
+The `manala_vim_config` is used ton configure vim, you can specify any of the vim options (see: [http://vimconfig.com/](http://vimconfig.com/)) like following:
 
 ```yaml
-elao_vim_config:
+manala_vim_config:
     syntax:     "on"
     encoding:   "utf8"
     expandtab:  true   # Use spaces instead of tabs
@@ -99,7 +103,7 @@ elao_vim_config:
 
     - hosts: servers
       roles:
-         - { role: elao.vim }
+         - { role: manala.vim }
 
 # Licence
 
@@ -107,4 +111,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
