@@ -6,11 +6,11 @@
 
 This role will assume the setup of make
 
-It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -23,13 +23,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.make,2.0
+ansible-galaxy install manala.make,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.make
+- src:     manala.make
   version: 2.0
 ```
 
@@ -38,13 +38,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.make,1.0
+ansible-galaxy install manala.make,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.make
+- src:     manala.make
   version: 1.0
 ```
 
@@ -52,7 +52,7 @@ Using ansible galaxy requirements file:
 
     - hosts: servers
       roles:
-         - { role: elao.make }
+         - { role: manala.make }
 
 # Licence
 
@@ -60,4 +60,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

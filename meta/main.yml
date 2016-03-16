@@ -4,17 +4,17 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    Setup make package.
-  license: MIT
+  author:              Manala
+  company:             Manala
+  description:         Handle make
+  license:             MIT
   min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
         - wheezy
         - jessie
-  categories:
+  galaxy_tags:
+    - system
     - development
-    - web
+    - make
