@@ -1,9 +1,9 @@
 ---
 
 # Config
-elao_git_config_file:     /etc/gitconfig
-elao_git_config_template: ~
-elao_git_config:          []
+manala_git_config_file:     /etc/gitconfig
+manala_git_config_template: ~
+manala_git_config:          []
 
 # Repositories
-elao_git_repositories: []
+manala_git_repositories: []

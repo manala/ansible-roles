@@ -3,13 +3,9 @@
 dependencies: []
 
 galaxy_info:
-  author:              Elao
-  company:             Elao
-  description: >
-    This role will assume the setup and configuration of git
-      - Installing GIT package
-      - Define the gitconfig file
-      - Allow setup of the giconfig file
+  author:              Manala
+  company:             Manala
+  description:         Handle git
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -17,9 +13,7 @@ galaxy_info:
       versions:
         - wheezy
         - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
+  galaxy_tags:
     - system
     - developpement
+    - git

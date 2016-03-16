@@ -9,11 +9,11 @@ This role will assume the setup and configuration of git by:
 - Define the gitconfig file
 - Allow setup of the giconfig file
 
-It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+None.
 
 ## Dependencies
 
@@ -26,13 +26,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.git,2.0
+ansible-galaxy install manala.git,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.git
+- src:     manala.git
   version: 2.0
 ```
 
@@ -41,13 +41,13 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.git,1.0
+ansible-galaxy install manala.git,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.git
+- src:     manala.git
   version: 1.0
 ```
 
@@ -57,45 +57,45 @@ None
 
 ## Role Variables
 
-| Name                       | Default           | Type          | Description                      |
-|--------------------------- |------------------ |-------------- |--------------------------------- |
-| `elao_git_config_file`     | /etc/gitconfig    | String (path) | Path to config file              |
-| `elao_git_config_template` | config/empty.j2   | String (path) | Path to config template          |
-| `elao_git_config`          | []                | Array         | List of git config options       |
-| `elao_git_repositories`    | []                | Array         | List of repositories to checkout |
+| Name                         | Default           | Type          | Description                      |
+|----------------------------- |------------------ |-------------- |--------------------------------- |
+| `manala_git_config_file`     | /etc/gitconfig    | String (path) | Path to config file              |
+| `manala_git_config_template` | config/empty.j2   | String (path) | Path to config template          |
+| `manala_git_config`          | []                | Array         | List of git config options       |
+| `manala_git_repositories`    | []                | Array         | List of repositories to checkout |
 
 ### GIT configuration
 
-The `elao_git_config_file` key allow you to specify the path to the config file.
+The `manala_git_config_file` key allow you to specify the path to the config file.
 
 #### Example:
 
 ```yaml
 ---
 
-elao_git_config_file: "{{ playbook_dir }}/templates/git/config.j2"
+manala_git_config_file: "{{ playbook_dir }}/templates/git/config.j2"
 ```
 
-The `elao_git_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
+The `manala_git_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
 
 - base (Simple template with no default configuration)
 - dev (This configuration will provide options for Vagrant VM, like ohmyzsh)
 - test
 - prod (For production purpose. Light configuration template)
 
-GIT experienced users can provide their own custom template with the `elao_git_config_template` key.
+GIT experienced users can provide their own custom template with the `manala_git_config_template` key.
 
-The `elao_git_config` key allow to define git config keys like the following:
+The `manala_git_config` key allow to define git config keys like the following:
 
 #### Example:
 
 ```yaml
 ---
 
-elao_git_config:
+manala_git_config:
   - user:
-    - name:           "Guewen FAIVRE"
-    - email:          "guewen.faivre@elao.com"
+    - name:           "Foo Bar"
+    - email:          "foo.bar@manala.io"
 
   - core:
     - autocrlf:       input
@@ -136,7 +136,7 @@ elao_git_config:
 
 ### Auto-checkout of required repositories
 
-The `elao_git_repositories` key is a "special one", it's designed to allow automatic checkout of specified repositories:
+The `manala_git_repositories` key is a "special one", it's designed to allow automatic checkout of specified repositories:
 
 #### Variables
 
@@ -151,7 +151,7 @@ The `elao_git_repositories` key is a "special one", it's designed to allow autom
 
 ```yaml
 ---
-elao_git_repositories:
+manala_git_repositories:
   - repo:    https://github.com/symfony/symfony1.git
     dest:    /usr/share/symfony/symfony-1.4
     version: v1.4.20
@@ -162,7 +162,7 @@ elao_git_repositories:
 
     - hosts: servers
       roles:
-         - { role: elao.git }
+         - { role: manala.git }
 
 # Licence
 
@@ -170,4 +170,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
