@@ -1,10 +1,10 @@
 ---
 
 # Users
-elao_users: []
+manala_users: []
 
 # Groups
-elao_users_groups: []
+manala_users_groups: []
 
 # Authorized keys
-elao_users_authorized_keys:  []
+manala_users_authorized_keys:  []

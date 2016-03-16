@@ -11,7 +11,7 @@
     system:     "{{ item.system|default(false)|bool }}"
     uid:        "{{ item.uid|default(omit) }}"
     comment:    "{{ item.comment|default(omit) }}"
-  with_items: "{{ elao_users }}"
+  with_items: "{{ manala_users }}"
 
 - name: users > Authorized keys
   authorized_key:
@@ -19,15 +19,15 @@
     key:       "{{ item.1 }}"
     exclusive: true
   with_together:
-    - "{{ elao_users|selectattr('authorized_keys', 'sequence')|map(attribute='name')|list }}"
-    - "{{ elao_users|selectattr('authorized_keys', 'sequence')|map(attribute='authorized_keys')|map('join', '\n')|list }}"
+    - "{{ manala_users|selectattr('authorized_keys', 'sequence')|map(attribute='name')|list }}"
+    - "{{ manala_users|selectattr('authorized_keys', 'sequence')|map(attribute='authorized_keys')|map('join', '\n')|list }}"
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
   command: "id -g -n {{ item.name }}"
-  with_items: "{{ elao_users }}"
+  with_items: "{{ manala_users }}"
   when: item.group is not defined
-  register: __elao_users
+  register: __manala_users
   changed_when: false
   no_log: true
 
@@ -37,15 +37,15 @@
     # Waiting for the ansible 2 "combine" filter...
     __item: "{% set __item = item.0.update(({}) if (item.1|skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
   with_together:
-    - "{{ elao_users }}"
-    - "{{ __elao_users.results }}"
-  register: __elao_users
+    - "{{ manala_users }}"
+    - "{{ __manala_users.results }}"
+  register: __manala_users
   no_log: true
 
 # Flatten results structure to the original variable
 - name: users > Flatten primary groups
   set_fact:
-    elao_users: "{{ __elao_users.results|map(attribute='ansible_facts.__item')|list }}"
+    manala_users: "{{ __manala_users.results|map(attribute='ansible_facts.__item')|list }}"
   no_log: true
 
 - name: users > Keys private
@@ -57,7 +57,7 @@
     mode:    0600
   when: item.1.private is defined
   with_subelements:
-    - "{{ elao_users|selectattr('keys', 'sequence')|list }}"
+    - "{{ manala_users|selectattr('keys', 'sequence')|list }}"
     - keys
 
 - name: users > Keys public
@@ -69,7 +69,7 @@
     mode:    0644
   when: item.1.public is defined
   with_subelements:
-    - "{{ elao_users|selectattr('keys', 'sequence')|list }}"
+    - "{{ manala_users|selectattr('keys', 'sequence')|list }}"
     - keys
 
 - name: users > Gpg keys public
@@ -78,7 +78,7 @@
   register: __manala_users_gpg_keys_public_result
   changed_when: __manala_users_gpg_keys_public_result.stderr
   with_subelements:
-    - "{{ elao_users|selectattr('gpg_keys', 'sequence')|list }}"
+    - "{{ manala_users|selectattr('gpg_keys', 'sequence')|list }}"
     - gpg_keys
   no_log: true
 
@@ -88,6 +88,6 @@
   register: __manala_users_gpg_keys_secret_result
   changed_when: __manala_users_gpg_keys_secret_result.stderr
   with_subelements:
-    - "{{ elao_users|selectattr('gpg_keys', 'sequence')|list }}"
+    - "{{ manala_users|selectattr('gpg_keys', 'sequence')|list }}"
     - gpg_keys
   no_log: true

@@ -4,10 +4,9 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    Setup of users accounts and ssh keys
+  author:              Manala
+  company:             Manala
+  description:         Handle users
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -15,8 +14,6 @@ galaxy_info:
       versions:
         - wheezy
         - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
+  galaxy_tags:
     - system
+    - users
