@@ -4,20 +4,16 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    Alternatives
-  license: MIT
+  author:              Manala
+  company:             Manala
+  description:         Handle alternatives
+  license:             MIT
   min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
         - wheezy
         - jessie
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
-    - development
-    - web
+  galaxy_tags:
+    - system
+    - alternatives

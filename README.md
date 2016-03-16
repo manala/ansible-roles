@@ -6,11 +6,15 @@
 
 This role will assume the setup of alternatives
 
-It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
+
+## Dependencies
+
+None.s
 
 ## Installation
 
@@ -19,13 +23,13 @@ It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible s
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.alternatives,2.0
+ansible-galaxy install manala.alternatives,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.alternatives
+- src:     manala.alternatives
   version: 2.0
 ```
 
@@ -34,28 +38,28 @@ Using ansible galaxy requirements file:
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.alternatives,1.0
+ansible-galaxy install manala.alternatives,1.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.alternatives
+- src:     manala.alternatives
   version: 1.0
 ```
 
 ## Role Variables
 
-| Name               | Default| Type  | Description   |
-|------------------- |------- |------ |-------------  |
-| elao_alternatives  | []     | Array | Alternatives  |
+| Name                 | Default| Type  | Description   |
+|--------------------- |------- |------ |-------------  |
+| manala_alternatives  | []     | Array | Alternatives  |
 
 ### Configuration
 
-`elao_alternatives` allow you to managed custom alternatives path.
+`manala_alternatives` allow you to managed custom alternatives path.
 
 ```yaml
-elao_alternatives:
+manala_alternatives:
   - name: editor
     path: /usr/bin/vim.basic
 ```
@@ -64,7 +68,7 @@ elao_alternatives:
 
     - hosts: servers
       roles:
-         - { role: elao.alternatives }
+         - { role: manala.alternatives }
 
 # Licence
 
@@ -72,4 +76,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
