@@ -4,7 +4,7 @@
 
 # Ansible Role: make
 
-This role will assume the setup of make
+This role will deal with the setup of __make__.
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
@@ -50,9 +50,11 @@ Using ansible galaxy requirements file:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.make }
+```yaml
+- hosts: servers
+  roles:
+     - { role: manala.make }
+```
 
 # Licence
 
