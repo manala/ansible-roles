@@ -153,7 +153,7 @@ manala_apt_repositories_patterns:
     source: deb http://repo.aptly.info/ squeeze main
     key:
       url: https://www.aptly.info/pubkey.txt
-      id:  2A194991
+      id:  9C7DE460
   manala:
     source: deb http://debian.manala.io {{ ansible_distribution_release }} main
     key:
