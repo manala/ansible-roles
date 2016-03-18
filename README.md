@@ -1,10 +1,6 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5537.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5537) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: SSH
 
-This role will assume the following configuration:
+This role will deal with the following configuration:
 - Allow sudo authentication over ssh
 - Enable/Disable the SSH daemon password authentication
 - Set the SSH daemon accepted environment variables
@@ -70,9 +66,11 @@ Using ansible galaxy requirements file:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.ssh }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.ssh }
+```
 
 # Licence
 
