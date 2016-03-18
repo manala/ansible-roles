@@ -1,0 +1,7 @@
+---
+
+# Configs
+manala_ngrok_configs_exclusive: false
+manala_ngrok_configs_dir:       /etc/ngrok
+manala_ngrok_configs_template:  configs/empty.yml.j2
+manala_ngrok_configs:           []
