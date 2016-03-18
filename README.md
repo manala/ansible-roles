@@ -1,7 +1,3 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5537.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5537) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: make
 
 This role will deal with the setup of __make__.
@@ -53,7 +49,7 @@ Using ansible galaxy requirements file:
 ```yaml
 - hosts: servers
   roles:
-     - { role: manala.make }
+    - { role: manala.make }
 ```
 
 # Licence
