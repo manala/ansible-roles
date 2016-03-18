@@ -1,10 +1,6 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/<skeleton>.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/<skeleton>) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: Locales
 
-This role will assume the configuration of system locales.
+This role will deal with the configuration of system __locales__.
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
@@ -72,9 +68,11 @@ manala_locales:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.locales }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.locales }
+```
 
 # Licence
 
