@@ -1,7 +1,3 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5533.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5533) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: Aptly
 
 This role will add third party sources to the package manager by:
