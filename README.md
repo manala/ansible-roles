@@ -1,10 +1,6 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5538.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5538) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: Alternatives
 
-This role will assume the setup of alternatives
+This role will deal with the setup of __alternatives__.
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
@@ -66,9 +62,11 @@ manala_alternatives:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.alternatives }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.alternatives }
+```
 
 # Licence
 
