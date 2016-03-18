@@ -1,10 +1,6 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5539.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5539) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: Vim
 
-This role will assume the setup and configuration of Vim by:
+This role will deal with the setup and configuration of Vim by:
 - Installing package
 - Allow vim configuration by using the `/etc/vim/vimrc.local` file
 
@@ -101,9 +97,12 @@ manala_vim_config:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.vim }
+
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.vim }
+```
 
 # Licence
 
