@@ -104,6 +104,13 @@ manala_nginx_timeout () {
 echo "- Enable/Disable nginx timeout"
 echo "    manala_nginx_timeout on|off"
 
+manala_ngrok_http () {
+    ngrok http -config=/etc/ngrok/config.yml 80
+}
+
+echo "- Start ngrok http"
+echo "    manala_ngrok_http"
+
 echo
 
 {{ macros.config(config, [
