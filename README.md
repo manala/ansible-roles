@@ -1,10 +1,6 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5542.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5542) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: OhMyZsh (see: [https://github.com/robbyrussell/oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh))
 
-This role will assume the following configuration:
+This role will deal with the following configuration:
 - Install ohmyzsh globally
 - Setup a local zshrc file
 
@@ -74,7 +70,7 @@ The `manala_ohmyzsh_users_template` key will allow you to use differents main co
 
 #### Example
 
-```
+```yaml
 manala_ohmyzsh_users_template: users/base.j2
 ```
 
@@ -82,7 +78,7 @@ The `manala_ohmyzsh_dir` key is used to specify the path where to checkout oh-my
 
 #### Example
 
-```
+```yaml
 manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 ```
 
@@ -90,7 +86,7 @@ The `manala_ohmyzsh_update` option will allow Oh My Zsh to retrieve new revision
 
 #### Example
 
-```
+```yaml
 manala_ohmyzsh_update: false
 ```
 
@@ -105,7 +101,8 @@ This part allow you, with the key `manala_ohmyzsh_users`, to configure each user
 | `template`| ~ (required)                 | String     | Template used for Oh My Zsh configuration |
 | `config`  | []                           | Array      | List of Oh My Zsh options                 |
 
-```
+
+```yaml
 ---
 
 _env:        prod
@@ -126,9 +123,11 @@ manala_ohmyzsh_users:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.ohmyzsh }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.ohmyzsh }
+```
 
 # Licence
 
