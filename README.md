@@ -1,10 +1,6 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5541.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5541) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: GIT
 
-This role will assume the setup and configuration of git by:
+This role will deal with the setup and configuration of git by:
 - Installing GIT package
 - Define the gitconfig file
 - Allow setup of the giconfig file
@@ -160,9 +156,11 @@ manala_git_repositories:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.git }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.git }
+```
 
 # Licence
 
