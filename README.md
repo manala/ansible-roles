@@ -1,7 +1,3 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/5537.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/5537) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
 # Ansible Role: Message Of The Day
 
 This role is far simple, functionally useless and because of this, essential. It will setup your Message Of The Day on your linux boxes.
@@ -63,7 +59,7 @@ None
 
 Use predefined type (manala|cow|turkey|stegosaurus) with custom message:
 
-```
+```yaml
 ---
 
 manala_motd_template: template/turkey.j2
@@ -72,7 +68,7 @@ manala_motd:          "My awesome message"
 
 Use custom template:
 
-```
+```yaml
 ---
 
 manala_motd_template:  "{{ playbook_dir ~ '/templates/motd.j2' }}"
@@ -80,9 +76,11 @@ manala_motd_template:  "{{ playbook_dir ~ '/templates/motd.j2' }}"
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: manala.motd }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.motd }
+```
 
 # Licence
 
