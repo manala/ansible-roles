@@ -2,25 +2,25 @@
 
 - name: fpm_pools > Templates
   template:
-    src:  "{{ item.template|default(elao_php_fpm_pools_template) }}"
-    dest: "{{ elao_php_fpm_pools_dir }}/{{ item.file }}"
+    src:  "{{ item.template|default(manala_php_fpm_pools_template) }}"
+    dest: "{{ manala_php_fpm_pools_dir }}/{{ item.file }}"
   notify:
     - php fpm restart
-  with_items: "{{ elao_php_fpm_pools }}"
+  with_items: "{{ manala_php_fpm_pools }}"
 
 - name: fpm_pools > Exclusive - Find files
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ elao_php_fpm_pools_dir }}"
+    chdir: "{{ manala_php_fpm_pools_dir }}"
   changed_when: false
-  register: __elao_php_fpm_pools_find_output
-  when: elao_php_fpm_pools_exclusive
+  register: __manala_php_fpm_pools_find_output
+  when: manala_php_fpm_pools_exclusive
 
 - name: fpm_pools > Exclusive - Remove files
   file:
-    path:  "{{ elao_php_fpm_pools_dir }}/{{ item }}"
+    path:  "{{ manala_php_fpm_pools_dir }}/{{ item }}"
     state: absent
-  when: elao_php_fpm_pools_exclusive and (item not in elao_php_fpm_pools|map(attribute='file'))
-  with_items: "{{ __elao_php_fpm_pools_find_output.stdout_lines }}"
+  when: manala_php_fpm_pools_exclusive and (item not in manala_php_fpm_pools|map(attribute='file'))
+  with_items: "{{ __manala_php_fpm_pools_find_output.stdout_lines }}"
   notify:
     - php fpm restart

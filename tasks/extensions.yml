@@ -1,21 +1,21 @@
 ---
 
 - name: extensions > Checks already enabled extensions
-  shell: "dpkg --get-selections 'php{{ elao_php_version }}-*'|grep -v deinstall|cut -f 1"
-  register: __elao_php_extensions_enabled
+  shell: "dpkg --get-selections 'php{{ manala_php_version }}-*'|grep -v deinstall|cut -f 1"
+  register: __manala_php_extensions_enabled
   always_run: yes
   ignore_errors: true
   changed_when: false
 
 - name: extensions > Compute already enabled extensions
   set_fact:
-    __elao_php_extensions_enabled: "{{ __elao_php_extensions_enabled.stdout_lines|difference(elao_php_extensions_exclude)|list }}"
+    __manala_php_extensions_enabled: "{{ __manala_php_extensions_enabled.stdout_lines|difference(manala_php_extensions_exclude)|list }}"
 
 - name: extensions > Install packages
   apt:
     name: "{{ item }}"
     state: present
-  with_items: "{{ elao_php_extensions|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\1')|difference(__elao_php_extensions_enabled) }}"
+  with_items: "{{ manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version ~ '-\\1')|difference(__manala_php_extensions_enabled) }}"
   notify:
     - php fpm restart
 
@@ -23,6 +23,6 @@
   apt:
     name: "{{ item }}"
     state: absent
-  with_items: "{{ __elao_php_extensions_enabled|difference(elao_php_extensions|map('regex_replace','^(.*)$','php' ~ elao_php_version ~ '-\\1')|list) }}"
+  with_items: "{{ __manala_php_extensions_enabled|difference(manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version ~ '-\\1')|list) }}"
   notify:
     - php fpm restart

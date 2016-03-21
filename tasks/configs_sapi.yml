@@ -1,28 +1,28 @@
 ---
 
-- name: configs > {{ __elao_php_sapi|capitalize }} - Templates
+- name: configs > {{ __manala_php_sapi|capitalize }} - Templates
   template:
-    src:  "{{ item.template|default(elao_php_configs_template) }}"
-    dest: "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d/{{ item.file }}"
+    src:  "{{ item.template|default(manala_php_configs_template) }}"
+    dest: "{{ manala_php_configs_dir_base }}/{{ __manala_php_sapi }}/conf.d/{{ item.file }}"
   notify:
-    - php {{ __elao_php_sapi }} restart
-  with_items: "{{ elao_php_configs + vars['elao_php_' + __elao_php_sapi + '_configs'] }}"
+    - php {{ __manala_php_sapi }} restart
+  with_items: "{{ manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'] }}"
 
-- name: configs > {{ __elao_php_sapi|capitalize }} - Exclusive - Find files
+- name: configs > {{ __manala_php_sapi|capitalize }} - Exclusive - Find files
   # configs files coming with php packages are nothing but symlinks,
   # so that we can distinguich them from our own files
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d"
+    chdir: "{{ manala_php_configs_dir_base }}/{{ __manala_php_sapi }}/conf.d"
   changed_when: false
-  register: __elao_php_configs_sapi_find_output
-  when: elao_php_configs_exclusive
+  register: __manala_php_configs_sapi_find_output
+  when: manala_php_configs_exclusive
 
-- name: configs > {{ __elao_php_sapi|capitalize }} - Exclusive - Remove files
+- name: configs > {{ __manala_php_sapi|capitalize }} - Exclusive - Remove files
   file:
-    path:  "{{ elao_php_configs_dir_base }}/{{ __elao_php_sapi }}/conf.d/{{ item }}"
+    path:  "{{ manala_php_configs_dir_base }}/{{ __manala_php_sapi }}/conf.d/{{ item }}"
     state: absent
-  when: elao_php_configs_exclusive and (item not in (elao_php_configs + elao_php_{{ __elao_php_sapi }}_configs)|map(attribute='file'))
-  with_items: "{{ __elao_php_configs_sapi_find_output.stdout_lines }}"
+  when: manala_php_configs_exclusive and (item not in (manala_php_configs + manala_php_{{ __manala_php_sapi }}_configs)|map(attribute='file'))
+  with_items: "{{ __manala_php_configs_sapi_find_output.stdout_lines }}"
   notify:
-    - php {{ __elao_php_sapi }} restart
+    - php {{ __manala_php_sapi }} restart

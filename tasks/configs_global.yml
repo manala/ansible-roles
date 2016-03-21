@@ -2,31 +2,31 @@
 
 - name: configs_global > Templates
   template:
-    src:  "{{ item.template|default(elao_php_configs_template) }}"
-    dest: "{{ elao_php_configs_dir_base }}/conf.d/{{ item.file }}"
+    src:  "{{ item.template|default(manala_php_configs_template) }}"
+    dest: "{{ manala_php_configs_dir_base }}/conf.d/{{ item.file }}"
   # notify parameter could not handle dynamic values, so we have to manually
   # list all available sapis
   notify:
     - php cli restart
     - php fpm restart
-  with_items: "{{ elao_php_configs }}"
+  with_items: "{{ manala_php_configs }}"
 
 - name: configs_global > Exclusive - Find files
   # configs files coming with php packages are nothing but symlinks,
   # so that we can distinguich them from our own files
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ elao_php_configs_dir_base }}/conf.d"
+    chdir: "{{ manala_php_configs_dir_base }}/conf.d"
   changed_when: false
-  register: __elao_php_configs_global_find_output
-  when: elao_php_configs_exclusive
+  register: __manala_php_configs_global_find_output
+  when: manala_php_configs_exclusive
 
 - name: configs_global > Exclusive - Remove files
   file:
-    path:  "{{ elao_php_configs_dir_base }}/conf.d/{{ item }}"
+    path:  "{{ manala_php_configs_dir_base }}/conf.d/{{ item }}"
     state: absent
-  when: elao_php_configs_exclusive and (item not in elao_php_configs|map(attribute='file'))
-  with_items: "{{ __elao_php_configs_global_find_output.stdout_lines }}"
+  when: manala_php_configs_exclusive and (item not in manala_php_configs|map(attribute='file'))
+  with_items: "{{ __manala_php_configs_global_find_output.stdout_lines }}"
   # notify parameter could not handle dynamic values, so we have to manually
   # list all available sapis
   notify:

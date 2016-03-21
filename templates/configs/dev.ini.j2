@@ -21,7 +21,7 @@
 {{ macros.config_row(config, 'url_rewriter.tags', '\'a=href,area=href,frame=src,input=src,form=fakeentry\'') }}
 
 {# Error log #}
-{{ macros.config_row(config, 'error_log', elao_php_log_dir ~ '/error.log') }}
+{{ macros.config_row(config, 'error_log', manala_php_log_dir ~ '/error.log') }}
 
 {# See: http://stackoverflow.com/questions/12905404/symfony2-slow-initialization-time #}
 {{ macros.config_row(config, 'realpath_cache_size', '4096k') }}

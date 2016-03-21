@@ -4,17 +4,17 @@
 - include: install.yml
 - include: extensions.yml
 - include: configs_global.yml
-  when: elao_php_configs_global
+  when: manala_php_configs_global
 - include: configs_sapi.yml
   vars:
-    __elao_php_sapi: fpm
-  when: (not elao_php_configs_global) and ('fpm' in elao_php_sapis)
+    __manala_php_sapi: fpm
+  when: (not manala_php_configs_global) and ('fpm' in manala_php_sapis)
 - include: configs_sapi.yml
   vars:
-    __elao_php_sapi: cli
-  when: (not elao_php_configs_global) and ('cli' in elao_php_sapis)
+    __manala_php_sapi: cli
+  when: (not manala_php_configs_global) and ('cli' in manala_php_sapis)
 - include: fpm_pools.yml
-  when: ('fpm' in elao_php_sapis)
+  when: ('fpm' in manala_php_sapis)
 - include: services.yml
-  tags: elao_services
+  tags: manala_services
 - include: applications.yml

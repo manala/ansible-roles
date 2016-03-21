@@ -19,8 +19,8 @@
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-{{ macros.config_row(config, 'user', elao_php_user) }}
-{{ macros.config_row(config, 'group', elao_php_group) }}
+{{ macros.config_row(config, 'user', manala_php_user) }}
+{{ macros.config_row(config, 'group', manala_php_group) }}
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -45,8 +45,8 @@
 ; BSD-derived systems allow connections regardless of permissions.
 ; Default Values: user and group are set as the running user
 ;                 mode is set to 0660
-{{ macros.config_row(config, 'listen.owner', elao_php_user) }}
-{{ macros.config_row(config, 'listen.group', elao_php_group) }}
+{{ macros.config_row(config, 'listen.owner', manala_php_user) }}
+{{ macros.config_row(config, 'listen.group', manala_php_group) }}
 {{ macros.config_row(config, 'listen.mode', ';listen.mode = 0660', true) }}
 
 ; List of addresses (IPv4/IPv6) of FastCGI clients which are allowed to connect.
