@@ -1,21 +1,5 @@
 ---
 
-#- debug:
-#    var: elao_merge_patterns
-
-#- name: merge
-#  debug:
-#    msg: "{{ lookup('elao_merge', elao_merge_patterns, wantlist=true) }}"
-    #msg: "{{ lookup('merge', elao_merge_vars, elao_merge_matrices, wantlist=true) }}"
-    #msg: "{{ lookup('elao_merge', elao_merge, wantlist=true) }}"
-  #set_fact: "{{ lookup('elao_merge', elao_merge, wantlist=true) }}"
-  #elao_set_fact:
-  #args: {'_name': 'Zara', '_age': 7, '_class': 'First'}
-  #vars:
-    #vars: "{{ lookup('elao_merge', elao_merge_patterns, wantlist=true) }}"
 - name: merge
-  elao_set:
-    vars: "{{ lookup('elao_merge', elao_merge_patterns, wantlist=true) }}"
-#- name: merge
-#  debug:
-#    var: aaa
+  manala_set:
+    vars: "{{ lookup('manala_merge', manala_merge_patterns, wantlist=true) }}"
