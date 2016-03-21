@@ -5,7 +5,7 @@
   failed_when: false
   changed_when: false
   when: item.state == 'link'
-  with_items: "{{ elao_files|selectattr('force', 'sameas', true)|list }}"
+  with_items: "{{ manala_files|selectattr('force', 'sameas', true)|list }}"
 
 - name: files > File
   file:
@@ -22,7 +22,7 @@
     seuser:   "{{ item.seuser|default(omit) }}"
     src:      "{{ item.src|default(omit) }}"
     state:    "{{ item.state|default('file') }}"
-  with_items: "{{ elao_files|selectattr('content', 'undefined')|selectattr('template', 'undefined')|selectattr('dest', 'undefined')|selectattr('url', 'undefined')|list }}"
+  with_items: "{{ manala_files|selectattr('content', 'undefined')|selectattr('template', 'undefined')|selectattr('dest', 'undefined')|selectattr('url', 'undefined')|list }}"
 
 - name: files > Url
   get_url:
@@ -33,7 +33,7 @@
     mode:           "{{ item.mode|default(omit) }}"
     owner:          "{{ item.owner|default(omit) }}"
     validate_certs: "{{ item.owner|default(true)|bool }}"
-  with_items: "{{ elao_files|selectattr('url', 'defined')|selectattr('path', 'defined')|list }}"
+  with_items: "{{ manala_files|selectattr('url', 'defined')|selectattr('path', 'defined')|list }}"
 
 - name: files > Content
   copy:
@@ -43,7 +43,7 @@
     group:   "{{ item.group|default(omit) }}"
     mode:    "{{ item.mode|default(omit) }}"
     owner:   "{{ item.owner|default(omit) }}"
-  with_items: "{{ elao_files|selectattr('content', 'defined')|list }}"
+  with_items: "{{ manala_files|selectattr('content', 'defined')|list }}"
 
 - name: files > Copy
   copy:
@@ -53,7 +53,7 @@
     group:   "{{ item.group|default(omit) }}"
     mode:    "{{ item.mode|default(omit) }}"
     owner:   "{{ item.owner|default(omit) }}"
-  with_items: "{{ elao_files|selectattr('dest', 'defined')|list }}"
+  with_items: "{{ manala_files|selectattr('dest', 'defined')|list }}"
 
 - name: files > Template
   template:
@@ -63,7 +63,7 @@
     group:   "{{ item.group|default(omit) }}"
     mode:    "{{ item.mode|default(omit) }}"
     owner:   "{{ item.owner|default(omit) }}"
-  with_items: "{{ elao_files|selectattr('template', 'defined')|list }}"
+  with_items: "{{ manala_files|selectattr('template', 'defined')|list }}"
 
 - name: files > Acls
   acl:
@@ -71,5 +71,5 @@
     entry: "{{ item.1 }}"
     state: present
   with_subelements:
-    - "{{ elao_files|selectattr('acls', 'defined')|list }}"
+    - "{{ manala_files|selectattr('acls', 'defined')|list }}"
     - acls
