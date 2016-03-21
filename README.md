@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.sudo,2.0
+ansible-galaxy install manala.sudo
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.sudo
-  version: 2.0
+- src: manala.sudo
 ```
 
 ## Role Handlers
