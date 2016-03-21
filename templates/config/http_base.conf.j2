@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_nginx_config -%}
+{% set config = manala_nginx_config -%}
 
 {% set config_events = [] -%}
 {% set config_http = [] -%}
@@ -15,10 +15,10 @@
     {%- endfor -%}
 {%- endfor -%}
 
-{{ macros.config_row(config, 'user', elao_nginx_user) }}
+{{ macros.config_row(config, 'user', manala_nginx_user) }}
 {{ macros.config_row(config, 'worker_processes', 1) }}
 
-{{ macros.config_row(config, 'error_log', elao_nginx_log_dir ~ '/error.log warn') }}
+{{ macros.config_row(config, 'error_log', manala_nginx_log_dir ~ '/error.log warn') }}
 {{ macros.config_row(config, 'pid', '/var/run/nginx.pid') }}
 
 events {
@@ -33,7 +33,7 @@ http {
                       \'$status $body_bytes_sent "$http_referer" \'
                       \'"$http_user_agent" "$http_x_forwarded_for"\'', 4) }}
 
-{{ macros.config_row(config_http, 'access_log', elao_nginx_log_dir ~ '/access.log main', 4) }}
+{{ macros.config_row(config_http, 'access_log', manala_nginx_log_dir ~ '/access.log main', 4) }}
 
 {{ macros.config_row(config_http, 'sendfile', true, 4) }}
 {{ macros.config_row(config_http, 'tcp_nopush', '#tcp_nopush     on;', 4, true) }}
@@ -42,7 +42,7 @@ http {
 
 {{ macros.config_row(config_http, 'include', [
     '/etc/nginx/mime.types',
-    elao_nginx_configs_dir ~ '/*.conf'
+    manala_nginx_configs_dir ~ '/*.conf'
 ], 4) }}
 {{ macros.config(config_http, [
     'default_type',
