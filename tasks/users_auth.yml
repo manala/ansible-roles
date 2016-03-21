@@ -5,11 +5,11 @@
     path:  "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer"
     state: directory
     owner: "{{ item.user }}"
-  with_items: "{{ elao_composer_users_auth }}"
+  with_items: "{{ manala_composer_users_auth }}"
 
 - name: users_auth > Template
   template:
-    src:   "{{ item.template|default(elao_composer_users_auth_template) }}"
+    src:   "{{ item.template|default(manala_composer_users_auth_template) }}"
     dest:  "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer/auth.json"
     owner: "{{ item.user }}"
-  with_items: "{{ elao_composer_users_auth }}"
+  with_items: "{{ manala_composer_users_auth }}"

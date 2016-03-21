@@ -3,5 +3,5 @@
 - name: install > Download
   get_url:
     url:  https://getcomposer.org/composer.phar
-    dest: "{{ elao_composer_bin }}"
+    dest: "{{ manala_composer_bin }}"
     mode: 0755
