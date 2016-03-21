@@ -25,8 +25,7 @@ ansible-galaxy install manala.rtail,2.0
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.rtail
-  version: 2.0
+- src: manala.rtail
 ```
 
 ## Example playbook
