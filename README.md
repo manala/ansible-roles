@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.motd,2.0
+ansible-galaxy install manala.motd
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.motd
-  version: 2.0
+- src: manala.motd
 ```
 
 ## Role Handlers
