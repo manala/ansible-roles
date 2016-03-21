@@ -1,12 +1,14 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: Rtail
 
-This role will install Rtail
+This role will deal with the setup and install of __Rtail__.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
+
+None.
+
+## Dependencies
 
 None.
 
@@ -17,36 +19,23 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.rtail,2.0
+ansible-galaxy install manala.rtail,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.rtail
+- src:     manala.rtail
   version: 2.0
-```
-
-### Ansible 1 (no longer maintained)
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install elao.rtail,1.0
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src:     elao.rtail
-  version: 1.0
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.rtail }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.rtail }
+```
 
 # Licence
 
@@ -54,4 +43,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

@@ -1,4 +1,4 @@
 ---
 
 # Config
-elao_rtail_config_file: /etc/systemd/system/rtail.service.d/local.conf
+manala_rtail_config_file: /etc/systemd/system/rtail.service.d/local.conf
