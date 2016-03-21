@@ -11,4 +11,4 @@
     registry:       "{{ item.registry|default(omit) }}"
     state:          "{{ item.state|default(omit) }}"
     version:        "{{ item.version|default(omit) }}"
-  with_items: "{{ elao_npm_packages }}"
+  with_items: "{{ manala_npm_packages }}"
