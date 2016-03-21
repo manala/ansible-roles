@@ -23,14 +23,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.ssh,2.0
+ansible-galaxy install manala.ssh
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.ssh
-  version: 2.0
+- src: manala.ssh
 ```
 
 ## Role Handlers
