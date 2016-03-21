@@ -15,14 +15,13 @@ A debian repository with ngrok package (such as manala one).
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.ngrok,2.0
+ansible-galaxy install manala.ngrok
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.ngrok
-  version: 2.0
+- src: manala.ngrok
 ```
 
 ## Role Handlers
