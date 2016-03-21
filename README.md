@@ -20,14 +20,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.zsh,2.0
+ansible-galaxy install manala.zsh
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.zsh
-  version: 2.0
+- src: manala.zsh
 ```
 
 ## Role Variables
