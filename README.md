@@ -21,14 +21,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.ohmyzsh,2.0
+ansible-galaxy install manala.ohmyzsh
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.ohmyzsh
-  version: 2.0
+- src: manala.ohmyzsh
 ```
 
 ## Role Handlers
