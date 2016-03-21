@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.users,2.0
+ansible-galaxy install manala.users
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.users
-  version: 2.0
+- src: manala.users
 ```
 
 ## Role Handlers
