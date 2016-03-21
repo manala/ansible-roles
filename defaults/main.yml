@@ -1,5 +1,5 @@
 ---
 
 # Env
-elao_env_file: /etc/environment
-elao_env:      []
+manala_env_file: /etc/environment
+manala_env:      []
