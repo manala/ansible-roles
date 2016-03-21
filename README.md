@@ -1,14 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
+# Ansible Role: Nodejs
 
-# Ansible Role: nodejs
+This role will deal with the setup of nodejs.
 
-This role will assume the setup of nodejs.
-
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -21,36 +19,23 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.nodejs,2.0
+ansible-galaxy install manala.nodejs,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.nodejs
+- src:     manala.nodejs
   version: 2.0
-```
-
-### Ansible 1 (no longer maintained)
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install elao.nodejs,1.0
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src:     elao.nodejs
-  version: 1.0
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.nodejs }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.nodejs }
+```
 
 # Licence
 
@@ -58,4 +43,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
