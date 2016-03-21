@@ -29,21 +29,6 @@ Using ansible galaxy requirements file:
   version: 2.0
 ```
 
-### Ansible 1 (no longer maintained)
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.sudo,1.0
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src:     manala.sudo
-  version: 1.0
-```
-
 ## Role Handlers
 
 |Name|Type|Description|
