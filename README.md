@@ -17,14 +17,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.merge,2.0
+ansible-galaxy install manala.merge
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.merge
-  version: 2.0
+- src: manala.merge
 ```
 
 ## Role Handlers
