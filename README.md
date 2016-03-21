@@ -19,14 +19,13 @@ This role requires php-cli >=5.3.2. You can use [manala.php](https://github.com/
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.composer,2.0
+ansible-galaxy install manala.composer
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.composer
-  version: 2.0
+- src: manala.composer
 ```
 
 ## Role Handlers
