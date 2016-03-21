@@ -10,7 +10,7 @@ None.
 
 ## Dependencies
 
-None.s
+None.
 
 ## Installation
 
