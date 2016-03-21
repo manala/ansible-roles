@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.alternatives,2.0
+ansible-galaxy install manala.alternatives
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.alternatives
-  version: 2.0
+- src: manala.alternatives
 ```
 
 ## Role Variables
