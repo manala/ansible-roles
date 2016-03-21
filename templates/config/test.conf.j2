@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_supervisor_config -%}
+{% set config = manala_supervisor_config -%}
 
 {% set config_unix_http_server = [] -%}
 {% set config_supervisord = [] -%}
@@ -31,9 +31,9 @@
     'chmod'
 ]) }}
 [supervisord]
-{{ macros.config_row(config_supervisord, 'logfile', elao_supervisor_log_dir ~ '/supervisord.log') }} ; (main log file;default $CWD/supervisord.log)
+{{ macros.config_row(config_supervisord, 'logfile', manala_supervisor_log_dir ~ '/supervisord.log') }} ; (main log file;default $CWD/supervisord.log)
 {{ macros.config_row(config_supervisord, 'pidfile', '/var/run/supervisord.pid') }} ; (supervisord pidfile;default supervisord.pid)
-{{ macros.config_row(config_supervisord, 'childlogdir', elao_supervisor_log_dir) }}            ; ('AUTO' child log dir, default $TEMP)
+{{ macros.config_row(config_supervisord, 'childlogdir', manala_supervisor_log_dir) }}            ; ('AUTO' child log dir, default $TEMP)
 {{ macros.config(config_supervisord, [
     'logfile',
     'pidfile',
@@ -57,7 +57,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 ; include files themselves.
 
 [include]
-{{ macros.config_row(config_include, 'files', elao_supervisor_configs_dir ~ '/*.conf') }}
+{{ macros.config_row(config_include, 'files', manala_supervisor_configs_dir ~ '/*.conf') }}
 {{ macros.config(config_include, ['files']) }}
 
 {{ macros.config(config, ['unix_http_server', 'supervisord', 'config_supervisorctl', 'include']) }}

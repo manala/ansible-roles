@@ -1,15 +1,15 @@
 ---
 
 # Config
-elao_supervisor_config_file:     /etc/supervisor/supervisord.conf
-elao_supervisor_config_template: ~
-elao_supervisor_config:          []
+manala_supervisor_config_file:     /etc/supervisor/supervisord.conf
+manala_supervisor_config_template: ~
+manala_supervisor_config:          []
 
 # Configs
-elao_supervisor_configs_exclusive: "{{ elao.exclusive|default(false) if (elao is defined) else false }}"
-elao_supervisor_configs_dir:       /etc/supervisor/conf.d
-elao_supervisor_configs_template:  configs/empty.conf.j2
-elao_supervisor_configs:           []
+manala_supervisor_configs_exclusive: false
+manala_supervisor_configs_dir:       /etc/supervisor/conf.d
+manala_supervisor_configs_template:  configs/empty.conf.j2
+manala_supervisor_configs:           []
 
 # Log
-elao_supervisor_log_dir: /var/log/supervisor
+manala_supervisor_log_dir: /var/log/supervisor
