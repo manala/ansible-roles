@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.env,2.0
+ansible-galaxy install manala.env
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.env
-  version: 2.0
+- src: manala.env
 ```
 
 ## Role Variables
