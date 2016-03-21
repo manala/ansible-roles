@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.mailhog,2.0
+ansible-galaxy install manala.mailhog
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.mailhog
-  version: 2.0
+- src: manala.mailhog
 ```
 
 ## Role Handlers
