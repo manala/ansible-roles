@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.timezone,2.0
+ansible-galaxy install manala.timezone
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.timezone
-  version: 2.0
+- src: manala.timezone
 ```
 
 ## Role Handlers
