@@ -4,16 +4,17 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    A phantomjs role to install phantomjs.
-  license: MIT
+  author:              Manala
+  company:             Manala
+  description:         Handle phantomjs
+  license:             MIT
   min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
+        - wheezy
         - jessie
-  categories:
+  galaxy_tags:
     - development
     - web
+    - phantomjs

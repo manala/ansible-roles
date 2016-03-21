@@ -3,4 +3,4 @@
 - include: install.yml
 - include: config.yml
 - include: services.yml
-  tags: elao_services
+  tags: manala_services

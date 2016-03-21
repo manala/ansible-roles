@@ -1,8 +1,8 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_phantomjs_config -%}
+{% set config = manala_phantomjs_config -%}
 
 [Service]
 ExecStart=
-ExecStart={{ elao_phantomjs_bin }} \
+ExecStart={{ manala_phantomjs_bin }} \
           {{ macros.config_row(config, 'webdriver', 4444).rstrip(' \\\n') }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, ['webdriver'], 9).rstrip(' \\\n') }}

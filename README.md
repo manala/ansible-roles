@@ -1,10 +1,8 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
+# Ansible Role: Phantomjs
 
-# Ansible Role: phantomjs
+This role will deal with the setup of PhantomJS.
 
-This role will assume the setup of PhantomJS.
-
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
@@ -21,35 +19,20 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.phantomjs,2.0
+ansible-galaxy install manala.phantomjs,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.phantomjs
+- src:     manala.phantomjs
   version: 2.0
-```
-
-### Ansible 1 (no longer maintained)
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install elao.phantomjs,1.0
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src:     elao.phantomjs
-  version: 1.0
 ```
 
 ## Configuration example
 
 ```yaml
-elao_phantomjs_config:
+manala_phantomjs_config:
   - webdriver:          4444
   - webdriver-logfile:  /var/log/phantomjs.log
   - webdriver-loglevel: DEBUG
@@ -57,9 +40,11 @@ elao_phantomjs_config:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.phantomjs }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.phantomjs }
+```
 
 # Licence
 
@@ -67,4 +52,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

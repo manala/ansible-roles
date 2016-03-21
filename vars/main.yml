@@ -1,7 +1,7 @@
 ---
 
 # Bin
-elao_phantomjs_bin: /usr/bin/phantomjs
+manala_phantomjs_bin: /usr/bin/phantomjs
 
 # Config
-elao_phantomjs_config_file: /etc/systemd/system/phantomjs.service.d/local.conf
+manala_phantomjs_config_file: /etc/systemd/system/phantomjs.service.d/local.conf
