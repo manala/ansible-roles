@@ -1,8 +1,8 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_mailhog_config -%}
+{% set config = manala_mailhog_config -%}
 
 [Service]
 ExecStart=
-ExecStart={{ elao_mailhog_bin }} \
+ExecStart={{ manala_mailhog_bin }} \
           {{ macros.config_row(config, 'smtp-bind-addr', '127.0.0.1:25').rstrip(' \\\n') }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, ['smtp-bind-addr'], 9).rstrip(' \\\n') }}

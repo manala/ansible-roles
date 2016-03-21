@@ -1,17 +1,16 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
-[![Ansible Role](https://img.shields.io/ansible/role/6446.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/6446) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
-
-
 # Ansible Role: Mailhog
 
-This role will assume the setup and the config of mailhog
+This role will deal with the setup and the config of mailhog
 
-It's part of the ELAO <a href="http://www.manalas.com" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-A debian repository with mailhog package (such as elao one).
+A debian repository with mailhog package (such as manala one).
+
+## Dependencies
+
+None.
 
 ## Installation
 
@@ -20,54 +19,39 @@ A debian repository with mailhog package (such as elao one).
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.mailhog,2.0
+ansible-galaxy install manala.mailhog,2.0
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.mailhog
+- src:     manala.mailhog
   version: 2.0
-```
-
-### Ansible 1 (no longer maintained)
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install elao.mailhog,1.0
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src:     elao.mailhog
-  version: 1.0
 ```
 
 ## Role Handlers
 
-None
+None.
 
 ## Role Variables
 
 ### Definition
 
-| Name                           | Default  | Type   | Description     |
-| ------------------------------ | -------- | ------ | --------------- |
-| `elao_mailhog_config_template` | ~        | String | Config template |
-| `elao_mailhog_config`          | []       | Array  | Config          |
+| Name                             | Default  | Type   | Description     |
+| -------------------------------- | -------- | ------ | --------------- |
+| `manala_mailhog_config_template` | ~        | String | Config template |
+| `manala_mailhog_config`          | []       | Array  | Config          |
 
 ### Example
 
 ```yaml
 - hosts: all
   vars:
-    elao_mailhog_config_template: config/dev.j2
-    elao_mailhog_config:
+    manala_mailhog_config_template: config/dev.j2
+    manala_mailhog_config:
       - ui-bind-addr: 0.0.0.0:8080
   roles:
-    - role: elao.mailhog
+    - role: manala.mailhog
 ```
 
 # Licence
@@ -76,4 +60,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

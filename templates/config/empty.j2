@@ -1,7 +1,7 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_mailhog_config -%}
+{% set config = manala_mailhog_config -%}
 
 [Service]
 ExecStart=
-ExecStart={{ elao_mailhog_bin }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, [], 9).rstrip(' \\\n') }}
+ExecStart={{ manala_mailhog_bin }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, [], 9).rstrip(' \\\n') }}

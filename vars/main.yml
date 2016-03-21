@@ -1,7 +1,7 @@
 ---
 
 # Bin
-elao_mailhog_bin: /usr/bin/mailhog
+manala_mailhog_bin: /usr/bin/mailhog
 
 # Config
-elao_mailhog_config_file: /etc/systemd/system/mailhog.service.d/local.conf
+manala_mailhog_config_file: /etc/systemd/system/mailhog.service.d/local.conf

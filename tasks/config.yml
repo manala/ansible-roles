@@ -2,15 +2,15 @@
 
 - name: config > Directory
   file:
-    path:  "{{ elao_mailhog_config_file|dirname }}"
+    path:  "{{ manala_mailhog_config_file|dirname }}"
     state: directory
     owner: root
     group: root
 
 - name: config > Template
   template:
-    src:   "{{ elao_mailhog_config_template|ternary(elao_mailhog_config_template, 'config/empty.j2') }}"
-    dest:  "{{ elao_mailhog_config_file }}"
+    src:   "{{ manala_mailhog_config_template|ternary(manala_mailhog_config_template, 'config/empty.j2') }}"
+    dest:  "{{ manala_mailhog_config_file }}"
     owner: root
     group: root
   notify:
