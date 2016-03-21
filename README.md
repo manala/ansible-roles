@@ -19,14 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.phantomjs,2.0
+ansible-galaxy install manala.phantomjs
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.phantomjs
-  version: 2.0
+- src: manala.phantomjs
 ```
 
 ## Configuration example
