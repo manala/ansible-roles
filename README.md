@@ -23,14 +23,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.aptly,2.0
+ansible-galaxy install manala.aptly
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.aptly
-  version: 2.0
+- src: manala.aptly
 ```
 
 ## Role Handlers
