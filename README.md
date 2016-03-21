@@ -17,14 +17,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.npm,2.0
+ansible-galaxy install manala.npm
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     manala.npm
-  version: 2.0
+- src: manala.npm
 ```
 
 ## Role Variables
