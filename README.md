@@ -34,16 +34,16 @@ None.
 
 ### Definition
 
-| Name                  | Default | Type  | Description |
-| --------------------- | ------- | ----- | ----------- |
-| `manala_apt_patterns` | []      | Array | Patterns    |
+| Name           | Default | Type  | Description |
+| -------------- | ------- | ----- | ----------- |
+| `manala_merge` | []      | Array | Patterns    |
 
 ### Example
 
 ```yaml
 - hosts: all
   vars:
-    manala_merge_patterns:
+    manala_merge:
       - _all
       - _env
       - _group_({{ group_names|join('|') }})
