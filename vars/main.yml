@@ -27,8 +27,6 @@ manala_apt_repositories_patterns:
     key:
       url: http://www.dotdeb.org/dotdeb.gpg
       id:  89DF5277
-  dotdeb_php54:
-    source: deb http://packages.dotdeb.org squeeze-php54 all
   dotdeb_php55:
     source: deb http://packages.dotdeb.org wheezy-php55 all
   dotdeb_php56:
