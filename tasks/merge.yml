@@ -1,0 +1,5 @@
+---
+
+- name: merge
+  manala_set:
+    vars: "{{ lookup('manala_merge', manala_merge, wantlist=true) }}"
