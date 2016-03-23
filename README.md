@@ -34,11 +34,33 @@ dependencies:
 | ----------------------- | ------- | --------------------- |
 | `elasticsearch restart` | Service | Restart elasticsearch |
 
+## Role Variables
+
+### Definition
+
+| Name                         | Default  | Type  | Description                |
+| ---------------------------- | -------- | ----- | -------------------------- |
+| `elao_elasticsearch_plugins` | []       | Array | Plugins                    |
+
+### Example
+
+```yaml
+- hosts: all
+  vars:
+    elao_elasticsearch_plugins:
+      - name:       head
+        repository: mobz/elasticsearch-head
+  roles:
+    - role: elao.elasticsearch
+```
+
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.elasticsearch }
+```yaml
+- hosts: servers
+  roles:
+    - { role: elao.elasticsearch }
+```
 
 # Licence
 
