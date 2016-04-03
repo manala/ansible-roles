@@ -63,10 +63,14 @@ None.
         comment:      Wheezy
         component:    main
         distribution: wheezy
+        origin:       Foo
+        label:        Bar
       - name:         jessie
         comment:      Jessie
         component:    main
         distribution: jessie
+        origin:       Foo
+        label:        Bar
   roles:
     - role: manala.aptly
 ```

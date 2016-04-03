@@ -13,6 +13,6 @@
   with_items: "{{ manala_aptly_repositories }}"
 
 - name: repositories > Publish
-  command: "{{ manala_aptly_user|ternary('su ' ~ manala_aptly_user ~ ' -c \"', '') }}aptly publish repo {{ item.name }}{{ manala_aptly_user|ternary('\"', '') }}"
+  command: "{{ manala_aptly_user|ternary('su ' ~ manala_aptly_user ~ ' -c \"', '') }}aptly publish repo -origin={{ item.origin }} -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '') }}"
   when: item.name not in __manala_aptly_repositories.stdout_lines
   with_items: "{{ manala_aptly_repositories }}"
