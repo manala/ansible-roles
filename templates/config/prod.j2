@@ -15,8 +15,11 @@
 [core]
 {# See: http://git.661346.n2.nabble.com/git-status-takes-30-seconds-on-Windows-7-Why-td7580816.html #}
 {{ macros.config_row(config_core, 'preloadindex', true, 4) }}
+{# See: https://news.ycombinator.com/item?id=11388479 #}
+{{ macros.config_row(config_core, 'untrackedCache', true, 4) }}
 {{ macros.config(config_core, [
-    'preloadindex'
+    'preloadindex',
+    'untrackedCache'
 ], 4) }}
 
 {{ macros.config(config, ['core']) }}
