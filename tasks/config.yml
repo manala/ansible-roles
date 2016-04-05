@@ -2,8 +2,8 @@
 
 - name: config > Template
   template:
-    src:   "{{ elao_redis_config_template|ternary(elao_redis_config_template, 'config/base.conf.j2') }}"
-    dest:  "{{ elao_redis_config_file }}"
-  when: (elao_redis_config_template is not none) or (elao_redis_config|length)
+    src:   "{{ manala_redis_config_template|ternary(manala_redis_config_template, 'config/base.conf.j2') }}"
+    dest:  "{{ manala_redis_config_file }}"
+  when: (manala_redis_config_template is not none) or (manala_redis_config|length)
   notify:
     - redis restart

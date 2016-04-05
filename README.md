@@ -1,14 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: redis
 
-This role will assume the setup of redis.
+This role will deal with the setup of __redis__.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -16,16 +14,18 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.redis
+ansible-galaxy install manala.redis
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.redis }
+- src: manala.redis
 ```
 
 ## Role Handlers
@@ -36,24 +36,26 @@ dependencies:
 
 ## Role Variables
 
-| Name                         | Default               | Type   | Description              |
-| ---------------------------- | --------------------- | ------ | ------------------------ |
-| `elao_redis_config_file`     | /etc/redis/redis.conf | string | Redis config file path.  |
-| `elao_redis_config_template` | ~                     | string |                          |
-| `elao_redis_config`          | []                    | array  | Redis config directives. |
+| Name                           | Default               | Type   | Description              |
+| ------------------------------ | --------------------- | ------ | ------------------------ |
+| `manala_redis_config_file`     | /etc/redis/redis.conf | string | Redis config file path.  |
+| `manala_redis_config_template` | ~                     | string |                          |
+| `manala_redis_config`          | []                    | array  | Redis config directives. |
 
 ### Configuration example
 
 ```yaml
-elao_redis_config:
+manala_redis_config:
   - bind: "127.0.0.1 {{ ansible_venet0_0.ipv4.address}}"
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.redis }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.redis }
+```
 
 # Licence
 
@@ -61,4 +63,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
