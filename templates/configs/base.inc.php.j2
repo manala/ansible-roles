@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_phppgadmin_config -%}
+{% set config = item.config|default([]) -%}
 
 <?php
 
@@ -11,7 +11,7 @@
      * $Id: config.inc.php-dist,v 1.55 2008/02/18 21:10:31 xzilla Exp $
      */
 
-{% for config_server in elao_phppgadmin_config_servers %}
+{% for config_server in item.servers|default([]) %}
 
 {%- set config_server_config = config_server.config|default([]) %}
 

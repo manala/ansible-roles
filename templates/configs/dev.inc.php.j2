@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_phppgadmin_config -%}
+{% set config = item.config|default([]) -%}
 
 <?php
 
@@ -11,7 +11,7 @@
      * $Id: config.inc.php-dist,v 1.55 2008/02/18 21:10:31 xzilla Exp $
      */
 
-{% for config_server in elao_phppgadmin_config_servers %}
+{% for config_server in item.servers|default([{'id': 0}]) %}
 
 {%- set config_server_config = config_server.config|default([]) %}
 
@@ -20,7 +20,7 @@
 
     // Hostname or IP address for server.  Use '' for UNIX domain socket.
     // use 'localhost' for TCP/IP connection on this computer
-    {{ macros.config_row(config_server_config, 'host', '', false, config_server.id) }}
+    {{ macros.config_row(config_server_config, 'host', 'localhost', false, config_server.id) }}
 
     // Database port on server (5432 is the PostgreSQL default)
     {{ macros.config_row(config_server_config, 'port', 5432, false, config_server.id) }}
@@ -33,7 +33,7 @@
 
     // Change the default database only if you cannot connect to template1.
     // For a PostgreSQL 8.1+ server, you can set this to 'postgres'.
-    {{ macros.config_row(config_server_config, 'defaultdb', 'template1', false, config_server.id) }}
+    {{ macros.config_row(config_server_config, 'defaultdb', 'postgres', false, config_server.id) }}
 
     // Specify the path to the database dump utilities for this server.
     // You can set these to '' if no dumper is available.
@@ -99,7 +99,7 @@
     // will be denied. Only set this false once you have read the FAQ and
     // understand how to change PostgreSQL's pg_hba.conf to enable
     // passworded local connections.
-    {{ macros.config_row(config, 'extra_login_security', true) }}
+    {{ macros.config_row(config, 'extra_login_security', false) }}
 
     // Only show owned databases?
     // Note: This will simply hide other databases in the list - this does
