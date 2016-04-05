@@ -1,7 +1,7 @@
 ---
 
 # Configs
-elao_dnsmasq_configs_exclusive: "{{ elao.exclusive|default(false) if (elao is defined) else false }}"
-elao_dnsmasq_configs_dir:       /etc/dnsmasq.d
-elao_dnsmasq_configs_template:  configs/empty.conf.j2
-elao_dnsmasq_configs:           []
+manala_dnsmasq_configs_exclusive: false
+manala_dnsmasq_configs_dir:       /etc/dnsmasq.d
+manala_dnsmasq_configs_template:  configs/empty.conf.j2
+manala_dnsmasq_configs:           []

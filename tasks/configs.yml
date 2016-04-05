@@ -2,25 +2,25 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(elao_dnsmasq_configs_template) }}"
-    dest: "{{ elao_dnsmasq_configs_dir }}/{{ item.file }}"
-  with_items: elao_dnsmasq_configs
+    src:  "{{ item.template|default(manala_dnsmasq_configs_template) }}"
+    dest: "{{ manala_dnsmasq_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_dnsmasq_configs }}"
   notify:
     - dnsmasq restart
 
 - name: configs > Exclusive - find files
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ elao_dnsmasq_configs_dir }}"
+    chdir: "{{ manala_dnsmasq_configs_dir }}"
   changed_when: false
-  register: _elao_dnsmasq_configs_find_output
-  when: elao_dnsmasq_configs_exclusive
+  register: __manala_dnsmasq_configs_find_output
+  when: manala_dnsmasq_configs_exclusive
 
 - name: configs > Clean
   file:
-    path:  "{{ elao_dnsmasq_configs_dir }}/{{ item }}"
+    path:  "{{ manala_dnsmasq_configs_dir }}/{{ item }}"
     state: absent
-  when: elao_dnsmasq_configs_exclusive and (item not in elao_dnsmasq_configs|map(attribute='file'))
-  with_items: _elao_dnsmasq_configs_find_output.stdout_lines
+  when: manala_dnsmasq_configs_exclusive and (item not in manala_dnsmasq_configs|map(attribute='file'))
+  with_items: "{{ __manala_dnsmasq_configs_find_output.stdout_lines }}"
   notify:
     - dnsmasq restart

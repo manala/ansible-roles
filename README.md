@@ -1,31 +1,31 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: Dnsmasq
 
-This role will assume the setup of Dnsmasq
+This role will deal with the setup of __dnsmasq__.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
-- Pip
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.dnsmasq
+ansible-galaxy install manala.dnsmasq
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.dnsmasq }
+- src: manala.dnsmasq
 ```
 
 ## Role Handlers
@@ -38,21 +38,23 @@ dependencies:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-|elao_dnsmasq_configs|[]|Array|Configs
+|manala_dnsmasq_configs|[]|Array|Configs
 
 ### Configuration example
 
 ```yaml
-elao_dnsmasq_configs:
+manala_dnsmasq_configs:
   - file:     dev.conf
     template: configs/dev.conf.j2
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.dnsmasq }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.dnsmasq }
+```
 
 # Licence
 
@@ -60,4 +62,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
