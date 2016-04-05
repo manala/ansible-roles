@@ -2,8 +2,8 @@
 
 - name: config > Template
   template:
-    src:   "{{ elao_mongodb_config_template|ternary(elao_mongodb_config_template, 'config/base.conf.j2') }}"
-    dest:  "{{ elao_mongodb_config_file }}"
-  when: (elao_mongodb_config_template is not none) or (elao_mongodb_config|length)
+    src:   "{{ manala_mongodb_config_template|ternary(manala_mongodb_config_template, 'config/base.conf.j2') }}"
+    dest:  "{{ manala_mongodb_config_file }}"
+  when: (manala_mongodb_config_template is not none) or (manala_mongodb_config|length)
   notify:
     - mongodb restart
