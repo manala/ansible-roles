@@ -1,9 +1,0 @@
----
-
-- name: config > Template
-  template:
-    src:   "{{ elao_phpmyadmin_config_template|ternary(elao_phpmyadmin_config_template, 'config/base.inc.php.j2') }}"
-    dest:  "{{ elao_phpmyadmin_config_file }}"
-    owner: "{{ elao_phpmyadmin_user|ternary(elao_phpmyadmin_user, omit) }}"
-    group: "{{ elao_phpmyadmin_group|ternary(elao_phpmyadmin_group, omit) }}"
-  when: (elao_phpmyadmin_config_template is not none) or (elao_phpmyadmin_config|length) or (elao_phpmyadmin_config_servers|length)

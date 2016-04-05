@@ -1,38 +1,37 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: phpMyAdmin
 
-This role will install and config phpMyAdmin via composer.
+This role will deal with the install and config of __phpMyAdmin__ via composer.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+This role is made to work with the __manala__ phpmyadmin debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - phpmyadmin@manala
+```
 
 ## Dependencies
 
-- Composer
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.phpmyadmin
+ansible-galaxy install manala.phpmyadmin
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.phpmyadmin }
+- src: manala.phpmyadmin
 ```
-
-## Example playbook
-
-    - hosts: servers
-      roles:
-         - { role: elao.phpmyadmin }
 
 ## Role Variables
 
@@ -40,23 +39,30 @@ dependencies:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-`elao_phpmyadmin_user`|None|String|User
-`elao_phpmyadmin_user_group`|None|String|User group
-`elao_phpmyadmin_path`|/opt/phpmyadmin|String|Path
-`elao_phpmyadmin_config`|Array|Dictionnary|Config
-`elao_phpmyadmin_config.blowfish_secret`|''|String|Blowfish secret
-`elao_phpmyadmin_config.servers`|Array|Array|Servers
-`elao_phpmyadmin_config.servers.host`|localhost|String|Host
+`manala_phpmyadmin_configs_exclusive`|false|Boolean|Exclusive configs
+`manala_phpmyadmin_configs`|[]|Array|Configs
 
 ### Configuration example
 
-```
+```yaml
 ---
 
-elao_phpmyadmin_config:
-  blowfish_secret: 'ThisSecretIsNotSoSecret'
-  servers:
-    - host: localhost
+manala_phpmyadmin_configs_exclusive: true
+manala_phpmyadmin_configs:
+  - file:     config.inc.php
+    template: configs/dev.inc.php.j2
+    servers:
+      - id: 1
+        config:
+          - user: foo
+```
+
+## Example playbook
+
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.phpmyadmin }
 ```
 
 # Licence
@@ -65,4 +71,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

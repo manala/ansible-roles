@@ -1,5 +1,4 @@
 ---
 
-- include: requirements.yml
 - include: install.yml
-- include: config.yml
+- include: configs.yml

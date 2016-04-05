@@ -1,15 +1,8 @@
 ---
 
-- name: install > Composer create project
-  command: composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev --prefer-dist --no-interaction {{ elao_phpmyadmin_dir }}{{ elao_phpmyadmin_version|ternary(' ' ~ elao_phpmyadmin_version, '') }}
-  args:
-    creates: "{{ elao_phpmyadmin_dir }}/composer.json"
-
-- name: install > Permissions
-  file:
-    path:    "{{ elao_phpmyadmin_dir }}"
-    state:   directory
-    owner:   "{{ elao_phpmyadmin_user|ternary(elao_phpmyadmin_user, omit) }}"
-    group:   "{{ elao_phpmyadmin_group|ternary(elao_phpmyadmin_group, omit) }}"
-    recurse: yes
-  when: elao_phpmyadmin_user or elao_phpmyadmin_group
+- name: install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+  with_items:
+    - phpmyadmin
