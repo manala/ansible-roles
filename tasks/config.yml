@@ -2,7 +2,7 @@
 
 - name: config > Template
   template:
-    src:  "{{ elao_elasticsearch_config_template }}"
-    dest: "{{ elao_elasticsearch_config_file }}"
+    src:  "{{ manala_elasticsearch_config_template }}"
+    dest: "{{ manala_elasticsearch_config_file }}"
   notify:
     - elasticsearch restart
