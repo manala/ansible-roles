@@ -61,6 +61,16 @@ manala_apt_repositories_patterns:
     key:
       url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
       id:  68576280
+  mysql_5_6:
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
+    key:
+      url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
+      id:  5072E1F5
+  mysql_5_7:
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
+    key:
+      url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
+      id:  5072E1F5
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key:
