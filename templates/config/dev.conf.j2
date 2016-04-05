@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_postgresql_config -%}
+{% set config = manala_postgresql_config -%}
 
 # -----------------------------
 # PostgreSQL configuration file
@@ -42,15 +42,15 @@
 # The default values of these variables are driven from the -D command-line
 # option or PGDATA environment variable, represented here as ConfigDir.
 
-{{ macros.config_row(config, 'data_directory', '/var/lib/postgresql/' ~ elao_postgresql_version ~ '/main') }}       # use data in another directory
+{{ macros.config_row(config, 'data_directory', '/var/lib/postgresql/' ~ manala_postgresql_version ~ '/main') }}       # use data in another directory
                     # (change requires restart)
-{{ macros.config_row(config, 'hba_file', '/etc/postgresql/' ~ elao_postgresql_version ~ '/main/pg_hba.conf') }} # host-based authentication file
+{{ macros.config_row(config, 'hba_file', '/etc/postgresql/' ~ manala_postgresql_version ~ '/main/pg_hba.conf') }} # host-based authentication file
                     # (change requires restart)
-{{ macros.config_row(config, 'ident_file', '/etc/postgresql/' ~ elao_postgresql_version ~ '/main/pg_ident.conf') }} # ident configuration file
+{{ macros.config_row(config, 'ident_file', '/etc/postgresql/' ~ manala_postgresql_version ~ '/main/pg_ident.conf') }} # ident configuration file
                     # (change requires restart)
 
 # If external_pid_file is not explicitly set, no extra PID file is written.
-{{ macros.config_row(config, 'external_pid_file', '/var/run/postgresql/' ~ elao_postgresql_version ~ '-main.pid') }}            # write an extra PID file
+{{ macros.config_row(config, 'external_pid_file', '/var/run/postgresql/' ~ manala_postgresql_version ~ '-main.pid') }}            # write an extra PID file
                     # (change requires restart)
 
 
@@ -454,7 +454,7 @@ log_timezone = 'UTC'
 #track_functions = none         # none, pl, all
 #track_activity_query_size = 1024   # (change requires restart)
 #update_process_title = on
-{{ macros.config_row(config, 'stats_temp_directory', '/var/run/postgresql/' ~ elao_postgresql_version ~ '-main.pg_stat_tmp') }}
+{{ macros.config_row(config, 'stats_temp_directory', '/var/run/postgresql/' ~ manala_postgresql_version ~ '-main.pg_stat_tmp') }}
 
 
 # - Statistics Monitoring -

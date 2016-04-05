@@ -1,19 +1,19 @@
 ---
 
 # Version
-elao_postgresql_version: ~
+manala_postgresql_version: ~
 
 # Config
-elao_postgresql_config_template:     ~
-elao_postgresql_config:              []
-elao_postgresql_config_hba_template: ~
-elao_postgresql_config_hba:          []
+manala_postgresql_config_template:     ~
+manala_postgresql_config:              []
+manala_postgresql_config_hba_template: ~
+manala_postgresql_config_hba:          []
 
 # Login
-elao_postgresql_login_host: localhost
+manala_postgresql_login_host: localhost
 
 # Users
-elao_postgresql_users: []
+manala_postgresql_users: []
 
 # Databases
-elao_postgresql_databases: []
+manala_postgresql_databases: []

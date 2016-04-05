@@ -2,20 +2,20 @@
 
 - name: config > PostgreSQL configuration
   template:
-    src: "{{ elao_postgresql_config_template }}"
-    dest: /etc/postgresql/{{ elao_postgresql_version }}/main/postgresql.conf
-  when: elao_postgresql_config_template is not none
-  register: _elao_postgresql_config_result
+    src: "{{ manala_postgresql_config_template }}"
+    dest: /etc/postgresql/{{ manala_postgresql_version }}/main/postgresql.conf
+  when: manala_postgresql_config_template is not none
+  register: __manala_postgresql_config_result
 
 - name: config > PostgreSQL host-based authentication (hba) configuration
   template:
-    src: "{{ elao_postgresql_config_hba_template }}"
-    dest: /etc/postgresql/{{ elao_postgresql_version }}/main/pg_hba.conf
-  when: elao_postgresql_config_hba_template is not none
-  register: _elao_postgresql_config_hba_result
+    src: "{{ manala_postgresql_config_hba_template }}"
+    dest: /etc/postgresql/{{ manala_postgresql_version }}/main/pg_hba.conf
+  when: manala_postgresql_config_hba_template is not none
+  register: __manala_postgresql_config_hba_result
 
 - name: config > Restart service
   service:
     name:  postgresql
     state: restarted
-  when: _elao_postgresql_config_result.changed or _elao_postgresql_config_hba_result.changed
+  when: __manala_postgresql_config_result.changed or __manala_postgresql_config_hba_result.changed

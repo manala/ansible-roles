@@ -4,17 +4,16 @@ dependencies: []
 
 galaxy_info:
 
-  author:              ELAO
-  description:         A PostgreSQL role for elao symfony standard vagrant box
-  company:             ELAO
+  author:              Manala
+  company:             Manala
+  description:         Handle postgresql
   license:             MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 2.0.0
   platforms:
     - name: Debian
-  versions:
-    - wheezy
-  categories:
-    - development
-    - web
-    - database
-    - database:sql
+      versions:
+        - wheezy
+        - jessie
+  galaxy_tags:
+    - system
+    - postgresql

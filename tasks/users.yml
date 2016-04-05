@@ -3,7 +3,7 @@
 - name: users > Install python-psycopg2 package
   apt:
     name: python-psycopg2
-  when: elao_postgresql_users|length > 0
+  when: manala_postgresql_users|length > 0
 
 - name: users > Create postgresql users
   postgresql_user:
@@ -13,5 +13,5 @@
     role_attr_flags: "{{ item.role_attr_flags|default(omit) }}"
     db:              "{{ item.db|default(omit) }}"
     state:           "{{ item.state|default(omit) }}"
-    login_host:      "{{ elao_postgresql_login_host }}"
-  with_items: elao_postgresql_users
+    login_host:      "{{ manala_postgresql_login_host }}"
+  with_items: "{{ manala_postgresql_users }}"

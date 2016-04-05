@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_postgresql_config_hba if elao_postgresql_config_hba|length else [
+{% set config = manala_postgresql_config_hba if manala_postgresql_config_hba|length else [
     '# DO NOT DISABLE!',
     '# If you change this first entry you will need to make sure that the',
     '# database superuser can access the database using some other method.',

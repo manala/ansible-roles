@@ -1,31 +1,31 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: postgresql
 
-This role will assume the setup of [PostgreSQL](http://www.postgresql.org/)
+This role will deal with the setup of __[PostgreSQL](http://www.postgresql.org/)__.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
-None
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.postgresql
+ansible-galaxy install manala.postgresql
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.postgresql }
+- src: manala.postgresql
 ```
 
 ## Role Handlers
@@ -36,29 +36,31 @@ dependencies:
 
 ### Definition
 
-| Name                                  | Default | Type             | Description                            |
-| ------------------------------------- | ------- | ---------------- | -------------------------------------- |
-| `elao_postgresql_version`             | None    | String (version) | REQUIRED - PostgreSQL version          |
-| `elao_postgresql_config_hba_template` | None    | String (path)    | Path to a custom hba config template   |
+| Name                                    | Default | Type             | Description                            |
+| --------------------------------------- | ------- | ---------------- | -------------------------------------- |
+| `manala_postgresql_version`             | None    | String (version) | REQUIRED - PostgreSQL version          |
+| `manala_postgresql_config_hba_template` | None    | String (path)    | Path to a custom hba config template   |
 
 ### Configuration example
 
-```
-elao_postgresql_version: 9.4
+```yaml
+manala_postgresql_version: 9.4
 
 ```
 
 ## PostgreSQL with custom configuration files:
 
-```
-elao_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.conf.j2' }}"
+```yaml
+manala_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.conf.j2' }}"
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-        - { role: elao.postgresql }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.postgresql }
+```
 
 # Licence
 
@@ -66,4 +68,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
