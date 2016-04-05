@@ -194,3 +194,5 @@ manala_apt_preferences_patterns:
   mongodb:       mongodb*
   keepalived:    keepalived*
   gitlab-ce:     gitlab-ce*
+  phpmyadmin:    phpmyadmin*
+  phppgadmin:    phppgadmin*
