@@ -6,7 +6,12 @@ It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible s
 
 ## Requirements
 
-A debian repository with mailhog package (such as manala one).
+This role is made to work with the __manala__ mailhog debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_repositories:
+ - manala
+```
 
 ## Dependencies
 
