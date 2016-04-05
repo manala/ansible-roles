@@ -1,61 +1,68 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: phpRedisAdmin
 
-This role will install and config phpRedisAdmin via composer.
+This role will deal with the install and config o __phpRedisAdmin__ via composer.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+This role is made to work with the __manala__ phpredisadmin/ debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_repositories:
+ - manala
+```
 
 ## Dependencies
 
-- Composer
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.phpredisadmin
+ansible-galaxy install manala.phpredisadmin
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.phpredisadmin }
+- src: manala.phpredisadmin
 ```
-
-## Example playbook
-
-    - hosts: servers
-      roles:
-         - { role: elao.phpredisadmin }
-
 ## Role Variables
 
 ### Definition
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-`elao_phpredisadmin_user`|None|String|User
-`elao_phpredisadmin_user_group`|None|String|User group
-`elao_phpredisadmin_path`|/opt/phpredisadmin|String|Path
-`elao_phpredisadmin_config`|Array|Dictionnary|Config
-`elao_phpredisadmin_config.servers`|Array|Array|Servers
-`elao_phpredisadmin_config.servers.host`|localhost|String|Host
+`manala_phpredisadmin_user`|None|String|User
+`manala_phpredisadmin_user_group`|None|String|User group
+`manala_phpredisadmin_path`|/opt/phpredisadmin|String|Path
+`manala_phpredisadmin_config`|Array|Dictionnary|Config
+`manala_phpredisadmin_config.servers`|Array|Array|Servers
+`manala_phpredisadmin_config.servers.host`|localhost|String|Host
 
 ### Configuration example
 
-```
+```yaml
 ---
 
-elao_phpredisadmin_config:
+manala_phpredisadmin_config:
   blowfish_secret: 'ThisSecretIsNotSoSecret'
   servers:
     - host: localhost
+```
+
+
+## Example playbook
+
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.phpredisadmin }
 ```
 
 # Licence
@@ -64,4 +71,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

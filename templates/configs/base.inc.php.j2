@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_phpredisadmin_config -%}
+{% set config = item.config|default([]) -%}
 
 <?php
 //Copy this file to config.inc.php and make changes to that file to customize your configuration.
@@ -8,7 +8,7 @@
 $config = array(
   'servers' => array(
 
-{% for config_server in elao_phpredisadmin_config_servers %}
+{% for config_server in item.servers|default([{}]) %}
 
 {%- set config_server_config = config_server.config|default([]) %}
 

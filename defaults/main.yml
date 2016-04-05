@@ -1,14 +1,10 @@
 ---
 
-# User / Group
-elao_phpredisadmin_user:  ~
-elao_phpredisadmin_group: ~
-
 # Dir
-elao_phpredisadmin_dir: /opt/phpredisadmin
+manala_phpredisadmin_dir: /usr/share/phpredisadmin
 
-# Config
-elao_phpredisadmin_config_file:     "{{ elao_phpredisadmin_dir }}/includes/config.inc.php"
-elao_phpredisadmin_config_template: ~
-elao_phpredisadmin_config:          []
-elao_phpredisadmin_config_servers:  {}
+# Configs
+manala_phpredisadmin_configs_exclusive: false
+manala_phpredisadmin_configs_dir:       /etc/phpredisadmin/conf.d
+manala_phpredisadmin_configs_template:  configs/empty.inc.php.j2
+manala_phpredisadmin_configs:           []
