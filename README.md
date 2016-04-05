@@ -6,7 +6,13 @@ It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible s
 
 ## Requirements
 
-None.
+This role is made to work with the __dotdeb__ php debian packages, available on the [__dotdeb__ debian repository](https://www.dotdeb.org/). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - php@dotdeb
+```
+
 
 ## Dependencies
 
