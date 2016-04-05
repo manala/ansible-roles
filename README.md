@@ -1,27 +1,31 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: mysql
 
-This role will assume the setup of [mysql](https://www.mysql.com/)
+This role will deal with the setup of __[mysql](https://www.mysql.com/)__.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
+
+## Dependencies
+
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.mysql
+ansible-galaxy install manala.mysql
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.mysql }
+- src: manala.mysql
 ```
 
 ## Role Handlers
@@ -32,25 +36,25 @@ dependencies:
 
 ## Role Variables
 
-| Name                           | Default                | Type          | Description                                            |
-| -----------------------------  | ---------------------- | ------------- | ------------------------------------------------------ |
-| `elao_mysql_tasks_include`     | ~                      | Array         | Execute only specified tasks                           |
-| `elao_mysql_tasks_exlude`      | [ ]                    | Array         | Exclude tasks (install, configs, services)             |
-| `elao_mysql_configs_dir`       | /etc/mysql/conf.d      | String (path) | Configurations directory path                          |
-| `elao_mysql_configs_template`  | configs/default.cnf.j2 | String (path) | Default configuration template                         |
-| `elao_mysql_configs_exclusive` | false                  | Boolean       | Whether to remove all other non-specified config files |
-| `elao_mysql_configs`           | [ ]                    | Array         | Mysql configuration files                              |
+| Name                             | Default                | Type          | Description                                            |
+| -------------------------------- | ---------------------- | ------------- | ------------------------------------------------------ |
+| `manala_mysql_tasks_include`     | ~                      | Array         | Execute only specified tasks                           |
+| `manala_mysql_tasks_exlude`      | [ ]                    | Array         | Exclude tasks (install, configs, services)             |
+| `manala_mysql_configs_dir`       | /etc/mysql/conf.d      | String (path) | Configurations directory path                          |
+| `manala_mysql_configs_template`  | configs/default.cnf.j2 | String (path) | Default configuration template                         |
+| `manala_mysql_configs_exclusive` | false                  | Boolean       | Whether to remove all other non-specified config files |
+| `manala_mysql_configs`           | [ ]                    | Array         | Mysql configuration files                              |
 
 ### Configuration example
 
-```
+```yaml
 # use a default custom template
-elao_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.cnf.j2' }}"
+manala_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.cnf.j2' }}"
 
 # clean configs directory
-elao_mysql_configs_exclusive: true
+manala_mysql_configs_exclusive: true
 
-elao_mysql_configs:
+manala_mysql_configs:
   - file: my.cnf
     template: configs/default.cnf.j2
     config:
@@ -81,9 +85,11 @@ elao_mysql_configs:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-        - { role: elao.mysql }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.mysql }
+```
 
 # Licence
 
@@ -91,4 +97,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

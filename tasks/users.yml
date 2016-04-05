@@ -3,7 +3,7 @@
 - name: users > Install python-mysqldb package
   apt:
     name: python-mysqldb
-  when: elao_mysql_users|length > 0
+  when: manala_mysql_users|length > 0
 
 - name: users > Create mysql users
   mysql_user:
@@ -12,4 +12,4 @@
     host:     "{{ item.host|default('localhost') }}"
     priv:     "{{ item.priv }}"
     state:    "{{ item.state|default(omit) }}"
-  with_items: elao_mysql_users
+  with_items: "{{ manala_mysql_users }}"

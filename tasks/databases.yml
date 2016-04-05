@@ -3,7 +3,7 @@
 - name: databases > Install python-mysqldb package
   apt:
     name: python-mysqldb
-  when: elao_mysql_databases|length > 0
+  when: manala_mysql_databases|length > 0
 
 - name: databases > Create mysql databases
   mysql_db:
@@ -11,4 +11,4 @@
     encoding:  "{{ item.encoding|default('utf8') }}"
     collation: "{{ item.collation|default('utf8_general_ci') }}"
     state:     "{{ item.state|default(omit) }}"
-  with_items: elao_mysql_databases
+  with_items: "{{ manala_mysql_databases }}"

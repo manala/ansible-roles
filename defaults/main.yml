@@ -1,17 +1,17 @@
 ---
 
 # Tasks
-elao_mysql_tasks_include: ~
-elao_mysql_tasks_exlude: []
+manala_mysql_tasks_include: ~
+manala_mysql_tasks_exlude: []
 
 # Configs
-elao_mysql_configs_exclusive: false
-elao_mysql_configs_dir:       /etc/mysql/conf.d
-elao_mysql_configs_template:  configs/empty.cnf.j2
-elao_mysql_configs:           []
+manala_mysql_configs_exclusive: false
+manala_mysql_configs_dir:       /etc/mysql/conf.d
+manala_mysql_configs_template:  configs/empty.cnf.j2
+manala_mysql_configs:           []
 
 # Users
-elao_mysql_users: []
+manala_mysql_users: []
 
 # Databases
-elao_mysql_databases: []
+manala_mysql_databases: []
