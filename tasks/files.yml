@@ -13,7 +13,7 @@
     user:       "{{ item.1.user|default(item.0.user|default(omit)) }}"
     state:      "{{ item.1.state|default('present') }}"
   with_subelements:
-    - "{{ elao_cron_files }}"
+    - "{{ manala_cron_files }}"
     - jobs
   notify:
     - cron restart

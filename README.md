@@ -1,10 +1,8 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: cron
 
-This role will assume the setup of cron
+This role will deal with the setup of __cron__.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
@@ -21,30 +19,15 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.cron,2.0
+ansible-galaxy install manala.cron
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src:     elao.cron
-  version: 2.0
+- src: manala.cron
 ```
 
-### Ansible 1 (no longer maintained)
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install elao.cron,1.0
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src:     elao.cron
-  version: 1.0
-```
 
 ## Role Handlers
 
@@ -54,14 +37,14 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name            | Default | Type  | Description |
-| ----------------| ------- | ----- | ----------- |
-| elao_cron_files | []      | Array | Cron files  |
+| Name              | Default | Type  | Description |
+| ----------------- | ------- | ----- | ----------- |
+| manala_cron_files | []      | Array | Cron files  |
 
 ### Configuration example
 
 ```yaml
-elao_cron_files:
+manala_cron_files:
   - file: app
     user: foo
     jobs:
@@ -74,9 +57,11 @@ elao_cron_files:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.cron }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.cron }
+```
 
 # Licence
 
@@ -84,4 +69,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

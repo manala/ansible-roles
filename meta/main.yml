@@ -4,17 +4,16 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    A cron role to manage crontab entries.
-  license: MIT
+  author:              Manala
+  company:             Manala
+  description:         Handle cron
+  license:             MIT
   min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
         - wheezy
         - jessie
-  categories:
-    - development
-    - web
+  galaxy_tags:
+    - system
+    - cron
