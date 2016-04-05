@@ -1,38 +1,37 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: OPcache Dashboard
 
-This role will install and config OPcache Dashboard via composer.
+This role will deal with the setup and the config __OPcache Dashboard__ via composer.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+This role is made to work with the __manala__ opcache-dashboard debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_repositories:
+ - manala
+```
 
 ## Dependencies
 
-- Composer
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.opcache-dashboard
+ansible-galaxy install manala.opcache-dashboard
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.opcache-dashboard }
+- src: manala.opcache-dashboard
 ```
-
-## Example playbook
-
-    - hosts: servers
-      roles:
-         - { role: elao.opcache-dashboard }
 
 ## Role Variables
 
@@ -40,9 +39,17 @@ dependencies:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-`elao_opcache_dashboard_user`|None|String|User
-`elao_opcache_dashboard_user_group`|None|String|User group
-`elao_opcache_dashboard_path`|/opt/opcache-dashboard|String|Path
+`manala_opcache_dashboard_user`|None|String|User
+`manala_opcache_dashboard_user_group`|None|String|User group
+`manala_opcache_dashboard_path`|/opt/opcache-dashboard|String|Path
+
+## Example playbook
+
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.opcache-dashboard }
+```
 
 # Licence
 
@@ -50,4 +57,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

@@ -1,8 +1,8 @@
 ---
 
 # User / Group
-elao_opcache_dashboard_user:  ~
-elao_opcache_dashboard_group: ~
+manala_opcache_dashboard_user:  ~
+manala_opcache_dashboard_group: ~
 
 # Dir
-elao_opcache_dashboard_dir: /opt/opcache-dashboard
+manala_opcache_dashboard_dir: /usr/share/opcache-dashboard

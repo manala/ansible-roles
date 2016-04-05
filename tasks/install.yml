@@ -1,15 +1,8 @@
 ---
 
-- name: install > Composer create project
-  command: composer create-project carlosio/opcache-dashboard --no-dev --prefer-dist --no-interaction {{ elao_opcache_dashboard_dir }}
-  args:
-    creates: "{{ elao_opcache_dashboard_dir }}/composer.json"
-
-- name: install > Permissions
-  file:
-    path:    "{{ elao_opcache_dashboard_dir }}"
-    state:   directory
-    owner:   "{{ elao_opcache_dashboard_user|ternary(elao_opcache_dashboard_user, omit) }}"
-    group:   "{{ elao_opcache_dashboard_group|ternary(elao_opcache_dashboard_group, omit) }}"
-    recurse: yes
-  when: elao_opcache_dashboard_user or elao_opcache_dashboard_group
+- name: install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+  with_items:
+    - opcache-dashboard
