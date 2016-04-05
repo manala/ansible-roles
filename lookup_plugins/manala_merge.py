@@ -17,15 +17,15 @@ class LookupModule(LookupBase):
 
         result = {}
 
+        templar = Templar(variables=variables, loader=self._loader)
+
         # Merge
         for key in keys:
             for (resultKey, resultValue) in variables[key].items():
+                resultValue = templar.template(resultValue, fail_on_undefined=False)
                 if (resultKey in result) and isinstance(resultValue, (list, tuple)):
                     result[resultKey] = result[resultKey] + resultValue
                 else:
                     result[resultKey] = resultValue
-
-        templar = Templar(variables=variables, loader=self._loader)
-        result = templar.template(result, fail_on_undefined=False)
 
         return result
