@@ -84,6 +84,17 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 {{ macros.config_row(config, 'alias', '#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"', true) }}
 
+echo
+
+manala_ip () {
+    wget http://ipecho.net/plain -O - -q ; echo
+}
+
+echo "- Show public ip"
+echo "    manala_ip"
+
+echo
+
 {{ macros.config(config, [
     'export ZSH',
     'ZSH_THEME',

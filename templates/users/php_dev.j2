@@ -86,6 +86,13 @@ source $ZSH/oh-my-zsh.sh
 
 echo
 
+manala_ip () {
+    wget http://ipecho.net/plain -O - -q ; echo
+}
+
+echo "- Show public ip"
+echo "    manala_ip"
+
 manala_php_xdebug () {
     if [[ $1 == on ]]; then sudo rename -v 's/20-xdebug.ini.off/20-xdebug.ini/' /etc/php5/*/conf.d/20-xdebug.ini.off
     else sudo rename -v 's/20-xdebug.ini/20-xdebug.ini.off/' /etc/php5/*/conf.d/20-xdebug.ini; fi
