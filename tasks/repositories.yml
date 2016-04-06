@@ -16,18 +16,6 @@
   with_items: "{{ (manala_apt_repositories + ((__manala_apt_preferences_repositories.results|map(attribute='ansible_facts.__item')|list) if (__manala_apt_preferences_repositories.results is defined) else ([])))|unique }}"
   register: __manala_apt_repositories
 
-# Deprecation
-- name: repositories > Deprecation - Pattern 'backports'
-  fail:
-    msg: "Repository pattern 'backports' is deprecated, please specify 'debian_backports' or 'ubuntu_backports'"
-  when: "{{ not __manala_apt_repositories|skipped and 'backports' in __manala_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
-
-# Deprecation
-- name: repositories > Deprecation - Pattern 'mongodb'
-  fail:
-    msg: "Repository pattern 'mongodb' is deprecated, please specify version like 'mongodb_3_0'"
-  when: "{{ not __manala_apt_repositories|skipped and 'mongodb' in __manala_apt_repositories.results|map(attribute='ansible_facts.__item.pattern')|reject('undefined') }}"
-
 # Replace pattern based repositories by their values
 # {pattern: 'foo'} -> {src: 'deb http://foo.com/debian }
 - name: repositories > Apply patterns
