@@ -1,0 +1,25 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_git_config -%}
+
+{% set config_core = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'core' -%}
+            {%- if config_core.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+[core]
+{# See: http://git.661346.n2.nabble.com/git-status-takes-30-seconds-on-Windows-7-Why-td7580816.html #}
+{{ macros.config_row(config_core, 'preloadindex', true, 4) }}
+{# See: https://news.ycombinator.com/item?id=11388479 #}
+{{ macros.config_row(config_core, 'untrackedCache', true, 4) }}
+{{ macros.config(config_core, [
+    'preloadindex',
+    'untrackedCache'
+], 4) }}
+
+{{ macros.config(config, ['core']) }}
