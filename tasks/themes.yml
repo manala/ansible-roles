@@ -10,6 +10,7 @@
     src:   "themes/{{ item }}.j2"
     dest:  "{{ manala_ohmyzsh_dir }}/custom/themes/{{ item }}"
   with_items:
+    - manala.zsh-theme
     - manala-dev.zsh-theme
     - manala-demo.zsh-theme
     - manala-prod.zsh-theme
