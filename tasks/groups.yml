@@ -2,7 +2,7 @@
 
 - name: groups > Groups configuration
   group:
-    name:   "{{ item.name }}"
+    name:   "{{ (item) if (item is string) else (item.name) }}"
     system: "{{ item.system|default(false)|bool }}"
     state:  "{{ item.state|default('present') }}"
     gid:    "{{ item.gid|default(omit) }}"
