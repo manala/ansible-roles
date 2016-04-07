@@ -1,0 +1,12 @@
+---
+
+- name: roles > Requirements template
+  template:
+    src:  roles/requirements.j2
+    dest: /tmp/manala_ansible_galaxy_roles.yml
+  with_items: "{{ manala_ansible_galaxy_roles }}"
+  when: manala_ansible_galaxy_roles|length
+
+- name: roles > Install
+  command: ansible-galaxy install --role-file=/tmp/manala_ansible_galaxy_roles.yml
+  when: manala_ansible_galaxy_roles|length
