@@ -12,4 +12,4 @@
     src:  "lua_encoders/{{ item }}.lua.j2"
     dest: "/usr/share/heka/lua_encoders/{{ item }}.lua"
   with_items:
-    - rtail
+    - manala_rtail
