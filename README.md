@@ -1,5 +1,3 @@
-<img src="http://www.manalas.com/manalas.png"/>
-
 # Ansible Role: Proxmox
 
 This role will handle:
