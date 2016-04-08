@@ -4,7 +4,7 @@
   command: "find {{ item.path|dirname }} -name {{ item.path|basename }} -type d -exec rm -r {} \\;"
   failed_when: false
   changed_when: false
-  when: item.state == 'link'
+  when: item.state in ['link']
   with_items: "{{
     manala_files
       |selectattr('force', 'sameas', true)
