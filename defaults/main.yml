@@ -1,0 +1,9 @@
+---
+
+# Templates
+manala_proxmox_templates_exclusive: false
+manala_proxmox_templates_dir:       /var/lib/vz/template/cache
+manala_proxmox_templates:           []
+
+# Storages
+manala_proxmox_storages: []
