@@ -11,21 +11,51 @@
       |list
   }}"
 
+- name: files > Link directory
+  file:
+    path:  "{{ item.path }}"
+    owner: "{{ item.user|default(manala_files_user|ternary(manala_files_user,omit)) }}"
+    group: "{{ item.group|default(manala_files_group|ternary(manala_files_group,omit)) }}"
+    state: directory
+  with_items: "{{
+    manala_files
+      |selectattr('state', 'sameas', 'link_directory')
+      |list
+  }}"
+
 - name: files > File
   file:
     path:     "{{ item.path }}"
     follow:   "{{ item.follow|default(omit) }}"
     force:    "{{ item.force|default(omit) }}"
-    group:    "{{ item.group|default(omit) }}"
+    owner:    "{{
+      (item.state == 'link_directory')|ternary(
+        omit,
+        item.user|default(manala_files_user|ternary(manala_files_user,omit))
+      )
+    }}"
+    group:    "{{
+      (item.state == 'link_directory')|ternary(
+        omit,
+        item.group|default(manala_files_group|ternary(manala_files_group,omit))
+      )
+    }}"
     mode:     "{{ item.mode|default(omit) }}"
-    owner:    "{{ item.owner|default(omit) }}"
     recurse:  "{{ item.recurse|default(omit) }}"
     setlevel: "{{ item.setlevel|default(omit) }}"
     setrole:  "{{ item.setrole|default(omit) }}"
     setype:   "{{ item.setype|default(omit) }}"
     seuser:   "{{ item.seuser|default(omit) }}"
     src:      "{{ item.src|default(omit) }}"
-    state:    "{{ item.state|default('file') }}"
+    state:    "{{
+      (item.state is defined)|ternary(
+        (item.state == 'link_directory')|ternary(
+          'link',
+          item.state
+        ),
+        'file'
+      )
+    }}"
   with_items: "{{
     manala_files
       |selectattr('content', 'undefined')
@@ -40,10 +70,10 @@
     url:            "{{ item.url }}"
     dest:           "{{ item.path }}"
     force:          "{{ item.force|default(false) }}"
-    group:          "{{ item.group|default(omit) }}"
+    owner:          "{{ item.user|default(manala_files_user|ternary(manala_files_user,omit)) }}"
+    group:          "{{ item.group|default(manala_files_group|ternary(manala_files_group,omit)) }}"
     mode:           "{{ item.mode|default(omit) }}"
-    owner:          "{{ item.owner|default(omit) }}"
-    validate_certs: "{{ item.owner|default(true)|bool }}"
+    validate_certs: "{{ item.validate_certs|default(true)|bool }}"
   with_items: "{{
     manala_files
       |selectattr('url', 'defined')
@@ -56,9 +86,9 @@
     dest:    "{{ item.path }}"
     content: "{{ item.content }}"
     force:   "{{ item.force|default(omit) }}"
-    group:   "{{ item.group|default(omit) }}"
+    owner:   "{{ item.user|default(manala_files_user|ternary(manala_files_user,omit)) }}"
+    group:   "{{ item.group|default(manala_files_group|ternary(manala_files_group,omit)) }}"
     mode:    "{{ item.mode|default(omit) }}"
-    owner:   "{{ item.owner|default(omit) }}"
   with_items: "{{
     manala_files
       |selectattr('content', 'defined')
@@ -67,12 +97,12 @@
 
 - name: files > Copy
   copy:
-    src:     "{{ item.src }}"
-    dest:    "{{ item.dest }}"
-    force:   "{{ item.force|default(omit) }}"
-    group:   "{{ item.group|default(omit) }}"
-    mode:    "{{ item.mode|default(omit) }}"
-    owner:   "{{ item.owner|default(omit) }}"
+    src:   "{{ item.src }}"
+    dest:  "{{ item.dest }}"
+    force: "{{ item.force|default(omit) }}"
+    owner: "{{ item.user|default(manala_files_user|ternary(manala_files_user,omit)) }}"
+    group: "{{ item.group|default(manala_files_group|ternary(manala_files_group,omit)) }}"
+    mode:  "{{ item.mode|default(omit) }}"
   with_items: "{{
     manala_files
       |selectattr('dest', 'defined')
@@ -81,12 +111,12 @@
 
 - name: files > Template
   template:
-    src:     "{{ item.template }}"
-    dest:    "{{ item.path }}"
-    force:   "{{ item.force|default(omit) }}"
-    group:   "{{ item.group|default(omit) }}"
-    mode:    "{{ item.mode|default(omit) }}"
-    owner:   "{{ item.owner|default(omit) }}"
+    src:   "{{ item.template }}"
+    dest:  "{{ item.path }}"
+    force: "{{ item.force|default(omit) }}"
+    owner: "{{ item.user|default(manala_files_user|ternary(manala_files_user,omit)) }}"
+    group: "{{ item.group|default(manala_files_group|ternary(manala_files_group,omit)) }}"
+    mode:  "{{ item.mode|default(omit) }}"
   with_items: "{{
     manala_files
       |selectattr('template', 'defined')

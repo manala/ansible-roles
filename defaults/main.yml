@@ -1,4 +1,8 @@
 ---
 
+# User & Group
+manala_files_user:  ~
+manala_files_group: ~
+
 # Files
 manala_files: []
