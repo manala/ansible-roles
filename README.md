@@ -34,9 +34,10 @@ None.
 
 ### Definition
 
-| Name           | Default | Type  | Description |
-| -------------- | ------- | ----- | ----------- |
-| `manala_merge` | []      | Array | Patterns    |
+| Name                  | Default | Type  | Description |
+| --------------------- | ------- | ----- | ----------- |
+| `manala_merge`        | []      | Array | Patterns    |
+| `manala_merge_prefix` | ~       | String| Prefix      |
 
 ### Example
 
@@ -53,6 +54,10 @@ None.
 ```
 
 ### Patterns
+
+...
+
+### Prefix
 
 ...
 
