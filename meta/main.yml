@@ -1,0 +1,108 @@
+---
+
+galaxy_info:
+
+  author:              Manala
+  company:             Manala
+  description:         Handle app
+  license:             MIT
+  min_ansible_version: 2.0.0
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+  galaxy_tags:
+    - development
+    - app
+
+dependencies:
+
+  - role: manala.merge
+    manala_merge:        "{{ ['manala_app_pattern'] + manala_app_patterns }}"
+    manala_merge_prefix: manala_
+
+  - manala.motd
+  - manala.timezone
+  - manala.locales
+  - manala.env
+  - manala.apt
+  - manala.ssh
+  - manala.git
+  - manala.zsh
+  - manala.ohmyzsh
+  - manala.vim
+  - manala.alternatives
+  - manala.files
+  - manala.make
+
+  # Mailhog
+  - role: manala.mailhog
+    when: manala_app_profile_mailhog
+
+  # Nodejs
+  - role: manala.nodejs
+    when: manala_app_profile_nodejs
+  - role: manala.npm
+    when: manala_app_profile_npm
+
+  # Php
+  - role: manala.php
+    when: manala_app_profile_php
+  - role: manala.composer
+    when: manala_app_profile_composer
+
+  - manala.nginx
+  - manala.supervisor
+  - manala.phantomjs
+  - manala.heka
+
+  # Rtail
+  - role: manala.rtail
+    when: manala_app_profile_rtail
+
+  # Ngrok
+  - role: manala.ngrok
+    when: manala_app_profile_ngrok
+
+  # Dnsmasq
+  - role: manala.dnsmasq
+    when: manala_app_profile_dnsmasq
+
+  # Chrony
+  - role: manala.chrony
+    when: manala_app_profile_chrony
+
+  # Java
+  - role: manala.java
+    when: manala_app_profile_java
+
+  - manala.cron
+  - role: manala.opcache-dashboard
+    when: manala_app_profile_opcache_dashboard
+
+  # MySQL
+  - role: manala.mysql
+    when: manala_app_profile_mysql
+  - role: manala.phpmyadmin
+    when: manala_app_profile_phpmyadmin
+
+  # PostgreSQL
+  - role: manala.postgresql
+    when: manala_app_profile_postgresql
+  - role: manala.phppgadmin
+    when: manala_app_profile_phppgadmin
+
+  # Redis
+  - role: manala.redis
+    when: manala_app_profile_redis
+  - role: manala.phpredisadmin
+    when: manala_app_profile_phpredisadmin
+
+  # MongoDB
+  - role: manala.mongodb
+    when: manala_app_profile_mongodb
+
+  # Elasticsearch
+  - role: manala.elasticsearch
+    when: manala_app_profile_elasticsearch
