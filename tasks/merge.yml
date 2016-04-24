@@ -2,5 +2,5 @@
 
 - name: merge
   manala_set:
-    vars:   "{{ lookup('manala_merge', manala_merge, wantlist=true) }}"
+    vars:   "{{ lookup('manala_merge', manala_merge_patterns, wantlist=true) }}"
     prefix: "{{ manala_merge_prefix }}"
