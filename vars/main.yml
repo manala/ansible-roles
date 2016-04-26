@@ -1,11 +1,22 @@
 ---
 
+# Skeletons
+manala_skeletons:
+  manala_app:
+    dev:
+      options:
+        # Motd
+        motd: true
+      pattern:
+        # Motd
+        motd_template: template/manala.j2
+        motd:          App - Dev
 
 ###########
 # Pattern #
 ###########
 
-manala_app_pattern:
+___manala_app_pattern:
 
   ########
   # Motd #

@@ -10,6 +10,7 @@ manala_app_log_dir:      /var/log/app
 manala_app_cache_dir:    /var/cache/app
 manala_app_sessions_dir: /var/lib/app/sessions
 
+
 # Php
 manala_app_profile_php:         false
 manala_app_profile_php_version: 7.0 # 5.4|5.5|5.6|7.0
@@ -62,3 +63,53 @@ manala_app_profile_ngrok: false
 
 # Mailhog
 manala_app_profile_mailhog: false
+
+
+
+
+# Patterns
+manala_skeleton_patterns: []
+
+# Options
+manala_skeleton_options: {}
+
+# Roles
+manala_skeleton_roles:
+  #motd:              "{{ manala_skeleton_options.motd|default(false) }}"
+  motd: true
+  timezone:          false
+  locales:           false
+  env:               false
+  apt:               false
+  ssh:               false
+  git:               false
+  zsh:               false
+  ohmyzsh:           false
+  vim:               false
+  alternatives:      false
+  files:             false
+  make:              false
+  mailhog:           false
+  nodejs:            false
+  npm:               false
+  php:               false
+  composer:          false
+  nginx:             false
+  supervisor:        false
+  phantomjs:         false
+  heka:              false
+  rtail:             false
+  ngrok:             false
+  dnsmasq:           false
+  chrony:            false
+  java:              false
+  cron:              false
+  opcache_dashboard: false
+  mysql:             false
+  phpmyadmin:        false
+  postgresql:        false
+  phppgadmin:        false
+  redis:             false
+  phpredisadmin:     false
+  mongodb:           false
+  elasticsearch:     false
