@@ -20,10 +20,12 @@ dependencies:
 
   - role: manala.merge
     manala_merge_hashes: "{{
-      ['manala_app_pattern']
+      [
+        manala_skeletons[manala_skeleton][manala_skeleton_env].patterns
+      ]
       + manala_skeleton_patterns
     }}"
-    manala_merge_prefix:   manala_
+    manala_merge_prefix: manala_
 
   # Motd
   - role: manala.motd

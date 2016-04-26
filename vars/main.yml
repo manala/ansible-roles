@@ -7,7 +7,7 @@ manala_skeletons:
       options:
         # Motd
         motd: true
-      pattern:
+      patterns:
         # Motd
         motd_template: template/manala.j2
         motd:          App - Dev
