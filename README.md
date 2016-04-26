@@ -34,17 +34,17 @@ None.
 
 ### Definition
 
-| Name                    | Default | Type  | Description |
-| ----------------------- | ------- | ----- | ----------- |
-| `manala_merge_patterns` | []      | Array | Patterns    |
-| `manala_merge_prefix`   | ~       | String| Prefix      |
+| Name                  | Default | Type  | Description |
+| --------------------- | ------- | ----- | ----------- |
+| `manala_merge_hashes` | []      | Array | Hashes      |
+| `manala_merge_prefix` | ~       | String| Prefix      |
 
 ### Example
 
 ```yaml
 - hosts: all
   vars:
-    manala_merge_patterns:
+    manala_merge_hashes:
       - _all
       - _env
       - _group_({{ group_names|join('|') }})
@@ -53,7 +53,7 @@ None.
     - manala.merge
 ```
 
-### Patterns
+### Hashes
 
 ...
 

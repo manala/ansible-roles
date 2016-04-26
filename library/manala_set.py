@@ -4,22 +4,22 @@ def main():
 
     module = AnsibleModule(
         argument_spec = dict(
-            vars = dict(required=True),
+            hash = dict(required=True),
             prefix = dict(required=False)
         )
     )
 
     prefix = module.params.get('prefix')
-    vars   = module.params.get('vars')
+    hash   = module.params.get('hash')
 
     # Handle prefix if provided
     if prefix:
-        for key, value in vars.items():
-            vars.pop(key)
-            vars[prefix + key] = value
+        for key, value in hash.items():
+            hash.pop(key)
+            hash[prefix + key] = value
 
     result = {
-        'ansible_facts': vars
+        'ansible_facts': hash
     }
 
     module.exit_json(**result)
