@@ -49,6 +49,8 @@ None.
       - _env
       - _group_({{ group_names|join('|') }})
       - _host
+      - foo: bar
+        bar: foo
   roles:
     - manala.merge
 ```
