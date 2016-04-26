@@ -67,11 +67,12 @@ manala_app_profile_mailhog: false
 
 
 
-# Patterns
-manala_skeleton_patterns: []
 
 # Options
 manala_skeleton_options: {}
+
+# Patterns
+manala_skeleton_patterns: []
 
 # Roles
 manala_skeleton_roles:
