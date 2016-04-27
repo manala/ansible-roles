@@ -167,6 +167,11 @@ manala_apt_repositories_patterns:
     key:
       url: https://www.aptly.info/pubkey.txt
       id:  9C7DE460
+  docker:
+    source: deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main
+    key:
+      url: http://p80.pool.sks-keyservers.net/pks/lookup?op=get&search=0xF76221572C52609D
+      id:  2C52609D
   manala:
     source: deb http://debian.manala.io {{ ansible_distribution_release }} main
     key:
@@ -196,3 +201,4 @@ manala_apt_preferences_patterns:
   gitlab-ce:     gitlab-ce*
   phpmyadmin:    phpmyadmin*
   phppgadmin:    phppgadmin*
+  docker:        docker*
