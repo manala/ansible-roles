@@ -1,10 +1,18 @@
 ---
 
-# Skeletons
 manala_skeletons:
+
+  ################
+  # Manala - App #
+  ################
+
   manala_app:
+
     dev:
+
       options:
+
+        # Roles
         motd:         true
         timezone:     true
         locales:      true
@@ -16,7 +24,9 @@ manala_skeletons:
         ohmyzsh:      true
         vim:          true
         alternatives: true
+
       patterns:
+
         # Motd
         motd_template: template/manala.j2
         motd:          App - Dev
@@ -43,8 +53,8 @@ manala_skeletons:
         git_config_template: config/manala_dev.j2
         # Oh my zsh
         ohmyzsh_users:
-          - user:     app
-            group:    app
+          - user:     "{{ manala_skeleton_options.app_user }}"
+            group:    "{{ manala_skeleton_options.app_group }}"
             template: users/manala_dev.j2
         # Vim
         vim_config_template: config/manala_dev.j2
@@ -53,38 +63,90 @@ manala_skeletons:
           - name: editor
             path: "{{ manala_vim_bin }}"
 
+  ####################
+  # Elao - App - Php #
+  ####################
+
+  elao_app_php:
+
+    dev:
+
+      options:
+
+        # Roles
+        motd:         true
+        timezone:     true
+        locales:      true
+        env:          true
+        apt:          true
+        ssh:          true
+        make:         true
+        git:          true
+        zsh:          true
+        ohmyzsh:      true
+        vim:          true
+        alternatives: true
+        files:        true
+
+      patterns:
+
+        # Motd
+        motd_template: template/elao.j2
+        motd:          App - Php - Dev
+        # Timezone
+        timezone: Etc/UTC
+        # Locales
+        locales: []
+        locales_default: C.UTF-8
+        # Apt
+        apt_update: true
+        apt_components: ['main']
+        apt_sources_list_template: sources_list/debian_security_updates.list.j2
+        apt_repositories_exclusive: true
+        apt_repositories:
+          - manala
+        apt_preferences: []
+        apt_packages: []
+        # Ssh
+        ssh_config_sshd_template: config/sshd/manala_dev.j2
+        ssh_config_template: config/manala_dev.j2
+        ssh_config:
+          # Demo
+          - Host *.elao.ninja.local:
+            - User:                  app
+            - ProxyCommand:          ssh gateway@hv-1.elao.ninja "nc %h %p"
+            - ForwardAgent:          true
+            - StrictHostKeyChecking: false
+            - HashKnownHosts:        false
+          # Prod
+          - Host *.elao.local:
+            - User:                  app
+            - ProxyCommand:          ssh gateway@hv-1.elao.com "nc %h %p"
+            - ForwardAgent:          true
+            - StrictHostKeyChecking: false
+            - HashKnownHosts:        false
+        # Git
+        git_config_template: config/manala_dev.j2
+        # Oh my zsh
+        ohmyzsh_users:
+          - user:     "{{ manala_skeleton_options.app_user }}"
+            group:    "{{ manala_skeleton_options.app_group }}"
+            template: users/manala_php_dev.j2
+            config:
+              - cd {{ manala_skeleton_options.app_dir }}
+        # Vim
+        vim_config_template: config/manala_dev.j2
+        # Alternatives
+        alternatives:
+          - name: editor
+            path: "{{ manala_vim_bin }}"
+
+
 ###########
 # Pattern #
 ###########
 
 ___manala_app_pattern:
-
-  ########
-  # Motd #
-  ########
-
-  motd_template: template/manala.j2
-  motd:          App - Php
-
-  ############
-  # Timezone #
-  ############
-
-  timezone: Etc/UTC
-
-  ###########
-  # Locales #
-  ###########
-
-  locales: []
-
-  locales_default: C.UTF-8
-
-  #######
-  # Env #
-  #######
-
-  env: []
 
   #######
   # Apt #
@@ -117,45 +179,6 @@ ___manala_app_pattern:
   }}"
 
   apt_packages: []
-
-  #######
-  # Ssh #
-  #######
-
-  ssh_config_sshd_template: config/sshd/manala_{{ manala_app_env }}.j2
-
-  ssh_config_template: config/manala_{{ manala_app_env }}.j2
-
-  #######
-  # Git #
-  #######
-
-  git_config_template: config/manala_{{ manala_app_env }}.j2
-
-  #############
-  # Oh my zsh #
-  #############
-
-  ohmyzsh_users:
-    - user:     "{{ manala_app_user }}"
-      group:    "{{ manala_app_group }}"
-      template: users/manala_{{ manala_app_env }}_php.j2
-      config:
-        - cd {{ manala_app_dir }}
-
-  #######
-  # Vim #
-  #######
-
-  vim_config_template: "config/manala_{{ manala_app_env }}.j2"
-
-  ################
-  # Alternatives #
-  ################
-
-  alternatives:
-    - name: editor
-      path: "{{ manala_vim_bin }}"
 
   ###########
   # MailHog #

@@ -73,23 +73,41 @@ manala_skeleton_patterns_hashes: []
 
 # Options
 manala_skeleton_options_hashes: []
-manala_skeleton_options: {}
+manala_skeleton_options:
+  # Roles
+  motd:         false
+  timezone:     false
+  locales:      false
+  env:          false
+  apt:          false
+  ssh:          false
+  make:         false
+  git:          false
+  zsh:          false
+  ohmyzsh:      false
+  vim:          false
+  alternatives: false
+  files:        false
+  # App
+  app_user:  app
+  app_group: app
+  app_dir:   /srv/app
 
 # Roles
 manala_skeleton_roles:
-  motd:              "{{ manala_skeleton_options.motd|default(false) }}"
-  timezone:          "{{ manala_skeleton_options.timezone|default(false) }}"
-  locales:           "{{ manala_skeleton_options.locales|default(false) }}"
-  env:               false
-  apt:               "{{ manala_skeleton_options.apt|default(false) }}"
-  ssh:               "{{ manala_skeleton_options.ssh|default(false) }}"
-  git:               "{{ manala_skeleton_options.git|default(false) }}"
-  zsh:               "{{ manala_skeleton_options.zsh|default(false) }}"
-  ohmyzsh:           "{{ manala_skeleton_options.ohmyzsh|default(false) and manala_skeleton_options.zsh|default(false) and manala_skeleton_options.git|default(false) }}"
-  vim:               "{{ manala_skeleton_options.vim|default(false) }}"
-  alternatives:      "{{ manala_skeleton_options.alternatives|default(false) }}"
-  files:             false
-  make:              "{{ manala_skeleton_options.make|default(false) }}"
+  motd:              "{{ manala_skeleton_options.motd }}"
+  timezone:          "{{ manala_skeleton_options.timezone }}"
+  locales:           "{{ manala_skeleton_options.locales }}"
+  env:               "{{ manala_skeleton_options.env }}"
+  apt:               "{{ manala_skeleton_options.apt }}"
+  ssh:               "{{ manala_skeleton_options.ssh }}"
+  git:               "{{ manala_skeleton_options.git }}"
+  zsh:               "{{ manala_skeleton_options.zsh }}"
+  ohmyzsh:           "{{ manala_skeleton_options.ohmyzsh and manala_skeleton_options.zsh and manala_skeleton_options.git }}"
+  vim:               "{{ manala_skeleton_options.vim }}"
+  alternatives:      "{{ manala_skeleton_options.alternatives }}"
+  files:             "{{ manala_skeleton_options.files }}"
+  make:              "{{ manala_skeleton_options.make }}"
   mailhog:           false
   nodejs:            false
   npm:               false

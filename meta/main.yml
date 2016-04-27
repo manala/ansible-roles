@@ -22,6 +22,9 @@ dependencies:
   - role: manala.merge
     manala_merge_hashes: "{{
       [
+        manala_skeleton_options
+      ]
+      + [
         manala_skeletons[manala_skeleton][manala_skeleton_env].options
       ]
       + manala_skeleton_options_hashes
@@ -50,9 +53,9 @@ dependencies:
   - role: manala.locales
     when: manala_skeleton_roles.locales|default(false)
 
-  # # Env
-  # - role: manala.env
-  #   when: manala_skeleton_roles.env|default(false)
+  # Env
+  - role: manala.env
+    when: manala_skeleton_roles.env|default(false)
 
   # Apt
   - role: manala.apt
