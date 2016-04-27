@@ -4,7 +4,7 @@ galaxy_info:
 
   author:              Manala
   company:             Manala
-  description:         Handle app
+  description:         Handle skeleton
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -13,8 +13,7 @@ galaxy_info:
         - wheezy
         - jessie
   galaxy_tags:
-    - development
-    - app
+    - skeleton
 
 dependencies:
 
@@ -43,138 +42,140 @@ dependencies:
 
   # Motd
   - role: manala.motd
-    when: manala_skeleton_roles.motd|default(false)
+    when: manala_skeleton_options.motd
 
   # Timezone
   - role: manala.timezone
-    when: manala_skeleton_roles.timezone|default(false)
+    when: manala_skeleton_options.timezone
 
   # Locales
   - role: manala.locales
-    when: manala_skeleton_roles.locales|default(false)
+    when: manala_skeleton_options.locales
 
   # Env
   - role: manala.env
-    when: manala_skeleton_roles.env|default(false)
+    when: manala_skeleton_options.env
 
   # Apt
   - role: manala.apt
-    when: manala_skeleton_roles.apt|default(false)
+    when: manala_skeleton_options.apt
 
   # Ssh
   - role: manala.ssh
-    when: manala_skeleton_roles.ssh|default(false)
+    when: manala_skeleton_options.ssh
 
   # Git
   - role: manala.git
-    when: manala_skeleton_roles.git|default(false)
+    when: manala_skeleton_options.git
 
   # Zsh
   - role: manala.zsh
-    when: manala_skeleton_roles.zsh|default(false)
+    when: manala_skeleton_options.zsh
 
   # Oh my zsh
   - role: manala.ohmyzsh
-    when: manala_skeleton_roles.ohmyzsh|default(false)
+    when: manala_skeleton_options.ohmyzsh and manala_skeleton_options.zsh and manala_skeleton_options.git
 
   # Vim
   - role: manala.vim
-    when: manala_skeleton_roles.vim|default(false)
+    when: manala_skeleton_options.vim
 
   # Alternatives
   - role: manala.alternatives
-    when: manala_skeleton_roles.alternatives|default(false)
+    when: manala_skeleton_options.alternatives
 
-  # # Files
-  # - role: manala.files
-  #   when: manala_skeleton_roles.files|default(false)
+  # Files
+  - role: manala.files
+    when: manala_skeleton_options.files
 
   # Make
   - role: manala.make
-    when: manala_skeleton_roles.make|default(false)
+    when: manala_skeleton_options.make
 
-  # # MailHog
-  # - role: manala.mailhog
-  #   when: manala_skeleton_roles.mailhog|default(false)
+  # MailHog
+  - role: manala.mailhog
+    when: manala_skeleton_options.mailhog
 
-  # # Nodejs
-  # - role: manala.nodejs
-  #   when: manala_skeleton_roles.nodejs|default(false)
-  # - role: manala.npm
-  #   when: manala_skeleton_roles.npm|default(false)
+  # Nodejs
+  - role: manala.nodejs
+    when: manala_skeleton_options.nodejs
+  - role: manala.npm
+    when: manala_skeleton_options.npm and manala_skeleton_options.nodejs
 
-  # # Php
-  # - role: manala.php
-  #   when: manala_skeleton_roles.php|default(false)
-  # - role: manala.composer
-  #   when: manala_skeleton_roles.composer|default(false)
+  # Php
+  - role: manala.php
+    when: manala_skeleton_options.php
+  - role: manala.composer
+    when: manala_skeleton_options.composer and manala_skeleton_options.php
 
-  # # Nginx
-  # - role: manala.nginx
-  #   when: manala_skeleton_roles.nginx|default(false)
+  # Nginx
+  - role: manala.nginx
+    when: manala_skeleton_options.nginx
 
-  # # Supervisor
-  # - role: manala.supervisor
-  #   when: manala_skeleton_roles.supervisor|default(false)
+  # Supervisor
+  - role: manala.supervisor
+    when: manala_skeleton_options.supervisor
 
-  # # PhantomJS
-  # - role: manala.phantomjs
-  #   when: manala_skeleton_roles.phantomjs|default(false)
+  # PhantomJS
+  - role: manala.phantomjs
+    when: manala_skeleton_options.phantomjs
 
-  # # Heka
-  # - role: manala.heka
-  #   when: manala_skeleton_roles.heka|default(false)
+  # Heka
+  - role: manala.heka
+    when: manala_skeleton_options.heka
 
-  # # RTail
-  # - role: manala.rtail
-  #   when: manala_skeleton_roles.rtail|default(false)
+  # RTail
+  - role: manala.rtail
+    when: manala_skeleton_options.rtail and manala_skeleton_options.nodejs
 
-  # # Ngrok
-  # - role: manala.ngrok
-  #   when: manala_skeleton_roles.ngrok|default(false)
+  # Ngrok
+  - role: manala.ngrok
+    when: manala_skeleton_options.ngrok
+
+  # Chrony
+  - role: manala.chrony
+    when: manala_skeleton_options.chrony
+
+  # Java
+  - role: manala.java
+    when: manala_skeleton_options.java or manala_skeleton_options.elasticsearch
+
+  # Cron
+  - role: manala.cron
+    when: manala_skeleton_options.cron
+
+  # OPcache Dashboard
+  - role: manala.opcache-dashboard
+    when: manala_skeleton_options.opcache_dashboard and manala_skeleton_options.php and manala_skeleton_options.nginx
+
+  # MySql
+  - role: manala.mysql
+    when: manala_skeleton_options.mysql
+  - role: manala.phpmyadmin
+    when: manala_skeleton_options.phpmyadmin and manala_skeleton_options.mysql and manala_skeleton_options.php and manala_skeleton_options.nginx
+
+  # PostgreSQL
+  - role: manala.postgresql
+    when: manala_skeleton_options.postgresql
+  - role: manala.phppgadmin
+    when: manala_skeleton_options.phppgadmin and manala_skeleton_options.postgresql and manala_skeleton_options.php and manala_skeleton_options.nginx
+
+  # Redis
+  - role: manala.redis
+    when: manala_skeleton_options.redis
+  - role: manala.phpredisadmin
+    when: manala_skeleton_options.phpredisadmin and manala_skeleton_options.redis and manala_skeleton_options.php and manala_skeleton_options.nginx
+
+  # MongoDB
+  - role: manala.mongodb
+    when: manala_skeleton_options.mongodb
+  - role: manala.rockmongo
+    when: manala_skeleton_options.rockmongo and manala_skeleton_options.mongodb and manala_skeleton_options.php and manala_skeleton_options.nginx
+
+  # Elasticsearch
+  - role: manala.elasticsearch
+    when: manala_skeleton_options.elasticsearch
 
   # # Dnsmasq
   # - role: manala.dnsmasq
-  #   when: manala_skeleton_roles.dnsmasq|default(false)
-
-  # # Chrony
-  # - role: manala.chrony
-  #   when: manala_skeleton_roles.chrony|default(false)
-
-  # # Java
-  # - role: manala.java
-  #   when: manala_skeleton_roles.java|default(false)
-
-  # # Cron
-  # - role: manala.cron
-  #   when: manala_skeleton_roles.cron|default(false)
-
-  # # OPcache Dashboard
-  # - role: manala.opcache-dashboard
-  #   when: manala_skeleton_roles.opcache_dashboard|default(false)
-
-  # # MySql
-  # - role: manala.mysql
-  #   when: manala_skeleton_roles.mysql|default(false)
-  # - role: manala.phpmyadmin
-  #   when: manala_skeleton_roles.phpmyadmin|default(false)
-
-  # # PostgreSQL
-  # - role: manala.postgresql
-  #   when: manala_skeleton_roles.postgresql|default(false)
-  # - role: manala.phppgadmin
-  #   when: manala_skeleton_roles.phppgadmin|default(false)
-
-  # # Redis
-  # - role: manala.redis
-  #   when: manala_skeleton_roles.redis|default(false)
-  # - role: manala.phpredisadmin
-  #   when: manala_skeleton_roles.phpredisadmin|default(false)
-
-  # # MongoDB
-  # - role: manala.mongodb
-  #   when: manala_skeleton_roles.mongodb|default(false)
-
-  # # Elasticsearch
-  # - role: manala.elasticsearch
-  #   when: manala_skeleton_roles.elasticsearch|default(false)
+  #   when: manala_skeleton_options.dnsmasq

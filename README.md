@@ -1,1 +1,1 @@
-# Ansible Role: App
+# Skeleton
