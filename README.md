@@ -38,6 +38,7 @@ None.
 | --------------------- | ------- | ----- | ----------- |
 | `manala_merge_hashes` | []      | Array | Hashes      |
 | `manala_merge_prefix` | ~       | String| Prefix      |
+| `manala_merge_var`    | ~       | String| Var         |
 
 ### Example
 
@@ -60,6 +61,10 @@ None.
 ...
 
 ### Prefix
+
+...
+
+### Var
 
 ...
 

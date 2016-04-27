@@ -5,3 +5,6 @@ manala_merge_hashes: []
 
 # Prefix
 manala_merge_prefix: ~
+
+# Var
+manala_merge_var: ~

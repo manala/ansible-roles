@@ -3,4 +3,5 @@
 - name: merge
   manala_set:
     hash:   "{{ lookup('manala_merge', manala_merge_hashes, wantlist=true) }}"
-    prefix: "{{ manala_merge_prefix }}"
+    prefix: "{{ manala_merge_prefix|default(omit) }}"
+    var:    "{{ manala_merge_var|default(omit) }}"

@@ -5,18 +5,24 @@ def main():
     module = AnsibleModule(
         argument_spec = dict(
             hash = dict(required=True),
-            prefix = dict(required=False)
+            prefix = dict(required=False),
+            var = dict(required=False)
         )
     )
 
     prefix = module.params.get('prefix')
     hash   = module.params.get('hash')
+    var    = module.params.get('var')
 
     # Handle prefix if provided
     if prefix:
         for key, value in hash.items():
             hash.pop(key)
             hash[prefix + key] = value
+
+    # Handle var if provided
+    if var:
+        hash = { var: hash }
 
     result = {
         'ansible_facts': hash
