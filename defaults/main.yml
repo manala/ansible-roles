@@ -68,28 +68,28 @@ manala_app_profile_mailhog: false
 
 
 
-# Options
-manala_skeleton_options: {}
-
 # Patterns
-manala_skeleton_patterns: []
+manala_skeleton_patterns_hashes: []
+
+# Options
+manala_skeleton_options_hashes: []
+manala_skeleton_options: {}
 
 # Roles
 manala_skeleton_roles:
-  #motd:              "{{ manala_skeleton_options.motd|default(false) }}"
-  motd: true
-  timezone:          false
-  locales:           false
+  motd:              "{{ manala_skeleton_options.motd|default(false) }}"
+  timezone:          "{{ manala_skeleton_options.timezone|default(false) }}"
+  locales:           "{{ manala_skeleton_options.locales|default(false) }}"
   env:               false
-  apt:               false
-  ssh:               false
-  git:               false
-  zsh:               false
-  ohmyzsh:           false
-  vim:               false
-  alternatives:      false
+  apt:               "{{ manala_skeleton_options.apt|default(false) }}"
+  ssh:               "{{ manala_skeleton_options.ssh|default(false) }}"
+  git:               "{{ manala_skeleton_options.git|default(false) }}"
+  zsh:               "{{ manala_skeleton_options.zsh|default(false) }}"
+  ohmyzsh:           "{{ manala_skeleton_options.ohmyzsh|default(false) and manala_skeleton_options.zsh|default(false) and manala_skeleton_options.git|default(false) }}"
+  vim:               "{{ manala_skeleton_options.vim|default(false) }}"
+  alternatives:      "{{ manala_skeleton_options.alternatives|default(false) }}"
   files:             false
-  make:              false
+  make:              "{{ manala_skeleton_options.make|default(false) }}"
   mailhog:           false
   nodejs:            false
   npm:               false

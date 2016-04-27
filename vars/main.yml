@@ -5,12 +5,53 @@ manala_skeletons:
   manala_app:
     dev:
       options:
-        # Motd
-        motd: true
+        motd:         true
+        timezone:     true
+        locales:      true
+        apt:          true
+        ssh:          true
+        make:         true
+        git:          true
+        zsh:          true
+        ohmyzsh:      true
+        vim:          true
+        alternatives: true
       patterns:
         # Motd
         motd_template: template/manala.j2
         motd:          App - Dev
+        # Timezone
+        timezone: Etc/UTC
+        # Locales
+        locales:
+          - name:  en_US.UTF-8
+            state: absent
+        locales_default: C.UTF-8
+        # Apt
+        apt_update: true
+        apt_components: ['main']
+        apt_sources_list_template: sources_list/debian_security_updates.list.j2
+        apt_repositories_exclusive: true
+        apt_repositories:
+          - manala
+        apt_preferences: []
+        apt_packages: []
+        # Ssh
+        ssh_config_sshd_template: config/sshd/manala_dev.j2
+        ssh_config_template: config/manala_dev.j2
+        # Git
+        git_config_template: config/manala_dev.j2
+        # Oh my zsh
+        ohmyzsh_users:
+          - user:     app
+            group:    app
+            template: users/manala_dev.j2
+        # Vim
+        vim_config_template: config/manala_dev.j2
+        # Alternatives
+        alternatives:
+          - name: editor
+            path: "{{ manala_vim_bin }}"
 
 ###########
 # Pattern #

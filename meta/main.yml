@@ -18,66 +18,77 @@ galaxy_info:
 
 dependencies:
 
+  # Merge - Options
+  - role: manala.merge
+    manala_merge_hashes: "{{
+      [
+        manala_skeletons[manala_skeleton][manala_skeleton_env].options
+      ]
+      + manala_skeleton_options_hashes
+    }}"
+    manala_merge_var: manala_skeleton_options
+
+  # Merge - Patterns
   - role: manala.merge
     manala_merge_hashes: "{{
       [
         manala_skeletons[manala_skeleton][manala_skeleton_env].patterns
       ]
-      + manala_skeleton_patterns
+      + manala_skeleton_patterns_hashes
     }}"
     manala_merge_prefix: manala_
 
   # Motd
   - role: manala.motd
     when: manala_skeleton_roles.motd|default(false)
-  
-  # # Timezone
-  # - role: manala.timezone
-  #   when: manala_skeleton_roles.timezone|default(false)
 
-  # # Locales
-  # - role: manala.locales
-  #   when: manala_skeleton_roles.locales|default(false)
+  # Timezone
+  - role: manala.timezone
+    when: manala_skeleton_roles.timezone|default(false)
+
+  # Locales
+  - role: manala.locales
+    when: manala_skeleton_roles.locales|default(false)
 
   # # Env
   # - role: manala.env
   #   when: manala_skeleton_roles.env|default(false)
-  
-  # # Apt
-  # - role: manala.apt
-  #   when: manala_skeleton_roles.apt|default(false)
-  
-  # # Ssh
-  # - role: manala.ssh
-  #   when: manala_skeleton_roles.ssh|default(false)
-  
-  # # Git
-  # - role: manala.git
-  #   when: manala_skeleton_roles.git|default(false)
-  
-  # # Zsh
-  # - role: manala.zsh
-  #   when: manala_skeleton_roles.zsh|default(false)
-  
-  # # Oh my zsh
-  # - role: manala.ohmyzsh
-  #   when: manala_skeleton_roles.ohmyzsh|default(false)
-  
-  # # Vim
-  # - role: manala.vim
-  #   when: manala_skeleton_roles.vim|default(false)
-  
-  # # Alternatives
-  # - role: manala.alternatives
-  #   when: manala_skeleton_roles.alternatives|default(false)
-  
+
+  # Apt
+  - role: manala.apt
+    when: manala_skeleton_roles.apt|default(false)
+
+  # Ssh
+  - role: manala.ssh
+    when: manala_skeleton_roles.ssh|default(false)
+
+  # Git
+  - role: manala.git
+    when: manala_skeleton_roles.git|default(false)
+
+  # Zsh
+  - role: manala.zsh
+    when: manala_skeleton_roles.zsh|default(false)
+
+  # Oh my zsh
+  - role: manala.ohmyzsh
+    when: manala_skeleton_roles.ohmyzsh|default(false)
+
+  # Vim
+  - role: manala.vim
+    when: manala_skeleton_roles.vim|default(false)
+
+  # Alternatives
+  - role: manala.alternatives
+    when: manala_skeleton_roles.alternatives|default(false)
+
   # # Files
   # - role: manala.files
   #   when: manala_skeleton_roles.files|default(false)
-  
-  # # Make
-  # - role: manala.make
-  #   when: manala_skeleton_roles.make|default(false)
+
+  # Make
+  - role: manala.make
+    when: manala_skeleton_roles.make|default(false)
 
   # # MailHog
   # - role: manala.mailhog
@@ -98,15 +109,15 @@ dependencies:
   # # Nginx
   # - role: manala.nginx
   #   when: manala_skeleton_roles.nginx|default(false)
-  
+
   # # Supervisor
   # - role: manala.supervisor
   #   when: manala_skeleton_roles.supervisor|default(false)
-  
+
   # # PhantomJS
   # - role: manala.phantomjs
   #   when: manala_skeleton_roles.phantomjs|default(false)
-  
+
   # # Heka
   # - role: manala.heka
   #   when: manala_skeleton_roles.heka|default(false)
@@ -134,7 +145,7 @@ dependencies:
   # # Cron
   # - role: manala.cron
   #   when: manala_skeleton_roles.cron|default(false)
-  
+
   # # OPcache Dashboard
   # - role: manala.opcache-dashboard
   #   when: manala_skeleton_roles.opcache_dashboard|default(false)
