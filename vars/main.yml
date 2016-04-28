@@ -160,21 +160,6 @@ manala_skeletons:
         # Ssh
         ssh_config_sshd_template: config/sshd/manala_dev.j2
         ssh_config_template: config/manala_dev.j2
-        ssh_config:
-          # Demo
-          - Host *.elao.ninja.local:
-            - User:                  app
-            - ProxyCommand:          ssh gateway@hv-1.elao.ninja "nc %h %p"
-            - ForwardAgent:          true
-            - StrictHostKeyChecking: false
-            - HashKnownHosts:        false
-          # Prod
-          - Host *.elao.local:
-            - User:                  app
-            - ProxyCommand:          ssh gateway@hv-1.elao.com "nc %h %p"
-            - ForwardAgent:          true
-            - StrictHostKeyChecking: false
-            - HashKnownHosts:        false
         # Git
         git_config_template: config/manala_dev.j2
         # Oh my zsh
