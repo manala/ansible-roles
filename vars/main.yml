@@ -409,7 +409,7 @@ manala_skeletons:
             template: configs/manala_dev.php.j2
         # Elasticsearch
         elasticsearch_plugins:
-          - mobz/elasticsearch-head
+          - appbaseio/dejaVu
         # PhantomJS
         phantomjs_config_template: config/manala_dev.j2
         # Heka
