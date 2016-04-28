@@ -2,3 +2,6 @@
 
 # Roles
 manala_ansible_galaxy_roles: []
+
+# Force
+manala_ansible_galaxy_force: false

@@ -7,5 +7,8 @@
   when: manala_ansible_galaxy_roles|length
 
 - name: roles > Install
-  command: ansible-galaxy install --role-file=/tmp/manala_ansible_galaxy_roles.yml
+  command: >
+    ansible-galaxy install
+    --role-file=/tmp/manala_ansible_galaxy_roles.yml
+    {{ manala_ansible_galaxy_force|ternary('--force', '') }}
   when: manala_ansible_galaxy_roles|length

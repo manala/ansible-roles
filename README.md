@@ -30,9 +30,10 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                         | Default| Type  | Description  |
-|----------------------------- |------- |------ |------------- |
-| manala_ansible_galaxy_roles  | []     | Array | Roles        |
+| Name                         | Default| Type    | Description  |
+|----------------------------- |------- |-------- |------------- |
+| manala_ansible_galaxy_roles  | []     | Array   | Roles        |
+| manala_ansible_galaxy_force  | false  | Boolean | Force        |
 
 ### Roles
 
@@ -40,7 +41,7 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_ansible_galaxy_roles:
-  - manala.app
+  - manala.skeleton
 ```
 
 ## Example playbook
