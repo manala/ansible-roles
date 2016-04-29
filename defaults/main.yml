@@ -22,7 +22,7 @@ manala_skeleton_options:
   files:                 false
   mailhog:               false
   nodejs:                false
-  nodejs_version:        5 # 0.10|0.12|4|5|6
+  nodejs_version:        6 # 0.10|0.12|4|5|6
   npm:                   false
   php:                   false
   php_version:           7.0 # 5.4|5.5|5.6|7.0
