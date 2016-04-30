@@ -3,3 +3,6 @@
 - include: install.yml
 - include: config.yml
 - include: known_hosts.yml
+- include: services.yml
+  tags:
+     - manala.services
