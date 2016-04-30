@@ -132,9 +132,9 @@ dependencies:
   - role: manala.ngrok
     when: manala_skeleton_options.ngrok
 
-  # Chrony
-  - role: manala.chrony
-    when: manala_skeleton_options.chrony
+  # Ntp
+  - role: manala.ntp
+    when: manala_skeleton_options.ntp
 
   # Java
   - role: manala.java

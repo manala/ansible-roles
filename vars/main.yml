@@ -27,7 +27,7 @@ manala_skeletons:
         mailhog:      true
         supervisor:   true
         cron:         true
-        chrony:       true
+        ntp:          true
         ngrok:        true
 
       patterns:
@@ -108,7 +108,7 @@ manala_skeletons:
         mailhog:           true
         supervisor:        true
         cron:              true
-        chrony:            true
+        ntp:               true
         ngrok:             true
         nginx:             true
         php:               true
@@ -155,7 +155,6 @@ manala_skeletons:
           + (manala_skeleton_options.redis)|ternary(['redis@dotdeb'],[])
           + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
           + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2'}[manala_skeleton_options.elasticsearch_version|string]],[])
-          + (manala_skeleton_options.chrony)|ternary(['chrony@manala'],[])
         }}"
         apt_packages: []
         # Ssh
@@ -449,7 +448,7 @@ manala_skeletons:
         mailhog:           true
         supervisor:        true
         cron:              true
-        chrony:            true
+        ntp:               true
         ngrok:             true
         nginx:             true
         php:               true
@@ -496,7 +495,6 @@ manala_skeletons:
           + (manala_skeleton_options.redis)|ternary(['redis@dotdeb'],[])
           + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
           + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2'}[manala_skeleton_options.elasticsearch_version|string]],[])
-          + (manala_skeleton_options.chrony)|ternary(['chrony@manala'],[])
         }}"
         apt_packages: []
         # Ssh

@@ -33,7 +33,7 @@ manala_skeleton_options:
   heka:                  false
   rtail:                 false
   ngrok:                 false
-  chrony:                false
+  ntp:                   false
   java:                  false
   cron:                  false
   opcache_dashboard:     false
