@@ -393,7 +393,7 @@ manala_skeletons:
             password:        ~
             role_attr_flags: SUPERUSER
         # Redis
-        redis_config_template: config/manala_devconf.j2
+        redis_config_template: config/manala_dev.conf.j2
         # PhpRedisAdmin
         phpredisadmin_configs_exclusive: true
         phpredisadmin_configs:
@@ -733,7 +733,7 @@ manala_skeletons:
             password:        ~
             role_attr_flags: SUPERUSER
         # Redis
-        redis_config_template: config/manala_devconf.j2
+        redis_config_template: config/manala_dev.conf.j2
         # PhpRedisAdmin
         phpredisadmin_configs_exclusive: true
         phpredisadmin_configs:
