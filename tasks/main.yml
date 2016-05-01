@@ -16,5 +16,6 @@
 - include: fpm_pools.yml
   when: ('fpm' in manala_php_sapis)
 - include: services.yml
-  tags: manala_services
+  tags:
+     - manala.services
 - include: applications.yml
