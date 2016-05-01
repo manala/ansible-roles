@@ -5,7 +5,8 @@
 - include: configs.yml
   when: "(manala_mysql_tasks_include is none or 'configs' in manala_mysql_tasks_include) and ('configs' not in manala_mysql_tasks_exlude)"
 - include: services.yml
-  tags: manala_services
+  tags:
+     - manala.services
   when: "(manala_mysql_tasks_include is none or 'services' in manala_mysql_tasks_include) and ('services' not in manala_mysql_tasks_exlude)"
 - include: users.yml
   when: "(manala_mysql_tasks_include is none or 'users' in manala_mysql_tasks_include) and ('users' not in manala_mysql_tasks_exlude)"
