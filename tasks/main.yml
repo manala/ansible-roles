@@ -3,3 +3,5 @@
 - include: install.yml
 - include: config.yml
 - include: services.yml
+  tags:
+     - manala.services
