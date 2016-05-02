@@ -40,7 +40,7 @@
 {%- endmacro -%}
 
 {%- macro _config_parameter(key, value, indent = 0) -%}
-    {{ ('-' ~ _config_parameter_key(key))|indent(indent, true) }} {{ _config_parameter_value(value) }}{{ ' \\\n' }}
+    -{{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }}
 {%- endmacro -%}
 
 {%- macro _config_parameter_key(key) -%}
