@@ -47,7 +47,7 @@ manala_skeleton_options:
   phpredisadmin:         false
   mongodb:               false
   mongodb_version:       3.2
-  rockmongo:             false
+  mongo_express:         false
   elasticsearch:         false
   elasticsearch_version: 1.7
   dnsmasq:               false

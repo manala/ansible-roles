@@ -118,7 +118,7 @@ manala_skeletons:
         phpmyadmin:        true
         phppgadmin:        true
         phpredisadmin:     true
-        rockmongo:         true
+        mongo_express:     true
         opcache_dashboard: true
         phantomjs:         true
         heka:              true
@@ -340,25 +340,6 @@ manala_skeletons:
               ]}
             ]
           }],[])
-          + (manala_skeleton_options.rockmongo)|ternary([{
-            'file':     'manala.rockmongo.conf',
-            'template': 'configs/server.conf.j2',
-            'config':   [
-              {'listen': 1982},
-              {'root':   manala_rockmongo_dir},
-              {'location /': [
-                {'try_files': '$uri /index.php$is_args$args'}
-              ]},
-              {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
-                {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
-                {'fastcgi_read_timeout':    '60s'},
-                {'include':                 'fastcgi_params'},
-                {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
-                {'fastcgi_param':           'HTTPS off'}
-              ]}
-            ]
-          }],[])
         }}"
         # MySql
         mysql_configs_exclusive: true
@@ -401,11 +382,8 @@ manala_skeletons:
             template: configs/manala_dev.inc.php.j2
         # MongoDB
         mongodb_config_template: config/manala_dev.conf.j2
-        # RockMongo
-        rockmongo_configs_exclusive: true
-        rockmongo_configs:
-          - file:     manala.php
-            template: configs/manala_dev.php.j2
+        # Mongo Express
+        mongo_express_config_template: config/manala_dev.js.j2
         # Elasticsearch
         elasticsearch_plugins:
           - appbaseio/dejaVu
@@ -458,7 +436,7 @@ manala_skeletons:
         phpmyadmin:        true
         phppgadmin:        true
         phpredisadmin:     true
-        rockmongo:         true
+        mongo_express:     true
         opcache_dashboard: true
         phantomjs:         true
         heka:              true
@@ -680,25 +658,6 @@ manala_skeletons:
               ]}
             ]
           }],[])
-          + (manala_skeleton_options.rockmongo)|ternary([{
-            'file':     'manala.rockmongo.conf',
-            'template': 'configs/server.conf.j2',
-            'config':   [
-              {'listen': 1982},
-              {'root':   manala_rockmongo_dir},
-              {'location /': [
-                {'try_files': '$uri /index.php$is_args$args'}
-              ]},
-              {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
-                {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
-                {'fastcgi_read_timeout':    '60s'},
-                {'include':                 'fastcgi_params'},
-                {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
-                {'fastcgi_param':           'HTTPS off'}
-              ]}
-            ]
-          }],[])
         }}"
         # MySql
         mysql_configs_exclusive: true
@@ -741,11 +700,8 @@ manala_skeletons:
             template: configs/manala_dev.inc.php.j2
         # MongoDB
         mongodb_config_template: config/manala_dev.conf.j2
-        # RockMongo
-        rockmongo_configs_exclusive: true
-        rockmongo_configs:
-          - file:     manala.php
-            template: configs/manala_dev.php.j2
+        # Mongo Express
+        mongo_express_config_template: config/manala_dev.js.j2
         # Elasticsearch
         elasticsearch_plugins:
           - appbaseio/dejaVu

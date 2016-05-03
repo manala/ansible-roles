@@ -169,8 +169,8 @@ dependencies:
   # MongoDB
   - role: manala.mongodb
     when: manala_skeleton_options.mongodb
-  - role: manala.rockmongo
-    when: manala_skeleton_options.rockmongo and manala_skeleton_options.mongodb and manala_skeleton_options.php and manala_skeleton_options.nginx
+  - role: manala.mongo-express
+    when: manala_skeleton_options.mongo_express and manala_skeleton_options.mongodb and manala_skeleton_options.nodejs
 
   # Elasticsearch
   - role: manala.elasticsearch
