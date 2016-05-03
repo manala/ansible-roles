@@ -2,6 +2,6 @@
 
 {% set config = manala_phantomjs_config -%}
 
-[Service]
-ExecStart=
-ExecStart={{ manala_phantomjs_bin }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, [], 9).rstrip(' \\\n') }}
+{
+{{ macros.config(config, [], 4) }}
+}

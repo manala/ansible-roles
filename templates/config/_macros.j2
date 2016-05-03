@@ -6,7 +6,7 @@
         {%- elif parameter is mapping -%}
             {%- for parameter_key, parameter_value in parameter.iteritems() -%}
                 {%- if parameter_key not in exclusions -%}
-                    {{ _config_parameter(parameter_key, parameter_value, indent) }}{% if not outer_loop.last %} {% endif %}
+                    {{ _config_parameter(parameter_key, parameter_value, indent) }}{% if not outer_loop.last %},{{ '\n' }}{% endif %}
                 {%- endif -%}
             {%- endfor -%}
         {%- endif -%}
@@ -40,16 +40,21 @@
 {%- endmacro -%}
 
 {%- macro _config_parameter(key, value, indent = 0) -%}
-    {{ ('--' ~ _config_parameter_key(key))|indent(indent, true) }}={{ _config_parameter_value(value) }}{{ ' \\\n' }}
+    {{ _config_parameter_key(key)|indent(indent, true) }}: {{ _config_parameter_value(value) }}
 {%- endmacro -%}
 
 {%- macro _config_parameter_key(key) -%}
-    {{ key }}
+    "{{ key }}"
 {%- endmacro -%}
 
 {%- macro _config_parameter_value(value) -%}
-    {%- if value is string -%}
-        {{ value }}
+    {%- if value is sameas none -%}
+    {%- elif value is sameas true -%}
+        true
+    {%- elif value is sameas false -%}
+        false
+    {%- elif value is string -%}
+        "{{ value }}"
     {%- elif value is number -%}
         {{ value }}
     {%- endif -%}

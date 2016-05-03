@@ -2,7 +2,6 @@
 
 {% set config = manala_phantomjs_config -%}
 
-[Service]
-ExecStart=
-ExecStart={{ manala_phantomjs_bin }} \
-          {{ macros.config_row(config, 'webdriver', 4444).rstrip(' \\\n') }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, ['webdriver'], 9).rstrip(' \\\n') }}
+{
+{{ (macros.config_row(config, 'webdriver', 4444, 4) ~ ',\n' ~ macros.config(config, ['webdriver'], 4)).rstrip(',\n') }}
+}
