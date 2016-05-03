@@ -1,0 +1,6 @@
+---
+
+- name: mongo express restart
+  service:
+    name:  mongo-express
+    state: restarted

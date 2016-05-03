@@ -1,0 +1,5 @@
+---
+
+# Config
+manala_mongo_express_config_template: ~
+manala_mongo_express_config:          []
