@@ -24,7 +24,7 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.rtail,2.0
+ansible-galaxy install manala.rtail
 ```
 
 Using ansible galaxy requirements file:
