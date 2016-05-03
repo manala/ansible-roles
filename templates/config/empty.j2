@@ -2,6 +2,5 @@
 
 {% set config = manala_rtail_config -%}
 
-[Service]
-ExecStart=
-ExecStart=/usr/bin/nodejs /usr/lib/nodejs/rtail/cli/rtail-server.js{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, [], 9).rstrip(' \\\n') }}
+# Additional options that are passed to the Daemon.
+DAEMON_ARGS="{{ macros.config(config) }}"

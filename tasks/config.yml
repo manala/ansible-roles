@@ -1,19 +1,9 @@
 ---
 
-- name: config > Directory
-  file:
-    path:  "{{ manala_rtail_config_file|dirname }}"
-    state: directory
-    owner: root
-    group: root
-
 - name: config > Template
   template:
-    src:   "{{ manala_rtail_config_template|ternary(manala_rtail_config_template, 'config/empty.j2') }}"
-    dest:  "{{ manala_rtail_config_file }}"
-    owner: root
-    group: root
+    src:  "{{ manala_rtail_config_template|ternary(manala_rtail_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_rtail_config_file }}"
+  when: (manala_rtail_config_template is not none) or (manala_rtail_config|length)
   notify:
-    # See: https://github.com/ansible/ansible-modules-core/issues/191
-    - systemd reload
     - rtail restart

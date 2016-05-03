@@ -2,7 +2,7 @@
 
 {% set config = manala_rtail_config -%}
 
-[Service]
-ExecStart=
-ExecStart=/usr/bin/nodejs /usr/lib/nodejs/rtail/cli/rtail-server.js \
-          {{ macros.config_row(config, 'web-host', '0.0.0.0').rstrip(' \\\n') }}{{ config|ternary(' \\\n ', '') }}{{ macros.config(config, ['web-host'], 9).rstrip(' \\\n') }}
+# Additional options that are passed to the Daemon.
+DAEMON_ARGS="{{ macros.config_row(config, 'web-host', '0.0.0.0') }}{{ (' ' ~ macros.config(config, [
+    'web-host'
+])).rstrip() }}"
