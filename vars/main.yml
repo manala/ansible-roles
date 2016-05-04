@@ -237,6 +237,8 @@ manala_skeletons:
           ['xdebug']
           + (manala_skeleton_options.mysql)|ternary(['mysql'],[])
           + (manala_skeleton_options.postgresql)|ternary(['pgsql'],[])
+          + (manala_skeleton_options.redis)|ternary(['redis'],[])
+          + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
         }}"
         php_configs_exclusive: true
         php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
@@ -555,6 +557,8 @@ manala_skeletons:
           ['xdebug']
           + (manala_skeleton_options.mysql)|ternary(['mysql'],[])
           + (manala_skeleton_options.postgresql)|ternary(['pgsql'],[])
+          + (manala_skeleton_options.redis)|ternary(['redis'],[])
+          + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
         }}"
         php_configs_exclusive: true
         php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
