@@ -38,9 +38,7 @@ manala_skeletons:
         # Timezone
         timezone: Etc/UTC
         # Locales
-        locales:
-          - name:  en_US.UTF-8
-            state: absent
+        locales: []
         locales_default: C.UTF-8
         # Apt
         apt_update: true
