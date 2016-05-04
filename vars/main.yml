@@ -47,7 +47,18 @@ manala_skeletons:
         apt_repositories_exclusive: true
         apt_repositories:
           - manala
-        apt_preferences: []
+        apt_preferences: "{{
+          + (manala_skeleton_options.php)|ternary(['~@dotdeb:100', 'php@dotdeb' ~ {'5.4': '', '5.5': '_php55', '5.6': '_php56', '7.0': ''}[manala_skeleton_options.php_version|string]],[])
+          + (manala_skeleton_options.nginx)|ternary(['nginx@nginx'],[])
+          + (manala_skeleton_options.nodejs)|ternary(['nodejs@nodesource_' ~ {'0.10': '0_10', '0.12': '0_12', '4': '4', '5': '5', '6': '6'}[manala_skeleton_options.nodejs_version|string]],[])
+          + (manala_skeleton_options.mysql)|ternary(['mysql@mysql' ~ {'5.6': '_5_6', '5.7': '_5_7'}[manala_skeleton_options.mysql_version|string]],[])
+          + (manala_skeleton_options.phpmyadmin)|ternary(['phpmyadmin@manala'],[])
+          + (manala_skeleton_options.postgresql)|ternary(['postgresql@postgresql'],[])
+          + (manala_skeleton_options.phppgadmin)|ternary(['phppgadmin@manala'],[])
+          + (manala_skeleton_options.redis)|ternary(['redis@dotdeb'],[])
+          + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
+          + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2'}[manala_skeleton_options.elasticsearch_version|string]],[])
+        }}"
         apt_packages: []
         # Ssh
         ssh_config_sshd_template: config/sshd/manala_dev.j2
@@ -59,12 +70,45 @@ manala_skeletons:
           - user:     "{{ manala_skeleton_options.app_user }}"
             group:    "{{ manala_skeleton_options.app_group }}"
             template: users/manala_dev.j2
+            config:
+              - cd {{ manala_skeleton_options.app_dir }}
         # Vim
         vim_config_template: config/manala_dev.j2
         # Alternatives
         alternatives:
           - name: editor
             path: "{{ manala_vim_bin }}"
+        # Files
+        files_user:  "{{ manala_skeleton_options.app_user }}"
+        files_group: "{{ manala_skeleton_options.app_group }}"
+        files:
+          - path:  "{{ manala_skeleton_options.app_log_dir }}"
+            state: directory
+          - path:  "{{ manala_skeleton_options.app_cache_dir }}"
+            state: directory
+          - path:  "{{ manala_skeleton_options.app_sessions_dir }}"
+            state: directory
+          - path:  /usr/share/manala/html
+            state: directory
+          - path: /usr/share/manala/html/404.html
+            content: |
+              <!DOCTYPE html>
+              <html>
+                <head>
+                  <title>Manala - Error 404</title>
+                  <style>
+                    body {
+                      width: 35em;
+                      margin: 0 auto;
+                      font-family: Tahoma, Verdana, Arial, sans-serif;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <h1>Manala - Error 404</h1>
+                  <p>Not found</p>
+                </body>
+              </html>
         # MailHog
         mailhog_config_template: config/manala_dev.j2
         # Supervisor
@@ -78,6 +122,187 @@ manala_skeletons:
         ngrok_configs:
           - file:     config.yml
             template: configs/manala_dev.yml.j2
+        # Npm
+        npm_packages: []
+        # Php
+        php_version: "{{ ({'5.4': '5', '5.5': '5', '5.6': '5', '7.0': '7.0'})[manala_skeleton_options.php_version|string] }}"
+        php_sapis: ['cli', 'fpm']
+        php_fpm_pools_exclusive: true
+        php_fpm_pools:
+          - file:     admin.conf
+            template: fpm_pools/manala_dev.conf.j2
+            config:
+              - admin:
+                - listen: /var/run/php5-fpm.admin.sock
+                - php_admin_value[display_errors]: off
+        php_extensions_exclusive: true
+        php_extensions: "{{
+          ['xdebug']
+          + (manala_skeleton_options.mysql)|ternary(['mysql'],[])
+          + (manala_skeleton_options.postgresql)|ternary(['pgsql'],[])
+          + (manala_skeleton_options.redis)|ternary(['redis'],[])
+          + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
+        }}"
+        php_configs_exclusive: true
+        php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
+        php_configs:
+          - file: 50-xdebug.ini
+            template: configs/manala_xdebug_dev.ini.j2
+        php_applications:
+          - php-cs-fixer
+          - phpcs
+        # Nginx
+        nginx_config_template: config/manala_http_dev.conf.j2
+        nginx_configs_exclusive: true
+        nginx_configs:  "{{
+          [{
+            'file':     'default.conf',
+            'template': 'configs/server.conf.j2',
+            'config':   [
+              {'listen':     '* default_server'},
+              {'error_page': '404 /404.html'},
+              {'location /404.html': [
+                {'root': '/usr/share/manala/html'},
+                'internal;'
+              ]}
+            ]
+          }]
+          + (manala_skeleton_options.opcache_dashboard)|ternary([{
+            'file':     'admin.opcache_dashboard.conf',
+            'template': 'configs/server.conf.j2',
+            'config':   [
+              {'listen': 2013},
+              {'root':   manala_opcache_dashboard_dir},
+              {'location /': [
+                {'try_files': '$uri /opcache.php$is_args$args'}
+              ]},
+              {'location ~ ^/.+\\.php(/|$)': [
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
+                {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
+                {'fastcgi_read_timeout':    '60s'},
+                {'include':                 'fastcgi_params'},
+                {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+                {'fastcgi_param':           'HTTPS off'}
+              ]}
+            ]
+          }],[])
+          + (manala_skeleton_options.phpmyadmin)|ternary([{
+            'file':     'admin.phpmyadmin.conf',
+            'template': 'configs/server.conf.j2',
+            'config':   [
+              {'listen': 1979},
+              {'root':   manala_phpmyadmin_dir},
+              {'client_max_body_size': '16M'},
+              {'location /': [
+                {'try_files': '$uri /index.php$is_args$args'}
+              ]},
+              {'location ~ ^/.+\\.php(/|$)': [
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
+                {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
+                {'fastcgi_read_timeout':    '60s'},
+                {'include':                 'fastcgi_params'},
+                {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+                {'fastcgi_param':           'HTTPS off'}
+              ]}
+            ]
+          }],[])
+          + (manala_skeleton_options.phppgadmin)|ternary([{
+            'file':     'admin.phppgadmin.conf',
+            'template': 'configs/server.conf.j2',
+            'config':   [
+              {'listen': 1980},
+              {'root':   manala_phppgadmin_dir},
+              {'client_max_body_size': '16M'},
+              {'location /': [
+                {'try_files': '$uri /index.php$is_args$args'}
+              ]},
+              {'location ~ ^/.+\\.php(/|$)': [
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
+                {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
+                {'fastcgi_read_timeout':    '60s'},
+                {'include':                 'fastcgi_params'},
+                {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+                {'fastcgi_param':           'HTTPS off'}
+              ]}
+            ]
+          }],[])
+          + (manala_skeleton_options.phpredisadmin)|ternary([{
+            'file':     'admin.phpredisadmin.conf',
+            'template': 'configs/server.conf.j2',
+            'config':   [
+              {'listen': 1981},
+              {'root':   manala_phpredisadmin_dir},
+              {'location /': [
+                {'try_files': '$uri /index.php$is_args$args'}
+              ]},
+              {'location ~ ^/.+\\.php(/|$)': [
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
+                {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
+                {'fastcgi_read_timeout':    '60s'},
+                {'include':                 'fastcgi_params'},
+                {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+                {'fastcgi_param':           'HTTPS off'}
+              ]}
+            ]
+          }],[])
+        }}"
+        # MySql
+        mysql_configs_exclusive: true
+        mysql_configs:
+          - file: my.cnf
+            template: configs/manala_dev.cnf.j2
+        mysql_users:
+          - name:     "{{ manala_skeleton_options.app_user }}"
+            password: ~
+            host:     "%"
+            priv:     "*.*:ALL,GRANT"
+        # PhpMyAdmin
+        phpmyadmin_configs_exclusive: true
+        phpmyadmin_configs:
+          - file:     config.inc.php
+            template: configs/manala_dev.inc.php.j2
+            servers:
+              - id: 1
+                config:
+                  - user: "{{ manala_skeleton_options.app_user }}"
+        # PostgreSQL
+        postgresql_version: "{{ manala_skeleton_options.postgresql_version }}"
+        postgresql_config_template: config/manala_dev.conf.j2
+        postgresql_config_hba_template: config/hba/manala_dev.conf.j2
+        # PhpPgAdmin
+        phppgadmin_configs_exclusive: true
+        phppgadmin_configs:
+          - file:     config.inc.php
+            template: configs/manala_dev.inc.php.j2
+        postgresql_users:
+          - name:            "{{ manala_skeleton_options.app_user }}"
+            password:        ~
+            role_attr_flags: SUPERUSER
+        # Redis
+        redis_config_template: config/manala_dev.conf.j2
+        # PhpRedisAdmin
+        phpredisadmin_configs_exclusive: true
+        phpredisadmin_configs:
+          - file:     config.inc.php
+            template: configs/manala_dev.inc.php.j2
+        # MongoDB
+        mongodb_config_template: config/manala_dev.conf.j2
+        # Mongo Express
+        mongo_express_config_template: config/manala_dev.js.j2
+        # Elasticsearch
+        elasticsearch_plugins:
+          - appbaseio/dejaVu
+        # PhantomJS
+        phantomjs_config_template: config/manala_dev.json.j2
+        # Heka
+        heka_config_template: config/manala_dev.j2
+        heka_configs:
+          - file:     input_app.toml
+            template: configs/manala_input_app.toml.j2
+          - file:     output_app_rtail.toml
+            template: configs/manala_output_app_rtail.toml.j2
+        # RTail
+        rtail_config_template: config/manala_dev.j2
 
   ######################
   # Manala - App - Php #
