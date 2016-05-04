@@ -221,11 +221,11 @@ manala_skeletons:
         php_sapis: ['cli', 'fpm']
         php_fpm_pools_exclusive: true
         php_fpm_pools:
-          - file:     manala.conf
+          - file:     admin.conf
             template: fpm_pools/manala_dev.conf.j2
             config:
-              - manala:
-                - listen: /var/run/php5-fpm.manala.sock
+              - admin:
+                - listen: /var/run/php5-fpm.admin.sock
                 - php_admin_value[display_errors]: off
         php_extensions_exclusive: true
         php_extensions: "{{
@@ -238,7 +238,7 @@ manala_skeletons:
         php_configs_exclusive: true
         php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
         php_configs:
-          - file: 50-manala-xdebug.ini
+          - file: 50-xdebug.ini
             template: configs/manala_xdebug_dev.ini.j2
         php_applications:
           - php-cs-fixer
@@ -248,7 +248,7 @@ manala_skeletons:
         nginx_configs_exclusive: true
         nginx_configs:  "{{
           [{
-            'file':     'manala.default.conf',
+            'file':     'default.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen':     '* default_server'},
@@ -260,7 +260,7 @@ manala_skeletons:
             ]
           }]
           + (manala_skeleton_options.opcache_dashboard)|ternary([{
-            'file':     'manala.opcache_dashboard.conf',
+            'file':     'admin.opcache_dashboard.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 2013},
@@ -269,7 +269,7 @@ manala_skeletons:
                 {'try_files': '$uri /opcache.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -279,7 +279,7 @@ manala_skeletons:
             ]
           }],[])
           + (manala_skeleton_options.phpmyadmin)|ternary([{
-            'file':     'manala.phpmyadmin.conf',
+            'file':     'admin.phpmyadmin.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 1979},
@@ -289,7 +289,7 @@ manala_skeletons:
                 {'try_files': '$uri /index.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -299,7 +299,7 @@ manala_skeletons:
             ]
           }],[])
           + (manala_skeleton_options.phppgadmin)|ternary([{
-            'file':     'manala.phppgadmin.conf',
+            'file':     'admin.phppgadmin.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 1980},
@@ -309,7 +309,7 @@ manala_skeletons:
                 {'try_files': '$uri /index.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -319,7 +319,7 @@ manala_skeletons:
             ]
           }],[])
           + (manala_skeleton_options.phpredisadmin)|ternary([{
-            'file':     'manala.phpredisadmin.conf',
+            'file':     'admin.phpredisadmin.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 1981},
@@ -328,7 +328,7 @@ manala_skeletons:
                 {'try_files': '$uri /index.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -351,7 +351,7 @@ manala_skeletons:
         # PhpMyAdmin
         phpmyadmin_configs_exclusive: true
         phpmyadmin_configs:
-          - file:     manala.inc.php
+          - file:     config.inc.php
             template: configs/manala_dev.inc.php.j2
             servers:
               - id: 1
@@ -364,7 +364,7 @@ manala_skeletons:
         # PhpPgAdmin
         phppgadmin_configs_exclusive: true
         phppgadmin_configs:
-          - file:     manala.inc.php
+          - file:     config.inc.php
             template: configs/manala_dev.inc.php.j2
         postgresql_users:
           - name:            "{{ manala_skeleton_options.app_user }}"
@@ -375,7 +375,7 @@ manala_skeletons:
         # PhpRedisAdmin
         phpredisadmin_configs_exclusive: true
         phpredisadmin_configs:
-          - file:     manala.inc.php
+          - file:     config.inc.php
             template: configs/manala_dev.inc.php.j2
         # MongoDB
         mongodb_config_template: config/manala_dev.conf.j2
@@ -497,14 +497,14 @@ manala_skeletons:
             state: directory
           - path:  "{{ manala_skeleton_options.app_sessions_dir }}"
             state: directory
-          - path:  /usr/share/manala/html
+          - path:  /usr/share/elao/html
             state: directory
-          - path: /usr/share/manala/html/404.html
+          - path: /usr/share/elao/html/404.html
             content: |
               <!DOCTYPE html>
               <html>
                 <head>
-                  <title>Manala - Error 404</title>
+                  <title>Elao - Error 404</title>
                   <style>
                     body {
                       width: 35em;
@@ -514,7 +514,7 @@ manala_skeletons:
                   </style>
                 </head>
                 <body>
-                  <h1>Manala - Error 404</h1>
+                  <h1>Elao - Error 404</h1>
                   <p>Not found</p>
                 </body>
               </html>
@@ -538,11 +538,11 @@ manala_skeletons:
         php_sapis: ['cli', 'fpm']
         php_fpm_pools_exclusive: true
         php_fpm_pools:
-          - file:     manala.conf
+          - file:     admin.conf
             template: fpm_pools/manala_dev.conf.j2
             config:
-              - manala:
-                - listen: /var/run/php5-fpm.manala.sock
+              - admin:
+                - listen: /var/run/php5-fpm.admin.sock
                 - php_admin_value[display_errors]: off
         php_extensions_exclusive: true
         php_extensions: "{{
@@ -555,7 +555,7 @@ manala_skeletons:
         php_configs_exclusive: true
         php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
         php_configs:
-          - file: 50-manala-xdebug.ini
+          - file: 50-xdebug.ini
             template: configs/manala_xdebug_dev.ini.j2
         php_applications:
           - php-cs-fixer
@@ -565,19 +565,19 @@ manala_skeletons:
         nginx_configs_exclusive: true
         nginx_configs:  "{{
           [{
-            'file':     'manala.default.conf',
+            'file':     'default.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen':     '* default_server'},
               {'error_page': '404 /404.html'},
               {'location /404.html': [
-                {'root': '/usr/share/manala/html'},
+                {'root': '/usr/share/elao/html'},
                 'internal;'
               ]}
             ]
           }]
           + (manala_skeleton_options.opcache_dashboard)|ternary([{
-            'file':     'manala.opcache_dashboard.conf',
+            'file':     'admin.opcache_dashboard.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 2013},
@@ -586,7 +586,7 @@ manala_skeletons:
                 {'try_files': '$uri /opcache.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -596,7 +596,7 @@ manala_skeletons:
             ]
           }],[])
           + (manala_skeleton_options.phpmyadmin)|ternary([{
-            'file':     'manala.phpmyadmin.conf',
+            'file':     'admin.phpmyadmin.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 1979},
@@ -606,7 +606,7 @@ manala_skeletons:
                 {'try_files': '$uri /index.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -616,7 +616,7 @@ manala_skeletons:
             ]
           }],[])
           + (manala_skeleton_options.phppgadmin)|ternary([{
-            'file':     'manala.phppgadmin.conf',
+            'file':     'admin.phppgadmin.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 1980},
@@ -626,7 +626,7 @@ manala_skeletons:
                 {'try_files': '$uri /index.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -636,7 +636,7 @@ manala_skeletons:
             ]
           }],[])
           + (manala_skeleton_options.phpredisadmin)|ternary([{
-            'file':     'manala.phpredisadmin.conf',
+            'file':     'admin.phpredisadmin.conf',
             'template': 'configs/server.conf.j2',
             'config':   [
               {'listen': 1981},
@@ -645,7 +645,7 @@ manala_skeletons:
                 {'try_files': '$uri /index.php$is_args$args'}
               ]},
               {'location ~ ^/.+\\.php(/|$)': [
-                {'fastcgi_pass':            'unix:/var/run/php5-fpm.manala.sock'},
+                {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
                 {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
                 {'fastcgi_read_timeout':    '60s'},
                 {'include':                 'fastcgi_params'},
@@ -668,7 +668,7 @@ manala_skeletons:
         # PhpMyAdmin
         phpmyadmin_configs_exclusive: true
         phpmyadmin_configs:
-          - file:     manala.inc.php
+          - file:     config.inc.php
             template: configs/manala_dev.inc.php.j2
             servers:
               - id: 1
@@ -681,7 +681,7 @@ manala_skeletons:
         # PhpPgAdmin
         phppgadmin_configs_exclusive: true
         phppgadmin_configs:
-          - file:     manala.inc.php
+          - file:     config.inc.php
             template: configs/manala_dev.inc.php.j2
         postgresql_users:
           - name:            "{{ manala_skeleton_options.app_user }}"
@@ -692,7 +692,7 @@ manala_skeletons:
         # PhpRedisAdmin
         phpredisadmin_configs_exclusive: true
         phpredisadmin_configs:
-          - file:     manala.inc.php
+          - file:     config.inc.php
             template: configs/manala_dev.inc.php.j2
         # MongoDB
         mongodb_config_template: config/manala_dev.conf.j2
