@@ -71,7 +71,7 @@ manala_skeletons:
             group:    "{{ manala_skeleton_options.app_group }}"
             template: users/manala_dev.j2
             config:
-              - cd {{ manala_skeleton_options.app_dir }}
+              - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
         # Vim
         vim_config_template: config/manala_dev.j2
         # Alternatives
@@ -388,7 +388,7 @@ manala_skeletons:
             group:    "{{ manala_skeleton_options.app_group }}"
             template: users/manala_php_dev.j2
             config:
-              - cd {{ manala_skeleton_options.app_dir }}
+              - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
         # Vim
         vim_config_template: config/manala_dev.j2
         # Alternatives
@@ -705,7 +705,7 @@ manala_skeletons:
             group:    "{{ manala_skeleton_options.app_group }}"
             template: users/manala_php_dev.j2
             config:
-              - cd {{ manala_skeleton_options.app_dir }}
+              - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
         # Vim
         vim_config_template: config/manala_dev.j2
         # Alternatives
