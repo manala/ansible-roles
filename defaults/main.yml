@@ -56,6 +56,7 @@ manala_skeleton_options:
   dnsmasq:               false
 
   # App
+  app_env:          dev
   app_user:         app
   app_group:        app
   app_dir:          /srv/app

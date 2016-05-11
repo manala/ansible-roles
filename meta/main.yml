@@ -33,9 +33,7 @@ dependencies:
   # Merge - Patterns
   - role: manala.merge
     manala_merge_hashes: "{{
-      [
-        manala_skeletons[manala_skeleton][manala_skeleton_env].patterns
-      ]
+      manala_skeletons[manala_skeleton][manala_skeleton_env].patterns
       + manala_skeleton_patterns_hashes
     }}"
     manala_merge_prefix: manala_
