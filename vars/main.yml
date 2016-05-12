@@ -6,11 +6,9 @@
 
 manala_skeleton_patterns:
 
-  ##########
-  # Manala #
-  ##########
+  # Manala
 
-  manala: &manala_patterns_manala
+  manala: &pattern_manala
     # Motd
     motd_template: template/manala.j2
     # Timezone
@@ -239,13 +237,104 @@ manala_skeleton_patterns:
     # RTail
     rtail_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
 
-  ########
-  # Elao #
-  ########
+  # Manala - Supervisor - Inet Http Server
 
-  elao: &manala_patterns_elao
+  manala_supervisor_inet_http_server: &pattern_manala_supervisor_inet_http_server
+    # Supervisor
+    supervisor_configs:
+      - file:     inet-http-server.conf
+        template: configs/manala_inet_http_server_{{ manala_skeleton_options.app_env }}.conf.j2
+
+  # Manala - Nginx - Default 404
+
+  manala_nginx_default_404: &pattern_manala_nginx_default_404
+    # Nginx
+    nginx_configs:
+      - file:     default.conf
+        template: configs/server.conf.j2
+        config:
+          - listen: '* default_server'
+          - return: 404
+
+  # Manala - Nginx - Default 404 - File
+
+  manala_nginx_default_404_file: &pattern_manala_nginx_default_404_file
+    # Files
+    files:
+      - path:  /usr/share/manala/html
+        state: directory
+      - path: /usr/share/manala/html/404.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Manala - Error 404</title>
+              <style>
+                body {
+                  width: 35em;
+                  margin: 0 auto;
+                  font-family: Tahoma, Verdana, Arial, sans-serif;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>Manala - Error 404</h1>
+              <p>Not found</p>
+            </body>
+          </html>
+    # Nginx
+    nginx_configs:
+      - file:     default.conf
+        template: configs/server.conf.j2
+        config:
+          - listen:     '* default_server'
+          - error_page: '404 /404.html'
+          - location /404.html:
+            - root: /usr/share/manala/html
+            - internal;
+
+  # Elao
+
+  elao: &pattern_elao
     # Motd
     motd_template: template/elao.j2
+
+  # Elao - Nginx - Default 404 - File
+
+  elao_nginx_default_404_file: &pattern_elao_nginx_default_404_file
+    # Files
+    files:
+      - path:  /usr/share/elao/html
+        state: directory
+      - path: /usr/share/elao/html/404.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Elao - Error 404</title>
+              <style>
+                body {
+                  width: 35em;
+                  margin: 0 auto;
+                  font-family: Tahoma, Verdana, Arial, sans-serif;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>Elao - Error 404</h1>
+              <p>Not found</p>
+            </body>
+          </html>
+    # Nginx
+    nginx_configs:
+      - file:     default.conf
+        template: configs/server.conf.j2
+        config:
+          - listen:     '* default_server'
+          - error_page: '404 /404.html'
+          - location /404.html:
+            - root: /usr/share/manala/html
+            - internal;
 
 
 #############
@@ -285,7 +374,9 @@ manala_skeletons:
         app_env: dev
 
       patterns:
-        - *manala_patterns_manala
+        - *pattern_manala
+        - *pattern_manala_nginx_default_404_file
+        - *pattern_manala_supervisor_inet_http_server
         -
           # Motd
           motd: App - Dev
@@ -296,43 +387,6 @@ manala_skeletons:
               template: users/manala_{{ manala_skeleton_options.app_env }}.j2
               config:
                 - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
-          # Files
-          files:
-            - path:  /usr/share/manala/html
-              state: directory
-            - path: /usr/share/manala/html/404.html
-              content: |
-                <!DOCTYPE html>
-                <html>
-                  <head>
-                    <title>Manala - Error 404</title>
-                    <style>
-                      body {
-                        width: 35em;
-                        margin: 0 auto;
-                        font-family: Tahoma, Verdana, Arial, sans-serif;
-                      }
-                    </style>
-                  </head>
-                  <body>
-                    <h1>Manala - Error 404</h1>
-                    <p>Not found</p>
-                  </body>
-                </html>
-          # Nginx
-          nginx_configs:
-            - file:     default.conf
-              template: configs/server.conf.j2
-              config:
-                - listen:     '* default_server'
-                - error_page: '404 /404.html'
-                - location /404.html:
-                  - root: /usr/share/manala/html
-                  - internal;
-          # Supervisor
-          supervisor_configs:
-            - file:     inet-http-server.conf
-              template: configs/manala_inet_http_server_{{ manala_skeleton_options.app_env }}.conf.j2
 
     test:
 
@@ -353,7 +407,8 @@ manala_skeletons:
         app_env: test
 
       patterns:
-        - *manala_patterns_manala
+        - *pattern_manala
+        - *pattern_manala_nginx_default_404
         -
           # Motd
           motd: App - Test
@@ -404,7 +459,9 @@ manala_skeletons:
         app_env: dev
 
       patterns:
-        - *manala_patterns_manala
+        - *pattern_manala
+        - *pattern_manala_nginx_default_404_file
+        - *pattern_manala_supervisor_inet_http_server
         -
           # Motd
           motd: App - Php - Dev
@@ -415,43 +472,6 @@ manala_skeletons:
               template: users/manala_php_{{ manala_skeleton_options.app_env }}.j2
               config:
                 - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
-          # Files
-          files:
-            - path:  /usr/share/manala/html
-              state: directory
-            - path: /usr/share/manala/html/404.html
-              content: |
-                <!DOCTYPE html>
-                <html>
-                  <head>
-                    <title>Manala - Error 404</title>
-                    <style>
-                      body {
-                        width: 35em;
-                        margin: 0 auto;
-                        font-family: Tahoma, Verdana, Arial, sans-serif;
-                      }
-                    </style>
-                  </head>
-                  <body>
-                    <h1>Manala - Error 404</h1>
-                    <p>Not found</p>
-                  </body>
-                </html>
-          # Nginx
-          nginx_configs:
-            - file:     default.conf
-              template: configs/server.conf.j2
-              config:
-                - listen:     '* default_server'
-                - error_page: '404 /404.html'
-                - location /404.html:
-                  - root: /usr/share/manala/html
-                  - internal;
-          # Supervisor
-          supervisor_configs:
-            - file:     inet-http-server.conf
-              template: configs/manala_inet_http_server_{{ manala_skeleton_options.app_env }}.conf.j2
 
   ####################
   # Elao - App - Php #
@@ -499,8 +519,10 @@ manala_skeletons:
         app_env: dev
 
       patterns:
-        - *manala_patterns_manala
-        - *manala_patterns_elao
+        - *pattern_manala
+        - *pattern_elao_nginx_default_404_file
+        - *pattern_manala_supervisor_inet_http_server
+        - *pattern_elao
         -
           # Motd
           motd: App - Php - Dev
@@ -511,43 +533,6 @@ manala_skeletons:
               template: users/manala_php_{{ manala_skeleton_options.app_env }}.j2
               config:
                 - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
-          # Files
-          files:
-            - path:  /usr/share/elao/html
-              state: directory
-            - path: /usr/share/elao/html/404.html
-              content: |
-                <!DOCTYPE html>
-                <html>
-                  <head>
-                    <title>Elao - Error 404</title>
-                    <style>
-                      body {
-                        width: 35em;
-                        margin: 0 auto;
-                        font-family: Tahoma, Verdana, Arial, sans-serif;
-                      }
-                    </style>
-                  </head>
-                  <body>
-                    <h1>Elao - Error 404</h1>
-                    <p>Not found</p>
-                  </body>
-                </html>
-          # Nginx
-          nginx_configs:
-            - file:     default.conf
-              template: configs/server.conf.j2
-              config:
-                - listen:     '* default_server'
-                - error_page: '404 /404.html'
-                - location /404.html:
-                  - root: /usr/share/manala/html
-                  - internal;
-          # Supervisor
-          supervisor_configs:
-            - file:     inet-http-server.conf
-              template: configs/manala_inet_http_server_{{ manala_skeleton_options.app_env }}.conf.j2
 
     test:
 
@@ -576,8 +561,9 @@ manala_skeletons:
         app_env: test
 
       patterns:
-        - *manala_patterns_manala
-        - *manala_patterns_elao
+        - *pattern_manala
+        - *pattern_manala_nginx_default_404
+        - *pattern_elao
         -
           # Motd
           motd: App - Php - Test
