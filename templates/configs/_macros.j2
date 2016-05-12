@@ -54,6 +54,8 @@
     {%- if value is sameas none -%}
     {%- elif value is sameas true -%}
         true
+    {%- elif value is sameas false -%}
+        false
     {%- elif value is string -%}
         {{ value }}
     {%- elif value is number -%}
