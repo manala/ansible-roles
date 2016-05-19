@@ -96,6 +96,7 @@ manala_skeleton_patterns:
     php_applications:
       - php-cs-fixer
       - phpcs
+      - security-checker
     # Nginx
     nginx_config_template: config/manala_http_{{ manala_skeleton_options.app_env }}.conf.j2
     nginx_configs_exclusive: true
