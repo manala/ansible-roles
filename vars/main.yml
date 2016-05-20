@@ -37,36 +37,36 @@ manala_skeleton_patterns:
     }}"
     apt_packages: []
     # Ssh
-    ssh_config_sshd_template: config/sshd/manala_{{ manala_skeleton_options.app_env }}.j2
-    ssh_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
+    ssh_config_sshd_template: config/sshd/manala_{{ manala_skeleton_env }}.j2
+    ssh_config_template: config/manala_{{ manala_skeleton_env }}.j2
     # Git
-    git_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
+    git_config_template: config/manala_{{ manala_skeleton_env }}.j2
     # Vim
-    vim_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
+    vim_config_template: config/manala_{{ manala_skeleton_env }}.j2
     # Alternatives
     alternatives:
       - name: editor
         path: "{{ manala_vim_bin }}"
     # Files
-    files_user:  "{{ manala_skeleton_options.app_user }}"
-    files_group: "{{ manala_skeleton_options.app_group }}"
+    files_user:  "{{ manala_skeleton_options.app.user }}"
+    files_group: "{{ manala_skeleton_options.app.group }}"
     files:
-      - path:  "{{ manala_skeleton_options.app_log_dir }}"
+      - path:  "{{ manala_skeleton_options.app.log_dir }}"
         state: directory
-      - path:  "{{ manala_skeleton_options.app_cache_dir }}"
+      - path:  "{{ manala_skeleton_options.app.cache_dir }}"
         state: directory
-      - path:  "{{ manala_skeleton_options.app_sessions_dir }}"
+      - path:  "{{ manala_skeleton_options.app.sessions_dir }}"
         state: directory
     # MailHog
-    mailhog_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
+    mailhog_config_template: config/manala_{{ manala_skeleton_env }}.j2
     # Supervisor
-    supervisor_config_template: config/manala_{{ manala_skeleton_options.app_env }}.conf.j2
+    supervisor_config_template: config/manala_{{ manala_skeleton_env }}.conf.j2
     supervisor_configs_exclusive: true
     # Ngrok
     ngrok_configs_exclusive: true
     ngrok_configs:
       - file:     config.yml
-        template: configs/manala_{{ manala_skeleton_options.app_env }}.yml.j2
+        template: configs/manala_{{ manala_skeleton_env }}.yml.j2
     # Npm
     npm_packages: []
     # Php
@@ -75,7 +75,7 @@ manala_skeleton_patterns:
     php_fpm_pools_exclusive: true
     php_fpm_pools:
       - file:     admin.conf
-        template: fpm_pools/manala_{{ manala_skeleton_options.app_env }}.conf.j2
+        template: fpm_pools/manala_{{ manala_skeleton_env }}.conf.j2
         config:
           - admin:
             - listen: /var/run/php5-fpm.admin.sock
@@ -92,13 +92,13 @@ manala_skeleton_patterns:
     php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
     php_configs:
       - file: 50-xdebug.ini
-        template: configs/manala_xdebug_{{ manala_skeleton_options.app_env }}.ini.j2
+        template: configs/manala_xdebug_{{ manala_skeleton_env }}.ini.j2
     php_applications:
       - php-cs-fixer
       - phpcs
       - security-checker
     # Nginx
-    nginx_config_template: config/manala_http_{{ manala_skeleton_options.app_env }}.conf.j2
+    nginx_config_template: config/manala_http_{{ manala_skeleton_env }}.conf.j2
     nginx_configs_exclusive: true
     nginx_configs:  "{{
       (manala_skeleton_options.opcache_dashboard)|ternary([{
@@ -184,9 +184,9 @@ manala_skeleton_patterns:
     mysql_configs_exclusive: true
     mysql_configs:
       - file: my.cnf
-        template: configs/manala_{{ manala_skeleton_options.app_env }}.cnf.j2
+        template: configs/manala_{{ manala_skeleton_env }}.cnf.j2
     mysql_users:
-      - name:     "{{ manala_skeleton_options.app_user }}"
+      - name:     "{{ manala_skeleton_options.app.user }}"
         password: ~
         host:     "%"
         priv:     "*.*:ALL,GRANT"
@@ -194,49 +194,49 @@ manala_skeleton_patterns:
     phpmyadmin_configs_exclusive: true
     phpmyadmin_configs:
       - file:     config.inc.php
-        template: configs/manala_{{ manala_skeleton_options.app_env }}.inc.php.j2
+        template: configs/manala_{{ manala_skeleton_env }}.inc.php.j2
         servers:
           - id: 1
             config:
-              - user: "{{ manala_skeleton_options.app_user }}"
+              - user: "{{ manala_skeleton_options.app.user }}"
     # PostgreSQL
     postgresql_version: "{{ manala_skeleton_options.postgresql_version }}"
-    postgresql_config_template: config/manala_{{ manala_skeleton_options.app_env }}.conf.j2
-    postgresql_config_hba_template: config/hba/manala_{{ manala_skeleton_options.app_env }}.conf.j2
+    postgresql_config_template: config/manala_{{ manala_skeleton_env }}.conf.j2
+    postgresql_config_hba_template: config/hba/manala_{{ manala_skeleton_env }}.conf.j2
     # PhpPgAdmin
     phppgadmin_configs_exclusive: true
     phppgadmin_configs:
       - file:     config.inc.php
-        template: configs/manala_{{ manala_skeleton_options.app_env }}.inc.php.j2
+        template: configs/manala_{{ manala_skeleton_env }}.inc.php.j2
     postgresql_users:
-      - name:            "{{ manala_skeleton_options.app_user }}"
+      - name:            "{{ manala_skeleton_options.app.user }}"
         password:        ~
         role_attr_flags: SUPERUSER
     # Redis
-    redis_config_template: config/manala_{{ manala_skeleton_options.app_env }}.conf.j2
+    redis_config_template: config/manala_{{ manala_skeleton_env }}.conf.j2
     # PhpRedisAdmin
     phpredisadmin_configs_exclusive: true
     phpredisadmin_configs:
       - file:     config.inc.php
-        template: configs/manala_{{ manala_skeleton_options.app_env }}.inc.php.j2
+        template: configs/manala_{{ manala_skeleton_env }}.inc.php.j2
     # MongoDB
-    mongodb_config_template: config/manala_{{ manala_skeleton_options.app_env }}.conf.j2
+    mongodb_config_template: config/manala_{{ manala_skeleton_env }}.conf.j2
     # Mongo Express
-    mongo_express_config_template: config/manala_{{ manala_skeleton_options.app_env }}.js.j2
+    mongo_express_config_template: config/manala_{{ manala_skeleton_env }}.js.j2
     # Elasticsearch
     elasticsearch_plugins:
       - appbaseio/dejaVu
     # PhantomJS
-    phantomjs_config_template: config/manala_{{ manala_skeleton_options.app_env }}.json.j2
+    phantomjs_config_template: config/manala_{{ manala_skeleton_env }}.json.j2
     # Heka
-    heka_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
+    heka_config_template: config/manala_{{ manala_skeleton_env }}.j2
     heka_configs:
       - file:     input_app.toml
         template: configs/manala_input_app.toml.j2
       - file:     output_app_rtail.toml
         template: configs/manala_output_app_rtail.toml.j2
     # RTail
-    rtail_config_template: config/manala_{{ manala_skeleton_options.app_env }}.j2
+    rtail_config_template: config/manala_{{ manala_skeleton_env }}.j2
 
   # Manala - Supervisor - Inet Http Server
 
@@ -244,7 +244,7 @@ manala_skeleton_patterns:
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf
-        template: configs/manala_inet_http_server_{{ manala_skeleton_options.app_env }}.conf.j2
+        template: configs/manala_inet_http_server_{{ manala_skeleton_env }}.conf.j2
 
   # Manala - Nginx - Default 404
 
@@ -372,7 +372,8 @@ manala_skeletons:
         ntp:          true
         ngrok:        true
         # App
-        app_env: dev
+        app:
+          env: dev
 
       patterns:
         - *pattern_manala
@@ -383,11 +384,11 @@ manala_skeletons:
           motd: App - Dev
           # Oh my zsh
           ohmyzsh_users:
-            - user:     "{{ manala_skeleton_options.app_user }}"
-              group:    "{{ manala_skeleton_options.app_group }}"
-              template: users/manala_{{ manala_skeleton_options.app_env }}.j2
+            - user:     "{{ manala_skeleton_options.app.user }}"
+              group:    "{{ manala_skeleton_options.app.group }}"
+              template: users/manala_{{ manala_skeleton_env }}.j2
               config:
-                - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
+                - "[ -d {{ manala_skeleton_options.app.dir }} ] && cd {{ manala_skeleton_options.app.dir }}"
 
     test:
 
@@ -405,7 +406,8 @@ manala_skeletons:
         supervisor: true
         cron:       true
         # App
-        app_env: test
+        app:
+          env: test
 
       patterns:
         - *pattern_manala
@@ -457,7 +459,8 @@ manala_skeletons:
         heka:              true
         rtail:             true
         # App
-        app_env: dev
+        app:
+          env: dev
 
       patterns:
         - *pattern_manala
@@ -468,11 +471,11 @@ manala_skeletons:
           motd: App - Php - Dev
           # Oh my zsh
           ohmyzsh_users:
-            - user:     "{{ manala_skeleton_options.app_user }}"
-              group:    "{{ manala_skeleton_options.app_group }}"
-              template: users/manala_php_{{ manala_skeleton_options.app_env }}.j2
+            - user:     "{{ manala_skeleton_options.app.user }}"
+              group:    "{{ manala_skeleton_options.app.group }}"
+              template: users/manala_php_{{ manala_skeleton_env }}.j2
               config:
-                - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
+                - "[ -d {{ manala_skeleton_options.app.dir }} ] && cd {{ manala_skeleton_options.app.dir }}"
 
   ####################
   # Elao - App - Php #
@@ -517,7 +520,8 @@ manala_skeletons:
         heka:              true
         rtail:             true
         # App
-        app_env: dev
+        app:
+          env: dev
 
       patterns:
         - *pattern_manala
@@ -529,11 +533,11 @@ manala_skeletons:
           motd: App - Php - Dev
           # Oh my zsh
           ohmyzsh_users:
-            - user:     "{{ manala_skeleton_options.app_user }}"
-              group:    "{{ manala_skeleton_options.app_group }}"
-              template: users/manala_php_{{ manala_skeleton_options.app_env }}.j2
+            - user:     "{{ manala_skeleton_options.app.user }}"
+              group:    "{{ manala_skeleton_options.app.group }}"
+              template: users/manala_php_{{ manala_skeleton_env }}.j2
               config:
-                - "[ -d {{ manala_skeleton_options.app_dir }} ] && cd {{ manala_skeleton_options.app_dir }}"
+                - "[ -d {{ manala_skeleton_options.app.dir }} ] && cd {{ manala_skeleton_options.app.dir }}"
 
     test:
 
@@ -559,7 +563,8 @@ manala_skeletons:
         npm:        true
         phantomjs:  true
         # App
-        app_env: test
+        app:
+          env: test
 
       patterns:
         - *pattern_manala

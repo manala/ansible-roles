@@ -56,10 +56,11 @@ manala_skeleton_options:
   dnsmasq:               false
 
   # App
-  app_env:          dev
-  app_user:         app
-  app_group:        app
-  app_dir:          /srv/app
-  app_log_dir:      /var/log/app
-  app_cache_dir:    /var/cache/app
-  app_sessions_dir: /var/lib/app/sessions
+  app:
+    env:          dev
+    user:         app
+    group:        app
+    dir:          /srv/app
+    log_dir:      /var/log/app
+    cache_dir:    /var/cache/app
+    sessions_dir: /var/lib/app/sessions
