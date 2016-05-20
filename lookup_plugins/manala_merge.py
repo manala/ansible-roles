@@ -25,8 +25,10 @@ class LookupModule(LookupBase):
         for hash in hashes:
             for resultKey, resultValue in hash.iteritems():
                 resultValue = templar.template(resultValue, fail_on_undefined=False)
-                if (resultKey in result) and isinstance(resultValue, (list, tuple)):
+                if (resultKey in result) and (isinstance(result[resultKey], (list, tuple)) and isinstance(resultValue, (list, tuple))):
                     result[resultKey] = result[resultKey] + resultValue
+                elif (resultKey in result) and (isinstance(result[resultKey], dict) and isinstance(resultValue, dict)):
+                    result[resultKey].update(resultValue)
                 else:
                     result[resultKey] = resultValue
 
