@@ -6,5 +6,5 @@ manala_phpmyadmin_dir: /usr/share/phpmyadmin
 # Configs
 manala_phpmyadmin_configs_exclusive: false
 manala_phpmyadmin_configs_dir:       /etc/phpmyadmin/conf.d
-manala_phpmyadmin_configs_template:  configs/empty.inc.php.j2
+manala_phpmyadmin_configs_template:  configs/empty.j2
 manala_phpmyadmin_configs:           []

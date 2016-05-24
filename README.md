@@ -50,7 +50,7 @@ Using ansible galaxy requirements file:
 manala_phpmyadmin_configs_exclusive: true
 manala_phpmyadmin_configs:
   - file:     config.inc.php
-    template: configs/dev.inc.php.j2
+    template: configs/default.dev.j2
     servers:
       - id: 1
         config:
