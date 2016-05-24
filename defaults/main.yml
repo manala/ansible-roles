@@ -4,7 +4,7 @@ manala_elasticsearch_dir: /usr/share/elasticsearch
 
 # Config
 manala_elasticsearch_config_file:     /etc/elasticsearch/elasticsearch.yml
-manala_elasticsearch_config_template: config/base.yml.j2
+manala_elasticsearch_config_template: config/default.j2
 manala_elasticsearch_config:          []
 
 # Plugins
