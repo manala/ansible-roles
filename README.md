@@ -51,7 +51,7 @@ manala_postgresql_version: 9.4
 ## PostgreSQL with custom configuration files:
 
 ```yaml
-manala_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.conf.j2' }}"
+manala_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.j2' }}"
 ```
 
 ## Example playbook
