@@ -9,7 +9,7 @@
 
 - name: install > Lua encoders
   template:
-    src:  "lua_encoders/{{ item }}.lua.j2"
+    src:  "lua_encoders/{{ item }}.j2"
     dest: "/usr/share/heka/lua_encoders/{{ item }}.lua"
   with_items:
-    - manala_rtail
+    - rtail
