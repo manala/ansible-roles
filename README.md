@@ -36,10 +36,10 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                             | Default                | Type    | Description       |
-| -------------------------------- | ---------------------- | ------- | ----------------- |
-| `manala_mongodb_config`          | {}                     | Array   |  Main config.     |
-| `manala_mongodb_config_template` | config/default.conf.j2 | String  |  Config template. |
+| Name                             | Default           | Type    | Description       |
+| -------------------------------- | ----------------- | ------- | ----------------- |
+| `manala_mongodb_config`          | {}                | Array   |  Main config.     |
+| `manala_mongodb_config_template` | config/default.j2 | String  |  Config template. |
 
 ### Configuration example
 
