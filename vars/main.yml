@@ -35,7 +35,6 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
       + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2'}[manala_skeleton_options.elasticsearch_version|string]],[])
     }}"
-    apt_packages: []
     # Ssh
     ssh_config_sshd_template: config/sshd/default.{{ manala_skeleton_env }}.j2
     ssh_config_template: config/default.{{ manala_skeleton_env }}.j2
@@ -238,28 +237,20 @@ manala_skeleton_patterns:
     # RTail
     rtail_config_template: config/default.{{ manala_skeleton_env }}.j2
 
-  # Manala - Supervisor - Inet Http Server
+  # Manala - Dev
 
-  manala_supervisor_inet_http_server: &pattern_manala_supervisor_inet_http_server
+  manala_dev: &pattern_manala_dev
+    # Apt
+    apt_packages:
+      - htop
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf
         template: configs/inet_http_server.{{ manala_skeleton_env }}.j2
 
-  # Manala - Nginx - Default 404
+  # Manala - Nginx - Dev
 
-  manala_nginx_default_404: &pattern_manala_nginx_default_404
-    # Nginx
-    nginx_configs:
-      - file:     default.conf
-        template: configs/server.j2
-        config:
-          - listen: '* default_server'
-          - return: 404
-
-  # Manala - Nginx - Default 404 - File
-
-  manala_nginx_default_404_file: &pattern_manala_nginx_default_404_file
+  manala_nginx_dev: &pattern_manala_nginx_dev
     # Files
     files:
       - path:  /usr/share/manala/html
@@ -294,15 +285,26 @@ manala_skeleton_patterns:
             - root: /usr/share/manala/html
             - internal;
 
+  # Manala - Nginx - Test
+
+  manala_nginx_test: &pattern_manala_nginx_test
+    # Nginx
+    nginx_configs:
+      - file:     default.conf
+        template: configs/server.j2
+        config:
+          - listen: '* default_server'
+          - return: 404
+
   # Elao
 
   elao: &pattern_elao
     # Motd
     motd_template: template/elao.j2
 
-  # Elao - Nginx - Default 404 - File
+  # Elao - Nginx - Dev
 
-  elao_nginx_default_404_file: &pattern_elao_nginx_default_404_file
+  elao_nginx_dev: &pattern_elao_nginx_dev
     # Files
     files:
       - path:  /usr/share/elao/html
@@ -377,8 +379,8 @@ manala_skeletons:
 
       patterns:
         - *pattern_manala
-        - *pattern_manala_nginx_default_404_file
-        - *pattern_manala_supervisor_inet_http_server
+        - *pattern_manala_dev
+        - *pattern_manala_nginx_dev
         -
           # Motd
           motd: App - Dev
@@ -411,7 +413,7 @@ manala_skeletons:
 
       patterns:
         - *pattern_manala
-        - *pattern_manala_nginx_default_404
+        - *pattern_manala_nginx_test
         -
           # Motd
           motd: App - Test
@@ -464,8 +466,8 @@ manala_skeletons:
 
       patterns:
         - *pattern_manala
-        - *pattern_manala_nginx_default_404_file
-        - *pattern_manala_supervisor_inet_http_server
+        - *pattern_manala_dev
+        - *pattern_manala_nginx_dev
         -
           # Motd
           motd: App - Php - Dev
@@ -525,9 +527,9 @@ manala_skeletons:
 
       patterns:
         - *pattern_manala
-        - *pattern_elao_nginx_default_404_file
-        - *pattern_manala_supervisor_inet_http_server
+        - *pattern_manala_dev
         - *pattern_elao
+        - *pattern_elao_nginx_dev
         -
           # Motd
           motd: App - Php - Dev
@@ -568,7 +570,7 @@ manala_skeletons:
 
       patterns:
         - *pattern_manala
-        - *pattern_manala_nginx_default_404
+        - *pattern_manala_nginx_test
         - *pattern_elao
         -
           # Motd
