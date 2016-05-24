@@ -8,7 +8,7 @@ manala_supervisor_config:          []
 # Configs
 manala_supervisor_configs_exclusive: false
 manala_supervisor_configs_dir:       /etc/supervisor/conf.d
-manala_supervisor_configs_template:  configs/empty.conf.j2
+manala_supervisor_configs_template:  configs/empty.j2
 manala_supervisor_configs:           []
 
 # Log

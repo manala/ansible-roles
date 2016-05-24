@@ -58,7 +58,7 @@ Enable http server
 ```yaml
 manala_supervisor_configs:
   - file:     inet_http_server.conf
-    template: configs/inet_http_server_default.conf.j2
+    template: configs/inet_http_server.dev.j2
     config:
       port:     "*:9001"
 ```
@@ -68,7 +68,7 @@ Program
 ```yaml
 manala_supervisor_configs:
   - file:     foo.conf
-    template: configs/program_default.conf.j2
+    template: configs/program.dev.j2
     config:
       name: foo
       command: "bar"
