@@ -4,5 +4,5 @@
 manala_composer_bin: /usr/local/bin/composer
 
 # Users - Auth
-manala_composer_users_auth_template: users/auth/empty.json.j2
+manala_composer_users_auth_template: users/auth/empty.j2
 manala_composer_users_auth: []
