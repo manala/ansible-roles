@@ -55,9 +55,9 @@ The `manala_nginx_config_template` key will allow you to use differents main con
 
 ```yaml
 ---
-_env:        prod
+env:        prod
 
-manala_vim_config_template: config/{{ _env }}.j2
+manala_vim_config_template: config/default.{{ env }}.j2
 ```
 In combination with it you can specify the vim configuration file with the `manala_vim_config_file`:
 
