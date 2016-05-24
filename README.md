@@ -36,16 +36,16 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                              | Default                     | Type    | Description                                 |
-| --------------------------------- | --------------------------- | ------- | ------------------------------------------- |
-| `manala_nginx_config_template`    | config/http_default.conf.j2 | String  | Main config template                        |
-| `manala_nginx_config`             | {}                          | Array   | Main config                                 |
-| `manala_nginx_configs`            | {}                          | Array   | Configs                                     |
-| `manala_nginx_configs_template`   | configs/empty.conf.j2       | String  | Template to use to define a host            |
-| `manala_nginx_configs_exclusive`  | false                       | Boolean | Exclusion of existings files                |
-| `manala_nginx_configs_dir`        | /etc/nginx/conf.d           | String  | Path to the main configuration directory    |
-| `manala_nginx_user`               | www-data                    | String  | User running nginx                          |
-| `manala_nginx_log_dir`            | /var/log/nginx              | String  | Directory where Nginx will store is logs    |
+| Name                              | Default           | Type    | Description                                 |
+| --------------------------------- | ----------------- | ------- | ------------------------------------------- |
+| `manala_nginx_config_template`    | config/default.j2 | String  | Main config template                        |
+| `manala_nginx_config`             | {}                | Array   | Main config                                 |
+| `manala_nginx_configs`            | {}                | Array   | Configs                                     |
+| `manala_nginx_configs_template`   | configs/empty.j2  | String  | Template to use to define a host            |
+| `manala_nginx_configs_exclusive`  | false             | Boolean | Exclusion of existings files                |
+| `manala_nginx_configs_dir`        | /etc/nginx/conf.d | String  | Path to the main configuration directory    |
+| `manala_nginx_user`               | www-data          | String  | User running nginx                          |
+| `manala_nginx_log_dir`            | /var/log/nginx    | String  | Directory where Nginx will store is logs    |
 
 
 ### Nginx configuration
@@ -59,7 +59,7 @@ The `manala_nginx_config_template` key will allow you to use differents main con
 
 #### Example:
 ```yaml
-manala_nginx_config_template: config/http_dev.conf.j2
+manala_nginx_config_template: config/http.dev.j2
 ```
 
 The `manala_nginx_config` key is made to allow you to alter main Nginx configuration templates.
@@ -92,13 +92,13 @@ manala_nginx_config:
     worker_connections: 1024
 manala_nginx_configs:
   - file: test.conf
-    template: configs/server_default.conf.j2
+    template: configs/server.j2
     config:
       - listen: 8080
       - location /:
         - root:  /srv/foo
   - file: symfony2.conf
-    template: configs/server_symfony2.conf.j2
+    template: configs/server.j2
     config:
       - server_name: symfony2.dev
       - root: /srv/symfony2/web
@@ -113,13 +113,13 @@ manala_nginx_configs:
       - location ~ ^/(index|frontend_dev)\.php(/|$):
         - include: conf.d/php_fpm_params
   - file: wp.conf
-    template: configs/server_wordpress.conf.j2
+    template: configs/server.j2
     config:
       - listen: 80
       - location /:
         - root:  /srv/wordpress/
   - file: pma.conf
-    template: configs/server_php.conf.j2
+    template: configs/server.j2
     config:
       - server_name:          pma.my_domain.com
       - listen:               "{{ ansible_venet0_0.ipv4.address }}:80"
