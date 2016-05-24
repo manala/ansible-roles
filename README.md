@@ -42,20 +42,20 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                             | Default                   | Type    | Description                                            |
-| -------------------------------- | --------------------      | ------  | ------------------------------------------------------ |
-| `manala_php_sapis`               | [cli, fpm]                | Array   | A list of the PHP SAPIs to install.                    |
-| `manala_php_extensions`          | [ ]                       | Array   | A list of the php extensions to install.               |
-| `manala_php_configs_dir_base`    | /etc/php5                 | String  | Configs directory path.                                |
-| `manala_php_configs_template`    | configs/default.ini.j2    | String  | Default configuration template.                        |
-| `manala_php_configs_exclusive`   | false                     | Boolean | Whether to remove all other non-specified config files |
-| `manala_php_configs`             | [ ]                       | Array   | Shared configurations.                                 |
-| `manala_php_fpm_configs`         | [ ]                       | Array   | PHP fpm additional configurations.                     |
-| `manala_php_cli_configs`         | [ ]                       | Array   | PHP cli additional configurations.                     |
-| `manala_php_fpm_pools_dir`       | /etc/php5/fpm/pool.d      | String  | PHP fpm pools directory path.                          |
-| `manala_php_fpm_pools_template`  | fpm_pools/default.conf.j2 | String  | Default pool template.                                 |
-| `manala_php_fpm_pools_exclusive` | false                     | Boolean | Whether to remove all other non-specified pool files   |
-| `manala_php_fpm_pools`           | [ {name: www.conf} ]      | Array   | PHP fpm pools configurations.                          |
+| Name                             | Default              | Type    | Description                                            |
+| -------------------------------- | -------------------- | ------  | ------------------------------------------------------ |
+| `manala_php_sapis`               | [cli, fpm]           | Array   | A list of the PHP SAPIs to install.                    |
+| `manala_php_extensions`          | [ ]                  | Array   | A list of the php extensions to install.               |
+| `manala_php_configs_dir_base`    | /etc/php5            | String  | Configs directory path.                                |
+| `manala_php_configs_template`    | configs/empty.j2     | String  | Default configuration template.                        |
+| `manala_php_configs_exclusive`   | false                | Boolean | Whether to remove all other non-specified config files |
+| `manala_php_configs`             | [ ]                  | Array   | Shared configurations.                                 |
+| `manala_php_fpm_configs`         | [ ]                  | Array   | PHP fpm additional configurations.                     |
+| `manala_php_cli_configs`         | [ ]                  | Array   | PHP cli additional configurations.                     |
+| `manala_php_fpm_pools_dir`       | /etc/php5/fpm/pool.d | String  | PHP fpm pools directory path.                          |
+| `manala_php_fpm_pools_template`  | fpm_pools/empty.j2   | String  | Default pool template.                                 |
+| `manala_php_fpm_pools_exclusive` | false                | Boolean | Whether to remove all other non-specified pool files   |
+| `manala_php_fpm_pools`           | [ {name: www.conf} ] | Array   | PHP fpm pools configurations.                          |
 
 ### Configuration example
 
@@ -69,10 +69,7 @@ manala_php_extensions:
   - mysqlnd
 
 manala_php_configs:
-  # Load PHP extensions.
-  - file:             10-extensions.ini
-    template:         configs/extensions.ini.j2
-  - file:             default.ini
+  - file: default.ini
     config:
       - date.timezone:  UTC
 ```
@@ -88,8 +85,6 @@ manala_php_extensions:
   - intl
 
 manala_php_configs:
-  - file:      10-extensions.ini
-    template:  configs/extensions.ini.j2
   - file: default.ini
     config:
       - date.timezone: UTC
@@ -97,7 +92,7 @@ manala_php_configs:
 manala_php_fpm_configs:
   - file: env_dev.ini
     # A development environment template with some preconfigured directives.
-    template: configs/config_dev.ini.j2
+    template: configs/default.dev.j2
     config:
       # Default parameters
       - display_errors:                  true
@@ -122,7 +117,7 @@ manala_php_fpm_configs:
       - php_post_max_size:               32M
   - file: env_prod.ini
     # A production environment template with some preconfigured directives.
-    template: configs/config_prod.ini.j2
+    template: configs/default.prod.j2
     config:
       # Default parameters
       - display_errors:                  false
@@ -153,9 +148,9 @@ manala_php_fpm_configs:
 manala_php_sapis: ['cli', 'fpm']
 
 manala_php_fpm_pools:
-  - file:      www.conf
+  - file:     www.conf
     # default template
-    template: fpm_pools/default.conf.j2
+    template: fpm_pools/default.j2
     config:
       # Default parameters
       - name:                     www
