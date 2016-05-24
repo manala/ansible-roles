@@ -106,13 +106,13 @@ manala_apt_sources_list:
 Or use predefined templates
 
 ```yaml
-manala_apt_sources_list_template: sources_list/debian.list.j2
+manala_apt_sources_list_template: sources_list/debian.j2
 ```
 
 Or combine both
 
 ```yaml
-manala_apt_sources_list_template: sources_list/debian_src.list.j2
+manala_apt_sources_list_template: sources_list/debian_src.j2
 manala_apt_sources_list:
   - deb-src: http://httpredir.debian.org/debian wheezy main
   - deb-src http://httpredir.debian.org/debian wheezy contrib

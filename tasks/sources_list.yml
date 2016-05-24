@@ -2,6 +2,6 @@
 
 - name: sources_list > Template
   template:
-    src:  "{{ manala_apt_sources_list_template|ternary(manala_apt_sources_list_template, 'sources_list/empty.list.j2') }}"
+    src:  "{{ manala_apt_sources_list_template|ternary(manala_apt_sources_list_template, 'sources_list/empty.j2') }}"
     dest: "{{ manala_apt_sources_list_file }}"
   when: (manala_apt_sources_list_template is not none) or (manala_apt_sources_list|length)
