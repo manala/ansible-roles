@@ -95,13 +95,13 @@ manala_ohmyzsh_users:
   - user:     root
     template: users/default.{{ env }}.j2
     config:
-      - ZSH_THEME: manala-prod
+      - ZSH_THEME: default.prod
       - plugins: (git debian common-aliases history history-substring-search)
   - user:     foo
     group:    root # Default to user primary group, but can be overriden
     template: users/default.{{ env }}.j2
     config:
-      - ZSH_THEME: manala-prod
+      - ZSH_THEME: default.prod
       - plugins: (git debian common-aliases history history-substring-search)
 ```
 
