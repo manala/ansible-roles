@@ -36,27 +36,27 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                             | Default                | Type          | Description                                            |
-| -------------------------------- | ---------------------- | ------------- | ------------------------------------------------------ |
-| `manala_mysql_tasks_include`     | ~                      | Array         | Execute only specified tasks                           |
-| `manala_mysql_tasks_exlude`      | [ ]                    | Array         | Exclude tasks (install, configs, services)             |
-| `manala_mysql_configs_dir`       | /etc/mysql/conf.d      | String (path) | Configurations directory path                          |
-| `manala_mysql_configs_template`  | configs/default.cnf.j2 | String (path) | Default configuration template                         |
-| `manala_mysql_configs_exclusive` | false                  | Boolean       | Whether to remove all other non-specified config files |
-| `manala_mysql_configs`           | [ ]                    | Array         | Mysql configuration files                              |
+| Name                             | Default           | Type          | Description                                            |
+| -------------------------------- | ------------------| ------------- | ------------------------------------------------------ |
+| `manala_mysql_tasks_include`     | ~                 | Array         | Execute only specified tasks                           |
+| `manala_mysql_tasks_exlude`      | [ ]               | Array         | Exclude tasks (install, configs, services)             |
+| `manala_mysql_configs_dir`       | /etc/mysql/conf.d | String (path) | Configurations directory path                          |
+| `manala_mysql_configs_template`  | configs/empty.j2  | String (path) | Default configuration template                         |
+| `manala_mysql_configs_exclusive` | false             | Boolean       | Whether to remove all other non-specified config files |
+| `manala_mysql_configs`           | [ ]               | Array         | Mysql configuration files                              |
 
 ### Configuration example
 
 ```yaml
 # use a default custom template
-manala_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.cnf.j2' }}"
+manala_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.j2' }}"
 
 # clean configs directory
 manala_mysql_configs_exclusive: true
 
 manala_mysql_configs:
   - file: my.cnf
-    template: configs/default.cnf.j2
+    template: configs/default.dev.j2
     config:
       client:
         port:                   3306

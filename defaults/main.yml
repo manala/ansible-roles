@@ -7,7 +7,7 @@ manala_mysql_tasks_exlude: []
 # Configs
 manala_mysql_configs_exclusive: false
 manala_mysql_configs_dir:       /etc/mysql/conf.d
-manala_mysql_configs_template:  configs/empty.cnf.j2
+manala_mysql_configs_template:  configs/empty.j2
 manala_mysql_configs:           []
 
 # Users
