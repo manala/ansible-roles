@@ -51,7 +51,7 @@ None.
 ```yaml
 - hosts: all
   vars:
-    manala_mailhog_config_template: config/dev.j2
+    manala_mailhog_config_template: config/default.dev.j2
     manala_mailhog_config:
       - ui-bind-addr: 0.0.0.0:8080
   roles:
