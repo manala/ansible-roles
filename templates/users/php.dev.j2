@@ -9,7 +9,7 @@
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-{{ macros.config_row(config, 'ZSH_THEME', 'manala-dev') }}
+{{ macros.config_row(config, 'ZSH_THEME', 'default.dev') }}
 
 # Uncomment the following line to use case-sensitive completion.
 {{ macros.config_row(config, 'CASE_SENSITIVE', '# CASE_SENSITIVE="true"', true) }}
@@ -53,11 +53,11 @@
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-{{ macros.config_row(config, 'plugins', '(git debian common-aliases history history-substring-search)') }}
+{{ macros.config_row(config, 'plugins', '(git debian common-aliases history history-substring-search npm composer symfony2)') }}
 
 # User configuration
 
-{{ macros.config_row(config, 'export PATH', '# export PATH=$HOME/bin:/usr/local/bin:$PATH', true) }}
+{{ macros.config_row(config, 'export PATH', 'export PATH=./bin:./vendor/bin:$PATH') }}
 {{ macros.config_row(config, 'export MANPATH', '# export MANPATH="/usr/local/man:$MANPATH"', true) }}
 
 source $ZSH/oh-my-zsh.sh
@@ -92,6 +92,31 @@ manala_ip () {
 
 echo "- Show public ip"
 echo "    manala_ip"
+
+manala_php_xdebug () {
+    if [[ $1 == on ]]; then sudo rename -v 's/20-xdebug.ini.off/20-xdebug.ini/' /etc/php5/*/conf.d/20-xdebug.ini.off
+    else sudo rename -v 's/20-xdebug.ini/20-xdebug.ini.off/' /etc/php5/*/conf.d/20-xdebug.ini; fi
+    sudo service php5-fpm restart
+}
+
+echo "- Enable/Disable php xdebug"
+echo "    manala_php_xdebug on|off"
+
+manala_nginx_timeout () {
+    if [[ $1 == off ]]; then sudo sed -ri 's/fastcgi_read_timeout (.*);$/fastcgi_read_timeout 999s;#origin\1/' /etc/nginx/conf.d/php_fpm_params
+    else sudo sed -ri 's/^fastcgi_read_timeout 999s;#origin(.*)/fastcgi_read_timeout \1;/' /etc/nginx/conf.d/php_fpm_params; fi
+    sudo /etc/init.d/nginx restart
+}
+
+echo "- Enable/Disable nginx timeout"
+echo "    manala_nginx_timeout on|off"
+
+manala_ngrok_http () {
+    ngrok http -config=/etc/ngrok/config.yml 80
+}
+
+echo "- Start ngrok http"
+echo "    manala_ngrok_http"
 
 echo
 

@@ -40,7 +40,7 @@ None
 |-------------------------------- |--------------------------- |---------- |---------------------------------------------------------------- |
 | `manala_ohmyzsh_dir`            | /usr/local/share/oh-my-zsh | String    | ohMyZsh installation directory                                  |
 | `manala_ohmyzsh_update`         | false                      | Boolean   | Whether or not we should auto retrieve new revision of ohMyZsh  |
-| `manala_ohmyzsh_users_template` | users/base.j2              | String    | User config template                                            |
+| `manala_ohmyzsh_users_template` | users/default.j2           | String    | User config template                                            |
 | `manala_ohmyzsh_users`          | []                         | Array     | Collection of users with ohMyZsh custom configurations.         |
 
 ### Oh My Zsh configuration
@@ -55,7 +55,7 @@ The `manala_ohmyzsh_users_template` key will allow you to use differents main co
 #### Example
 
 ```yaml
-manala_ohmyzsh_users_template: users/base.j2
+manala_ohmyzsh_users_template: users/default.j2
 ```
 
 The `manala_ohmyzsh_dir` key is used to specify the path where to checkout oh-my-zsh
@@ -89,17 +89,17 @@ This part allow you, with the key `manala_ohmyzsh_users`, to configure each user
 ```yaml
 ---
 
-_env:        prod
+env:        prod
 
 manala_ohmyzsh_users:
   - user:     root
-    template: users/{{ _env }}.j2
+    template: users/default.{{ env }}.j2
     config:
       - ZSH_THEME: manala-prod
       - plugins: (git debian common-aliases history history-substring-search)
   - user:     foo
     group:    root # Default to user primary group, but can be overriden
-    template: users/{{ _env }}.j2
+    template: users/default.{{ env }}.j2
     config:
       - ZSH_THEME: manala-prod
       - plugins: (git debian common-aliases history history-substring-search)

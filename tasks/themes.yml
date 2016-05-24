@@ -8,8 +8,8 @@
 - name: themes > Templates
   template:
     src:   "themes/{{ item }}.j2"
-    dest:  "{{ manala_ohmyzsh_dir }}/custom/themes/{{ item }}"
+    dest:  "{{ manala_ohmyzsh_dir }}/custom/themes/{{ item }}.zsh-theme"
   with_items:
-    - manala-dev.zsh-theme
-    - manala-demo.zsh-theme
-    - manala-prod.zsh-theme
+    - default.dev
+    - default.demo
+    - default.prod
