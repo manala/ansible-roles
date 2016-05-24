@@ -45,7 +45,7 @@ Using ansible galaxy requirements file:
 ```yaml
 manala_dnsmasq_configs:
   - file:     dev.conf
-    template: configs/dev.conf.j2
+    template: configs/default.dev.j2
 ```
 
 ## Example playbook
