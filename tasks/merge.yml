@@ -2,6 +2,7 @@
 
 - name: merge
   manala_set:
-    hash:   "{{ lookup('manala_merge', manala_merge_hashes, wantlist=true) }}"
-    prefix: "{{ manala_merge_prefix|default(omit) }}"
-    var:    "{{ manala_merge_var|default(omit) }}"
+    hash:   "{{ lookup('manala_merge', item.hashes, wantlist=true) }}"
+    prefix: "{{ item.prefix|default(omit) }}"
+    var:    "{{ item.var|default(omit) }}"
+  with_items: "{{ manala_merge }}"
