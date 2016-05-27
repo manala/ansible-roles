@@ -33,143 +33,221 @@ dependencies:
           + manala_skeleton_patterns_hashes
         }}"
         prefix: manala_
+    tags:
+      - always
 
   # Motd
   - role: manala.motd
     when: manala_skeleton_options.motd
+    tags:
+      - manala_skeleton.roles.motd
 
   # Timezone
   - role: manala.timezone
     when: manala_skeleton_options.timezone
+    tags:
+      - manala_skeleton.roles.timezone
 
   # Locales
   - role: manala.locales
     when: manala_skeleton_options.locales
+    tags:
+      - manala_skeleton.roles.locales
 
   # Env
   - role: manala.env
     when: manala_skeleton_options.env
+    tags:
+      - manala_skeleton.roles.env
 
   # Apt
   - role: manala.apt
     when: manala_skeleton_options.apt
+    tags:
+      - manala_skeleton.roles.apt
 
   # Ssh
   - role: manala.ssh
     when: manala_skeleton_options.ssh
+    tags:
+      - manala_skeleton.roles.ssh
 
   # Git
   - role: manala.git
     when: manala_skeleton_options.git
+    tags:
+      - manala_skeleton.roles.git
 
   # Zsh
   - role: manala.zsh
     when: manala_skeleton_options.zsh
+    tags:
+      - manala_skeleton.roles.zsh
 
   # Oh my zsh
   - role: manala.ohmyzsh
     when: manala_skeleton_options.ohmyzsh and manala_skeleton_options.zsh and manala_skeleton_options.git
+    tags:
+      - manala_skeleton.roles.ohmyzsh
 
   # Vim
   - role: manala.vim
     when: manala_skeleton_options.vim
+    tags:
+      - manala_skeleton.roles.vim
 
   # Alternatives
   - role: manala.alternatives
     when: manala_skeleton_options.alternatives
+    tags:
+      - manala_skeleton.roles.alternatives
 
   # Files
   - role: manala.files
     when: manala_skeleton_options.files
+    tags:
+      - manala_skeleton.roles.files
 
   # Make
   - role: manala.make
     when: manala_skeleton_options.make
+    tags:
+      - manala_skeleton.roles.make
 
   # MailHog
   - role: manala.mailhog
     when: manala_skeleton_options.mailhog
+    tags:
+      - manala_skeleton.roles.mailhog
 
   # Nodejs
   - role: manala.nodejs
     when: manala_skeleton_options.nodejs
+    tags:
+      - manala_skeleton.roles.nodejs
   - role: manala.npm
     when: manala_skeleton_options.npm and manala_skeleton_options.nodejs
+    tags:
+      - manala_skeleton.roles.npm
 
   # Php
   - role: manala.php
     when: manala_skeleton_options.php
+    tags:
+      - manala_skeleton.roles.php
   - role: manala.composer
     when: manala_skeleton_options.composer and manala_skeleton_options.php
+    tags:
+      - manala_skeleton.roles.composer
 
   # Nginx
   - role: manala.nginx
     when: manala_skeleton_options.nginx
+    tags:
+      - manala_skeleton.roles.nginx
 
   # Supervisor
   - role: manala.supervisor
     when: manala_skeleton_options.supervisor
+    tags:
+      - manala_skeleton.roles.supervisor
 
   # PhantomJS
   - role: manala.phantomjs
     when: manala_skeleton_options.phantomjs
+    tags:
+      - manala_skeleton.roles.phantomjs
 
   # Heka
   - role: manala.heka
     when: manala_skeleton_options.heka
+    tags:
+      - manala_skeleton.roles.heka
 
   # RTail
   - role: manala.rtail
     when: manala_skeleton_options.rtail and manala_skeleton_options.nodejs
+    tags:
+      - manala_skeleton.roles.rtail
 
   # Ngrok
   - role: manala.ngrok
     when: manala_skeleton_options.ngrok
+    tags:
+      - manala_skeleton.roles.ngrok
 
   # Ntp
   - role: manala.ntp
     when: manala_skeleton_options.ntp
+    tags:
+      - manala_skeleton.roles.ntp
 
   # Java
   - role: manala.java
     when: manala_skeleton_options.java or manala_skeleton_options.elasticsearch
+    tags:
+      - manala_skeleton.roles.java
 
   # Cron
   - role: manala.cron
     when: manala_skeleton_options.cron
+    tags:
+      - manala_skeleton.roles.cron
 
   # OPcache Dashboard
   - role: manala.opcache-dashboard
     when: manala_skeleton_options.opcache_dashboard and manala_skeleton_options.php and manala_skeleton_options.nginx
+    tags:
+      - manala_skeleton.roles.opcache-dashboard
 
   # MySql
   - role: manala.mysql
     when: manala_skeleton_options.mysql
+    tags:
+      - manala_skeleton.roles.mysql
   - role: manala.phpmyadmin
     when: manala_skeleton_options.phpmyadmin and manala_skeleton_options.mysql and manala_skeleton_options.php and manala_skeleton_options.nginx
+    tags:
+      - manala_skeleton.roles.phpmyadmin
 
   # PostgreSQL
   - role: manala.postgresql
     when: manala_skeleton_options.postgresql
+    tags:
+      - manala_skeleton.roles.postgresql
   - role: manala.phppgadmin
     when: manala_skeleton_options.phppgadmin and manala_skeleton_options.postgresql and manala_skeleton_options.php and manala_skeleton_options.nginx
+    tags:
+      - manala_skeleton.roles.phppgadmin
 
   # Redis
   - role: manala.redis
     when: manala_skeleton_options.redis
+    tags:
+      - manala_skeleton.roles.redis
   - role: manala.phpredisadmin
     when: manala_skeleton_options.phpredisadmin and manala_skeleton_options.redis and manala_skeleton_options.php and manala_skeleton_options.nginx
+    tags:
+      - manala_skeleton.roles.phpredisadmin
 
   # MongoDB
   - role: manala.mongodb
     when: manala_skeleton_options.mongodb
+    tags:
+      - manala_skeleton.roles.mongodb
   - role: manala.mongo-express
     when: manala_skeleton_options.mongo_express and manala_skeleton_options.mongodb and manala_skeleton_options.nodejs
+    tags:
+      - manala_skeleton.roles.mongo-express
 
   # Elasticsearch
   - role: manala.elasticsearch
     when: manala_skeleton_options.elasticsearch
+    tags:
+      - manala_skeleton.roles.elasticsearch
 
   # # Dnsmasq
   # - role: manala.dnsmasq
   #   when: manala_skeleton_options.dnsmasq
+  #   tags:
+  #     - manala_skeleton.roles.dnsmasq
