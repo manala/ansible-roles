@@ -1,7 +1,8 @@
 ---
 
 # Roles
-manala_ansible_galaxy_roles: []
+manala_ansible_galaxy_roles:      []
+manala_ansible_galaxy_roles_path: ~
 
 # Force
 manala_ansible_galaxy_force: false
