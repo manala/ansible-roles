@@ -1,0 +1,7 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+server {
+{{ macros.config(config, [], 4) -}}
+}
