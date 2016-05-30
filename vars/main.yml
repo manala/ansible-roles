@@ -114,7 +114,8 @@ manala_skeleton_patterns:
             {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
             {'fastcgi_read_timeout':    '60s'},
             {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
+            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
             {'fastcgi_param':           'HTTPS off'}
           ]}
         ]
@@ -134,7 +135,8 @@ manala_skeleton_patterns:
             {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
             {'fastcgi_read_timeout':    '60s'},
             {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
+            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
             {'fastcgi_param':           'HTTPS off'}
           ]}
         ]
@@ -154,7 +156,8 @@ manala_skeleton_patterns:
             {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
             {'fastcgi_read_timeout':    '60s'},
             {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
+            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
             {'fastcgi_param':           'HTTPS off'}
           ]}
         ]
@@ -173,7 +176,8 @@ manala_skeleton_patterns:
             {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
             {'fastcgi_read_timeout':    '60s'},
             {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $document_root$fastcgi_script_name'},
+            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
+            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
             {'fastcgi_param':           'HTTPS off'}
           ]}
         ]
