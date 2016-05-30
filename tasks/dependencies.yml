@@ -5,5 +5,6 @@
     name:  "{{ item }}"
     force: true
     state: present
+    install_recommends: false
   with_items:
     - apt-transport-https
