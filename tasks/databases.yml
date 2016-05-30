@@ -3,6 +3,7 @@
 - name: databases > Install python-psycopg2 package
   apt:
     name: python-psycopg2
+    install_recommends: false
   when: manala_postgresql_databases|length > 0
 
 - name: databases > Create postgresql databases

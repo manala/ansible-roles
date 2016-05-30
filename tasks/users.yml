@@ -3,6 +3,7 @@
 - name: users > Install python-psycopg2 package
   apt:
     name: python-psycopg2
+    install_recommends: false
   when: manala_postgresql_users|length > 0
 
 - name: users > Create postgresql users

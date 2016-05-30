@@ -4,6 +4,7 @@
   apt:
     name:  "{{ item }}"
     state: present
+    install_recommends: false
   with_items:
     - postgresql-{{ manala_postgresql_version }}
     - postgresql-contrib-{{ manala_postgresql_version }}
