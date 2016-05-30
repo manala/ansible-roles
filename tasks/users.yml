@@ -3,6 +3,7 @@
 - name: users > Install python-mysqldb package
   apt:
     name: python-mysqldb
+    install_recommends: false
   when: manala_mysql_users|length > 0
 
 - name: users > Create mysql users
