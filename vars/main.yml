@@ -383,7 +383,7 @@ manala_skeletons:
         - *pattern_manala_nginx_dev
         -
           # Motd
-          motd: App - Dev
+          motd_message: App - Dev
           # Oh my zsh
           ohmyzsh_users:
             - user:     "{{ manala_skeleton_options.app.user }}"
@@ -416,7 +416,7 @@ manala_skeletons:
         - *pattern_manala_nginx_test
         -
           # Motd
-          motd: App - Test
+          motd_message: App - Test
 
   ######################
   # Manala - App - Php #
@@ -470,7 +470,7 @@ manala_skeletons:
         - *pattern_manala_nginx_dev
         -
           # Motd
-          motd: App - Php - Dev
+          motd_message: App - Php - Dev
           # Oh my zsh
           ohmyzsh_users:
             - user:     "{{ manala_skeleton_options.app.user }}"
@@ -532,7 +532,7 @@ manala_skeletons:
         - *pattern_elao_nginx_dev
         -
           # Motd
-          motd: App - Php - Dev
+          motd_message: App - Php - Dev
           # Oh my zsh
           ohmyzsh_users:
             - user:     "{{ manala_skeleton_options.app.user }}"
@@ -574,4 +574,4 @@ manala_skeletons:
         - *pattern_elao
         -
           # Motd
-          motd: App - Php - Test
+          motd_message: App - Php - Test
