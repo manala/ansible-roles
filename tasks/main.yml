@@ -1,8 +1,15 @@
 ---
 
 - include: install.yml
+  tags:
+    - manala_nginx
 - include: config.yml
+  tags:
+    - manala_nginx
 - include: configs.yml
+  tags:
+    - manala_nginx
 - include: services.yml
   tags:
-     - manala.services
+    - manala_nginx
+    - manala.services
