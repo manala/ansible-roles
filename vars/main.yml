@@ -110,7 +110,7 @@ manala_apt_repositories_patterns:
     source: deb http://www.rabbitmq.com/debian/ testing main
     key:
       url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-      id:  056E8E56
+      id:  6026DFCA
   proxmox:
     source: deb http://download.proxmox.com/debian {{ ansible_distribution_release }} pve-no-subscription
   proxmox_enterprise:
