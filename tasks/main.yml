@@ -1,11 +1,42 @@
 ---
 
+# Dependencies
 - include: dependencies.yml
+  tags:
+    - manala_apt
+
+# Sources list
 - include: sources_list.yml
+  tags:
+    - manala_apt
+
+# Repositories
 - include: repositories.yml
+  tags:
+    - manala_apt
+
+# Preferences
 - include: preferences.yml
+  tags:
+    - manala_apt
+
+# Update
 - include: update.yml
   when: manala_apt_update or manala_apt_upgrade
+  tags:
+    - manala_apt
+    - manala_apt.update
+    - manala.update
+
+# Upgrade
 - include: upgrade.yml
   when: manala_apt_upgrade
+  tags:
+    - manala_apt
+    - manala_apt.update
+    - manala.update
+
+# Packages
 - include: packages.yml
+  tags:
+    - manala_apt
