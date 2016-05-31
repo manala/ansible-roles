@@ -1,3 +1,6 @@
 ---
 
 - include: roles.yml
+  tags:
+     - manala_ansible_galaxy.update
+     - manala.update
