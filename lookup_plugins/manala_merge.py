@@ -8,7 +8,13 @@ class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
+        templar = Templar(variables=variables, loader=self._loader)
+
         hashes = []
+
+        if isinstance(terms[0], string_types):
+            terms[0] = terms[0].replace('[[', '{{').replace(']]', '}}')
+            terms[0] = templar.template(terms[0])
 
         for hash in terms[0]:
             if isinstance(hash, string_types):
@@ -19,8 +25,6 @@ class LookupModule(LookupBase):
                 hashes.append(hash)
 
         result = {}
-
-        templar = Templar(variables=variables, loader=self._loader)
 
         # Merge
         for hash in hashes:
