@@ -1,7 +1,7 @@
 ---
 
-manala_skeleton:     manala_app
-manala_skeleton_env: dev
+manala_skeleton_name: manala_app
+manala_skeleton_env:  dev
 
 # Patterns
 manala_skeleton_patterns_hashes: []

@@ -19,17 +19,17 @@ dependencies:
 
   # Merge
   - role: manala.merge
-    manala_merge:
+    manala_merge_hashes:
       # Options
       - hashes: "{{
           [manala_skeleton_options]
-          + [manala_skeletons[manala_skeleton][manala_skeleton_env].options]
+          + [manala_skeletons[manala_skeleton_name][manala_skeleton_env].options]
           + manala_skeleton_options_hashes
         }}"
         var: manala_skeleton_options
       # Patterns
       - hashes: "{{
-          manala_skeletons[manala_skeleton][manala_skeleton_env].patterns
+          manala_skeletons[manala_skeleton_name][manala_skeleton_env].patterns
           + manala_skeleton_patterns_hashes
         }}"
         prefix: manala_
