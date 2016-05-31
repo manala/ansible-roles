@@ -1,21 +1,55 @@
 ---
 
+# Requirements
 - include: requirements.yml
+  tags:
+    - manala_php
+
+# Install
 - include: install.yml
+  tags:
+    - manala_php
+
+# Extensions
 - include: extensions.yml
+  tags:
+    - manala_php
+
+# Configs - Global
 - include: configs_global.yml
   when: manala_php_configs_global
+  tags:
+    - manala_php
+
+# Configs - Sapi Fpm
 - include: configs_sapi.yml
   vars:
     __manala_php_sapi: fpm
   when: (not manala_php_configs_global) and ('fpm' in manala_php_sapis)
+  tags:
+    - manala_php
+
+# Configs - Sapi Cli
 - include: configs_sapi.yml
   vars:
     __manala_php_sapi: cli
   when: (not manala_php_configs_global) and ('cli' in manala_php_sapis)
+  tags:
+    - manala_php
+
+# Fpm pools
 - include: fpm_pools.yml
   when: ('fpm' in manala_php_sapis)
+  tags:
+    - manala_php
+
+# Services
 - include: services.yml
   tags:
-     - manala.services
+    - manala_php
+    - manala.services
+
+# Applications
 - include: applications.yml
+  tags:
+    - manala_php
