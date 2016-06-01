@@ -5,4 +5,7 @@
     name:  "{{ (item) if (item is string) else (item.package) }}"
     force: "{{ item.force|default(omit) }}"
     state: "{{ item.state|default('present') }}"
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
   with_items: "{{ manala_apt_packages }}"
