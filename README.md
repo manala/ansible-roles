@@ -17,7 +17,7 @@ manala_apt_preferences:
 
 None.
 
-## Supported versions
+## Supported InfluxDB versions
 
 0.13.0+
 

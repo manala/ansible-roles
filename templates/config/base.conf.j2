@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = elao_influxdb_config -%}
+{% set config = manala_influxdb_config -%}
 
 {% set config_meta = [] -%}
 {% set config_data = [] -%}
@@ -75,19 +75,17 @@
 ###
 
 [meta]
-  # Controls if this node should run the metaservice and participate in the Raft group
-  {{ macros.config_row(config_meta, 'enabled', true) }}
-
   # Where the metadata/raft database is stored
   {{ macros.config_row(config_meta, 'dir', '/var/lib/influxdb/meta') }}
 
-  {{ macros.config_row(config_meta, 'bind-address', ':8088') }}
   {{ macros.config_row(config_meta, 'retention-autocreate', true) }}
-  {{ macros.config_row(config_meta, 'election-timeout', '1s') }}
-  {{ macros.config_row(config_meta, 'heartbeat-timeout', '1s') }}
-  {{ macros.config_row(config_meta, 'leader-lease-timeout', '500ms') }}
-  {{ macros.config_row(config_meta, 'commit-timeout', '50ms') }}
-  {{ macros.config_row(config_meta, 'cluster-tracing', false) }}
+
+  # If log messages are printed for the meta service
+  {{ macros.config_row(config_meta, 'logging-enabled', true) }}
+  {{ macros.config_row(config_meta, 'pprof-enabled', false) }}
+
+  # The default duration for leases.
+  {{ macros.config_row(config_meta, 'lease-duration', '1m0s') }}
 
 ###
 ### [data]
@@ -104,36 +102,10 @@
 
   {{ macros.config_row(config_data, 'dir', '/var/lib/influxdb/data') }}
 
-  # The following WAL settings are for the b1 storage engine used in 0.9.2. They won't
-  # apply to any new shards created after upgrading to a version > 0.9.3.
-  {{ macros.config_row(config_data, 'max-wal-size', 'max-wal-size = 104857600 # Maximum size the WAL can reach before a flush. Defaults to 100MB.', 0, true) }}
-  {{ macros.config_row(config_data, 'wal-flush-interval', 'wal-flush-interval = "10m" # Maximum time data can sit in WAL before a flush.', 0, true) }}
-  {{ macros.config_row(config_data, 'wal-partition-flush-delay', 'wal-partition-flush-delay = "2s" # The delay time between each WAL partition being flushed.', 0, true) }}
-
   # These are the WAL settings for the storage engine >= 0.9.3
   {{ macros.config_row(config_data, 'wal-dir', '/var/lib/influxdb/wal') }}
   {{ macros.config_row(config_data, 'wal-logging-enabled', true) }}
   {{ macros.config_row(config_data, 'data-logging-enabled', true) }}
-
-  # When a series in the WAL in-memory cache reaches this size in bytes it is marked as ready to
-  # flush to the index
-  {{ macros.config_row(config_data, 'wal-ready-series-size', '# wal-ready-series-size = 25600', 0, true) }}
-
-  # Flush and compact a partition once this ratio of series are over the ready size
-  {{ macros.config_row(config_data, 'wal-compaction-threshold', '# wal-compaction-threshold = 0.6', 0, true) }}
-
-  # Force a flush and compaction if any series in a partition gets above this size in bytes
-  {{ macros.config_row(config_data, 'wal-max-series-size', '# wal-max-series-size = 2097152', 0, true) }}
-
-  # Force a flush of all series and full compaction if there have been no writes in this
-  # amount of time. This is useful for ensuring that shards that are cold for writes don't
-  # keep a bunch of data cached in memory and in the WAL.
-  {{ macros.config_row(config_data, 'wal-flush-cold-interval', '# wal-flush-cold-interval = "10m"', 0, true) }}
-
-  # Force a partition to flush its largest series if it reaches this approximate size in
-  # bytes. Remember there are 5 partitions so you'll need at least 5x this amount of memory.
-  # The more memory you have, the bigger this can be.
-  {{ macros.config_row(config_data, 'wal-partition-size-threshold', '# wal-partition-size-threshold = 20971520', 0, true) }}
 
   # Whether queries should be logged before execution. Very useful for troubleshooting, but will
   # log any sensitive data contained within a query.
@@ -165,36 +137,8 @@
 
   # MaxPointsPerBlock is the maximum number of points in an encoded
   # block in a TSM file. Larger numbers may yield better compression
-  # but could incur a performance peanalty when querying
+  # but could incur a performance penalty when querying
   {{ macros.config_row(config_data, 'max-points-per-block', '# max-points-per-block = 1000', 0, true) }}
-
-###
-### [hinted-handoff]
-###
-### Controls the hinted handoff feature, which allows nodes to temporarily
-### store queued data when one node of a cluster is down for a short period
-### of time.
-###
-
-[hinted-handoff]
-  {{ macros.config_row(config_hinted_handoff, 'enabled', true) }}
-  {{ macros.config_row(config_hinted_handoff, 'dir', '/var/lib/influxdb/hh') }}
-  {{ macros.config_row(config_hinted_handoff, 'max-size', 1073741824) }}
-  {{ macros.config_row(config_hinted_handoff, 'max-age', '168h') }}
-  {{ macros.config_row(config_hinted_handoff, 'retry-rate-limit', 0) }}
-
-  # Hinted handoff will start retrying writes to down nodes at a rate of once per second.
-  # If any error occurs, it will backoff in an exponential manner, until the interval
-  # reaches retry-max-interval. Once writes to all nodes are successfully completed the
-  # interval will reset to retry-interval.
-  {{ macros.config_row(config_hinted_handoff, 'retry-interval', '1s') }}
-  {{ macros.config_row(config_hinted_handoff, 'retry-max-interval', '1m') }}
-
-  # Interval between running checks for data that should be purged. Data is purged from
-  # hinted-handoff queues for two reasons. 1) The data is older than the max age, or
-  # 2) the target node has been dropped from the cluster. Data is never dropped until
-  # it has reached max-age however, for a dropped node or not.
-  {{ macros.config_row(config_hinted_handoff, 'purge-interval', '1h') }}
 
 ###
 ### [cluster]
@@ -206,6 +150,11 @@
 [cluster]
   {{ macros.config_row(config_cluster, 'shard-writer-timeout', 'shard-writer-timeout = "5s" # The time within which a remote shard must respond to a write request.', 0, true) }}
   {{ macros.config_row(config_cluster, 'write-timeout', 'write-timeout = "10s" # The time within which a write request must complete on the cluster.', 0, true) }}
+  {{ macros.config_row(config_cluster, 'max-concurrent-queries', 'max-concurrent-queries = 0 # The maximum number of concurrent queries that can run. 0 to disable.', 0, true) }}
+  {{ macros.config_row(config_cluster, 'query-timeout', 'query-timeout = "0s" # The time within a query must complete before being killed automatically. 0s to disable.', 0, true) }}
+  {{ macros.config_row(config_cluster, 'max-select-point', 'max-select-point = 0 # The maximum number of points to scan in a query. 0 to disable.', 0, true) }}
+  {{ macros.config_row(config_cluster, 'max-select-series', 'max-select-series = 0 # The maximum number of series to select in a query. 0 to disable.', 0, true) }}
+  {{ macros.config_row(config_cluster, 'max-select-buckets', 'max-select-buckets = 0 # The maximum number of buckets to select in an aggregate query. 0 to disable.', 0, true) }}
 
 ###
 ### [retention]
@@ -273,6 +222,7 @@
   {{ macros.config_row(config_http, 'pprof-enabled', false) }}
   {{ macros.config_row(config_http, 'https-enabled', false) }}
   {{ macros.config_row(config_http, 'https-certificate', '/etc/ssl/influxdb.pem') }}
+  {{ macros.config_row(config_http, 'max-row-limit', 10000) }}
 
 ###
 ### [[graphite]]
@@ -286,44 +236,40 @@
   {{ macros.config_row(config_graphite, 'bind-address', '# bind-address = ":2003"', 0, true) }}
   {{ macros.config_row(config_graphite, 'protocol', '# protocol = "tcp"', 0, true) }}
   {{ macros.config_row(config_graphite, 'consistency-level', '# consistency-level = "one"', 0, true) }}
-  {{ macros.config_row(config_graphite, 'name-separator', '# name-separator = "."', 0, true) }}
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
-  {{ macros.config_row(config_graphite, 'batch-size', '# batch-size = 1000 # will flush if this many points get buffered', 0, true) }}
-  {{ macros.config_row(config_graphite, 'batch-pending', '# batch-pending = 5 # number of batches that may be pending in memory', 0, true) }}
+  {{ macros.config_row(config_graphite, 'batch-size', '# batch-size = 5000 # will flush if this many points get buffered', 0, true) }}
+  {{ macros.config_row(config_graphite, 'batch-pending', '# batch-pending = 10 # number of batches that may be pending in memory', 0, true) }}
   {{ macros.config_row(config_graphite, 'batch-timeout', '# batch-timeout = "1s" # will flush at least this often even if we haven\'t hit buffer limit', 0, true) }}
   {{ macros.config_row(config_graphite, 'udp-read-buffer', '# udp-read-buffer = 0 # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.', 0, true) }}
 
-  ## "name-schema" configures tag names for parsing the metric name from graphite protocol;
-  ## separated by `name-separator`.
-  ## The "measurement" tag is special and the corresponding field will become
-  ## the name of the metric.
-  ## e.g. "type.host.measurement.device" will parse "server.localhost.cpu.cpu0" as
-  ## {
-  ##     measurement: "cpu",
-  ##     tags: {
-  ##         "type": "server",
-  ##         "host": "localhost,
-  ##         "device": "cpu0"
-  ##     }
-  ## }
-  {{ macros.config_row(config_graphite, 'name-schema', '# name-schema = "type.host.measurement.device"', 0, true) }}
+  ### This string joins multiple matching 'measurement' values providing more control over the final measurement name.
+  {{ macros.config_row(config_graphite, 'separator', '# separator = "."', 0, true) }}
 
-  ## If set to true, when the input metric name has more fields than `name-schema` specified,
-  ## the extra fields will be ignored.
-  ## Otherwise an error will be logged and the metric rejected.
-  {{ macros.config_row(config_graphite, 'ignore-unnamed', '# ignore-unnamed = true', 0, true) }}
+  ### Default tags that will be added to all metrics.  These can be overridden at the template level
+  ### or by tags extracted from metric
+  {{ macros.config_row(config_graphite, 'tags', '# tags = ["region=us-east", "zone=1c"]', 0, true) }}
+
+  ### Each template line requires a template pattern.  It can have an optional
+  ### filter before the template and separated by spaces.  It can also have optional extra
+  ### tags following the template.  Multiple tags should be separated by commas and no spaces
+  ### similar to the line protocol format.  There can be only one default template.
+  {{ macros.config_row(config_graphite, 'templates', '# templates = [
+  #   "*.app env.service.resource.measurement",
+  #   # Default template
+  #   "server.*",
+  # ]', 0, true) }}
 
 ###
 ### [collectd]
 ###
-### Controls the listener for collectd data.
+### Controls one or many listeners for collectd data.
 ###
 
-[collectd]
+[[collectd]]
   {{ macros.config_row(config_collectd, 'enabled', 'enabled = false', 0, true) }}
   {{ macros.config_row(config_collectd, 'bind-address', '# bind-address = ""', 0, true) }}
   {{ macros.config_row(config_collectd, 'database', '# database = ""', 0, true) }}
@@ -341,10 +287,10 @@
 ###
 ### [opentsdb]
 ###
-### Controls the listener for OpenTSDB data.
+### Controls one or many listeners for OpenTSDB data.
 ###
 
-[opentsdb]
+[[opentsdb]]
   {{ macros.config_row(config_opentsdb, 'enabled', false) }}
   {{ macros.config_row(config_opentsdb, 'bind-address', '# bind-address = ":4242"', 0, true) }}
   {{ macros.config_row(config_opentsdb, 'database', '# database = "opentsdb"', 0, true) }}
