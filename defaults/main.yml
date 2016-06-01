@@ -21,8 +21,7 @@ manala_apt_preferences:          []
 # Packages
 manala_apt_packages: []
 
-# Update / Upgrade
-manala_apt_update:  "{{ manala_apt['update']|default(false) }}"
+# Upgrade
 manala_apt_upgrade: "{{ manala_apt['update']|default(false) }}"
 
 # Manala
