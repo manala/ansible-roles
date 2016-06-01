@@ -4,6 +4,8 @@
   apt:
     name: python-mysqldb
     install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
   when: manala_mysql_users|length > 0
 
 - name: users > Create mysql users
