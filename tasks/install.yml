@@ -5,6 +5,8 @@
     name:  "{{ item }}"
     state: present
     install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
   with_items:
     - postgresql-{{ manala_postgresql_version }}
     - postgresql-contrib-{{ manala_postgresql_version }}

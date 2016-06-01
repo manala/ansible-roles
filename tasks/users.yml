@@ -4,6 +4,8 @@
   apt:
     name: python-psycopg2
     install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
   when: manala_postgresql_users|length > 0
 
 - name: users > Create postgresql users
