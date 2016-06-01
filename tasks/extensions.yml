@@ -24,6 +24,7 @@
   apt:
     name: "{{ item }}"
     state: absent
+    purge: true
   with_items: "{{ __manala_php_extensions_enabled|difference(manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version ~ '-\\1')|list) }}"
   notify:
     - php fpm restart
