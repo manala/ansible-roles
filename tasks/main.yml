@@ -5,6 +5,6 @@
 - include: config.yml
 - include: services.yml
   tags:
-     - manala.services
+    - manala.services
 - include: databases.yml
 - include: users.yml
