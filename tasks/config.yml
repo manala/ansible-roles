@@ -2,8 +2,7 @@
 
 - name: config > Template
   template:
-    src:  "{{ elao_influxdb_config_template }}"
-    dest: "{{ elao_influxdb_config_file }}"
+    src:  "{{ manala_influxdb_config_template }}"
+    dest: "{{ manala_influxdb_config_file }}"
   notify:
     - influxdb restart
-  when: "not {{ _elao_influxdb_version_0_9 }}"

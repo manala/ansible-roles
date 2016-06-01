@@ -1,9 +1,10 @@
 ---
 
 - include: install.yml
-- include: version.yml
 - include: config.yml
-- include: services.yml tags=elao_services
+- include: services.yml
+  tags:
+     - manala.services
 - include: databases.yml
 - include: users.yml
 - include: privileges.yml

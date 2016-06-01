@@ -1,8 +1,6 @@
 ---
 
 - name: users > Create Influx users
-  command: "{{ elao_influxdb_influx_bin }} -database '{{ item.database }}' -execute \"CREATE USER {{ item.name }} WITH PASSWORD '{{ item.password }}'\""
-  with_items: elao_influxdb_users
-  register: command_result
-  failed_when: "command_result.rc != 0 and 'user already exists' not in command_result.stdout"
-  changed_when: "command_result.rc == 0"
+  command: "{{ manala_influxdb_influx_bin }} -database '{{ item.database }}' -execute \"CREATE USER {{ item.name }} WITH PASSWORD '{{ item.password }}'\""
+  with_items: "{{ manala_influxdb_users }}"
+  changed_when: false

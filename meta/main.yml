@@ -4,16 +4,16 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    Influxdb role
-  license: MIT
-  min_ansible_version: 1.7.2
+  author:              Manala
+  company:             Manala
+  description:         Handle InfluxDB
+  license:             MIT
+  min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
         - wheezy
-  categories:
-    - development
-    - web
+        - jessie
+  galaxy_tags:
+    - database
+    - influxdb

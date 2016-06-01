@@ -1,21 +1,18 @@
 ---
 
-# Version
-elao_influxdb_version: 0.10.0-1
-
 # Databases
-elao_influxdb_databases:  []
+manala_influxdb_databases:  []
 
 # Users
-elao_influxdb_users:      []
+manala_influxdb_users:      []
 
 # Privileges
-elao_influxdb_privileges: []
+manala_influxdb_privileges: []
 
 # Bin
-elao_influxdb_influx_bin: /usr/bin/influx
+manala_influxdb_influx_bin: /usr/bin/influx
 
 # Config
-elao_influxdb_config_file:     /etc/influxdb/influxdb.conf
-elao_influxdb_config_template: config/base.conf.j2
-elao_influxdb_config:          []
+manala_influxdb_config_file:     /etc/influxdb/influxdb.conf
+manala_influxdb_config_template: config/base.conf.j2
+manala_influxdb_config:          []

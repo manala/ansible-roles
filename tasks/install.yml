@@ -1,19 +1,9 @@
 ---
 
-- name: install > Check package
-  command: "dpkg-query -W -f '${version}\n' influxdb"
-  always_run: yes
-  failed_when: false
-  changed_when: false
-  register: _elao_influxdb_package_check_output
-
-- name: install > Download package
-  get_url:
-    url: https://s3.amazonaws.com/influxdb/influxdb_{{ elao_influxdb_version }}_amd64.deb
-    dest: /tmp/influxdb_{{ elao_influxdb_version }}_amd64.deb
-  when: _elao_influxdb_package_check_output.rc != 0 or (_elao_influxdb_package_check_output.stdout != elao_influxdb_version)
-
-- name: install > Install package
+- name: install > Packages
   apt:
-    deb: /tmp/influxdb_{{ elao_influxdb_version }}_amd64.deb
-  when: _elao_influxdb_package_check_output.rc != 0 or (_elao_influxdb_package_check_output.stdout != elao_influxdb_version)
+    name:  "{{ item }}"
+    state: present
+    install_recommends: false
+  with_items:
+    - influxdb
