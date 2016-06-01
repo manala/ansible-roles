@@ -5,4 +5,4 @@
 - include: known_hosts.yml
 - include: services.yml
   tags:
-     - manala.services
+    - manala.services
