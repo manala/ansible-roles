@@ -5,4 +5,4 @@
 - include: configs.yml
 - include: services.yml
   tags:
-     - manala.services
+    - manala.services
