@@ -16,6 +16,8 @@
     name: "{{ item }}"
     state: present
     install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
   with_items: "{{ manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version ~ '-\\1')|difference(__manala_php_extensions_enabled) }}"
   notify:
     - php fpm restart
