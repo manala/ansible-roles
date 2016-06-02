@@ -20,4 +20,4 @@
     path:  "{{ manala_phppgadmin_configs_dir }}/{{ item }}"
     state: absent
   when: manala_phppgadmin_configs_exclusive and (item not in manala_phppgadmin_configs|map(attribute='file'))
-  with_items: "{{ __manala_phppgadmin_configs_find_output.stdout_lines }}"
+  with_items: "{{ __manala_phppgadmin_configs_find_output.stdout_lines|default([]) }}"
