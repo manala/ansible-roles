@@ -21,6 +21,6 @@
     path:  "{{ manala_php_fpm_pools_dir }}/{{ item }}"
     state: absent
   when: manala_php_fpm_pools_exclusive and (item not in manala_php_fpm_pools|map(attribute='file'))
-  with_items: "{{ __manala_php_fpm_pools_find_output.stdout_lines }}"
+  with_items: "{{ __manala_php_fpm_pools_find_output.stdout_lines|default([]) }}"
   notify:
     - php fpm restart

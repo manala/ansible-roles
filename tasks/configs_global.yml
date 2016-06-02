@@ -26,7 +26,7 @@
     path:  "{{ manala_php_configs_dir_base }}/conf.d/{{ item }}"
     state: absent
   when: manala_php_configs_exclusive and (item not in manala_php_configs|map(attribute='file'))
-  with_items: "{{ __manala_php_configs_global_find_output.stdout_lines }}"
+  with_items: "{{ __manala_php_configs_global_find_output.stdout_lines|default([]) }}"
   # notify parameter could not handle dynamic values, so we have to manually
   # list all available sapis
   notify:
