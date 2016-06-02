@@ -3,7 +3,7 @@
 - name: extensions > Checks already enabled extensions
   shell: "dpkg --get-selections 'php{{ manala_php_version }}-*'|grep -v deinstall|cut -f 1"
   register: __manala_php_extensions_enabled
-  always_run: yes
+  always_run: true
   ignore_errors: true
   changed_when: false
 

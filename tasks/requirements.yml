@@ -4,4 +4,4 @@
   fail:
     msg: Please define manala_php_version variable
   when: not manala_php_version
-  always_run: yes
+  always_run: true
