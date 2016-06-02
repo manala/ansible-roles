@@ -55,4 +55,4 @@
     path:  "{{ manala_apt_repositories_dir }}/{{ item }}"
     state: absent
   when: "{{ manala_apt_repositories_exclusive and (item not in __manala_apt_repositories.results|map(attribute='ansible_facts.__item.source')|map('regex_replace', '^deb https?:\\/\\/([^ ]+)[ ].*$', '\\1')|map('replace', '.', ' ')|map('replace', '/', ' ')|map('trim')|map('replace', ' ', '_')|map('regex_replace', '(.*)', '\\1.list')|list) }}"
-  with_items: "{{ (__manala_apt_repositories_find_output.stdout_lines) if (not __manala_apt_repositories_find_output|skipped) else ([]) }}"
+  with_items: "{{ __manala_apt_repositories_find_output.stdout_lines|default([]) }}"
