@@ -339,7 +339,7 @@ manala_skeleton_patterns:
           - listen:     '* default_server'
           - error_page: '404 /404.html'
           - location /404.html:
-            - root: /usr/share/manala/html
+            - root: /usr/share/elao/html
             - internal;
 
 
