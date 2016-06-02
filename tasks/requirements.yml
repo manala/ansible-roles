@@ -4,4 +4,4 @@
   fail:
     msg: Please define manala_postgresql_version variable
   when: not manala_postgresql_version
-  always_run: yes
+  always_run: true
