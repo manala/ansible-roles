@@ -1,0 +1,8 @@
+---
+
+- name: users > Template config
+  template:
+    src:  "{{ manala_proftpd_user_template|default('users/base.j2') }}"
+    dest: "{{ manala_proftpd_users_file }}"
+    mode: 0600
+  with_items: manala_proftpd_users

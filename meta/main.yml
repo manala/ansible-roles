@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author:               Manala
+  description: >
+    Setup and config proftpd
+  company:              Elao
+  issue_tracker_url:    https://github.com/manala/ansible-role-proftpd/issues
+  license:              MIT
+  min_ansible_version:  1.9
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+  categories:
+    - development
+    - web
+dependencies: []

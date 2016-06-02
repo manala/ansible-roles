@@ -1,0 +1,3 @@
+{% for user in manala_proftpd_users %}
+    {{ user.name }}:{{ user.password }}:108:100::{{ user.home }}:/bin/false
+{% endfor %}

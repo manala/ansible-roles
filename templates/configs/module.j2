@@ -1,0 +1,9 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config -%}
+
+<IfModule {{ item.name }}>
+{{ macros.config(config, [
+    'name',
+]) }}
+</IfModule>

@@ -1,0 +1,26 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template|default(manala_proftpd_configs_template) }}"
+    dest: "{{ manala_proftpd_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_proftpd_configs }}"
+  notify:
+    - proftpd restart
+
+- name: configs > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_proftpd_configs_dir }}"
+  changed_when: false
+  register: __manala_proftpd_configs_find_output
+  when: manala_proftpd_configs_exclusive
+
+- name: configs > Exclusive - remove files
+  file:
+    path:  "{{ manala_proftpd_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_proftpd_configs_exclusive and (item not in manala_proftpd_configs|map(attribute='file'))
+  with_items: "{{ __manala_proftpd_configs_find_output.stdout_lines|default([]) }}"
+  notify:
+    - proftpd restart
