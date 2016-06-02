@@ -12,7 +12,7 @@
   args:
     chdir: "{{ manala_sudo_sudoers_dir }}"
   changed_when: false
-  register: __manala_sudo_sudoers_find
+  register: __manala_sudo_sudoers_find_output
   when: manala_sudo_sudoers_exclusive
 
 - name: sudoers > Exclusive - remove files
@@ -20,6 +20,6 @@
     path:  "{{ manala_sudo_sudoers_dir }}/{{ item }}"
     state: absent
   when: manala_sudo_sudoers_exclusive and (item not in manala_sudo_sudoers|map(attribute='file'))
-  with_items: "{{ __manala_sudo_sudoers_find|skipped|ternary([], __manala_sudo_sudoers_find.stdout_lines) }}"
+  with_items: "{{ __manala_sudo_sudoers_find_output.stdout_lines|default([]) }}"
   notify:
     - sudo restart
