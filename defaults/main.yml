@@ -23,8 +23,9 @@ manala_deploy_copied: []
 # Removed
 manala_deploy_removed: []
 
-# Writables
-manala_deploy_writables: []
+# Writable
+manala_deploy_writable_dirs_mode: ug=rwx,o=rx
+manala_deploy_writable_dirs: []
 
 # Tasks
 manala_deploy_tasks: []
