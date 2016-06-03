@@ -28,7 +28,7 @@ manala_skeleton_options:
   nodejs_version:        6 # 0.10|0.12|4|5|6
   npm:                   false
   php:                   false
-  php_version:           7.0 # 5.4|5.5|5.6|7.0
+  php_version:           "{{ {'wheezy': 5.6, 'jessie': 7.0}[ansible_distribution_release] }}" # 5.4|5.5|5.6|7.0
   composer:              false
   nginx:                 false
   supervisor:            false
