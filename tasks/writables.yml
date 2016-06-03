@@ -1,0 +1,8 @@
+---
+
+- name: writables > Files
+  file:
+    path:    "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
+    recurse: true
+    mode:    "{{ manala_deploy_writables_mode }}"
+  with_items: "{{ manala_deploy_removed }}"

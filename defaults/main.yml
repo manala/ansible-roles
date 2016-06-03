@@ -23,5 +23,8 @@ manala_deploy_copied: []
 # Removed
 manala_deploy_removed: []
 
+# Writables
+manala_deploy_writables: []
+
 # Tasks
 manala_deploy_tasks: []
