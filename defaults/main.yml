@@ -20,5 +20,8 @@ manala_deploy_shared_dirs:  []
 # Copied
 manala_deploy_copied: []
 
+# Removed
+manala_deploy_removed: []
+
 # Tasks
 manala_deploy_tasks: []

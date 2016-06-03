@@ -1,0 +1,7 @@
+---
+
+- name: removed > Files
+  file:
+    path:  "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
+    state: absent
+  with_items: "{{ manala_deploy_removed }}"
