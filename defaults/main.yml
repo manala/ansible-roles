@@ -60,6 +60,7 @@ manala_skeleton_options:
     env:          dev
     user:         app
     group:        app
+    host:         "{{ ansible_fqdn }}"
     dir:          /srv/app
     dir_release:  ~
     log_dir:      /var/log/app
