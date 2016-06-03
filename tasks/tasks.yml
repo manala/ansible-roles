@@ -1,0 +1,6 @@
+---
+
+- name: tasks
+  include: "tasks/{{ item.keys()[0] }}.yml"
+  vars:
+    options: "{{ item.values()[0] }}"

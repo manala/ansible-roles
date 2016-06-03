@@ -1,0 +1,6 @@
+---
+
+- name: tasks/command > "{{ options }}"
+  command: "{{ options }}"
+  args:
+    chdir: "{{ deploy_helper.new_release_path }}"

@@ -1,1 +1,9 @@
 ---
+
+- include: setup.yml
+- include: strategy.yml
+- include: shared.yml
+- include: copied.yml
+- include: tasks.yml
+  with_items: "{{ manala_deploy_tasks }}"
+- include: current.yml

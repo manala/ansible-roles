@@ -1,0 +1,8 @@
+---
+
+- name: current > Finalize
+  deploy_helper:
+    path:          "{{ manala_deploy_dir }}"
+    keep_releases: "{{ manala_deploy_releases }}"
+    release:       "{{ deploy_helper.new_release }}"
+    state:         finalize
