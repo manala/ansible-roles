@@ -19,7 +19,7 @@ None.
 Using ansible galaxy:
 
 ```bash
-ansible-galaxy install elao.grafana
+ansible-galaxy install elao.grafana,1.0
 ```
 You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
 
