@@ -7,6 +7,7 @@
 
 # Sources list
 - include: sources_list.yml
+  when: (manala_apt_sources_list_template is not none) or (manala_apt_sources_list|length)
   tags:
     - manala_apt
 
