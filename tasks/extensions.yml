@@ -1,7 +1,7 @@
 ---
 
 - name: extensions > Checks already enabled extensions
-  shell: "dpkg --get-selections 'php{{ manala_php_version }}-*'|grep -v deinstall|cut -f 1"
+  shell: "dpkg --get-selections 'php{{ manala_php_version|string }}-*'|grep -v deinstall|cut -f 1"
   register: __manala_php_extensions_enabled
   always_run: true
   ignore_errors: true
@@ -18,7 +18,7 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items: "{{ manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version ~ '-\\1')|difference(__manala_php_extensions_enabled) }}"
+  with_items: "{{ manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version|string ~ '-\\1')|difference(__manala_php_extensions_enabled) }}"
   notify:
     - php fpm restart
 
@@ -27,6 +27,6 @@
     name: "{{ item }}"
     state: absent
     purge: true
-  with_items: "{{ __manala_php_extensions_enabled|difference(manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version ~ '-\\1')|list) }}"
+  with_items: "{{ __manala_php_extensions_enabled|difference(manala_php_extensions|map('regex_replace','^(.*)$','php' ~ manala_php_version|string ~ '-\\1')|list) }}"
   notify:
     - php fpm restart

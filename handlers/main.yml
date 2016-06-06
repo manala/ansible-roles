@@ -1,7 +1,7 @@
 ---
 
 - name: php fpm restart
-  command: "php{{ (manala_php_version == 5)|ternary(5, '') }}-fpm{{ (manala_php_version == 5)|ternary('', manala_php_version) }} -t"
+  command: "php{{ (manala_php_version|string == '5')|ternary('5', '') }}-fpm{{ (manala_php_version|string == '5')|ternary('', manala_php_version|string) }} -t"
   when: "'fpm' in manala_php_sapis"
   changed_when: true
   notify:
@@ -9,7 +9,7 @@
 
 - name: do php fpm restart
   service:
-    name:  "php{{ manala_php_version }}-fpm"
+    name:  "php{{ manala_php_version|string }}-fpm"
     state: restarted
   when: "'fpm' in manala_php_sapis"
 

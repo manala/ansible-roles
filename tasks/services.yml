@@ -5,5 +5,5 @@
     name:  "{{ item }}"
     state: started
   with_items:
-    - "php{{ manala_php_version }}-fpm"
+    - "php{{ manala_php_version|string }}-fpm"
   when: "'fpm' in manala_php_sapis"
