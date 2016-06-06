@@ -73,11 +73,7 @@ manala_skeleton_patterns:
     php_fpm_pools_exclusive: true
     php_fpm_pools:
       - file:     admin.conf
-        template: fpm_pools/default.{{ manala_skeleton_env }}.j2
-        config:
-          - admin:
-            - listen: /var/run/php5-fpm.admin.sock
-            - php_admin_value[display_errors]: off
+        template: fpm_pools/admin.{{ manala_skeleton_env }}.j2
     php_extensions_exclusive: true
     php_extensions: "{{
       ['xdebug']
@@ -99,7 +95,11 @@ manala_skeleton_patterns:
     nginx_config_template: config/http.{{ manala_skeleton_env }}.j2
     nginx_configs_exclusive: true
     nginx_configs:  "{{
-      (manala_skeleton_options.opcache_dashboard)|ternary([{
+      [{
+        'file':     'admin_php_fpm',
+        'template': 'configs/admin.' ~ manala_skeleton_env ~ '.j2'
+      }]
+      + (manala_skeleton_options.opcache_dashboard)|ternary([{
         'file':     'admin.opcache_dashboard.conf',
         'template': 'configs/server.j2',
         'config':   [
@@ -109,13 +109,7 @@ manala_skeleton_patterns:
             {'try_files': '$uri /opcache.php$is_args$args'}
           ]},
           {'location ~ ^/.+\\.php(/|$)': [
-            {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
-            {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
-            {'fastcgi_read_timeout':    '60s'},
-            {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
-            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
-            {'fastcgi_param':           'HTTPS off'}
+            {'include': 'conf.d/admin_php_fpm'}
           ]}
         ]
       }],[])
@@ -130,13 +124,7 @@ manala_skeleton_patterns:
             {'try_files': '$uri /index.php$is_args$args'}
           ]},
           {'location ~ ^/.+\\.php(/|$)': [
-            {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
-            {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
-            {'fastcgi_read_timeout':    '60s'},
-            {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
-            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
-            {'fastcgi_param':           'HTTPS off'}
+            {'include': 'conf.d/admin_php_fpm'}
           ]}
         ]
       }],[])
@@ -151,13 +139,7 @@ manala_skeleton_patterns:
             {'try_files': '$uri /index.php$is_args$args'}
           ]},
           {'location ~ ^/.+\\.php(/|$)': [
-            {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
-            {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
-            {'fastcgi_read_timeout':    '60s'},
-            {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
-            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
-            {'fastcgi_param':           'HTTPS off'}
+            {'include': 'conf.d/admin_php_fpm'}
           ]}
         ]
       }],[])
@@ -171,13 +153,7 @@ manala_skeleton_patterns:
             {'try_files': '$uri /index.php$is_args$args'}
           ]},
           {'location ~ ^/.+\\.php(/|$)': [
-            {'fastcgi_pass':            'unix:/var/run/php5-fpm.admin.sock'},
-            {'fastcgi_split_path_info': '^(.+\\.php)(/.*)$'},
-            {'fastcgi_read_timeout':    '60s'},
-            {'include':                 'fastcgi_params'},
-            {'fastcgi_param':           'SCRIPT_FILENAME $realpath_root$fastcgi_script_name'},
-            {'fastcgi_param':           'DOCUMENT_ROOT $realpath_root'},
-            {'fastcgi_param':           'HTTPS off'}
+            {'include': 'conf.d/admin_php_fpm'}
           ]}
         ]
       }],[])
