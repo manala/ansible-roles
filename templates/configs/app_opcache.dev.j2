@@ -1,0 +1,17 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'opcache.memory_consumption', 128) }}
+{{ macros.config_row(config, 'opcache.interned_strings_buffer', 8) }}
+{{ macros.config_row(config, 'opcache.max_accelerated_files', 4000) }}
+{{ macros.config_row(config, 'opcache.revalidate_freq', 2) }}
+{{ macros.config_row(config, 'opcache.fast_shutdown', 1) }}
+
+{{ macros.config(config, [
+  'opcache.memory_consumption',
+  'opcache.interned_strings_buffer',
+  'opcache.max_accelerated_files',
+  'opcache.revalidate_freq',
+  'opcache.fast_shutdown'
+]) -}}
