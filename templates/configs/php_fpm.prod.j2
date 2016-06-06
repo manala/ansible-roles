@@ -2,7 +2,6 @@
 
 {% set config = item.config|default([]) -%}
 
-{{ macros.config_row(config, 'fastcgi_pass', 'unix:/var/run/php5-fpm.sock') }}
 {{ macros.config_row(config, 'fastcgi_split_path_info', '^(.+\.php)(/.*)$') }}
 {{ macros.config_row(config, 'fastcgi_read_timeout', '60s') }}
 {{ macros.config_row(config, 'include', [
