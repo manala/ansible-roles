@@ -404,6 +404,8 @@
 {{ macros.config_row(config, 'php_admin_flag[log_errors]', ';php_admin_flag[log_errors] = on', true) }}
 {{ macros.config_row(config, 'php_admin_value[memory_limit]', ';php_admin_value[memory_limit] = 32M', true) }}
 
+{{ macros.config_row(config, 'php_admin_value[display_errors]', false) }}
+
 {{ macros.config(config, [
   'prefix',
   'user',
@@ -446,7 +448,8 @@
   'php_flag[display_errors]',
   'php_admin_value[error_log]',
   'php_admin_flag[log_errors]',
-  'php_admin_value[memory_limit]'
+  'php_admin_value[memory_limit]',
+  'php_admin_value[display_errors]'
 ]) -}}
 
 {%- endmacro -%}
