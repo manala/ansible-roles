@@ -34,7 +34,7 @@
 ;                            (IPv6 and IPv4-mapped) on a specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-{{ macros.config_row(config, 'listen', '/var/run/php5-fpm.sock') }}
+{{ macros.config_row(config, 'listen', '/var/run/php' ~ manala_php_version|string ~ '-fpm.sock') }}
 
 ; Set listen(2) backlog.
 ; Default Value: 65535 (-1 on FreeBSD and OpenBSD)
