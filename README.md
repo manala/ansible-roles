@@ -130,14 +130,6 @@ manala_nginx_configs:
         - try_files: $uri /index.php$is_args$args
 ```
 
-### Logs rotation
-
-Assuming you want to rotate your logs 3 templates are provided:
-
-- Empty:  You want to handle yourself your logrotate strategy
-- Base:   Most distro basic configuration with a daily rotation
-- Weekly: Configuration with a weekly rotation
-
 ## Example playbook
 
 ```yaml
