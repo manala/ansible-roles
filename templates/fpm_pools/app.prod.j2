@@ -1,0 +1,17 @@
+{%- import '_macros.j2' as macros with context -%}
+{%- import '_app.prod.j2' as base with context -%}
+
+{%- for configs in item.config|default([]) -%}
+
+    {%- for config_name, config in configs.iteritems() -%}
+
+; Start a new pool named '{{ config_name }}'.
+; the variable $pool can we used in any directive and will be replaced by the
+; pool name ('{{ config_name }}' here)
+[{{ config_name }}]
+
+{{ base.base(config) }}
+
+    {%- endfor -%}
+
+{%- endfor -%}
