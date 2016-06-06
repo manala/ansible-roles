@@ -87,7 +87,7 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
     }}"
     php_configs_exclusive: true
-    php_configs_global: "{{ manala_skeleton_options.php_version == 5.4 }}"
+    php_configs_global: "{{ manala_skeleton_options.php_version|string == '5.4' }}"
     php_configs:
       - file: 50-xdebug.ini
         template: configs/xdebug.{{ manala_skeleton_env }}.j2

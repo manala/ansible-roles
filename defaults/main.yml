@@ -25,10 +25,10 @@ manala_skeleton_options:
   files:                 false
   mailhog:               false
   nodejs:                false
-  nodejs_version:        6 # 0.10|0.12|4|5|6
+  nodejs_version:        '6' # '0.10'|'0.12'|'4'|'5'|'6'
   npm:                   false
   php:                   false
-  php_version:           "{{ {'wheezy': 5.6, 'jessie': 7.0}[ansible_distribution_release] }}" # 5.4|5.5|5.6|7.0
+  php_version:           "{{ {'wheezy': '5.6', 'jessie': '7.0'}[ansible_distribution_release] }}" # 5.4|5.5|5.6|7.0
   composer:              false
   nginx:                 false
   supervisor:            false
@@ -41,18 +41,18 @@ manala_skeleton_options:
   cron:                  false
   opcache_dashboard:     false
   mysql:                 false
-  mysql_version:         5.6 # 5.6|5.7
+  mysql_version:         '5.6' # '5.6'|'5.7'
   phpmyadmin:            false
   postgresql:            false
-  postgresql_version:    9.5
+  postgresql_version:    '9.5'
   phppgadmin:            false
   redis:                 false
   phpredisadmin:         false
   mongodb:               false
-  mongodb_version:       3.2
+  mongodb_version:       '3.2'
   mongo_express:         false
   elasticsearch:         false
-  elasticsearch_version: 1.7
+  elasticsearch_version: '1.7'
   dnsmasq:               false
 
   # App
