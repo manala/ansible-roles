@@ -1,38 +1,143 @@
-Role Name
-=========
+Ansible Role: ProFTPd
+--------------------
 
-A brief description of the role goes here.
+This role will setup and config proFTPd
 
-Requirements
-------------
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Requirements
+
+None.
+
+## Dependencies
+
+None.
+
+## Installation
+
+Ansible 2+
+----------
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install manala.proftpd
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src: manala.proftpd
+```
+
+Role Handlers
+-------------
+
+| Name              | Type    | Description            |
+| ----------------- | ------- | ---------------------- |
+| `proftpd restart` | Service | Restart proftpd server |
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Name                                | Default             | Type    | Description                                 |
+| ----------------------------------- | ------------------- | ------- | ------------------------------------------- |
+| `manala_proftpd_configs`            | []                  | Array   | Configs                                     |
+| `manala_proftpd_configs_template`   | configs/empty.j2    | String  | Template to use to define a config set      |
+| `manala_proftpd_configs_exclusive`  | false               | Boolean | Exclusion of existings files                |
+| `manala_proftpd_configs_dir`        | /etc/proftpd/conf.d | String  | Path to the main configuration directory    |
+| `manala_proftpd_user_template`      | users/base.j2       | String  | Main user config template                   |
+| `manala_proftpd_users_file`         | /etc/ftpd.passwd    | String  | proFTPd user accounts definition file       |
+| `manala_proftpd_users`              | []                  | Array   | Array of proFTPd user accounts              |
 
-Dependencies
-------------
+### ProFTPd configuration
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+The `manala_proftpd_configs_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
 
-Example Playbook
+- empty (Simple template with no default configuration)
+- module (This configuration is used to handle modules definition (mod_ssl.c, mod_rewrite.c ...))
+
+#### Example:
+```yaml
+manala_proftpd_configs_template: configs/module.j2
+```
+
+The `manala_proftpd_configs` key is made to allow you to define configuration based on choosen template format.
+
+#### Example:
+
+```yaml
+manala_proftpd_configs:
+  - file:                   proftpd.conf
+    config:
+      - ServerName:         "Manala"
+      - PassivePorts:       10000 10030
+      - DefaultRoot:        "~"
+      - AuthOrder:          mod_auth_file.c
+      - AuthUserFile:       "/etc/ftpd.passwd"
+      - RequireValidShell:  false
+  - file:                   tls.conf
+    template:               configs/module.j2
+    name:                   mod_tls.c
+    config:
+      - TLSEngine:                  true
+      - TLSLog:                     /var/log/proftpd/tls.log
+      - TLSProtocol:                TLSv1
+      - TLSCipherSuite:             AES256+EECDH:AES256+EDH
+      - TLSOptions:                 NoCertRequest AllowClientRenegotiations
+      - TLSRSACertificateFile:      /etc/ssl/private/certificates/*.elao.com.pem
+      - TLSRSACertificateKeyFile:   /etc/ssl/private/certificates/*.elao.com.pem
+      - TLSVerifyClient:            false
+      - TLSRequired:                true
+      - RequireValidShell:          "No"
+```
+
+### Exclusivity
+
+`manala_proftpd_configs_exclusive` allow you to clean up existing proFTPd configuration files into directory defined by the `manala_proftpd_configs_dir` key. Made to be sure no old or manualy created files will alter current configuration.
+
+```yaml
+manala_proftpd_configs_exclusive: true
+```
+
+### User account configuration
+
+The `manala_proftpd_user_template` key is made to define users allow to acces to FTP storage.
+
+```yaml
+manala_proftpd_users:
+    - name:             manala
+      password:         "$1$KBijsXOEr4"b$9HEyZDLPnSe3SXq0n66oE3y/"
+      home:             "/srv/my_dir"
+      shell:            "/bin/false"
+    - name:             toto
+      password:         "$1$9f19dba0ce5ece883b53275dcc1721b9"
+      home:             "/home/toto"
+      shell:            "/bin/false"
+```
+
+Example playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.nginx }
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Tests
+-----
 
-License
+Test suite require the following tools:
+
+- Docker
+- Manala test suite [**(Docker image)**](https://github.com/manala/docker-image-ansible-debian)
+
+Licence
 -------
+MIT
 
-BSD
-
-Author Information
+Author information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Manala [**(http://www.manala.io/)**](http://www.manala.io) is an open source project supported by the french web agency [**(ELAO)**](http://www.elao.com)

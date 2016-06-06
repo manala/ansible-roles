@@ -1,0 +1,32 @@
+package:
+  proftpd-basic:
+    installed: true
+service:
+  proftpd:
+    enabled: true
+    running: true
+user:
+  proftpd:
+    exists: true
+    uid: 104
+    gid: 65534
+    groups:
+    - nogroup
+    home: /run/proftpd
+process:
+  proftpd:
+    running: true
+
+file:
+  /etc/ftpd.passwd:
+    exists: true
+    mode: "0600"
+    owner: root
+    group: root
+    filetype: file
+    contains: [
+        "user-1",
+        "user-2",
+        "/tmp",
+        "/bin/false"
+    ]
