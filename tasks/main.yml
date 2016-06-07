@@ -2,5 +2,6 @@
 
 # Variables
 - include: variables.yml
+  when: "{{ manala_env_variables|length }}"
   tags:
     - manala_env
