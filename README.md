@@ -30,16 +30,16 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                 | Default| Type  | Description   |
-|--------------------- |------- |------ |-------------  |
-| manala_alternatives  | []     | Array | Alternatives  |
+| Name                           | Default| Type  | Description   |
+|------------------------------- |------- |------ |-------------  |
+| manala_alternatives_selections | []     | Array | Alternatives  |
 
 ### Configuration
 
-`manala_alternatives` allow you to managed custom alternatives path.
+`manala_alternatives_selections` allow you to manage custom alternatives selections.
 
 ```yaml
-manala_alternatives:
+manala_alternatives_selections:
   - name: editor
     path: /usr/bin/vim.basic
 ```

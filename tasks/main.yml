@@ -1,3 +1,7 @@
 ---
 
-- include: alternatives.yml
+# Selections
+- include: selections.yml
+  when: "{{ manala_alternatives_selections|length }}"
+  tags:
+    - manala_alternatives
