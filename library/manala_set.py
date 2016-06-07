@@ -16,21 +16,20 @@ def main():
     hash   = module.params.get('hash')
     var    = module.params.get('var')
 
-    # Handle prefix if provided
-    if prefix:
-        for key, value in iteritems(hash):
-            hash.pop(key)
-            hash[prefix + key] = value
+    facts = dict()
+
+    for key, value in iteritems(hash):
+        if prefix:
+            facts[prefix + key] = hash[key]
+        else:
+            facts[key] = hash[key]
+
 
     # Handle var if provided
     if var:
-        hash = { var: hash }
+        facts = { var: facts }
 
-    result = {
-        'ansible_facts': hash
-    }
-
-    module.exit_json(**result)
+    module.exit_json(ansible_facts=facts)
 
 # Import module snippets
 from ansible.module_utils.basic import *
