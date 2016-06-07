@@ -38,12 +38,12 @@ Using ansible galaxy requirements file:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-|manala_timezone|Etc/UTC|String|Timezone|
+|manala_timezone_default|Etc/UTC|String|Timezone|
 
 ### Configuration example
 
 ```yaml
-manala_timezone: Europe/Paris
+manala_timezone_default: Europe/Paris
 ```
 
 ## Example playbook

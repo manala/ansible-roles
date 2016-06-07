@@ -1,6 +1,6 @@
 ---
 
-# Timezone
-- include: timezone.yml
+# Default
+- include: default.yml
   tags:
     - manala_timezone
