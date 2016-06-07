@@ -10,7 +10,7 @@
     day:        "{{ item.1.day|default(omit) }}"
     month:      "{{ item.1.month|default(omit) }}"
     weekday:    "{{ item.1.weekday|default(omit) }}"
-    user:       "{{ item.1.user|default(item.0.user|default(omit)) }}"
+    user:       "{{ item.0.user|default('root') }}"
     state:      "{{ item.1.state|default('present') }}"
   with_subelements:
     - "{{ manala_cron_files }}"
