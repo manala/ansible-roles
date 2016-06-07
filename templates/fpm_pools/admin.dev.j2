@@ -3,7 +3,7 @@
 
 {%- for configs in item.config|default([]) -%}
 
-    {%- for config_name, config in configs.iteritems() -%}
+    {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
 
 ; Start a new pool named '{{ config_name }}'.
 ; the variable $pool can we used in any directive and will be replaced by the
