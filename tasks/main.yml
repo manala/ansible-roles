@@ -1,4 +1,11 @@
 ---
 
+# Requirements
 - include: requirements.yml
+  tags:
+    - manala_npm
+
+# Packages
 - include: packages.yml
+  tags:
+    - manala_npm
