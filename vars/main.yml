@@ -74,6 +74,8 @@ manala_skeleton_patterns:
     php_fpm_pools:
       - file:     admin.conf
         template: fpm_pools/admin.{{ manala_skeleton_env }}.j2
+        config:
+          - admin
     php_extensions_exclusive: true
     php_extensions: "{{
       ['xdebug']
