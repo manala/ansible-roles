@@ -17,3 +17,17 @@
     - jobs
   notify:
     - cron restart
+
+- name: files > Env variables
+  cron:
+    cron_file:  "{{ item.0.file }}"
+    env:        true
+    name:       "{{ item.1.keys()[0] }}"
+    value:      "{{ item.1.values()[0] }}"
+    user:       "{{ item.0.user|default('root') }}"
+    state:      present
+  with_subelements:
+    - "{{ manala_cron_files }}"
+    - env_variables
+  notify:
+    - cron restart

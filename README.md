@@ -47,6 +47,8 @@ Using ansible galaxy requirements file:
 manala_cron_files:
   - file: app
     user: foo
+    env_variables:
+      - FOO: bar
     jobs:
       # Do foo bar
       - name:   foo-bar
