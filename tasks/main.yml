@@ -1,3 +1,5 @@
 ---
 
 - include: files.yml
+  tags:
+    - manala_files
