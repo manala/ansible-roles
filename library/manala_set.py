@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from ansible.compat.six import iteritems, string_types
+
 def main():
 
     module = AnsibleModule(
@@ -16,7 +18,7 @@ def main():
 
     # Handle prefix if provided
     if prefix:
-        for key, value in hash.items():
+        for key, value in iteritems(hash):
             hash.pop(key)
             hash[prefix + key] = value
 

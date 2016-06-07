@@ -18,7 +18,7 @@ class LookupModule(LookupBase):
 
         for hash in terms[0]:
             if isinstance(hash, string_types):
-                for key, value in variables.iteritems():
+                for key, value in iteritems(variables):
                     if re.search('^' + hash + '$', key):
                         hashes.append(value)
             else:
