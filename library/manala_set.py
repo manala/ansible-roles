@@ -6,9 +6,9 @@ def main():
 
     module = AnsibleModule(
         argument_spec = dict(
-            hash = dict(required=True),
-            prefix = dict(required=False),
-            var = dict(required=False)
+            hash = dict(required=True, type='dict'),
+            prefix = dict(required=False, type='str'),
+            var = dict(required=False, type='str')
         )
     )
 
