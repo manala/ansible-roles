@@ -1,3 +1,6 @@
 ---
 
-- include: environment.yml
+# Variables
+- include: variables.yml
+  tags:
+    - manala_env

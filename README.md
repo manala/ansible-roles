@@ -30,15 +30,15 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                | Default | Type  | Description            |
-| ------------------- | ------- | ----- | ---------------------- |
-| `manala_env_config` | {}      | Array |  Environment variables |
+| Name                   | Default | Type  | Description            |
+| ---------------------- | ------- | ----- | ---------------------- |
+| `manala_env_variables` | []      | Array |  Environment variables |
 
 ### Configuration example
 
 ```yaml
-manala_env_config:
-  foo: bar
+manala_env_variables:
+  - FOO: bar
 ```
 
 ## Example playbook

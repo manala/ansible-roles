@@ -5,4 +5,4 @@
     dest:   "{{ manala_env_file }}"
     regexp: "{{ item.keys()[0] }}="
     line:   "{{ item.keys()[0] }}={{ item.values()[0] }}"
-  with_items: "{{ manala_env }}"
+  with_items: "{{ manala_env_variables }}"
