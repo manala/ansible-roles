@@ -16,8 +16,15 @@
   tags:
     - manala_apt
 
+# Vars
+- include: vars.yml
+  tags:
+    - manala_apt
+
 # Preferences
 - include: preferences.yml
+  vars:
+    __manala_apt_preferences: "{{ __manala_apt_preferences_results.results|map(attribute='ansible_facts.__item')|list }}"
   tags:
     - manala_apt
 

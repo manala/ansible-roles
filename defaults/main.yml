@@ -14,9 +14,8 @@ manala_apt_repositories_dir:       /etc/apt/sources.list.d
 manala_apt_repositories:           []
 
 # Preferences
-manala_apt_preferences_dir:      /etc/apt/preferences.d
-manala_apt_preferences_template: preferences/empty.j2
-manala_apt_preferences:          []
+manala_apt_preferences_dir: /etc/apt/preferences.d
+manala_apt_preferences:     []
 
 # Packages
 manala_apt_packages: []

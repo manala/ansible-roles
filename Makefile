@@ -60,3 +60,6 @@ test-dependencies:
 
 test-sources-list:
 	ansible-playbook tests/sources_list.yml
+
+test-preferences:
+	ansible-playbook tests/preferences.yml

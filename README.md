@@ -59,9 +59,9 @@ None
     manala_apt_repositories:
       - contrib
     manala_apt_preferences:
-      - git@backports
-      - ~@dotdeb:100
-      - php@dotdeb_php56
+      - git@debian_backports
+      - dotdeb:100
+      - php@dotdeb_php56:300
       - nginx@nginx
     manala_apt_packages:
       - ttf-mscorefonts-installer

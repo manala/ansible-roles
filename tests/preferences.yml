@@ -1,0 +1,56 @@
+---
+
+- hosts: localhost
+
+  vars:
+
+    manala_apt_preferences:
+      - git@debian_backports
+      - foo@debian_backports
+      - php@dotdeb:300
+      - dotdeb:100
+      - package:  foo
+        pin:      bar
+        priority: 100
+        file:     foo_bar
+
+  roles:
+    - manala.apt
+
+  tasks:
+    - assert:
+        that:
+          - "{{
+            __manala_apt_preferences_results.results|map(attribute='ansible_facts.__item')|list == [
+              {
+                'package': 'git*',
+                'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
+                'priority': 900,
+                'file': 'git'
+              },
+              {
+                'package': '*',
+                'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
+                'priority': 900,
+                'file': 'foo'
+              },
+              {
+                'package': 'php-* php5-* php7.0-*',
+                'pin': 'origin packages.dotdeb.org',
+                'priority': '300',
+                'file': 'php'
+              },
+              {
+                'package': '*',
+                'pin': 'origin packages.dotdeb.org',
+                'priority': '100',
+                'file': 'dotdeb'
+              },
+              {
+                'package': 'foo',
+                'pin': 'bar',
+                'priority': 900,
+                'file': 'foo_bar'
+              }
+            ]
+          }}"
