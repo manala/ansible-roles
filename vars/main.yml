@@ -42,7 +42,7 @@ manala_skeleton_patterns:
     # Vim
     vim_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Alternatives
-    alternatives:
+    alternatives_selections:
       - name: editor
         path: "{{ manala_vim_bin }}"
     # Files
