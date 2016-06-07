@@ -1,6 +1,6 @@
 ---
 
-- name: environment > Config
+- name: variables > Config
   lineinfile:
     dest:   "{{ manala_env_file }}"
     regexp: "{{ item.keys()[0] }}="
