@@ -1,3 +1,5 @@
 ---
 
 - include: timezone.yml
+  tags:
+    - manala_timezone
