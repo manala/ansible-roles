@@ -1,0 +1,72 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- for configs in item.config|default([]) -%}
+
+    {%- for config_name, config in configs.iteritems() -%}
+
+[program:{{ config_name }}]
+
+{{ macros.config_row(config, 'command', ';command=/bin/cat', 0, true) }} ; the program (relative uses PATH, can take args)
+{{ macros.config_row(config, 'process_name', ';process_name=%(program_name)s', 0, true) }} ; process_name expr (default %(program_name)s)
+{{ macros.config_row(config, 'numprocs', ';numprocs=1', 0, true) }} ; number of processes copies to start (def 1)
+{{ macros.config_row(config, 'directory', ';directory=/tmp', 0, true) }} ; directory to cwd to before exec (def no cwd)
+{{ macros.config_row(config, 'umask', ';umask=022', 0, true) }} ; umask for process (default None)
+{{ macros.config_row(config, 'priority', ';priority=999', 0, true) }} ; the relative start priority (default 999)
+{{ macros.config_row(config, 'autostart', ';autostart=true', 0, true) }} ; start at supervisord start (default: true)
+{{ macros.config_row(config, 'autorestart', ';autorestart=unexpected', 0, true) }} ; whether/when to restart (default: unexpected)
+{{ macros.config_row(config, 'startsecs', ';startsecs=1', 0, true) }} ; number of secs prog must stay running (def. 1)
+{{ macros.config_row(config, 'startretries', 20) }} ; max # of serial start failures (default 3)
+{{ macros.config_row(config, 'exitcodes', ';exitcodes=0,2', 0, true) }} ; 'expected' exit codes for process (default 0,2)
+{{ macros.config_row(config, 'stopsignal', ';stopsignal=QUIT', 0, true) }} ; signal used to kill process (default TERM)
+{{ macros.config_row(config, 'stopwaitsecs', ';stopwaitsecs=10', 0, true) }} ; max num secs to wait b4 SIGKILL (default 10)
+{{ macros.config_row(config, 'stopasgroup', ';stopasgroup=false', 0, true) }} ; send stop signal to the UNIX process group (default false)
+{{ macros.config_row(config, 'killasgroup', ';killasgroup=false', 0, true) }} ; SIGKILL the UNIX process group (def false)
+{{ macros.config_row(config, 'user', ';user=chrism', 0, true) }} ; setuid to this UNIX account to run the program
+{{ macros.config_row(config, 'redirect_stderr', ';redirect_stderr=true', 0, true) }} ; redirect proc stderr to stdout (default false)
+{{ macros.config_row(config, 'stdout_logfile', ';stdout_logfile=/a/path', 0, true) }} ; stdout log path, NONE for none; default AUTO
+{{ macros.config_row(config, 'stdout_logfile_maxbytes', ';stdout_logfile_maxbytes=1MB', 0, true) }} ; max # logfile bytes b4 rotation (default 50MB)
+{{ macros.config_row(config, 'stdout_logfile_backups', ';stdout_logfile_backups=10', 0, true) }} ; # of stdout logfile backups (default 10)
+{{ macros.config_row(config, 'stdout_capture_maxbytes', ';stdout_capture_maxbytes=1MB', 0, true) }} ; number of bytes in 'capturemode' (default 0)
+{{ macros.config_row(config, 'stdout_events_enabled', ';stdout_events_enabled=false', 0, true) }} ; emit events on stdout writes (default false)
+{{ macros.config_row(config, 'stderr_logfile', ';stderr_logfile=/a/path', 0, true) }} ; stderr log path, NONE for none; default AUTO
+{{ macros.config_row(config, 'stderr_logfile_maxbytes', ';stderr_logfile_maxbytes=1MB', 0, true) }} ; max # logfile bytes b4 rotation (default 50MB)
+{{ macros.config_row(config, 'stderr_logfile_backups', ';stderr_logfile_backups=10', 0, true) }} ; # of stderr logfile backups (default 10)
+{{ macros.config_row(config, 'stderr_capture_maxbytes', ';stderr_capture_maxbytes=1MB', 0, true) }} ; number of bytes in 'capturemode' (default 0)
+{{ macros.config_row(config, 'stderr_events_enabled', ';stderr_events_enabled=false', 0, true) }} ; emit events on stderr writes (default false)
+{{ macros.config_row(config, 'environment', ';environment=A="1",B="2"', 0, true) }} ; process environment additions (def no adds)
+{{ macros.config_row(config, 'serverurl', ';serverurl=AUTO', 0, true) }} ; override serverurl computation (childutils)
+{{ macros.config(config, [
+    'command',
+    'process_name',
+    'numprocs',
+    'directory',
+    'umask',
+    'priority',
+    'autostart',
+    'autorestart',
+    'startsecs',
+    'startretries',
+    'exitcodes',
+    'stopsignal',
+    'stopwaitsecs',
+    'stopasgroup',
+    'killasgroup',
+    'user',
+    'redirect_stderr',
+    'stdout_logfile',
+    'stdout_logfile_maxbytes',
+    'stdout_logfile_backups',
+    'stdout_capture_maxbytes',
+    'stdout_events_enabled',
+    'stderr_logfile',
+    'stderr_logfile_maxbytes',
+    'stderr_logfile_backups',
+    'stderr_capture_maxbytes',
+    'stderr_events_enabled',
+    'environment',
+    'serverurl'
+]) }}
+
+    {%- endfor -%}
+
+{%- endfor -%}
