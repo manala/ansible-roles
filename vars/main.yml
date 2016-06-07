@@ -12,7 +12,7 @@ manala_skeleton_patterns:
     # Motd
     motd_template: template/manala.j2
     # Timezone
-    timezone: Etc/UTC
+    timezone_default: Etc/UTC
     # Locales
     locales: []
     locales_default: C.UTF-8
