@@ -1,0 +1,22 @@
+---
+
+- hosts: localhost
+
+  pre_tasks:
+    - name: Ensure "apt-transport-https" is absent
+      apt:
+        name:  apt-transport-https
+        state: absent
+
+  roles:
+    - manala.apt
+
+  tasks:
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_json ~ '\"|goss validate' }}"
+      with_items:
+        - package:
+            apt-transport-https:
+              installed: true

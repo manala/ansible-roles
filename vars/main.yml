@@ -24,159 +24,166 @@ manala_apt_repositories_patterns:
     pin:    release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
-    key:
-      url: http://www.dotdeb.org/dotdeb.gpg
-      id:  89DF5277
+    key: dotdeb
   dotdeb_php55:
     source: deb http://packages.dotdeb.org wheezy-php55 all
+    key: dotdeb
   dotdeb_php56:
     source: deb http://packages.dotdeb.org wheezy-php56 all
+    key: dotdeb
   nginx:
     source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
-    key:
-      url: http://nginx.org/keys/nginx_signing.key
-      id:  7BD9BF62
+    key: nginx
   bearstech:
     source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
-    key:
-      url: http://deb.bearstech.com/bearstech-archive.gpg
-      id:  90158EE0
+    key: bearstech
   nodesource_0_10:
     source: deb https://deb.nodesource.com/node_0.10 {{ ansible_distribution_release }} main
-    key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      id:  68576280
+    key: nodesource
   nodesource_0_12:
     source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
-    key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      id:  68576280
+    key: nodesource
   nodesource_4:
     source: deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
-    key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      id:  68576280
+    key: nodesource
   nodesource_5:
     source: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
-    key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      id:  68576280
+    key: nodesource
   nodesource_6:
     source: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
-    key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      id:  68576280
+    key: nodesource
   mysql_5_6:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
-    key:
-      url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
-      id:  5072E1F5
+    key: mysql
   mysql_5_7:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
-    key:
-      url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
-      id:  5072E1F5
+    key: mysql
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
-    key:
-      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-      id:  ACCC4CF8
+    key: postgresql
   mongodb_3_0:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.0 main
-    key:
-      url: https://docs.mongodb.org/10gen-gpg-key.asc
-      id:  7F0CEB10
+    key: 10gen
   mongodb_3_2:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.2 main
-    key:
-      url: https://www.mongodb.org/static/pgp/server-3.2.asc
-      id:  EA312927
+    key: mongodb
   varnish_4_0:
     source: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
-    key:
-      url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
-      id:  C4DEFFEB
+    key: varnish
   jenkins:
     source: deb http://pkg.jenkins-ci.org/debian binary/
-    key:
-      url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
-      id:  D50582E6
+    key: jenkins
   sensu:
     source: deb http://repositories.sensuapp.org/apt sensu main
-    key:
-      url: http://repositories.sensuapp.org/apt/pubkey.gpg
-      id:  EB9C94BB
+    key: sensu
   rabbitmq:
     source: deb http://www.rabbitmq.com/debian/ testing main
-    key:
-      url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-      id:  6026DFCA
+    key: rabbitmq
   proxmox:
     source: deb http://download.proxmox.com/debian {{ ansible_distribution_release }} pve-no-subscription
   proxmox_enterprise:
     source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
   logentries:
     source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
-    key:
-      url: https://pgp.mit.edu/pks/lookup?op=get&search=0xA5270289C43C79AD
-      id:  C43C79AD
+    key: logentries
   galera:
     source: deb http://releases.galeracluster.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
-    key:
-      url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD669017EBC19DDBA
-      id:  BC19DDBA
+    key: galera
   grafana:
     source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
-    key:
-      url: https://packagecloud.io/gpg.key
-      id:  D59097AB
+    key: packagecloud
   elasticsearch_1_5:
     source: deb http://packages.elastic.co/elasticsearch/1.5/debian stable main
-    key:
-      url: https://packages.elastic.co/GPG-KEY-elasticsearch
-      id:  D88E42B4
+    key: elasticsearch
   elasticsearch_1_6:
     source: deb http://packages.elastic.co/elasticsearch/1.6/debian stable main
-    key:
-      url: https://packages.elastic.co/GPG-KEY-elasticsearch
-      id:  D88E42B4
+    key: elasticsearch
   elasticsearch_1_7:
     source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
-    key:
-      url: https://packages.elastic.co/GPG-KEY-elasticsearch
-      id:  D88E42B4
+    key: elasticsearch
   elasticsearch_2:
     source: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
-    key:
-      url: https://packages.elastic.co/GPG-KEY-elasticsearch
-      id:  D88E42B4
+    key: elasticsearch
   ppa_ansible:
     source: ppa:ansible/ansible
   blackfire:
     source: deb http://packages.blackfire.io/debian any main
-    key:
-      url: https://packagecloud.io/gpg.key
-      id:  D59097AB
+    key: packagecloud
   gitlab-ce:
     source: deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ ansible_distribution_release }} main
-    key:
-      url: https://packages.gitlab.com/gpg.key
-      id:  E15E78F4
+    key: gitlab
   aptly:
     source: deb http://repo.aptly.info/ squeeze main
-    key:
-      url: https://www.aptly.info/pubkey.txt
-      id:  2A194991
+    key: aptly
   docker:
     source: deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main
-    key:
-      url: http://p80.pool.sks-keyservers.net/pks/lookup?op=get&search=0xF76221572C52609D
-      id:  2C52609D
+    key: docker
   manala:
     source: deb http://debian.manala.io {{ ansible_distribution_release }} main
-    key:
-      url: http://keys.gnupg.net/pks/lookup?op=get&search=0xA9E848781394DEA3
-      id:  1394DEA3
+    key: manala
+
+# Keys
+manala_apt_keys_patterns:
+  dotdeb:
+    url: http://www.dotdeb.org/dotdeb.gpg
+    id:  89DF5277
+  nginx:
+    url: http://nginx.org/keys/nginx_signing.key
+    id:  7BD9BF62
+  bearstech:
+    url: http://deb.bearstech.com/bearstech-archive.gpg
+    id:  90158EE0
+  nodesource:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    id:  68576280
+  mysql:
+    keyserver: pgp.mit.edu
+    id:        5072E1F5
+  postgresql:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    id:  ACCC4CF8
+  10gen:
+    url: https://docs.mongodb.org/10gen-gpg-key.asc
+    id:  7F0CEB10
+  mongodb:
+    url: https://www.mongodb.org/static/pgp/server-3.2.asc
+    id:  EA312927
+  varnish:
+    url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
+    id:  C4DEFFEB
+  jenkins:
+    url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+    id:  D50582E6
+  sensu:
+    url: http://repositories.sensuapp.org/apt/pubkey.gpg
+    id:  EB9C94BB
+  rabbitmq:
+    url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+    id:  6026DFCA
+  logentries:
+    keyserver: pgp.mit.edu
+    id:        C43C79AD
+  galera:
+    keyserver: keyserver.ubuntu.com
+    id:        BC19DDBA
+  packagecloud:
+    url: https://packagecloud.io/gpg.key
+    id:  D59097AB
+  elasticsearch:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    id:  D88E42B4
+  gitlab:
+    url: https://packages.gitlab.com/gpg.key
+    id:  E15E78F4
+  aptly:
+    url: https://www.aptly.info/pubkey.txt
+    id:  9C7DE460
+  docker:
+    keyserver: keys.gnupg.net
+    id:        2C52609D
+  manala:
+    keyserver: keys.gnupg.net
+    id:        1394DEA3
 
 # Preferences
 manala_apt_preferences_patterns:

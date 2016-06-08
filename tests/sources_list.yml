@@ -1,0 +1,30 @@
+---
+
+- hosts: localhost
+
+  vars:
+
+    manala_apt_sources_list:
+      - deb: http://httpredir.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+      - deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+      - "deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}"
+
+  roles:
+    - manala.apt
+
+  tasks:
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_json ~ '\"|goss validate' }}"
+      #debug:
+      #  msg: "{{ 'echo \"' ~ item|to_json ~ '\"|goss validate' }}" 
+      with_items:
+        - file:
+            /etc/apt/sources.list:
+              exists: true
+              contains:
+                - ://httpredir.debian.org
+                #- deb http\:\/\/httpredir\.debian\.org\/debian
+                #- deb http://security.debian.org/
+                #- deb http://httpredir.debian.org/debian

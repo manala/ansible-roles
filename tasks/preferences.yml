@@ -2,6 +2,21 @@
 
 - name: preferences > Templates
   template:
-    src:  "{{ ('preferences/_pattern.j2') if (item is string) else (item.template|default(manala_apt_preferences_template)) }}"
-    dest: "{{ manala_apt_preferences_dir }}/{{ ((item.split('@')[1].split(':')[0]) if (item.split('@')[0] in ['', '*', '~']) else (item.split('@')[0])) if (item is string) else (item.file) }}"
-  with_items: "{{ manala_apt_preferences }}"
+    src:  preferences/default.j2
+    dest: "{{ manala_apt_preferences_dir ~ '/' ~ item.key }}"
+  with_dict: "{{ __manala_apt_preferences }}"
+
+- name: preferences > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_apt_preferences_dir }}"
+  changed_when: false
+  register: __manala_apt_preferences_find_output
+  when: manala_apt_preferences_exclusive
+
+- name: preferences > Exclusive - remove files
+  file:
+    path:  "{{ manala_apt_preferences_dir }}/{{ item }}"
+    state: absent
+  when: manala_apt_preferences_exclusive and (item not in __manala_apt_preferences.keys())
+  with_items: "{{ __manala_apt_preferences_find_output.stdout_lines|default([]) }}"

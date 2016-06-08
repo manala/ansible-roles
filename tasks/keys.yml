@@ -1,0 +1,9 @@
+---
+
+- name: repositories > Key
+  apt_key:
+    id:        "{{ item.key }}"
+    url:       "{{ item.value.url|default(omit) }}"
+    keyserver: "{{ item.value.keyserver|default(omit) }}"
+    state:     "{{ item.value.state|default('present') }}"
+  with_dict: "{{ __manala_apt_keys }}"
