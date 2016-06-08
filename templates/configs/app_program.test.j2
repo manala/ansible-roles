@@ -13,7 +13,7 @@
 {{ macros.config_row(config, 'umask', ';umask=022', 0, true) }} ; umask for process (default None)
 {{ macros.config_row(config, 'priority', ';priority=999', 0, true) }} ; the relative start priority (default 999)
 {{ macros.config_row(config, 'autostart', ';autostart=true', 0, true) }} ; start at supervisord start (default: true)
-{{ macros.config_row(config, 'autorestart', ';autorestart=unexpected', 0, true) }} ; whether/when to restart (default: unexpected)
+{{ macros.config_row(config, 'autorestart', true) }} ; whether/when to restart (default: unexpected)
 {{ macros.config_row(config, 'startsecs', ';startsecs=1', 0, true) }} ; number of secs prog must stay running (def. 1)
 {{ macros.config_row(config, 'startretries', 20) }} ; max # of serial start failures (default 3)
 {{ macros.config_row(config, 'exitcodes', ';exitcodes=0,2', 0, true) }} ; 'expected' exit codes for process (default 0,2)
@@ -22,7 +22,7 @@
 {{ macros.config_row(config, 'stopasgroup', ';stopasgroup=false', 0, true) }} ; send stop signal to the UNIX process group (default false)
 {{ macros.config_row(config, 'killasgroup', ';killasgroup=false', 0, true) }} ; SIGKILL the UNIX process group (def false)
 {{ macros.config_row(config, 'user', ';user=chrism', 0, true) }} ; setuid to this UNIX account to run the program
-{{ macros.config_row(config, 'redirect_stderr', ';redirect_stderr=true', 0, true) }} ; redirect proc stderr to stdout (default false)
+{{ macros.config_row(config, 'redirect_stderr', true) }} ; redirect proc stderr to stdout (default false)
 {{ macros.config_row(config, 'stdout_logfile', ';stdout_logfile=/a/path', 0, true) }} ; stdout log path, NONE for none; default AUTO
 {{ macros.config_row(config, 'stdout_logfile_maxbytes', ';stdout_logfile_maxbytes=1MB', 0, true) }} ; max # logfile bytes b4 rotation (default 50MB)
 {{ macros.config_row(config, 'stdout_logfile_backups', ';stdout_logfile_backups=10', 0, true) }} ; # of stdout logfile backups (default 10)
