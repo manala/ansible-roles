@@ -19,16 +19,26 @@ manala_skeleton_patterns:
     # Apt
     apt_components: ['main']
     apt_sources_list_template: sources_list/debian_security_updates.j2
+    apt_keys:
+      - dotdeb
+      - nginx
+      - nodesource
+      - mysql
+      - postgresql
+      - 10gen
+      - mongodb
+      - elasticsearch
     apt_repositories_exclusive: true
     apt_repositories:
       - manala
+    apt_preferences_exclusive: true
     apt_preferences: "{{
       {'wheezy': [
         'git@debian_backports',
         'vim@debian_backports'
       ], 'jessie': [
       ]}[ansible_distribution_release]
-      + (manala_skeleton_options.php)|ternary(['~@dotdeb:100', 'php@dotdeb' ~ {'5.4': '', '5.5': '_php55', '5.6': '_php56', '7.0': ''}[manala_skeleton_options.php_version|string]],[])
+      + (manala_skeleton_options.php)|ternary(['dotdeb:100', 'php@dotdeb' ~ {'5.4': '', '5.5': '_php55', '5.6': '_php56', '7.0': ''}[manala_skeleton_options.php_version|string]],[])
       + (manala_skeleton_options.nginx)|ternary(['nginx@nginx'],[])
       + (manala_skeleton_options.nodejs)|ternary(['nodejs@nodesource_' ~ {'0.10': '0_10', '0.12': '0_12', '4': '4', '5': '5', '6': '6'}[manala_skeleton_options.nodejs_version|string]],[])
       + (manala_skeleton_options.mysql)|ternary(['mysql@mysql' ~ {'5.6': '_5_6', '5.7': '_5_7'}[manala_skeleton_options.mysql_version|string]],[])
