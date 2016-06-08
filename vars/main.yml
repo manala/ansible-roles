@@ -220,7 +220,7 @@ manala_skeleton_patterns:
     mongo_express_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Elasticsearch
     elasticsearch_plugins:
-      - appbaseio/dejaVu
+      - mobz/elasticsearch-head
     # PhantomJS
     phantomjs_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Heka
