@@ -33,3 +33,27 @@
     }}"
   with_items: "{{ manala_apt_preferences }}"
   register: __manala_apt_preferences_results
+
+- name: vars > Preferences repositories
+  set_fact:
+    __item: "{{ (item.split('@')[1]|default(item)).split(':')[0] }}"
+  with_items: "{{ manala_apt_preferences|select('string')|list }}"
+  register: __manala_apt_preferences_repositories_results
+
+- name: vars > Repositories
+  set_fact:
+    __item: "{{
+      ((__manala_apt_repositories_results|default({'ansible_facts':{'__item':{}}})).ansible_facts.__item)|combine(
+        (
+          {
+            manala_apt_repositories_patterns[item].source: manala_apt_repositories_patterns[item]
+          }
+        ) if (item is string) else (
+          {
+            item.source: item
+          }
+        )
+      )
+    }}"
+  with_items: "{{ manala_apt_repositories + (__manala_apt_preferences_repositories_results.results|map(attribute='ansible_facts.__item')|list) }}"
+  register: __manala_apt_repositories_results

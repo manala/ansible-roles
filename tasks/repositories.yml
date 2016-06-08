@@ -1,43 +1,11 @@
 ---
 
-# Get repositories patterns from preferences
-# Following "bar@foo" syntax, get the right part, in this case, "foo"
-- name: repositories > From preferences
-  set_fact:
-    __item: "{{ (item.split('@')[1]).split(':')[0] }}"
-  with_items: "{{ manala_apt_preferences|select('string')|list }}"
-  register: __manala_apt_preferences_repositories
-
-# Expand string based repositories into arrays
-# foo -> {pattern: 'foo'}
-- name: repositories > Expand patterns
-  set_fact:
-    __item: "{{ ({'pattern': item}) if (item is string) else (item) }}"
-  with_items: "{{ (manala_apt_repositories + ((__manala_apt_preferences_repositories.results|map(attribute='ansible_facts.__item')|list) if (__manala_apt_preferences_repositories.results is defined) else ([])))|unique }}"
-  register: __manala_apt_repositories
-
-# Replace pattern based repositories by their values
-# {pattern: 'foo'} -> {src: 'deb http://foo.com/debian }
-- name: repositories > Apply patterns
-  set_fact:
-    __item: "{{ ({'source': manala_apt_repositories_patterns[item.pattern].source, 'key': manala_apt_repositories_patterns[item.pattern].key|default(none)}) if (item.pattern is defined) else (item) }}"
-  with_items: "{{ (__manala_apt_repositories.results|map(attribute='ansible_facts.__item')|list) if (not __manala_apt_repositories|skipped) else ([]) }}"
-  register: __manala_apt_repositories
-
-- name: repositories > Key
-  apt_key:
-    url:   "{{ item.key.url }}"
-    id:    "{{ item.key.id }}"
-    state: "{{ item.state|default('present') }}"
-  with_items: "{{ (__manala_apt_repositories.results|map(attribute='ansible_facts.__item')|list) if (not __manala_apt_repositories|skipped) else ([]) }}"
-  when: item.key is defined and (item.key is not none)
-
-- name: repositories > Source
+- name: repositories > Repositories
   apt_repository:
-    repo:         "{{ item.source }}"
-    state:        "{{ item.state|default('present') }}"
+    repo:         "{{ item.value.source }}"
+    state:        "{{ item.value.state|default('present') }}"
     update_cache: yes
-  with_items: "{{ (__manala_apt_repositories.results|map(attribute='ansible_facts.__item')|list) if (not __manala_apt_repositories|skipped) else ([]) }}"
+  with_dict: "{{ __manala_apt_repositories }}"
 
 - name: repositories > Exclusive - find files
   command: "find -type f -name '*.list' -printf '%P\n'"
@@ -54,5 +22,17 @@
   file:
     path:  "{{ manala_apt_repositories_dir }}/{{ item }}"
     state: absent
-  when: "{{ manala_apt_repositories_exclusive and (item not in __manala_apt_repositories.results|map(attribute='ansible_facts.__item.source')|map('regex_replace', '^deb https?:\\/\\/([^ ]+)[ ].*$', '\\1')|map('replace', '.', ' ')|map('replace', '/', ' ')|map('trim')|map('replace', ' ', '_')|map('regex_replace', '(.*)', '\\1.list')|list) }}"
+  when: "{{
+    manala_apt_repositories_exclusive
+    and (
+      item not in __manala_apt_repositories.keys()
+        |map('regex_replace', '^deb https?:\\/\\/([^ ]+)[ ].*$', '\\1')
+        |map('replace', '.', ' ')
+        |map('replace', '/', ' ')
+        |map('trim')
+        |map('replace', ' ', '_')
+        |map('regex_replace', '(.*)', '\\1.list')
+        |list
+    )
+  }}"
   with_items: "{{ __manala_apt_repositories_find_output.stdout_lines|default([]) }}"

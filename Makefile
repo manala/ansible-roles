@@ -63,3 +63,6 @@ test-sources-list:
 
 test-preferences:
 	ansible-playbook tests/preferences.yml
+
+test-repositories:
+	ansible-playbook tests/repositories.yml
