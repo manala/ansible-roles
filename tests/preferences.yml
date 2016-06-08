@@ -4,6 +4,7 @@
 
   vars:
 
+    manala_apt_preferences_exclusive: true
     manala_apt_preferences:
       - git@debian_backports
       - foo@debian_backports
