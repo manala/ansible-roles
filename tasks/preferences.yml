@@ -3,5 +3,5 @@
 - name: preferences > Templates
   template:
     src:  preferences/default.j2
-    dest: "{{ manala_apt_preferences_dir ~ '/' ~ item.file }}"
-  with_items: "{{ __manala_apt_preferences }}"
+    dest: "{{ manala_apt_preferences_dir ~ '/' ~ item.key }}"
+  with_dict: "{{ __manala_apt_preferences }}"

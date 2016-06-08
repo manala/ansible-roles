@@ -3,36 +3,33 @@
 - name: vars > Preferences
   set_fact:
     __item: "{{
-      {
-        'package': (
-          manala_apt_preferences_patterns[
-            item.split('@')[0]
-          ]|default('*')
+      ((__manala_apt_preferences_results|default({'ansible_facts':{'__item':{}}})).ansible_facts.__item)|combine(
+        (
+          {
+            (item.split('@')[0]).split(':')[0]: {
+              'package': (
+                manala_apt_preferences_patterns[
+                  item.split('@')[0]
+                ]|default('*')
+              ),
+              'pin': (
+                manala_apt_repositories_patterns[
+                  (item.split('@')[1]|default(item)).split(':')[0]
+                ].pin|default(
+                  'origin ' ~ manala_apt_repositories_patterns[
+                    (item.split('@')[1]|default(item)).split(':')[0]
+                  ].source|regex_replace('deb https?:\\/\\/([^\\/ ]+)[\\/ ].*$', '\\1')
+                )
+              ),
+              'priority': (item.split(':')[1]|default(900))|int
+            }
+          }
         ) if (item is string) else (
-          item.package
-        ),
-        'pin': (
-          manala_apt_repositories_patterns[
-            (item.split('@')[1]|default(item)).split(':')[0]
-          ].pin|default(
-            'origin ' ~ manala_apt_repositories_patterns[
-              (item.split('@')[1]|default(item)).split(':')[0]
-            ].source|regex_replace('deb https?:\\/\\/([^\\/ ]+)[\\/ ].*$', '\\1')
-          )
-        ) if (item is string) else (
-          item.pin
-        ),
-        'priority': (
-          item.split(':')[1]|default(900)
-        ) if (item is string) else (
-          900
-        ),
-        'file': (
-          (item.split('@')[0]).split(':')[0]
-        ) if (item is string) else (
-          item.file
+          {
+            item.file: item
+          }
         )
-      }
+      )
     }}"
   with_items: "{{ manala_apt_preferences }}"
   register: __manala_apt_preferences_results

@@ -9,6 +9,7 @@
       - foo@debian_backports
       - php@dotdeb:300
       - dotdeb:100
+      - dotdeb:200
       - package:  foo
         pin:      bar
         priority: 100
@@ -21,36 +22,32 @@
     - assert:
         that:
           - "{{
-            __manala_apt_preferences_results.results|map(attribute='ansible_facts.__item')|list == [
-              {
-                'package': 'git*',
-                'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
-                'priority': 900,
-                'file': 'git'
-              },
-              {
-                'package': '*',
-                'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
-                'priority': 900,
-                'file': 'foo'
-              },
-              {
-                'package': 'php-* php5-* php7.0-*',
-                'pin': 'origin packages.dotdeb.org',
-                'priority': '300',
-                'file': 'php'
-              },
-              {
+            ((__manala_apt_preferences_results.results|last).ansible_facts.__item if (__manala_apt_preferences_results.results|length) else {}) == {
+              'dotdeb': {
                 'package': '*',
                 'pin': 'origin packages.dotdeb.org',
-                'priority': '100',
-                'file': 'dotdeb'
+                'priority': 200
               },
-              {
+              'foo': {
+                'package': '*',
+                'pin': 'release a=jessie-backports',
+                'priority': 900
+              },
+              'foo_bar': {
+                'file': 'foo_bar',
                 'package': 'foo',
                 'pin': 'bar',
-                'priority': 900,
-                'file': 'foo_bar'
+                'priority': 100
+              },
+              'git': {
+                'package': 'git*',
+                'pin': 'release a=jessie-backports',
+                'priority': 900
+              },
+              'php': {
+                'package': 'php-* php5-* php7.0-*',
+                'pin': 'origin packages.dotdeb.org',
+                'priority': 300
               }
-            ]
+            }
           }}"
