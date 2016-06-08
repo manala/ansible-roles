@@ -27,8 +27,10 @@ manala_apt_repositories_patterns:
     key: dotdeb
   dotdeb_php55:
     source: deb http://packages.dotdeb.org wheezy-php55 all
+    key: dotdeb
   dotdeb_php56:
     source: deb http://packages.dotdeb.org wheezy-php56 all
+    key: dotdeb
   nginx:
     source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
     key: nginx
