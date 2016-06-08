@@ -66,3 +66,6 @@ test-preferences:
 
 test-repositories:
 	ansible-playbook tests/repositories.yml
+
+test-keys:
+	ansible-playbook tests/keys.yml

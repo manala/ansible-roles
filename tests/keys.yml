@@ -1,0 +1,79 @@
+---
+
+- hosts: localhost
+
+  vars:
+
+    manala_apt_preferences_exclusive: true
+    manala_apt_preferences:
+      - git@debian_backports
+      - foo@debian_backports
+      - php@dotdeb:300
+      - dotdeb:100
+      - dotdeb:200
+      - package:  foo
+        pin:      bar
+        priority: 100
+        file:     foo_bar
+
+    manala_apt_repositories_exclusive: true
+    manala_apt_repositories:
+      - debian_security
+      - nginx
+      - nginx
+      - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
+      - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
+      - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
+        key: bearstech
+      - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+        key:
+          url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
+          id:  5072E1F5
+
+    manala_apt_keys:
+      - mysql
+      - sensu
+      - sensu
+      - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+        id:  6026DFCA
+      - keyserver: keyserver.ubuntu.com
+        id: BC19DDBA
+
+  roles:
+    - manala.apt
+
+  tasks:
+    - assert:
+        that:
+          - "{{
+            ((__manala_apt_keys_results.results|last).ansible_facts.__item if (__manala_apt_keys_results.results|length) else {}) == {
+              '5072E1F5': {
+                  'id': '5072E1F5',
+                  'url': 'http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5'
+              },
+              '6026DFCA': {
+                  'id': '6026DFCA',
+                  'url': 'http://www.rabbitmq.com/rabbitmq-signing-key-public.asc'
+              },
+              '7BD9BF62': {
+                  'id': '7BD9BF62',
+                  'url': 'http://nginx.org/keys/nginx_signing.key'
+              },
+              '89DF5277': {
+                  'id': '89DF5277',
+                  'url': 'http://www.dotdeb.org/dotdeb.gpg'
+              },
+              '90158EE0': {
+                  'id': '90158EE0',
+                  'url': 'http://deb.bearstech.com/bearstech-archive.gpg'
+              },
+              'BC19DDBA': {
+                  'id': 'BC19DDBA',
+                  'keyserver': 'keyserver.ubuntu.com'
+              },
+              'EB9C94BB': {
+                  'id': 'EB9C94BB',
+                  'url': 'http://repositories.sensuapp.org/apt/pubkey.gpg'
+              }
+            }
+          }}"
