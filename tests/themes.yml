@@ -11,9 +11,10 @@
 
   pre_tasks:
     - apt:
-        package: git
-    - apt:
-        package: zsh
+        package: "{{ item }}"
+      with_items:
+        - git
+        - zsh
 
   roles:
     - manala.ohmyzsh

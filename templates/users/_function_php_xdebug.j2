@@ -1,25 +1,21 @@
-enable_xdebug() {
-    if hash php5enmod 2>/dev/null; then
-        sudo php5enmod xdebug
-    else
-        sudo phpenmod -v 7.0 -s ALL xdebug
-    fi
-}
-
-disable_xdebug() {
-    if hash php5dismod 2>/dev/null; then
-        sudo php5enmod xdebug
-    else
-        sudo phpdismod -v 7.0 -s ALL xdebug
-    fi
-}
-
 manala_php_xdebug () {
-    if [[ $1 == on ]]; then enable_xdebug
-    else disable_xdebug; fi
-
-    if service --status-all | grep -Fq 'php5-fpm'; then sudo service php5-fpm restart
-    else  sudo service php7.0-fpm restart; fi
+	if [[ $1 == on ]]; then 
+		if hash php5enmod 2>/dev/null; then
+			sudo php5enmod xdebug;
+			sudo service php5-fpm restart;
+		else
+			sudo phpenmod -v 7.0 -s ALL xdebug;
+			sudo service php7.0-fpm restart;
+		fi
+	else
+		if hash php5dismod 2>/dev/null; then
+			sudo php5enmod xdebug;
+			sudo service php5-fpm restart;
+		else
+			sudo phpdismod -v 7.0 -s ALL xdebug;
+			sudo service php7.0-fpm restart;
+		fi
+	fi
 }
 
 echo " ENABLE/DISABLE PHP XDEBUG
