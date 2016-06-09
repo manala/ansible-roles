@@ -1,9 +1,27 @@
-manala_php_xdebug () {
-    if [[ $1 == on ]]; then sudo rename -v 's/20-xdebug.ini.off/20-xdebug.ini/' /etc/php5/*/conf.d/20-xdebug.ini.off || sudo phpenmod -v 7.0 -s ALL xdebug
-    else sudo rename -v 's/20-xdebug.ini/20-xdebug.ini.off/' /etc/php5/*/conf.d/20-xdebug.ini || sudo phpdismod -v 7.0 -s ALL xdebug; fi
-    sudo service php7.0-fpm restart
+enable_xdebug() {
+    if hash php5enmod 2>/dev/null; then
+        sudo php5enmod xdebug
+    else
+        sudo phpenmod -v 7.0 -s ALL xdebug
+    fi
 }
 
-echo " ENABLE/DISABLE NGINX TIMEOUT 
-	manala_nginx_timeout on|off
+disable_xdebug() {
+    if hash php5dismod 2>/dev/null; then
+        sudo php5enmod xdebug
+    else
+        sudo phpdismod -v 7.0 -s ALL xdebug
+    fi
+}
+
+manala_php_xdebug () {
+    if [[ $1 == on ]]; then enable_xdebug
+    else disable_xdebug; fi
+
+    if service --status-all | grep -Fq 'php5-fpm'; then sudo service php5-fpm restart
+    else  sudo service php7.0-fpm restart; fi
+}
+
+echo " ENABLE/DISABLE PHP XDEBUG
+	manala_php_xdebug on|off
 "
