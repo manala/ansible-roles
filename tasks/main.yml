@@ -1,6 +1,20 @@
 ---
-
+# Requirements
 - include: requirements.yml
+  tags:
+    - manala_ohmyzsh
+
+# Install
 - include: install.yml
+  tags:
+    - manala_ohmyzsh
+
+# Themes
 - include: themes.yml
+  tags:
+    - manala_ohmyzsh
+
+# Users
 - include: users.yml
+  tags:
+    - manala_ohmyzsh
