@@ -113,6 +113,14 @@ manala_ohmyzsh_users:
     - { role: manala.ohmyzsh }
 ```
 
+## Testing themes
+
+```bash
+make dev@jessie
+make test-themes
+/bin/zsh
+```
+
 # Licence
 
 MIT
