@@ -145,9 +145,14 @@ manala_apt_keys_patterns:
   10gen:
     url: https://docs.mongodb.org/10gen-gpg-key.asc
     id:  7F0CEB10
+    # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
+    # Instead of hacking things on python or system, simply don't validate certs...
+    validate_certs: false
   mongodb:
     url: https://www.mongodb.org/static/pgp/server-3.2.asc
     id:  EA312927
+    # See 10gen
+    validate_certs: false
   varnish:
     url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
     id:  C4DEFFEB
