@@ -11,7 +11,10 @@
 
   pre_tasks:
     - apt:
-        package: "{{ item }}"
+        package:            "{{ item }}"
+        install_recommends: false
+        update_cache:       true
+        cache_valid_time:   3600
       with_items:
         - git
         - zsh
