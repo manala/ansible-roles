@@ -86,12 +86,7 @@ source $ZSH/oh-my-zsh.sh
 
 echo
 
-manala_ip () {
-    wget http://ipecho.net/plain -O - -q ; echo
-}
-
-echo "- Show public ip"
-echo "    manala_ip"
+{% include '_function_ip.j2' %}
 
 echo
 
