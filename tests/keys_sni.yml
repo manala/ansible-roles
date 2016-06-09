@@ -1,0 +1,12 @@
+---
+
+- hosts: localhost
+
+  vars:
+
+    manala_apt_keys:
+      - 10gen
+      - mongodb
+
+  roles:
+    - manala.apt

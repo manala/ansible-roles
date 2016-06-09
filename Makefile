@@ -69,3 +69,6 @@ test-repositories:
 
 test-keys:
 	ansible-playbook tests/keys.yml
+
+test-keys-sni:
+	ansible-playbook tests/keys_sni.yml
