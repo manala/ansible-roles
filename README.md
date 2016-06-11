@@ -1,4 +1,4 @@
-# Ansible Role: Env
+# Ansible Role: Environment
 
 This role will deal with the setup of environment variables
 
@@ -19,25 +19,26 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.env
+ansible-galaxy install manala.environment
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.env
+- src: manala.environment
 ```
 
 ## Role Variables
 
-| Name                   | Default | Type  | Description            |
-| ---------------------- | ------- | ----- | ---------------------- |
-| `manala_env_variables` | []      | Array |  Environment variables |
+| Name                                     | Default | Type    | Description            |
+| ---------------------------------------- | ------- | ------- | ---------------------- |
+| `manala_environment_variables_exclusive` | False   | Boolean |  Exclusive             |
+| `manala_environment_variables`           | []      | Array   |  Environment variables |
 
 ### Configuration example
 
 ```yaml
-manala_env_variables:
+manala_environment_variables:
   - FOO: bar
 ```
 
@@ -46,7 +47,7 @@ manala_env_variables:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.env }
+    - { role: manala.environment }
 ```
 
 # Licence

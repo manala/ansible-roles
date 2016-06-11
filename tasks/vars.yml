@@ -1,0 +1,15 @@
+---
+
+- name: vars > Variables
+  set_fact:
+    __item: "{{
+      ((__manala_environment_variables_results|default({'ansible_facts':{'__item':{}}})).ansible_facts.__item)|combine(
+        {
+          item.keys()[0]: {
+            'value': item.values()[0]
+          }
+        }
+      )
+    }}"
+  with_items: "{{ manala_environment_variables }}"
+  register: __manala_environment_variables_results

@@ -16,4 +16,4 @@ galaxy_info:
         - jessie
   galaxy_tags:
     - system
-    - env
+    - environment

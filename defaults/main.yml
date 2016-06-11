@@ -1,5 +1,6 @@
 ---
 
-# Env
-manala_env_file:      /etc/environment
-manala_env_variables: []
+# Variables
+manala_environment_variables_exclusive: false
+manala_environment_variables_file:      /etc/environment
+manala_environment_variables:           []
