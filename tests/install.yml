@@ -1,0 +1,25 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  roles:
+    - manala.proftpd
+
+  tasks:
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss validate' }}"
+      with_items:
+        - package:
+            proftpd-basic:
+              installed: true
+          user:
+            proftpd:
+              exists: true
+              uid: 104
+              gid: 65534
+              groups:
+                - nogroup
+              home: /run/proftpd
