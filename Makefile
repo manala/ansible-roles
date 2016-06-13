@@ -15,8 +15,8 @@ DOCKER = docker run \
     --volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
     --volume `pwd`:/srv \
     --workdir /srv \
-    --tty \
-    --interactive \
+		--tty \
+    ${DOCKER_OPTIONS} \
     manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
     ${DOCKER_COMMAND}
 
@@ -39,21 +39,37 @@ help:
 # Dev #
 #######
 
+dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
+dev@wheezy: DOCKER_OPTIONS      = --interactive
+dev@wheezy: DOCKER_COMMAND      = /bin/bash
+dev@wheezy:
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	$(DOCKER)
+
 dev@jessie: DEBIAN_DISTRIBUTION = jessie
+dev@jessie: DOCKER_OPTIONS      = --interactive
 dev@jessie: DOCKER_COMMAND      = /bin/bash
 dev@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
-dev@jessie: DOCKER_COMMAND      = /bin/bash
-dev@wheezy:
+########
+# Test #
+########
+
+test@wheezy: DEBIAN_DISTRIBUTION = wheezy
+test@wheezy: DOCKER_COMMAND      = make test
+test@wheezy:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-#########
-# Tests #
-#########
+test@jessie: DEBIAN_DISTRIBUTION = jessie
+test@jessie: DOCKER_COMMAND      = make test
+test@jessie:
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	$(DOCKER)
+
+test: test-variables test-variables-exclusive
 
 test-variables:
 	ansible-playbook tests/variables.yml

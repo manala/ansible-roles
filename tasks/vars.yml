@@ -6,6 +6,7 @@
       ((__manala_environment_variables_results|default({'ansible_facts':{'__item':{}}})).ansible_facts.__item)|combine(
         {
           item.keys()[0]: {
+            'name':  item.keys()[0],
             'value': item.values()[0]
           }
         }

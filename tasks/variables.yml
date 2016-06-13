@@ -3,6 +3,6 @@
 - name: variables > File
   lineinfile:
     dest:   "{{ manala_environment_variables_file }}"
-    regexp: "{{ item.key }}="
-    line:   "{{ item.key }}={{ item.value.value }}"
-  with_dict: "{{ __manala_environment_variables }}"
+    regexp: "{{ item.name }}="
+    line:   "{{ item.name }}={{ item.value }}"
+  with_items: "{{ __manala_environment_variables }}"
