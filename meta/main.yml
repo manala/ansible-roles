@@ -48,9 +48,9 @@ dependencies:
   - role: manala.locales
     when: manala_skeleton_options.locales
 
-  # Env
-  - role: manala.env
-    when: manala_skeleton_options.env
+  # Environment
+  - role: manala.environment
+    when: manala_skeleton_options.environment
 
   # Apt
   - role: manala.apt

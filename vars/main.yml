@@ -428,7 +428,7 @@ manala_skeletons:
         motd:              true
         timezone:          true
         locales:           true
-        env:               true
+        environment:       true
         apt:               true
         ssh:               true
         make:              true
@@ -489,7 +489,7 @@ manala_skeletons:
         motd:              true
         timezone:          true
         locales:           true
-        env:               true
+        environment:       true
         apt:               true
         ssh:               true
         make:              true
@@ -542,24 +542,24 @@ manala_skeletons:
       options:
 
         # Roles
-        motd:       true
-        timezone:   true
-        locales:    true
-        env:        true
-        apt:        true
-        ssh:        true
-        make:       true
-        git:        true
-        files:      true
-        mailhog:    true
-        supervisor: true
-        cron:       true
-        nginx:      true
-        php:        true
-        composer:   true
-        nodejs:     true
-        npm:        true
-        phantomjs:  true
+        motd:        true
+        timezone:    true
+        locales:     true
+        environment: true
+        apt:         true
+        ssh:         true
+        make:        true
+        git:         true
+        files:       true
+        mailhog:     true
+        supervisor:  true
+        cron:        true
+        nginx:       true
+        php:         true
+        composer:    true
+        nodejs:      true
+        npm:         true
+        phantomjs:   true
         # App
         app:
           env: test

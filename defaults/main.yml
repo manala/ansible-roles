@@ -13,7 +13,7 @@ manala_skeleton_options:
   motd:                  false
   timezone:              false
   locales:               false
-  env:                   false
+  environment:           false
   apt:                   false
   ssh:                   false
   make:                  false
