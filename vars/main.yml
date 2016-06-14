@@ -63,9 +63,9 @@ manala_skeleton_patterns:
       - name: editor
         path: "{{ manala_vim_bin }}"
     # Files
-    files_user:  "{{ manala_skeleton_options.app.user }}"
-    files_group: "{{ manala_skeleton_options.app.group }}"
-    files:
+    files_attributes_user:  "{{ manala_skeleton_options.app.user }}"
+    files_attributes_group: "{{ manala_skeleton_options.app.group }}"
+    files_attributes:
       - path:  "{{ manala_skeleton_options.app.log_dir }}"
         state: directory
       - path:  "{{ manala_skeleton_options.app.cache_dir }}"
@@ -250,7 +250,7 @@ manala_skeleton_patterns:
 
   manala_nginx_dev: &pattern_manala_nginx_dev
     # Files
-    files:
+    files_attributes:
       - path:  /usr/share/manala/html
         state: directory
       - path: /usr/share/manala/html/404.html
@@ -304,7 +304,7 @@ manala_skeleton_patterns:
 
   elao_nginx_dev: &pattern_elao_nginx_dev
     # Files
-    files:
+    files_attributes:
       - path:  /usr/share/elao/html
         state: directory
       - path: /usr/share/elao/html/404.html
