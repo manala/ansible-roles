@@ -28,6 +28,6 @@
     state:      present
   with_subelements:
     - "{{ manala_cron_files }}"
-    - env_variables
+    - environment
   notify:
     - cron restart
