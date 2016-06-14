@@ -53,6 +53,25 @@ dev@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
+	########
+	# Lint #
+	########
+
+lint@wheezy: DEBIAN_DISTRIBUTION = wheezy
+lint@wheezy: DOCKER_COMMAND      = make lint
+lint@wheezy:
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	$(DOCKER)
+
+lint@jessie: DEBIAN_DISTRIBUTION = jessie
+lint@jessie: DOCKER_COMMAND      = make lint
+lint@jessie:
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	$(DOCKER)
+
+lint:
+	ansible-lint -v .
+
 ########
 # Test #
 ########
@@ -72,10 +91,13 @@ test@jessie:
 test: test-install test-services test-users
 
 test-install:
+	ansible-playbook tests/install.yml --syntax-check
 	ansible-playbook tests/install.yml
 
 test-services:
+	ansible-playbook tests/services.yml --syntax-check
 	ansible-playbook tests/services.yml
 
 test-users:
+	ansible-playbook tests/users.yml --syntax-check
 	ansible-playbook tests/users.yml
