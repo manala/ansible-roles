@@ -38,7 +38,7 @@
   roles:
     - manala.files
 
-  tasks:
+  post_tasks:
 
     # Asserts
     - assert:
