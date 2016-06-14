@@ -37,3 +37,14 @@ manala_php_log_dir: "/var/log/php{{ manala_php_version|string }}"
 # Applications
 manala_php_applications_dir: /usr/local/bin
 manala_php_applications: []
+
+# Blackfire
+manala_php_blackfire:                false
+
+manala_php_blackfire_agent_file:     /etc/blackfire/agent
+manala_php_blackfire_agent_template: ~
+manala_php_blackfire_agent:          []
+
+manala_php_blackfire_client_file:     ~/.blackfire.ini
+manala_php_blackfire_client_template: ~
+manala_php_blackfire_client:          []

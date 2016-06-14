@@ -1,0 +1,56 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    manala_php_version: 5
+    manala_php_blackfire: true
+    manala_php_blackfire_agent:
+      - server-id: c74906db-43d3-4c96-ab27-010600321b89
+      - server-token: 5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+    manala_php_blackfire_client:
+      - client-id: b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+      - client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+
+  pre_tasks:
+
+    # Configuring the Debian repository
+    - name: test blackfire > Register the packagecloud key
+      apt_key: url='https://packagecloud.io/gpg.key' state=present validate_certs=no
+    - name: test blackfire > Add Blackfire repository
+      apt_repository: repo='deb http://packages.blackfire.io/debian any main' state=present
+
+  roles:
+    - manala.php
+
+  post_tasks:
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss validate' }}"
+      with_items:
+        - package:
+            blackfire-agent:
+              installed: true
+        - package:
+            blackfire-php:
+              installed: true
+        - file:
+            /etc/blackfire/agent:
+              exists: true
+              contains:
+                - server-id=c74906db-43d3-4c96-ab27-010600321b89
+                - server-token=5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+            ~/.blackfire.ini:
+              exists: true
+              contains:
+                - client-id=b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+                - client-token=e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+        - process:
+            blackfire-agent:
+              running: true
+        - command:
+            blackfire status:
+              exit-status: 0

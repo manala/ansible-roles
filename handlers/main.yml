@@ -16,3 +16,8 @@
 - name: php cli restart
   debug:
     msg: "skip php-cli restart"
+
+- name: blackfire-agent restart
+  service:
+    name:  "blackfire-agent"
+    state: restarted

@@ -171,6 +171,20 @@ manala_php_fpm_pools:
       - php_flag[display_errors]: true
 ```
 
+#### Blackfire
+
+```yaml
+manala_php_blackfire: true
+
+manala_php_blackfire_agent:
+  - server-id: your-server-id
+  - server-token: your-token-id
+
+manala_php_blackfire_client:
+  - client-id: your-client-id
+  - client-token: your-client-token
+```
+
 ## Example playbook
 
 ```yaml

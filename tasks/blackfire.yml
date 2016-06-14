@@ -1,0 +1,35 @@
+---
+
+- name: backfire > Install packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  with_items:
+    - blackfire-agent
+    - blackfire-php
+  notify:
+    - php fpm restart
+
+- name: backfire > Configure agent
+  template:
+    src:  "{{ manala_php_blackfire_agent_template|ternary(manala_php_blackfire_agent_template, 'blackfire/agent.j2') }}"
+    dest: "{{ manala_php_blackfire_agent_file }}"
+  when: (manala_php_blackfire_agent_template is not none) or (manala_php_blackfire_agent|length)
+  notify:
+    - blackfire-agent restart
+
+- name: backfire > Configure client
+  template:
+    src:  "{{ manala_php_blackfire_client_template|ternary(manala_php_blackfire_client_template, 'blackfire/client.j2') }}"
+    dest: "{{ manala_php_blackfire_client_file }}"
+  when: (manala_php_blackfire_client_template is not none) or (manala_php_blackfire_client|length)
+
+- name: backfire > Services
+  service:
+    name:  "{{ item }}"
+    state: started
+  with_items:
+    - blackfire-agent

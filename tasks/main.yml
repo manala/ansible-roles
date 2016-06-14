@@ -43,6 +43,12 @@
   tags:
     - manala_php
 
+# Blackfire
+- include: blackfire.yml
+  when: manala_php_blackfire
+  tags:
+    - manala_php
+
 # Services
 - include: services.yml
   tags:
