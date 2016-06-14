@@ -54,6 +54,25 @@ dev@jessie:
 	$(DOCKER)
 
 ########
+# Lint #
+########
+
+lint@wheezy: DEBIAN_DISTRIBUTION = wheezy
+lint@wheezy: DOCKER_COMMAND      = make lint
+lint@wheezy:
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	$(DOCKER)
+
+lint@jessie: DEBIAN_DISTRIBUTION = jessie
+lint@jessie: DOCKER_COMMAND      = make lint
+lint@jessie:
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	$(DOCKER)
+
+lint:
+	ansible-lint -v .
+
+########
 # Test #
 ########
 
@@ -72,7 +91,9 @@ test@jessie:
 test: test-variables test-variables-exclusive
 
 test-variables:
+	ansible-playbook tests/variables.yml --syntax-check
 	ansible-playbook tests/variables.yml
 
 test-variables-exclusive:
+	ansible-playbook tests/variables_exclusive.yml --syntax-check
 	ansible-playbook tests/variables_exclusive.yml
