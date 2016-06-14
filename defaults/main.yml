@@ -22,6 +22,8 @@ manala_php_fpm_pools_exclusive: false
 manala_php_fpm_pools:
   - file:     www.conf
     template: fpm_pools/default.j2
+    config:
+      - www
 
 # Extensions
 manala_php_extensions_exclusive: false

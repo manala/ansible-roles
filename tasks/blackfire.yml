@@ -1,6 +1,6 @@
 ---
 
-- name: backfire > Install packages
+- name: blackfire > Install packages
   apt:
     name:  "{{ item }}"
     state: present
@@ -13,7 +13,7 @@
   notify:
     - php fpm restart
 
-- name: backfire > Configure agent
+- name: blackfire > Configure agent
   template:
     src:  "{{ manala_php_blackfire_agent_template|ternary(manala_php_blackfire_agent_template, 'blackfire/agent.j2') }}"
     dest: "{{ manala_php_blackfire_agent_file }}"
@@ -21,13 +21,13 @@
   notify:
     - blackfire-agent restart
 
-- name: backfire > Configure client
+- name: blackfire > Configure client
   template:
     src:  "{{ manala_php_blackfire_client_template|ternary(manala_php_blackfire_client_template, 'blackfire/client.j2') }}"
     dest: "{{ manala_php_blackfire_client_file }}"
   when: (manala_php_blackfire_client_template is not none) or (manala_php_blackfire_client|length)
 
-- name: backfire > Services
+- name: blackfire > Services
   service:
     name:  "{{ item }}"
     state: started
