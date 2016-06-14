@@ -93,6 +93,13 @@ manala_skeleton_patterns:
         template: fpm_pools/admin.{{ manala_skeleton_env }}.j2
         config:
           - admin
+      - file:     app.conf
+        template: fpm_pools/app.{{ manala_skeleton_env }}.j2
+        config:
+          - app:
+            - user:  "{{ manala_skeleton_options.app.user }}"
+            - group: "{{ manala_skeleton_options.app.group }}"
+            - php_admin_value[error_log]: "{{ manala_skeleton_options.app.log_dir }}/php.error.log"
     php_extensions_exclusive: true
     php_extensions: "{{
       ['xdebug']
