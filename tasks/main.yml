@@ -1,6 +1,13 @@
 ---
 
-# Files
-- include: files.yml
+# Vars
+- include: vars.yml
+  tags:
+    - manala_files
+
+# Attributes
+- include: attributes.yml
+  vars:
+    __manala_files_attributes: "{{ (__manala_files_attributes_results.results|last).ansible_facts.__item.values() if (__manala_files_attributes_results.results|length) else [] }}"
   tags:
     - manala_files

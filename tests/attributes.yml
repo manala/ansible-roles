@@ -1,0 +1,134 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    manala_files_attributes:
+      # Link Directory
+      - path:  /tmp/tests/link_directory_path
+        src:   /tmp/tests/link_directory_src
+        state: link_directory
+      # Template
+      - path:     /tmp/tests/template_path
+        template: hello.j2
+      # Content
+      - path:    /tmp/tests/content_path
+        content: Content A
+      # Copy
+      - path: /tmp/tests/copy_path
+        copy: /tmp/tests/content_path
+      # Url
+      - path: /tmp/tests/url_path
+        url:  http://humanstxt.org/humans.txt
+      # File
+      - path:  /tmp/tests/file_path
+        state: touch
+      # Override
+      - path:     /tmp/tests/override_path
+        template: hello.j2
+      - path:    /tmp/tests/override_path
+        content: Content B
+
+  pre_tasks:
+
+    - shell: rm -rf /tmp/tests
+
+  roles:
+    - manala.files
+
+  tasks:
+
+    # Asserts
+    - assert:
+        that:
+          - "{{
+            ((__manala_files_attributes_results.results|last).ansible_facts.__item.values() if (__manala_files_attributes_results.results|length) else []) == [
+              {
+                'path':      '/tmp/tests/link_directory_src',
+                'src':       None,
+                'state':     'directory',
+                'task_file': true
+              },
+              {
+                'content':      'Content A',
+                'path':         '/tmp/tests/content_path',
+                'task_content': true
+              },
+              {
+                'path':      '/tmp/tests/link_directory_path',
+                'src':       '/tmp/tests/link_directory_src',
+                'state':     'link',
+                'task_file': true
+              },
+              {
+                'path':          '/tmp/tests/template_path',
+                'task_template': true,
+                'template':      'hello.j2'
+              },
+              {
+                  'path':      '/tmp/tests/file_path',
+                  'state':     'touch',
+                  'task_file': true
+              },
+              {
+                'path':     '/tmp/tests/url_path',
+                'task_url': true,
+                'url':      'http://humanstxt.org/humans.txt'
+              },
+              {
+                'copy':      '/tmp/tests/content_path',
+                'path':      '/tmp/tests/copy_path',
+                'task_copy': true
+              },
+              {
+                'content':      'Content B',
+                'path':         '/tmp/tests/override_path',
+                'task_content': true
+              }
+            ]
+          }}"
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss validate' }}"
+      with_items:
+        - file:
+            /tmp/tests/link_directory_src:
+              exists:   true
+              filetype: directory
+            /tmp/tests/link_directory_path:
+              exists:    true
+              linked-to: /tmp/tests/link_directory_src
+              filetype:  symlink
+            /tmp/tests/template_path:
+              exists:  true
+              filetype: file
+              contains:
+                - Hello world!
+            /tmp/tests/content_path:
+              exists:  true
+              filetype: file
+              contains:
+                - Content A
+            /tmp/tests/copy_path:
+              exists:  true
+              filetype: file
+              contains:
+                - Content A
+            /tmp/tests/url_path:
+              exists:  true
+              filetype: file
+              contains:
+                - TEAM
+                - THANKS
+                - SITE
+            /tmp/tests/file_path:
+              exists:  true
+              filetype: file
+            /tmp/tests/override_path:
+              exists:  true
+              filetype: file
+              contains:
+                - Content B

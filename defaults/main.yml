@@ -1,8 +1,6 @@
 ---
 
-# User & Group
-manala_files_user:  ~
-manala_files_group: ~
-
-# Files
-manala_files: []
+# Attributes
+manala_files_attributes_user:  ~
+manala_files_attributes_group: ~
+manala_files_attributes: []

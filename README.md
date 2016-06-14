@@ -30,16 +30,16 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                 | Default | Type   | Description      |
-| -------------------- | ------- | ------ | ---------------- |
-| `manala_files_user`  | ~       | String | Default user     |
-| `manala_files_group` | ~       | String | Default group    |
-| `manala_files`       | {}      | Array  | Files attributes |
+| Name                            | Default | Type   | Description      |
+| ------------------------------- | ------- | ------ | ---------------- |
+| `manala_files_attributes_user`  | ~       | String | Default user     |
+| `manala_files_attributes_group` | ~       | String | Default group    |
+| `manala_files_attributes`       | {}      | Array  | Files attributes |
 
 ### Configuration example
 
 ```yaml
-manala_files:
+manala_files_attributes:
   - path: /var/log/symfony
     state: directory
   - path: /var/cache/symfony

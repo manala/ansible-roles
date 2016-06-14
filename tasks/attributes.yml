@@ -1,0 +1,74 @@
+---
+
+- name: attributes > File
+  file:
+    path:   "{{ item.path }}"
+    follow: "{{ item.follow|default(omit) }}"
+    src:    "{{ item.src|default(omit) }}"
+    force:  "{{ item.force|default(omit) }}"
+    owner:  "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
+    group:  "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
+    mode:   "{{ item.mode|default(omit) }}"
+    state:  "{{ item.state|default(omit) }}"
+  with_items: "{{
+    __manala_files_attributes
+      |selectattr('task_file', 'sameas', true)
+      |list
+  }}"
+
+- name: attributes > Template
+  template:
+    dest:   "{{ item.path }}"
+    src:    "{{ item.template }}"
+    force:  "{{ item.force|default(omit) }}"
+    owner:  "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
+    group:  "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
+    mode:   "{{ item.mode|default(omit) }}"
+  with_items: "{{
+    __manala_files_attributes
+      |selectattr('task_template', 'sameas', true)
+      |list
+  }}"
+
+- name: attributes > Content
+  copy:
+    dest:    "{{ item.path }}"
+    content: "{{ item.content }}"
+    force:   "{{ item.force|default(omit) }}"
+    owner:   "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
+    group:   "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+  with_items: "{{
+    __manala_files_attributes
+      |selectattr('task_content', 'sameas', true)
+      |list
+  }}"
+
+- name: attributes > Copy
+  copy:
+    dest:    "{{ item.path }}"
+    src:     "{{ item['copy'] }}"
+    force:   "{{ item.force|default(omit) }}"
+    owner:   "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
+    group:   "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+  with_items: "{{
+    __manala_files_attributes
+      |selectattr('task_copy', 'sameas', true)
+      |list
+  }}"
+
+- name: files > Url
+  get_url:
+    dest:           "{{ item.path }}"
+    url:            "{{ item.url }}"
+    validate_certs: "{{ item.validate_certs|default(true)|bool }}"
+    force:          "{{ item.force|default(omit) }}"
+    owner:          "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
+    group:          "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
+    mode:           "{{ item.mode|default(omit) }}"
+  with_items: "{{
+    __manala_files_attributes
+      |selectattr('task_url', 'sameas', true)
+      |list
+  }}"
