@@ -193,7 +193,7 @@ manala_apt_keys_patterns:
 # Preferences
 manala_apt_preferences_patterns:
   vim:           vim*
-  git:           git*
+  git:           git git-*
   php:           php-* php5-* php7.0-*
   mysql:         mysql*
   nginx:         nginx*
