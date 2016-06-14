@@ -68,9 +68,9 @@
                 'template':      'hello.j2'
               },
               {
-                  'path':      '/tmp/tests/file_path',
-                  'state':     'touch',
-                  'task_file': true
+                'path':      '/tmp/tests/file_path',
+                'state':     'touch',
+                'task_file': true
               },
               {
                 'path':     '/tmp/tests/url_path',
