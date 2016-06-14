@@ -20,7 +20,7 @@
   roles:
     - manala.environment
 
-  tasks:
+  post_tasks:
 
     # Asserts
     - assert:
