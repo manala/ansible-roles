@@ -14,8 +14,8 @@ manala_skeleton_patterns:
     # Timezone
     timezone_default: Etc/UTC
     # Locales
-    locales: []
-    locales_default: C.UTF-8
+    locales_codes: []
+    locales_codes_default: C.UTF-8
     # Environment
     environment_variables_exclusive: true
     # Apt
