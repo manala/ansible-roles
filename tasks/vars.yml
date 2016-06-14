@@ -13,6 +13,9 @@
           }),
           item.path: item|combine({
             'state':     'link',
+            'user':      omit,
+            'group':     omit,
+            'force':     true,
             'task_file': true
           })
         }

@@ -57,10 +57,13 @@
                 'task_content': true
               },
               {
+                'force':     true,
+                'group':     omit,
                 'path':      '/tmp/tests/link_directory_path',
                 'src':       '/tmp/tests/link_directory_src',
                 'state':     'link',
-                'task_file': true
+                'task_file': true,
+                'user':      omit
               },
               {
                 'path':          '/tmp/tests/template_path',
