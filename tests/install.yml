@@ -15,11 +15,3 @@
         - package:
             proftpd-basic:
               installed: true
-          user:
-            proftpd:
-              exists: true
-              uid: 104
-              gid: 65534
-              groups:
-                - nogroup
-              home: /run/proftpd
