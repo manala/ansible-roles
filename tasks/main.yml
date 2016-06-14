@@ -1,7 +1,18 @@
 ---
 
+# Install
 - include: install.yml
-- include: locales.yml
-  when: manala_locales|length
-- include: locales_default.yml
-  when: manala_locales_default
+  tags:
+    - manala_locales
+
+# Codes
+- include: codes.yml
+  when: manala_locales_codes|length
+  tags:
+    - manala_locales
+
+# Codes Defaults
+- include: codes_default.yml
+  when: manala_locales_codes_default
+  tags:
+    - manala_locales

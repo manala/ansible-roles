@@ -1,7 +1,7 @@
 ---
 
-- name: locales > Handle
+- name: codes > Handle
   locale_gen:
     name:  "{{ (item) if (item is string) else (item.name) }}"
     state: "{{ item.state|default('present') }}"
-  with_items: "{{ manala_locales }}"
+  with_items: "{{ manala_locales_codes }}"

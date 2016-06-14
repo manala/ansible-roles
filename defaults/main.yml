@@ -1,7 +1,5 @@
 ---
 
-# Locales to configure
-manala_locales: []
-
-# Default locale
-manala_locales_default: ~
+# Codes
+manala_locales_codes:         []
+manala_locales_codes_default: ~

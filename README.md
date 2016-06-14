@@ -34,17 +34,17 @@ None
 
 ## Role Variables
 
-| Name                     | Default  | Type   | Description                                    |
-| ------------------------ | -------- | ------ | ---------------------------------------------- |
-| `manala_locales`         | [ ]      | Array  | Locales to configure                           |
-| `manala_locales_default` | nil      | String | Default locale, stored in /etc/default/locale  |
+| Name                           | Default  | Type   | Description                                    |
+| ------------------------------ | -------- | ------ | ---------------------------------------------- |
+| `manala_locales_codes`         | [ ]      | Array  | Locales to configure                           |
+| `manala_locales_codes_default` | nil      | String | Default locale, stored in /etc/default/locale  |
 
 ### Configuration example
 
 ```yaml
-manala_locales_default: C.UTF-8
+manala_locales_codes_default: C.UTF-8
 
-manala_locales:
+manala_locales_codes:
   - fr_FR.UTF-8
   - name: en_EN.UTF-8
     state: absent

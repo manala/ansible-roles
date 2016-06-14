@@ -1,0 +1,16 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    manala_locales_codes:
+      - de_DE.UTF-8
+      - en_US.UTF-8
+      - es_ES.UTF-8
+      - fr_FR.UTF-8
+    manala_locales_codes_default: fr_FR.UTF-8
+
+  roles:
+    - manala.locales
