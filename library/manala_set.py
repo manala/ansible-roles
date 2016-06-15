@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-from ansible.compat.six import iteritems, string_types
-
 def main():
 
     module = AnsibleModule(
@@ -18,7 +16,7 @@ def main():
 
     facts = dict()
 
-    for key, value in iteritems(hash):
+    for key, value in hash.iteritems():
         if prefix:
             facts[prefix + key] = hash[key]
         else:
