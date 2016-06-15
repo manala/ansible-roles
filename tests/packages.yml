@@ -1,0 +1,32 @@
+---
+
+- hosts: localhost
+
+  vars:
+
+    manala_apt_packages:
+      - ecl-doc
+      - package: telnet
+        state: absent
+      - package: telnet
+        state: present
+
+  roles:
+    - manala.apt
+
+  post_tasks:
+
+    # Asserts
+    - assert:
+        that:
+          - "{{
+            ((__manala_apt_packages_results.results|last).ansible_facts.__item.values() if (__manala_apt_packages_results.results|length) else [])|sort == [
+              {
+                'package': 'ecl-doc'
+              },
+              {
+                'package': 'telnet',
+                'state': 'present'
+              }
+            ]
+          }}"

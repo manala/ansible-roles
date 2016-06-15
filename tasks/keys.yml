@@ -1,10 +1,10 @@
 ---
 
-- name: repositories > Key
+- name: keys > Keys
   apt_key:
-    id:             "{{ item.key }}"
-    url:            "{{ item.value.url|default(omit) }}"
-    keyserver:      "{{ item.value.keyserver|default(omit) }}"
-    validate_certs: "{{ item.value.validate_certs|default(omit) }}"
-    state:          "{{ item.value.state|default('present') }}"
-  with_dict: "{{ __manala_apt_keys }}"
+    id:             "{{ item.id }}"
+    url:            "{{ item.url|default(omit) }}"
+    keyserver:      "{{ item.keyserver|default(omit) }}"
+    validate_certs: "{{ item.validate_certs|default(omit) }}"
+    state:          "{{ item.state|default('present') }}"
+  with_items: "{{ __manala_apt_keys }}"

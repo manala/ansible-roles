@@ -147,12 +147,12 @@ manala_apt_keys_patterns:
     id:  7F0CEB10
     # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
     # Instead of hacking things on python or system, simply don't validate certs...
-    validate_certs: false
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   mongodb:
     url: https://www.mongodb.org/static/pgp/server-3.2.asc
     id:  EA312927
     # See 10gen
-    validate_certs: false
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   varnish:
     url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
     id:  C4DEFFEB
@@ -164,7 +164,7 @@ manala_apt_keys_patterns:
     id:  EB9C94BB
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-    id:  6026DFCA
+    id:  056E8E56
   logentries:
     keyserver: pgp.mit.edu
     id:        C43C79AD

@@ -2,10 +2,10 @@
 
 - name: repositories > Repositories
   apt_repository:
-    repo:         "{{ item.value.source }}"
-    state:        "{{ item.value.state|default('present') }}"
+    repo:         "{{ item.source }}"
+    state:        "{{ item.state|default('present') }}"
     update_cache: yes
-  with_dict: "{{ __manala_apt_repositories }}"
+  with_items: "{{ __manala_apt_repositories }}"
 
 - name: repositories > Exclusive - find files
   command: "find -type f -name '*.list' -printf '%P\n'"
@@ -16,7 +16,7 @@
   when: manala_apt_repositories_exclusive
 
 # Here come the tricky part
-# Simulate what file name ansible apt_repository module will give
+# Simulate what file name ansible apt_repository module will generate
 # Something like "deb http://nginx.org/packages/debian/ wheezy nginx" -> "nginx_org_packages_debian.list"
 - name: repositories > Exclusive - remove files
   file:
@@ -25,7 +25,7 @@
   when: "{{
     manala_apt_repositories_exclusive
     and (
-      item not in __manala_apt_repositories.keys()
+      item not in __manala_apt_repositories|map(attribute='source')
         |map('regex_replace', '^deb https?:\\/\\/([^ ]+)[ ].*$', '\\1')
         |map('replace', '.', ' ')
         |map('replace', '/', ' ')

@@ -11,20 +11,3 @@
 
   roles:
     - manala.apt
-
-  tasks:
-
-    # Goss
-    - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_json ~ '\"|goss validate' }}"
-      #debug:
-      #  msg: "{{ 'echo \"' ~ item|to_json ~ '\"|goss validate' }}" 
-      with_items:
-        - file:
-            /etc/apt/sources.list:
-              exists: true
-              contains:
-                - ://httpredir.debian.org
-                #- deb http\:\/\/httpredir\.debian\.org\/debian
-                #- deb http://security.debian.org/
-                #- deb http://httpredir.debian.org/debian

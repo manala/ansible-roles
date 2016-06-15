@@ -19,21 +19,21 @@
 # Preferences
 - include: preferences.yml
   vars:
-    __manala_apt_preferences: "{{ (__manala_apt_preferences_results.results|last).ansible_facts.__item if (__manala_apt_preferences_results.results|length) else {} }}"
+    __manala_apt_preferences: "{{ (__manala_apt_preferences_results.results|last).ansible_facts.__item.values() if (__manala_apt_preferences_results.results|length) else [] }}"
   tags:
     - manala_apt
 
 # Keys
 - include: keys.yml
   vars:
-    __manala_apt_keys: "{{ (__manala_apt_keys_results.results|last).ansible_facts.__item if (__manala_apt_keys_results.results|length) else {} }}"
+    __manala_apt_keys: "{{ (__manala_apt_keys_results.results|last).ansible_facts.__item.values() if (__manala_apt_keys_results.results|length) else [] }}"
   tags:
     - manala_apt
 
 # Repositories
 - include: repositories.yml
   vars:
-    __manala_apt_repositories: "{{ (__manala_apt_repositories_results.results|last).ansible_facts.__item if (__manala_apt_repositories_results.results|length) else {} }}"
+    __manala_apt_repositories: "{{ (__manala_apt_repositories_results.results|last).ansible_facts.__item.values() if (__manala_apt_repositories_results.results|length) else [] }}"
   tags:
     - manala_apt
 
@@ -47,5 +47,7 @@
 
 # Packages
 - include: packages.yml
+  vars:
+    __manala_apt_packages: "{{ (__manala_apt_packages_results.results|last).ansible_facts.__item.values() if (__manala_apt_packages_results.results|length) else [] }}"
   tags:
     - manala_apt

@@ -35,45 +35,47 @@
       - sensu
       - sensu
       - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-        id:  6026DFCA
+        id:  056E8E56
       - keyserver: keyserver.ubuntu.com
         id: BC19DDBA
 
   roles:
     - manala.apt
 
-  tasks:
+  post_tasks:
+
+    # Asserts
     - assert:
         that:
           - "{{
-            ((__manala_apt_keys_results.results|last).ansible_facts.__item if (__manala_apt_keys_results.results|length) else {}) == {
-              '5072E1F5': {
-                  'id': '5072E1F5',
-                  'url': 'http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5'
+            ((__manala_apt_keys_results.results|last).ansible_facts.__item.values() if (__manala_apt_keys_results.results|length) else [])|sort == [
+              {
+                'id': '056E8E56',
+                'url': 'http://www.rabbitmq.com/rabbitmq-signing-key-public.asc'
               },
-              '6026DFCA': {
-                  'id': '6026DFCA',
-                  'url': 'http://www.rabbitmq.com/rabbitmq-signing-key-public.asc'
+              {
+                'id': '5072E1F5',
+                'url': 'http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5'
               },
-              '7BD9BF62': {
-                  'id': '7BD9BF62',
-                  'url': 'http://nginx.org/keys/nginx_signing.key'
+              {
+                'id': '7BD9BF62',
+                'url': 'http://nginx.org/keys/nginx_signing.key'
               },
-              '89DF5277': {
-                  'id': '89DF5277',
-                  'url': 'http://www.dotdeb.org/dotdeb.gpg'
+              {
+                'id': '89DF5277',
+                'url': 'http://www.dotdeb.org/dotdeb.gpg'
               },
-              '90158EE0': {
-                  'id': '90158EE0',
-                  'url': 'http://deb.bearstech.com/bearstech-archive.gpg'
+              {
+                'id': '90158EE0',
+                'url': 'http://deb.bearstech.com/bearstech-archive.gpg'
               },
-              'BC19DDBA': {
-                  'id': 'BC19DDBA',
-                  'keyserver': 'keyserver.ubuntu.com'
+              {
+                'id': 'BC19DDBA',
+                'keyserver': 'keyserver.ubuntu.com'
               },
-              'EB9C94BB': {
-                  'id': 'EB9C94BB',
-                  'url': 'http://repositories.sensuapp.org/apt/pubkey.gpg'
+              {
+                'id': 'EB9C94BB',
+                'url': 'http://repositories.sensuapp.org/apt/pubkey.gpg'
               }
-            }
+            ]
           }}"
