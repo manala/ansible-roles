@@ -1,0 +1,53 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    manala_merge_hashes:
+      # Simple
+      - hashes:
+          - test_a
+          - test_b
+      # Prefix
+      - hashes:
+          - test_a
+          - test_b
+        prefix: foo_
+      # Var
+      - hashes:
+          - test_a
+          - test_b
+        var: bar
+
+    test_a:
+      pattern_a: 1
+      pattern_b: b
+      pattern_c: d
+
+    test_b:
+      pattern_c: c
+
+  roles:
+    - manala.merge
+
+  post_tasks:
+
+    # Asserts
+    - assert:
+        that:
+          # Simple
+          - "{{ pattern_a == 1 }}"
+          - "{{ pattern_b == 'b' }}"
+          - "{{ pattern_c == 'c' }}"
+          # Prefix
+          - "{{ foo_pattern_a == 1 }}"
+          - "{{ foo_pattern_b == 'b' }}"
+          - "{{ foo_pattern_c == 'c' }}"
+          # Var
+          - "{{ bar == {
+            'pattern_a': 1,
+            'pattern_b': 'b',
+            'pattern_c': 'c'
+          } }}"
