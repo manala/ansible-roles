@@ -1,14 +1,10 @@
 ---
 
-- name: packages > Setup npm packages
+- name: packages > Manage
   npm:
-    executable:     "{{ item.executable|default(omit) }}"
-    global:         "{{ item.global|default(true) }}"
-    ignore_scripts: "{{ item.ignore_scripts|default(omit) }}"
-    name:           "{{ item.name|default(omit) }}"
-    path:           "{{ item.path|default(omit) }}"
-    production:     "{{ item.production|default(omit) }}"
-    registry:       "{{ item.registry|default(omit) }}"
-    state:          "{{ item.state|default(omit) }}"
-    version:        "{{ item.version|default(omit) }}"
-  with_items: "{{ manala_npm_packages }}"
+    name:     "{{ item.package }}"
+    global:   true
+    state:    "{{ item.state|default(omit) }}"
+    version:  "{{ item.version|default(omit) }}"
+    registry: "{{ item.registry|default(omit) }}"
+  with_items: "{{ __manala_npm_packages }}"

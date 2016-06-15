@@ -5,7 +5,14 @@
   tags:
     - manala_npm
 
+# Vars
+- include: vars.yml
+  tags:
+    - manala_npm
+
 # Packages
 - include: packages.yml
+  vars:
+    __manala_npm_packages: "{{ (__manala_npm_packages_results.results|last).ansible_facts.__item.values() if (__manala_npm_packages_results.results|length) else [] }}"
   tags:
     - manala_npm
