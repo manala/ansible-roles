@@ -44,17 +44,42 @@
     - assert:
         that:
           - "{{
-            ((__manala_files_attributes_results.results|last).ansible_facts.__item.values() if (__manala_files_attributes_results.results|length) else []) == [
+            ((__manala_files_attributes_results.results|last).ansible_facts.__item.values() if (__manala_files_attributes_results.results|length) else [])|sort == [
+              {
+                'content':      'Content A',
+                'path':         '/tmp/tests/content_path',
+                'task_content': true
+              },
+              {
+                'content':      'Content B',
+                'path':         '/tmp/tests/override_path',
+                'task_content': true
+              },
+              {
+                'copy':      '/tmp/tests/content_path',
+                'path':      '/tmp/tests/copy_path',
+                'task_copy': true
+              },
+              {
+                'path':      '/tmp/tests/file_path',
+                'state':     'touch',
+                'task_file': true
+              },
+              {
+                'path':          '/tmp/tests/template_path',
+                'task_template': true,
+                'template':      'hello.j2'
+              },
+              {
+                'path':     '/tmp/tests/url_path',
+                'task_url': true,
+                'url':      'http://humanstxt.org/humans.txt'
+              },
               {
                 'path':      '/tmp/tests/link_directory_src',
                 'src':       None,
                 'state':     'directory',
                 'task_file': true
-              },
-              {
-                'content':      'Content A',
-                'path':         '/tmp/tests/content_path',
-                'task_content': true
               },
               {
                 'force':     true,
@@ -64,31 +89,6 @@
                 'state':     'link',
                 'task_file': true,
                 'user':      omit
-              },
-              {
-                'path':          '/tmp/tests/template_path',
-                'task_template': true,
-                'template':      'hello.j2'
-              },
-              {
-                'path':      '/tmp/tests/file_path',
-                'state':     'touch',
-                'task_file': true
-              },
-              {
-                'path':     '/tmp/tests/url_path',
-                'task_url': true,
-                'url':      'http://humanstxt.org/humans.txt'
-              },
-              {
-                'copy':      '/tmp/tests/content_path',
-                'path':      '/tmp/tests/copy_path',
-                'task_copy': true
-              },
-              {
-                'content':      'Content B',
-                'path':         '/tmp/tests/override_path',
-                'task_content': true
               }
             ]
           }}"
