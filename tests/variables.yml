@@ -25,14 +25,14 @@
     - assert:
         that:
           - "{{
-            ((__manala_environment_variables_results.results|last).ansible_facts.__item.values() if (__manala_environment_variables_results.results|length) else []) == [
-              {
-                'name':  'FOO',
-                'value': 'bar'
-              },
+            ((__manala_environment_variables_results.results|last).ansible_facts.__item.values() if (__manala_environment_variables_results.results|length) else [])|sort == [
               {
                 'name':  'BAR',
                 'value': 'baz'
+              },
+              {
+                'name':  'FOO',
+                'value': 'bar'
               }
             ]
           }}"
