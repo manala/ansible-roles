@@ -24,9 +24,6 @@ manala_apt_keys: []
 # Packages
 manala_apt_packages: []
 
-# Upgrade
-manala_apt_upgrade: "{{ manala_apt['update']|default(false) }}"
-
 # Manala
 manala_apt:
   update: "{{ (manala|default({'update':false}))['update'] }}"

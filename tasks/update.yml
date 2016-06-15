@@ -1,6 +1,6 @@
 ---
 
-- name: upgrade > Upgrade dist
+- name: update > Upgrade dist
   apt:
     upgrade:      dist
     update_cache: true

@@ -37,9 +37,9 @@
   tags:
     - manala_apt
 
-# Upgrade
-- include: upgrade.yml
-  when: manala_apt_upgrade
+# Update
+- include: update.yml
+  when: "{{ manala_apt['update']|default(false) }}"
   tags:
     - manala_apt
     - manala_apt.update

@@ -42,8 +42,6 @@ None
 
 | Name                      | Default  | Type  | Description                |
 | ------------------------- | -------- | ----- | -------------------------- |
-| `manala_apt_update`       | False    | Bool  | Update                     |
-| `manala_apt_upgrade`      | False    | Bool  | Upgrade                    |
 | `manala_apt_components`   | ['main'] | Array | Collection of components   |
 | `manala_apt_sources_list` | []       | Array | Collection of sources      |
 | `manala_apt_repositories` | []       | Array | Collection of repositories |
@@ -55,7 +53,6 @@ None
 ```yaml
 - hosts: all
   vars:
-    manala_apt_update: true
     manala_apt_repositories:
       - contrib
     manala_apt_preferences:
@@ -67,22 +64,6 @@ None
       - ttf-mscorefonts-installer
   roles:
     - role: manala.apt
-```
-
-### Update
-
-Update packages
-
-```yaml
-manala_apt_update: true
-```
-
-### Upgrade
-
-Upgrade packages
-
-```yaml
-manala_apt_upgrade: true
 ```
 
 ### Components
