@@ -51,6 +51,10 @@
           }
         ) if (item is string) else (
           {
+            (manala_apt_repositories_patterns[item.pattern]|combine(item)).source: manala_apt_repositories_patterns[item.pattern]|combine(item)
+          }
+            if (item.pattern is defined) else
+          {
             item.source: item
           }
         )

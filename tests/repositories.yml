@@ -29,6 +29,8 @@
         key:
           url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
           id:  5072E1F5
+      - pattern: proxmox_enterprise
+        state:   absent
 
   roles:
     - manala.apt
@@ -77,6 +79,11 @@
               {
                 'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
                 'source': 'deb http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-backports main'
+              },
+              {
+                'pattern': 'proxmox_enterprise',
+                'source': 'deb https://enterprise.proxmox.com/debian jessie pve-enterprise',
+                'state': 'absent'
               }
             ]
           }}"
