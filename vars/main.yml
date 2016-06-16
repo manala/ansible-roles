@@ -121,6 +121,9 @@ manala_apt_repositories_patterns:
   manala:
     source: deb http://debian.manala.io {{ ansible_distribution_release }} main
     key: manala
+  newrelic:
+    source: deb http://apt.newrelic.com/debian/ newrelic non-free
+    key: newrelic
 
 # Keys
 manala_apt_keys_patterns:
@@ -189,6 +192,9 @@ manala_apt_keys_patterns:
   manala:
     keyserver: keys.gnupg.net
     id:        1394DEA3
+  newrelic:
+    url: https://download.newrelic.com/548C16BF.gpg
+    id:  548C16BF
 
 # Preferences
 manala_apt_preferences_patterns:
