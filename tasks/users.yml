@@ -2,7 +2,7 @@
 
 - name: users > Accounts
   user:
-    name:       "{{ item.name }}"
+    name:       "{{ item.user }}"
     password:   "{{ item.password|default(omit) }}"
     group:      "{{ item.group|default(omit) }}"
     groups:     "{{ item.groups|default([])|join(',') }}"
@@ -11,7 +11,7 @@
     system:     "{{ item.system|default(false)|bool }}"
     uid:        "{{ item.uid|default(omit) }}"
     comment:    "{{ item.comment|default(omit) }}"
-  with_items: "{{ manala_users }}"
+  with_items: "{{ manala_accounts_users }}"
 
 - name: users > Authorized keys
   authorized_key:
@@ -19,15 +19,15 @@
     key:       "{{ item.1 }}"
     exclusive: true
   with_together:
-    - "{{ manala_users|selectattr('authorized_keys', 'sequence')|map(attribute='name')|list }}"
-    - "{{ manala_users|selectattr('authorized_keys', 'sequence')|map(attribute='authorized_keys')|map('join', '\n')|list }}"
+    - "{{ manala_accounts_users|selectattr('authorized_keys', 'sequence')|map(attribute='user')|list }}"
+    - "{{ manala_accounts_users|selectattr('authorized_keys', 'sequence')|map(attribute='authorized_keys')|map('join', '\n')|list }}"
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
-  command: "id -g -n {{ item.name }}"
-  with_items: "{{ manala_users }}"
+  command: "id -g -n {{ item.user }}"
+  with_items: "{{ manala_accounts_users }}"
   when: item.group is not defined
-  register: __manala_users
+  register: __manala_accounts_users
   changed_when: false
   no_log: true
 
@@ -37,57 +37,57 @@
     # Waiting for the ansible 2 "combine" filter...
     __item: "{% set __item = item.0.update(({}) if (item.1|skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
   with_together:
-    - "{{ manala_users }}"
-    - "{{ __manala_users.results }}"
-  register: __manala_users
+    - "{{ manala_accounts_users }}"
+    - "{{ __manala_accounts_users.results }}"
+  register: __manala_accounts_users
   no_log: true
 
 # Flatten results structure to the original variable
 - name: users > Flatten primary groups
   set_fact:
-    manala_users: "{{ __manala_users.results|map(attribute='ansible_facts.__item')|list }}"
+    manala_users: "{{ __manala_accounts_users.results|map(attribute='ansible_facts.__item')|list }}"
   no_log: true
 
 - name: users > Keys private
   copy:
-    dest:    "~{{ item.0.name }}/.ssh/{{ item.1.name }}"
+    dest:    "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}"
     content: "{{ item.1.private }}"
-    owner:   "{{ item.0.name }}"
+    owner:   "{{ item.0.user }}"
     group:   "{{ item.0.group|default(omit) }}"
     mode:    0600
   when: item.1.private is defined
   with_subelements:
-    - "{{ manala_users|selectattr('keys', 'sequence')|list }}"
+    - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
     - keys
 
 - name: users > Keys public
   copy:
-    dest:    "~{{ item.0.name }}/.ssh/{{ item.1.name }}.pub"
+    dest:    "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}.pub"
     content: "{{ item.1.public }}"
-    owner:   "{{ item.0.name }}"
+    owner:   "{{ item.0.user }}"
     group:   "{{ item.0.group|default(omit) }}"
     mode:    0644
   when: item.1.public is defined
   with_subelements:
-    - "{{ manala_users|selectattr('keys', 'sequence')|list }}"
+    - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
     - keys
 
 - name: users > Gpg keys public
-  command: "su {{ item.0.name }} -c 'gpg --list-keys {{ item.1.key }} || echo \"{{ item.1.public }}\" | gpg --import'"
+  command: "su {{ item.0.user }} -c 'gpg --list-keys {{ item.1.key }} || echo \"{{ item.1.public }}\" | gpg --import'"
   when: item.1.public is defined
-  register: __manala_users_gpg_keys_public_result
-  changed_when: __manala_users_gpg_keys_public_result.stderr
+  register: __manala_accounts_users_gpg_keys_public_result
+  changed_when: __manala_accounts_users_gpg_keys_public_result.stderr
   with_subelements:
-    - "{{ manala_users|selectattr('gpg_keys', 'sequence')|list }}"
+    - "{{ manala_accounts_users|selectattr('gpg_keys', 'sequence')|list }}"
     - gpg_keys
   no_log: true
 
 - name: users > Gpg keys secret
-  command: "su {{ item.0.name }} -c 'gpg --list-secret-keys {{ item.1.key }} || echo \"{{ item.1.secret }}\" | gpg --import --allow-secret-key-import'"
+  command: "su {{ item.0.user }} -c 'gpg --list-secret-keys {{ item.1.key }} || echo \"{{ item.1.secret }}\" | gpg --import --allow-secret-key-import'"
   when: item.1.secret is defined
-  register: __manala_users_gpg_keys_secret_result
-  changed_when: __manala_users_gpg_keys_secret_result.stderr
+  register: __manala_accounts_users_gpg_keys_secret_result
+  changed_when: __manala_accounts_users_gpg_keys_secret_result.stderr
   with_subelements:
-    - "{{ manala_users|selectattr('gpg_keys', 'sequence')|list }}"
+    - "{{ manala_accounts_users|selectattr('gpg_keys', 'sequence')|list }}"
     - gpg_keys
   no_log: true

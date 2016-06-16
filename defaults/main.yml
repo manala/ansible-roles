@@ -1,10 +1,7 @@
 ---
 
-# Users
-manala_users: []
-
 # Groups
-manala_users_groups: []
+manala_accounts_groups: []
 
-# Authorized keys
-manala_users_authorized_keys:  []
+# Users
+manala_accounts_users: []

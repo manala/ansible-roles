@@ -6,7 +6,7 @@ galaxy_info:
 
   author:              Manala
   company:             Manala
-  description:         Handle users
+  description:         Handle accounts users and groups
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
@@ -16,4 +16,6 @@ galaxy_info:
         - jessie
   galaxy_tags:
     - system
+    - accounts
     - users
+    - groups

@@ -1,5 +1,11 @@
 ---
 
+# Groups
 - include: groups.yml
+  tags:
+    - manala_accounts
+
+# Users
 - include: users.yml
-- include: authorized_keys.yml
+  tags:
+    - manala_accounts

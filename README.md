@@ -1,6 +1,6 @@
-# Ansible Role: Users
+# Ansible Role: Accounts
 
-This role will deal with the setup of users accounts and ssh keys:
+This role will deal with the setup of users and groups accounts and ssh keys:
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
@@ -19,13 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.users
+ansible-galaxy install manala.accounts
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.users
+- src: manala.accounts
 ```
 
 ## Role Handlers
@@ -34,25 +34,21 @@ None
 
 ## Role Variables
 
-| Name                                   | Default | Type        | Description                                                 |
-| -------------------------------------- | ------- | ----------- | ----------------------------------------------------------- |
-| `manala_users`                         | Array   | Array       | List of unix users.                                         |
-| `manala_users.name`                    | -       | String      | Username.                                                   |
-| `manala_users.group`                   | -       | String      | User's primary group.                                       |
-| `manala_users.groups`                  | -       | Array       | Array of user's secondary groups.                           |
-| `manala_users_groups`                  | -       | Array       | Array of groups to be created.                              |
-| `manala_users_groups.name`             | -       | String      | Name of the group to manage.                                |
-| `manala_users_groups.system`           | -       | Boolean     | If yes, indicates that the group created is a system group. |
-| `manala_users_authorized_keys`         | Array   | Array       | List of authorized ssh keys                                 |
-| `manala_users_authorized_keys.user`    | -       | String      | Username.                                                   |
-| `manala_users_authorized_keys.keys`    | Array   | Array       | Collection of user's ssh keys.                              |
-| `manala_users_authorized_keys.options` | Array   | Array       | List of ssh options for the user.                           |
+| Name                                      | Default | Type        | Description                                                 |
+| ----------------------------------------- | ------- | ----------- | ----------------------------------------------------------- |
+| `manala_accounts_users`                   | Array   | Array       | List of unix users.                                         |
+| `manala_accounts_users.user`              | -       | String      | Username.                                                   |
+| `manala_accounts_users.group`             | -       | String      | User's primary group.                                       |
+| `manala_accounts_users.groups`            | -       | Array       | Array of user's secondary groups.                           |
+| `manala_accounts_groups`                  | -       | Array       | Array of groups to be created.                              |
+| `manala_accounts_groups.name`             | -       | String      | Name of the group to manage.                                |
+| `manala_accounts_groups.system`           | -       | Boolean     | If yes, indicates that the group created is a system group. |
 
 ### Defining users
 
-The `manala_users`key will allow to define our users by:
+The `manala_accounts_users`key will allow to define our users by:
 
-- A name
+- A user name
 - A main group
 - Some secondary groups
 - Some exclusive authorized keys
@@ -61,8 +57,8 @@ The `manala_users`key will allow to define our users by:
 #### Example
 
 ```yaml
-manala_users:
-  - name:   foo
+manala_accounts_users:
+  - user:   foo
     group:  users
     groups: ['sudo']
     authorized_keys:
@@ -80,42 +76,17 @@ manala_users:
 
 ### Creating group
 
-You can create your own group by using the `manala_users_groups` by specifying:
+You can create your own group by using the `manala_accounts_groups` by specifying:
 
-- A name
+- A group name
 - If the group is a "system group"
 
 #### Example
 
 ```yaml
-manala_users_groups:
-  - name: ops
+manala_accounts_groups:
+  - group: ops
     system: false
-```
-
-### Managing users keys
-
-#### Example
-
-```yaml
-manala_users_authorized_keys:
-  - user: gateway
-    keys:
-      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-1@manala.io.pub') }}"
-        state: absent
-      - "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-2@manala.io.pub') }}"
-    options:
-      - no-pty
-      - no-X11-forwarding
-  - user: root
-    keys:
-      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-1@manala.io.pub') }}"
-      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-2@manala.io.pub') }}"
-      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-3@manala.io.pub') }}"
-  - user: manala
-    keys:
-      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-3@manala.io.pub') }}"
-      - key: "{{ lookup('file', playbook_dir ~ '/files/users/keys/user-4@manala.io.pub') }}"
 ```
 
 ## Example playbook
@@ -123,7 +94,7 @@ manala_users_authorized_keys:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.users }
+    - { role: manala.accounts }
 ```
 
 # Licence
