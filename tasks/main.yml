@@ -17,6 +17,7 @@
   when: "(manala_mysql_tasks_include is none or 'services' in manala_mysql_tasks_include) and ('services' not in manala_mysql_tasks_exlude)"
   tags:
     - manala_mysql
+    - manala_mysql.services
     - manala.services
 
 # Users
