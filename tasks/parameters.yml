@@ -2,8 +2,14 @@
 
 - name: parameters > Configure kernel parameters.
   sysctl:
-    name:   "{{ item.name }}"
-    value:  "{{ item.value|default(omit) }}"
+    name:   "{{ item.parameter }}"
+    value:  "{{
+      (item.value|default(omit) is bool)
+        |ternary(
+          item.value|ternary(1, 0),
+          item.value|default(omit)
+        )
+    }}"
     state:  "{{ item.state|default(omit) }}"
     reload: "{{ item.reload|default(omit) }}"
   with_items: "{{ manala_kernel_parameters }}"
