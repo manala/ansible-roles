@@ -2,11 +2,8 @@
 
 - name: parameters > Configure kernel parameters.
   sysctl:
-    name:        "{{ item.name }}"
-    value:       "{{ item.value|default(omit) }}"
-    state:       "{{ item.state|default(omit) }}"
-    reload:      "{{ item.reload|default(omit) }}"
-    sysctl_file: "{{ item.sysctl_file|default(omit) }}"
-    sysctl_set:  "{{ item.sysctl_set|default(omit) }}"
-  with_items: elao_system_sysctl
-
+    name:   "{{ item.name }}"
+    value:  "{{ item.value|default(omit) }}"
+    state:  "{{ item.state|default(omit) }}"
+    reload: "{{ item.reload|default(omit) }}"
+  with_items: "{{ manala_kernel_parameters }}"

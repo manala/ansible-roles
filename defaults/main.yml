@@ -1,8 +1,7 @@
 ---
 
 # Kernel modules to enable/disable
-elao_system_modprobe: []
+manala_kernel_modules: []
 
 # Kernel parameters to configure
-elao_system_sysctl: []
-
+manala_kernel_parameters: []

@@ -1,14 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
+# Ansible Role: Kernel
 
-# Ansible Role: elao.system
+This role will assume the setup of kernel
 
-This role will assume the setup of elao.system
-
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -16,41 +14,49 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.system
+ansible-galaxy install manala.kernel
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.system }
+- src: manala.kernel
 ```
+
+## Role Handlers
+
+None
 
 ## Role Variables
 
-| Name                     | Default | Type  | Description                              |
-| ------------------------ | ------- | ----- | ---------------------------------------- |
-| `elao_system_modprobe`   | []      | Array | Kernel modules to enable/disable         |
-| `elao_system_sysctl`     | []      | Array | Kernel parameters to configure           |
+| Name                       | Default | Type  | Description                              |
+| -------------------------- | ------- | ----- | ---------------------------------------- |
+| `manala_kernel_modules`    | []      | Array | Kernel modules to enable/disable         |
+| `manala_kernel_parameters` | []      | Array | Kernel parameters to configure           |
 
 ### Configuration example
 
 ```yaml
-elao_system_sysctl:
+manala_kernel_parameters:
   - name: net.ipv4.ip_nonlocal_bind
     value: 1
 
-elao_system_modprobe:
-  - name: ip_vs
+manala_kernel_modules:
+  - ip_vs
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.system }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.kernel }
+```
 
 # Licence
 
@@ -58,4 +64,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
