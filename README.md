@@ -1,16 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: Network
 
-This role will assume the configuration of the hosts resolution by:
-- Modifying the /etc/hosts definition
-- Modifying the /etc/resolv.conf contents
+This role will handle network hosts, resolver and interfaces
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -18,16 +14,18 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.network
+ansible-galaxy install manala.network
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.network }
+- src: manala.network
 ```
 
 ## Role Handlers
@@ -40,27 +38,27 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_network_config.hosts`|Array|Array|List of static hosts.
-`elao_network_config.resolv.searches`|Array|Array|List of domain for default DNS resolution.
-`elao_network_config.resolv.nameservers`|Array|Array|List of nameservers.
-`elao_network_interfaces`|Array|Collection|List of network interfaces.
+`manala_network_config.hosts`|Array|Array|List of static hosts.
+`manala_network_config.resolv.searches`|Array|Array|List of domain for default DNS resolution.
+`manala_network_config.resolv.nameservers`|Array|Array|List of nameservers.
+`manala_network_interfaces`|Array|Collection|List of network interfaces.
 
 ### Configuration example
 
 ```
 ---
 
-elao_network_config:
-  hosts:            [ { name: bismuth.elao.local, ip: 189.234.23.35 } ]
+manala_network_config:
+  hosts:            [ { name: bismuth.manala.local, ip: 189.234.23.35 } ]
   resolv:
-    searches:       [elao.local, elao.com]
+    searches:       [manala.local, manala.com]
     nameservers:    [172.16.0.10, 172.16.0.11]
 ```
 
 ### Interfaces configuration
 ```
 ---
-elao_network_interfaces:
+manala_network_interfaces:
         lo:
             family:    inet
             method:    loopback
@@ -95,9 +93,11 @@ elao_network_interfaces:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.network }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.network }
+```
 
 # Licence
 
@@ -105,4 +105,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
