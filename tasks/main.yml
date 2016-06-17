@@ -5,6 +5,7 @@
 - include: services.yml
   tags:
      - manala.services
+  when: "{{ manala_influxdb.services }}"
 - include: databases.yml
 - include: users.yml
 - include: privileges.yml
