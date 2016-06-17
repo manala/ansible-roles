@@ -1,14 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: Shorewall
 
 This role will assume the setup of [shorewall](http://shorewall.net/)
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -16,16 +14,18 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.shorewall
+ansible-galaxy install manala.shorewall
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.shorewall }
+- src: manala.shorewall
 ```
 
 ## Role Handlers
@@ -40,21 +40,21 @@ dependencies:
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_shorewall_config_templates.policy`|policy.j2|String (path)|Path to policy template.
-`elao_shorewall_config_templates.masq`|masq.j2|String (path)|Path to masq template.
-`elao_shorewall_config_templates.interfaces`|interfaces.j2|String (path)|Path to interfaces template.
-`elao_shorewall_config_templates.zones`|zones.j2|String (path)|Path to zones template.
-`elao_shorewall_config_templates.rules`|rules.j2|String (path)|Path to rules template.
+`manala_shorewall_config_templates.policy`|policy.j2|String (path)|Path to policy template.
+`manala_shorewall_config_templates.masq`|masq.j2|String (path)|Path to masq template.
+`manala_shorewall_config_templates.interfaces`|interfaces.j2|String (path)|Path to interfaces template.
+`manala_shorewall_config_templates.zones`|zones.j2|String (path)|Path to zones template.
+`manala_shorewall_config_templates.rules`|rules.j2|String (path)|Path to rules template.
 
 
 ### Configuration definitions
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_shorewall_config.zones`|Empty collection|Collection|Definition of shorwall zones.
-`elao_shorewall_config.rules`|Empty collection|Collection|Definition of firewall rules.
-`elao_shorewall_config.masq`|Empty collection|Collection|Definition of shorewall masqs.
-`elao_shorewall_config.policy`|Empty collection|Collection|Definition of policy.
+`manala_shorewall_config.zones`|Empty collection|Collection|Definition of shorwall zones.
+`manala_shorewall_config.rules`|Empty collection|Collection|Definition of firewall rules.
+`manala_shorewall_config.masq`|Empty collection|Collection|Definition of shorewall masqs.
+`manala_shorewall_config.policy`|Empty collection|Collection|Definition of policy.
 
 ### Configuration example
 
@@ -63,20 +63,17 @@ dependencies:
 ```
 ---
 
-elao_shorewall_config_templates:
+manala_shorewall_config_templates:
     policy:      "{{ playbook_dir ~ '/templates/shorewall/policy.j2' }}"
     masq:        "{{ playbook_dir ~ '/templates/shorewall/masq.j2' }}"
     interfaces:  "{{ playbook_dir ~ '/templates/shorewall/interfaces.j2' }}"
     zones:       "{{ playbook_dir ~ '/templates/shorewall/zones.j2' }}"
     rules:       "{{ playbook_dir ~ '/templates/shorewall/rules.j2' }}"
-
-
-
 ```
 
 #### Shorewall configuration with default templates
 ```
-elao_shorewall_config:
+manala_shorewall_config:
   zones:
     - name: fw
       type: firewall
@@ -136,9 +133,11 @@ elao_shorewall_config:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.shorewall }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.shorewall }
+```
 
 # Licence
 
@@ -146,4 +145,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

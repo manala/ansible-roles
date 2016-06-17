@@ -1,8 +1,9 @@
 ---
 
 # Configs
+manala_shorewall_configs_dir: /etc/shorewall
+manala_shorewall_configs:     []
 
-elao_shorewall_configs_dir: /etc/shorewall
-elao_shorewall_configs:     []
-elao_shorewall_main_config_file: /etc/shorewall/shorewall.conf
-elao_shorewall_main_config_options: []
+# Config
+manala_shorewall_config_file: /etc/shorewall/shorewall.conf
+manala_shorewall_config:      []
