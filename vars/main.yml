@@ -64,8 +64,8 @@ manala_skeleton_patterns:
     vim_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Alternatives
     alternatives_selections:
-      - name: editor
-        path: "{{ manala_vim_bin }}"
+      - selection: editor
+        path:      "{{ manala_vim_bin }}"
     # Files
     files_attributes_user:  "{{ manala_skeleton_options.app.user }}"
     files_attributes_group: "{{ manala_skeleton_options.app.group }}"
