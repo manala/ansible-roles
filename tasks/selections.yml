@@ -2,6 +2,6 @@
 
 - name: selections > Alternatives
   alternatives:
-    name: "{{ item.name }}"
+    name: "{{ item.selection }}"
     path: "{{ item.path }}"
   with_items: "{{ manala_alternatives_selections }}"

@@ -40,8 +40,8 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_alternatives_selections:
-  - name: editor
-    path: /usr/bin/vim.basic
+  - selection: editor
+    path:      /usr/bin/vim.basic
 ```
 
 ## Example playbook
