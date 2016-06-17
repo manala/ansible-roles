@@ -4,17 +4,17 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    This role will assume the basic setup of fail2ban.
+  author:              Manala
+  company:             Manala
+  description:         Handle fail2ban
   license:             MIT
-  min_ansible_version: 1.7.2
+  min_ansible_version: 2.0.0
   platforms:
     - name: Debian
       versions:
         - wheezy
         - jessie
-  categories:
+  galaxy_tags:
     - system
     - security
+    - fail2ban
