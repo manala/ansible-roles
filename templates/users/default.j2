@@ -57,7 +57,7 @@
 
 # User configuration
 
-{{ macros.config_row(config, 'export PATH', '# export PATH=$HOME/bin:/usr/local/bin:$PATH', true) }}
+{{ macros.config_row(config, 'export PATH', '# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"', true) }}
 {{ macros.config_row(config, 'export MANPATH', '# export MANPATH="/usr/local/man:$MANPATH"', true) }}
 
 source $ZSH/oh-my-zsh.sh
