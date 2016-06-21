@@ -7,4 +7,4 @@
     state:    "{{ item.state|default(omit) }}"
     version:  "{{ item.version|default(omit) }}"
     registry: "{{ item.registry|default(omit) }}"
-  with_items: "{{ __manala_npm_packages }}"
+  with_manala_npm_packages: "{{ manala_npm_packages }}"
