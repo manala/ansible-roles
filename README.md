@@ -1,14 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: Bind
 
 This role will assume the setup of local nameserver via bind.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -16,16 +14,18 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.bind
+ansible-galaxy install manala.bind
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.bind }
+- src: manala.bind
 ```
 
 ## Role Handlers
@@ -38,14 +38,14 @@ dependencies:
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`elao_bind_config_templates`|Array|Array|List of config files.
-`elao_bind_config_templates.named_conf`|-|String (filepath)|Custom path to global config file.
-`elao_bind_config_templates.named_conf_local`|-|String (filepath)|Custom path to local config file.
-`elao_bind_config_templates.named_conf_options`|-|String (filepath)|Custom path to options config file.
-`elao_bind_zones`|Array|Array|List of domain zones.
-`elao_bind_zones.domain`|-|String| domain name and TLD (Ex: elao.com).
-`elao_bind_zones.network`|-|String (filepath)|Zone network definition (Ex:172.16.1.0/24).
-`elao_bind_zones.responsible`|-|String (Email)|Contact mail address.
+`manala_bind_config_templates`|Array|Array|List of config files.
+`manala_bind_config_templates.named_conf`|-|String (filepath)|Custom path to global config file.
+`manala_bind_config_templates.named_conf_local`|-|String (filepath)|Custom path to local config file.
+`manala_bind_config_templates.named_conf_options`|-|String (filepath)|Custom path to options config file.
+`manala_bind_zones`|Array|Array|List of domain zones.
+`manala_bind_zones.domain`|-|String| domain name and TLD (Ex: manala.com).
+`manala_bind_zones.network`|-|String (filepath)|Zone network definition (Ex:172.16.1.0/24).
+`manala_bind_zones.responsible`|-|String (Email)|Contact mail address.
 
 ### Configuration example
 
@@ -54,12 +54,12 @@ dependencies:
 ```
 ---
 
-elao_bind_config_templates:
+manala_bind_config_templates:
     named_conf:             "{{ playbook_dir ~ '/files/bind/named.conf.j2' }}"
     named_conf_local:       "{{ playbook_dir ~ '/files/bind/named.conf.local.j2' }}"
     named_conf_options:     "{{ playbook_dir ~ '/files/bind/named.conf.options.j2' }}"
 
-elao_bind_zones_templates:
+manala_bind_zones_templates:
     "{{ playbook_dir ~ '/files/bind/zones' }}"
 ```
 
@@ -102,21 +102,23 @@ $TTL    86400
 #### Bind zones configuration:
 
 ```
-elao_bind_zones:
+manala_bind_zones:
   - domain:         mydomain.local
-    responsible:    contact_email@elao.com
+    responsible:    contact_email@manala.io
     network:        "172.16.0.0/24"
 
-  - domain:         elao.local
-    responsible:    contact_email@elao.com
+  - domain:         manala.local
+    responsible:    contact_email@manala.io
     network:        "172.16.1.0/24"
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.bind }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.bind }
+```
 
 # Licence
 
@@ -124,4 +126,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

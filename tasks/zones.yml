@@ -2,18 +2,18 @@
 
 - name: zones > Directory
   file:
-    path:  "{{ elao_bind_zones_dir }}"
+    path:  "{{ manala_bind_zones_dir }}"
     state: directory
-    owner: "{{ elao_bind_user }}"
-    group: "{{ elao_bind_group }}"
+    owner: "{{ manala_bind_user }}"
+    group: "{{ manala_bind_group }}"
 
 - name: zones > Templates
   template:
     src:  "{{ item.template }}"
-    dest: "{{ elao_bind_zones_dir }}/{{ item.file }}"
+    dest: "{{ manala_bind_zones_dir }}/{{ item.file }}"
     owner: root
-    group: "{{ elao_bind_group }}"
+    group: "{{ manala_bind_group }}"
     mode:  0644
-  with_items: elao_bind_zones
+  with_items: "{{ manala_bind_zones }}"
   notify:
     - bind restart

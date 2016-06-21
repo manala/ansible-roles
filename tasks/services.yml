@@ -1,6 +1,6 @@
 ---
 
-- name: services > Restarting bind9.
+- name: services > Restarting bind9
   service:
     name:  "{{ item }}"
     state: started
