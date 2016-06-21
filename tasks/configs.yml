@@ -2,6 +2,6 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(elao_logrotate_configs_template) }}"
-    dest: "{{ elao_logrotate_configs_dir }}/{{ item.file }}"
-  with_items: elao_logrotate_configs
+    src:  "{{ item.template|default(manala_logrotate_configs_template) }}"
+    dest: "{{ manala_logrotate_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_logrotate_configs }}"

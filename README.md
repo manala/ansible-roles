@@ -1,14 +1,12 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: logrotate
 
 This role will assume the setup of logrotate
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
 
 ## Dependencies
 
@@ -16,16 +14,18 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.logrotate
+ansible-galaxy install manala.fail2ban
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.logrotate }
+- src: manala.fail2ban
 ```
 
 ## Role Handlers
@@ -34,16 +34,16 @@ None
 
 ## Role Variables
 
-| Name                             | Default                | Type   | Description          |
-| -------------------------------- | ---------------------- | ------ | -------------------- |
-| `elao_logrotate_configs_dir`     | /etc/logrotate.d       | String | Configs path         |
-| `elao_logrotate_configs`         | []                     | Array  | Configs              |
+| Name                               | Default                | Type   | Description          |
+| ---------------------------------- | ---------------------- | ------ | -------------------- |
+| `manala_logrotate_configs_dir`     | /etc/logrotate.d       | String | Configs path         |
+| `manala_logrotate_configs`         | []                     | Array  | Configs              |
 
 ### Configuration examples
 
 
 ```yaml
-elao_logrotate_configs:
+manala_logrotate_configs:
   - file: nginx_example
     config:
       - /var/log/nginx/example/*.log:
@@ -59,9 +59,11 @@ elao_logrotate_configs:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.logrotate }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.logrotate }
+```
 
 # Licence
 
@@ -69,4 +71,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

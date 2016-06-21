@@ -1,14 +1,6 @@
 ---
 
 # Configs
-elao_logrotate_configs_dir:      /etc/logrotate.d
-elao_logrotate_configs_template: configs/empty.j2
-elao_logrotate_configs:          []
-elao_logrotate_configs_patterns:
-  weekly_12:
-    - rotate: 12
-    - weekly
-    - missingok
-    - notifempty
-    - compress
-    - delaycompress
+manala_logrotate_configs_dir:      /etc/logrotate.d
+manala_logrotate_configs_template: configs/empty.j2
+manala_logrotate_configs:          []
