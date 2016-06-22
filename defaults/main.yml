@@ -1,9 +1,9 @@
 ---
 
 # Errorfiles
-elao_haproxy_errorfiles_dir: /etc/haproxy/errors
-elao_haproxy_errorfiles:     []
+manala_haproxy_errorfiles_dir: /etc/haproxy/errors
+manala_haproxy_errorfiles:     []
 
 # Config
-elao_haproxy_config_file:     /etc/haproxy/haproxy.cfg
-elao_haproxy_config_template: ~
+manala_haproxy_config_file:     /etc/haproxy/haproxy.cfg
+manala_haproxy_config_template: ~

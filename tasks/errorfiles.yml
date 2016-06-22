@@ -3,7 +3,7 @@
 - name: errorfiles > Templates
   template:
     src:  "{{ item.template }}"
-    dest: "{{ elao_haproxy_errorfiles_dir }}/{{ item.file }}"
-  with_items: elao_haproxy_errorfiles
+    dest: "{{ manala_haproxy_errorfiles_dir }}/{{ item.file }}"
+  with_items: "{{ manala_haproxy_errorfiles }}"
   notify:
     - haproxy restart

@@ -1,31 +1,34 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: HAProxy
 
 This role will assume the setup of HAProxy
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+None.
+
+## Dependencies
+
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.haproxy
+ansible-galaxy install manala.haproxy
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.haproxy }
+- src: manala.haproxy
 ```
 
 ## Role Handlers
-
 |Name|Type|Description|
 |----|----|-----------|
 |haproxy restart|Command|Test config and notify "do haproxy restart" handler
@@ -35,18 +38,18 @@ dependencies:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-|elao_haproxy_errorfiles_path|/etc/haproxy/errors|String|Errorfiles path
-|elao_haproxy_errorfiles|Array|Array|Errorfiles templates
-|elao_haproxy_config_path|/etc/haproxy/haproxy.cfg|String|Config path
-|elao_haproxy_config_template|config/http_default.cfg.j2|String|Config template
-|elao_haproxy_config|Array|Array|Config
+|manala_haproxy_errorfiles_path|/etc/haproxy/errors|String|Errorfiles path
+|manala_haproxy_errorfiles|Array|Array|Errorfiles templates
+|manala_haproxy_config_path|/etc/haproxy/haproxy.cfg|String|Config path
+|manala_haproxy_config_template|config/http_default.cfg.j2|String|Config template
+|manala_haproxy_config|Array|Array|Config
 
 ### Configuration example
 
 Handle errorfiles
 
 ```yaml
-elao_haproxy_errorfiles:
+manala_haproxy_errorfiles:
   - name: 400.http
     template: errorfiles/400.http.j2
   - name: maintenance.http
@@ -56,7 +59,7 @@ elao_haproxy_errorfiles:
 Use default config template, and set/add custom parameters
 
 ```yaml
-elao_haproxy_config:
+manala_haproxy_config:
   defaults:
     timeout:
       - connect 3000
@@ -82,14 +85,16 @@ elao_haproxy_config:
 Use custom config template
 
 ```yaml
-elao_haproxy_config_template: "{{ playbook_dir ~ '/templates/haproxy/haproxy.cfg.j2' }}"
+manala_haproxy_config_template: "{{ playbook_dir ~ '/templates/haproxy/haproxy.cfg.j2' }}"
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.haproxy }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.haproxy }
+```
 
 # Licence
 
@@ -97,4 +102,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

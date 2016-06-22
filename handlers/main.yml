@@ -1,7 +1,7 @@
 ---
 
 - name: haproxy restart
-  command: "haproxy -c -f {{ elao_haproxy_config_file }}"
+  command: "haproxy -c -f {{ manala_haproxy_config_file }}"
   changed_when: true
   notify:
     - do haproxy restart
