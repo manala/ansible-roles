@@ -2,7 +2,7 @@
 
 - name: fpm_pools > Templates
   template:
-    src:  "{{ item.template|default(manala_php_fpm_pools_template) }}"
+    src:  "{{ item.template|default(manala_php_fpm_pools_template|ternary(manala_php_fpm_pools_template, 'fpm_pools/empty.j2')) }}"
     dest: "{{ manala_php_fpm_pools_dir }}/{{ item.file }}"
   notify:
     - php fpm restart

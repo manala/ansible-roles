@@ -2,7 +2,7 @@
 
 - name: configs_global > Templates
   template:
-    src:  "{{ item.template|default(manala_php_configs_template) }}"
+    src:  "{{ item.template|default(manala_php_configs_template|ternary(manala_php_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_php_configs_dir_base }}/conf.d/{{ item.file }}"
   # notify parameter could not handle dynamic values, so we have to manually
   # list all available sapis

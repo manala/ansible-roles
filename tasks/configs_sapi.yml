@@ -2,7 +2,7 @@
 
 - name: configs > {{ __manala_php_sapi|capitalize }} - Templates
   template:
-    src:  "{{ item.template|default(manala_php_configs_template) }}"
+    src:  "{{ item.template|default(manala_php_configs_template|ternary(manala_php_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_php_configs_dir_base }}/{{ __manala_php_sapi }}/conf.d/{{ item.file }}"
   notify:
     - php {{ __manala_php_sapi }} restart
