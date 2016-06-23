@@ -38,8 +38,6 @@ Using ansible galaxy requirements file:
 
 | Name                             | Default           | Type          | Description                                            |
 | -------------------------------- | ------------------| ------------- | ------------------------------------------------------ |
-| `manala_mysql_tasks_include`     | ~                 | Array         | Execute only specified tasks                           |
-| `manala_mysql_tasks_exlude`      | [ ]               | Array         | Exclude tasks (install, configs, services)             |
 | `manala_mysql_configs_dir`       | /etc/mysql/conf.d | String (path) | Configurations directory path                          |
 | `manala_mysql_configs_template`  | configs/empty.j2  | String (path) | Default configuration template                         |
 | `manala_mysql_configs_exclusive` | false             | Boolean       | Whether to remove all other non-specified config files |

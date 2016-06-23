@@ -2,19 +2,16 @@
 
 # Install
 - include: install.yml
-  when: "(manala_mysql_tasks_include is none or 'install' in manala_mysql_tasks_include) and ('install' not in manala_mysql_tasks_exlude)"
   tags:
     - manala_mysql
 
 # Configs
 - include: configs.yml
-  when: "(manala_mysql_tasks_include is none or 'configs' in manala_mysql_tasks_include) and ('configs' not in manala_mysql_tasks_exlude)"
   tags:
     - manala_mysql
 
 # Services
 - include: services.yml
-  when: "(manala_mysql_tasks_include is none or 'services' in manala_mysql_tasks_include) and ('services' not in manala_mysql_tasks_exlude)"
   tags:
     - manala_mysql
     - manala_mysql.services
@@ -22,12 +19,10 @@
 
 # Users
 - include: users.yml
-  when: "(manala_mysql_tasks_include is none or 'users' in manala_mysql_tasks_include) and ('users' not in manala_mysql_tasks_exlude)"
   tags:
     - manala_mysql
 
 # Databases
 - include: databases.yml
-  when: "(manala_mysql_tasks_include is none or 'databases' in manala_mysql_tasks_include) and ('databases' not in manala_mysql_tasks_exlude)"
   tags:
     - manala_mysql

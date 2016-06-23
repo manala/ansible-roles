@@ -1,13 +1,14 @@
 ---
 
-# Tasks
-manala_mysql_tasks_include: ~
-manala_mysql_tasks_exlude: []
+# Install
+manala_mysql_install_packages:
+  - mysql-server
+  - mysql-client
 
 # Configs
 manala_mysql_configs_exclusive: false
 manala_mysql_configs_dir:       /etc/mysql/conf.d
-manala_mysql_configs_template:  configs/empty.j2
+manala_mysql_configs_template:  ~
 manala_mysql_configs:           []
 
 # Users
