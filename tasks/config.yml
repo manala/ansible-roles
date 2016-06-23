@@ -2,7 +2,7 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_elasticsearch_config_template }}"
+    src:  "{{ manala_elasticsearch_config_template|ternary(manala_elasticsearch_config_template, 'config/default.j2') }}"
     dest: "{{ manala_elasticsearch_config_file }}"
   notify:
     - elasticsearch restart
