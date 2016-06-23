@@ -7,5 +7,5 @@ manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 manala_ohmyzsh_update: false
 
 # Users
-manala_ohmyzsh_users_template: users/default.j2
+manala_ohmyzsh_users_template: ~
 manala_ohmyzsh_users:          []

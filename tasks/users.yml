@@ -25,7 +25,7 @@
 
 - name: users > Templates
   template:
-    src:   "{{ item.template|default(manala_ohmyzsh_users_template) }}"
+    src:   "{{ item.template|default(manala_ohmyzsh_users_template|ternary(manala_ohmyzsh_users_template, 'users/default.j2')) }}"
     dest:  "~{{ item.user }}/.zshrc"
     owner: "{{ item.user }}"
     group: "{{ item.group|default(omit) }}"
