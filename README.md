@@ -46,7 +46,7 @@ Role Variables
 | `manala_proftpd_configs_template`   | configs/empty.j2    | String  | Template to use to define a config set      |
 | `manala_proftpd_configs_exclusive`  | false               | Boolean | Exclusion of existings files                |
 | `manala_proftpd_configs_dir`        | /etc/proftpd/conf.d | String  | Path to the main configuration directory    |
-| `manala_proftpd_user_template`      | users/base.j2       | String  | Main user config template                   |
+| `manala_proftpd_users_template`     | users/default.j2    | String  | Main user config template                   |
 | `manala_proftpd_users_file`         | /etc/ftpd.passwd    | String  | proFTPd user accounts definition file       |
 | `manala_proftpd_users`              | []                  | Array   | Array of proFTPd user accounts              |
 
@@ -102,7 +102,7 @@ manala_proftpd_configs_exclusive: true
 
 ### User account configuration
 
-The `manala_proftpd_user_template` key is made to define users allow to acces to FTP storage.
+The `manala_proftpd_users_template` key is made to define users allow to acces to FTP storage.
 
 ```yaml
 manala_proftpd_users:
