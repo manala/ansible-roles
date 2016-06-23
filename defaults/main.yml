@@ -8,7 +8,7 @@ manala_php_sapis: ['cli', 'fpm']
 
 # Configs
 manala_php_configs_dir_base:  "/etc/php{{ (manala_php_version|string == '5')|ternary('5', '/' ~ manala_php_version|string) }}"
-manala_php_configs_template:  configs/empty.j2
+manala_php_configs_template:  ~
 manala_php_configs_exclusive: false
 manala_php_configs_global:    false
 manala_php_configs:           []
@@ -17,7 +17,7 @@ manala_php_cli_configs:       []
 
 # Fpm pools
 manala_php_fpm_pools_dir:       "/etc/php{{ (manala_php_version|string == '5')|ternary('5', '/' ~ manala_php_version|string) }}/fpm/pool.d"
-manala_php_fpm_pools_template:  fpm_pools/empty.j2
+manala_php_fpm_pools_template:  ~
 manala_php_fpm_pools_exclusive: false
 manala_php_fpm_pools:
   - file:     www.conf
