@@ -2,7 +2,7 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(manala_phpredisadmin_configs_template) }}"
+    src:  "{{ item.template|default(manala_phpredisadmin_configs_template|ternary(manala_phpredisadmin_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_phpredisadmin_configs_dir }}/{{ item.file }}"
   register: __manala_phpredisadmin_configs_templates_output
   with_items: "{{ manala_phpredisadmin_configs }}"
