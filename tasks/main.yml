@@ -1,5 +1,18 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_keepalived
+
+# Config
 - include: config.yml
+  tags:
+    - manala_keepalived
+
+# Services
 - include: services.yml
+  tags:
+    - manala_keepalived
+    - manala_keepalived.services
+    - manala.services

@@ -2,8 +2,8 @@
 
 - name: config > Template
   template:
-    src:  "{{ elao_keepalived_config_template|ternary(elao_keepalived_config_template, 'config/empty.conf.j2') }}"
-    dest: "{{ elao_keepalived_config_file }}"
-  when: (elao_keepalived_config_template is not none) or (elao_keepalived_config|length)
+    src:  "{{ manala_keepalived_config_template|ternary(manala_keepalived_config_template, 'config/empty.conf.j2') }}"
+    dest: "{{ manala_keepalived_config_file }}"
+  when: (manala_keepalived_config_template is not none) or (manala_keepalived_config|length)
   notify:
     - keepalived reload
