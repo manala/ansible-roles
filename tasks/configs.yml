@@ -2,7 +2,7 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(manala_mysql_configs_template) }}"
+    src:  "{{ item.template|default(manala_mysql_configs_template|ternary(manala_mysql_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_mysql_configs_dir }}/{{ item.file }}"
   register: __manala_mysql_configs_templates_output
   with_items: "{{ manala_mysql_configs }}"
