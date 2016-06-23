@@ -8,7 +8,7 @@ manala_nginx_config:          []
 # Configs
 manala_nginx_configs_exclusive: false
 manala_nginx_configs_dir:       /etc/nginx/conf.d
-manala_nginx_configs_template:  configs/empty.j2
+manala_nginx_configs_template:  ~
 manala_nginx_configs:           []
 
 # User
