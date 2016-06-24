@@ -2,14 +2,15 @@
 
 - name: attributes > File
   file:
-    path:   "{{ item.path }}"
-    follow: "{{ item.follow|default(omit) }}"
-    src:    "{{ item.src|default(omit) }}"
-    force:  "{{ item.force|default(omit) }}"
-    owner:  "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
-    group:  "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
-    mode:   "{{ item.mode|default(omit) }}"
-    state:  "{{ item.state|default(omit) }}"
+    path:    "{{ item.path }}"
+    follow:  "{{ item.follow|default(omit) }}"
+    recurse: "{{ item.recurse|default(omit) }}"
+    src:     "{{ item.src|default(omit) }}"
+    force:   "{{ item.force|default(omit) }}"
+    owner:   "{{ item.user|default(manala_files_attributes_user|ternary(manala_files_attributes_user, omit)) }}"
+    group:   "{{ item.group|default(manala_files_attributes_group|ternary(manala_files_attributes_group, omit)) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+    state:   "{{ item.state|default(omit) }}"
   with_items: "{{
     __manala_files_attributes
       |selectattr('task_file', 'sameas', true)
