@@ -22,6 +22,7 @@
   file:
     path:  "{{ deploy_helper.shared_path ~ '/' ~ item }}"
     state: directory
+    follow: true
   with_items: "{{ manala_deploy_shared_dirs }}"
 
 - name: shared > Links
