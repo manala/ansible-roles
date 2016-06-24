@@ -32,7 +32,7 @@ Using ansible galaxy requirements file:
 
 |Name|Type|Description|
 |----|-----------|-------|
-`bind restart`|Service|Restart bind server
+`bind reload`|Service|Reload bind server configuration
 
 ## Role Variables
 

@@ -16,4 +16,4 @@
     mode:  0644
   with_items: "{{ manala_bind_zones }}"
   notify:
-    - bind restart
+    - bind reload
