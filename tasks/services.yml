@@ -1,6 +1,6 @@
 ---
 
-- name: services
+- name: services > Services
   service:
     name:  "{{ item }}"
     state: started
