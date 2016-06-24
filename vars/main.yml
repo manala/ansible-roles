@@ -399,7 +399,7 @@ manala_skeletons:
               group:    "{{ manala_skeleton_options.app.group }}"
               template: users/default.{{ manala_skeleton_env }}.j2
               config:
-                - "[ -d {{ manala_skeleton_options.app.dir }} ] && cd {{ manala_skeleton_options.app.dir }}"
+                - "[ -d {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }} ] && cd {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }}"
 
     test:
 
@@ -486,7 +486,7 @@ manala_skeletons:
               group:    "{{ manala_skeleton_options.app.group }}"
               template: users/php.{{ manala_skeleton_env }}.j2
               config:
-                - "[ -d {{ manala_skeleton_options.app.dir }} ] && cd {{ manala_skeleton_options.app.dir }}"
+                - "[ -d {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }} ] && cd {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }}"
 
   ####################
   # Elao - App - Php #
@@ -548,7 +548,7 @@ manala_skeletons:
               group:    "{{ manala_skeleton_options.app.group }}"
               template: users/php.{{ manala_skeleton_env }}.j2
               config:
-                - "[ -d {{ manala_skeleton_options.app.dir }} ] && cd {{ manala_skeleton_options.app.dir }}"
+                - "[ -d {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }} ] && cd {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }}"
 
     test:
 
