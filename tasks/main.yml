@@ -1,11 +1,42 @@
 ---
 
+# Setup
 - include: setup.yml
+  tags:
+    - manala_deploy
+
+# Strategy
 - include: strategy.yml
+  tags:
+    - manala_deploy
+
+# Shared
 - include: shared.yml
+  tags:
+    - manala_deploy
+
+# Copied
 - include: copied.yml
+  tags:
+    - manala_deploy
+
+# Removed
 - include: removed.yml
+  tags:
+    - manala_deploy
+
+# Writable
 - include: writable.yml
+  tags:
+    - manala_deploy
+
+# Tasks
 - include: tasks.yml
   with_items: "{{ manala_deploy_tasks }}"
+  tags:
+    - manala_deploy
+
+# Current
 - include: current.yml
+  tags:
+    - manala_deploy
