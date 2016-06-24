@@ -1,0 +1,92 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    manala_files_attributes:
+      # Link Directory
+      - path:  /tmp/tests/link_directory_path
+        src:   /tmp/tests/link_directory_src
+        state: link_directory
+      # Template
+      - path:     /tmp/tests/template_path
+        template: hello.j2
+      # Content
+      - path:    /tmp/tests/content_path
+        content: Content A
+      # Copy
+      - path: /tmp/tests/copy_path
+        copy: /tmp/tests/content_path
+      # Url
+      - path: /tmp/tests/url_path
+        url:  http://humanstxt.org/humans.txt
+      # File
+      - path:  /tmp/tests/file_path
+        state: touch
+      # Override
+      - path:     /tmp/tests/override_path
+        template: hello.j2
+      - path:    /tmp/tests/override_path
+        content: Content B
+
+  tasks:
+
+    - set_fact:
+        test: "{{ item }}"
+      with_manala_files_attributes: "{{ manala_files_attributes }}"
+      register: test_results
+
+    # Asserts
+    - assert:
+        that:
+          - "{{
+            test_results.results|map(attribute='ansible_facts.test')|sort == [
+              {
+                'content': 'Content A',
+                'path':    '/tmp/tests/content_path',
+                'task':    'content'
+              },
+              {
+                'content': 'Content B',
+                'path':    '/tmp/tests/override_path',
+                'task':    'content'
+              },
+              {
+                'copy': '/tmp/tests/content_path',
+                'path': '/tmp/tests/copy_path',
+                'task': 'copy'
+              },
+              {
+                'path':  '/tmp/tests/file_path',
+                'state': 'touch',
+                'task':  'file'
+              },
+              {
+                'path':     '/tmp/tests/template_path',
+                'task':     'template',
+                'template': 'hello.j2'
+              },
+              {
+                'path': '/tmp/tests/url_path',
+                'task': 'url',
+                'url':  'http://humanstxt.org/humans.txt'
+              },
+              {
+                'path':  '/tmp/tests/link_directory_src',
+                'src':    none,
+                'state': 'directory',
+                'task':  'file'
+              },
+              {
+                'force': true,
+                'group': omit,
+                'path':  '/tmp/tests/link_directory_path',
+                'src':   '/tmp/tests/link_directory_src',
+                'state': 'link',
+                'task':  'file',
+                'user':  omit
+              }
+            ]
+          }}"

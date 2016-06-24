@@ -40,59 +40,6 @@
 
   post_tasks:
 
-    # Asserts
-    - assert:
-        that:
-          - "{{
-            ((__manala_files_attributes_results.results|last).ansible_facts.__item.values() if (__manala_files_attributes_results.results|length) else [])|sort == [
-              {
-                'content':      'Content A',
-                'path':         '/tmp/tests/content_path',
-                'task_content': true
-              },
-              {
-                'content':      'Content B',
-                'path':         '/tmp/tests/override_path',
-                'task_content': true
-              },
-              {
-                'copy':      '/tmp/tests/content_path',
-                'path':      '/tmp/tests/copy_path',
-                'task_copy': true
-              },
-              {
-                'path':      '/tmp/tests/file_path',
-                'state':     'touch',
-                'task_file': true
-              },
-              {
-                'path':          '/tmp/tests/template_path',
-                'task_template': true,
-                'template':      'hello.j2'
-              },
-              {
-                'path':     '/tmp/tests/url_path',
-                'task_url': true,
-                'url':      'http://humanstxt.org/humans.txt'
-              },
-              {
-                'path':      '/tmp/tests/link_directory_src',
-                'src':       None,
-                'state':     'directory',
-                'task_file': true
-              },
-              {
-                'force':     true,
-                'group':     omit,
-                'path':      '/tmp/tests/link_directory_path',
-                'src':       '/tmp/tests/link_directory_src',
-                'state':     'link',
-                'task_file': true,
-                'user':      omit
-              }
-            ]
-          }}"
-
     # Goss
     - name: Goss
       raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss validate' }}"

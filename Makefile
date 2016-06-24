@@ -88,7 +88,12 @@ test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-test: test-attributes
+test: test-plugins test-attributes
+
+test-plugins: export ANSIBLE_LOOKUP_PLUGINS = lookup_plugins
+test-plugins:
+	ansible-playbook tests/plugins.yml --syntax-check
+	ansible-playbook tests/plugins.yml
 
 test-attributes:
 	ansible-playbook tests/attributes.yml --syntax-check
