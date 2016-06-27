@@ -15,7 +15,7 @@
 
     # Goss
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_json ~ '\"|goss validate' }}"
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss validate' }}"
       with_items:
         - package:
             apt-transport-https:
