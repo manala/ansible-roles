@@ -1,0 +1,35 @@
+---
+
+- name: tasks/install_composer > Stat bin
+  stat:
+    path: "{{ deploy_helper.shared_path }}/composer"
+  register: __manala_deploy_composer_bin_stat_result
+
+- name: tasks/install_composer > Download installer
+  get_url:
+    url:  http://getcomposer.org/installer
+    dest: /tmp
+  when: not __manala_deploy_composer_bin_stat_result.stat.exists
+
+- name: tasks/install_composer > Install
+  command: "php /tmp/installer --install-dir=\"{{ deploy_helper.shared_path }}\" --filename=\"composer\" --disable-tls"
+  when: not __manala_deploy_composer_bin_stat_result.stat.exists
+
+- name: tasks/install_composer > Remove installer
+  file:
+    path:  /tmp/installer
+    state: absent
+  when: not __manala_deploy_composer_bin_stat_result.stat.exists
+
+- name: tasks/install_composer > Self update
+  shell: "{{ deploy_helper.shared_path }}/composer selfupdate --no-interaction"
+  when: __manala_deploy_composer_bin_stat_result.stat.exists
+  register: __manala_deploy_composer_self_update_result
+  changed_when: __manala_deploy_composer_self_update_result.stderr | search('Updating')
+  failed_when: false
+
+- name: tasks/install_composer > Link to current release
+  file:
+    src: "{{ deploy_helper.shared_path }}/composer"
+    dest: "{{ deploy_helper.new_release_path }}/composer"
+    state: link
