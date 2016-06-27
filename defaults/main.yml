@@ -1,0 +1,5 @@
+---
+
+# Install
+manala_nodejs_install_packages:
+  - nodejs
