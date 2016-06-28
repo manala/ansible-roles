@@ -1,0 +1,18 @@
+---
+
+- name: systemd > Files
+  file:
+    state: directory
+    path:  "{{ item }}"
+    owner: root
+    group: root
+    mode:  0640
+  with_items:
+    - /etc/systemd/system/varnish.service.d
+
+- name: systemd > Service configuration
+  template:
+    src:   "{{ manala_varnish_systemd_template|ternary(manala_varnish_systemd_template, 'systemd/varnish.service.j2') }}"
+    dest: "{{ manala_varnish_systemd_file }}"
+  notify:
+    - systemd reload

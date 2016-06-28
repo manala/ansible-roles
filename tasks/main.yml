@@ -1,0 +1,27 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_varnish
+
+# Config
+- include: config.yml
+  tags:
+    - manala_varnish
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_varnish
+
+# SystemD
+- include: systemd.yml
+  tags:
+    - manala_varnish
+
+# Services
+- include: services.yml
+  tags:
+    - manala_varnish
+    - manala.services

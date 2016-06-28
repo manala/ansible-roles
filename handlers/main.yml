@@ -1,0 +1,10 @@
+---
+
+# See: https://github.com/ansible/ansible-modules-core/issues/191
+- name: systemd reload
+  command: systemctl daemon-reload
+
+- name: varnish restart
+  service:
+    name:  varnish
+    state: restarted

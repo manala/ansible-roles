@@ -1,0 +1,8 @@
+[Service]
+
+# Emptying default values
+ExecStart=
+ExecReload=
+
+ExecStart=/usr/sbin/varnishd $DAEMON_OPTS
+ExecReload=/usr/share/varnish/reload-vcl
