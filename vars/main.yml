@@ -252,6 +252,7 @@ manala_skeleton_patterns:
     # Apt
     apt_packages:
       - htop
+      - less
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf
