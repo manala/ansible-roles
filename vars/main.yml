@@ -22,3 +22,5 @@ manala_php_applications_patterns:
     source: http://couscous.io/couscous.phar
   security-checker:
     source: http://get.sensiolabs.org/security-checker.phar
+  deptrac:
+    source: http://get.sensiolabs.de/deptrac.phar
