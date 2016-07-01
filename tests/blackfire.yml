@@ -1,11 +1,10 @@
 ---
 
 - hosts: localhost
-  gather_facts: false
 
   vars:
 
-    manala_php_version: 5
+    manala_php_version: "{{ {'wheezy': '5', 'jessie': '7.0'}[ansible_distribution_release] }}"
     manala_php_blackfire: true
     manala_php_blackfire_agent:
       - server-id: c74906db-43d3-4c96-ab27-010600321b89
@@ -15,8 +14,14 @@
       - client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
 
   pre_tasks:
+    # Configuring the PHP Debian repository
+    - name: test blackfire > Register the Dotdeb key
+      apt_key: url='http://www.dotdeb.org/dotdeb.gpg' state=present validate_certs=no
+    - name: test blackfire > Add Dotdeb preferences
+      apt_repository:
+        repo: "deb http://packages.dotdeb.org {{ ansible_distribution_release }} all"
 
-    # Configuring the Debian repository
+    # Configuring the Blackfire Debian repository
     - name: test blackfire > Register the packagecloud key
       apt_key: url='https://packagecloud.io/gpg.key' state=present validate_certs=no
     - name: test blackfire > Add Blackfire repository
@@ -53,4 +58,7 @@
               running: true
         - command:
             blackfire status:
+              exit-status: 0
+        - command:
+            if hash php5-fpm 2>/dev/null ; then php5-fpm -m|grep blackfire ; else php-fpm7.0 -m |grep blackfire ; fi:
               exit-status: 0

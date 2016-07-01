@@ -13,6 +13,13 @@
   notify:
     - php fpm restart
 
+- name: blackfire > Fix PHP 7.0 enable extension
+  command: phpenmod -v 7.0 -s fpm blackfire/90
+  when: "{{ manala_php_version == '7.0' }}"
+  changed_when: false
+  notify:
+    - php fpm restart
+
 - name: blackfire > Configure agent
   template:
     src:  "{{ manala_php_blackfire_agent_template|ternary(manala_php_blackfire_agent_template, 'blackfire/agent.j2') }}"
