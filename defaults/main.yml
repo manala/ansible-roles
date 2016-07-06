@@ -12,8 +12,11 @@ manala_postgresql_config_hba:          []
 # Login
 manala_postgresql_login_host: localhost
 
-# Users
-manala_postgresql_users: []
+# Roles
+manala_postgresql_roles: []
 
 # Databases
 manala_postgresql_databases: []
+
+# Privileges
+manala_postgresql_privileges: []

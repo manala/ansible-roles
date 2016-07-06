@@ -1,10 +1,38 @@
 ---
 
+# Requirements
 - include: requirements.yml
+  tags:
+    - manala_postgresql
+
+# Install
 - include: install.yml
+  tags:
+    - manala_postgresql
+
+# Config
 - include: config.yml
+  tags:
+    - manala_postgresql
+
+# Services
 - include: services.yml
   tags:
+    - manala_postgresql
+    - manala_postgresql.services
     - manala.services
+
+# Roles
+- include: roles.yml
+  tags:
+    - manala_postgresql
+
+# Databases
 - include: databases.yml
-- include: users.yml
+  tags:
+    - manala_postgresql
+
+# Privileges
+- include: privileges.yml
+  tags:
+    - manala_postgresql
