@@ -13,5 +13,5 @@ manala_varnish_configs:
     - file: default.vcl
 
 # SystemD
-manala_varnish_systemd_template: systemd/varnish.service.j2
-manala_varnish_systemd_file:     /etc/systemd/system/varnish.service.d/local.conf
+manala_varnish_systemd_template:            systemd/varnish.service.j2
+manala_varnish_systemd_file:                /etc/systemd/system/varnish.service.d/local.conf

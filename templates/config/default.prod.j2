@@ -22,15 +22,6 @@
 # you need to increase this number as well
 {{ macros.config_row(config, 'MEMLOCK', 82000) }}
 
-# The minimum number of worker threads to start
-{{ macros.config_row(config, 'VARNISH_MIN_THREADS', 1) }}
-
-# The Maximum number of worker threads to start
-{{ macros.config_row(config, 'VARNISH_MAX_THREADS', 1000) }}
-
-# Idle timeout for worker threads
-{{ macros.config_row(config, 'VARNISH_THREAD_TIMEOUT', 120) }}
-
 # Main configuration file. You probably want to change it :)
 {{ macros.config_row(config, 'VARNISH_VCL_CONF', '/etc/varnish/default.vcl') }}
 
@@ -50,25 +41,15 @@
 # File containing administration secret
 {{ macros.config_row(config, 'VARNISH_SECRET_FILE', '/etc/varnish/secret') }}
 
-# Backend storage specification
-{{ macros.config_row(config, 'VARNISH_STORAGE_TYPE', 'malloc') }}
-{{ macros.config_row(config, 'VARNISH_STORAGE_SIZE', '256m') }}
-{{ macros.config_row(config, 'VARNISH_STORAGE_FILE', '/var/lib/varnish/varnish_storage.bin') }}
-
-{% if VARNISH_STORAGE_TYPE is sameas 'file' %}
-{{ macros.config_row(config, 'VARNISH_STORAGE', '${VARNISH_STORAGE_TYPE},${VARNISH_STORAGE_SIZE},${VARNISH_STORAGE_FILE}') }}
-{% else %}
-{{ macros.config_row(config, 'VARNISH_STORAGE', '${VARNISH_STORAGE_TYPE},${VARNISH_STORAGE_SIZE}') }}
-{% endif %}
+# Storage
+{{ macros.config_row(config, 'VARNISH_STORAGE', 'malloc,256m') }}
 
 {{ macros.config_row(config, 'DAEMON_OPTS', '"-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
 -f ${VARNISH_VCL_CONF} \
 -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
 -t ${VARNISH_TTL} \
--w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
 -S ${VARNISH_SECRET_FILE} \
 -s ${VARNISH_STORAGE}"') }}
-
 
 {{ macros.config(config, [
     'START',
@@ -84,9 +65,6 @@
     'VARNISH_ADMIN_LISTEN_PORT',
     'VARNISH_TTL',
     'VARNISH_SECRET_FILE',
-    'VARNISH_STORAGE_TYPE',
-    'VARNISH_STORAGE_SIZE',
-    'VARNISH_STORAGE_FILE',
     'VARNISH_STORAGE',
     'DAEMON_OPTS'
 ]) }}
