@@ -178,10 +178,10 @@ Note that referenced repositories will automatically be include as present using
 
 ```yaml
 manala_apt_preferences:
-  - git@backports # git* from backports reposotiry, high priority
+  - git@backports # git* from backports repository, high priority
   - ~@dotdeb:100  # * from dotdeb repository, low priority
-  - php@dotdeb    # php* from backports reposotiry, high priority
-  - redis@dotdeb  # redis* from backports reposotiry, high priority
+  - php@dotdeb    # php* from dotdeb repository, high priority
+  - redis@dotdeb  # redis* from dotdeb repository, high priority
 ```
 
 Verbose
