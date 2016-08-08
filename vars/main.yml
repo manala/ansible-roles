@@ -95,8 +95,6 @@ manala_skeleton_patterns:
     php_fpm_pools:
       - file:     admin.conf
         template: fpm_pools/admin.{{ manala_skeleton_env }}.j2
-        config:
-          - admin
       - file:     app.conf
         template: fpm_pools/app.{{ manala_skeleton_env }}.j2
         config:
