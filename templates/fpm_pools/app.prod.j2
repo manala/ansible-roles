@@ -1,7 +1,7 @@
 {%- import '_macros.j2' as macros with context -%}
 {%- import '_app.prod.j2' as base with context -%}
 
-{%- for configs in item.config|default([]) -%}
+{%- for configs in item.config|default(['app']) -%}
 
     {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
 
