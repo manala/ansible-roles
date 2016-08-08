@@ -209,15 +209,15 @@ manala_skeleton_patterns:
     postgresql_version: "{{ manala_skeleton_options.postgresql_version }}"
     postgresql_config_template: config/default.{{ manala_skeleton_env }}.j2
     postgresql_config_hba_template: config/hba/default.{{ manala_skeleton_env }}.j2
+    postgresql_roles:
+      - role:       "{{ manala_skeleton_options.app.user }}"
+        password:   ~
+        attributes: ['SUPERUSER']
     # PhpPgAdmin
     phppgadmin_configs_exclusive: true
     phppgadmin_configs:
       - file:     config.inc.php
         template: configs/default.{{ manala_skeleton_env }}.j2
-    postgresql_roles:
-      - role:       "{{ manala_skeleton_options.app.user }}"
-        password:   ~
-        attributes: ['SUPERUSER']
     # Redis
     redis_config_template: config/default.{{ manala_skeleton_env }}.j2
     # PhpRedisAdmin
