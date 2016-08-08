@@ -38,78 +38,46 @@ Using ansible galaxy requirements file:
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`manala_bind_config_templates`|Array|Array|List of config files.
-`manala_bind_config_templates.named_conf`|-|String (filepath)|Custom path to global config file.
-`manala_bind_config_templates.named_conf_local`|-|String (filepath)|Custom path to local config file.
-`manala_bind_config_templates.named_conf_options`|-|String (filepath)|Custom path to options config file.
-`manala_bind_zones`|Array|Array|List of domain zones.
-`manala_bind_zones.domain`|-|String| domain name and TLD (Ex: manala.com).
-`manala_bind_zones.network`|-|String (filepath)|Zone network definition (Ex:172.16.1.0/24).
-`manala_bind_zones.responsible`|-|String (Email)|Contact mail address.
+manala_bind_user|bind|String|Bind user
+manala_bind_group|bind|String|Bind group
+manala_bind_log_dir|/var/log/bind|String|Bind log fir
+manala_bind_configs|[]|Array|List of config files
+manala_bind_configs_dir|/etc/bind|String|Config files directory
+manala_bind_zones_dir|[manala_bind_configs_dir]/zones|String|Zone files directory
+manala_bind_zones|[]|Array|List of zone files
 
 ### Configuration example
 
-#### Bind configuration with custom template files
+#### Bind configuration with custom config templates
 
-```
+```yaml
 ---
 
-manala_bind_config_templates:
-    named_conf:             "{{ playbook_dir ~ '/files/bind/named.conf.j2' }}"
-    named_conf_local:       "{{ playbook_dir ~ '/files/bind/named.conf.local.j2' }}"
-    named_conf_options:     "{{ playbook_dir ~ '/files/bind/named.conf.options.j2' }}"
+manala_bind_configs:
+  - file:     named.conf
+    template: "{{ playbook_dir}}/templates/bind/named.conf.j2"
 
-manala_bind_zones_templates:
-    "{{ playbook_dir ~ '/files/bind/zones' }}"
+manala_bind_zones:
+  - file:     db.foo.bar
+    template: "{{ playbook_dir}}/templates/bind/db.foo.bar.j2"
 ```
 
-#### Bind custom files example:
+#### Bind custom config templates examples:
 
 ```
-#db.mydomain.local
+#db.foo.bar
 
 $TTL    86400
-@       IN      SOA     ns-1.{{ item.domain }}. {{ item.responsible }}. (
-                        2014060203         ; Serial
+@       IN      SOA     ns-1.foo.bar. bar.foo. (
+                        2016080801         ; Serial
                             604800         ; Refresh
                              86400         ; Retry
                            2419200         ; Expire
                              86400 )       ; Negative Cache TTL
 
 
-@               IN      NS      ns-1.{{ item.domain }}.
-@               IN      NS      ns-2.{{ item.domain }}.
-```
-
-```
-#rev.mydomain.local
-
-@ IN SOA ns-1.{{ item.domain }}. {{ item.responsible }}. (
-                        2015020501;
-                        28800;
-                        604800;
-                        604800;
-                        86400
-)
-
-{{ item.network|regex_replace('^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/([0-9]{1,2})$', '\\3.\\2.\\1') }}.in-addr.arpa.  IN    NS     ns-1.{{ item.domain }}.
-{{ item.network|regex_replace('^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/([0-9]{1,2})$', '\\3.\\2.\\1') }}.in-addr.arpa.  IN    NS     ns-2.{{ item.domain }}.
-
-172.16.0.1              IN    PTR    ouranos.{{ item.domain }}.
-172.16.0.11             IN    PTR    ns-1.{{ item.domain }}.
-```
-
-#### Bind zones configuration:
-
-```
-manala_bind_zones:
-  - domain:         mydomain.local
-    responsible:    contact_email@manala.io
-    network:        "172.16.0.0/24"
-
-  - domain:         manala.local
-    responsible:    contact_email@manala.io
-    network:        "172.16.1.0/24"
+@               IN      NS      ns-1.foo.bar.
+@               IN      NS      ns-2.foo.bar.
 ```
 
 ## Example playbook
