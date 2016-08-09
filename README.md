@@ -146,7 +146,7 @@ Verbose, pattern based
 
 ```yaml
 manala_apt_repositories:
-  - pattern: backports
+  - pattern: debian_backports
     state:   absent
 ```
 
