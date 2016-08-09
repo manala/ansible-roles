@@ -11,7 +11,11 @@
               'package': (
                 manala_apt_preferences_patterns[
                   item.split('@')[0]
-                ]|default('*')
+                ]|default(
+                  (item.split('@')[0])
+                    if (item.split('@')|length > 1) else
+                  ('*')
+                )
               ),
               'pin': (
                 manala_apt_repositories_patterns[
