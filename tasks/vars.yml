@@ -7,7 +7,7 @@
         (
           {
             (item.split('@')[0]).split(':')[0]: {
-              'file': (item.split('@')[0]).split(':')[0],
+              'file': (item.split('@')[0]).split(':')[0]|replace('.', '_'),
               'package': (
                 manala_apt_preferences_patterns[
                   item.split('@')[0]
