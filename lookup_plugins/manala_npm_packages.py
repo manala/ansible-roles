@@ -8,7 +8,7 @@ class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
-        items = []
+        results = []
 
         for term in self._flatten(terms):
 
@@ -24,13 +24,13 @@ class LookupModule(LookupBase):
 
             # Merge by index key
             termFound = False
-            for i, item in enumerate(items):
-                if item['package'] == term['package']:
-                    items[i] = term
+            for i, result in enumerate(results):
+                if result['package'] == term['package']:
+                    results[i] = term
                     termFound = True
                     break
 
             if not termFound:
-                items.append(term)
+                results.append(term)
 
-        return items
+        return results
