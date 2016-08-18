@@ -81,7 +81,6 @@ manala_vim_config:
 
 ## Example playbook
 
-
 ```yaml
 - hosts: servers
   roles:
