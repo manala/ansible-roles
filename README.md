@@ -63,7 +63,7 @@ manala_accounts_users:
     groups: ['sudo']
     authorized_keys:
       - "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}
+      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}"
     keys:
       - name:    id_rsa
         public:  "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
