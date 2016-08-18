@@ -17,7 +17,8 @@ manala_skeleton_patterns:
     locales_codes: []
     locales_codes_default: C.UTF-8
     # Environment
-    environment_variables_exclusive: true
+    environment_files:
+      - zsh
     # Apt
     apt_components:
       - main
