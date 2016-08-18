@@ -1,6 +1,0 @@
----
-
-- name: variables > Template
-  template:
-    src:   "variables/exclusive.j2"
-    dest:  "{{ manala_environment_variables_file }}"

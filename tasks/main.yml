@@ -1,13 +1,11 @@
 ---
 
-# Vars
-- include: vars.yml
-  tags:
-    - manala_environment
-
 # Variables
-- include: variables{{ manala_environment_variables_exclusive|ternary('_exclusive', '') }}.yml
-  vars:
-    __manala_environment_variables: "{{ (__manala_environment_variables_results.results|last).ansible_facts.__item.values() if (__manala_environment_variables_results.results|length) else [] }}"
+- include: variables.yml
+  with_manala_environment_files:
+    - "{{ manala_environment_files }}"
+    - "{{ manala_environment_files_patterns }}"
+  loop_control:
+    loop_var: item_file
   tags:
     - manala_environment

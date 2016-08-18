@@ -1,8 +1,9 @@
 ---
 
 - name: variables > File
-  lineinfile:
-    dest:   "{{ manala_environment_variables_file }}"
-    regexp: "{{ item.name }}="
-    line:   "{{ item.name }}={{ item.value }}"
-  with_items: "{{ __manala_environment_variables }}"
+  blockinfile:
+    dest:  "{{ item_file.file }}"
+    block: |
+      {% for variable in lookup('manala_environment_variables', manala_environment_variables) %}
+      {{ (item_file.export)|ternary('export ', '') }}{{ variable.name }}="{{ variable.value }}"
+      {% endfor %}

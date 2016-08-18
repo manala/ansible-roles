@@ -30,10 +30,9 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                     | Default | Type    | Description            |
-| ---------------------------------------- | ------- | ------- | ---------------------- |
-| `manala_environment_variables_exclusive` | False   | Boolean |  Exclusive             |
-| `manala_environment_variables`           | []      | Array   |  Environment variables |
+| Name                           | Default | Type    | Description            |
+| ------------------------------ | ------- | ------- | ---------------------- |
+| `manala_environment_variables` | []      | Array   |  Environment variables |
 
 ### Configuration example
 
