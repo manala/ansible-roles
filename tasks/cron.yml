@@ -1,0 +1,9 @@
+---
+
+- name: cron > Template
+  template:
+    src:   cron/daily.j2
+    dest:  /etc/cron.daily/backup-manager
+    owner: root
+    group: root
+    mode:  0755

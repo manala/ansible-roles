@@ -1,0 +1,13 @@
+#!/bin/sh
+
+test -x /usr/sbin/backup-manager || exit 0
+
+if [ -f /etc/backup-manager.conf ]
+then
+  /usr/sbin/backup-manager
+fi
+
+for file in /etc/backup-manager/*.conf
+do
+  /usr/sbin/backup-manager --conffile $file
+done
