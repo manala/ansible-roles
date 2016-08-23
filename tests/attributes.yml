@@ -42,7 +42,7 @@
 
     # Goss
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss validate' }}"
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
       with_items:
         - file:
             /tmp/tests/link_directory_src:
