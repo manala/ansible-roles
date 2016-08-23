@@ -5,11 +5,16 @@
 {{ macros.config_row(config, 'Port', 22) }}
 {{ macros.config_row(config, 'Protocol', 2) }}
 {{ macros.config_row(config, 'HostKey', [
-    '/etc/ssh/ssh_host_rsa_key',
-    '/etc/ssh/ssh_host_dsa_key',
-    '/etc/ssh/ssh_host_ecdsa_key',
-    '/etc/ssh/ssh_host_ed25519_key'
-]) }}
+        '/etc/ssh/ssh_host_rsa_key',
+        '/etc/ssh/ssh_host_dsa_key',
+        '/etc/ssh/ssh_host_ecdsa_key'
+    ] + {
+        'wheezy': [
+        ],
+        'jessie': [
+            '/etc/ssh/ssh_host_ed25519_key'
+        ]
+    }[ansible_distribution_release]) }}
 {{ macros.config_row(config, 'UsePrivilegeSeparation', true) }}
 {{ macros.config_row(config, 'KeyRegenerationInterval', 3600) }}
 {{ macros.config_row(config, 'ServerKeyBits', 1024) }}
