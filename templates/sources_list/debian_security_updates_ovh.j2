@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_apt_sources_list -%}
+
+deb http://debian.mirrors.ovh.net/debian/ {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+deb http://debian.mirrors.ovh.net/debian/ {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+{{ macros.config(config) }}
