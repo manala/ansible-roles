@@ -223,3 +223,4 @@ manala_apt_preferences_patterns:
   chrony:             chrony*
   backup-manager:     backup-manager*
   pam-ssh-agent-auth: pam-ssh-agent-auth*
+  oauth2-proxy:       oauth2-proxy*
