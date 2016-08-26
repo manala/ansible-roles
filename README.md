@@ -1,14 +1,17 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
+# Ansible Role: OAuth2 Proxy
 
-# Ansible Role: elao.oauth2-proxy
+This role will deal with the setup and config of [oauth2-proxy](https://github.com/bitly/oauth2_proxy).
 
-This role will assume the setup of [oauth2-proxy](https://github.com/bitly/oauth2_proxy).
-
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.9.0+
+This role is made to work with the __manala__ oauth2-proxy debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - oauth2-proxy@manala
+```
 
 ## Dependencies
 
@@ -16,37 +19,38 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.oauth2-proxy
+ansible-galaxy install manala.oauth2-proxy
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.oauth2-proxy }
+- src: manala.oauth2-proxy
 ```
 
 ## Role Handlers
 
 | Name                   | Type    | Description          |
 | ---------------------- | ------- | -------------------- |
-| `oauth2-proxy restart` | Service | Restart oauth2 proxy |
+| `oauth2 proxy restart` | Service | Restart oauth2 proxy |
 
 ## Role Variables
 
-| Name                                | Default                      | Type   | Description          |
-| ----------------------------------- | ---------------------------- | ------ | -------------------- |
-| `elao_oauth2_proxy_package_version` | 2.0.1-elao3                  | String | Package version      |
-| `elao_oauth2_proxy_config_file`     | /etc/oauth2-proxy/config.cfg | String | Config file          |
-| `elao_oauth2_proxy_config_template` | config/base.cfg.j2           | String | Config template      |
-| `elao_oauth2_proxy_config`          | []                           | Array  | Config               |
+| Name                                  | Default                      | Type   | Description          |
+| ------------------------------------- | ---------------------------- | ------ | -------------------- |
+| `manala_oauth2_proxy_config_file`     | /etc/oauth2-proxy/config.cfg | String | Config file          |
+| `manala_oauth2_proxy_config_template` | ~                            | String | Config template      |
+| `manala_oauth2_proxy_config`          | []                           | Array  | Config               |
 
 ### Configuration example
 
 ```yaml
-elao_oauth2_proxy_config:
+manala_oauth2_proxy_config:
   - http_address: 0.0.0.0:80
   - request_logging: true
   - upstreams:
@@ -68,9 +72,11 @@ elao_oauth2_proxy_config:
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.oauth2-proxy }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.oauth2-proxy }
+```
 
 # Licence
 
@@ -78,4 +84,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

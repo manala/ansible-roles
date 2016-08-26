@@ -1,9 +1,0 @@
-/var/log/oauth2-proxy/*.log {
-        weekly
-        missingok
-        rotate 52
-        compress
-        delaycompress
-        notifempty
-        create 640 oauth2-proxy adm
-}
