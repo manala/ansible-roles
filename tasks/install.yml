@@ -1,25 +1,11 @@
 ---
 
-- name: install > Check package
-  command: "dpkg-query -W -f '${version}\n' pam-ssh-agent-auth"
-  always_run: yes
-  failed_when: false
-  changed_when: false
-  register: _elao_pam_ssh_agent_auth_package_check_output
-
-- name: install > Copy package
-  copy:
-    src:  "{{ ansible_distribution|lower }}_{{ ansible_distribution_release }}/pam-ssh-agent-auth_{{ elao_pam_ssh_agent_auth_package_version }}_amd64.deb"
-    dest: /tmp/pam-ssh-agent-auth.deb
-  when: _elao_pam_ssh_agent_auth_package_check_output.rc != 0 or (_elao_pam_ssh_agent_auth_package_check_output.stdout != elao_pam_ssh_agent_auth_package_version)
-
-- name: install > Install package
+- name: install > Packages
   apt:
-    deb: /tmp/pam-ssh-agent-auth.deb
-  when: _elao_pam_ssh_agent_auth_package_check_output.rc != 0 or (_elao_pam_ssh_agent_auth_package_check_output.stdout != elao_pam_ssh_agent_auth_package_version)
-
-- name: install > Remove package
-  file:
-    path:  /tmp/pam-ssh-agent-auth.deb
-    state: absent
-  when: _elao_pam_ssh_agent_auth_package_check_output.rc != 0 or (_elao_pam_ssh_agent_auth_package_check_output.stdout != elao_pam_ssh_agent_auth_package_version)
+    name:  "{{ item }}"
+    state: present
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  with_items:
+    - pam-ssh-agent-auth

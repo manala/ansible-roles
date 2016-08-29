@@ -1,17 +1,18 @@
 ---
 
 - name: sudo > Sudoers
-  template:
-    src:  install/sudoers.j2
-    dest: /etc/sudoers.d/pam_ssh_agent_auth
+  blockinfile:
+    dest:  /etc/sudoers
+    block: |
+      Defaults env_keep += SSH_AUTH_SOCK
   notify:
     - sudo restart
 
-- name: sudo > Pam
-  lineinfile:
+- name: sudo > Sudoers
+  blockinfile:
     dest:         /etc/pam.d/sudo
-    line:         'auth sufficient pam_ssh_agent_auth.so file=%h/.ssh/authorized_keys'
     insertbefore: '^@include common-auth'
-    state:        present
+    block: |
+      auth sufficient pam_ssh_agent_auth.so file=%h/.ssh/authorized_keys
   notify:
     - sudo restart

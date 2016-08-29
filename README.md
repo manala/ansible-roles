@@ -1,14 +1,17 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: pam-ssh-agent-auth
 
-This role will assume the setup of pam-ssh-agent-auth
+This role will deal with the setup and config of [pam-ssh-agent-auth](http://pamsshagentauth.sourceforge.net/).
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
+This role is made to work with the __manala__ pam-ssh-agent-auth debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - pam-ssh-agent-auth@manala
+```
 
 ## Dependencies
 
@@ -16,18 +19,27 @@ None.
 
 ## Installation
 
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+### Ansible 2+
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install manala.pam-ssh-agent-auth
+```
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: elao.pam-ssh-agent-auth }
+- src: manala.pam-ssh-agent-auth
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.pam-ssh-agent-auth }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.pam-ssh-agent-auth }
+```
 
 # Licence
 
@@ -35,4 +47,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
