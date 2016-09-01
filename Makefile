@@ -88,8 +88,12 @@ test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-test: test-variables
+test: test-variables test-variables-single
 
 test-variables:
 	ansible-playbook tests/variables.yml --syntax-check
 	ansible-playbook tests/variables.yml
+
+test-variables-single:
+	ansible-playbook tests/variables_single.yml --syntax-check
+	ansible-playbook tests/variables_single.yml
