@@ -4,7 +4,7 @@
   file:
     path:    "{{ item.path }}"
     follow:  "{{ item.follow|default(omit) }}"
-    recurse: "{{ item.recurse|default(omit) }}"
+    recurse: "{{ item.recurse|default((item.state == 'directory')|ternary(true, omit)) }}"
     src:     "{{ item.src|default(omit) }}"
     force:   "{{ item.force|default(omit) }}"
     owner:   "{{
