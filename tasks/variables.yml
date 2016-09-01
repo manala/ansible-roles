@@ -4,6 +4,6 @@
   blockinfile:
     dest:  "{{ item_file.file }}"
     block: |
-      {% for variable in lookup('manala_environment_variables', manala_environment_variables) %}
+      {% for variable in lookup('manala_environment_variables', manala_environment_variables, wantlist=True) %}
       {{ (item_file.export)|ternary('export ', '') }}{{ variable.name }}="{{ variable.value }}"
       {% endfor %}
