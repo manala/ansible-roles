@@ -1,6 +1,6 @@
 ---
 
-- name: files > Url
+- name: files > Url "{{ item.path }}"
   get_url:
     dest:           "{{ item.path }}"
     url:            "{{ item.url }}"

@@ -1,6 +1,6 @@
 ---
 
-- name: attributes > Template
+- name: attributes > Template "{{ item.path }}"
   template:
     dest:   "{{ item.path }}"
     src:    "{{ item.template }}"

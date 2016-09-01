@@ -1,6 +1,6 @@
 ---
 
-- name: attributes > File
+- name: attributes > File "{{ item.path }}"
   file:
     path:    "{{ item.path }}"
     follow:  "{{ item.follow|default(omit) }}"

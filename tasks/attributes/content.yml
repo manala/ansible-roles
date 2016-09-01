@@ -1,6 +1,6 @@
 ---
 
-- name: attributes > Content
+- name: attributes > Content "{{ item.path }}"
   copy:
     dest:    "{{ item.path }}"
     content: "{{ item.content }}"

@@ -1,6 +1,6 @@
 ---
 
-- name: attributes > Copy
+- name: attributes > Copy "{{ item.path }}"
   copy:
     dest:    "{{ item.path }}"
     src:     "{{ item['copy'] }}"
