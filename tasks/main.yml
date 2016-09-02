@@ -1,3 +1,6 @@
 ---
 
+# Points
 - include: points.yml
+  tags:
+    - manala_mount

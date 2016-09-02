@@ -2,9 +2,9 @@
 
 - name: points > Mount points
   mount:
-    name:   "{{ item.name }}"
+    name:   "{{ item.path }}"
     fstype: "{{ item.fstype }}"
     src:    "{{ item.src }}"
     opts:   "{{ item.opts|default(omit) }}"
-    state:  "{{ item.state|default('present') }}"
-  with_items: elao_mount_points
+    state:  "{{ item.state|default('mounted') }}"
+  with_items: "{{ manala_mount_points }}"

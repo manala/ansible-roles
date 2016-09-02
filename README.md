@@ -1,29 +1,36 @@
-<img src="http://www.elao.com/images/corpo/logo_red_small.png"/>
-
 # Ansible Role: Mount
 
-This role will mount points
+This role will deal with the setup of mount points.
 
-It's part of the ELAO [Ansible stack](http://ansible.elao.com) but can be used as a stand alone component.
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 1.7.2+
-- Python
+None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install elao.mount
+ansible-galaxy install manala.mount
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src: manala.mount
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - { role: elao.mount }
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.mount }
+```
 
 # Licence
 
@@ -31,4 +38,4 @@ MIT
 
 # Author information
 
-ELAO [**(http://www.elao.com/)**](http://www.elao.com)
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
