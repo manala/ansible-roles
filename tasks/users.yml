@@ -15,12 +15,15 @@
 
 - name: users > Authorized keys
   authorized_key:
-    user:      "{{ item.0 }}"
-    key:       "{{ item.1 }}"
+    user:      "{{ item.user }}"
+    key:       "{{ item.authorized_keys }}"
+    path:      "{{
+      ('~' ~ item.user ~ '/.ssh/' ~ item.authorized_keys_file)|expanduser
+        if (item.authorized_keys_file is defined) else
+      omit
+    }}"
     exclusive: true
-  with_together:
-    - "{{ manala_accounts_users|selectattr('authorized_keys', 'sequence')|map(attribute='user')|list }}"
-    - "{{ manala_accounts_users|selectattr('authorized_keys', 'sequence')|map(attribute='authorized_keys')|map('join', '\n')|list }}"
+  with_manala_accounts_users_authorized_keys: "{{ manala_accounts_users }}"
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups

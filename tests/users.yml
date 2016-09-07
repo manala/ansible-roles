@@ -1,0 +1,120 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    manala_accounts_groups:
+      - group_1
+      - group_2
+
+    manala_accounts_users:
+      - user:  user_1
+        group: group_1
+        authorized_keys:
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_1.pub') }}"
+      - user:  user_2
+        group: group_2
+        groups:
+          - group_1
+        authorized_keys:
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_1.pub') }}"
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+      - user:  user_3
+        group: users
+        authorized_keys_file: authorized_keys2
+        authorized_keys:
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
+      - user: user_4
+
+  pre_tasks:
+
+    - shell: groupdel group_1 || true
+    - shell: groupdel group_2 || true
+    - shell: groupdel user_4 || true
+    - shell: userdel -r user_1 || true
+    - shell: userdel -r user_2 || true
+    - shell: userdel -r user_3 || true
+    - shell: userdel -r user_4 || true
+
+  roles:
+    - manala.accounts
+
+  post_tasks:
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - group:
+            group_1:
+              exists: true
+            group_2:
+              exists: true
+            user_4:
+              exists: true
+        - user:
+            user_1:
+              exists: true
+              home:   /home/user_1
+              shell:  /bin/sh
+              groups:
+                - group_1
+            user_2:
+              exists: true
+              home:   /home/user_2
+              shell:  /bin/sh
+              groups:
+                - group_2
+                - group_1
+            user_3:
+              exists: true
+              home:   /home/user_3
+              shell:  /bin/sh
+              groups:
+                - users
+            user_4:
+              exists: true
+              home:   /home/user_4
+              shell:  /bin/sh
+              groups:
+                - user_4
+        - file:
+            /home/user_1/.ssh/authorized_keys:
+              exists:   true
+              filetype: file
+              owner:    user_1
+              group:    group_1
+              mode:     "0600"
+              contains:
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_1.pub') }}"
+                - "!{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+                - "!{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
+            /home/user_2/.ssh/authorized_keys:
+              exists:   true
+              filetype: file
+              owner:    user_2
+              group:    group_2
+              mode:     "0600"
+              contains:
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_1.pub') }}"
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+                - "!{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
+            /home/user_3/.ssh/authorized_keys:
+              exists:   false
+              filetype: file
+            /home/user_3/.ssh/authorized_keys2:
+              exists:   true
+              filetype: file
+              owner:    user_3
+              group:    users
+              mode:     "0600"
+              contains:
+                - "!{{ lookup('file', playbook_dir ~ '/keys/user_1.pub') }}"
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
+            /home/user_4/.ssh/authorized_keys:
+              exists:   false
+              filetype: file

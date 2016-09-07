@@ -61,6 +61,7 @@ manala_accounts_users:
   - user:   foo
     group:  users
     groups: ['sudo']
+    authorized_keys_file: authorized_keys2 # authorized_keys by default
     authorized_keys:
       - "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
       - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}"
