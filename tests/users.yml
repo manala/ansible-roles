@@ -27,17 +27,24 @@
         authorized_keys:
           - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
           - "{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
-      - user: user_4
+      - user:  user_4
+        group: users
+        authorized_keys_file: /home/user_4/.ssh/authorized_keys3
+        authorized_keys:
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+          - "{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
+      - user: user_5
 
   pre_tasks:
 
     - shell: groupdel group_1 || true
     - shell: groupdel group_2 || true
-    - shell: groupdel user_4 || true
+    - shell: groupdel user_5 || true
     - shell: userdel -r user_1 || true
     - shell: userdel -r user_2 || true
     - shell: userdel -r user_3 || true
     - shell: userdel -r user_4 || true
+    - shell: userdel -r user_5 || true
 
   roles:
     - manala.accounts
@@ -53,7 +60,7 @@
               exists: true
             group_2:
               exists: true
-            user_4:
+            user_5:
               exists: true
         - user:
             user_1:
@@ -80,7 +87,13 @@
               home:   /home/user_4
               shell:  /bin/sh
               groups:
-                - user_4
+                - users
+            user_5:
+              exists: true
+              home:   /home/user_5
+              shell:  /bin/sh
+              groups:
+                - user_5
         - file:
             /home/user_1/.ssh/authorized_keys:
               exists:   true
@@ -116,5 +129,18 @@
                 - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
                 - "{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
             /home/user_4/.ssh/authorized_keys:
+              exists:   false
+              filetype: file
+            /home/user_4/.ssh/authorized_keys3:
+              exists:   true
+              filetype: file
+              owner:    user_4
+              group:    users
+              mode:     "0600"
+              contains:
+                - "!{{ lookup('file', playbook_dir ~ '/keys/user_1.pub') }}"
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_2.pub') }}"
+                - "{{ lookup('file', playbook_dir ~ '/keys/user_3.pub') }}"
+            /home/user_5/.ssh/authorized_keys:
               exists:   false
               filetype: file

@@ -18,7 +18,10 @@
     user:      "{{ item.user }}"
     key:       "{{ item.authorized_keys }}"
     path:      "{{
-      ('~' ~ item.user ~ '/.ssh/' ~ item.authorized_keys_file)|expanduser
+      item.authorized_keys_file.startswith('/')|ternary(
+        item.authorized_keys_file,
+        ('~' ~ item.user ~ '/.ssh/' ~ item.authorized_keys_file)|expanduser
+      )
         if (item.authorized_keys_file is defined) else
       omit
     }}"
