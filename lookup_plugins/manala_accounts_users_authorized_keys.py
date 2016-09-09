@@ -27,12 +27,9 @@ class LookupModule(LookupBase):
                 }
 
                 # File
-                if term.has_key('authorized_keys_file'):
-                    # None
-                    if term.get('authorized_keys_file') is None:
-                        pass
+                if term.has_key('authorized_keys_file') and term.get('authorized_keys_file'):
                     # Omit
-                    elif term.get('authorized_keys_file') == variables['omit']:
+                    if term.get('authorized_keys_file') == variables['omit']:
                         pass
                     # Path
                     elif isinstance(term.get('authorized_keys_file'), basestring):
