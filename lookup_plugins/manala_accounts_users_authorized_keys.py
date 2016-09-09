@@ -1,6 +1,8 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
+import os.path
+
 from ansible.plugins.lookup import LookupBase
 from ansible.errors import AnsibleError
 
@@ -19,12 +21,31 @@ class LookupModule(LookupBase):
             items = []
 
             if term.has_key('authorized_keys'):
-                item = term.copy()
-
-                # Authorized Keys
-                item.update({
+                item = {
+                    'user':            term.get('user'),
                     'authorized_keys': '\n'.join(term.get('authorized_keys'))
-                })
+                }
+
+                # File
+                if term.has_key('authorized_keys_file'):
+                    # None
+                    if term.get('authorized_keys_file') is None:
+                        pass
+                    # Omit
+                    elif term.get('authorized_keys_file') == variables['omit']:
+                        pass
+                    # Path
+                    elif isinstance(term.get('authorized_keys_file'), basestring):
+                        # Absolute
+                        if term.get('authorized_keys_file').startswith('/'):
+                            item.update({
+                                'authorized_keys_file': term.get('authorized_keys_file')
+                            })
+                        # Relative
+                        else:
+                            item.update({
+                                'authorized_keys_file': os.path.expanduser('~' + term.get('user') + '/.ssh/' + term.get('authorized_keys_file'))
+                            })
 
                 items.append(item)
 

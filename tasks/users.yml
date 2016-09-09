@@ -17,14 +17,7 @@
   authorized_key:
     user:      "{{ item.user }}"
     key:       "{{ item.authorized_keys }}"
-    path:      "{{
-      item.authorized_keys_file.startswith('/')|ternary(
-        item.authorized_keys_file,
-        ('~' ~ item.user ~ '/.ssh/' ~ item.authorized_keys_file)|expanduser
-      )
-        if (item.authorized_keys_file is defined) else
-      omit
-    }}"
+    path:      "{{ item.authorized_keys_file|default(omit) }}"
     exclusive: true
   with_manala_accounts_users_authorized_keys: "{{ manala_accounts_users }}"
 
