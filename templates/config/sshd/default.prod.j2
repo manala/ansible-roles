@@ -21,7 +21,7 @@
 {{ macros.config_row(config, 'SyslogFacility', 'AUTH') }}
 {{ macros.config_row(config, 'LogLevel', 'INFO') }}
 {{ macros.config_row(config, 'LoginGraceTime', 120) }}
-{{ macros.config_row(config, 'PermitRootLogin', true) }}
+{{ macros.config_row(config, 'PermitRootLogin', 'without-password') }}
 {{ macros.config_row(config, 'StrictModes', true) }}
 {{ macros.config_row(config, 'RSAAuthentication', true) }}
 {{ macros.config_row(config, 'PubkeyAuthentication', true) }}
