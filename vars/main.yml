@@ -58,6 +58,15 @@ manala_apt_repositories_patterns:
   mysql_5_7:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
     key: mysql
+  mariadb_10_0:
+    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian {{ ansible_distribution_release }} main
+    key: mariadb
+  mariadb_10_1:
+    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
+    key: mariadb
+  mariadb_10_2:
+    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
+    key: mariadb
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key: postgresql
@@ -142,6 +151,9 @@ manala_apt_keys_patterns:
   mysql:
     keyserver: pgp.mit.edu
     id:        5072E1F5
+  mariadb:
+    keyserver: keyserver.ubuntu.com
+    id:        1BB943DB
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     id:  ACCC4CF8
