@@ -1,0 +1,7 @@
+---
+
+# Config
+manala_sensu_config_file: /etc/default/sensu
+
+# Configs
+manala_sensu_configs_dir: /etc/sensu/conf.d

@@ -1,8 +1,26 @@
 ---
+
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(elao_sensu_configs_template) }}"
-    dest: "{{ elao_sensu_configs_dir }}/{{ item.file }}"
-  with_items: elao_sensu_configs
+    src:  "{{ item.template|default(manala_sensu_configs_template|ternary(manala_sensu_configs_template, 'configs/default.json.j2')) }}"
+    dest: "{{ manala_sensu_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_sensu_configs }}"
+  notify:
+    - sensu restart
+
+- name: configs > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_sensu_configs_dir }}"
+  changed_when: false
+  register: __manala_sensu_configs_find_output
+  when: manala_sensu_configs_exclusive
+
+- name: configs > Exclusive - remove files
+  file:
+    path:  "{{ manala_sensu_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_sensu_configs_exclusive and (item not in manala_sensu_configs|map(attribute='file') and item != "checks.json")
+  with_items: "{{ __manala_sensu_configs_find_output.stdout_lines|default([]) }}"
   notify:
     - sensu restart

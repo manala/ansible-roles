@@ -1,14 +1,26 @@
 ---
 
 - include: install.yml
+  tags:
+    - manala_sensu
+
 - include: config.yml
+  tags:
+    - manala_sensu
+
 - include: gems.yml
-  when: "'sensu-client' in elao_sensu_services or 'sensu-server' in elao_sensu_services"
-- include: plugins.yml
-  when: "'sensu-client' in elao_sensu_services"
-- include: handlers.yml
-  when: "'sensu-server' in elao_sensu_services"
-- include: extensions.yml
-  when: "'sensu-server' in elao_sensu_services"
+  tags:
+    - manala_sensu
+
 - include: configs.yml
+  tags:
+    - manala_sensu
+
+- include: checks.yml
+  tags:
+    - manala_sensu
+
 - include: services.yml
+  tags:
+    - manala_sensu
+    - manala.services

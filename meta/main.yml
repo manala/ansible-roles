@@ -4,19 +4,15 @@ dependencies: []
 
 galaxy_info:
 
-  author:              Elao
-  company:             Elao
-  description: >
-    Install and configure sensu.
-  license: MIT
-  min_ansible_version: 1.7.2
+  author:              Manala
+  company:             Manala
+  description:         Install and configure sensu
+  license:             MIT
+  min_ansible_version: 2.1.0
   platforms:
     - name: Debian
       versions:
         - wheezy
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
+        - jessie
+  galaxy_tags:
     - monitoring
-    - system

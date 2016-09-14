@@ -4,7 +4,7 @@
   service:
     name:  "{{ item }}"
     state: restarted
-  with_items: elao_sensu_services
+  with_items: "{{ manala_sensu_services }}"
 
 - name: sensu-server restart
   service:

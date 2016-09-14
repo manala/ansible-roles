@@ -5,5 +5,5 @@
     name:    "{{ item }}"
     state:   started
     enabled: yes
-  with_items: elao_sensu_services
+  with_items: "{{ manala_sensu_services }}"
 

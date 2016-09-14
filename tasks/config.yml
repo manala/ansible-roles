@@ -1,8 +1,9 @@
 ---
 
-- name: config > Config
+- name: config > Template
   template:
-    src:  "{{ elao_sensu_config_template }}"
-    dest: "{{ elao_sensu_config_file }}"
+    src:  "{{ manala_sensu_config_template|ternary(manala_sensu_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_sensu_config_file }}"
+  when: (manala_sensu_config_template is not none) or (manala_sensu_config|length)
   notify:
     - sensu restart

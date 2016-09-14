@@ -1,0 +1,22 @@
+---
+
+- name: checks > Enable checks
+  sensu_check:
+    name:                "{{ item.name }}"
+    command:             "{{ item.command }}"
+    handlers:            "{{ item.handlers|default(omit) }}"
+    subscribers:         "{{ item.subscribers|default(omit) }}"
+    standalone:          "{{ item.standalone|default(omit) }}"
+    interval:            "{{ item.interval|default(omit) }}"
+    occurrences:         "{{ item.occurrences|default(omit) }}"
+    refresh:             "{{ item.refresh|default(omit) }}"
+    timeout:             "{{ item.timeout|default(omit) }}"
+    source:              "{{ item.source|default(omit) }}"
+    high_flap_threshold: "{{ item.high_flap_threshold|default(omit) }}"
+    low_flap_threshold:  "{{ item.low_flap_threshold|default(omit) }}"
+    dependencies:        "{{ item.dependencies|default(omit) }}"
+    aggregate:           "{{ item.aggregate|default(omit) }}"
+    custom:              "{{ item.custom|default(omit) }}"
+  with_items: "{{ manala_sensu_checks }}"
+  notify:
+    - sensu restart
