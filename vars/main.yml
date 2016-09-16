@@ -128,7 +128,7 @@ manala_apt_repositories_patterns:
     source: deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main
     key: docker
   manala:
-    source: deb http://debian.manala.io {{ ansible_distribution_release }} main
+    source: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main
     key: manala
   newrelic:
     source: deb http://apt.newrelic.com/debian/ newrelic non-free

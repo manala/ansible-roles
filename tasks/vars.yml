@@ -23,7 +23,7 @@
                 ].pin|default(
                   'origin ' ~ manala_apt_repositories_patterns[
                     (item.split('@')[1]|default(item)).split(':')[0]
-                  ].source|regex_replace('deb https?:\\/\\/([^\\/ ]+)[\\/ ].*$', '\\1')
+                  ].source|regex_replace('deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$', '\\2')
                 )
               ),
               'priority': (item.split(':')[1]|default(900))|int
