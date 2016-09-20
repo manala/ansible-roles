@@ -133,6 +133,9 @@ manala_apt_repositories_patterns:
   newrelic:
     source: deb http://apt.newrelic.com/debian/ newrelic non-free
     key: newrelic
+  influxdata:
+    source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
+    key: influxdata
 
 # Keys
 manala_apt_keys_patterns:
@@ -207,6 +210,9 @@ manala_apt_keys_patterns:
   newrelic:
     url: https://download.newrelic.com/548C16BF.gpg
     id:  548C16BF
+  influxdata:
+    url: https://repos.influxdata.com/influxdb.key
+    id:  2582E0C5
 
 # Preferences
 manala_apt_preferences_patterns:
