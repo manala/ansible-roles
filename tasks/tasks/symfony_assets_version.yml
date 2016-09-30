@@ -3,13 +3,13 @@
 - name: tasks/symfony_assets_version > Retrieve git branch revision
   shell: git rev-parse --short HEAD
   args:
-    chdir: "{{ deploy_helper.shared_path }}/cached-copy"
+    chdir: "{{ shared_dir }}/cached-copy"
   register: __manala_deploy_symfony_assets_version_git_revision_output
   when: "{{ manala_deploy_strategy == 'git' }}"
 
 - name: tasks/symfony_assets_version > Replace assets_version in parameters.yml
   lineinfile:
-    dest: "{{ deploy_helper.new_release_path }}/app/config/parameters.yml"
+    dest: "{{ dir }}/app/config/parameters.yml"
     regexp: "^(\\s*)assets_version:"
     line: "\\1assets_version: {{ __manala_deploy_symfony_assets_version_git_revision_output.stdout }}"
     backrefs: yes

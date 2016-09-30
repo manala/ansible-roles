@@ -1,7 +1,10 @@
 ---
 
-# Dir
-manala_deploy_dir: ~
+# Dirs
+manala_deploy_dir:          ~
+manala_deploy_current_dir:  current
+manala_deploy_releases_dir: releases
+manala_deploy_shared_dir:   shared
 
 # Releases
 manala_deploy_releases: 5
