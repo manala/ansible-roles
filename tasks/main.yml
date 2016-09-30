@@ -4,6 +4,7 @@
 - include: setup.yml
   tags:
     - manala_deploy
+    - manala_deploy.setup
 
 # Strategy
 - include: strategy.yml
@@ -35,6 +36,7 @@
   with_items: "{{ manala_deploy_tasks }}"
   tags:
     - manala_deploy
+    - manala_deploy.tasks
 
 # Current
 - include: current.yml

@@ -1,6 +1,6 @@
 ---
 
-- name: tasks/make > "{{ options }}"
+- name: tasks/make > "{{ options }}" in "{{ dir }}"
   command: "make {{ options }}"
   args:
-    chdir: "{{ deploy_helper.new_release_path }}"
+    chdir: "{{ dir }}"
