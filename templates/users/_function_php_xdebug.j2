@@ -9,7 +9,7 @@ manala_php_xdebug () {
 		fi
 	else
 		if hash php5dismod 2>/dev/null; then
-			sudo php5enmod xdebug;
+			sudo php5dismod xdebug;
 			sudo service php5-fpm restart;
 		else
 			sudo phpdismod -v 7.0 -s ALL xdebug;
