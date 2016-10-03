@@ -1,4 +1,4 @@
 ---
 
-- name: tasks/command > "{{ options }}"
-  raw: "{{ options }}"
+- name: tasks/command > "{{ item.options }}"
+  raw: "{{ item.options }}"

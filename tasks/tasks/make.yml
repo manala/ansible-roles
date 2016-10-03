@@ -1,6 +1,6 @@
 ---
 
-- name: tasks/make > "{{ options }}" in "{{ dir }}"
-  command: "make {{ options }}"
+- name: tasks/make > "{{ item.options }}" in "{{ item.dir }}"
+  command: "make {{ item.options }}"
   args:
-    chdir: "{{ dir }}"
+    chdir: "{{ item.dir }}"
