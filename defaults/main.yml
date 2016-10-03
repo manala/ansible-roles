@@ -31,4 +31,5 @@ manala_deploy_writable_dirs_mode: ug=rwx,o=rx
 manala_deploy_writable_dirs: []
 
 # Tasks
-manala_deploy_tasks: []
+manala_deploy_tasks:      []
+manala_deploy_post_tasks: []
