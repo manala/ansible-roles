@@ -2,7 +2,7 @@
 
 - name: tasks/install_composer > Stat bin
   stat:
-    path: "{{ shared_dir }}/composer"
+    path: "{{ item.shared_dir }}/composer"
   register: __manala_deploy_composer_bin_stat_result
 
 - name: tasks/install_composer > Download installer
@@ -12,7 +12,7 @@
   when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
 - name: tasks/install_composer > Install
-  command: "php /tmp/installer --install-dir=\"{{ shared_dir }}\" --filename=\"composer\" --disable-tls"
+  command: "php /tmp/installer --install-dir=\"{{ item.shared_dir }}\" --filename=\"composer\" --disable-tls"
   when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
 - name: tasks/install_composer > Remove installer
@@ -22,7 +22,7 @@
   when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
 - name: tasks/install_composer > Self update
-  shell: "{{ shared_dir }}/composer selfupdate --no-interaction"
+  shell: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
   when: __manala_deploy_composer_bin_stat_result.stat.exists
   register: __manala_deploy_composer_self_update_result
   changed_when: __manala_deploy_composer_self_update_result.stderr | search('Updating')
@@ -30,6 +30,6 @@
 
 - name: tasks/install_composer > Link to current release
   file:
-    src: "{{ shared_dir }}/composer"
-    dest: "{{ dir }}/composer"
+    src: "{{ item.shared_dir }}/composer"
+    dest: "{{ item.dir }}/composer"
     state: link

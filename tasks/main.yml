@@ -32,8 +32,9 @@
     - manala_deploy
 
 # Tasks
-- include: tasks.yml
-  with_items: "{{ manala_deploy_tasks }}"
+- include: tasks/{{ item.task }}.yml
+  with_manala_deploy_tasks: "{{ manala_deploy_tasks }}"
+  when: "{{ item.when }}"
   tags:
     - manala_deploy
     - manala_deploy.tasks

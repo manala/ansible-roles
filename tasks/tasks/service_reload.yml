@@ -1,6 +1,6 @@
 ---
 
-- name: tasks/service_reload > "{{ options }}"
+- name: tasks/service_reload > "{{ item.options }}"
   service:
-    name:  "{{ options }}"
+    name:  "{{ item.options }}"
     state: reloaded

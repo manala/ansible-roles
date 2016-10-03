@@ -34,6 +34,39 @@ Using ansible galaxy requirements file:
 |----------------------------- |------- |------ |------------- |
 |                              |        |       |              |
 
+### Tasks
+
+Without options
+
+```yaml
+manala_deploy_tasks:
+  - foo
+  - foo:  ~
+    when: "'deploy_demo_master' in group_names"
+```
+
+Single or default option
+
+```yaml
+manala_deploy_tasks:
+  - foo: bar
+  - foo: bar
+    when: "'deploy_demo_master' in group_names"
+```
+
+Multiple options
+
+```yaml
+manala_deploy_tasks:
+  - foo:
+      baz: bar
+      bar: baz
+  - foo:
+      baz: bar
+      bar: baz
+    when: "'deploy_demo_master' in group_names"
+```
+
 ## Example playbook
 
 ```yaml
