@@ -172,6 +172,10 @@ dependencies:
   - role: manala.elasticsearch
     when: manala_skeleton_options.elasticsearch
 
+  # InfluxDB
+  - role: manala.influxdb
+    when: manala_skeleton_options.influxdb
+
   # # Dnsmasq
   # - role: manala.dnsmasq
   #   when: manala_skeleton_options.dnsmasq

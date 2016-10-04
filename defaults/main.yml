@@ -53,6 +53,7 @@ manala_skeleton_options:
   mongo_express:         false
   elasticsearch:         false
   elasticsearch_version: '1.7'
+  influxdb:              false
   dnsmasq:               false
 
   # App
