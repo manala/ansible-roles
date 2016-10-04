@@ -115,66 +115,75 @@ manala_skeleton_patterns:
     # Nginx
     nginx_config_template: config/http.{{ manala_skeleton_env }}.j2
     nginx_configs_exclusive: true
-    nginx_configs:  "{{
-      [{
+    nginx_configs: "{{
+      (
+        manala_skeleton_options.opcache_dashboard
+        or manala_skeleton_options.phpmyadmin
+        or manala_skeleton_options.phppgadmin
+        or manala_skeleton_options.phpredisadmin
+      )|ternary([{
         'file':     'admin_php_fpm',
         'template': 'configs/admin_php_fpm.' ~ manala_skeleton_env ~ '.j2'
-      }]
+      }],[])
       + (manala_skeleton_options.opcache_dashboard)|ternary([{
-        'file':     'admin.opcache_dashboard.conf',
-        'template': 'configs/server.j2',
-        'config':   [
-          {'listen': 2013},
-          {'root':   manala_opcache_dashboard_dir},
-          {'location /': [
-            {'try_files': '$uri /opcache.php$is_args$args'}
-          ]},
-          {'location ~ ^/.+\\.php(/|$)': [
-            {'include': 'conf.d/admin_php_fpm'}
+        'file':   'admin.opcache_dashboard.conf',
+        'config': [
+          {'server': [
+            {'listen': 2013},
+            {'root':   manala_opcache_dashboard_dir},
+            {'location /': [
+              {'try_files': '$uri /opcache.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
           ]}
         ]
       }],[])
       + (manala_skeleton_options.phpmyadmin)|ternary([{
-        'file':     'admin.phpmyadmin.conf',
-        'template': 'configs/server.j2',
-        'config':   [
-          {'listen': 1979},
-          {'root':   manala_phpmyadmin_dir},
-          {'client_max_body_size': '16M'},
-          {'location /': [
-            {'try_files': '$uri /index.php$is_args$args'}
-          ]},
-          {'location ~ ^/.+\\.php(/|$)': [
-            {'include': 'conf.d/admin_php_fpm'}
+        'file':   'admin.phpmyadmin.conf',
+        'config': [
+          {'server': [
+            {'listen': 1979},
+            {'root':   manala_phpmyadmin_dir},
+            {'client_max_body_size': '16M'},
+            {'location /': [
+              {'try_files': '$uri /index.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
           ]}
         ]
       }],[])
       + (manala_skeleton_options.phppgadmin)|ternary([{
-        'file':     'admin.phppgadmin.conf',
-        'template': 'configs/server.j2',
-        'config':   [
-          {'listen': 1980},
-          {'root':   manala_phppgadmin_dir},
-          {'client_max_body_size': '16M'},
-          {'location /': [
-            {'try_files': '$uri /index.php$is_args$args'}
-          ]},
-          {'location ~ ^/.+\\.php(/|$)': [
-            {'include': 'conf.d/admin_php_fpm'}
+        'file':   'admin.phppgadmin.conf',
+        'config': [
+          {'server': [
+            {'listen': 1980},
+            {'root':   manala_phppgadmin_dir},
+            {'client_max_body_size': '16M'},
+            {'location /': [
+              {'try_files': '$uri /index.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
           ]}
         ]
       }],[])
       + (manala_skeleton_options.phpredisadmin)|ternary([{
-        'file':     'admin.phpredisadmin.conf',
-        'template': 'configs/server.j2',
-        'config':   [
-          {'listen': 1981},
-          {'root':   manala_phpredisadmin_dir},
-          {'location /': [
-            {'try_files': '$uri /index.php$is_args$args'}
-          ]},
-          {'location ~ ^/.+\\.php(/|$)': [
-            {'include': 'conf.d/admin_php_fpm'}
+        'file':   'admin.phpredisadmin.conf',
+        'config': [
+          {'server': [
+            {'listen': 1981},
+            {'root':   manala_phpredisadmin_dir},
+            {'location /': [
+              {'try_files': '$uri /index.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
           ]}
         ]
       }],[])
@@ -277,25 +286,25 @@ manala_skeleton_patterns:
           </html>
     # Nginx
     nginx_configs:
-      - file:     default.conf
-        template: configs/server.j2
+      - file: default.conf
         config:
-          - listen:     '* default_server'
-          - error_page: '404 /404.html'
-          - location /404.html:
-            - root: /usr/share/manala/html
-            - internal;
+          - server:
+            - listen:     '* default_server'
+            - error_page: '404 /404.html'
+            - location /404.html:
+              - root: /usr/share/manala/html
+              - internal;
 
   # Manala - Nginx - Test
 
   manala_nginx_test: &pattern_manala_nginx_test
     # Nginx
     nginx_configs:
-      - file:     default.conf
-        template: configs/server.j2
+      - file: default.conf
         config:
-          - listen: '* default_server'
-          - return: 404
+          - server:
+            - listen: '* default_server'
+            - return: 404
 
   # Elao
 
@@ -331,14 +340,14 @@ manala_skeleton_patterns:
           </html>
     # Nginx
     nginx_configs:
-      - file:     default.conf
-        template: configs/server.j2
+      - file: default.conf
         config:
-          - listen:     '* default_server'
-          - error_page: '404 /404.html'
-          - location /404.html:
-            - root: /usr/share/elao/html
-            - internal;
+          - server:
+            - listen:     '* default_server'
+            - error_page: '404 /404.html'
+            - location /404.html:
+              - root: /usr/share/elao/html
+              - internal;
 
 
 #############
