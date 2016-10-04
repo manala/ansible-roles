@@ -1,0 +1,12 @@
+/var/log/app/php*.log
+/var/log/app/*/php*.log {
+    rotate 12
+    weekly
+    missingok
+    notifempty
+    compress
+    delaycompress
+    postrotate
+        invoke-rc.d php5-fpm reopen-logs > /dev/null
+    endscript
+}
