@@ -85,20 +85,41 @@ manala_skeleton_patterns:
     php_version: "{{ ({'5.4': '5', '5.5': '5', '5.6': '5', '7.0': '7.0'})[manala_skeleton_options.php_version|string] }}"
     php_sapis: ['cli', 'fpm']
     php_fpm_pools_exclusive: true
-    php_fpm_pools:
-      - file:     admin.conf
-        template: fpm_pools/admin.{{ manala_skeleton_env }}.j2
-      - file:     app.conf
-        template: fpm_pools/app.{{ manala_skeleton_env }}.j2
-        config:
-          - app:
-            - user:  "{{ manala_skeleton_options.app.user }}"
-            - group: "{{ manala_skeleton_options.app.group }}"
-            - php_admin_value[error_log]: "{{ manala_skeleton_options.app.log_dir }}/php.error.log"
+    php_fpm_pools: "{{
+      (
+        manala_skeleton_options.opcache_dashboard
+        or manala_skeleton_options.phpmyadmin
+        or manala_skeleton_options.phppgadmin
+        or manala_skeleton_options.phpredisadmin
+      )|ternary([{
+        'file':     'admin.conf',
+        'template': 'fpm_pools/admin.' ~ manala_skeleton_env ~ '.j2'
+      }],[])
+      + [{
+        'file':     'app.conf',
+        'template': 'fpm_pools/app.' ~ manala_skeleton_env ~ '.j2',
+        'config':   [
+          {'app': [
+            {'user':                       manala_skeleton_options.app.user},
+            {'group':                      manala_skeleton_options.app.group},
+            {'php_admin_value[error_log]': manala_skeleton_options.app.log_dir ~ '/php.error.log'}
+          ]}
+        ]
+      }]
+    }}"
     php_extensions_exclusive: true
     php_extensions: "{{
       ['xdebug']
       + (manala_skeleton_options.mysql)|ternary(['mysql'],[])
+      + (manala_skeleton_options.phpmyadmin)|ternary(
+        {
+          '5.4':['mysql'],
+          '5.5':['mysqlnd'],
+          '5.6':['mysqlnd'],
+          '7.0':['mysql', 'mbstring', 'zip', 'bz2']
+        }[manala_skeleton_options.php_version|string],
+        []
+      )
       + (manala_skeleton_options.postgresql)|ternary(['pgsql'],[])
       + (manala_skeleton_options.redis)|ternary(['redis'],[])
       + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
