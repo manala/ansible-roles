@@ -16,7 +16,3 @@ manala_influxdb_influx_bin: /usr/bin/influx
 manala_influxdb_config_file:     /etc/influxdb/influxdb.conf
 manala_influxdb_config_template: config/base.conf.j2
 manala_influxdb_config:          []
-
-# Manala
-manala_influxdb:
-  services: "{{ (manala|default({'services':true}))['services'] }}"

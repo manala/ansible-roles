@@ -1,11 +1,26 @@
 ---
 
 - include: install.yml
+  tags:
+    - manala_influxdb
+
 - include: config.yml
+  tags:
+    - manala_influxdb
+
 - include: services.yml
   tags:
-     - manala.services
-  when: "{{ manala_influxdb.services }}"
+    - manala_influxdb
+    - manala.services
+
 - include: databases.yml
+  tags:
+    - manala_influxdb
+
 - include: users.yml
+  tags:
+    - manala_influxdb
+
 - include: privileges.yml
+  tags:
+    - manala_influxdb

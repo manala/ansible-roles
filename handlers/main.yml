@@ -4,4 +4,3 @@
   service:
     name:  influxdb
     state: restarted
-  when: "{{ manala_influxdb.services }}"
