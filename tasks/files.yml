@@ -27,7 +27,7 @@
     user:       "{{ item.0.user|default('root') }}"
     state:      present
   with_subelements:
-    - "{{ manala_cron_files }}"
+    - "{{ manala_cron_files | selectattr('environment', 'defined') | list }}"
     - environment
   notify:
     - cron restart
