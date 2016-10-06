@@ -1,0 +1,7 @@
+---
+
+manala_gitlab_version: ~
+
+manala_gitlab_configs_dir: /etc/gitlab
+manala_gitlab_configs_exclusive: false
+manala_gitlab_configs: []

@@ -1,0 +1,8 @@
+---
+
+- include: install.yml
+  tags:
+    - manala_gitlab
+- include: configs.yml
+  tags:
+    - manala_gitlab

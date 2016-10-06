@@ -1,0 +1,26 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template }}"
+    dest: "{{ manala_gitlab_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_gitlab_configs }}"
+  notify:
+    - gitlab reconfigure
+
+- name: configs > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_gitlab_configs_dir }}"
+  changed_when: false
+  register: __manala_gitlab_configs_find_output
+  when: manala_gitlab_configs_exclusive
+
+- name: configs > Exclusive - remove files
+  file:
+    path:  "{{ manala_gitlab_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_gitlab_configs_exclusive and (item not in manala_gitlab_configs|map(attribute='file'))
+  with_items: "{{ __manala_gitlab_configs_find_output.stdout_lines|default([]) }}"
+  notify:
+    - gitlab reconfigure
