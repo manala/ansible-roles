@@ -42,6 +42,8 @@ manala_skeleton_options:
   opcache_dashboard:     false
   mysql:                 false
   mysql_version:         '5.6' # '5.6'|'5.7'
+  mariadb:               false
+  mariadb_version:       '10.2' # '10.0'|'10.1'|'10.2'
   phpmyadmin:            false
   postgresql:            false
   postgresql_version:    '9.5'
