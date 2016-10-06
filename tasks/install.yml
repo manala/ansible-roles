@@ -5,4 +5,4 @@
     name:  "{{ item }}"
     state: present
   with_items:
-    - gitlab-ce{{ '=' ~ manala_gitlab_version if (manala_gitlab_version) else '' }}
+    - gitlab-ce
