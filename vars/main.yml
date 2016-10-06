@@ -219,7 +219,7 @@ manala_apt_preferences_patterns:
   vim:                vim*
   git:                git git-*
   php:                php-* php5-* php7.0-*
-  mysql:              mysql*
+  mysql:              mysql* libmysql*
   nginx:              nginx*
   ruby:               ruby*
   nodejs:             nodejs*
@@ -243,3 +243,4 @@ manala_apt_preferences_patterns:
   pam-ssh-agent-auth: pam-ssh-agent-auth*
   oauth2-proxy:       oauth2-proxy*
   cloud:              cloud-init cloud-utils
+  mariadb:            mariadb* libmariadb*
