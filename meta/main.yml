@@ -146,9 +146,9 @@ dependencies:
 
   # MySql
   - role: manala.mysql
-    when: manala_skeleton_options.mysql
+    when: (manala_skeleton_options.mysql or manala_skeleton_options.mariadb)
   - role: manala.phpmyadmin
-    when: manala_skeleton_options.phpmyadmin and manala_skeleton_options.mysql and manala_skeleton_options.php and manala_skeleton_options.nginx
+    when: manala_skeleton_options.phpmyadmin and (manala_skeleton_options.mysql or manala_skeleton_options.mariadb) and manala_skeleton_options.php and manala_skeleton_options.nginx
 
   # PostgreSQL
   - role: manala.postgresql
