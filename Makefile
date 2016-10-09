@@ -95,6 +95,32 @@ test-plugins:
 	ansible-playbook tests/plugins.yml --syntax-check
 	ansible-playbook tests/plugins.yml
 
-test-attributes:
-	ansible-playbook tests/attributes.yml --syntax-check
-	ansible-playbook tests/attributes.yml
+test-attributes: test-attributes-template test-attributes-content test-attributes-copy test-attributes-url test-attributes-file test-attributes-override test-attributes-link-directory
+
+test-attributes-template:
+	ansible-playbook tests/attributes_template.yml --syntax-check
+	ansible-playbook tests/attributes_template.yml
+
+test-attributes-content:
+	ansible-playbook tests/attributes_content.yml --syntax-check
+	ansible-playbook tests/attributes_content.yml
+
+test-attributes-copy:
+	ansible-playbook tests/attributes_copy.yml --syntax-check
+	ansible-playbook tests/attributes_copy.yml
+
+test-attributes-url:
+	ansible-playbook tests/attributes_url.yml --syntax-check
+	ansible-playbook tests/attributes_url.yml
+
+test-attributes-file:
+	ansible-playbook tests/attributes_file.yml --syntax-check
+	ansible-playbook tests/attributes_file.yml
+
+test-attributes-override:
+	ansible-playbook tests/attributes_override.yml --syntax-check
+	ansible-playbook tests/attributes_override.yml
+
+test-attributes-link-directory:
+	ansible-playbook tests/attributes_link_directory.yml --syntax-check
+	ansible-playbook tests/attributes_link_directory.yml
