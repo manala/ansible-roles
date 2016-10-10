@@ -39,7 +39,6 @@ dependencies:
 
 | Name                                | Default                           | Type    | Description                                                               |
 | ----------------------------------- | --------------------------------  | ------- | ------------------------------------------------------------------------- |
-| `manala_gitlab_version`             | ~                                 | String  | Gitlab version to setup. If null, will install the latest stable version. |
 | `manala_gitlab_configs`             | []                                | Array   | Configuration files                                                       |
 | `manala_gitlab_configs_exclusive`   | false                             | Boolean | If true, will delete any extra configuration files.                       |
 | `manala_gitlab_configs_dir`         | /etc/gitlab                       | String  | Path to the main configuration directory.                                 |
