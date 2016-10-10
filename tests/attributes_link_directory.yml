@@ -24,3 +24,34 @@
               exists:    true
               filetype:  symlink
               linked-to: /srv/tests/temp/directory
+
+# Link directory - From an already existing directory
+- hosts: localhost
+  gather_facts: false
+  pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
+    - shell: mkdir /srv/tests/temp/directory
+    - shell: mkdir /srv/tests/temp/link
+    - shell: touch /srv/tests/temp/link/file
+  vars:
+    manala_files_attributes:
+      - path:  /srv/tests/temp/link
+        src:   /srv/tests/temp/directory
+        state: link_directory
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /srv/tests/temp/directory:
+              exists:   true
+              filetype: directory
+            /srv/tests/temp/link:
+              exists:    true
+              filetype:  symlink
+              linked-to: /srv/tests/temp/directory
+            /srv/tests/temp/link/file:
+              exists:    true
+              filetype:  file
