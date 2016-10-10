@@ -6,12 +6,13 @@
 {% set config_data = [] -%}
 {% set config_database = [] -%}
 {% set config_hinted_handoff = [] -%}
-{% set config_cluster = [] -%}
+{% set config_coordinator = [] -%}
 {% set config_retention = [] -%}
 {% set config_shard_precreation = [] -%}
 {% set config_monitor = [] -%}
 {% set config_admin = [] -%}
 {% set config_http = [] -%}
+{% set config_subscriber = [] -%}
 {% set config_graphite = [] -%}
 {% set config_collectd = [] -%}
 {% set config_opentsdb = [] -%}
@@ -26,10 +27,10 @@
             {%- if config_data.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'database' -%}
             {%- if config_database.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'database' -%}
-            {%- if config_database.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'hinted_handoff' -%}
             {%- if config_hinted_handoff.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'coordinator' -%}
+            {%- if config_coordinator.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'retention' -%}
             {%- if config_retention.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'shard_precreation' -%}
@@ -40,6 +41,8 @@
             {%- if config_admin.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'http' -%}
             {%- if config_http.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'subscriber' -%}
+            {%- if config_subscriber.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'auth.graphite' -%}
             {%- if config_graphite.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'collectd' -%}
@@ -105,7 +108,10 @@
   # These are the WAL settings for the storage engine >= 0.9.3
   {{ macros.config_row(config_data, 'wal-dir', '/var/lib/influxdb/wal') }}
   {{ macros.config_row(config_data, 'wal-logging-enabled', true) }}
-  {{ macros.config_row(config_data, 'data-logging-enabled', true) }}
+
+  # Trace logging provides more verbose output around the tsm engine. Turning
+  # this on can provide more useful output for debugging tsm engine issues.
+  {{ macros.config_row(config_data, 'trace-logging-enabled', false) }}
 
   # Whether queries should be logged before execution. Very useful for troubleshooting, but will
   # log any sensitive data contained within a query.
@@ -141,20 +147,19 @@
   {{ macros.config_row(config_data, 'max-points-per-block', '# max-points-per-block = 1000', 0, true) }}
 
 ###
-### [cluster]
+### [coordinator]
 ###
-### Controls non-Raft cluster behavior, which generally includes how data is
-### shared across shards.
+### Controls the clustering service configuration.
 ###
 
-[cluster]
-  {{ macros.config_row(config_cluster, 'shard-writer-timeout', 'shard-writer-timeout = "5s" # The time within which a remote shard must respond to a write request.', 0, true) }}
-  {{ macros.config_row(config_cluster, 'write-timeout', 'write-timeout = "10s" # The time within which a write request must complete on the cluster.', 0, true) }}
-  {{ macros.config_row(config_cluster, 'max-concurrent-queries', 'max-concurrent-queries = 0 # The maximum number of concurrent queries that can run. 0 to disable.', 0, true) }}
-  {{ macros.config_row(config_cluster, 'query-timeout', 'query-timeout = "0s" # The time within a query must complete before being killed automatically. 0s to disable.', 0, true) }}
-  {{ macros.config_row(config_cluster, 'max-select-point', 'max-select-point = 0 # The maximum number of points to scan in a query. 0 to disable.', 0, true) }}
-  {{ macros.config_row(config_cluster, 'max-select-series', 'max-select-series = 0 # The maximum number of series to select in a query. 0 to disable.', 0, true) }}
-  {{ macros.config_row(config_cluster, 'max-select-buckets', 'max-select-buckets = 0 # The maximum number of buckets to select in an aggregate query. 0 to disable.', 0, true) }}
+[coordinator]
+  {{ macros.config_row(config_coordinator, 'write-timeout', 'write-timeout = "10s"', 0, true) }}
+  {{ macros.config_row(config_coordinator, 'max-concurrent-queries', 'max-concurrent-queries = 0', 0, true) }}
+  {{ macros.config_row(config_coordinator, 'query-timeout', 'query-timeout = "0s"', 0, true) }}
+  {{ macros.config_row(config_coordinator, 'log-queries-after', 'log-queries-after = "0"', 0, true) }}
+  {{ macros.config_row(config_coordinator, 'max-select-point', 'max-select-point = 0', 0, true) }}
+  {{ macros.config_row(config_coordinator, 'max-select-series', 'max-select-series = 0', 0, true) }}
+  {{ macros.config_row(config_coordinator, 'max-select-buckets', 'max-select-buckets = 0', 0, true) }}
 
 ###
 ### [retention]
@@ -222,7 +227,23 @@
   {{ macros.config_row(config_http, 'pprof-enabled', false) }}
   {{ macros.config_row(config_http, 'https-enabled', false) }}
   {{ macros.config_row(config_http, 'https-certificate', '/etc/ssl/influxdb.pem') }}
+  ### Use a separate private key location.
+  {{ macros.config_row(config_http, 'https-private-key', '# https-private-key = ""', 0, true) }}
   {{ macros.config_row(config_http, 'max-row-limit', 10000) }}
+  {{ macros.config_row(config_http, 'realm', 'InfluxDB') }}
+
+###
+### [subscriber]
+###
+### Controls the subscriptions, which can be used to fork a copy of all data
+### received by the InfluxDB host.
+###
+
+[subscriber]
+  {{ macros.config_row(config_subscriber, 'enabled', true) }}
+  {{ macros.config_row(config_subscriber, 'http-timeout', '# http-timeout = "30s"', 0, true) }}
+  {{ macros.config_row(config_subscriber, 'write-concurrency', '# write-concurrency = 40', 0, true) }}
+  {{ macros.config_row(config_subscriber, 'write-buffer-size', '# write-buffer-size = 1000', 0, true) }}
 
 ###
 ### [[graphite]]
