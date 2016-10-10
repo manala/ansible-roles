@@ -20,7 +20,7 @@
               exists:  true
               filetype: directory
 
-# Directory - Path already exists as a file
+# Directory - Fail as path already exists as a file
 - hosts: localhost
   gather_facts: false
   pre_tasks:
@@ -41,7 +41,7 @@
               exists:  true
               filetype: file
 
-# Directory - Path already exists as a link to file
+# Directory - Fail as path already exists as a link to file
 - hosts: localhost
   gather_facts: false
   pre_tasks:
@@ -65,7 +65,7 @@
               filetype:  symlink
               linked-to: /srv/tests/temp/file
 
-# Directory - Path already exists as a link to directory
+# Directory - Fail as path already exists as a link to directory
 - hosts: localhost
   gather_facts: false
   pre_tasks:
