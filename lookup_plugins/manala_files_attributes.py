@@ -20,23 +20,9 @@ class LookupModule(LookupBase):
 
             # State - Link Directory
             if term.has_key('state') and (term['state'] == 'link_directory'):
-                # Directory
                 item = term.copy()
                 item.update({
-                    'path':  term.get('src'),
-                    'src':   None,
-                    'state': 'directory',
-                    'task':  'file'
-                })
-                items.append(item)
-                # Link
-                item = term.copy()
-                item.update({
-                    'state': 'link',
-                    'user':  variables['omit'],
-                    'group': variables['omit'],
-                    'force': True,
-                    'task':  'file'
+                    'task': 'link_directory'
                 })
                 items.append(item)
             else:
