@@ -22,5 +22,5 @@
               filetype: directory
             /srv/tests/temp/link:
               exists:    true
-              linked-to: /srv/tests/temp/directory
               filetype:  symlink
+              linked-to: /srv/tests/temp/directory
