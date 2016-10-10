@@ -24,6 +24,7 @@
 - hosts: localhost
   gather_facts: false
   pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
     - shell: touch /srv/tests/temp/file
   vars:
     manala_files_attributes:
