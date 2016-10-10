@@ -19,6 +19,15 @@
     mode:    "{{ item.mode|default(omit) }}"
     state:   directory
 
+- name: attributes > Link directory - Stat link "{{ item.path }}"
+  stat:
+    path: "{{ item.path }}"
+  register: __manala_files_stat
+
+- name: attributes > Link directory - Move directory content "{{ item.path }}"
+  shell: mv {{ item.path }}/* {{ item.src }}
+  when: __manala_files_stat.stat.isdir|default(false)
+
 - name: attributes > Link directory - Link "{{ item.path }}"
   file:
     path:    "{{ item.path }}"
