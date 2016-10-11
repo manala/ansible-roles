@@ -1,7 +1,13 @@
 ---
 
 # Requirements
-- include: requirements.yml
+- name: requirements
+  assert:
+    that:
+      - manala_php_version in manala_php_versions.keys()
+    msg: You must set "manala_php_version" to either {{ manala_php_versions.keys()|join(', ') }}
+  always_run: true
+  register: __manala_php_requirements
   tags:
     - manala_php
 

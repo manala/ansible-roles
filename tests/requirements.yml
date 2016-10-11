@@ -1,0 +1,23 @@
+---
+
+# Requirements
+- hosts: localhost
+  vars:
+    manala_php_version: "{{ {'wheezy': '5', 'jessie': '7.0'}[ansible_distribution_release] }}"
+  roles:
+    - role: manala.php
+      ignore_errors: true
+  tasks:
+    - assert:
+        that:
+          - not __manala_php_requirements.failed|default(false)
+
+# Requirements - Failed
+- hosts: localhost
+  roles:
+    - role: manala.php
+      ignore_errors: true
+  tasks:
+    - assert:
+        that:
+          - __manala_php_requirements.failed|default(false)

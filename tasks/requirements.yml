@@ -1,7 +1,0 @@
----
-
-- name: requirements > Check if version is defined.
-  fail:
-    msg: Please define manala_php_version variable
-  when: not manala_php_version
-  always_run: true
