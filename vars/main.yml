@@ -151,6 +151,9 @@ manala_apt_keys_patterns:
   nodesource:
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     id:  68576280
+    # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
+    # Instead of hacking things on python or system, simply don't validate certs...
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   mysql:
     keyserver: pgp.mit.edu
     id:        5072E1F5
@@ -163,13 +166,12 @@ manala_apt_keys_patterns:
   10gen:
     url: https://docs.mongodb.org/10gen-gpg-key.asc
     id:  7F0CEB10
-    # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
-    # Instead of hacking things on python or system, simply don't validate certs...
+    # See nodesource
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   mongodb:
     url: https://www.mongodb.org/static/pgp/server-3.2.asc
     id:  EA312927
-    # See 10gen
+    # See nodesource
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   varnish:
     url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
