@@ -7,15 +7,7 @@
     recurse: "{{ item.recurse|default((item.state == 'directory')|ternary(true, omit)) }}"
     src:     "{{ item.src|default(omit) }}"
     force:   "{{ item.force|default(omit) }}"
-    owner:   "{{
-      item.user|default(
-        manala_files_attributes_user|ternary(manala_files_attributes_user, omit)
-      )
-    }}"
-    group:   "{{
-      item.group|default(
-        manala_files_attributes_group|ternary(manala_files_attributes_group, omit)
-      )
-    }}"
+    owner:   "{{ item.user|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
     mode:    "{{ item.mode|default(omit) }}"
     state:   "{{ item.state|default(omit) }}"

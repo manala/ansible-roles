@@ -1,6 +1,7 @@
 ---
 
 # Attributes
-manala_files_attributes_user:  ~
-manala_files_attributes_group: ~
-manala_files_attributes:       []
+manala_files_attributes: []
+
+# Attributes - Defaults
+manala_files_attributes_defaults: []

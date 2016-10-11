@@ -30,11 +30,10 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                            | Default | Type   | Description      |
-| ------------------------------- | ------- | ------ | ---------------- |
-| `manala_files_attributes_user`  | ~       | String | Default user     |
-| `manala_files_attributes_group` | ~       | String | Default group    |
-| `manala_files_attributes`       | {}      | Array  | Files attributes |
+| Name                               | Default | Type   | Description               |
+| ---------------------------------- | ------- | ------ | ------------------------- |
+| `manala_files_attributes`          | []      | Array  | Files attributes          |
+| `manala_files_attributes_defaults` | []      | Array  | Files attributes defaults |
 
 ### Configuration example
 
