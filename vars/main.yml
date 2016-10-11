@@ -61,8 +61,16 @@ manala_skeleton_patterns:
       - selection: editor
         path:      "{{ manala_vim_bin }}"
     # Files
-    files_attributes_user:  "{{ manala_skeleton_options.app.user }}"
-    files_attributes_group: "{{ manala_skeleton_options.app.group }}"
+    files_attributes_defaults:
+      - path:  "^{{ manala_skeleton_options.app.log_dir }}"
+        user:  "{{ manala_skeleton_options.app.user }}"
+        group: "{{ manala_skeleton_options.app.group }}"
+      - path:  "^{{ manala_skeleton_options.app.cache_dir }}"
+        user:  "{{ manala_skeleton_options.app.user }}"
+        group: "{{ manala_skeleton_options.app.group }}"
+      - path:  "^{{ manala_skeleton_options.app.sessions_dir }}"
+        user:  "{{ manala_skeleton_options.app.user }}"
+        group: "{{ manala_skeleton_options.app.group }}"
     files_attributes:
       - path:  "{{ manala_skeleton_options.app.log_dir }}"
         state: directory
