@@ -292,6 +292,7 @@ manala_skeleton_patterns:
   manala_dev: &pattern_manala_dev
     # Apt
     apt_packages:
+      - rsync
       - htop
       - less
     # Supervisor
