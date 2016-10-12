@@ -1,6 +1,11 @@
-{%- import '_macros.j2' as macros with context -%}
+{%- for configs in item.config|default([config_name_default]) -%}
 
-{%- macro base(config) -%}
+    {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
+
+; Start a new pool named '{{ config_name }}'.
+; the variable $pool can we used in any directive and will be replaced by the
+; pool name ('{{ config_name }}' here)
+[{{ config_name }}]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -19,8 +24,8 @@
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-{{ macros.config_row(config, 'user', manala_php_user) }}
-{{ macros.config_row(config, 'group', manala_php_group) }}
+{{ macros.config_row(config, 'user', 'www-data') }}
+{{ macros.config_row(config, 'group', 'www-data') }}
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -34,7 +39,7 @@
 ;                            (IPv6 and IPv4-mapped) on a specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-{{ macros.config_row(config, 'listen', '/var/run/php-fpm.admin.sock') }}
+{{ macros.config_row(config, 'listen', config_default['listen']) }}
 
 ; Set listen(2) backlog.
 ; Default Value: 65535 (-1 on FreeBSD and OpenBSD)
@@ -45,9 +50,14 @@
 ; BSD-derived systems allow connections regardless of permissions.
 ; Default Values: user and group are set as the running user
 ;                 mode is set to 0660
-{{ macros.config_row(config, 'listen.owner', manala_php_user) }}
-{{ macros.config_row(config, 'listen.group', manala_php_group) }}
+{{ macros.config_row(config, 'listen.owner', 'www-data') }}
+{{ macros.config_row(config, 'listen.group', 'www-data') }}
 {{ macros.config_row(config, 'listen.mode', ';listen.mode = 0660', true) }}
+; When POSIX Access Control Lists are supported you can set them using
+; these options, value is a comma separated list of user/group names.
+; When set, listen.owner and listen.group are ignored
+{{ macros.config_row(config, 'listen.acl_users', ';listen.acl_users =', true) }}
+{{ macros.config_row(config, 'listen.acl_groups', ';listen.acl_groups =', true) }}
 
 ; List of addresses (IPv4/IPv6) of FastCGI clients which are allowed to connect.
 ; Equivalent to the FCGI_WEB_SERVER_ADDRS environment variable in the original
@@ -100,7 +110,7 @@
 ; forget to tweak pm.* to fit your needs.
 ; Note: Used when pm is set to 'static', 'dynamic' or 'ondemand'
 ; Note: This value is mandatory.
-{{ macros.config_row(config, 'pm.max_children', 20) }}
+{{ macros.config_row(config, 'pm.max_children', config_default['pm.max_children']) }}
 
 ; The number of child processes created on startup.
 ; Note: Used only when pm is set to 'dynamic'
@@ -404,7 +414,9 @@
 {{ macros.config_row(config, 'php_admin_flag[log_errors]', ';php_admin_flag[log_errors] = on', true) }}
 {{ macros.config_row(config, 'php_admin_value[memory_limit]', ';php_admin_value[memory_limit] = 32M', true) }}
 
-{{ macros.config_row(config, 'php_admin_value[display_errors]', false) }}
+{% for config_extra_key, config_extra_value in config_extra.iteritems() -%}
+{{ macros.config_row(config, config_extra_key, config_extra_value) }}
+{%- endfor %}
 
 {{ macros.config(config, [
   'prefix',
@@ -415,6 +427,8 @@
   'listen.owner',
   'listen.group',
   'listen.mode',
+  'listen.acl_users',
+  'listen.acl_groups',
   'listen.allowed_clients',
   'process.priority',
   'pm',
@@ -448,8 +462,10 @@
   'php_flag[display_errors]',
   'php_admin_value[error_log]',
   'php_admin_flag[log_errors]',
-  'php_admin_value[memory_limit]',
-  'php_admin_value[display_errors]'
-]) -}}
+  'php_admin_value[memory_limit]'
+] + config_extra.keys()) -}}
 
-{%- endmacro -%}
+    {%- endfor %}
+
+
+{% endfor -%}

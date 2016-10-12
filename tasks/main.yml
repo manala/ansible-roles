@@ -1,16 +1,7 @@
 ---
 
 # Requirements
-- name: requirements
-  assert:
-    that:
-      - manala_php_version in manala_php_versions.keys()
-      - manala_php_versions[manala_php_version].release == ansible_distribution_release
-    msg: |
-      You must set "manala_php_version" to either {{ manala_php_versions.keys()|join(', ') }}
-      depending on the following releases {{ manala_php_versions.keys()|map('extract', manala_php_versions, 'release')|join(', ') }}
-  always_run: true
-  register: __manala_php_requirements_result
+- include: requirements.yml
   tags:
     - manala_php
 
@@ -30,25 +21,34 @@
   tags:
     - manala_php
 
-# Configs - Sapi Fpm
-- include: configs_sapi.yml
-  vars:
-    __manala_php_sapi: fpm
-  when: (not manala_php_configs_global) and ('fpm' in manala_php_sapis)
-  tags:
-    - manala_php
-
-# Configs - Sapi Cli
-- include: configs_sapi.yml
-  vars:
-    __manala_php_sapi: cli
-  when: (not manala_php_configs_global) and ('cli' in manala_php_sapis)
+# Configs
+- include: configs.yml
+  when: not manala_php_configs_global
+  with_items: "{{
+    lookup(
+      'manala_php_sapis',
+      manala_php_sapis,
+      manala_php_versions[manala_php_version|string],
+      wantstate='present',
+      wantmap=true,
+      wantlist=true
+    )
+  }}"
+  loop_control:
+    loop_var: __manala_php_sapi
   tags:
     - manala_php
 
 # Fpm pools
 - include: fpm_pools.yml
-  when: ('fpm' in manala_php_sapis)
+  when: "'fpm' in lookup(
+    'manala_php_sapis',
+    manala_php_sapis,
+    manala_php_versions[manala_php_version|string],
+    wantstate='present',
+    wantmap=true,
+    wantlist=true
+  )"
   tags:
     - manala_php
 

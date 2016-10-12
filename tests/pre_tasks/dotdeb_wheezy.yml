@@ -1,0 +1,34 @@
+---
+
+- name: Pre tasks > Clean php packages
+  apt:
+    package: php*
+    state:   absent
+    purge:   true
+  ignore_errors: true
+
+- name: Pre tasks > Clean php config
+  file:
+    path:  /etc/php5
+    state: absent
+
+- name: Pre tasks > Dotdeb apt key
+  apt_key:
+    url: http://www.dotdeb.org/dotdeb.gpg
+    id:  89DF5277
+
+- name: Pre tasks > Dotdeb apt repository 55
+  apt_repository:
+    repo: deb http://packages.dotdeb.org wheezy-php55 all
+    state: absent
+    update_cache: false
+
+- name: Pre tasks > Dotdeb apt repository 56
+  apt_repository:
+    repo: deb http://packages.dotdeb.org wheezy-php56 all
+    state: absent
+    update_cache: false
+
+- name: Pre tasks > Dotdeb apt repository
+  apt_repository:
+    repo: deb http://packages.dotdeb.org wheezy all

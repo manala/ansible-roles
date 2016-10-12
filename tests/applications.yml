@@ -1,0 +1,189 @@
+---
+
+- name: Applications - Wheezy - 5.4
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - xml
+    manala_php_applications:
+      - phpcs
+      - phpunit@4.8.30
+      - application: phpunit
+        version: 4.8.31
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /usr/local/bin/phpcs:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit_4.8.31:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit:
+              exists:    true
+              filetype:  symlink
+              linked-to: phpunit_4.8.31
+        - command:
+            phpcs --version:
+              exit-status: 0
+              stdout:
+                - PHP_CodeSniffer version
+            phpunit --version:
+              exit-status: 0
+              stdout:
+                - PHPUnit 4.8.31
+
+- name: Applications - Wheezy - 5.5
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - xml
+    manala_php_applications:
+      - phpcs
+      - phpunit@4.8.30
+      - application: phpunit
+        version: 4.8.31
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_55.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /usr/local/bin/phpcs:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit_4.8.31:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit:
+              exists:    true
+              filetype:  symlink
+              linked-to: phpunit_4.8.31
+        - command:
+            phpcs --version:
+              exit-status: 0
+              stdout:
+                - PHP_CodeSniffer version
+            phpunit --version:
+              exit-status: 0
+              stdout:
+                - PHPUnit 4.8.31
+
+- name: Applications - Wheezy - 5.6
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - xml
+    manala_php_applications:
+      - phpcs
+      - phpunit@4.8.30
+      - application: phpunit
+        version: 4.8.31
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_56.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /usr/local/bin/phpcs:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit_4.8.31:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit:
+              exists:    true
+              filetype:  symlink
+              linked-to: phpunit_4.8.31
+        - command:
+            phpcs --version:
+              exit-status: 0
+              stdout:
+                - PHP_CodeSniffer version
+            phpunit --version:
+              exit-status: 0
+              stdout:
+                - PHPUnit 4.8.31
+
+- name: Applications - Jessie - 7.0
+  hosts: jessie
+  vars:
+    manala_php_version: 7.0
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - xml
+    manala_php_applications:
+      - phpcs
+      - phpunit@4.8.30
+      - application: phpunit
+        version: 4.8.31
+  pre_tasks:
+    - include: pre_tasks/dotdeb_jessie.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /usr/local/bin/phpcs:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit_4.8.31:
+              exists:   true
+              filetype: file
+              mode:     "0755"
+            /usr/local/bin/phpunit:
+              exists:    true
+              filetype:  symlink
+              linked-to: phpunit_4.8.31
+        - command:
+            phpcs --version:
+              exit-status: 0
+              stdout:
+                - PHP_CodeSniffer version
+            phpunit --version:
+              exit-status: 0
+              stdout:
+                - PHPUnit 4.8.31

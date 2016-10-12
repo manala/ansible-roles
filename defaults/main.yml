@@ -4,49 +4,43 @@
 manala_php_version: ~
 
 # Sapis
-manala_php_sapis: ['cli', 'fpm']
+manala_php_sapis_exclusive: false
+manala_php_sapis:           []
+
+# Extensions
+manala_php_extensions_exclusive: false
+manala_php_extensions:           []
 
 # Configs
-manala_php_configs_dir_base:  "/etc/php{{ (manala_php_version|string == '5')|ternary('5', '/' ~ manala_php_version|string) }}"
+manala_php_configs_global:    false # Must be true for php 5.4
 manala_php_configs_template:  ~
 manala_php_configs_exclusive: false
-manala_php_configs_global:    false
 manala_php_configs:           []
-manala_php_fpm_configs:       []
 manala_php_cli_configs:       []
+manala_php_fpm_configs:       []
+manala_php_cgi_configs:       []
+manala_php_phpdbg_configs:    []
 
 # Fpm pools
-manala_php_fpm_pools_dir:       "/etc/php{{ (manala_php_version|string == '5')|ternary('5', '/' ~ manala_php_version|string) }}/fpm/pool.d"
 manala_php_fpm_pools_template:  ~
 manala_php_fpm_pools_exclusive: false
 manala_php_fpm_pools:
   - file:     www.conf
     template: fpm_pools/default.j2
-    config:
-      - www
 
-# Extensions
-manala_php_extensions_exclusive: false
-manala_php_extensions: []
 
-# User
-manala_php_user:  www-data
-manala_php_group: www-data
 
-# Logs
-manala_php_log_dir: "/var/log/php{{ manala_php_version|string }}"
+# Blackfire
+manala_php_blackfire: false
+
+manala_php_blackfire_agent_config_file:     /etc/blackfire/agent
+manala_php_blackfire_agent_config_template: ~
+manala_php_blackfire_agent_config:          []
+
+manala_php_blackfire_client_config_file:     ~/.blackfire.ini
+manala_php_blackfire_client_config_template: ~
+manala_php_blackfire_client_config:          []
 
 # Applications
 manala_php_applications_dir: /usr/local/bin
-manala_php_applications: []
-
-# Blackfire
-manala_php_blackfire:                false
-
-manala_php_blackfire_agent_file:     /etc/blackfire/agent
-manala_php_blackfire_agent_template: ~
-manala_php_blackfire_agent:          []
-
-manala_php_blackfire_client_file:     ~/.blackfire.ini
-manala_php_blackfire_client_template: ~
-manala_php_blackfire_client:          []
+manala_php_applications:     []

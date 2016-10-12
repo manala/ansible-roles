@@ -1,0 +1,13 @@
+---
+
+- name: requirements > Version
+  fail:
+     msg: You must set "manala_php_version" to either {{ manala_php_versions.keys()|join(', ') }}
+  when: manala_php_version|string not in manala_php_versions.keys()
+  always_run: true
+
+- name: requirements > Version release
+  fail:
+     msg: Your "manala_php_version" is not compatible with your release
+  when: manala_php_versions[manala_php_version|string].release != ansible_distribution_release
+  always_run: true

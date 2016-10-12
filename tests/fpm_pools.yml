@@ -1,0 +1,165 @@
+---
+
+- name: Fpm - Pools - Wheezy - 5.4
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_fpm_pools_exclusive: true
+    manala_php_fpm_pools:
+      - file:     www.conf
+        template: fpm_pools/default.j2
+        config:
+          - www:
+            - pm.max_children: 12
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php5-fpm
+    - copy:
+        dest:    /etc/php5/fpm/pool.d/foo.conf
+        content: |
+          ; Foo
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/php5/fpm/pool.d/www.conf:
+              exists:   true
+              filetype: file
+              contains:
+                - "pm.max_children = 12"
+                - "listen = /var/run/php5-fpm.sock"
+            /etc/php5/fpm/pool.d/bar.conf:
+              exists: false
+
+- name: Fpm - Pools - Wheezy - 5.5
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_fpm_pools_exclusive: true
+    manala_php_fpm_pools:
+      - file:     www.conf
+        template: fpm_pools/default.j2
+        config:
+          - www:
+            - pm.max_children: 12
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_55.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php5-fpm
+    - copy:
+        dest:    /etc/php5/fpm/pool.d/foo.conf
+        content: |
+          ; Foo
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/php5/fpm/pool.d/www.conf:
+              exists:   true
+              filetype: file
+              contains:
+                - "pm.max_children = 12"
+                - "listen = /var/run/php5-fpm.sock"
+            /etc/php5/fpm/pool.d/bar.conf:
+              exists: false
+
+- name: Fpm - Pools - Wheezy - 5.6
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_fpm_pools_exclusive: true
+    manala_php_fpm_pools:
+      - file:     www.conf
+        template: fpm_pools/default.j2
+        config:
+          - www:
+            - pm.max_children: 12
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php5-fpm
+    - copy:
+        dest:    /etc/php5/fpm/pool.d/foo.conf
+        content: |
+          ; Foo
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/php5/fpm/pool.d/www.conf:
+              exists:   true
+              filetype: file
+              contains:
+                - "pm.max_children = 12"
+                - "listen = /var/run/php5-fpm.sock"
+            /etc/php5/fpm/pool.d/bar.conf:
+              exists: false
+
+- name: Fpm - Pools - Jessie - 7.0
+  hosts: jessie
+  vars:
+    manala_php_version: 7.0
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_fpm_pools_exclusive: true
+    manala_php_fpm_pools:
+      - file:     www.conf
+        template: fpm_pools/default.j2
+        config:
+          - www:
+            - pm.max_children: 12
+  pre_tasks:
+    - include: pre_tasks/dotdeb_jessie.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php7.0-fpm
+    - copy:
+        dest:    /etc/php/7.0/fpm/pool.d/foo.conf
+        content: |
+          ; Foo
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/php/7.0/fpm/pool.d/www.conf:
+              exists:   true
+              filetype: file
+              contains:
+                - "pm.max_children = 12"
+                - "listen = /run/php/php7.0-fpm.sock"
+            /etc/php/7.0/fpm/pool.d/bar.conf:
+              exists: false

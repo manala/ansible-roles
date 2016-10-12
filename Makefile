@@ -16,6 +16,7 @@ DOCKER = docker run \
     --volume `pwd`:/srv \
     --workdir /srv \
     --tty \
+    --cap-add SYS_PTRACE \
     ${DOCKER_OPTIONS} \
     manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
     ${DOCKER_COMMAND}
@@ -70,7 +71,7 @@ lint@jessie:
 	$(DOCKER)
 
 lint:
-	ansible-lint -v .
+	ansible-lint -v -x deprecated .
 
 ########
 # Test #
@@ -88,12 +89,40 @@ test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-test: test-requirements test-blackfire
+test: test-install test-install-exclusive test-extensions test-configs-global test-configs test-fpm-pools test-blackfire test-services test-applications
 
-test-requirements:
-	ansible-playbook tests/requirements.yml --syntax-check
-	ansible-playbook tests/requirements.yml
+test-install:
+	ansible-playbook tests/install.yml --syntax-check
+	ansible-playbook tests/install.yml
+
+test-install-exclusive:
+	ansible-playbook tests/install_exclusive.yml --syntax-check
+	ansible-playbook tests/install_exclusive.yml
+
+test-extensions:
+	ansible-playbook tests/extensions.yml --syntax-check
+	ansible-playbook tests/extensions.yml
+
+test-configs-global:
+	ansible-playbook tests/configs_global.yml --syntax-check
+	ansible-playbook tests/configs_global.yml
+
+test-configs:
+	ansible-playbook tests/configs.yml --syntax-check
+	ansible-playbook tests/configs.yml
+
+test-fpm-pools:
+	ansible-playbook tests/fpm_pools.yml --syntax-check
+	ansible-playbook tests/fpm_pools.yml
 
 test-blackfire:
 	ansible-playbook tests/blackfire.yml --syntax-check
 	ansible-playbook tests/blackfire.yml
+
+test-services:
+	ansible-playbook tests/services.yml --syntax-check
+	ansible-playbook tests/services.yml
+
+test-applications:
+	ansible-playbook tests/applications.yml --syntax-check
+	ansible-playbook tests/applications.yml

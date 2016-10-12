@@ -1,0 +1,97 @@
+---
+
+- name: Services - Wheezy - 5.4
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+      - sapi:  cgi
+        state: absent
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - mbstring
+      - xml
+      - zip
+      - intl
+      - extension: curl
+        state:     present
+      - extension: tidy
+        state:     absent
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - service:
+            php5-fpm:
+              enabled: true
+              running: true
+
+- name: Services - Wheezy - 5.5
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_55.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - service:
+            php5-fpm:
+              enabled: true
+              running: true
+
+- name: Services - Wheezy - 5.6
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_56.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - service:
+            php5-fpm:
+              enabled: true
+              running: true
+
+- name: Services - Jessie - 7.0
+  hosts: jessie
+  vars:
+    manala_php_version: 7.0
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+  pre_tasks:
+    - include: pre_tasks/dotdeb_jessie.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - service:
+            php7.0-fpm:
+              enabled: true
+              running: true

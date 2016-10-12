@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_php_blackfire_agent -%}
+{% set config = manala_php_blackfire_agent_config -%}
 
 [blackfire]
 ;
@@ -66,4 +66,3 @@
 ; desc   : Sets the path to the json specifications file
 ; default:
 {{ macros.config_row(config, 'spec') }}
-

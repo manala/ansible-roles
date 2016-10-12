@@ -13,26 +13,19 @@
   notify:
     - php fpm restart
 
-- name: blackfire > Fix PHP 7.0 enable extension
-  command: phpenmod -v 7.0 -s fpm blackfire/90
-  when: "{{ manala_php_version == '7.0' }}"
-  changed_when: false
-  notify:
-    - php fpm restart
-
 - name: blackfire > Configure agent
   template:
-    src:  "{{ manala_php_blackfire_agent_template|ternary(manala_php_blackfire_agent_template, 'blackfire/agent.j2') }}"
-    dest: "{{ manala_php_blackfire_agent_file }}"
-  when: (manala_php_blackfire_agent_template is not none) or (manala_php_blackfire_agent|length)
+    src:  "{{ manala_php_blackfire_agent_config_template|ternary(manala_php_blackfire_agent_config_template, 'blackfire/agent/default.j2') }}"
+    dest: "{{ manala_php_blackfire_agent_config_file }}"
+  when: (manala_php_blackfire_agent_config_template is not none) or (manala_php_blackfire_agent_config|length)
   notify:
-    - blackfire-agent restart
+    - php blackfire agent restart
 
 - name: blackfire > Configure client
   template:
-    src:  "{{ manala_php_blackfire_client_template|ternary(manala_php_blackfire_client_template, 'blackfire/client.j2') }}"
-    dest: "{{ manala_php_blackfire_client_file }}"
-  when: (manala_php_blackfire_client_template is not none) or (manala_php_blackfire_client|length)
+    src:  "{{ manala_php_blackfire_client_config_template|ternary(manala_php_blackfire_client_config_template, 'blackfire/client/default.j2') }}"
+    dest: "{{ manala_php_blackfire_client_config_file }}"
+  when: (manala_php_blackfire_client_config_template is not none) or (manala_php_blackfire_client_config|length)
 
 - name: blackfire > Services
   service:

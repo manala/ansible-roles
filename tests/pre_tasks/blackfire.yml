@@ -1,0 +1,17 @@
+---
+
+- name: Pre tasks > Clean blackfire packages
+  apt:
+    package: blackfire*
+    state:   absent
+    purge:   true
+  ignore_errors: true
+
+- name: Pre tasks > Packagecloud apt key
+  apt_key:
+    url: https://packagecloud.io/gpg.key
+    id:  D59097AB
+
+- name: Pre tasks > Blackfire apt repository
+  apt_repository:
+    repo: deb http://packages.blackfire.io/debian any main
