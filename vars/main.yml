@@ -2,8 +2,10 @@
 
 # Versions
 manala_php_versions:
-  '5': ~
-  '7.0': ~
+  '5':
+    release: wheezy
+  '7.0':
+    release: jessie
 
 # Extensions
 manala_php_extensions_exclude: "{{ (['common', 'cli', 'fpm'] + ('cli' in manala_php_sapis)|ternary(manala_php_extensions_exclude_cli, []) + ('fpm' in manala_php_sapis)|ternary(manala_php_extensions_exclude_fpm, []))|map('regex_replace','^(.*)$','php' ~ manala_php_version|string ~ '-\\1')|list }}"

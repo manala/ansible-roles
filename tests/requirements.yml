@@ -10,9 +10,9 @@
   tasks:
     - assert:
         that:
-          - not __manala_php_requirements.failed|default(false)
+          - not __manala_php_requirements_result.failed|default(false)
 
-# Requirements - Failed
+# Requirements - No version
 - hosts: localhost
   roles:
     - role: manala.php
@@ -20,4 +20,16 @@
   tasks:
     - assert:
         that:
-          - __manala_php_requirements.failed|default(false)
+          - __manala_php_requirements_result.failed|default(false)
+
+# Requirements - Invalid version
+- hosts: localhost
+  vars:
+    manala_php_version: "{{ {'wheezy': '7.0', 'jessie': '5'}[ansible_distribution_release] }}"
+  roles:
+    - role: manala.php
+      ignore_errors: true
+  tasks:
+    - assert:
+        that:
+          - __manala_php_requirements_result.failed|default(false)
