@@ -1,6 +1,6 @@
 manala_php_xdebug () {
 	if [[ $1 == on ]]; then 
-		if hash php5enmod 2>/dev/null; then
+		if [ -f /usr/sbin/php5enmod ]; then
 			sudo php5enmod xdebug;
 			sudo service php5-fpm restart;
 		else
@@ -8,7 +8,7 @@ manala_php_xdebug () {
 			sudo service php7.0-fpm restart;
 		fi
 	elif [[ $1 == off ]]; then
-		if hash php5dismod 2>/dev/null; then
+		if [ -f /usr/sbin/php5dismod ]; then
 			sudo php5dismod xdebug;
 			sudo service php5-fpm restart;
 		else
@@ -17,13 +17,13 @@ manala_php_xdebug () {
 		fi
     else
         if [[ $(/usr/bin/php -v 2>/dev/null) != *Xdebug* ]]; then
-            echo disabled
+            echo off
         else
-            echo enabled
+            echo onn
         fi
     fi
 }
 
 echo -e " \e[36m‣\e[0m \e[36mENABLE/DISABLE PHP XDEBUG\e[0m
-	manala_php_xdebug status|on|off
+	manala_php_xdebug on|off
 "
