@@ -301,6 +301,7 @@ manala_skeleton_patterns:
     # Apt
     apt_packages:
       - rsync
+      - curl
       - htop
       - less
     # Supervisor
