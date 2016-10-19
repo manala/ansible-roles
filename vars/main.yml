@@ -149,13 +149,13 @@ manala_apt_keys_patterns:
     url: http://deb.bearstech.com/bearstech-archive.gpg
     id:  90158EE0
   nodesource:
-    keyserver: keyserver.ubuntu.com
+    keyserver: hkp://keyserver.ubuntu.com:80
     id:        68576280
   mysql:
     keyserver: pgp.mit.edu
     id:        5072E1F5
   mariadb:
-    keyserver: keyserver.ubuntu.com
+    keyserver: hkp://keyserver.ubuntu.com:80
     id:        1BB943DB
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -187,7 +187,7 @@ manala_apt_keys_patterns:
     keyserver: pgp.mit.edu
     id:        C43C79AD
   galera:
-    keyserver: keyserver.ubuntu.com
+    keyserver: hkp://keyserver.ubuntu.com:80
     id:        BC19DDBA
   packagecloud:
     url: https://packagecloud.io/gpg.key
