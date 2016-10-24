@@ -29,7 +29,9 @@
 # Writable - Dirs
 - block:
   - include: writable/dirs.yml
-    with_manala_deploy_writable_dirs: "{{ manala_deploy_writable_dirs }}"
+    with_manala_deploy_writable_dirs:
+      - "{{ manala_deploy_writable_dirs }}"
+      - "{{ manala_deploy_writable_dirs_default }}"
   tags:
     - manala_deploy
 

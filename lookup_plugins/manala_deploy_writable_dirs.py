@@ -10,33 +10,32 @@ class LookupModule(LookupBase):
 
         results = []
 
-        itemDefault = {
-            'mode': variables['manala_deploy_writable_dirs_mode']
-        }
+        dirs    = self._flatten(terms[0])
+        default = terms[1]
 
-        for term in self._flatten(terms):
+        for dir in dirs:
 
             items = []
 
             # Dir as a single line
-            if isinstance(term, basestring):
-                item = itemDefault.copy()
+            if isinstance(dir, basestring):
+                item = default.copy()
                 item.update({
-                    'dir': term
+                    'dir': dir
                 })
                 items.append(item)
             else:
 
                 # Must be a dict
-                if not isinstance(term, dict):
+                if not isinstance(dir, dict):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not term.has_key('dir'):
+                if not dir.has_key('dir'):
                     raise AnsibleError('Expect "dir" key')
 
-                item = itemDefault.copy()
-                item.update(term)
+                item = default.copy()
+                item.update(dir)
                 items.append(item)
 
             # Merge by index key
