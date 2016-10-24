@@ -27,7 +27,10 @@ manala_deploy_copied: []
 manala_deploy_removed: []
 
 # Writable
-manala_deploy_writable_dirs_mode: ug=rwx,o=rx
+manala_deploy_writable_dirs_default: # Ensure backward compatibility
+  mode:    "{{ manala_deploy_writable_dirs_mode|default('ug=rwx,o=rx') }}"
+  follow:  true
+  recurse: true
 manala_deploy_writable_dirs: []
 
 # Tasks
