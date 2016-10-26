@@ -82,7 +82,7 @@
               },
               {
                 'pattern': 'proxmox_enterprise',
-                'source': 'deb https://enterprise.proxmox.com/debian jessie pve-enterprise',
+                'source': 'deb https://enterprise.proxmox.com/debian ' ~ ansible_distribution_release ~ ' pve-enterprise',
                 'state': 'absent'
               }
             ]

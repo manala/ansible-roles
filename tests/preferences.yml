@@ -34,7 +34,7 @@
               },
               {
                 'file': 'foo',
-                'package': '*',
+                'package': 'foo',
                 'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
                 'priority': 900
               },
