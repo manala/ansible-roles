@@ -304,6 +304,7 @@ manala_skeleton_patterns:
       - curl
       - htop
       - less
+      - ssl-cert
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf
