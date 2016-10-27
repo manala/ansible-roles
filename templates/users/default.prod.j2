@@ -2,13 +2,15 @@
 
 {%- set config = item.config|default([]) -%}
 
+# If you come from bash you might have to change your $PATH.
+{{ macros.config_row(config, 'export PATH', '# export PATH=$HOME/bin:/usr/local/bin:$PATH', true) }}
+
 # Path to your oh-my-zsh installation.
 {{ macros.config_row(config, 'export ZSH', manala_ohmyzsh_dir) }}
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 {{ macros.config_row(config, 'ZSH_THEME', 'default.prod') }}
 
 # Uncomment the following line to use case-sensitive completion.
@@ -55,12 +57,11 @@
 # Add wisely, as too many plugins slow down shell startup.
 {{ macros.config_row(config, 'plugins', '(git debian common-aliases history history-substring-search)') }}
 
+source $ZSH/oh-my-zsh.sh
+
 # User configuration
 
-{{ macros.config_row(config, 'export PATH', '# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"', true) }}
 {{ macros.config_row(config, 'export MANPATH', '# export MANPATH="/usr/local/man:$MANPATH"', true) }}
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 {{ macros.config_row(config, 'export LANG', '# export LANG=en_US.UTF-8', true) }}
