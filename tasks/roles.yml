@@ -1,10 +1,21 @@
 ---
 
-- name: roles > Requirements template
-  template:
-    src:  roles/requirements.j2
+- name: roles > Requirements
+  copy:
     dest: /tmp/manala_ansible_galaxy_roles.yml
-  when: manala_ansible_galaxy_roles|length
+    content: |
+      {% for role in lookup('manala_ansible_galaxy_roles', manala_ansible_galaxy_roles, wantlist=True) %}
+      - src: {{ role.src }}
+      {% if role.scm is defined %}
+        scm: {{ role.scm }}
+      {% endif %}
+      {% if role.version is defined %}
+        version: {{ role.version }}
+      {% endif %}
+      {% if role.name is defined %}
+        name: {{ role.name }}
+      {% endif %}
+      {% endfor %}
 
 - name: roles > Install
   command: >
@@ -12,4 +23,3 @@
     --role-file=/tmp/manala_ansible_galaxy_roles.yml
     {{ manala_ansible_galaxy_roles_path|ternary('--roles-path=' ~ manala_ansible_galaxy_roles_path, '') }}
     {{ manala_ansible_galaxy_force|ternary('--force', '') }}
-  when: manala_ansible_galaxy_roles|length

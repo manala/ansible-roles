@@ -1,6 +1,9 @@
 ---
 
+# Roles
 - include: roles.yml
+  when: manala_ansible_galaxy_roles|length
   tags:
+    - manala_ansible_galaxy
     - manala_ansible_galaxy.update
     - manala.update
