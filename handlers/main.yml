@@ -1,0 +1,7 @@
+---
+
+- name: logentries restart
+  service:
+    name:  logentries
+    state: restarted
+

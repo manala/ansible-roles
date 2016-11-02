@@ -1,0 +1,17 @@
+---
+
+- name: config > Ensure directory exist
+  file:
+    path: "{{ manala_logentries_config_file|dirname }}"
+    state: directory
+    recurse: yes
+    owner: root
+    group: root
+    mode: 0755
+
+- name: config > Config
+  template:
+    src:  "{{ manala_logentries_config_template }}"
+    dest: "{{ manala_logentries_config_file }}"
+  notify:
+    - logentries restart
