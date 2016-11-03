@@ -2,7 +2,7 @@
 
 - name: config > Template
   template:
-    src:  "{{ elao_grafana_config_template }}"
-    dest: "{{ elao_grafana_config_file }}"
+    src:  "{{ manala_grafana_config_template }}"
+    dest: "{{ manala_grafana_config_file }}"
   notify:
     - grafana restart
