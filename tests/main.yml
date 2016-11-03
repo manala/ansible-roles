@@ -1,0 +1,45 @@
+---
+
+- hosts: localhost
+
+  vars:
+    manala_grafana_config:
+      - server:
+        - http_port: 3002
+
+  pre_tasks:
+    # Configuring the Debian repository
+    - name: test install > Https transport
+      apt: name='apt-transport-https'
+      changed_when: false
+    - name: test install > Register the packagecloud key
+      apt_key: url='https://packagecloud.io/gpg.key' state=present validate_certs=no
+      changed_when: false
+    - name: test install > Add grafana repository
+      apt_repository: "repo='deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main'"
+      changed_when: false
+
+  roles:
+    - manala.grafana
+
+  post_tasks:
+
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss --retry-timeout 10s -g - validate' }}"
+      with_items:
+        - package:
+            grafana:
+              installed: true
+        - process:
+            grafana-server:
+              running: true
+        - file:
+            /etc/grafana/grafana.ini:
+              exists: true
+              contains:
+                - http_port = 3002
+        - port:
+            tcp6:3002:
+              listening: true
+              ip:
+                - '::'
