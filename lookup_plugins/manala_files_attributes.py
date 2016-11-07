@@ -38,6 +38,14 @@ class LookupModule(LookupBase):
                     'task': 'link_directory'
                 })
                 items.append(item)
+            # State - Link File
+            elif attribute.has_key('state') and (attribute['state'] == 'link_file'):
+                item = self._default(defaults, attribute['path'])
+                item.update(attribute)
+                item.update({
+                    'task': 'link_file'
+                })
+                items.append(item)
             else:
                 # Template
                 if attribute.has_key('template'):
