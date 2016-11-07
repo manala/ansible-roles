@@ -1,6 +1,6 @@
 ---
 
-- name: attributes > Link directory - Directory "{{ item.src }}"
+- name: attributes > Link directory - Src directoy "{{ item.src }}"
   file:
     path:    "{{ item.src }}"
     follow:  "{{ item.follow|default(omit) }}"
@@ -11,7 +11,7 @@
     mode:    "{{ item.mode|default(omit) }}"
     state:   directory
 
-- name: attributes > Link directory - Link "{{ item.path }}"
+- name: attributes > Link directory - Path link "{{ item.path }}"
   file:
     path:    "{{ item.path }}"
     follow:  "{{ item.follow|default(omit) }}"
