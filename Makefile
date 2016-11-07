@@ -90,7 +90,7 @@ test@jessie:
 
 test: test-attributes
 
-test-attributes: test-attributes-template test-attributes-content test-attributes-copy test-attributes-url test-attributes-file test-attributes-directory test-attributes-link test-attributes-override test-attributes-link-directory test-attributes-defaults
+test-attributes: test-attributes-template test-attributes-content test-attributes-copy test-attributes-url test-attributes-file test-attributes-directory test-attributes-file test-attributes-link test-attributes-override test-attributes-link-directory test-attributes-defaults
 
 test-attributes-template:
 	ansible-playbook tests/attributes_template.yml --syntax-check
@@ -127,6 +127,10 @@ test-attributes-override:
 test-attributes-link-directory:
 	ansible-playbook tests/attributes_link_directory.yml --syntax-check
 	ansible-playbook tests/attributes_link_directory.yml
+
+test-attributes-link-file:
+	ansible-playbook tests/attributes_link_file.yml --syntax-check
+	ansible-playbook tests/attributes_link_file.yml
 
 test-attributes-defaults:
 	ansible-playbook tests/attributes_defaults.yml --syntax-check
