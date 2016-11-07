@@ -4,7 +4,7 @@
   file:
     path:    "{{ item.src }}"
     follow:  "{{ item.follow|default(omit) }}"
-    recurse: "{{ item.recurse|default(true) }}"
+    recurse: "{{ item.recurse|default(omit) }}"
     force:   "{{ item.force|default(omit) }}"
     owner:   "{{ item.user|default(omit) }}"
     group:   "{{ item.group|default(omit) }}"
@@ -15,8 +15,10 @@
   file:
     path:    "{{ item.path }}"
     follow:  "{{ item.follow|default(omit) }}"
-    recurse: "{{ item.recurse|default((item.state == 'directory')|ternary(true, omit)) }}"
+    recurse: "{{ item.recurse|default(omit) }}"
     src:     "{{ item.src|default(omit) }}"
-    force:   true
+    force:   "{{ item.mode|default(omit) }}"
+    owner:   "{{ item.user|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
     mode:    "{{ item.mode|default(omit) }}"
     state:   link
