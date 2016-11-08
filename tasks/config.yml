@@ -1,0 +1,8 @@
+---
+
+- name: config > Jail
+  template:
+    src: "{{ manala_fail2ban_template|default('jail.j2') }}"
+    dest: "{{ manala_fail2ban_file|default('/etc/fail2ban/jail.conf') }}"
+  notify: 
+    - fail2ban restart

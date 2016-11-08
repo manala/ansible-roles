@@ -4,3 +4,6 @@
 - include: install.yml
   tags:
     - manala_fail2ban
+- include: config.yml
+  tags:
+    - manala_fail2ban

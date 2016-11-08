@@ -34,7 +34,15 @@ None
 
 ## Role Variables
 
-None
+```yaml
+manala_fail2ban_default:
+  bantime: 86400
+  findtime: 3600
+  maxretry: 3
+  ignoreip:
+    - "127.0.0.1/8"
+    - "12.123.234.21"
+```
 
 ## Example playbook
 
