@@ -1,3 +1,7 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- set config = manala_fail2ban_default|default([]) -%}
+
 # Fail2Ban configuration file.
 #
 # This file was composed for Debian systems from the original one
@@ -18,7 +22,7 @@
 # "ignoreip" can be an IP address, a CIDR mask or a DNS host. Fail2ban will not
 # ban a host which matches an address in this list. Several addresses can be
 # defined using space separator.
-ignoreip = {{ manala_fail2ban_default.ignoreip|default(['127.0.0.1/8']) | join(' ') }}
+{{ macros.config_row(config, "ignoreip", ['127.0.0.1/8']) }}
 
 # External command that will take an tagged arguments to ignore, e.g. <ip>,
 # and return true if the IP is to be ignored. False otherwise.
@@ -27,12 +31,12 @@ ignoreip = {{ manala_fail2ban_default.ignoreip|default(['127.0.0.1/8']) | join('
 ignorecommand =
 
 # "bantime" is the number of seconds that a host is banned.
-bantime  = {{ manala_fail2ban_default.bantime|default(600) }}
+{{ macros.config_row(config, "bantime", 600) }}
 
 # A host is banned if it has generated "maxretry" during the last "findtime"
 # seconds.
-findtime = {{ manala_fail2ban_default.findtime|default(600) }}
-maxretry = {{ manala_fail2ban_default.maxretry|default(3) }}
+{{ macros.config_row(config, "findtime", 600) }}
+{{ macros.config_row(config, "maxretry", 3) }}
 
 # "backend" specifies the backend used to get files modification.
 # Available options are "pyinotify", "gamin", "polling" and "auto".
