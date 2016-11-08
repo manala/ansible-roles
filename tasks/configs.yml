@@ -1,0 +1,26 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template|default(manala_varnish_configs_template|ternary(manala_varnish_configs_template, 'configs/default.j2') )}}"
+    dest: "{{ manala_varnish_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_varnish_configs }}"
+  notify:
+    - varnish restart
+
+- name: configs > Exclusive - find files
+  command: "find -type f  \\( ! -iname 'secret' \\) -printf '%P\n'"
+  args:
+    chdir: "{{ manala_varnish_configs_dir }}"
+  changed_when: false
+  register: __manala_varnish_configs_find_output
+  when: manala_varnish_configs_exclusive
+
+- name: configs > Exclusive - remove files
+  file:
+    path:  "{{ manala_varnish_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_varnish_configs_exclusive and (item not in manala_varnish_configs|map(attribute='file'))
+  with_items: "{{ __manala_varnish_configs_find_output.stdout_lines|default([]) }}"
+  notify:
+    - varnish restart

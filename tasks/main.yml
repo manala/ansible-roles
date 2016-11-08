@@ -1,0 +1,28 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_varnish
+
+# Config
+- include: config.yml
+  tags:
+    - manala_varnish
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_varnish
+
+# SystemD
+- include: systemd.yml
+  when: ansible_distribution == 'Debian' and ansible_distribution_version > '7'
+  tags:
+    - manala_varnish
+
+# Services
+- include: services.yml
+  tags:
+    - manala_varnish
+    - manala.services
