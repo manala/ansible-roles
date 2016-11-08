@@ -1,9 +1,0 @@
-{%- macro config_row(parameters, key, default, placeholder = false) -%}
-    {% set value = parameters[key]|default(default) %}
-
-    {%- if value is sequence and value is not string -%}
-        {{ key }} = {{ value|join(' ') }}
-    {%- else -%}
-        {{ key }} = {{ value }}
-    {%- endif -%}
-{%- endmacro -%}
