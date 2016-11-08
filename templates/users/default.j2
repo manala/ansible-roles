@@ -8,6 +8,13 @@
 # Path to your oh-my-zsh installation.
 {{ macros.config_row(config, 'export ZSH', manala_ohmyzsh_dir) }}
 
+# Ensure per-user cache
+{{ macros.config_row(config, 'ZSH_CACHE_DIR', '$HOME/.oh-my-zsh/cache') }}
+
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir -p $ZSH_CACHE_DIR
+fi
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -86,7 +93,9 @@ source $ZSH/oh-my-zsh.sh
 {{ macros.config_row(config, 'alias', '#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"', true) }}
 
 {{ macros.config(config, [
+    'export PATH',
     'export ZSH',
+    'ZSH_CACHE_DIR',
     'ZSH_THEME',
     'CASE_SENSITIVE',
     'HYPHEN_INSENSITIVE',
@@ -100,7 +109,6 @@ source $ZSH/oh-my-zsh.sh
     'HIST_STAMPS',
     'ZSH_CUSTOM',
     'plugins',
-    'export PATH',
     'export MANPATH',
     'export LANG',
     'export ARCHFLAGS',
