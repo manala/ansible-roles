@@ -82,8 +82,9 @@ Setup remote backup (i.e. ftp)
 
 Setup incremental archives where BM_ARCHIVE_METHOD = tarball-incremental
 
-| BM_TARBALLINC_MASTERDATETYPE      | weekly, monthy           | string | Complete backup frequency             |
+| Name                              | Value                    | Type   | Description                           |
 | --------------------------------- | ------------------------ | ------ | ------------------------------------- |
+| BM_TARBALLINC_MASTERDATETYPE      | weekly, monthy           | string | Complete backup frequency             |
 | BM_TARBALLINC_MASTERDATEVALUE     | 3                        | int    | Complete backup day                   |
 | BM_TARBALL_FILETYPE               | tar.gz                   | string | Tarball file type                     |
 
