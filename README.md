@@ -1,4 +1,4 @@
-# Ansible Role: Fail2Ban
+# Ansible Role: Fail2Ban [![Build Status](https://travis-ci.org/manala/ansible-role-fail2ban.svg?branch=master)](https://travis-ci.org/manala/ansible-role-fail2ban)
 
 This role will deal with the setup and config of fail2ban
 
