@@ -1,6 +1,6 @@
 # Ansible Role: Fail2Ban
 
-This role will assume the setup of fail2ban
+This role will deal with the setup and config of fail2ban
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
@@ -30,11 +30,26 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-None
+| Name               | Type    | Description             |
+| ------------------ | ------- | ----------------------- |
+| `fail2ban restart` | Service | Restart fail2ban server |
 
 ## Role Variables
 
-None
+| Name                              | Default         | Type    | Description          |
+| --------------------------------- | --------------- | ------- | ---------------------|
+| `manala_fail2ban_config_template` | config/empty.j2 | String  | Main config template |
+| `manala_fail2ban_config`          | []              | Array   | Main config          |
+
+### Configuration
+
+```yaml
+manala_fail2ban_config:
+  - DEFAULT:
+    - maxretry: 5
+  - apache:
+    - enabled: true
+```
 
 ## Example playbook
 
