@@ -12,3 +12,6 @@ script:
   - make test@wheezy
   - make lint@jessie
   - make test@jessie
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
