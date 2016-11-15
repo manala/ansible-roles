@@ -244,3 +244,4 @@ manala_apt_preferences_patterns:
   oauth2-proxy:       oauth2-proxy*
   cloud:              cloud-init cloud-utils
   mariadb:            mariadb* libmariadb*
+  influxdb:           influxdb*
