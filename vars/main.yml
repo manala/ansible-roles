@@ -248,3 +248,4 @@ manala_apt_preferences_patterns:
   cloud:              cloud-init cloud-utils
   mariadb:            mariadb* libmariadb*
   influxdb:           influxdb*
+  telegraf:           telegraf*
