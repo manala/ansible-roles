@@ -1,4 +1,4 @@
-# Ansible Role: Php
+# Ansible Role: Php [![Build Status](https://travis-ci.org/manala/ansible-role-php.svg?branch=master)](https://travis-ci.org/manala/ansible-role-php)
 
 This role will deal with the setup and config of PHP.
 
