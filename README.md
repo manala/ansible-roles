@@ -1,4 +1,4 @@
-# Ansible Role: Files
+# Ansible Role: Files [![Build Status](https://travis-ci.org/manala/ansible-role-files.svg?branch=master)](https://travis-ci.org/manala/ansible-role-files)
 
 This role will deal with the configuration of files.
 
