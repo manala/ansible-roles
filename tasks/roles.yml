@@ -20,8 +20,8 @@
 
 - name: roles > Install
   command: >
-    ansible-galaxy install
+    {{ manala_ansible_galaxy_bin|ternary(manala_ansible_galaxy_bin, 'ansible-galaxy') }} install
     --role-file=/tmp/manala_ansible_galaxy_roles.yml
-    {{ manala_ansible_galaxy_roles_path|ternary('--roles-path=' ~ manala_ansible_galaxy_roles_path, '') }}
+    --roles-path={{ manala_ansible_galaxy_roles_path|ternary(manala_ansible_galaxy_roles_path, '/etc/ansible/roles') }}
     {{ manala_ansible_galaxy_force|ternary('--force', '') }}
   when: manala_ansible_galaxy_roles|length

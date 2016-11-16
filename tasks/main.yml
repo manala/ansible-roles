@@ -1,5 +1,10 @@
 ---
 
+# Alternatives
+- include: alternatives.yml
+  tags:
+    - manala_ansible_galaxy
+
 # Roles
 - include: roles.yml
   tags:
