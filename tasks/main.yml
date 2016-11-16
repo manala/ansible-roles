@@ -8,7 +8,7 @@
       - manala_php_versions[manala_php_version].release == ansible_distribution_release
     msg: |
       You must set "manala_php_version" to either {{ manala_php_versions.keys()|join(', ') }}
-      depending on the following releases {{ manala_php_versions.keys()|map('extract', manala_php_versions, 'release')|join(', ') }} 
+      depending on the following releases {{ manala_php_versions.keys()|map('extract', manala_php_versions, 'release')|join(', ') }}
   always_run: true
   register: __manala_php_requirements_result
   tags:
