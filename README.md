@@ -1,4 +1,4 @@
-# Ansible Role: Ansible Galaxy
+# Ansible Role: Ansible Galaxy [![Build Status](https://travis-ci.org/manala/ansible-role-ansible-galaxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ansible-galaxy)
 
 This role will deal with the setup of __Ansible Galaxy__.
 
