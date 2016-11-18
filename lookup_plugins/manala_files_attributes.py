@@ -32,10 +32,24 @@ class LookupModule(LookupBase):
 
             # State - Link Directory
             if attribute.has_key('state') and (attribute['state'] == 'link_directory'):
-                item = self._default(defaults, attribute['path'])
+                if not attribute.has_key('src'):
+                    raise AnsibleError('Expect "src" key')
+                # Directory (src)
+                item = self._default(defaults, attribute['src'])
                 item.update(attribute)
                 item.update({
-                    'task': 'link_directory'
+                    'path':  attribute['src'],
+                    'state': 'directory',
+                    'task':  'file'
+                })
+                items.append(item)
+                # Link (path)
+                item = self._default(defaults, attribute['path'])
+                item.update({
+                    'path':  attribute['path'],
+                    'src':   attribute['src'],
+                    'state': 'link',
+                    'task':  'file'
                 })
                 items.append(item)
             # State - Link File
