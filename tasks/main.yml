@@ -43,8 +43,13 @@
     - manala_deploy
     - manala_deploy.tasks
 
-# Current
-- include: current.yml
+# Finalize
+- include: finalize.yml
+  tags:
+    - manala_deploy
+
+# Clean
+- include: clean.yml
   tags:
     - manala_deploy
 
