@@ -10,4 +10,4 @@
 
 - name: writable/dirs > Raw "{{ item.dir }}"
   raw: "{{ item.raw|format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
-  when: item.raw
+  when: item.raw is defined
