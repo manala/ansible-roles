@@ -79,7 +79,7 @@
 ### about the InfluxDB cluster.
 ###
 
-{% if not config_meta|length %}# {% endif %}[meta]
+[meta]
   # Where the metadata/raft database is stored
   {{ macros.config_row(config_meta, 'dir', '/var/lib/influxdb/meta') }}
 
@@ -98,7 +98,7 @@
 ### defaults should work for most systems.
 ###
 
-{% if not config_data|length %}# {% endif %}[data]
+[data]
   # The directory where the TSM storage engine stores TSM files.
   {{ macros.config_row(config_data, 'dir', '/var/lib/influxdb/data') }}
 
