@@ -11,6 +11,11 @@
   tags:
     - manala_deploy
 
+# Unfinished
+- include: unfinished.yml
+  tags:
+    - manala_deploy
+
 # Shared
 - include: shared.yml
   tags:
