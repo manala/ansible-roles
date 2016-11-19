@@ -1,6 +1,7 @@
 ---
 
-- hosts: localhost
+- name: Roles
+  hosts: all
   gather_facts: false
   pre_tasks:
     - file:
