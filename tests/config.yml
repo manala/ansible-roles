@@ -1,6 +1,7 @@
 ---
 
-- hosts: localhost
+- name: Config
+  hosts: all
   vars:
     manala_fail2ban_config:
       - DEFAULT:
