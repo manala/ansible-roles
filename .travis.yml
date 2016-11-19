@@ -14,4 +14,10 @@ script:
   - make test@jessie
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications/
+      - https://webhooks.gitter.im/e/430e0a92ad6370b7b805
+    on_success: change
+    on_failure: always
+    on_start: never
