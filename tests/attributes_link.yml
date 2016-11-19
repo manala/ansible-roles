@@ -1,7 +1,7 @@
 ---
 
-# Link - To file
-- hosts: localhost
+- name: Attributes - Link - To file
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
@@ -23,8 +23,8 @@
               filetype:  symlink
               linked-to: /srv/tests/temp/file
 
-# Link - To directory
-- hosts: localhost
+- name: Attributes - Link - To directory
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
@@ -46,8 +46,8 @@
               filetype:  symlink
               linked-to: /srv/tests/temp/directory
 
-# Link - To link to file
-- hosts: localhost
+- name: Attributes - Link - To link to file
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
@@ -70,8 +70,8 @@
               filetype:  symlink
               linked-to: /srv/tests/temp/link_file
 
-# Link - To link to directory
-- hosts: localhost
+- name: Attributes - Link - To link to directory
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*

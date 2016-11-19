@@ -1,7 +1,7 @@
 ---
 
-# Directory
-- hosts: localhost
+- name: Attributes - Directory
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
@@ -20,8 +20,8 @@
               exists:  true
               filetype: directory
 
-# Directory - Fail as path already exists as a file
-- hosts: localhost
+- name: Attributes - Directory - Fail as path already exists as a file
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
@@ -42,8 +42,8 @@
               exists:  true
               filetype: file
 
-# Directory - Fail as path already exists as a link to file
-- hosts: localhost
+- name: Attributes - Directory - Fail as path already exists as a link to file
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
@@ -66,8 +66,8 @@
               filetype:  symlink
               linked-to: /srv/tests/temp/file
 
-# Directory - Fail as path already exists as a link to directory
-- hosts: localhost
+- name: Attributes - Directory - Fail as path already exists as a link to directory
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*

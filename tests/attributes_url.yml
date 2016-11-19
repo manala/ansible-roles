@@ -1,7 +1,7 @@
 ---
 
-# Url
-- hosts: localhost
+- name: Attributes - Url
+  hosts: all
   gather_facts: false
   pre_tasks:
     - shell: rm -rf /srv/tests/temp/*
