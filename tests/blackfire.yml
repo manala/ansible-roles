@@ -1,6 +1,7 @@
 ---
 
-- hosts: localhost
+- name: Blackfire
+  hosts: all
 
   vars:
 
