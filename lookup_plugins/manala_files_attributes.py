@@ -39,6 +39,7 @@ class LookupModule(LookupBase):
                 item.update(attribute)
                 item.update({
                     'path':  attribute['src'],
+                    'src': variables['omit'],
                     'state': 'directory',
                     'task':  'file'
                 })
