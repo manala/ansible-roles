@@ -1,4 +1,4 @@
-# Ansible Role: Grafana
+# Ansible Role: Grafana [![Build Status](https://travis-ci.org/manala/ansible-role-grafana.svg?branch=master)](https://travis-ci.org/manala/ansible-role-grafana)
 
 This role will deal with the configuration of __grafana__.
 
