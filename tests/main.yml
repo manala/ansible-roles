@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: jessie
 
   vars:
     manala_grafana_config:
