@@ -1,4 +1,4 @@
-# Ansible Role : InfluxDB
+# Ansible Role : InfluxDB [![Build Status](https://travis-ci.org/manala/ansible-role-influxdb.svg?branch=master)](https://travis-ci.org/manala/ansible-role-influxdb)
 
 This role will assume the setup of influxdb
 
