@@ -8,8 +8,12 @@
         - http_port: 3002
 
   pre_tasks:
+    - name: test install > Disable systemctl to force sysv init script
+      command: mv /bin/systemctl /bin/systemctl.disabled
+      failed_when: false
+      changed_when: false
     # Configuring the Debian repository
-    - name: test install > Https transport
+    - name: test install > HTTPS transport
       apt: name='apt-transport-https'
       changed_when: false
     - name: test install > Register the packagecloud key
@@ -23,9 +27,10 @@
     - manala.grafana
 
   post_tasks:
-
+    - name: Wait grafana installation finish to run migration scripts
+      pause: seconds=15
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss --retry-timeout 10s -g - validate' }}"
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
       with_items:
         - package:
             grafana:
