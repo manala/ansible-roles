@@ -1,4 +1,4 @@
-# Ansible Role: Message Of The Day
+# Ansible Role: Message Of The Day [![Build Status](https://travis-ci.org/manala/ansible-role-motd.svg?branch=master)](https://travis-ci.org/manala/ansible-role-motd)
 
 This role is far simple, functionally useless and because of this, essential. It will setup your Message Of The Day on your linux boxes.
 
