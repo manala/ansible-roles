@@ -12,3 +12,13 @@
   tags:
     - manala_grafana
     - manala.services
+
+- include: datasources.yml
+  when: manala_grafana_datasources|length > 0 or manala_grafana_datasources_exclusive
+  tags:
+    - manala_grafana
+
+- include: dashboards.yml
+  when: manala_grafana_dashboards|length > 0 or manala_grafana_dashboards_exclusive
+  tags:
+    - manala_grafana

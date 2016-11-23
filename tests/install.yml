@@ -1,6 +1,7 @@
 ---
 
 - hosts: jessie
+  gather_facts: true
 
   vars:
     manala_grafana_config:
@@ -13,9 +14,6 @@
       failed_when: false
       changed_when: false
     # Configuring the Debian repository
-    - name: test install > HTTPS transport
-      apt: name='apt-transport-https'
-      changed_when: false
     - name: test install > Register the packagecloud key
       apt_key: url='https://packagecloud.io/gpg.key' state=present validate_certs=no
       changed_when: false
@@ -26,9 +24,11 @@
   roles:
     - manala.grafana
 
-  post_tasks:
+  tasks:
     - name: Wait grafana installation finish to run migration scripts
       pause: seconds=15
+
+  post_tasks:
     - name: Goss
       raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
       with_items:
