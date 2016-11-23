@@ -1,4 +1,4 @@
-# Ansible Role: Nodejs
+# Ansible Role: Nodejs [![Build Status](https://travis-ci.org/manala/ansible-role-nodejs.svg?branch=master)](https://travis-ci.org/manala/ansible-role-nodejs)
 
 This role will deal with the setup of nodejs.
 
