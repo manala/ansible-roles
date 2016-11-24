@@ -11,14 +11,14 @@ ROLE_NAME = manala.ohmyzsh
 
 ## Macros
 DOCKER = docker run \
-	--rm \
-	--volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
-	--volume `pwd`:/srv \
-	--workdir /srv \
-	--tty \
-	--interactive \
-	manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
-	${DOCKER_COMMAND}
+    --rm \
+    --volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
+    --volume `pwd`:/srv \
+    --workdir /srv \
+    --tty \
+    ${DOCKER_OPTIONS} \
+    manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
+    ${DOCKER_COMMAND}
 
 ## Help
 help:
