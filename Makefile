@@ -16,7 +16,7 @@ DOCKER = docker run \
     --volume `pwd`:/srv \
     --cap-add SYS_PTRACE \
     --workdir /srv \
-		--tty \
+    --tty \
     ${DOCKER_OPTIONS} \
     manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
     ${DOCKER_COMMAND}
