@@ -15,7 +15,7 @@ DOCKER = docker run \
     --volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
     --volume `pwd`:/srv \
     --workdir /srv \
-		--tty \
+    --tty \
     ${DOCKER_OPTIONS} \
     manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
     ${DOCKER_COMMAND}
