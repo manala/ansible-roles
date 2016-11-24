@@ -96,5 +96,9 @@ test@jessie:
 test: test-main
 
 test-main:
-	ansible-playbook tests/main.yml --syntax-check
-	ansible-playbook tests/main.yml
+	ansible-playbook tests/install.yml --syntax-check
+	ansible-playbook tests/install.yml
+	ansible-playbook tests/datasources.yml --syntax-check
+	ansible-playbook tests/datasources.yml
+	ansible-playbook tests/dashboards.yml --syntax-check
+	ansible-playbook tests/dashboards.yml

@@ -1,0 +1,38 @@
+---
+
+- hosts: jessie
+  gather_facts: false
+
+  vars:
+    manala_grafana_config:
+      - server:
+        - http_port: 3002
+
+    manala_grafana_api_url: http://127.0.0.1:3002
+    manala_grafana_api_user: admin
+    manala_grafana_api_password: admin
+
+    manala_grafana_datasources_exclusive: true
+    manala_grafana_datasources:
+      - name:      datasource_test
+        type:      influxdb
+        isDefault: true
+        access:    proxy
+        basicAuth: false
+        url:       http://localhost:8086
+        database:  telegraf
+        username:  ''
+        password:  ''
+
+  roles:
+    - manala.grafana
+
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - http:
+            http://admin:admin@127.0.0.1:3002/api/datasources:
+              status: 200
+              timeout: 1000
+              body: ["datasource_test"]

@@ -35,11 +35,18 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                           | Default                  | Type   | Description |
-| ------------------------------ | ------------------------ | ------ | ----------- |
-| manala_grafana_config_file     | /etc/grafana/grafana.ini | string |             |
-| manala_grafana_config_template | config/base.ini.j2       | string |             |
-| manala_grafana_config          | []                       | Array  |             |
+| Name                                 | Default                  | Type   | Description |
+| ------------------------------------ | ------------------------ | ------ | ----------- |
+| manala_grafana_config_file           | /etc/grafana/grafana.ini | string |             |
+| manala_grafana_config_template       | config/base.ini.j2       | string |             |
+| manala_grafana_config                | []                       | Array  |             |
+| manala_grafana_api_url               | http://127.0.0.1:3000    | string |             |
+| manala_grafana_api_user              | admin                    | string |             |
+| manala_grafana_api_password          | admin                    | string |             |
+| manala_grafana_datasources_exclusive | false                    | bool   | Remove old datasources |
+| manala_grafana_datasources           | []                       | Array  |             |
+| manala_grafana_dashboards_exclusive  | false                    | bool   | Remove old dashboards |
+| manala_grafana_dashboards            | []                       | Array  |             |
 
 ### Configuration example
 
@@ -53,6 +60,32 @@ manala_grafana_config:
   - security:
     - admin_user: admin
     - admin_password: admin
+
+manala_grafana_api_url: http://127.0.0.1:3000
+manala_grafana_api_user: admin
+manala_grafana_api_password: admin
+
+manala_grafana_datasources_exclusive: true
+manala_grafana_datasources:
+  - name:      telegraf
+    type:      influxdb
+    isDefault: true
+    access:    proxy
+    basicAuth: false
+    url:       http://localhost:8086
+    database:  telegraf
+    username:  ''
+    password:  ''
+
+manala_grafana_dashboards_exclusive: true
+manala_grafana_dashboards:
+    - template: "{{ playbook_dir }}/templates/grafana/dashboards/system.json"
+      inputs:
+        - name:     "DS_TELEGRAF"
+          pluginId: "influxdb"
+          type:     "datasource"
+          value:    "telegraf"
+      overwrite: true
 ```
 
 ## Example playbook
