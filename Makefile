@@ -42,7 +42,7 @@ help:
 
 ## Run dev container on debian wheezy
 dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
-dev@wheezy: DOCKER_OPTIONS      = --interactive
+dev@wheezy: DOCKER_OPTIONS      = --interactive --publish 3002:3002
 dev@wheezy: DOCKER_COMMAND      = /bin/bash
 dev@wheezy:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
@@ -50,7 +50,7 @@ dev@wheezy:
 
 ## Run dev container on debian jesssie
 dev@jessie: DEBIAN_DISTRIBUTION = jessie
-dev@jessie: DOCKER_OPTIONS      = --interactive
+dev@jessie: DOCKER_OPTIONS      = --interactive --publish 3002:3002
 dev@jessie: DOCKER_COMMAND      = /bin/bash
 dev@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
@@ -82,6 +82,7 @@ lint:
 ## Run tests on debian wheezy
 test@wheezy: DEBIAN_DISTRIBUTION = wheezy
 test@wheezy: DOCKER_COMMAND      = sh -c 'make test'
+test@wheezy: DOCKER_OPTIONS      = --publish 3002:3002
 test@wheezy:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
@@ -89,16 +90,21 @@ test@wheezy:
 ## Run tests on debian jessie
 test@jessie: DEBIAN_DISTRIBUTION = jessie
 test@jessie: DOCKER_COMMAND      = sh -c 'make test'
+test@wheezy: DOCKER_OPTIONS      = --publish 3002:3002
 test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-test: test-main
+test: test-install test-datasources test-dashboards
 
-test-main:
+test-install:
 	ansible-playbook tests/install.yml --syntax-check
 	ansible-playbook tests/install.yml
+
+test-datasources:
 	ansible-playbook tests/datasources.yml --syntax-check
 	ansible-playbook tests/datasources.yml
+
+test-dashboards:
 	ansible-playbook tests/dashboards.yml --syntax-check
 	ansible-playbook tests/dashboards.yml
