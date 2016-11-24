@@ -14,7 +14,6 @@ DOCKER = docker run \
     --rm \
     --volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
     --volume `pwd`:/srv \
-    --cap-add SYS_PTRACE \
     --workdir /srv \
     --tty \
     ${DOCKER_OPTIONS} \
