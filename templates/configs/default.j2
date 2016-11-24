@@ -110,14 +110,14 @@
 # Archive filename format
 #      	long  : host-full-path-to-folder.tar.gz
 #      	short : parentfolder.tar.gz
-export BM_TARBALL_NAMEFORMAT="long"
+{{ macros.config_row(config, 'BM_TARBALL_NAMEFORMAT', 'long') }}
 
 # Type of archives
 # Available types are:
 #     tar, tar.gz, tar.bz2, tar.lz, dar, zip.
 # Make sure to satisfy the appropriate dependencies
 # (bzip2, dar, lzma, ...).
-export BM_TARBALL_FILETYPE="tar.gz"
+{{ macros.config_row(config, 'BM_TARBALL_FILETYPE', 'tar.gz') }}
 
 # You can choose to build archives remotely over SSH.
 # You will then need to fill the BM_UPLOAD_SSH variables
@@ -126,11 +126,11 @@ export BM_TARBALL_FILETYPE="tar.gz"
 # BM_REPOSITORY_ROOT but will be built by the remote host).
 # Thus, BM_TARBALL_DIRECTORIES will be used to backup remote directories.
 # Those archive will be prefixed with the remote host name.
-export BM_TARBALL_OVER_SSH="false"
+{{ macros.config_row(config, 'BM_TARBALL_OVER_SSH', 'false') }}
 
 # Do you want to dereference the files pointed by symlinks ?
 # enter true or false (true can lead to huge archives, be careful).
-export BM_TARBALL_DUMPSYMLINKS="false"
+{{ macros.config_row(config, 'BM_TARBALL_DUMPSYMLINKS', 'false') }}
 
 # Targets to backup
 
@@ -145,7 +145,7 @@ export BM_TARBALL_DUMPSYMLINKS="false"
 # NOTE: The Debian package will only update BM_TARBALL_DIRECTORIES
 
 # Paths without spaces in their name:
-export BM_TARBALL_DIRECTORIES="/etc /boot"
+{{ macros.config_row(config, 'BM_TARBALL_DIRECTORIES', '/etc /boot') }}
 
 # If one or more of the targets contain a space, use the array:
 # declare -a BM_TARBALL_TARGETS
@@ -155,15 +155,15 @@ export BM_TARBALL_DIRECTORIES="/etc /boot"
 
 # Files to exclude when generating tarballs, you can put absolute
 # or relative paths, Bash wildcards are possible.
-export BM_TARBALL_BLACKLIST="/dev /sys /proc /tmp"
+{{ macros.config_row(config, 'BM_TARBALL_BLACKLIST', '/dev /sys /proc /tmp') }}
 
 # With the "dar" filetype, you can choose a maximum slice limit.
-export BM_TARBALL_SLICESIZE="1000M"
+{{ macros.config_row(config, 'BM_TARBALL_SLICESIZE', '1000M') }}
 
 # Extra options to append to the tarball generation
 # (take care to what you do; this will be silently added to the
 # command line.)
-export BM_TARBALL_EXTRA_OPTIONS=""
+{{ macros.config_row(config, 'BM_TARBALL_EXTRA_OPTIONS', '') }}
 
 ##############################################################
 # The tarball-incremental method uses the same keys as the
@@ -172,11 +172,11 @@ export BM_TARBALL_EXTRA_OPTIONS=""
 
 # Which frequency to use for the master tarball?
 # possible values: weekly, monthly
-export BM_TARBALLINC_MASTERDATETYPE="weekly"
+{{ macros.config_row(config, 'BM_TARBALLINC_MASTERDATETYPE', 'weekly') }}
 
 # Number of the day, in the BM_TARBALLINC_MASTERDATETYPE frequency
 # when master tarballs should be made
-export BM_TARBALLINC_MASTERDATEVALUE="1"
+{{ macros.config_row(config, 'BM_TARBALLINC_MASTERDATEVALUE', '1') }}
 
 # Examples: you want to make master tarballs every friday:
 # BM_TARBALLINC_MASTERDATETYPE="weekly"
@@ -266,11 +266,11 @@ export BM_TARBALLINC_MASTERDATEVALUE="1"
 #############################################################
 
 # Absolute paths to the svn repositories to archive
-export BM_SVN_REPOSITORIES=""
+{{ macros.config_row(config, 'BM_SVN_REPOSITORIES', '') }}
 
 # You can compress the resulting XML files
 # Supported compressor are: bzip2 and gzip
-export BM_SVN_COMPRESSWITH="bzip2"
+{{ macros.config_row(config, 'BM_SVN_COMPRESSWITH', 'bzip2') }}
 
 ##############################################################
 # Backup method: pipe
@@ -334,13 +334,13 @@ export BM_PIPE_COMPRESS
 
 # If you don't want to use any upload method (you don't want to
 # upload files to remote hosts) then choose "none"
-export BM_UPLOAD_METHOD=""
+{{ macros.config_row(config, 'BM_UPLOAD_METHOD', '') }}
 
 # where to upload (global to all methods. Not required to be set for S3)
-export BM_UPLOAD_HOSTS=""
+{{ macros.config_row(config, 'BM_UPLOAD_HOSTS', '') }}
 
 # Where to put archives on the remote hosts (global)
-export BM_UPLOAD_DESTINATION=""
+{{ macros.config_row(config, 'BM_UPLOAD_DESTINATION', '') }}
 
 # Uncomment the 'export ...' line below to activate the uploaded archives
 # database.
@@ -361,28 +361,28 @@ export BM_UPLOAD_DESTINATION=""
 #############################################################
 
 # the user to use for the SSH connections/transfers
-export BM_UPLOAD_SSH_USER=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_USER', '') }}
 
 # The private key to use for opening the connection
-export BM_UPLOAD_SSH_KEY=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_KEY', '') }}
 
 # specific ssh hosts
-export BM_UPLOAD_SSH_HOSTS=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_HOSTS', '') }}
 
 # port to use for SSH connections (leave blank for default one)
-export BM_UPLOAD_SSH_PORT=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_PORT', '') }}
 
 # destination for ssh uploads (overrides BM_UPLOAD_DESTINATION)
-export BM_UPLOAD_SSH_DESTINATION=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_DESTINATION', '') }}
 
 # purge archives on remote hosts before uploading?
-export BM_UPLOAD_SSH_PURGE="true"
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_PURGE', 'true') }}
 
 # If you set BM_UPLOAD_SSH_PURGE, you can specify a time to live
 # for archives uploaded with SSH.
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-export BM_UPLOAD_SSH_TTL=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_TTL', '') }}
 
 ##############################################################
 # The SSH-GPG method
@@ -393,7 +393,7 @@ export BM_UPLOAD_SSH_TTL=""
 # The gpg public key used for encryption, this can be a short
 # or long key id, or a descriptive name. See gpg man page for
 # all possibilities how to specify a key.
-export BM_UPLOAD_SSHGPG_RECIPIENT=""
+{{ macros.config_row(config, 'BM_UPLOAD_SSHGPG_RECIPIENT', '') }}
 
 ##############################################################
 # The FTP method
@@ -402,41 +402,41 @@ export BM_UPLOAD_SSHGPG_RECIPIENT=""
 # Use FTP secured transfers (FTP over TLS)
 # User, password and data will be uploaded encrypted with SSL.
 # Passive mode will be automaticaly activated
-export BM_UPLOAD_FTP_SECURE="false"
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_SECURE', 'false') }}
 
 # Do you want to use FTP passive mode?
 # This is mandatory for NATed/firewalled environments
-export BM_UPLOAD_FTP_PASSIVE="true"
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_PASSIVE', 'true') }}
 
 # Timeout (in seconds) for FTP transfer
 # This setting only has effect when using FTP transfer with
 # secure mode disabled (BM_UPLOAD_FTP_SECURE to "false")
-export BM_UPLOAD_FTP_TIMEOUT="120"
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_TIMEOUT', '120') }}
 
 # Test the FTP connection before starting archives upload.
 # This will enable BM to try sending a 2MB test file before
 # sending any archive
-export BM_UPLOAD_FTP_TEST="false"
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_TEST', 'false') }}
 
 # the user to use for the FTP connections/transfers
-export BM_UPLOAD_FTP_USER=""
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_USER', '') }}
 
 # the FTP user's password
-export BM_UPLOAD_FTP_PASSWORD=""
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_PASSWORD', '') }}
 
 # FTP specific remote hosts
-export BM_UPLOAD_FTP_HOSTS=""
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_HOSTS', '') }}
 
 # purge archives on remote hosts before uploading?
-export BM_UPLOAD_FTP_PURGE="true"
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_PURGE', 'true') }}
 
 # You can specify a time to live for archives uploaded with FTP
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-export BM_UPLOAD_FTP_TTL=""
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_TTL', '') }}
 
 # destination for FTP uploads (overrides BM_UPLOAD_DESTINATION)
-export BM_UPLOAD_FTP_DESTINATION=""
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_DESTINATION', '') }}
 
 
 ##############################################################
@@ -447,56 +447,56 @@ export BM_UPLOAD_FTP_DESTINATION=""
 # account. See http://aws.amazon.com
 
 # The bucket to upload to. This bucket must be dedicated to backup-manager
-export BM_UPLOAD_S3_DESTINATION=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_DESTINATION', '') }}
 
 # the S3 access key provided to you
-export BM_UPLOAD_S3_ACCESS_KEY=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_ACCESS_KEY', '') }}
 
 # the S3 secret key provided to you
-export BM_UPLOAD_S3_SECRET_KEY=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_SECRET_KEY', '') }}
 
 # purge archives on remote hosts before uploading?
-export BM_UPLOAD_S3_PURGE="false"
+{{ macros.config_row(config, 'BM_UPLOAD_S3_PURGE', 'false') }}
 
 # You can specify a time to live for archives uploaded to S3
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-export BM_UPLOAD_S3_TTL=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_TTL', '') }}
 
 ##############################################################
 # The RSYNC method
 #############################################################
 
 # Which directories should be backuped with rsync
-export BM_UPLOAD_RSYNC_DIRECTORIES=""
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_DIRECTORIES', '') }}
 
 # Destination for rsync uploads (overrides BM_UPLOAD_DESTINATION)
-export BM_UPLOAD_RSYNC_DESTINATION=""
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_DESTINATION', '') }}
 
 # The list of remote hosts, if you want to enable the upload
 # system, just put some remote hosts here (fqdn or IPs)
 # Leave it empty if you want to use the hosts that are defined in
 # BM_UPLOAD_HOSTS
-export BM_UPLOAD_RSYNC_HOSTS=""
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_HOSTS', '') }}
 
 # Do you want to dereference the files pointed by symlinks?
 # enter true or false (true can lead to huge archives, be careful).
-export BM_UPLOAD_RSYNC_DUMPSYMLINKS="false"
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_DUMPSYMLINKS', 'false') }}
 
 # Files/folders to exclude when rsyncing. Warning: rsync will interpret
 # it as a mask, so will exclude any file/folder corresponding to it
-export BM_UPLOAD_RSYNC_BLACKLIST=""
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_BLACKLIST', '') }}
 
 # Extra options to append to rsync
 # (take care to what you do; this will be silently added to the
 # command line.)
-export BM_UPLOAD_RSYNC_EXTRA_OPTIONS=""
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_EXTRA_OPTIONS', '') }}
 
 # Do you want to limit the maximum available bandwidth rsync
 # can use ?
 # By default, no bandwidth limit is applied.
 # Example: 32M, 1024K, ...
-export BM_UPLOAD_RSYNC_BANDWIDTH_LIMIT=""
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_BANDWIDTH_LIMIT', '') }}
 
 ##############################################################
 # Section "BURNING"
@@ -521,30 +521,30 @@ export BM_UPLOAD_RSYNC_BANDWIDTH_LIMIT=""
 # Note that if backup-manager is run from interactive prompt you
 # will be asked to insert disc(s) when needed
 
-export BM_BURNING_METHOD="none"
+{{ macros.config_row(config, 'BM_BURNING_METHOD', 'none') }}
 
 # When the CD is burnt, it is possible to check every file's
 # MD5 checksum to see if the CD is not corrupted.
-export BM_BURNING_CHKMD5="false"
+{{ macros.config_row(config, 'BM_BURNING_CHKMD5', 'false') }}
 
 # The device to use for mounting the cdrom
-export BM_BURNING_DEVICE="/dev/cdrom"
+{{ macros.config_row(config, 'BM_BURNING_DEVICE', '/dev/cdrom') }}
 
 # You can force cdrecord to use a specific device
 # Fill in the full path to the device to use or even
 # e.g. BM_BURNING_DEVFORCED="/dev/cdrom"
 # If none specified, the default cdrecord device will be used.
-export BM_BURNING_DEVFORCED=""
+{{ macros.config_row(config, 'BM_BURNING_DEVFORCED', '') }}
 
 # By default backup-manager will make Joliet media (using the mkisofs switches
 # : "-R -J"). You can change these if you want to use non-Joliet disc images.
 # Change this only if you know what you're doing. Refer to mkisofs(8) for
 # details.
-export BM_BURNING_ISO_FLAGS="-R -J"
+{{ macros.config_row(config, 'BM_BURNING_ISO_FLAGS', '-R -J') }}
 
 # enter here the max size of your media
 # (usal sizes are 4200 for DVD media and 700 or 800 for CDR media)
-export BM_BURNING_MAXSIZE="650"
+{{ macros.config_row(config, 'BM_BURNING_MAXSIZE', '650') }}
 
 
 ##############################################################
@@ -553,19 +553,19 @@ export BM_BURNING_MAXSIZE="650"
 
 # Every output made can be sent to syslog
 # set this to "true" or "false"
-export BM_LOGGER="true"
+{{ macros.config_row(config, 'BM_LOGGER', 'true') }}
 
 # Which level of messages do you want to log to syslog?
 # possible values are : debug,info,warning,error
-export BM_LOGGER_LEVEL="warning"
+{{ macros.config_row(config, 'BM_LOGGER_LEVEL', 'warning') }}
 
 # You can choose which facility to use
-export BM_LOGGER_FACILITY="user"
+{{ macros.config_row(config, 'BM_LOGGER_FACILITY', 'user') }}
 
 # Enter here some shell script.
 # It will be executed before the first action of backup-manager.
-export BM_PRE_BACKUP_COMMAND=""
+{{ macros.config_row(config, 'BM_PRE_BACKUP_COMMAND', '') }}
 
 # Enter here some shell script.
 # It will be executed after the last action of backup-manager.
-export BM_POST_BACKUP_COMMAND=""
+{{ macros.config_row(config, 'BM_POST_BACKUP_COMMAND', '') }}
