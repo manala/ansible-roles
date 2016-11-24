@@ -1,4 +1,4 @@
-# Ansible Role: make
+# Ansible Role: Make [![Build Status](https://travis-ci.org/manala/ansible-role-make.svg?branch=master)](https://travis-ci.org/manala/ansible-role-make)
 
 This role will deal with the setup of __make__.
 
