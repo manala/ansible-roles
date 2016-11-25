@@ -467,6 +467,7 @@ manala_skeletons:
         ssh:        true
         make:       true
         git:        true
+        zsh:        true
         mailhog:    true
         supervisor: true
         cron:       true
@@ -617,6 +618,7 @@ manala_skeletons:
         ssh:         true
         make:        true
         git:         true
+        zsh:         true
         files:       true
         mailhog:     true
         supervisor:  true
