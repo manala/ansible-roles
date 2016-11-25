@@ -18,7 +18,7 @@ galaxy_info:
 dependencies:
 
   # Merge
-  - src: manala.merge
+  - role: manala.merge
     manala_merge_hashes:
       # Options
       - hashes: "[[
@@ -37,147 +37,147 @@ dependencies:
       - always
 
   # Motd
-  - src: manala.motd
+  - role: manala.motd
     when: manala_skeleton_options.motd
 
   # Timezone
-  - src: manala.timezone
+  - role: manala.timezone
     when: manala_skeleton_options.timezone
 
   # Locales
-  - src: manala.locales
+  - role: manala.locales
     when: manala_skeleton_options.locales
 
   # Environment
-  - src: manala.environment
+  - role: manala.environment
     when: manala_skeleton_options.environment
 
   # Apt
-  - src: manala.apt
+  - role: manala.apt
     when: manala_skeleton_options.apt
 
   # Ssh
-  - src: manala.ssh
+  - role: manala.ssh
     when: manala_skeleton_options.ssh
 
   # Git
-  - src: manala.git
+  - role: manala.git
     when: manala_skeleton_options.git
 
   # Zsh
-  - src: manala.zsh
+  - role: manala.zsh
     when: manala_skeleton_options.zsh
 
   # Oh my zsh
-  - src: manala.ohmyzsh
+  - role: manala.ohmyzsh
     when: manala_skeleton_options.ohmyzsh and manala_skeleton_options.zsh and manala_skeleton_options.git
 
   # Vim
-  - src: manala.vim
+  - role: manala.vim
     when: manala_skeleton_options.vim
 
   # Alternatives
-  - src: manala.alternatives
+  - role: manala.alternatives
     when: manala_skeleton_options.alternatives
 
   # Files
-  - src: manala.files
+  - role: manala.files
     when: manala_skeleton_options.files
 
   # Make
-  - src: manala.make
+  - role: manala.make
     when: manala_skeleton_options.make
 
   # MailHog
-  - src: manala.mailhog
+  - role: manala.mailhog
     when: manala_skeleton_options.mailhog
 
   # Nodejs
-  - src: manala.nodejs
+  - role: manala.nodejs
     when: manala_skeleton_options.nodejs
-  - src: manala.npm
+  - role: manala.npm
     when: manala_skeleton_options.npm and manala_skeleton_options.nodejs
 
   # Php
-  - src: manala.php
+  - role: manala.php
     when: manala_skeleton_options.php
-  - src: manala.composer
+  - role: manala.composer
     when: manala_skeleton_options.composer and manala_skeleton_options.php
 
   # Nginx
-  - src: manala.nginx
+  - role: manala.nginx
     when: manala_skeleton_options.nginx
 
   # Supervisor
-  - src: manala.supervisor
+  - role: manala.supervisor
     when: manala_skeleton_options.supervisor
 
   # PhantomJS
-  - src: manala.phantomjs
+  - role: manala.phantomjs
     when: manala_skeleton_options.phantomjs
 
   # Heka
-  - src: manala.heka
+  - role: manala.heka
     when: manala_skeleton_options.heka
 
   # RTail
-  - src: manala.rtail
+  - role: manala.rtail
     when: manala_skeleton_options.rtail and manala_skeleton_options.nodejs
 
   # Ngrok
-  - src: manala.ngrok
+  - role: manala.ngrok
     when: manala_skeleton_options.ngrok
 
   # Ntp
-  - src: manala.ntp
+  - role: manala.ntp
     when: manala_skeleton_options.ntp
 
   # Java
-  - src: manala.java
+  - role: manala.java
     when: manala_skeleton_options.java or manala_skeleton_options.elasticsearch
 
   # Cron
-  - src: manala.cron
+  - role: manala.cron
     when: manala_skeleton_options.cron
 
   # OPcache Dashboard
-  - src: manala.opcache-dashboard
+  - role: manala.opcache-dashboard
     when: manala_skeleton_options.opcache_dashboard and manala_skeleton_options.php and manala_skeleton_options.nginx
 
   # MySql
-  - src: manala.mysql
+  - role: manala.mysql
     when: (manala_skeleton_options.mysql or manala_skeleton_options.mariadb)
-  - src: manala.phpmyadmin
+  - role: manala.phpmyadmin
     when: manala_skeleton_options.phpmyadmin and (manala_skeleton_options.mysql or manala_skeleton_options.mariadb) and manala_skeleton_options.php and manala_skeleton_options.nginx
 
   # PostgreSQL
-  - src: manala.postgresql
+  - role: manala.postgresql
     when: manala_skeleton_options.postgresql
-  - src: manala.phppgadmin
+  - role: manala.phppgadmin
     when: manala_skeleton_options.phppgadmin and manala_skeleton_options.postgresql and manala_skeleton_options.php and manala_skeleton_options.nginx
 
   # Redis
-  - src: manala.redis
+  - role: manala.redis
     when: manala_skeleton_options.redis
-  - src: manala.phpredisadmin
+  - role: manala.phpredisadmin
     when: manala_skeleton_options.phpredisadmin and manala_skeleton_options.redis and manala_skeleton_options.php and manala_skeleton_options.nginx
 
   # MongoDB
-  - src: manala.mongodb
+  - role: manala.mongodb
     when: manala_skeleton_options.mongodb
-  - src: manala.mongo-express
+  - role: manala.mongo-express
     when: manala_skeleton_options.mongo_express and manala_skeleton_options.mongodb and manala_skeleton_options.nodejs
 
   # Elasticsearch
-  - src: manala.elasticsearch
+  - role: manala.elasticsearch
     when: manala_skeleton_options.elasticsearch
 
   # InfluxDB
-  - src: manala.influxdb
+  - role: manala.influxdb
     when: manala_skeleton_options.influxdb
 
   # # Dnsmasq
-  # - src: manala.dnsmasq
+  # - role: manala.dnsmasq
   #   when: manala_skeleton_options.dnsmasq
   #   tags:
   #     - manala_skeleton.roles.dnsmasq
