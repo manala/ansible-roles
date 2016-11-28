@@ -31,6 +31,7 @@
         |map('replace', '/', ' ')
         |map('trim')
         |map('replace', ' ', '_')
+        |map('replace', '-', '_')
         |map('regex_replace', '(.*)', '\\1.list')
         |list
     )
