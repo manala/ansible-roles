@@ -1,4 +1,4 @@
-# Ansible Role: Alternatives
+# Ansible Role: Alternatives [![Build Status](https://travis-ci.org/manala/ansible-role-alternatives.svg?branch=master)](https://travis-ci.org/manala/ansible-role-alternatives)
 
 This role will deal with the setup of __alternatives__.
 
