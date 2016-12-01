@@ -189,16 +189,14 @@ Verbose
 
 ```yaml
 manala_apt_preferences:
-  - file: dotdeb
-    config:
-      - Package:      '*'
-      - Pin:          origin packages.dotdeb.org
-      - Pin-Priority: 100
-  - file: php
-    config:
-      - Package:       php*
-      - Pin:           origin packages.dotdeb.org
-      - Pin-Priority:  900
+  - package:  '*'
+    pin: release o=Debian,a=stable
+    priority: 600
+    file:     dotdeb
+  - package:  'php-*'
+    pin:      release o=Debian,a=stable
+    priority: 900
+    file:     php      
 ```
 
 ### Packages
