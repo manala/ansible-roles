@@ -1,24 +1,9 @@
 ---
 
-- hosts: localhost
-
+- hosts: all
   pre_tasks:
-    - apt:
-        package: "{{ item }}"
-      with_items:
-        - openssl
-        - ca-certificates
-        - apt-transport-https
-    - apt_key:
-        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        id:  68576280
-    - apt_repository:
-        repo: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
-    - apt:
-        package: nodejs
-
+    - include: pre_tasks/nodesource_6.yml
   vars:
-
     manala_npm_packages:
       - is-positive
       - user-home
@@ -26,12 +11,9 @@
         state: absent
       - package: negative-zero
         state: present
-
   roles:
     - manala.npm
-
   post_tasks:
-
     # Goss
     - name: Goss
       raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"

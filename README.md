@@ -1,4 +1,6 @@
-# Ansible Role: Npm
+# Ansible Role: Npm [![Build Status](https://travis-ci.org/manala/ansible-role-npm.svg?branch=master)](https://travis-ci.org/manala/ansible-role-npm)
+
+This role will deal with the handling of global npm packages.
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
@@ -36,15 +38,13 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_npm_packages:
-  - name:     gulp
-    version:  3
-    global:   true
-  - name:     coffee-script
-    path:     /app/path
-    version:  1.6.1
+  - yarn          # Lightweight syntax
+  - name:    gulp
+    version: 3
+  - name:  grunt
+    state: absent
 ```
 
-Package configuration directives : http://docs.ansible.com/npm_module.html
 
 ## Example playbook
 
