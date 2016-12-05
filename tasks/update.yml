@@ -4,3 +4,5 @@
   npm:
     global: true
     state:  latest
+  tags:
+    - skip_ansible_lint # [ANSIBLE0010] Package installs should not use latest
