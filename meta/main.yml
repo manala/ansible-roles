@@ -176,6 +176,10 @@ dependencies:
   - role: manala.influxdb
     when: manala_skeleton_options.influxdb
 
+  # SQLite
+  - role: manala.sqlite
+    when: manala_skeleton_options.sqlite
+
   # # Dnsmasq
   # - role: manala.dnsmasq
   #   when: manala_skeleton_options.dnsmasq
