@@ -6,7 +6,7 @@ galaxy_info:
 
   author:              Manala
   company:             Manala
-  description:         sqlite
+  description:         Handle SQLite 
   license:             MIT
   min_ansible_version: 2.0.0
   platforms:
