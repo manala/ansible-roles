@@ -34,6 +34,7 @@ manala_skeleton_patterns:
           'vim@debian_backports'
         ],
         'jessie': [
+          'htop@debian_backports'
         ]
       }[ansible_distribution_release]
       + (manala_skeleton_options.php)|ternary(['dotdeb:100', 'php@dotdeb' ~ {'5.4': '', '5.5': '_php55', '5.6': '_php56', '7.0': ''}[manala_skeleton_options.php_version|string]],[])
