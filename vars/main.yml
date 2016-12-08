@@ -249,3 +249,5 @@ manala_apt_preferences_patterns:
   mariadb:            mariadb* libmariadb*
   influxdb:           influxdb*
   telegraf:           telegraf*
+  thefuck:            thefuck*
+  python-six:         python-six*
