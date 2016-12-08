@@ -1,0 +1,5 @@
+---
+
+# Config
+manala_vault_config_file:     /etc/vault/config.hcl
+manala_vault_config_template: ~

@@ -1,0 +1,61 @@
+# Ansible Role: Vault [![Build Status](https://travis-ci.org/manala/ansible-role-vault.svg?branch=master)](https://travis-ci.org/manala/ansible-role-vault)
+
+This role will deal with the setup and configuration of [hashicorp vault server](https://www.vaultproject.io/).
+
+This role does not :
+- [Initialize](https://www.vaultproject.io/intro/getting-started/deploy.html#initializing-the-vault) the vault
+- [Unseal](https://www.vaultproject.io/docs/concepts/seal.html#unsealing) the vault
+- Provide a way to retrieve vault secret from ansible. For that, you can use offical [hashi_vault lookup](https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/lookup/hashi_vault.py)
+
+It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+
+## Requirements
+
+This role is made to work with the __manala__ vault debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - vault@manala
+```
+
+## Dependencies
+
+None.
+
+## Installation
+
+### Ansible 2+
+
+Using ansible galaxy cli:
+
+```bash
+ansible-galaxy install manala.vault
+```
+
+Using ansible galaxy requirements file:
+
+```yaml
+- src: manala.vault
+```
+
+## Configuration example
+
+```yaml
+manala_vault_config_template: "{{ playbook_dir }}/templates/vault/vault/config.hcl.j2"
+```
+
+## Example playbook
+
+```yaml
+- hosts: servers
+  roles:
+    - { role: manala.vault }
+```
+
+# Licence
+
+MIT
+
+# Author information
+
+Manala [**(http://www.manala.io/)**](http://www.manala.io)

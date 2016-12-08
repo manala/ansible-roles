@@ -1,0 +1,14 @@
+---
+
+- include: install.yml
+  tags:
+    - manala_vault
+
+- include: config.yml
+  tags:
+    - manala_vault
+
+- include: services.yml
+  tags:
+    - manala_vault
+    - manala.services

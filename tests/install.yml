@@ -1,0 +1,29 @@
+---
+
+- hosts: all
+
+  pre_tasks:
+    # Configuring the Debian repository
+    - name: test install > Register the manala key
+      apt_key: keyserver=keys.gnupg.net id=1394DEA3 state=present validate_certs=no
+      changed_when: false
+    - name: test install > Add manala repository
+      apt_repository: "repo='deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main'"
+      changed_when: false
+
+  roles:
+    - manala.vault
+
+  tasks:
+    - name: Wait vault to start
+      wait_for: path=/var/run/vault.pid timeout=3
+
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            vault:
+              installed: true
+        - process:
+            vault:
+              running: true
