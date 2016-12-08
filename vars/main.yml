@@ -28,10 +28,14 @@ manala_skeleton_patterns:
       - manala
     apt_preferences_exclusive: true
     apt_preferences: "{{
-      {
+      [
+        'thefuck@manala'
+      ]
+      + {
         'wheezy': [
           'git@debian_backports',
-          'vim@debian_backports'
+          'vim@debian_backports',
+          'python-six@debian_backports'
         ],
         'jessie': [
           'htop@debian_backports'
@@ -307,6 +311,7 @@ manala_skeleton_patterns:
       - htop
       - less
       - ssl-cert
+      - thefuck
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf
