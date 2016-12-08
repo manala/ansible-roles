@@ -251,3 +251,4 @@ manala_apt_preferences_patterns:
   telegraf:           telegraf*
   thefuck:            thefuck*
   python-six:         python-six*
+  htop:               htop*
