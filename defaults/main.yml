@@ -57,6 +57,7 @@ manala_skeleton_options:
   elasticsearch_version: '1.7'
   influxdb:              false
   dnsmasq:               false
+  sqlite:                false
 
   # App
   app:
