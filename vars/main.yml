@@ -139,6 +139,9 @@ manala_apt_repositories_patterns:
   influxdata:
     source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
     key: influxdata
+  yarn:
+    source: deb http://dl.yarnpkg.com/debian/ stable main
+    key: yarn
 
 # Keys
 manala_apt_keys_patterns:
@@ -216,6 +219,9 @@ manala_apt_keys_patterns:
   influxdata:
     url: https://repos.influxdata.com/influxdb.key
     id:  2582E0C5
+  yarn:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    id:  86E50310
 
 # Preferences
 manala_apt_preferences_patterns:
@@ -252,3 +258,4 @@ manala_apt_preferences_patterns:
   thefuck:            thefuck*
   python-six:         python-six*
   htop:               htop*
+  yarn:               yarn*
