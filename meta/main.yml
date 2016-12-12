@@ -97,6 +97,8 @@ dependencies:
     when: manala_skeleton_options.nodejs
   - role: manala.npm
     when: manala_skeleton_options.npm and manala_skeleton_options.nodejs
+  - role: manala.yarn
+    when: manala_skeleton_options.yarn and manala_skeleton_options.nodejs
 
   # Php
   - role: manala.php
