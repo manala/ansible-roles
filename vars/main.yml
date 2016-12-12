@@ -220,7 +220,7 @@ manala_apt_keys_patterns:
     url: https://repos.influxdata.com/influxdb.key
     id:  2582E0C5
   yarn:
-    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    url: http://dl.yarnpkg.com/debian/pubkey.gpg
     id:  86E50310
 
 # Preferences
