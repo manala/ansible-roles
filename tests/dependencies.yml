@@ -1,18 +1,14 @@
 ---
 
-- hosts: localhost
-
+- name: Dependencies
+  hosts: all
   pre_tasks:
-    - name: Ensure "apt-transport-https" is absent
-      apt:
+    - apt:
         name:  apt-transport-https
         state: absent
-
   roles:
     - manala.apt
-
   post_tasks:
-
     # Goss
     - name: Goss
       raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"

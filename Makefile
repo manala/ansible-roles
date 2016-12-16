@@ -77,18 +77,18 @@ lint:
 ########
 
 test@wheezy: DEBIAN_DISTRIBUTION = wheezy
-test@wheezy: DOCKER_COMMAND      = make test
+test@wheezy: DOCKER_COMMAND      = sh -c 'make test'
 test@wheezy:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
 test@jessie: DEBIAN_DISTRIBUTION = jessie
-test@jessie: DOCKER_COMMAND      = make test
+test@jessie: DOCKER_COMMAND      = sh -c 'make test'
 test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-test: test-dependencies test-sources-list test-preferences test-repositories test-keys test-keys-sni test-packages
+test: test-dependencies test-sources-list test-preferences test-keys test-repositories test-update test-packages
 
 test-dependencies:
 	ansible-playbook tests/dependencies.yml --syntax-check
@@ -102,17 +102,17 @@ test-preferences:
 	ansible-playbook tests/preferences.yml --syntax-check
 	ansible-playbook tests/preferences.yml
 
-test-repositories:
-	ansible-playbook tests/repositories.yml --syntax-check
-	ansible-playbook tests/repositories.yml
-
 test-keys:
 	ansible-playbook tests/keys.yml --syntax-check
 	ansible-playbook tests/keys.yml
 
-test-keys-sni:
-	ansible-playbook tests/keys_sni.yml --syntax-check
-	ansible-playbook tests/keys_sni.yml
+test-repositories:
+	ansible-playbook tests/repositories.yml --syntax-check
+	ansible-playbook tests/repositories.yml
+
+test-update:
+	ansible-playbook tests/update.yml --syntax-check
+	ansible-playbook tests/update.yml
 
 test-packages:
 	ansible-playbook tests/packages.yml --syntax-check

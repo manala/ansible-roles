@@ -21,6 +21,9 @@ manala_apt_preferences:           []
 # Keys
 manala_apt_keys: []
 
+# Update
+manala_apt_update_holds: []
+
 # Packages
 manala_apt_packages: []
 

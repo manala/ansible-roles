@@ -4,8 +4,14 @@
   apt_repository:
     repo:         "{{ item.source }}"
     state:        "{{ item.state|default('present') }}"
-    update_cache: yes
-  with_items: "{{ __manala_apt_repositories }}"
+    update_cache: false
+  with_manala_apt_repositories:
+    # Repositories
+    - "{{ manala_apt_repositories }}"
+    - "{{ manala_apt_repositories_patterns }}"
+    # Preferences
+    - "{{ manala_apt_preferences }}"
+  register: __manala_apt_repositories_results
 
 - name: repositories > Exclusive - find files
   command: "find -type f -name '*.list' -printf '%P\n'"
@@ -25,7 +31,9 @@
   when: "{{
     manala_apt_repositories_exclusive
     and (
-      item not in __manala_apt_repositories|map(attribute='source')
+      item not in __manala_apt_repositories_results.results
+        |map(attribute='item')
+        |map(attribute='source')
         |map('regex_replace', '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$', '\\2')
         |map('replace', '.', ' ')
         |map('replace', '/', ' ')
@@ -37,3 +45,11 @@
     )
   }}"
   with_items: "{{ __manala_apt_repositories_find_output.stdout_lines|default([]) }}"
+  register: __manala_apt_repositories_exclusive_results
+
+- name: repositories > Update cache
+  apt:
+    update_cache: true
+  when: __manala_apt_repositories_results|changed or __manala_apt_repositories_exclusive_results|changed
+  tags:
+    - skip_ansible_lint

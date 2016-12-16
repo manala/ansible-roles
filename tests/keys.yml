@@ -1,13 +1,12 @@
 ---
 
-- hosts: localhost
-
+- name: Keys
+  hosts: all
   vars:
-
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
       - git@debian_backports
-      - foo@debian_backports
+      - libssl1.0.0@debian_backports
       - php@dotdeb:300
       - dotdeb:100
       - dotdeb:200
@@ -15,12 +14,12 @@
         pin:      bar
         priority: 100
         file:     foo_bar
-
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
       - debian_security
       - nginx
       - nginx
+      - gitlab-ce
       - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
       - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
       - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
@@ -29,53 +28,43 @@
         key:
           url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
           id:  5072E1F5
-
     manala_apt_keys:
       - mysql
       - sensu
       - sensu
+      - 10gen
       - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
         id:  056E8E56
       - keyserver: keyserver.ubuntu.com
         id: BC19DDBA
-
+  pre_tasks:
+    - command: apt-key del {{ item }}
+      ignore_errors: true
+      with_items:
+        - 89DF5277
+        - 7BD9BF62
+        - 90158EE0
+        - 5072E1F5
+        - EB9C94BB
+        - 7F0CEB10
+        - 056E8E56
+        - BC19DDBA
+        - E15E78F4
   roles:
     - manala.apt
-
   post_tasks:
-
-    # Asserts
-    - assert:
-        that:
-          - "{{
-            ((__manala_apt_keys_results.results|last).ansible_facts.__item.values() if (__manala_apt_keys_results.results|length) else [])|sort == [
-              {
-                'id': '056E8E56',
-                'url': 'http://www.rabbitmq.com/rabbitmq-signing-key-public.asc'
-              },
-              {
-                'id': '5072E1F5',
-                'url': 'http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5'
-              },
-              {
-                'id': '7BD9BF62',
-                'url': 'http://nginx.org/keys/nginx_signing.key'
-              },
-              {
-                'id': '89DF5277',
-                'url': 'http://www.dotdeb.org/dotdeb.gpg'
-              },
-              {
-                'id': '90158EE0',
-                'url': 'http://deb.bearstech.com/bearstech-archive.gpg'
-              },
-              {
-                'id': 'BC19DDBA',
-                'keyserver': 'keyserver.ubuntu.com'
-              },
-              {
-                'id': 'EB9C94BB',
-                'url': 'http://repositories.sensuapp.org/apt/pubkey.gpg'
-              }
-            ]
-          }}"
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - command:
+            "apt-key adv --list-public-keys --with-colons | grep '^pub' | cut -d':' -f 5 | egrep -o '.{8}$'":
+              exit-status: 0
+              stdout:
+                - 89DF5277
+                - 7BD9BF62
+                - 90158EE0
+                - 5072E1F5
+                - EB9C94BB
+                - 7F0CEB10
+                - 056E8E56
+                - BC19DDBA

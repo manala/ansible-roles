@@ -1,13 +1,12 @@
 ---
 
-- hosts: localhost
-
+- name: Preferences
+  hosts: all
   vars:
-
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
       - git@debian_backports
-      - foo@debian_backports
+      - libssl1.0.0@debian_backports
       - php@dotdeb:300
       - dotdeb:100
       - dotdeb:200
@@ -15,46 +14,63 @@
         pin:      bar
         priority: 100
         file:     foo_bar
-
+  pre_tasks:
+    - file:
+        path:  "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/apt/preferences.d/git
+        - /etc/apt/preferences.d/libssl1_0_0
+        - /etc/apt/preferences.d/php
+        - /etc/apt/preferences.d/dotdeb
+        - /etc/apt/preferences.d/foo_bar
+    - copy:
+        dest: /etc/apt/preferences.d/bar
+        content: |
+          Package:      bar
+          Pin:          baz
+          Pin-Priority: 999
   roles:
     - manala.apt
-
   post_tasks:
-
-    # Asserts
-    - assert:
-        that:
-          - "{{
-            ((__manala_apt_preferences_results.results|last).ansible_facts.__item.values() if (__manala_apt_preferences_results.results|length) else [])|sort == [
-              {
-                'file': 'dotdeb',
-                'package': '*',
-                'pin': 'origin packages.dotdeb.org',
-                'priority': 200
-              },
-              {
-                'file': 'foo',
-                'package': 'foo',
-                'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
-                'priority': 900
-              },
-              {
-                'file': 'foo_bar',
-                'package': 'foo',
-                'pin': 'bar',
-                'priority': 100
-              },
-              {
-                'file': 'git',
-                'package': 'git git-*',
-                'pin': 'release a=' ~ ansible_distribution_release ~ '-backports',
-                'priority': 900
-              },
-              {
-                'file': 'php',
-                'package': 'php-* php5-* php7.0-*',
-                'pin': 'origin packages.dotdeb.org',
-                'priority': 300
-              }
-            ]
-          }}"
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/apt/preferences.d/git:
+              exists:   true
+              filetype: file
+              contains:
+                - "Package:      git git-*"
+                - "Pin:          release a={{ ansible_distribution_release }}-backports"
+                - "Pin-Priority: 900"
+            /etc/apt/preferences.d/libssl1_0_0:
+              exists:   true
+              filetype: file
+              contains:
+                - "Package:      libssl1.0.0"
+                - "Pin:          release a={{ ansible_distribution_release }}-backports"
+                - "Pin-Priority: 900"
+            /etc/apt/preferences.d/php:
+              exists:   true
+              filetype: file
+              contains:
+                - "Package:      php-* php5-* php7.0-*"
+                - "Pin:          origin packages.dotdeb.org"
+                - "Pin-Priority: 300"
+            /etc/apt/preferences.d/dotdeb:
+              exists:   true
+              filetype: file
+              contains:
+                - "Package:      *"
+                - "Pin:          origin packages.dotdeb.org"
+                - "Pin-Priority: 200"
+            /etc/apt/preferences.d/foo_bar:
+              exists:   true
+              filetype: file
+              contains:
+                - "Package:      foo"
+                - "Pin:          bar"
+                - "Pin-Priority: 100"
+            /etc/apt/preferences.d/bar:
+              exists: false

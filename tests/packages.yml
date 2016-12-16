@@ -1,32 +1,30 @@
 ---
 
-- hosts: localhost
-
+- name: Packages
+  hosts: all
   vars:
-
     manala_apt_packages:
       - ecl-doc
       - package: telnet
         state: absent
       - package: telnet
         state: present
-
+  pre_tasks:
+    - apt:
+        name:  "{{ item }}"
+        state: absent
+      with_items:
+        - ecl-doc
+        - telnet
   roles:
     - manala.apt
-
   post_tasks:
-
-    # Asserts
-    - assert:
-        that:
-          - "{{
-            ((__manala_apt_packages_results.results|last).ansible_facts.__item.values() if (__manala_apt_packages_results.results|length) else [])|sort == [
-              {
-                'package': 'ecl-doc'
-              },
-              {
-                'package': 'telnet',
-                'state': 'present'
-              }
-            ]
-          }}"
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            ecl-doc:
+              installed: true
+            telnet:
+              installed: true

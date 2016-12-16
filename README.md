@@ -1,4 +1,4 @@
-# Ansible Role: Apt
+# Ansible Role: Apt [![Build Status](https://travis-ci.org/manala/ansible-role-apt.svg?branch=master)](https://travis-ci.org/manala/ansible-role-apt)
 
 This role will add third party sources to the package manager by:
 - Adding source URL as new repository
