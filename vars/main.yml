@@ -55,6 +55,9 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.influxdb)|ternary(['influxdb@influxdata'],[])
       + (manala_skeleton_options.yarn)|ternary(['yarn@yarn'],[])
     }}"
+    apt_update_holds: "{{
+      (ansible_connection == 'local')|ternary(['ansible'],[])
+    }}" # Hold ansible package update when ansible itself runs in local
     # Ssh
     ssh_config_sshd_template: config/sshd/default.{{ manala_skeleton_env }}.j2
     ssh_config_template: config/default.{{ manala_skeleton_env }}.j2
