@@ -1,4 +1,4 @@
-# Ansible Role: Ngrok
+# Ansible Role: Ngrok [![Build Status](https://travis-ci.org/manala/ansible-role-ngrok.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ngrok)
 
 This role will deal with the setup and the config of ngrok
 
