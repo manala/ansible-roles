@@ -47,6 +47,8 @@ http {
 {{ macros.config_row(config_http, 'fastcgi_buffers', '4 256k', 4) }}
 {{ macros.config_row(config_http, 'fastcgi_busy_buffers_size', '256k', 4) }}
 
+{# See: http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size #}
+{{ macros.config_row(config_http, 'server_names_hash_bucket_size', '128', 4) }}
 
     include mime.types;
     include {{ manala_nginx_configs_dir }}/*.conf;
