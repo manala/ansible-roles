@@ -1,4 +1,4 @@
-# Ansible Role: Phantomjs
+# Ansible Role: Phantomjs [![Build Status](https://travis-ci.org/manala/ansible-role-phantomjs.svg?branch=master)](https://travis-ci.org/manala/ansible-role-phantomjs)
 
 This role will deal with the setup of PhantomJS.
 
