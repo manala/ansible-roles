@@ -23,6 +23,7 @@ manala_skeleton_options:
   vim:                   false
   alternatives:          false
   files:                 false
+  docker:                false
   mailhog:               false
   nodejs:                false
   nodejs_version:        "{{ {'wheezy': '6', 'jessie': '7'}[ansible_distribution_release] }}" # '0.10'|'0.12'|'4'|'5'|'6'|'7'

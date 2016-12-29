@@ -36,6 +36,10 @@ dependencies:
     tags:
       - always
 
+  # Accounts
+  - role: manala.accounts
+    when: manala_skeleton_options.docker
+
   # Motd
   - role: manala.motd
     when: manala_skeleton_options.motd
@@ -83,6 +87,10 @@ dependencies:
   # Files
   - role: manala.files
     when: manala_skeleton_options.files
+
+  # Docker
+  - role: manala.docker
+    when: manala_skeleton_options.docker
 
   # Make
   - role: manala.make
