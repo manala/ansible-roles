@@ -38,6 +38,7 @@ dependencies:
 
   # Accounts
   - role: manala.accounts
+    when: manala_skeleton_options.docker
 
   # Motd
   - role: manala.motd
