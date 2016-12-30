@@ -6,7 +6,7 @@
     password:   "{{ item.password|default(omit) }}"
     group:      "{{ item.group|default(omit) }}"
     groups:     "{{ item.groups|default([])|join(',') }}"
-    append:     "{{ manala_accounts_users_groups_exclusive|ternary(false, true) }}"
+    append:     "{{ not manala_accounts_users_groups_exclusive }}"
     shell:      "{{ item.shell|default(omit) }}"
     createhome: "{{ item.createhome|default(true)|bool }}"
     system:     "{{ item.system|default(false)|bool }}"
