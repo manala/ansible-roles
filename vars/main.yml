@@ -337,6 +337,7 @@ manala_skeleton_patterns:
       - less
       - ssl-cert
       - thefuck
+      - gitsplit
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf
