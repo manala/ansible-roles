@@ -27,6 +27,17 @@
 {{ macros.config_row(config, 'realpath_cache_size', '4096k') }}
 {{ macros.config_row(config, 'realpath_cache_ttl', 7200) }}
 
+; Switch whether to compile assertions at all (to have no overhead at run-time)
+; -1: Do not compile at all
+;  0: Jump over assertion at run-time
+;  1: Execute assertions
+; Changing from or to a negative value is only possible in php.ini! (For turning assertions on and off at run-time, see assert.active, when zend.assertions = 1)
+; Default Value: 1
+; Development Value: 1
+; Production Value: -1
+; http://php.net/zend.assertions
+{{ macros.config_row(config, 'zend.assertions', 1) }}
+
 {{ macros.config(config, [
   'display_errors',
   'display_startup_errors',
@@ -47,5 +58,6 @@
   'url_rewriter.tags',
   'error_log',
   'realpath_cache_size',
-  'realpath_cache_ttl'
+  'realpath_cache_ttl',
+  'zend.assertions'
 ]) -}}
