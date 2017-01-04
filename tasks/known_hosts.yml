@@ -2,8 +2,14 @@
 
 - name: known_hosts > Known hosts
   known_hosts:
-    host:  "{{ (item) if (item is string) else (item.host) }}"
-    key:   "{{ item.key|default(omit) }}"
+    host:  "{{ item.host }}"
+    key:   "{{
+      lookup('file', item.file)
+        if (item.file is defined) else
+      item.key|default(omit)
+    }}"
     state: "{{ item.state|default('present') }}"
     path:  "{{ item.path|default('/etc/ssh/ssh_known_hosts') }}"
-  with_items: "{{ manala_ssh_known_hosts }}"
+  with_manala_ssh_known_hosts:
+    - "{{ manala_ssh_known_hosts }}"
+    - "{{ manala_ssh_known_hosts_patterns }}"
