@@ -73,9 +73,7 @@ manala_skeleton_patterns:
     ssh_config_sshd_template: config/sshd/default.{{ manala_skeleton_env }}.j2
     ssh_config_template: config/default.{{ manala_skeleton_env }}.j2
     ssh_known_hosts:
-      - host: github.com
-        key: |
-            github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+      - github.com
     # Git
     git_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Vim
@@ -398,9 +396,7 @@ manala_skeleton_patterns:
     motd_template: template/elao.j2
     # Ssh
     ssh_known_hosts:
-      - host: git.elao.com
-        key: |
-            git.elao.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT21UxvHdQ3VLGoPDFYt9BFwKOaNpxEWjh913y+UtbOWrobSAdAth6wMiA9yNC3xmctAo8ctfYSZ7Nt9VFxTlpXNpdYeMmQnyjgiN/yzYdMzKFWJCMh35O1HbhBeTpnkcxbQiyVdrg+9nK4ACqlgzRlEoaQciW7NShqz04UnfIEDN8AgekY8HGBa7TpgaZDxjhZznrWSAT0C/S7+tYrnvS9kMuHo03LWA7B95Vwev/sQrjQNmdIykbjKpP1ljs7b5UkGSynWMWbO45sLzLrvlFjNztevzF2vRF1muMb7A3nk9NU7jkRZ+1BIsL5/cK4SjrQCINxxaAT8sOYzUYou21
+      - git.elao.com
 
   # Elao - Nginx - Dev
 
