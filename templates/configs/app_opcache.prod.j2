@@ -2,4 +2,14 @@
 
 {% set config = item.config|default([]) -%}
 
-{{ macros.config(config) -}}
+{{ macros.config_row(config, 'opcache.validate_timestamps', false) }}
+{{ macros.config_row(config, 'opcache.memory_consumption', 128) }}
+{{ macros.config_row(config, 'opcache.max_accelerated_files', 7963) }}
+{{ macros.config_row(config, 'opcache.max_wasted_percentage', 10) }}
+
+{{ macros.config(config, [
+  'opcache.validate_timestamps',
+  'opcache.memory_consumption',
+  'opcache.max_accelerated_files',
+  'opcache.max_wasted_percentage',
+]) -}}
