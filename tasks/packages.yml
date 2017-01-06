@@ -1,11 +1,32 @@
 ---
 
-- name: packages > Packages
+- name: packages > Packages present
   apt:
-    name:  "{{ item.package }}"
-    force: "{{ item.force|default(omit) }}"
-    state: "{{ item.state|default('present') }}"
+    name:  "{{ item }}"
+    state: present
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_manala_apt_packages: "{{ manala_apt_packages }}"
+  with_items: "{{ lookup(
+      'manala_apt_packages',
+      manala_apt_packages,
+      wantstate='present',
+      wantmap=True,
+      wantlist=True
+    )
+  }}"
+
+- name: packages > Packages absent
+  apt:
+    name:  "{{ item }}"
+    state: absent
+    purge:      true
+    autoremove: true
+  with_items: "{{ lookup(
+      'manala_apt_packages',
+      manala_apt_packages,
+      wantstate='absent',
+      wantmap=True,
+      wantlist=True
+    )
+  }}"

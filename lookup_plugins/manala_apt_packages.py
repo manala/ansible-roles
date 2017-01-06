@@ -10,15 +10,22 @@ class LookupModule(LookupBase):
 
         results = []
 
+        wantstate = kwargs.pop('wantstate', None)
+        wantmap   = kwargs.pop('wantmap', False)
+
+        itemDefault = {
+            'state': 'present'
+        }
+
         for term in self._flatten(terms):
 
             items = []
 
             if isinstance(term, basestring):
                 # Short syntax
-                items.append({
-                    'package': term,
-                    'state':   'present'
+                item = itemDefault.copy()
+                item.update({
+                    'package': term
                 })
             else:
                 # Must be a dict
@@ -27,7 +34,10 @@ class LookupModule(LookupBase):
                 if not term.has_key('package'):
                     raise AnsibleError('Expect "package" key')
                 # Expanded syntax
-                items.append(term)
+                item = itemDefault.copy()
+                item.update(term)
+
+            items.append(item)
 
             # Merge by index key
             for item in items:
@@ -40,5 +50,13 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
+
+        # Filter by state
+        if wantstate:
+            results = [result for result in results if result.get('state') == wantstate]
+
+        # Map
+        if wantmap:
+            results = [result.get('package') for result in results]
 
         return results

@@ -9,6 +9,8 @@
         state: absent
       - package: telnet
         state: present
+      - package: pwgen
+        state: absent
   pre_tasks:
     - apt:
         name:  "{{ item }}"
@@ -16,6 +18,11 @@
       with_items:
         - ecl-doc
         - telnet
+    - apt:
+        name:  "{{ item }}"
+        state: present
+      with_items:
+        - pwgen
   roles:
     - manala.apt
   post_tasks:
@@ -28,3 +35,5 @@
               installed: true
             telnet:
               installed: true
+            pwgen:
+              installed: false
