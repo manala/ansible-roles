@@ -36,7 +36,6 @@ class LookupModule(LookupBase):
                         'file': variables['role_path'] + '/' + item.get('file')
                     })
 
-            # Expanded syntax
             items.append(item)
 
             # Merge by index key
