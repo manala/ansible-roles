@@ -1,7 +1,7 @@
 # Manala - Dev
-# Inspired by Pygmalion
+# Inspired by Pygmalion (https://github.com/robbyrussell/oh-my-zsh/blob/master/themes/pygmalion.zsh-theme)
 
-{% raw %}
+{%- raw %}
 
 prompt_setup_manala(){
   ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}"
@@ -31,9 +31,9 @@ prompt_manala_precmd(){
   if [[ $prompt_length -gt 40 ]]; then
     nl=$'\n%{\r%}';
   fi
-  PROMPT="[DEV]$base_prompt$gitinfo$nl$post_prompt"
+  PROMPT="%{$bg[green]%}%{$fg[black]%}❱Development❰%{$reset_color%} $base_prompt$gitinfo$nl$post_prompt"
 }
 
 prompt_setup_manala
 
-{% endraw %}
+{%- endraw %}
