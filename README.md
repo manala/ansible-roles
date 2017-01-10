@@ -1,4 +1,4 @@
-# Ansible Role: Backup Manager
+# Ansible Role: Backup Manager [![Build Status](https://travis-ci.org/manala/ansible-role-backup-manager.svg?branch=master)](https://travis-ci.org/manala/ansible-role-backup-manager)
 
 This role will deal with the setup of [backup-manager](https://github.com/sukria/Backup-Manager).
 
@@ -115,13 +115,13 @@ Execute hooks before and after backup
 ### MySQL backup example
 
 ```yaml
-elao_backup_manager_configs:
+manala_backup_manager_configs:
   - file:     mysql.conf
-    template: configs/mysql.conf.j2
+    template: configs/mysql.j2
     config:
       - BM_REPOSITORY_CHMOD: 775
       - BM_ARCHIVE_CHMOD:    664
-      
+
       - BM_REPOSITORY_ROOT:  /srv/backup/mysql
       - BM_ARCHIVE_TTL:      5
       - BM_ARCHIVE_PREFIX:   backup
@@ -135,9 +135,9 @@ elao_backup_manager_configs:
 ### Files backup example
 
 ```yaml
-elao_backup_manager_configs:
+manala_backup_manager_configs:
   - file:    uploads.conf
-    template: configs/base.conf.j2
+    template: configs/default.j2
     config:
       - BM_REPOSITORY_CHMOD:           775
       - BM_ARCHIVE_CHMOD:              664
@@ -160,6 +160,21 @@ elao_backup_manager_configs:
 - hosts: servers
   roles:
     - { role: manala.backup-manager }
+```
+
+## CRON
+
+Enable CRON with [manala/ansible-role-cron](https://github.com/manala/ansible-role-cron) :
+
+```yaml
+manala_cron_files:
+  - file: backup-manager
+    user: root
+    jobs:
+      - name:   backup-manager
+        job:    "{{ manala_backup_manager_bin }} --conffile {{ manala_backup_manager_configs_dir }}/your-config-file.conf"
+        minute: 25
+        hour:   6
 ```
 
 # Licence

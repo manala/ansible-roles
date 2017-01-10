@@ -9,8 +9,3 @@
 - include: configs.yml
   tags:
     - manala_backup_manager
-
-# Cron
-- include: cron.yml
-  tags:
-    - manala_backup_manager

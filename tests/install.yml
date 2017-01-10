@@ -1,25 +1,12 @@
 ---
 
-- hosts: localhost
-
+- name: Install
+  hosts: all
   pre_tasks:
-    - apt_key:
-        keyserver: keys.gnupg.net
-        id:        1394DEA3
-    - apt_repository:
-        repo: deb http://debian.manala.io {{ ansible_distribution_release }} main
-    - copy:
-        dest: /etc/apt/preferences.d/manala
-        content: |
-          Package:      backup-manager*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
-
+    - include: pre_tasks/manala.yml
   roles:
     - manala.backup-manager
-
   post_tasks:
-
     # Goss
     - name: Goss
       raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
@@ -27,13 +14,8 @@
         - package:
             backup-manager:
               installed: true
-        - file:
-            /usr/sbin/backup-manager:
-              exists:   true
-              mode:     "0755"
-              owner:    root
-              group:    root
-              filetype: file
         - command:
             backup-manager --version:
               exit-status: 0
+              stdout:
+                - Backup Manager
