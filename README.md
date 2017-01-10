@@ -172,7 +172,7 @@ manala_cron_files:
     user: root
     jobs:
       - name:   backup-manager
-        job:    "{{ manala_backup_manager_bin }} --conffile {{ manala_backup_manager_configs_dir }}/your-config-file.conf"
+        job:    for file in {{ manala_backup_manager_configs_dir }}/*.conf; do {{ manala_backup_manager_bin }} --conffile $file; done
         minute: 25
         hour:   6
 ```
