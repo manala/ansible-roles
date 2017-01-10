@@ -1,0 +1,14 @@
+---
+
+- name: Install
+  hosts: all
+
+  roles:
+    - manala.apparmor
+
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            apparmor:
+              installed: true
