@@ -28,12 +28,13 @@ class LookupModule(LookupBase):
 
             items = []
 
+            # Short syntax
             if isinstance(term, basestring):
-                # Short syntax
                 items.append(
                     repositories_patterns.get(term)
                 )
             else:
+
                 # Must be a dict
                 if not isinstance(term, dict):
                     raise AnsibleError('Expect a dict')
@@ -43,9 +44,10 @@ class LookupModule(LookupBase):
                     item.update(term)
                     items.append(item)
                 else:
+                    # Check index key
                     if not term.has_key('source'):
                         raise AnsibleError('Expect "source" key')
-                    # Expanded syntax
+
                     items.append(term)
 
             # Merge by index key

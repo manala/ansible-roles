@@ -19,8 +19,8 @@ class LookupModule(LookupBase):
 
             items = []
 
+            # Short syntax
             if isinstance(term, basestring):
-                # Short syntax
                 items.append({
                     'file': term
                         .split('@')[0]
@@ -60,12 +60,15 @@ class LookupModule(LookupBase):
                 })
 
             else:
+
                 # Must be a dict
                 if not isinstance(term, dict):
                     raise AnsibleError('Expect a dict')
+
+                # Check index key
                 if not term.has_key('file'):
                     raise AnsibleError('Expect "file" key')
-                # Expanded syntax
+
                 items.append(term)
 
             # Merge by index key

@@ -21,19 +21,22 @@ class LookupModule(LookupBase):
 
             items = []
 
+            # Short syntax
             if isinstance(term, basestring):
-                # Short syntax
                 item = itemDefault.copy()
                 item.update({
                     'package': term
                 })
             else:
+
                 # Must be a dict
                 if not isinstance(term, dict):
                     raise AnsibleError('Expect a dict')
+
+                # Check index key
                 if not term.has_key('package'):
                     raise AnsibleError('Expect "package" key')
-                # Expanded syntax
+
                 item = itemDefault.copy()
                 item.update(term)
 

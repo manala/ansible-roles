@@ -25,8 +25,8 @@ class LookupModule(LookupBase):
 
             items = []
 
+            # Short syntax
             if isinstance(term, basestring):
-                # Short syntax
                 items.append(
                     keys_patterns.get(term)
                 )
@@ -34,9 +34,11 @@ class LookupModule(LookupBase):
                 # Must be a dict
                 if not isinstance(term, dict):
                     raise AnsibleError('Expect a dict')
+
+                # Check index key
                 if not term.has_key('id'):
                     raise AnsibleError('Expect "id" key')
-                # Expanded syntax
+
                 items.append(term)
 
             # Merge by index key
