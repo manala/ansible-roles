@@ -16,15 +16,19 @@ class LookupModule(LookupBase):
 
             items = []
 
+            # Short syntax
             if isinstance(term, basestring):
-                # Short syntax
                 item = patterns.get(term)
             else:
+
                 # Must be a dict
                 if not isinstance(term, dict):
                     raise AnsibleError('Expect a dict')
+
+                # Check index key
                 if not term.has_key('host'):
                     raise AnsibleError('Expect "host" key')
+
                 item = term.copy()
 
             # File
