@@ -14,7 +14,7 @@ class LookupModule(LookupBase):
 
             items = []
 
-            # Role as a single line
+            # Short syntax
             if isinstance(term, basestring):
                 items.append({
                     'src': term
