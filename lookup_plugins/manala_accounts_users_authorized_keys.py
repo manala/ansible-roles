@@ -14,6 +14,10 @@ class LookupModule(LookupBase):
 
         for term in self._flatten(terms):
 
+            # Must be a dict
+            if not isinstance(term, dict):
+                raise AnsibleError('Expect a dict')
+
             # Check index key
             if not term.has_key('user'):
                 raise AnsibleError('Expect "user" key')
