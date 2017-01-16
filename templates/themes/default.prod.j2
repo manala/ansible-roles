@@ -31,7 +31,7 @@ prompt_manala_precmd(){
   if [[ $prompt_length -gt 40 ]]; then
     nl=$'\n%{\r%}';
   fi
-  PROMPT="%{$bg[red]%}%{$fg[black]%}Production%{$reset_color%} $base_prompt$gitinfo$nl$post_prompt"
+  PROMPT="%{$bg[red]%}%{$fg[black]%}❱Production❰%{$reset_color%} $base_prompt$gitinfo$nl$post_prompt"
 }
 
 prompt_setup_manala
