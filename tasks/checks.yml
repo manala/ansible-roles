@@ -17,6 +17,7 @@
     dependencies:        "{{ item.dependencies|default(omit) }}"
     aggregate:           "{{ item.aggregate|default(omit) }}"
     custom:              "{{ item.custom|default(omit) }}"
+    state:               "{{ item.state|default('present') }}"
   with_items: "{{ manala_sensu_checks }}"
   notify:
     - sensu restart
