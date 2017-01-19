@@ -48,6 +48,17 @@
     manala_users: "{{ __manala_accounts_users.results|map(attribute='ansible_facts.__item')|list }}"
   no_log: true
 
+- name: users > Keys directory
+  file:
+    path:  "~{{ item.0.user }}/.ssh"
+    state: directory
+    owner:   "{{ item.0.user }}"
+    group:   "{{ item.0.group|default(omit) }}"
+    mode:    0700
+  with_subelements:
+    - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
+    - keys
+
 - name: users > Keys private
   copy:
     dest:    "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}"
