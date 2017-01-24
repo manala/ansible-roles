@@ -26,11 +26,6 @@
   tags:
     - manala_deploy
 
-# Removed
-- include: removed.yml
-  tags:
-    - manala_deploy
-
 # Writable - Dirs
 - block:
   - include: writable/dirs.yml
@@ -47,6 +42,11 @@
   tags:
     - manala_deploy
     - manala_deploy.tasks
+
+# Removed
+- include: removed.yml
+  tags:
+    - manala_deploy
 
 # Finalize
 - include: finalize.yml
