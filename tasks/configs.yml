@@ -2,8 +2,11 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(manala_sensu_configs_template|ternary(manala_sensu_configs_template, 'configs/default.json.j2')) }}"
-    dest: "{{ manala_sensu_configs_dir }}/{{ item.file }}"
+    src:   "{{ item.template|default(manala_sensu_configs_template|ternary(manala_sensu_configs_template, 'configs/default.j2')) }}"
+    dest:  "{{ manala_sensu_configs_dir }}/{{ item.file }}"
+    owner: "{{ item.user|default(manala_sensu_configs_user|ternary(manala_sensu_configs_user, 'root')) }}"
+    group: "{{ item.group|default(manala_sensu_configs_group|ternary(manala_sensu_configs_group, 'root')) }}"
+    mode:  "{{ item.mode|default(manala_sensu_configs_mode|ternary(manala_sensu_configs_mode, '0644')) }}"
   with_items: "{{ manala_sensu_configs }}"
   notify:
     - sensu restart

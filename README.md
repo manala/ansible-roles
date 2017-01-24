@@ -1,5 +1,4 @@
-# Ansible Role: sensu
-
+# Ansible Role: sensu [![Build Status](https://travis-ci.org/manala/ansible-role-sensu.svg?branch=master)](https://travis-ci.org/manala/ansible-role-sensu)
 
 This role will deal with the setup of __sensu__.
 
@@ -7,7 +6,7 @@ It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible s
 
 ## Requirements
 
-None.
+This role is made to work with the __sensu__ official debian packages, available on the [__sensu__ debian repository](https://sensuapp.org/docs/0.26/platforms/sensu-on-ubuntu-debian.html#sensu-core). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
 ## Dependencies
 
@@ -40,16 +39,19 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                            | Default               | Type   | Description              |
-| ------------------------------- | --------------------- | ------ | ------------------------ |
-| `manala_sensu_services`         | []                    | array  | Enable and start sensu services (sensu-server, sensu-client, sensu-server) |
-| `manala_sensu_gems`             | []                    | array  | Install sensu gems (http://sensu-plugins.io/) |
-| `manala_sensu_config_template`  | ~                     | string | |
-| `manala_sensu_config`           | []                    | array  | Sensu config directives |
-| `manala_sensu_configs_template` | ~                     | string | |
-| `manala_sensu_configs`          | []                    | array  | Sensu additional configs |
-| `manala_sensu_configs_exclusive`| false                 | array  | If true, will remove extra files in /etc/sensu/conf.d |
-| `manala_sensu_checks`           | []                    | array  | Sensu checks definitions |
+| Name                            | Default                | Type   | Description                                                                |
+| ------------------------------- | ---------------------- | ------ | -------------------------------------------------------------------------- |
+| `manala_sensu_services`         | []                     | Array  | Enable and start sensu services (sensu-server, sensu-client, sensu-server) |
+| `manala_sensu_gems`             | []                     | Array  | Install sensu gems (http://sensu-plugins.io/)                              |
+| `manala_sensu_config_template`  | config/empty.j2        | String | Sensu config base template                                                 |
+| `manala_sensu_config`           | []                     | Array  | Sensu config directives                                                    |
+| `manala_sensu_configs_template` | configs/default.j2     | String | Sensu configs base template                                                |
+| `manala_sensu_configs`          | []                     | Array  | Sensu additional configs                                                   |
+| `manala_sensu_configs_exclusive`| false                  | Array  | If true, will remove extra files in /etc/sensu/conf.d                      |
+| `manala_sensu_configs_user      | root                   | String | Name of the user that should own config files                              |
+| `manala_sensu_configs_group     | sensu                  | String | Name of the group that should own config files                             |
+| `manala_sensu_configs_mode      | 0640                   | String | Config files mode                                                          |
+| `manala_sensu_checks`           | []                     | Array  | Sensu checks definitions                                                   |
 
 ### Configuration example
 

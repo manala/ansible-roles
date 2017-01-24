@@ -1,17 +1,14 @@
 ---
 
-- set_fact:
-    _manala_sensu_embedded_ruby: "{{ manala_sensu_config.EMBEDDED_RUBY|default(false) }}"
-
 - name: packages > Setup gem packages
   gem:
-    name:                  "{{ item.name }}"
-    executable:            "{{ item.executable|default('/opt/sensu/embedded/bin/gem' if _manala_sensu_embedded_ruby else omit) }}"
-    gem_source:            "{{ item.gem_source|default(omit) }}"
-    include_dependencies:  "{{ item.include_dependencies|default(omit) }}"
-    pre_release:           "{{ item.pre_release|default(omit) }}"
-    repository:            "{{ item.repository|default(omit) }}"
-    state:                 "{{ item.state|default(omit) }}"
-    user_install:          "{{ item.user_install|default(false) }}"
-    version:               "{{ item.version|default(omit) }}"
+    name:                 "{{ item.name }}"
+    executable:           "{{ item.executable|default((manala_sensu_config.EMBEDDED_RUBY|default(false))|ternary('/opt/sensu/embedded/bin/gem', omit)) }}"
+    gem_source:           "{{ item.gem_source|default(omit) }}"
+    include_dependencies: "{{ item.include_dependencies|default(omit) }}"
+    pre_release:          "{{ item.pre_release|default(omit) }}"
+    repository:           "{{ item.repository|default(omit) }}"
+    state:                "{{ item.state|default(omit) }}"
+    user_install:         "{{ item.user_install|default(false) }}"
+    version:              "{{ item.version|default(omit) }}"
   with_items: "{{ manala_sensu_gems }}"

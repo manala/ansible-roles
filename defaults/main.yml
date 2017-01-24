@@ -1,17 +1,22 @@
 ---
 
-manala_sensu_services:          []
-
-manala_sensu_gems:              []
-
 # Config
 manala_sensu_config_template:   ~
 manala_sensu_config:            []
+
+# Gems
+manala_sensu_gems:              []
 
 # Configs
 manala_sensu_configs_template:  ~
 manala_sensu_configs:           []
 manala_sensu_configs_exclusive: false
+manala_sensu_configs_user:      ~
+manala_sensu_configs_group:     ~
+manala_sensu_configs_mode:      ~
 
 # Checks
 manala_sensu_checks:            []
+
+# Services
+manala_sensu_services:          []

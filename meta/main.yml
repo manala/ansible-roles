@@ -15,4 +15,7 @@ galaxy_info:
         - wheezy
         - jessie
   galaxy_tags:
+    - alerting
     - monitoring
+    - system
+    - sensu
