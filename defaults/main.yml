@@ -2,7 +2,7 @@
 
 # Config
 manala_telegraf_config_file:     /etc/telegraf/telegraf.conf
-manala_telegraf_config_template: config/base.conf.j2
+manala_telegraf_config_template: ~
 manala_telegraf_config:          []
 
 # Configs
