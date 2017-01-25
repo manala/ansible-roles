@@ -1,7 +1,6 @@
 ---
 
-- hosts: jessie
-  gather_facts: false
+- hosts: all
 
   vars:
     manala_grafana_config:
@@ -16,6 +15,10 @@
     manala_grafana_dashboards:
       - template: "{{ playbook_dir }}/templates/dashboard_test.json"
         overwrite: true
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
 
   roles:
     - manala.grafana

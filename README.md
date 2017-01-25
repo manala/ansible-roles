@@ -1,13 +1,13 @@
 # Ansible Role: Grafana [![Build Status](https://travis-ci.org/manala/ansible-role-grafana.svg?branch=master)](https://travis-ci.org/manala/ansible-role-grafana)
 
-This role will deal with the configuration of __grafana__.
+This role will deal with the configuration of [__grafana__](http://grafana.org/).
 
 It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
 
 
 ## Requirements
 
-None.
+This role is made to work with the __grafana__ official debian packages, available on the [__grafana__ debian repository](http://docs.grafana.org/installation/debian/#apt-repository). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
 ## Dependencies
 
@@ -15,7 +15,9 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
 ansible-galaxy install manala.grafana
@@ -35,18 +37,19 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                 | Default                  | Type   | Description |
-| ------------------------------------ | ------------------------ | ------ | ----------- |
-| manala_grafana_config_file           | /etc/grafana/grafana.ini | string |             |
-| manala_grafana_config_template       | config/base.ini.j2       | string |             |
-| manala_grafana_config                | []                       | Array  |             |
-| manala_grafana_api_url               | http://127.0.0.1:3000    | string |             |
-| manala_grafana_api_user              | admin                    | string |             |
-| manala_grafana_api_password          | admin                    | string |             |
-| manala_grafana_datasources_exclusive | false                    | bool   | Remove old datasources |
-| manala_grafana_datasources           | []                       | Array  |             |
-| manala_grafana_dashboards_exclusive  | false                    | bool   | Remove old dashboards |
-| manala_grafana_dashboards            | []                       | Array  |             |
+| Name                                 | Default                  | Type   | Description                  |
+| ------------------------------------ | ------------------------ | ------ | ---------------------------- |
+| manala_grafana_version               | ~ (latest)               | String | Grafana installed version    |
+| manala_grafana_config_file           | /etc/grafana/grafana.ini | String | Grafana config file location |
+| manala_grafana_config_template       | config/default.j2        | String | Grafana config base template |
+| manala_grafana_config                | []                       | Array  | Grafana config directives    |
+| manala_grafana_api_url               | http://127.0.0.1:3000    | String | Grafana API endpoint         |
+| manala_grafana_api_user              | admin                    | String | Grafana API user             |
+| manala_grafana_api_password          | admin                    | String | Grafana API password         |
+| manala_grafana_datasources_exclusive | false                    | Bool   | Remove old datasources       |
+| manala_grafana_datasources           | []                       | Array  | Grafana datasources          |
+| manala_grafana_dashboards_exclusive  | false                    | Bool   | Remove old dashboards        |
+| manala_grafana_dashboards            | []                       | Array  | Grafana dashboards           |
 
 ### Configuration example
 
@@ -91,7 +94,7 @@ manala_grafana_dashboards:
 ## Example playbook
 
 ```yaml
-- hosts: servers
+- hosts: grafana
   roles:
     - { role: manala.grafana }
 ```

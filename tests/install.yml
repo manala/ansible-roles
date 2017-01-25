@@ -1,7 +1,6 @@
 ---
 
-- hosts: jessie
-  gather_facts: true
+- hosts: all
 
   vars:
     manala_grafana_config:
@@ -9,24 +8,11 @@
         - http_port: 3002
 
   pre_tasks:
-    - name: test install > Disable systemctl to force sysv init script
-      command: mv /bin/systemctl /bin/systemctl.disabled
-      failed_when: false
-      changed_when: false
-    # Configuring the Debian repository
-    - name: test install > Register the packagecloud key
-      apt_key: url='https://packagecloud.io/gpg.key' state=present validate_certs=no
-      changed_when: false
-    - name: test install > Add grafana repository
-      apt_repository: "repo='deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main'"
-      changed_when: false
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
 
   roles:
     - manala.grafana
-
-  tasks:
-    - name: Wait grafana installation finish to run migration scripts
-      pause: seconds=15
 
   post_tasks:
     - name: Goss

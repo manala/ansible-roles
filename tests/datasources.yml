@@ -1,7 +1,6 @@
 ---
 
-- hosts: jessie
-  gather_facts: false
+- hosts: all
 
   vars:
     manala_grafana_config:
@@ -23,6 +22,10 @@
         database:  telegraf
         username:  ''
         password:  ''
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
 
   roles:
     - manala.grafana

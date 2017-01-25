@@ -82,7 +82,7 @@ lint:
 ## Run tests on debian wheezy
 test@wheezy: DEBIAN_DISTRIBUTION = wheezy
 test@wheezy: DOCKER_COMMAND      = sh -c 'make test'
-test@wheezy: DOCKER_OPTIONS      = --publish 3002:3002
+test@wheezy: DOCKER_OPTIONS      =
 test@wheezy:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
@@ -90,7 +90,7 @@ test@wheezy:
 ## Run tests on debian jessie
 test@jessie: DEBIAN_DISTRIBUTION = jessie
 test@jessie: DOCKER_COMMAND      = sh -c 'make test'
-test@wheezy: DOCKER_OPTIONS      = --publish 3002:3002
+test@wheezy: DOCKER_OPTIONS      =
 test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)

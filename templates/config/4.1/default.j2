@@ -1,0 +1,489 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_grafana_config -%}
+
+{% set config_paths = [] -%}
+{% set config_server = [] -%}
+{% set config_database = [] -%}
+{% set config_session = [] -%}
+{% set config_analytics = [] -%}
+{% set config_security = [] -%}
+{% set config_users = [] -%}
+{% set config_auth = [] -%}
+{% set config_auth_anonymous = [] -%}
+{% set config_auth_github = [] -%}
+{% set config_auth_google = [] -%}
+{% set config_auth_generic_oauth = [] -%}
+{% set config_auth_grafananet = [] -%}
+{% set config_auth_proxy = [] -%}
+{% set config_auth_basic = [] -%}
+{% set config_auth_ldap = [] -%}
+{% set config_smtp = [] -%}
+{% set config_emails = [] -%}
+{% set config_log = [] -%}
+{% set config_log_console = [] -%}
+{% set config_log_file = [] -%}
+{% set config_log_syslog = [] -%}
+{% set config_event_publisher = [] -%}
+{% set config_dashboards_json = [] -%}
+{% set config_alerting = [] -%}
+{% set config_metrics = [] -%}
+{% set config_metrics_graphite = [] -%}
+{% set config_grafana_net = [] -%}
+{% set config_external_image_storage = [] -%}
+{% set config_external_image_storage_s3 = [] -%}
+{% set config_external_image_storage_webdav = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'paths' -%}
+            {%- if config_paths.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'server' -%}
+            {%- if config_server.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'database' -%}
+            {%- if config_database.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'session' -%}
+            {%- if config_session.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'analytics' -%}
+            {%- if config_analytics.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'security' -%}
+            {%- if config_security.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'users' -%}
+            {%- if config_users.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.anonymous' -%}
+            {%- if config_auth_anonymous.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth' -%}
+            {%- if config_auth.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.google' -%}
+            {%- if config_auth_google.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.generic_oauth' -%}
+            {%- if config_auth_generic_oauth.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.grafananet' -%}
+            {%- if config_auth_grafananet.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.github' -%}
+            {%- if config_auth_github.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.proxy' -%}
+            {%- if config_auth_proxy.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.basic' -%}
+            {%- if config_auth_basic.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'auth.ldap' -%}
+            {%- if config_auth_ldap.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'smtp' -%}
+            {%- if config_smtp.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'emails' -%}
+            {%- if config_emails.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log' -%}
+            {%- if config_log.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log.console' -%}
+            {%- if config_log_console.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log.file' -%}
+            {%- if config_log_file.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'log.syslog' -%}
+            {%- if config_log_syslog.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'event_publisher' -%}
+            {%- if config_event_publisher.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'dashboards.json' -%}
+            {%- if config_dashboards_json.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'alerting' -%}
+            {%- if config_alerting.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'metrics' -%}
+            {%- if config_metrics.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'metrics.graphite' -%}
+            {%- if config_metrics_graphite.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'grafana_net' -%}
+            {%- if config_grafana_net.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'external_image_storage' -%}
+            {%- if config_external_image_storage.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'external_image_storage.s3' -%}
+            {%- if config_external_image_storage_s3.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'external_image_storage.webdav' -%}
+            {%- if config_external_image_storage_webdav.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+
+##################### Grafana Configuration Example #####################
+#
+# Everything has defaults so you only need to uncomment things you want to
+# change
+
+# possible values : production, development
+{{ macros.config_row(config, 'app_mode', '; app_mode = production', 0, true) }}
+
+# instance name, defaults to HOSTNAME environment variable value or hostname if HOSTNAME var is empty
+{{ macros.config_row(config, 'instance_name', '; instance_name = ${HOSTNAME}', 0, true) }}
+
+#################################### Paths ####################################
+[paths]
+# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is used)
+#
+{{ macros.config_row(config_paths, 'data', ';data = /var/lib/grafana', 0, true) }}
+#
+# Directory where grafana can store logs
+#
+{{ macros.config_row(config_paths, 'logs', ';logs = /var/log/grafana', 0, true) }}
+#
+# Directory where grafana will automatically scan and look for plugins
+#
+{{ macros.config_row(config_paths, 'plugins', ';plugins = /var/lib/grafana/plugins', 0, true) }}
+
+#
+#################################### Server ####################################
+[server]
+# Protocol (http or https)
+{{ macros.config_row(config_server, 'protocol', ';protocol = http', 0, true) }}
+
+# The ip address to bind to, empty will bind to all interfaces
+{{ macros.config_row(config_server, 'http_addr', ';http_addr =', 0, true) }}
+
+# The http port  to use
+{{ macros.config_row(config_server, 'http_port', ';http_port = 3000', 0, true) }}
+
+# The public facing domain name used to access grafana from a browser
+{{ macros.config_row(config_server, 'domain', ';domain = localhost', 0, true) }}
+
+# Redirect to correct domain if host header does not match domain
+# Prevents DNS rebinding attacks
+{{ macros.config_row(config_server, 'enforce_domain', ';enforce_domain = false', 0, true) }}
+
+# The full public facing url you use in browser, used for redirects and emails
+# If you use reverse proxy and sub path specify full url (with sub path)
+{{ macros.config_row(config_server, 'root_url', ';root_url = http://localhost:3000', 0, true) }}
+
+# Log web requests
+{{ macros.config_row(config_server, 'router_logging', ';router_logging = false', 0, true) }}
+
+# the path relative working path
+{{ macros.config_row(config_server, 'static_root_path', ';static_root_path = public', 0, true) }}
+
+# enable gzip
+{{ macros.config_row(config_server, 'enable_gzip', ';enable_gzip = false', 0, true) }}
+
+# https certs & key file
+{{ macros.config_row(config_server, 'cert_file', ';cert_file =', 0, true) }}
+{{ macros.config_row(config_server, 'cert_key', ';cert_key =', 0, true) }}
+
+#################################### Database ####################################
+[database]
+# You can configure the database connection by specifying type, host, name, user and password
+# as seperate properties or as on string using the url propertie.
+
+# Either "mysql", "postgres" or "sqlite3", it's your choice
+{{ macros.config_row(config_database, 'type', ';type = sqlite3', 0, true) }}
+{{ macros.config_row(config_database, 'host', ';host = 127.0.0.1:3306', 0, true) }}
+{{ macros.config_row(config_database, 'name', ';name = grafana', 0, true) }}
+{{ macros.config_row(config_database, 'user', ';user = root', 0, true) }}
+# If the password contains # or ; you have to wrap it with trippel quotes. Ex """#password;"""
+{{ macros.config_row(config_database, 'password', ';password =', 0, true) }}
+
+# Use either URL or the previous fields to configure the database
+# Example: mysql://user:secret@host:port/database
+{{ macros.config_row(config_database, 'url', ';url =', 0, true) }}
+
+# For "postgres" only, either "disable", "require" or "verify-full"
+{{ macros.config_row(config_database, 'ssl_mode', ';ssl_mode = disable', 0, true) }}
+
+# For "sqlite3" only, path relative to data_path setting
+{{ macros.config_row(config_database, 'path', ';path = grafana.db', 0, true) }}
+
+#################################### Session ####################################
+[session]
+# Either "memory", "file", "redis", "mysql", "postgres", default is "file"
+{{ macros.config_row(config_session, 'provider', ';provider = file', 0, true) }}
+
+# Provider config options
+# memory: not have any config yet
+# file: session dir path, is relative to grafana data_path
+# redis: config like redis server e.g. `addr=127.0.0.1:6379,pool_size=100,db=grafana`
+# mysql: go-sql-driver/mysql dsn config string, e.g. `user:password@tcp(127.0.0.1:3306)/database_name`
+# postgres: user=a password=b host=localhost port=5432 dbname=c sslmode=disable
+{{ macros.config_row(config_session, 'provider_config', ';provider_config = sessions', 0, true) }}
+
+# Session cookie name
+{{ macros.config_row(config_session, 'cookie_name', ';cookie_name = grafana_sess', 0, true) }}
+
+# If you use session in https only, default is false
+{{ macros.config_row(config_session, 'cookie_secure', ';cookie_secure = false', 0, true) }}
+
+# Session life time, default is 86400
+{{ macros.config_row(config_session, 'cookie_life_time', ';session_life_time = 86400', 0, true) }}
+
+#################################### Analytics ####################################
+[analytics]
+# Server reporting, sends usage counters to stats.grafana.org every 24 hours.
+# No ip addresses are being tracked, only simple counters to track
+# running instances, dashboard and error counts. It is very helpful to us.
+# Change this option to false to disable reporting.
+{{ macros.config_row(config_analytics, 'reporting_enabled', ';reporting_enabled = true', 0, true) }}
+
+# Set to false to disable all checks to https://grafana.net
+# for new vesions (grafana itself and plugins), check is used
+# in some UI views to notify that grafana or plugin update exists
+# This option does not cause any auto updates, nor send any information
+# only a GET request to http://grafana.net to get latest versions
+{{ macros.config_row(config_analytics, 'check_for_updates', ';check_for_updates = true', 0, true) }}
+
+# Google Analytics universal tracking code, only enabled if you specify an id here
+{{ macros.config_row(config_analytics, 'google_analytics_ua_id', ';google_analytics_ua_id =', 0, true) }}
+
+#################################### Security ####################################
+[security]
+# default admin user, created on startup
+{{ macros.config_row(config_security, 'admin_user', ';admin_user = admin', 0, true) }}
+
+# default admin password, can be changed before first start of grafana,  or in profile settings
+{{ macros.config_row(config_security, 'admin_password', ';admin_password = admin', 0, true) }}
+
+# used for signing
+{{ macros.config_row(config_security, 'secret_key', ';secret_key = SW2YcwTIb9zpOOhoPsMm', 0, true) }}
+
+# Auto-login remember days
+{{ macros.config_row(config_security, 'login_remember_days', ';login_remember_days = 7', 0, true) }}
+{{ macros.config_row(config_security, 'cookie_username', ';cookie_username = grafana_user', 0, true) }}
+{{ macros.config_row(config_security, 'cookie_remember_name', ';cookie_remember_name = grafana_remember', 0, true) }}
+
+# disable gravatar profile images
+{{ macros.config_row(config_security, 'disable_gravatar', ';disable_gravatar = false', 0, true) }}
+
+# data source proxy whitelist (ip_or_domain:port separated by spaces)
+{{ macros.config_row(config_security, 'data_source_proxy_whitelist', ';data_source_proxy_whitelist =', 0, true) }}
+
+[snapshots]
+# snapshot sharing options
+{{ macros.config_row(config_security, 'external_enabled', ';external_enabled = true', 0, true) }}
+{{ macros.config_row(config_security, 'external_snapshot_url', ';external_snapshot_url = https://snapshots-origin.raintank.io', 0, true) }}
+{{ macros.config_row(config_security, 'external_snapshot_name', ';external_snapshot_name = Publish to snapshot.raintank.io', 0, true) }}
+
+# remove expired snapshot
+{{ macros.config_row(config_security, 'snapshot_remove_expired', ';snapshot_remove_expired = true', 0, true) }}
+
+# remove snapshots after 90 days
+{{ macros.config_row(config_security, 'snapshot_TTL_days', ';snapshot_TTL_days = 90', 0, true) }}
+
+#################################### Users ####################################
+[users]
+# disable user signup / registration
+{{ macros.config_row(config_users, 'allow_sign_up', ';allow_sign_up = true', 0, true) }}
+
+# Allow non admin users to create organizations
+{{ macros.config_row(config_users, 'allow_org_create', ';allow_org_create = true', 0, true) }}
+
+# Set to true to automatically assign new users to the default organization (id 1)
+{{ macros.config_row(config_users, 'auto_assign_org', ';auto_assign_org = true', 0, true) }}
+
+# Default role new users will be automatically assigned (if disabled above is set to true)
+{{ macros.config_row(config_users, 'auto_assign_org_role', ';auto_assign_org_role = Viewer', 0, true) }}
+
+# Background text for the user field on the login page
+{{ macros.config_row(config_users, 'login_hint', ';login_hint = email or username', 0, true) }}
+
+# Default UI theme ("dark" or "light")
+{{ macros.config_row(config_users, 'default_theme', ';default_theme = dark', 0, true) }}
+
+[auth]
+# Set to true to disable (hide) the login form, useful if you use OAuth, defaults to false
+{{ macros.config_row(config_auth, 'disable_login_form', ';disable_login_form = false', 0, true) }}
+
+#################################### Anonymous Auth ##########################
+[auth.anonymous]
+# enable anonymous access
+{{ macros.config_row(config_auth_anonymous, 'enabled', ';enabled = false', 0, true) }}
+
+# specify organization name that should be used for unauthenticated users
+{{ macros.config_row(config_auth_anonymous, 'org_name', ';org_name = Main Org.', 0, true) }}
+
+# specify role for unauthenticated users
+{{ macros.config_row(config_auth_anonymous, 'org_role', ';org_role = Viewer', 0, true) }}
+
+#################################### Github Auth ##########################
+[auth.github]
+{{ macros.config_row(config_auth_github, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_auth_github, 'allow_sign_up', ';allow_sign_up = true', 0, true) }}
+{{ macros.config_row(config_auth_github, 'client_id', ';client_id = some_id', 0, true) }}
+{{ macros.config_row(config_auth_github, 'client_secret', ';client_secret = some_secret', 0, true) }}
+{{ macros.config_row(config_auth_github, 'scopes', ';scopes = user:email,read:org', 0, true) }}
+{{ macros.config_row(config_auth_github, 'auth_url', ';auth_url = https://github.com/login/oauth/authorize', 0, true) }}
+{{ macros.config_row(config_auth_github, 'token_url', ';token_url = https://github.com/login/oauth/access_token', 0, true) }}
+{{ macros.config_row(config_auth_github, 'api_url', ';api_url = https://api.github.com/user', 0, true) }}
+{{ macros.config_row(config_auth_github, 'team_ids', ';team_ids =', 0, true) }}
+{{ macros.config_row(config_auth_github, 'allowed_organizations', ';allowed_organizations =', 0, true) }}
+
+#################################### Google Auth ##########################
+[auth.google]
+{{ macros.config_row(config_auth_google, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_auth_google, 'allow_sign_up', ';allow_sign_up = true', 0, true) }}
+{{ macros.config_row(config_auth_google, 'client_id', ';client_id = some_client_id', 0, true) }}
+{{ macros.config_row(config_auth_google, 'client_secret', ';client_secret = some_client_secret', 0, true) }}
+{{ macros.config_row(config_auth_google, 'scopes', ';scopes = https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email', 0, true) }}
+{{ macros.config_row(config_auth_google, 'auth_url', ';auth_url = https://accounts.google.com/o/oauth2/auth', 0, true) }}
+{{ macros.config_row(config_auth_google, 'token_url', ';token_url = https://accounts.google.com/o/oauth2/token', 0, true) }}
+{{ macros.config_row(config_auth_google, 'api_url', ';api_url = https://www.googleapis.com/oauth2/v1/userinfo', 0, true) }}
+{{ macros.config_row(config_auth_google, 'allowed_domains', ';allowed_domains =', 0, true) }}
+
+#################################### Generic OAuth ##########################
+[auth.generic_oauth]
+{{ macros.config_row(config_auth_generic_oauth, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'name', ';name = OAuth', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'allow_sign_up', ';allow_sign_up = true', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'client_id', ';client_id = some_id', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'client_secret', ';client_secret = some_secret', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'scopes', ';scopes = user:email,read:org', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'auth_url', ';auth_url = https://foo.bar/login/oauth/authorize', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'token_url', ';token_url = https://foo.bar/login/oauth/access_token', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'api_url', ';api_url = https://foo.bar/user', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'team_ids', ';team_ids =', 0, true) }}
+{{ macros.config_row(config_auth_generic_oauth, 'allowed_organizations', ';allowed_organizations =', 0, true) }}
+
+#################################### Grafana.net Auth ####################
+[auth.grafananet]
+{{ macros.config_row(config_auth_grafananet, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_auth_grafananet, 'allow_sign_up', ';allow_sign_up = true', 0, true) }}
+{{ macros.config_row(config_auth_grafananet, 'client_id', ';client_id = some_id', 0, true) }}
+{{ macros.config_row(config_auth_grafananet, 'client_secret', ';client_secret = some_secret', 0, true) }}
+{{ macros.config_row(config_auth_grafananet, 'scopes', ';scopes = user:email', 0, true) }}
+{{ macros.config_row(config_auth_grafananet, 'allowed_organizations', ';allowed_organizations =', 0, true) }}
+
+#################################### Auth Proxy ##########################
+[auth.proxy]
+{{ macros.config_row(config_auth_proxy, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_auth_proxy, 'header_name', ';header_name = X-WEBAUTH-USER', 0, true) }}
+{{ macros.config_row(config_auth_proxy, 'header_property', ';header_property = username', 0, true) }}
+{{ macros.config_row(config_auth_proxy, 'auto_sign_up', ';auto_sign_up = true', 0, true) }}
+{{ macros.config_row(config_auth_proxy, 'ldap_sync_ttl', ';ldap_sync_ttl = 60', 0, true) }}
+{{ macros.config_row(config_auth_proxy, 'whitelist', ';whitelist = 192.168.1.1, 192.168.2.1', 0, true) }}
+
+#################################### Basic Auth ##########################
+[auth.basic]
+{{ macros.config_row(config_auth_basic, 'enabled', ';enabled = true', 0, true) }}
+
+#################################### Auth LDAP ##########################
+[auth.ldap]
+{{ macros.config_row(config_auth_ldap, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_auth_ldap, 'config_file', ';config_file = /etc/grafana/ldap.toml', 0, true) }}
+{{ macros.config_row(config_auth_ldap, 'allow_sign_up', ';allow_sign_up = true', 0, true) }}
+
+#################################### SMTP / Emailing ##########################
+[smtp]
+{{ macros.config_row(config_smtp, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_smtp, 'host', ';host = localhost:25', 0, true) }}
+{{ macros.config_row(config_smtp, 'user', ';user =', 0, true) }}
+{{ macros.config_row(config_smtp, 'password', ';password =', 0, true) }}
+{{ macros.config_row(config_smtp, 'cert_file', ';cert_file =', 0, true) }}
+{{ macros.config_row(config_smtp, 'key_file', ';key_file =', 0, true) }}
+{{ macros.config_row(config_smtp, 'skip_verify', ';skip_verify = false', 0, true) }}
+{{ macros.config_row(config_smtp, 'from_address', ';from_address = admin@grafana.localhost', 0, true) }}
+
+[emails]
+{{ macros.config_row(config_emails, 'welcome_email_on_sign_up', ';welcome_email_on_sign_up = false', 0, true) }}
+
+#################################### Logging ##########################
+[log]
+# Either "console", "file", "syslog". Default is console and  file
+# Use space to separate multiple modes, e.g. "console file"
+{{ macros.config_row(config_log, 'mode', ';mode = console file', 0, true) }}
+
+# Either "trace", "debug", "info", "warn", "error", "critical", default is "info"
+{{ macros.config_row(config_log, 'level', ';level = info', 0, true) }}
+
+# optional settings to set different levels for specific loggers. Ex filters = sqlstore:debug
+{{ macros.config_row(config_log, 'filters', ';filters =', 0, true) }}
+
+
+# For "console" mode only
+[log.console]
+{{ macros.config_row(config_log_console, 'level', ';level =', 0, true) }}
+
+# log line format, valid options are text, console and json
+{{ macros.config_row(config_log_console, 'format', ';format = console', 0, true) }}
+
+# For "file" mode only
+[log.file]
+{{ macros.config_row(config_log_file, 'level', ';level =', 0, true) }}
+
+# log line format, valid options are text, console and json
+{{ macros.config_row(config_log_file, 'format', ';format = text', 0, true) }}
+
+# This enables automated log rotate(switch of following options), default is true
+{{ macros.config_row(config_log_file, 'log_rotate', ';log_rotate = true', 0, true) }}
+
+# Max line number of single file, default is 1000000
+{{ macros.config_row(config_log_file, 'max_lines', ';max_lines = 1000000', 0, true) }}
+
+# Max size shift of single file, default is 28 means 1 << 28, 256MB
+{{ macros.config_row(config_log_file, 'max_size_shift', ';max_size_shift = 28', 0, true) }}
+
+# Segment log daily, default is true
+{{ macros.config_row(config_log_file, 'daily_rotate', ';daily_rotate = true', 0, true) }}
+
+# Expired days of log file(delete after max days), default is 7
+{{ macros.config_row(config_log_file, 'max_days', ';max_days = 7', 0, true) }}
+
+[log.syslog]
+{{ macros.config_row(config_log_syslog, 'level', ';level =', 0, true) }}
+
+# log line format, valid options are text, console and json
+{{ macros.config_row(config_log_syslog, 'format', ';format = text', 0, true) }}
+
+# Syslog network type and address. This can be udp, tcp, or unix. If left blank, the default unix endpoints will be used.
+{{ macros.config_row(config_log_syslog, 'network', ';network =', 0, true) }}
+{{ macros.config_row(config_log_syslog, 'address', ';address =', 0, true) }}
+
+# Syslog facility. user, daemon and local0 through local7 are valid.
+{{ macros.config_row(config_log_syslog, 'facility', ';facility =', 0, true) }}
+
+# Syslog tag. By default, the process' argv[0] is used.
+{{ macros.config_row(config_log_syslog, 'tag', ';tag =', 0, true) }}
+
+
+#################################### AMQP Event Publisher ##########################
+[event_publisher]
+{{ macros.config_row(config_event_publisher, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_event_publisher, 'rabbitmq_url', ';rabbitmq_url = amqp://localhost/', 0, true) }}
+{{ macros.config_row(config_event_publisher, 'exchange', ';exchange = grafana_events', 0, true) }}
+
+;#################################### Dashboard JSON files ##########################
+[dashboards.json]
+{{ macros.config_row(config_dashboards_json, 'enabled', ';enabled = false', 0, true) }}
+{{ macros.config_row(config_dashboards_json, 'path', ';path = /var/lib/grafana/dashboards', 0, true) }}
+
+#################################### Alerting ######################################
+[alerting]
+# Makes it possible to turn off alert rule execution.
+{{ macros.config_row(config_alerting, 'execute_alerts', ';execute_alerts = true', 0, true) }}
+
+#################################### Internal Grafana Metrics ##########################
+# Metrics available at HTTP API Url /api/metrics
+[metrics]
+# Disable / Enable internal metrics
+{{ macros.config_row(config_metrics, 'enabled', ';enabled           = true', 0, true) }}
+
+# Publish interval
+{{ macros.config_row(config_metrics, 'interval_seconds', ';interval_seconds  = 10', 0, true) }}
+
+# Send internal metrics to Graphite
+[metrics.graphite]
+# Enable by setting the address setting (ex localhost:2003)
+{{ macros.config_row(config_metrics_graphite, 'address', ';address =', 0, true) }}
+{{ macros.config_row(config_metrics_graphite, 'prefix', ';prefix = prod.grafana.%(instance_name)s.', 0, true) }}
+
+#################################### Internal Grafana Metrics ##########################
+# Url used to to import dashboards directly from Grafana.net
+[grafana_net]
+{{ macros.config_row(config_grafana_net, 'url', ';url = https://grafana.net', 0, true) }}
+
+#################################### External image storage ##########################
+[external_image_storage]
+# Used for uploading images to public servers so they can be included in slack/email messages.
+# you can choose between (s3, webdav)
+{{ macros.config_row(config_external_image_storage, 'provider', ';provider =', 0, true) }}
+
+[external_image_storage.s3]
+{{ macros.config_row(config_external_image_storage_s3, 'bucket_url', ';bucket_url =', 0, true) }}
+{{ macros.config_row(config_external_image_storage_s3, 'access_key', ';access_key =', 0, true) }}
+{{ macros.config_row(config_external_image_storage_s3, 'secret_key', ';secret_key =', 0, true) }}
+
+[external_image_storage.webdav]
+{{ macros.config_row(config_external_image_storage_webdav, 'url', ';url =', 0, true) }}
+{{ macros.config_row(config_external_image_storage_webdav, 'username', ';username =', 0, true) }}
+{{ macros.config_row(config_external_image_storage_webdav, 'password', ';password =', 0, true) }}
