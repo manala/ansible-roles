@@ -16,3 +16,4 @@ galaxy_info:
         - jessie
   galaxy_tags:
     - monitoring
+    - grafana
