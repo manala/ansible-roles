@@ -78,18 +78,24 @@ lint:
 ########
 
 test@wheezy: DEBIAN_DISTRIBUTION = wheezy
-test@wheezy: DOCKER_COMMAND      = make test
+test@wheezy: DOCKER_COMMAND      = sh -c 'make test'
+test@wheezy: DOCKER_OPTIONS      =
 test@wheezy:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
 test@jessie: DEBIAN_DISTRIBUTION = jessie
-test@jessie: DOCKER_COMMAND      = make test
+test@jessie: DOCKER_COMMAND      = sh -c 'make test'
+test@wheezy: DOCKER_OPTIONS      =
 test@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-test: test-codes test-codes-default
+test: test-install test-codes test-codes-default
+
+test-install:
+	ansible-playbook tests/install.yml --syntax-check
+	ansible-playbook tests/install.yml
 
 test-codes:
 	ansible-playbook tests/codes.yml --syntax-check
