@@ -1,4 +1,4 @@
-# Ansible Role: Locales
+# Ansible Role: Locales [![Build Status](https://travis-ci.org/manala/ansible-role-locales.svg?branch=master)](https://travis-ci.org/manala/ansible-role-locales)
 
 This role will deal with the configuration of system __locales__.
 
