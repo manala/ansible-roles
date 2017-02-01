@@ -1,0 +1,26 @@
+---
+
+- name: Pre tasks > Clean telegraf packages
+  apt:
+    package: telegraf*
+    state:   absent
+    purge:   true
+  ignore_errors: true
+
+- name: Pre tasks > Clean telegraf config
+  file:
+    path:  "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/telegraf
+    - /etc/default/telegraf
+    - /var/log/telegraf
+
+- name: Pre tasks > Influxdata apt key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    id:  2582E0C5
+
+- name: Pre tasks > Influxdata apt repository
+  apt_repository:
+    repo: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
