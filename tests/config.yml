@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_telegraf_config:
+      - agent:
+        - hostname: test.manala.dev
+        - quiet: true
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
+
+  roles:
+    - manala.telegraf
+
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - process:
+            telegraf:
+              running: true
+        - file:
+            /etc/telegraf/telegraf.conf:
+              exists: true
+              contains:
+                - hostname = \"test.manala.dev\"
+                - quiet = true
