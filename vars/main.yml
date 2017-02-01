@@ -12,7 +12,7 @@ manala_apt_repositories_patterns:
     source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   debian_backports:
     source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
-    pin:    release a={{ ansible_distribution_release }}-backports
+    pin: release a={{ ansible_distribution_release }}-backports
   ubuntu_security:
     source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
   ubuntu_updates:
@@ -21,7 +21,7 @@ manala_apt_repositories_patterns:
     source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
   ubuntu_backports:
     source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
-    pin:    release a={{ ansible_distribution_release }}-backports
+    pin: release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
     key: dotdeb
@@ -142,92 +142,104 @@ manala_apt_repositories_patterns:
   yarn:
     source: deb http://dl.yarnpkg.com/debian/ stable main
     key: yarn
+  sury_php_debian:
+    source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
+    key: sury_php_debian
+  sury_php_ubuntu:
+    source: ppa:ondrej/php
+    key: sury_php_ubuntu
 
 # Keys
 manala_apt_keys_patterns:
   dotdeb:
     url: http://www.dotdeb.org/dotdeb.gpg
-    id:  89DF5277
+    id: 89DF5277
   nginx:
     url: http://nginx.org/keys/nginx_signing.key
-    id:  7BD9BF62
+    id: 7BD9BF62
   bearstech:
     url: http://deb.bearstech.com/bearstech-archive.gpg
-    id:  90158EE0
+    id: 90158EE0
   nodesource:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id:        68576280
+    id: 68576280
   mysql:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id:        5072E1F5
+    id: 5072E1F5
   mariadb:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id:        1BB943DB
+    id: 1BB943DB
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    id:  ACCC4CF8
+    id: ACCC4CF8
   10gen:
     url: https://docs.mongodb.org/10gen-gpg-key.asc
-    id:  7F0CEB10
+    id: 7F0CEB10
     # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
     # Instead of hacking things on python or system, simply don't validate certs...
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   mongodb:
     url: https://www.mongodb.org/static/pgp/server-3.2.asc
-    id:  EA312927
+    id: EA312927
     # See 10gen
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   varnish:
     url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
-    id:  C4DEFFEB
+    id: C4DEFFEB
   jenkins:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
-    id:  D50582E6
+    id: D50582E6
   sensu:
     url: http://repositories.sensuapp.org/apt/pubkey.gpg
-    id:  EB9C94BB
+    id: EB9C94BB
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-    id:  056E8E56
+    id: 056E8E56
   logentries:
     keyserver: pgp.mit.edu
-    id:        C43C79AD
+    id: C43C79AD
   galera:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id:        BC19DDBA
+    id: BC19DDBA
   packagecloud:
     url: https://packagecloud.io/gpg.key
-    id:  D59097AB
+    id: D59097AB
   elasticsearch:
     url: https://packages.elastic.co/GPG-KEY-elasticsearch
-    id:  D88E42B4
+    id: D88E42B4
   gitlab:
     url: https://packages.gitlab.com/gpg.key
-    id:  E15E78F4
+    id: E15E78F4
   aptly:
     url: https://www.aptly.info/pubkey.txt
-    id:  9C7DE460
+    id: 9C7DE460
   docker:
     keyserver: keys.gnupg.net
-    id:        2C52609D
+    id: 2C52609D
   manala:
     keyserver: keys.gnupg.net
-    id:        1394DEA3
+    id: 1394DEA3
   newrelic:
     url: https://download.newrelic.com/548C16BF.gpg
-    id:  548C16BF
+    id: 548C16BF
   influxdata:
     url: https://repos.influxdata.com/influxdb.key
-    id:  2582E0C5
+    id: 2582E0C5
   yarn:
     url: http://dl.yarnpkg.com/debian/pubkey.gpg
-    id:  86E50310
+    id: 86E50310
+  sury_php_debian:
+    url: https://packages.sury.org/php/apt.gpg
+    id: 4A7A714D
+  sury_php_ubuntu:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: E5267A6C
 
 # Preferences
 manala_apt_preferences_patterns:
   vim:                vim*
   git:                git git-*
-  php:                php-* php5-* php7.0-*
+  php:                php-* php5-* php7.0-* php7.1-*
   mysql:              mysql* libmysql*
   nginx:              nginx*
   ruby:               ruby*

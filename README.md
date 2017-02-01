@@ -140,6 +140,8 @@ manala_apt_repositories:
   - elasticsearch_1_7
   - ppa_ansible
   - blackfire
+  - sury_php_debian
+  - sury_php_ubuntu
 ```
 
 Verbose, pattern based
