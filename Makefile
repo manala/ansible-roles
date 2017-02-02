@@ -71,7 +71,7 @@ lint@jessie:
 	$(DOCKER)
 
 lint:
-	ansible-lint -v .
+	ansible-lint -v -x deprecated .
 
 ########
 # Test #
@@ -118,3 +118,6 @@ test-update:
 test-packages:
 	ansible-playbook tests/packages.yml --syntax-check
 	ansible-playbook tests/packages.yml
+
+#test-test:
+#	ansible-playbook tests/test.yml
