@@ -3,6 +3,11 @@
 - hosts: all
 
   vars:
+    # Telegraf require one configured input and output to run.
+    manala_telegraf_configs:
+      - file: minimal_config.conf
+        template: "{{ playbook_dir }}/templates/minimal_config.j2"
+
     manala_telegraf_config:
       - agent:
         - hostname: test.manala.dev

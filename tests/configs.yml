@@ -4,6 +4,9 @@
 
   vars:
     manala_telegraf_configs:
+      # Telegraf require one configured input and output to run.
+      - file: minimal_config.conf
+        template: "{{ playbook_dir }}/templates/minimal_config.j2"
       - file: input_cpu.conf
         template: configs/input_cpu.conf.j2
         config:
