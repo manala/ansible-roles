@@ -54,9 +54,9 @@ dev@jessie:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
 	$(DOCKER)
 
-	########
-	# Lint #
-	########
+########
+# Lint #
+########
 
 lint@wheezy: DEBIAN_DISTRIBUTION = wheezy
 lint@wheezy: DOCKER_COMMAND      = make lint
