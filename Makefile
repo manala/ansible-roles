@@ -73,7 +73,7 @@ lint@jessie:
 	$(DOCKER)
 
 lint:
-	ansible-lint -v .
+	ansible-lint -v -x deprecated .
 
 ########
 # Test #
