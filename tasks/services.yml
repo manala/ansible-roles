@@ -1,0 +1,11 @@
+---
+
+- name: services > Services
+  systemd:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled|default(omit) }}"
+    masked: "{{ item.masked|default(omit) }}"
+    state: "{{ item.state|default(omit) }}"
+    user: "{{ item.user|default(omit) }}"
+    daemon_reload: "{{ item.daemon_reload|default(omit) }}"
+  with_items: "{{ manala_systemd_services }}"
