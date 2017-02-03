@@ -2,7 +2,7 @@
 
 This role will deal with the setup and config of nginx
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
