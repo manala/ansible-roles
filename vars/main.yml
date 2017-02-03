@@ -141,7 +141,10 @@ manala_skeleton_patterns:
     }}"
     php_extensions_exclusive: true
     php_extensions: "{{
-      ['xdebug']
+      [{
+        'extension': 'xdebug',
+        'enabled':   false
+      }]
       + (
         manala_skeleton_options.mysql
         or manala_skeleton_options.mariadb
