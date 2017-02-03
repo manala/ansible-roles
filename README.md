@@ -28,6 +28,12 @@ Using ansible galaxy requirements file:
 - src: manala.docker
 ```
 
+## Role Handlers
+
+| Name           | Type    | Description           |
+| -------------- | ------- | --------------------- |
+| docker restart | Service | Restart Docker engine |
+
 ## Example playbook
 
 ```yaml
