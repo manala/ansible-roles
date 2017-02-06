@@ -30,12 +30,16 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default                 | Type    | Description                                 |
-| ----------------------------------------- | ----------------------- | ------- | ------------------------------------------- |
-| `manala_systemd_system_configs`           | {}                      | Array   | System configs                              |
-| `manala_systemd_system_configs_template`  | system_configs/empty.j2 | String  |                                             |
-| `manala_systemd_system_configs_exclusive` | false                   | Boolean | Exclusion of existings files                |
-| `manala_systemd_system_configs_dir`       | /etc/systemd/system     | String  | Path to the system configuration directory  |
+| Name                                        | Default                 | Type    | Description                                 |
+| ------------------------------------------- | ----------------------- | ------- | ------------------------------------------- |
+| `manala_systemd_system_configs`             | {}                      | Array   | System configs                              |
+| `manala_systemd_system_configs_template`    | system_configs/empty.j2 | String  |                                             |
+| `manala_systemd_system_configs_exclusive`   | false                   | Boolean | Exclusion of existings files                |
+| `manala_systemd_system_configs_dir`         | /etc/systemd/system     | String  | Path to the system configuration directory  |
+| `manala_systemd_tmpfiles_configs_exclusive` | false                   | Boolean | Exclusion of existings files                |
+| `manala_systemd_tmpfiles_configs_dir`       | /etc/tmpfiles.d         | String  | Path to the system configuration directory  |
+| `manala_systemd_tmpfiles_configs_template`  | ~                       | String  |                                             |
+| `manala_systemd_tmpfiles_configs`           | []                      | Array   | System configs                              |
 
 ### Configuration example
 
@@ -51,6 +55,18 @@ manala_systemd_system_configs:
 manala_systemd_services:
   - name: redis-server
     masked: true
+```
+
+### Configuration example (tmpfiles.d)
+
+```yaml
+
+manala_systemd_tmpfiles_configs_exclusive: true
+
+manala_systemd_tmpfiles_configs:
+  - file:   mysql.conf
+    config:
+      - d: /var/run/mysqld 0755 mysql mysql -
 ```
 
 ## Example playbook
