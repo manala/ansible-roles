@@ -1,0 +1,13 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_docker
+
+# Services
+- include: services.yml
+  tags:
+    - manala_docker
+    - manala_docker.services
+    - manala.services
