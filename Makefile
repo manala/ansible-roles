@@ -22,4 +22,9 @@ help:
 
 ## Split
 split:
-	docker run --rm -ti -v $PWD:/srv jderusse/gitsplit /bin/bash
+	docker run \
+		--rm \
+		--tty --interactive \
+		--volume ${PWD}:/srv \
+		--volume ${HOME}/.ssh:/root/.ssh \
+		jderusse/gitsplit
