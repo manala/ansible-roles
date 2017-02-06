@@ -1,0 +1,30 @@
+---
+
+- name: Services - Jessie
+  hosts: jessie
+  pre_tasks:
+    - include: pre_tasks/docker.yml
+  roles:
+    - manala.docker
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - service:
+            docker:
+              enabled: true
+              running: true
+
+- name: Services - Wheezy
+  hosts: wheezy
+  pre_tasks:
+    - include: pre_tasks/docker.yml
+    - include: pre_tasks/backports.yml
+  roles:
+    - manala.docker
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - service:
+            docker:
+              enabled: true
+              running: true

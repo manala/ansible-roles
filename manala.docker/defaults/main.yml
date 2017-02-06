@@ -1,0 +1,5 @@
+---
+
+# Install
+manala_docker_install_packages:
+  - docker-engine
