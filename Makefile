@@ -15,3 +15,11 @@ help:
 		} \
 	} \
 	{ lastLine = $$0 }' ${MAKEFILE_LIST}
+
+#########
+# Split #
+#########
+
+## Split
+split:
+	docker run --rm -ti -v $PWD:/srv jderusse/gitsplit /bin/bash
