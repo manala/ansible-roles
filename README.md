@@ -43,7 +43,7 @@ None
 
 ```yaml
 manala_kernel_parameters:
-  - name: net.ipv4.ip_nonlocal_bind
+  - parameter: net.ipv4.ip_nonlocal_bind
     value: 1
 
 manala_kernel_modules:
