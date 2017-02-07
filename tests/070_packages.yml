@@ -1,6 +1,6 @@
 ---
 
-- name: Packages
+- name: "{{ test }}"
   hosts: all
   vars:
     manala_apt_packages:
@@ -26,14 +26,5 @@
   roles:
     - manala.apt
   post_tasks:
-    # Goss
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
-      with_items:
-        - package:
-            ecl-doc:
-              installed: true
-            telnet:
-              installed: true
-            pwgen:
-              installed: false
+      command: goss --gossfile {{ test }}.goss.yml validate

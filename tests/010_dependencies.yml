@@ -1,0 +1,13 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  pre_tasks:
+    - apt:
+        name:  apt-transport-https
+        state: absent
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

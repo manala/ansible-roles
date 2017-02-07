@@ -1,6 +1,6 @@
 ---
 
-- name: Update
+- name: "{{ test }}"
   hosts: all
   vars:
     manala_apt:

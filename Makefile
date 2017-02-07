@@ -1,25 +1,29 @@
 .SILENT:
-.PHONY: help
+.PHONY: help dev lint test
 
 ## Colors
 COLOR_RESET   = \033[0m
 COLOR_INFO    = \033[32m
 COLOR_COMMENT = \033[33m
 
-## Role
-ROLE_NAME = manala.apt
+## Ansible
+ANSIBLE_ROLE     = manala.apt
+ANSIBLE_VERSION ?=
 
-## Macros
+## Debian
+DEBIAN_DISTRIBUTION ?= jessie
+
+## Docker
+DOCKER_OPTIONS =
 DOCKER = docker run \
     --rm \
-    --volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
+    --volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
     --volume `pwd`:/srv \
     --workdir /srv \
     --tty \
-    --cap-add SYS_PTRACE \
+    --privileged \
     ${DOCKER_OPTIONS} \
-    manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
-    ${DOCKER_COMMAND}
+    manala/ansible-debian:${if ${ANSIBLE_VERSION},${ANSIBLE_VERSION}-}${DEBIAN_DISTRIBUTION}
 
 ## Help
 help:
@@ -34,90 +38,59 @@ help:
 			printf " ${COLOR_INFO}%-16s${COLOR_RESET} %s\n", helpCommand, helpMessage; \
 		} \
 	} \
-	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+	{ lastLine = $$0 }' ${MAKEFILE_LIST}
 
 #######
 # Dev #
 #######
 
 dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
-dev@wheezy: DOCKER_OPTIONS      = --interactive
-dev@wheezy: DOCKER_COMMAND      = /bin/bash
-dev@wheezy:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+dev@wheezy: dev
 
 dev@jessie: DEBIAN_DISTRIBUTION = jessie
-dev@jessie: DOCKER_OPTIONS      = --interactive
-dev@jessie: DOCKER_COMMAND      = /bin/bash
-dev@jessie:
+dev@jessie: dev
+
+## Dev
+dev: DOCKER_OPTIONS = --interactive
+dev:
 	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+	${DOCKER} /bin/bash
 
 ########
 # Lint #
 ########
 
-lint@wheezy: DEBIAN_DISTRIBUTION = wheezy
-lint@wheezy: DOCKER_COMMAND      = make lint
-lint@wheezy:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
-
-lint@jessie: DEBIAN_DISTRIBUTION = jessie
-lint@jessie: DOCKER_COMMAND      = make lint
-lint@jessie:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
-
+## Lint
 lint:
-	ansible-lint -v -x deprecated .
+	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
+	${DOCKER} ansible-lint -v -x deprecated .
 
 ########
 # Test #
 ########
 
 test@wheezy: DEBIAN_DISTRIBUTION = wheezy
-test@wheezy: DOCKER_COMMAND      = sh -c 'make test'
-test@wheezy:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+test@wheezy: test
 
 test@jessie: DEBIAN_DISTRIBUTION = jessie
-test@jessie: DOCKER_COMMAND      = sh -c 'make test'
-test@jessie:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+test@jessie: test
 
-test: test-dependencies test-sources-list test-preferences test-keys test-repositories test-update test-packages
+TESTS = ${sort \
+	${foreach \
+		test,\
+		${wildcard tests/*.yml},\
+		${if ${findstring .goss.,${test}},,${test}}\
+	}\
+}
 
-test-dependencies:
-	ansible-playbook tests/dependencies.yml --syntax-check
-	ansible-playbook tests/dependencies.yml
+## Test
+test:
+	EXIT=0 ; ${foreach \
+		test,\
+		${TESTS},\
+		printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n" && ${DOCKER} sh -c 'make ${test}' || EXIT=$$? ;\
+	} exit $$EXIT
 
-test-sources-list:
-	ansible-playbook tests/sources_list.yml --syntax-check
-	ansible-playbook tests/sources_list.yml
-
-test-preferences:
-	ansible-playbook tests/preferences.yml --syntax-check
-	ansible-playbook tests/preferences.yml
-
-test-keys:
-	ansible-playbook tests/keys.yml --syntax-check
-	ansible-playbook tests/keys.yml
-
-test-repositories:
-	ansible-playbook tests/repositories.yml --syntax-check
-	ansible-playbook tests/repositories.yml
-
-test-update:
-	ansible-playbook tests/update.yml --syntax-check
-	ansible-playbook tests/update.yml
-
-test-packages:
-	ansible-playbook tests/packages.yml --syntax-check
-	ansible-playbook tests/packages.yml
-
-#test-test:
-#	ansible-playbook tests/test.yml
+tests/%.yml: FORCE
+	ansible-playbook $@ --extra-vars="test=${subst .yml,,${subst tests/,,$@}}"
+FORCE:

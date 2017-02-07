@@ -1,0 +1,9 @@
+---
+
+package:
+  ecl-doc:
+    installed: true
+  telnet:
+    installed: true
+  pwgen:
+    installed: false

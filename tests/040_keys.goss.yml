@@ -1,0 +1,14 @@
+---
+
+command:
+  "apt-key adv --list-public-keys --with-colons | grep '^pub' | cut -d':' -f 5 | egrep -o '.{8}$'":
+    exit-status: 0
+    stdout:
+      - 89DF5277
+      - 7BD9BF62
+      - 90158EE0
+      - ACCC4CF8
+      - EB9C94BB
+      - 7F0CEB10
+      - 056E8E56
+      - BC19DDBA

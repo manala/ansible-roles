@@ -1,6 +1,6 @@
 ---
 
-- name: Keys
+- name: "{{ test }}"
   hosts: all
   vars:
     manala_apt_preferences_exclusive: true
@@ -26,8 +26,8 @@
         key: bearstech
       - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
         key:
-          url: http://pgp.mit.edu/pks/lookup?op=get&search=0x8C718D3B5072E1F5
-          id:  5072E1F5
+          url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          id:  ACCC4CF8
     manala_apt_keys:
       - mysql
       - sensu
@@ -44,7 +44,7 @@
         - 89DF5277
         - 7BD9BF62
         - 90158EE0
-        - 5072E1F5
+        - ACCC4CF8
         - EB9C94BB
         - 7F0CEB10
         - 056E8E56
@@ -54,17 +54,4 @@
     - manala.apt
   post_tasks:
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
-      with_items:
-        - command:
-            "apt-key adv --list-public-keys --with-colons | grep '^pub' | cut -d':' -f 5 | egrep -o '.{8}$'":
-              exit-status: 0
-              stdout:
-                - 89DF5277
-                - 7BD9BF62
-                - 90158EE0
-                - 5072E1F5
-                - EB9C94BB
-                - 7F0CEB10
-                - 056E8E56
-                - BC19DDBA
+      command: goss --gossfile {{ test }}.goss.yml validate
