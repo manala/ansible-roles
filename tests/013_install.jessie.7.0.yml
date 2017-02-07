@@ -1,0 +1,35 @@
+---
+
+- name: "{{ test }}"
+  hosts: jessie
+  vars:
+    manala_php_version: 7.0
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+      - sapi:  cgi
+        state: absent
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - mbstring
+      - xml
+      - zip
+      - intl
+      - extension: curl
+        state:     present
+      - extension: tidy
+        state:     absent
+  pre_tasks:
+    - include: pre_tasks/dotdeb_jessie.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php7.0-cgi
+        - php7.0-tidy
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

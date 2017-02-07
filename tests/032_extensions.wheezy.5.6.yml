@@ -1,0 +1,31 @@
+---
+
+- name: "{{ test }}"
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - intl
+      - extension: gd
+        enabled:   true
+      - extension: tidy
+        enabled:   true
+      - extension: xdebug
+        enabled:   false
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php5-cli
+        - php5-tidy
+    - command: php5dismod tidy
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
