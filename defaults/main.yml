@@ -16,6 +16,9 @@ manala_deploy_strategy: git
 manala_deploy_strategy_git_repo:    ~
 manala_deploy_strategy_git_version: master
 
+# [READ-ONLY] This variable will be filled with the head commit hash
+manala_deploy_strategy_git_head: ~
+
 # Shared
 manala_deploy_shared_files: []
 manala_deploy_shared_dirs:  []
