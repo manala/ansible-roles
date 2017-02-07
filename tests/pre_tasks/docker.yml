@@ -1,12 +1,5 @@
 ---
 
-- name: Pre tasks > Clean docker packages
-  apt:
-    package: docker*
-    state:   absent
-    purge:   true
-  ignore_errors: true
-
 - name: Pre tasks > Docker apt key
   apt_key:
     keyserver: keys.gnupg.net
