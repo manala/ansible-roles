@@ -8,24 +8,30 @@
     update_cache:       true
     cache_valid_time:   3600
   with_items: "{{
-    (
-      lookup(
-        'manala_php_sapis',
-        manala_php_sapis,
-        manala_php_versions[manala_php_version|string],
-        wantstate='present',
-        wantmap=true,
-        wantlist=true
-      )
-      + lookup(
-        'manala_php_extensions',
-        manala_php_extensions,
-        manala_php_versions[manala_php_version|string],
-        wantstate='present',
-        wantmap=true,
-        wantlist=true
-      )
-    )|map('regex_replace', '(.*)', manala_php_versions[manala_php_version|string]['package_prefix'] ~ '\\1')|list
+    lookup(
+      'manala_php_packages',
+      (
+        lookup(
+          'manala_php_sapis',
+          manala_php_sapis,
+          manala_php_versions[manala_php_version|string],
+          wantstate='present',
+          wantmap=true,
+          wantlist=true
+        )
+        + lookup(
+          'manala_php_extensions',
+          manala_php_extensions,
+          manala_php_versions[manala_php_version|string],
+          wantstate='present',
+          wantmap=true,
+          wantlist=true
+        )
+      ),
+      manala_php_pecl,
+      manala_php_versions[manala_php_version|string],
+      wantlist=true
+    )
   }}"
 
 - name: install > Packages absents
@@ -35,39 +41,35 @@
     purge:      true
     autoremove: true
   with_items: "{{
-    (
-      lookup(
-        'manala_php_sapis',
-        manala_php_sapis,
-        manala_php_versions[manala_php_version|string],
-        wantstate='absent',
-        wantmap=true,
-        wantlist=true
-      )
-      + lookup(
-        'manala_php_extensions',
-        manala_php_extensions,
-        manala_php_versions[manala_php_version|string],
-        wantstate='absent',
-        wantmap=true,
-        wantlist=true
-      )
-    )|map('regex_replace', '(.*)', manala_php_versions[manala_php_version|string]['package_prefix'] ~ '\\1')|list
+    lookup(
+      'manala_php_packages',
+      (
+        lookup(
+          'manala_php_sapis',
+          manala_php_sapis,
+          manala_php_versions[manala_php_version|string],
+          wantstate='absent',
+          wantmap=true,
+          wantlist=true
+        )
+        + lookup(
+          'manala_php_extensions',
+          manala_php_extensions,
+          manala_php_versions[manala_php_version|string],
+          wantstate='absent',
+          wantmap=true,
+          wantlist=true
+        )
+      ),
+      manala_php_pecl,
+      manala_php_versions[manala_php_version|string],
+      wantlist=true
+    )
   }}"
 
-# Use dpkg to find out which php packages are presents
+# Use dpkg-query to find out installed packages
 - name: install > Exclusive - Packages presents
-  shell: |
-    dpkg \
-      --get-selections \
-      '{{ manala_php_versions[manala_php_version|string]['package_prefix'] }}*' \
-    | grep \
-      --invert-match \
-      deinstall \
-    | cut \
-      --fields 1 \
-    | cut \
-      --characters {{ manala_php_versions[manala_php_version|string]['package_prefix']|length + 1 }}-
+  command: dpkg-query --showformat "${Status}    ${binary:Package}\n" --show "php*"
   register: __manala_php_install_packages_presents_result
   always_run: true
   changed_when: false
@@ -88,8 +90,9 @@
 # Use debfoster to find out each package dependencies
 - name: install > Exclusive - Packages dependencies
   shell: |
-    (
-      for package in {{
+    for package in {{
+      lookup(
+        'manala_php_packages',
         (
           lookup(
             'manala_php_sapis',
@@ -107,23 +110,15 @@
             wantmap=true,
             wantlist=true
           )
-        )|map('regex_replace', '(.*)', manala_php_versions[manala_php_version|string]['package_prefix'] ~ '\1')|join(' ')
-      }};
-        do debfoster \
-          --quiet \
-          --option UseRecommends=no \
-          --show-depends \
-          $package \
-          | tail --lines +2 \
-        ;
-      done; \
-    ) \
-    | xargs \
-    | tr ' ' '\n' \
-    | grep {{ manala_php_versions[manala_php_version|string]['package_prefix'] }} \
-    | sort -u \
-    | cut \
-      --characters {{ manala_php_versions[manala_php_version|string]['package_prefix']|length + 1 }}-
+        ),
+        manala_php_pecl,
+        manala_php_versions[manala_php_version|string],
+        wantlist=true
+      )|join(' ')
+    }}
+    do
+       debfoster --quiet --option UseRecommends=no --show-depends $package
+    done
   register: __manala_php_install_packages_dependencies_result
   always_run: true
   changed_when: false
@@ -131,12 +126,14 @@
 
 - name: install > Exclusive - Packages absents
   apt:
-    name:  "{{ manala_php_versions[manala_php_version|string]['package_prefix'] ~ item }}"
+    name:  "{{ item }}"
     state: absent
     purge:      true
     autoremove: true
   with_manala_php_install_packages_exclusive:
     - "{{
+      lookup(
+        'manala_php_packages',
         (
           lookup(
             'manala_php_sapis',
@@ -154,11 +151,23 @@
             wantmap=true,
             wantlist=true
           )
-        )
+        ),
+        manala_php_pecl,
+        manala_php_versions[manala_php_version|string],
+        wantlist=true
+      )
+    }}"
+    - "{{
+      lookup(
+        'manala_php_packages',
+        manala_php_versions[manala_php_version|string]['sapis'],
+        manala_php_pecl,
+        manala_php_versions[manala_php_version|string],
+        wantlist=true
+      )
     }}"
     - "{{ __manala_php_install_packages_presents_result.stdout_lines|default([]) }}"
     - "{{ __manala_php_install_packages_dependencies_result.stdout_lines|default([]) }}"
     - "{{ manala_php_sapis_exclusive }}"
     - "{{ manala_php_extensions_exclusive }}"
-    - "{{ manala_php_versions[manala_php_version|string] }}"
   when: manala_php_sapis_exclusive or manala_php_extensions_exclusive

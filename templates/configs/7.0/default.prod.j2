@@ -1,0 +1,57 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'display_errors', false) }}
+{{ macros.config_row(config, 'display_startup_errors', false) }}
+{{ macros.config_row(config, 'error_reporting', 'E_ALL & ~E_DEPRECATED & ~E_STRICT') }}
+{{ macros.config_row(config, 'html_errors', false) }}
+{{ macros.config_row(config, 'log_errors', true) }}
+{{ macros.config_row(config, 'max_input_time', 60) }}
+{{ macros.config_row(config, 'output_buffering', 4096) }}
+{{ macros.config_row(config, 'register_argc_argv', false) }}
+{{ macros.config_row(config, 'request_order', 'GP') }}
+{{ macros.config_row(config, 'short_open_tag', false) }}
+{{ macros.config_row(config, 'track_errors', false) }}
+{{ macros.config_row(config, 'variables_order', 'GPCS') }}
+{{ macros.config_row(config, 'expose_php', false) }}
+{{ macros.config_row(config, 'memory_limit', '512M') }}
+{{ macros.config_row(config, 'session.gc_divisor', 1000) }}
+{{ macros.config_row(config, 'session.hash_bits_per_character', 5) }}
+{{ macros.config_row(config, 'url_rewriter.tags', '\'a=href,area=href,frame=src,input=src,form=fakeentry\'') }}
+
+{# Error log #}
+{{ macros.config_row(config, 'error_log', manala_php_versions[manala_php_version|string]['log_dir'] ~ '/error.log') }}
+
+; Switch whether to compile assertions at all (to have no overhead at run-time)
+; -1: Do not compile at all
+;  0: Jump over assertion at run-time
+;  1: Execute assertions
+; Changing from or to a negative value is only possible in php.ini! (For turning assertions on and off at run-time, see assert.active, when zend.assertions = 1)
+; Default Value: 1
+; Development Value: 1
+; Production Value: -1
+; http://php.net/zend.assertions
+{{ macros.config_row(config, 'zend.assertions', -1) }}
+
+{{ macros.config(config, [
+  'display_errors',
+  'display_startup_errors',
+  'error_reporting',
+  'html_errors',
+  'log_errors',
+  'max_input_time',
+  'output_buffering',
+  'register_argc_argv',
+  'request_order',
+  'short_open_tag',
+  'track_errors',
+  'variables_order',
+  'expose_php',
+  'memory_limit',
+  'session.gc_divisor',
+  'session.hash_bits_per_character',
+  'url_rewriter.tags',
+  'error_log',
+  'zend.assertions'
+]) -}}

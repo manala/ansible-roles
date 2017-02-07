@@ -10,7 +10,7 @@
       - sapi:  fpm
         state: present
   pre_tasks:
-    - include: pre_tasks/dotdeb_jessie.yml
+    - include: pre_tasks/dotdeb.yml
   roles:
     - manala.php
   post_tasks:

@@ -101,6 +101,14 @@ manala_apt_preferences:
 manala_php_version: 7.0
 ```
 
+Php 7.1 (Debian jessie only)
+```yaml
+manala_apt_preferences:
+  - php@sury_php
+
+manala_php_version: 7.1
+```
+
 #### SAPIs
 
 ```yaml
