@@ -17,11 +17,4 @@
 
   post_tasks:
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
-      with_items:
-        - package:
-            telegraf:
-              installed: true
-        - process:
-            telegraf:
-              running: true
+      command: goss --gossfile {{ test }}.goss.yml validate
