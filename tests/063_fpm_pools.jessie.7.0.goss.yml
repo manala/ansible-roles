@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/php/7.0/fpm/pool.d/www.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - "pm.max_children = 12"
+      - "listen = /run/php/php7.0-fpm.sock"
+  /etc/php/7.0/fpm/pool.d/bar.conf:
+    exists: false

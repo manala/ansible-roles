@@ -1,0 +1,13 @@
+---
+
+file:
+  /etc/php5/cli/conf.d/20-gd.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: ../../mods-available/gd.ini
+  /etc/php5/cli/conf.d/20-tidy.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: ../../mods-available/tidy.ini
+  /etc/php5/cli/conf.d/20-xdebug.ini:
+    exists: false

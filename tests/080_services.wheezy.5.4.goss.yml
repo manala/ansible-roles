@@ -1,0 +1,6 @@
+---
+
+service:
+  php5-fpm:
+    enabled: true
+    running: true
