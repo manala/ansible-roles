@@ -2,7 +2,7 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_keepalived_config_template|ternary(manala_keepalived_config_template, 'config/empty.conf.j2') }}"
+    src:  "{{ manala_keepalived_config_template|ternary(manala_keepalived_config_template, 'config/empty.j2') }}"
     dest: "{{ manala_keepalived_config_file }}"
   when: (manala_keepalived_config_template is not none) or (manala_keepalived_config|length)
   notify:
