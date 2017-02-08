@@ -30,25 +30,4 @@
 
   post_tasks:
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
-      with_items:
-        - process:
-            telegraf:
-              running: true
-        - file:
-            /etc/telegraf/telegraf.d/input_cpu.conf:
-              exists: true
-              contains:
-                - percpu = true
-                - totalcpu = false
-                - fielddrop = [\"cpu_time\"]
-                - '[inputs.cpu.tags]'
-                - tag-1 = \"foo\"
-                - tag-2 = \"bar\"
-                - '[inputs.cpu.tagdrop]'
-                - cpu = [\"cpu6\", \"cpu7\"]
-            /etc/telegraf/telegraf.d/custom.conf:
-              exists: true
-              contains:
-                - '[[inputs.cpu]]'
-                - percpu = false
+      command: goss --gossfile {{ test }}.goss.yml validate

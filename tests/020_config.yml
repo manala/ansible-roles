@@ -22,14 +22,4 @@
 
   post_tasks:
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
-      with_items:
-        - process:
-            telegraf:
-              running: true
-        - file:
-            /etc/telegraf/telegraf.conf:
-              exists: true
-              contains:
-                - hostname = \"test.manala.dev\"
-                - quiet = true
+      command: goss --gossfile {{ test }}.goss.yml validate
