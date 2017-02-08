@@ -1,0 +1,9 @@
+---
+
+package:
+  keepalived:
+    installed: true
+
+process:
+  keepalived:
+    running: true

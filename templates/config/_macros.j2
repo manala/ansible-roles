@@ -1,7 +1,7 @@
 {%- macro config(parameters, exclusions = [], indent = 0) -%}
     {%- for parameter in parameters -%}
         {%- if parameter is string or parameter is number -%}
-            {{ parameter }}{{ '\n' }}
+            {{ parameter|indent(indent, true) }}{{ '\n' }}
         {%- elif parameter is mapping -%}
             {%- for parameter_key, parameter_value in parameter.iteritems() -%}
                 {%- if parameter_key not in exclusions -%}
@@ -42,7 +42,7 @@
     {%- if value is sequence and value is not string -%}
         {{ key|indent(indent, true) }} {{ '{\n' }}{{ config(value, [], indent + 4) }}{{ '}'|indent(indent, true) }}
     {%- else -%}
-        {{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }};
+        {{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }}
     {%- endif -%}
 {%- endmacro -%}
 

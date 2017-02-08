@@ -1,0 +1,22 @@
+---
+
+process:
+  keepalived:
+    running: true
+
+file:
+  /etc/keepalived/keepalived.conf:
+    exists: true
+    contains:
+      - global_defs {
+      - '    router_id LVS_DEVEL'
+      - virtual_ipaddress {
+      - '        192.168.200.11/24 dev eth0'
+      - '        192.168.200.12/24 dev eth0'
+
+interface:
+  eth0:
+    exists: true
+    addrs:
+      - 192.168.200.11/24
+      - 192.168.200.12/24
