@@ -271,3 +271,4 @@ manala_apt_preferences_patterns:
   python-six:         python-six*
   htop:               htop*
   yarn:               yarn*
+  openssh:            openssh*
