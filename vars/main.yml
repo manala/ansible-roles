@@ -52,7 +52,15 @@ manala_skeleton_patterns:
         ]
       }[ansible_distribution_release]
       + (manala_skeleton_options.docker)|ternary(['docker@docker'],[])
-      + (manala_skeleton_options.php)|ternary(['dotdeb:100', 'php@dotdeb' ~ {'5.4': '', '5.5': '_php55', '5.6': '_php56', '7.0': ''}[manala_skeleton_options.php_version|string]],[])
+      + (manala_skeleton_options.php)|ternary(
+        {
+          '5.4': ['dotdeb:100', 'php@dotdeb'],
+          '5.5': ['dotdeb:100', 'php@dotdeb_php55'],
+          '5.6': ['dotdeb:100', 'php@dotdeb_php56'],
+          '7.0': ['dotdeb:100', 'php@dotdeb'],
+          '7.1': ['sury_php:100', 'php@sury_php']
+        }[manala_skeleton_options.php_version|string]]
+      )
       + (manala_skeleton_options.nginx)|ternary(['nginx@nginx'],[])
       + (manala_skeleton_options.nodejs)|ternary(['nodejs@nodesource_' ~ {'0.10': '0_10', '0.12': '0_12', '4': '4', '5': '5', '6': '6', '7': '7'}[manala_skeleton_options.nodejs_version|string]],[])
       + (manala_skeleton_options.yarn)|ternary(['yarn@yarn'],[])
@@ -111,7 +119,7 @@ manala_skeleton_patterns:
       - file:     config.yml
         template: configs/default.{{ manala_skeleton_env }}.j2
     # Php
-    php_version: "{{ ({'5.4': '5', '5.5': '5', '5.6': '5', '7.0': '7.0'})[manala_skeleton_options.php_version|string] }}"
+    php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1})[manala_skeleton_options.php_version|string] }}"
     php_sapis_exclusive: true
     php_sapis:
       - cli
@@ -145,7 +153,8 @@ manala_skeleton_patterns:
         '5.4': ['zendopcache', 'readline'],
         '5.5': [],
         '5.6': [],
-        '7.0': ['opcache', 'readline', 'json']
+        '7.0': ['opcache', 'readline', 'json'],
+        '7.1': ['opcache', 'readline', 'json']
       }[manala_skeleton_options.php_version|string]
       + [{
         'extension': 'xdebug',
@@ -159,7 +168,8 @@ manala_skeleton_patterns:
           '5.4': ['mysqlnd'],
           '5.5': ['mysqlnd'],
           '5.6': ['mysqlnd'],
-          '7.0': ['mysql']
+          '7.0': ['mysql'],
+          '7.1': ['mysql']
         }[manala_skeleton_options.php_version|string],
         []
       )
@@ -168,7 +178,8 @@ manala_skeleton_patterns:
           '5.4': [],
           '5.5': [],
           '5.6': [],
-          '7.0': ['mbstring', 'zip', 'bz2']
+          '7.0': ['mbstring', 'zip', 'bz2'],
+          '7.1': ['mbstring', 'zip', 'bz2']
         }[manala_skeleton_options.php_version|string],
         []
       )
@@ -177,7 +188,8 @@ manala_skeleton_patterns:
           '5.4': ['sqlite'],
           '5.5': ['sqlite'],
           '5.6': ['sqlite'],
-          '7.0': ['sqlite3']
+          '7.0': ['sqlite3'],
+          '7.1': ['sqlite3']
         }[manala_skeleton_options.php_version|string],
         []
       )
