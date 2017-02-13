@@ -1,0 +1,5 @@
+---
+
+manala_maxscale_config_file:       /etc/maxscale.cnf
+manala_maxscale_config_template:  ~
+manala_maxscale_config:           []

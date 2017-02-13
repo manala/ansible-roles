@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_maxscale_config_template|ternary(manala_maxscale_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_maxscale_config_file }}"
+  when: (manala_maxscale_config_template is not none) or (manala_maxscale_config|length)
+  notify:
+    - maxscale restart

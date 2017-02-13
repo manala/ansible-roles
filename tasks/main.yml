@@ -1,0 +1,16 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_maxscale
+
+# Config
+- include: config.yml
+  tags:
+    - manala_maxscale
+
+# Services
+- include: services.yml
+  tags:
+    - manala_maxscale
