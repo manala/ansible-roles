@@ -17,7 +17,7 @@
           - www:
             - pm.max_children: 12
   pre_tasks:
-    - include: pre_tasks/dotdeb_jessie.yml
+    - include: pre_tasks/dotdeb.yml
     - apt:
         package: "{{ item }}"
       with_items:

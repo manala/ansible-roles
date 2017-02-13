@@ -9,13 +9,13 @@ package:
     installed: false
   php7.0-mbstring:
     installed: true
-  php7.0-xml:
-    installed: true
-  php7.0-zip:
-    installed: true
   php7.0-intl:
+    installed: true
+  php7.0-ssh2:
     installed: true
   php7.0-curl:
     installed: true
   php7.0-tidy:
+    installed: false
+  php7.0-apcu:
     installed: false

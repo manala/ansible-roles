@@ -23,7 +23,7 @@
         config:
           - memory_limit: 256M
   pre_tasks:
-    - include: pre_tasks/dotdeb_wheezy.yml
+    - include: pre_tasks/dotdeb.yml
     - apt:
         package: "{{ item }}"
       with_items:

@@ -9,7 +9,11 @@ package:
     installed: false
   php5-intl:
     installed: true
+  php5-ssh2:
+    installed: true
   php5-curl:
     installed: true
   php5-tidy:
+    installed: false
+  php5-apcu:
     installed: false
