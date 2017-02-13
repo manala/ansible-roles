@@ -58,7 +58,7 @@ manala_skeleton_patterns:
           '5.5': ['dotdeb:100', 'php@dotdeb_php55'],
           '5.6': ['dotdeb:100', 'php@dotdeb_php56'],
           '7.0': ['dotdeb:100', 'php@dotdeb'],
-          '7.1': ['sury_php:100', 'php@sury_php']
+          '7.1': ['sury_php_debian:100', 'php@sury_php_debian']
         }[manala_skeleton_options.php_version|string],
         []
       )
