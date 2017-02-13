@@ -1,0 +1,9 @@
+{%- set template_name = (template_env == '')|ternary('default.j2','default.' ~ template_env ~ '.j2') -%}
+
+{% if manala_redis_version|string|version_compare('2.4', '>=') and manala_redis_version|string|version_compare('2.5', '<') %}
+    {%- include '2.4/' ~ template_name -%}
+{% elif manala_redis_version|string|version_compare('2.8', '>=') and manala_redis_version|string|version_compare('3.0', '<') %}
+    {%- include '2.8/' ~ template_name -%}
+{% else %}
+    {%- include '3.0/' ~ template_name -%}
+{% endif %}

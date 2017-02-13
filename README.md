@@ -38,6 +38,7 @@ Using ansible galaxy requirements file:
 
 | Name                           | Default               | Type   | Description              |
 | ------------------------------ | --------------------- | ------ | ------------------------ |
+| `manala_redis_version`         | ~ (auto detect)       | string | Redis installed version. |
 | `manala_redis_config_file`     | /etc/redis/redis.conf | string | Redis config file path.  |
 | `manala_redis_config_template` | ~                     | string |                          |
 | `manala_redis_config`          | []                    | array  | Redis config directives. |
@@ -46,7 +47,7 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_redis_config:
-  - bind: "127.0.0.1 {{ ansible_venet0_0.ipv4.address}}"
+  - bind: "127.0.0.1 {{ ansible_eth0.ipv4.address }}"
 ```
 
 ## Example playbook
