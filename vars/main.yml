@@ -176,11 +176,11 @@ manala_skeleton_patterns:
       )
       + (manala_skeleton_options.phpmyadmin)|ternary(
         {
-          '5.4': [],
-          '5.5': [],
-          '5.6': [],
-          '7.0': ['mbstring', 'zip', 'bz2'],
-          '7.1': ['mbstring', 'zip', 'bz2']
+          '5.4': ['mysqlnd'],
+          '5.5': ['mysqlnd'],
+          '5.6': ['mysqlnd'],
+          '7.0': ['mysql', 'mbstring', 'zip', 'bz2'],
+          '7.1': ['mysql', 'mbstring', 'zip', 'bz2']
         }[manala_skeleton_options.php_version|string],
         []
       )
