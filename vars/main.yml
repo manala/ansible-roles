@@ -32,7 +32,7 @@ manala_skeleton_patterns:
     # Apt
     apt_components:
       - main
-    apt_sources_list_template: sources_list/debian_security_updates.j2
+    apt_sources_list_template: sources_list/security_updates.j2
     apt_repositories_exclusive: true
     apt_repositories:
       - manala
@@ -43,13 +43,13 @@ manala_skeleton_patterns:
       ]
       + {
         'wheezy': [
-          'git@debian_backports',
-          'vim@debian_backports',
-          'openssh@debian_backports',
-          'python-six@debian_backports'
+          'git@backports',
+          'vim@backports',
+          'openssh@backports',
+          'python-six@backports'
         ],
         'jessie': [
-          'htop@debian_backports'
+          'htop@backports'
         ]
       }[ansible_distribution_release]
       + (manala_skeleton_options.docker)|ternary(['docker@docker'],[])
@@ -59,7 +59,7 @@ manala_skeleton_patterns:
           '5.5': ['dotdeb:100', 'php@dotdeb_php55'],
           '5.6': ['dotdeb:100', 'php@dotdeb_php56'],
           '7.0': ['dotdeb:100', 'php@dotdeb'],
-          '7.1': ['sury_php_debian:100', 'php@sury_php_debian']
+          '7.1': ['sury_php:100', 'php@sury_php']
         }[manala_skeleton_options.php_version|string],
         []
       )
