@@ -272,3 +272,4 @@ manala_apt_preferences_patterns:
   htop:               htop*
   yarn:               yarn*
   openssh:            openssh*
+  ansible:            ansible*
