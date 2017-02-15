@@ -2,23 +2,88 @@
 
 # Repositories
 manala_apt_repositories_patterns:
+  security: "{{
+    {
+      'debian': {
+        'source': 'deb http://security.debian.org/ ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': {
+        'source': 'deb http://security.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
+      }
+    }[ansible_distribution|lower]
+  }}"
+  security_src: "{{
+    {
+      'debian': {
+        'source': 'deb-src http://security.debian.org/ ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': None
+    }[ansible_distribution|lower]
+  }}"
+  updates: "{{
+    {
+      'debian': {
+        'source': 'deb http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': {
+        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+      }
+    }[ansible_distribution|lower]
+  }}"
+  updates_src: "{{
+    {
+      'debian': {
+        'source': 'deb-src http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': None
+    }[ansible_distribution|lower]
+  }}"
+  partner: "{{
+    {
+      'debian': None,
+      'ubuntu': {
+        'source': 'deb http://archive.canonical.com/ubuntu ' ~ ansible_distribution_release ~ ' partner'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  backports: "{{
+    {
+      'debian': {
+        'source': 'deb http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
+      },
+      'ubuntu': {
+        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
   debian_security:
     source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
   debian_security_src:
     source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
   debian_updates:
     source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
   debian_updates_src:
     source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
   debian_backports:
     source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
+  # Deprecated
   ubuntu_security:
     source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
+  # Deprecated
   ubuntu_updates:
     source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
   ubuntu_partner:
     source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
+  # Deprecated
   ubuntu_backports:
     source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
@@ -116,6 +181,15 @@ manala_apt_repositories_patterns:
   elasticsearch_2:
     source: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
     key: elasticsearch
+  ansible: "{{
+    {
+      'debian': None,
+      'ubuntu': {
+        'source': 'ppa:ansible/ansible'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
   ppa_ansible:
     source: ppa:ansible/ansible
   blackfire:
@@ -142,9 +216,23 @@ manala_apt_repositories_patterns:
   yarn:
     source: deb http://dl.yarnpkg.com/debian/ stable main
     key: yarn
+  sury_php: "{{
+    {
+      'debian': {
+        'source': 'deb https://packages.sury.org/php/ ' ~ ansible_distribution_release ~ ' main',
+        'key':    'sury_php'
+      },
+      'ubuntu': {
+        'source': 'ppa:ondrej/php',
+        'key':    'sury_php'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
   sury_php_debian:
     source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
     key: sury_php_debian
+  # Deprecated
   sury_php_ubuntu:
     source: ppa:ondrej/php
     key: sury_php_ubuntu
@@ -228,9 +316,23 @@ manala_apt_keys_patterns:
   yarn:
     url: http://dl.yarnpkg.com/debian/pubkey.gpg
     id: 86E50310
+  sury_php: "{{
+    {
+      'debian': {
+        'url': 'https://packages.sury.org/php/apt.gpg',
+        'id':  '4A7A714D'
+      },
+      'ubuntu': {
+        'keyserver': 'hkp://keyserver.ubuntu.com:80',
+        'id':        'E5267A6C'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
   sury_php_debian:
     url: https://packages.sury.org/php/apt.gpg
     id: 4A7A714D
+  # Deprecated
   sury_php_ubuntu:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: E5267A6C

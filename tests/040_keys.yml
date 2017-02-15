@@ -5,8 +5,8 @@
   vars:
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
-      - git@debian_backports
-      - libssl1.0.0@debian_backports
+      - git@backports
+      - libssl1.0.0@backports
       - php@dotdeb:300
       - dotdeb:100
       - dotdeb:200
@@ -16,7 +16,7 @@
         file:     foo_bar
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
-      - debian_security
+      - security
       - nginx
       - nginx
       - gitlab-ce

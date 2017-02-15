@@ -5,7 +5,7 @@
   vars:
     manala_apt_components:
       - main
-    manala_apt_sources_list_template: sources_list/debian_security_updates.j2
+    manala_apt_sources_list_template: sources_list/security_updates.j2
   pre_tasks:
     - copy:
         dest: /etc/apt/sources.list

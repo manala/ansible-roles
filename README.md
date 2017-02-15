@@ -56,7 +56,7 @@ None
     manala_apt_repositories:
       - contrib
     manala_apt_preferences:
-      - git@debian_backports
+      - git@backports
       - dotdeb:100
       - php@dotdeb_php56:300
       - nginx@nginx
@@ -87,13 +87,13 @@ manala_apt_sources_list:
 Or use predefined templates
 
 ```yaml
-manala_apt_sources_list_template: sources_list/debian.j2
+manala_apt_sources_list_template: sources_list/default.j2
 ```
 
 Or combine both
 
 ```yaml
-manala_apt_sources_list_template: sources_list/debian_src.j2
+manala_apt_sources_list_template: sources_list/default_src.j2
 manala_apt_sources_list:
   - deb-src: http://httpredir.debian.org/debian wheezy main
   - deb-src http://httpredir.debian.org/debian wheezy contrib
@@ -105,15 +105,19 @@ Concise, pattern based
 
 ```yaml
 manala_apt_repositories:
-  - debian_security
-  - debian_security_src
-  - debian_updates
-  - debian_updates_src
-  - debian_backports
-  - ubuntu_security
-  - ubuntu_updates
-  - ubuntu_partner
-  - ubuntu_backports
+  - security # Distribution auto-detection
+  - updates # Distribution auto-detection
+  - partner # Distribution auto-detection
+  - backports # Distribution auto-detection
+  - debian_security # Deprecated, use 'security'
+  - debian_security_src # Deprecated, use 'security_src'
+  - debian_updates # Deprecated, use 'updates'
+  - debian_updates_src # Deprecated, use 'updates_src'
+  - debian_backports # Deprecated, use 'backports'
+  - ubuntu_security # Deprecated, use 'security'
+  - ubuntu_updates # Deprecated, use 'updates'
+  - ubuntu_partner # Deprecated, use 'partner'
+  - ubuntu_backports # Deprecated, use 'backports'
   - dotdeb
   - dotdeb_php54
   - dotdeb_php55
@@ -140,15 +144,16 @@ manala_apt_repositories:
   - elasticsearch_1_7
   - ppa_ansible
   - blackfire
-  - sury_php_debian
-  - sury_php_ubuntu
+  - sury_php # Distribution auto-detection
+  - sury_php_debian # Deprecated, use 'sury_php'
+  - sury_php_ubuntu # Deprecated, use 'sury_php'
 ```
 
 Verbose, pattern based
 
 ```yaml
 manala_apt_repositories:
-  - pattern: debian_backports
+  - pattern: backports
     state:   absent
 ```
 
@@ -180,11 +185,11 @@ Note that referenced repositories will automatically be include as present using
 
 ```yaml
 manala_apt_preferences:
-  - git@debian_backports         # "git*"" from debian backports repository, high priority
-  - dotdeb:100                   # "*" from dotdeb repository, low priority
-  - php@dotdeb                   # "php*" from dotdeb repository, high priority
-  - redis@dotdeb                 # "redis*" from dotdeb repository, high priority
-  - libssl1.0.0@debian_backports # "libssl1.0.0" from debian backports repository, high priority (in this case "libssl1.0.0" is not a pre-defined preference pattern; as a matter of consequence the package is directly used)
+  - git@backports         # "git*"" from debian|ubuntu backports repository, high priority
+  - dotdeb:100            # "*" from dotdeb repository, low priority
+  - php@dotdeb            # "php*" from dotdeb repository, high priority
+  - redis@dotdeb          # "redis*" from dotdeb repository, high priority
+  - libssl1.0.0@backports # "libssl1.0.0" from debian|ubuntu backports repository, high priority (in this case "libssl1.0.0" is not a pre-defined preference pattern; as a matter of consequence the package is directly used)
 ```
 
 Verbose

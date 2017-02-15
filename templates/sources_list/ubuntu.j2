@@ -1,6 +1,3 @@
-{%- import '_macros.j2' as macros with context -%}
+{#- Deprecated -#}
 
-{% set config = manala_apt_sources_list -%}
-
-deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
-{{ macros.config(config) }}
+{% include 'ubuntu/default.j2' %}
