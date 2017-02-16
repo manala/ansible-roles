@@ -135,6 +135,9 @@ manala_apt_repositories_patterns:
   mariadb_10_2:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
     key: mariadb
+  maxscale_2_0_4:
+    source: deb https://downloads.mariadb.com/MaxScale/2.0.4/debian {{ ansible_distribution_release }} main
+    key: maxscale
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key: postgresql
@@ -257,6 +260,9 @@ manala_apt_keys_patterns:
   mariadb:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 1BB943DB
+  maxscale:
+    url: https://downloads.mariadb.com/MaxScale/MariaDB-MaxScale-GPG-KEY
+    id: 8167EE24
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     id: ACCC4CF8
@@ -367,6 +373,7 @@ manala_apt_preferences_patterns:
   oauth2-proxy:       oauth2-proxy*
   cloud:              cloud-init cloud-utils
   mariadb:            mariadb* libmariadb*
+  maxscale:           maxscale*
   influxdb:           influxdb*
   telegraf:           telegraf*
   thefuck:            thefuck*
