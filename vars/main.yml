@@ -284,7 +284,7 @@ manala_apt_keys_patterns:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     id: 056E8E56
   logentries:
-    keyserver: pgp.mit.edu
+    keyserver: hkp://pgp.mit.edu:80
     id: C43C79AD
   galera:
     keyserver: hkp://keyserver.ubuntu.com:80
