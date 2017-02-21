@@ -7,3 +7,7 @@ package:
     installed: true
   pwgen:
     installed: false
+  wkhtmltox:
+    installed: true
+    versions:
+      - 0.12.2.1

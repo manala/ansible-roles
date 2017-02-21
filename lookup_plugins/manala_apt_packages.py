@@ -11,10 +11,12 @@ class LookupModule(LookupBase):
         results = []
 
         wantstate = kwargs.pop('wantstate', None)
+        wantdeb   = kwargs.pop('wantdeb', None)
         wantmap   = kwargs.pop('wantmap', False)
 
         itemDefault = {
-            'state': 'present'
+            'state': 'present',
+            'deb':   False
         }
 
         for term in self._flatten(terms):
@@ -40,6 +42,12 @@ class LookupModule(LookupBase):
                 item = itemDefault.copy()
                 item.update(term)
 
+            # Is a .deb ?
+            if item.get('package').endswith('.deb'):
+                item.update({
+                    'deb': True
+                })
+
             items.append(item)
 
             # Merge by index key
@@ -57,6 +65,10 @@ class LookupModule(LookupBase):
         # Filter by state
         if wantstate:
             results = [result for result in results if result.get('state') == wantstate]
+
+        # Filter by deb
+        if wantdeb is not None:
+            results = [result for result in results if result.get('deb') == wantdeb]
 
         # Map
         if wantmap:

@@ -61,7 +61,8 @@ None
       - php@dotdeb_php56:300
       - nginx@nginx
     manala_apt_packages:
-      - ttf-mscorefonts-installer
+      - xfonts-75dpi
+      - http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-{{ ansible_distribution_release }}-amd64.deb
   roles:
     - role: manala.apt
 ```
@@ -203,7 +204,7 @@ manala_apt_preferences:
   - package:  'php-*'
     pin:      release o=Debian,a=stable
     priority: 900
-    file:     php      
+    file:     php
 ```
 
 ### Packages
