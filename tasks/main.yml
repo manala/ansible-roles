@@ -11,3 +11,8 @@
     - manala_docker
     - manala_docker.services
     - manala.services
+
+# Applications
+- include: applications.yml
+  tags:
+    - manala_docker

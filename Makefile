@@ -44,9 +44,11 @@ help:
 # Dev #
 #######
 
+## Dev - Wheezy
 dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
 dev@wheezy: dev
 
+## Dev - Jessie
 dev@jessie: DEBIAN_DISTRIBUTION = jessie
 dev@jessie: dev
 

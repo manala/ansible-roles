@@ -1,0 +1,24 @@
+---
+
+# Applications
+manala_docker_applications_patterns:
+  manala/eslint:
+    application: eslint
+    image:       manala/lint-js
+    template:    applications/interactive_tty.j2
+  manala/stylelint:
+    application: stylelint
+    image:       manala/lint-css
+    template:    applications/interactive_tty.j2
+  manala/stylefmt:
+    application: stylefmt
+    image:       manala/lint-css
+    template:    applications/interactive_tty.j2
+  manala/php-cs-fixer:
+    application: php-cs-fixer
+    image:       manala/lint-php
+    template:    applications/interactive.j2
+  manala/security-checker:
+    application: security-checker
+    image:       manala/security-php
+    template:    applications/interactive_tty.j2

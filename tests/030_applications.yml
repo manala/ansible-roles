@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_docker_applications:
+      - application: stylelint
+        image:       manala/lint-css
+      - manala/eslint@0
+  pre_tasks:
+    - include: pre_tasks/docker.yml
+    - include: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'wheezy'
+  roles:
+    - manala.docker
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
