@@ -68,9 +68,9 @@ The `manala_nginx_config` key is made to allow you to alter main Nginx configura
 
 ```yaml
 manala_nginx_config:
-  user: nginx
-  events:
-    worker_connections: 1024
+  - user: nginx
+  - events:
+    - worker_connections: 1024
 ```
 
 ### Exclusivity
@@ -87,9 +87,9 @@ The `manala_nginx_configs` key is made to define Nginx host configuration.
 
 ```yaml
 manala_nginx_config:
-  user: nginx
-  events:
-    worker_connections: 1024
+  - user: nginx
+  - events:
+    - worker_connections: 1024
 manala_nginx_configs:
   - file: test.conf
     template: configs/server.j2
