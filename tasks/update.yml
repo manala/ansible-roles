@@ -1,6 +1,6 @@
 ---
 
-- name: udate > Pull
+- name: update > Pull
   shell: |
     docker images \
       | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \
