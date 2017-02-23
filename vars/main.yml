@@ -3,22 +3,46 @@
 # Applications
 manala_docker_applications_patterns:
   manala/eslint:
-    application: eslint
     image:       manala/lint-js
-    template:    applications/interactive_tty.j2
+    command:     eslint
+    rm:          true
+    interactive: true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
   manala/stylelint:
-    application: stylelint
     image:       manala/lint-css
-    template:    applications/interactive_tty.j2
+    command:     stylelint
+    rm:          true
+    interactive: true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
   manala/stylefmt:
-    application: stylefmt
     image:       manala/lint-css
-    template:    applications/interactive_tty.j2
+    command:     stylefmt
+    rm:          true
+    interactive: true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
   manala/php-cs-fixer:
-    application: php-cs-fixer
     image:       manala/lint-php
-    template:    applications/interactive.j2
+    command:     php-cs-fixer
+    rm:          true
+    interactive: true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
   manala/security-checker:
-    application: security-checker
     image:       manala/security-php
-    template:    applications/interactive_tty.j2
+    command:     security-checker
+    rm:          true
+    interactive: true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}

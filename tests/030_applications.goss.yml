@@ -1,6 +1,9 @@
 ---
 
 command:
-  stylelint --version:
+  hello-world:
     exit-status: 0
-    timeout:     600000
+    stdout:
+      - Hello from Docker!
+  npm --version:
+    exit-status: 0

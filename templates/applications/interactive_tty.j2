@@ -1,5 +1,0 @@
-#!/bin/sh
-
-DIR=`pwd`
-
-docker run --rm --interactive --tty --volume ${DIR}:${DIR} --workdir ${DIR} {{ item.image }}:{{ item.version }} {{ item.application }} "$@"

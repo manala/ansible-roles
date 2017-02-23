@@ -14,7 +14,13 @@ class LookupModule(LookupBase):
         patterns = terms[1]
 
         itemDefault = {
-            'version': 'latest'
+            'tag':         None,
+            'rm':          None,
+            'interactive': None,
+            'tty':         None,
+            'command':     None,
+            'volumes':     {},
+            'workdir':     None
         }
 
         for term in self._flatten(terms[0]):
@@ -25,16 +31,21 @@ class LookupModule(LookupBase):
             if isinstance(term, basestring):
                 item = itemDefault.copy()
 
+                item.update({
+                    'image':       term.split(':')[0],
+                    'application': ((term.split('/')[1]).split(':')[0])
+                        if len(term.split('/')) > 1 else
+                    (term.split(':')[0])
+                })
+
                 # Pattern
-                if not patterns.has_key(term.split('@')[0]):
-                    raise AnsibleError('Unknown pattern')
+                if patterns.has_key(term.split(':')[0]):
+                    item.update(patterns.get(term.split(':')[0]))
 
-                item.update(patterns.get(term.split('@')[0]))
-
-                # Version
-                if len(term.split('@')) > 1:
+                # Tag
+                if len(term.split(':')) > 1:
                     item.update({
-                        'version': term.split('@')[1]
+                        'tag': term.split(':')[1]
                     })
             else:
 
