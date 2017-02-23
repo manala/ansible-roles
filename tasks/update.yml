@@ -5,3 +5,5 @@
     docker images \
       | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \
       | xargs -n 1 -L 1 docker pull
+  tags:
+    - skip_ansible_lint
