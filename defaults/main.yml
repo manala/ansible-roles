@@ -8,3 +8,7 @@ manala_docker_install_packages:
 manala_docker_applications_template: ~
 manala_docker_applications_dir:      /usr/local/bin
 manala_docker_applications:          []
+
+# Manala
+manala_docker:
+  update: "{{ (manala|default({'update':false}))['update'] }}"
