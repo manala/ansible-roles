@@ -4,6 +4,6 @@
   shell: |
     docker images \
       | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \
-      | xargs -n 1 -L 1 docker pull
+      | xargs --max-args=1 --max-lines=1 --no-run-if-empty docker pull
   tags:
     - skip_ansible_lint
