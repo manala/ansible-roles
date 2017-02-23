@@ -4,6 +4,9 @@
 - include: alternatives.yml
   tags:
     - manala_ansible_galaxy
+    # Ensure alternatives in update mode
+    - manala_ansible_galaxy.update
+    - manala.update
 
 # Roles
 - include: roles.yml
