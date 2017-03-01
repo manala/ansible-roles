@@ -179,12 +179,13 @@ manala_php_cli_configs:
 manala_php_fpm_pools:
   - file: www.conf
     config:
-      - pm.max_children:          5
-      - pm.start_servers:         2
-      - pm.min_spare_servers:     1
-      - pm.max_spare_servers:     3
-      - env[HOSTNAME]:            $HOSTNAME
-      - php_flag[display_errors]: true
+      - www:
+        - pm.max_children:          5
+        - pm.start_servers:         2
+        - pm.min_spare_servers:     1
+        - pm.max_spare_servers:     3
+        - env[HOSTNAME]:            $HOSTNAME
+        - php_flag[display_errors]: true
 ```
 
 #### Blackfire
