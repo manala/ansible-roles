@@ -19,6 +19,11 @@ manala_deploy_strategy_git_version: master
 # [READ-ONLY] This variable will be filled with the head commit hash
 manala_deploy_strategy_git_head: ~
 
+# Strategy - Synchronize
+manala_deploy_strategy_synchronize_src: ~
+manala_deploy_strategy_synchronize_dst: ~
+manala_deploy_strategy_synchronize_rsync_options: []
+
 # Shared
 manala_deploy_shared_files: []
 manala_deploy_shared_dirs:  []
