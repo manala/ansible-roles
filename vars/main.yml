@@ -116,6 +116,21 @@ manala_skeleton_patterns:
         state: directory
       - path:  "{{ manala_skeleton_options.app.sessions_dir }}"
         state: directory
+    # Systemd
+    systemd_services: "{{
+      (manala_skeleton_options.docker)|ternary(
+        [{
+          'name':    'docker.service',
+          'enabled': False,
+          'state':   'stopped'
+        },{
+          'name':    'docker.socket',
+          'enabled': True,
+          'state':   'started'
+        }],
+        []
+      )
+    }}"
     # MailHog
     mailhog_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Supervisor
@@ -498,6 +513,7 @@ manala_skeletons:
         vim:          true
         alternatives: true
         docker:       true
+        systemd:      true
         mailhog:      true
         supervisor:   true
         cron:         true
@@ -575,6 +591,7 @@ manala_skeletons:
         alternatives:      true
         files:             true
         docker:            true
+        systemd:           true
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -638,6 +655,7 @@ manala_skeletons:
         alternatives:      true
         files:             true
         docker:            true
+        systemd:           true
         mailhog:           true
         supervisor:        true
         cron:              true

@@ -92,6 +92,10 @@ dependencies:
   - role: manala.docker
     when: manala_skeleton_options.docker
 
+  # Systemd
+  - role: manala.systemd
+    when: manala_skeleton_options.systemd
+
   # Make
   - role: manala.make
     when: manala_skeleton_options.make
