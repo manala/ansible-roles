@@ -11,6 +11,9 @@ manala_docker_applications_patterns:
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
+    envs:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
   manala/stylelint:
     image:       manala/lint-css
     command:     stylelint
@@ -20,6 +23,9 @@ manala_docker_applications_patterns:
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
+    envs:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
   manala/stylefmt:
     image:       manala/lint-css
     command:     stylefmt
@@ -29,6 +35,9 @@ manala_docker_applications_patterns:
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
+    envs:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
   manala/php-cs-fixer:
     image:       manala/lint-php
     command:     php-cs-fixer
@@ -37,6 +46,21 @@ manala_docker_applications_patterns:
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
+    envs:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
+  manala/phpstan:
+    image:       manala/lint-php
+    command:     phpstan
+    rm:          true
+    interactive: true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
+    envs:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
   manala/security-checker:
     image:       manala/security-php
     command:     security-checker
@@ -46,3 +70,6 @@ manala_docker_applications_patterns:
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
+    envs:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}

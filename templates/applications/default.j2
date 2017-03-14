@@ -1,6 +1,8 @@
 #!/bin/sh
 
 PWD=`pwd`
+UID=`id -u`
+GID=`id -g`
 
 docker run
 {%- if item.rm %} --rm{% endif -%}
@@ -9,6 +11,11 @@ docker run
 {%- if item.volumes %}
   {%- for source, destination in item.volumes.iteritems() -%}
       {{ ' ' }}--volume {{ source }}:{{ destination }}
+  {%- endfor -%}
+{% endif -%}
+{%- if item.envs %}
+  {%- for source, destination in item.envs.iteritems() -%}
+      {{ ' ' }}--env {{ source }}={{ destination }}
   {%- endfor -%}
 {% endif -%}
 {%- if item.workdir %} --workdir {{ item.workdir }}{% endif -%}
