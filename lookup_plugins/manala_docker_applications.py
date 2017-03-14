@@ -20,7 +20,7 @@ class LookupModule(LookupBase):
             'tty':         None,
             'command':     None,
             'volumes':     {},
-            'envs':        {},
+            'environment': {},
             'workdir':     None
         }
 

@@ -13,8 +13,8 @@ docker run
       {{ ' ' }}--volume {{ source }}:{{ destination }}
   {%- endfor -%}
 {% endif -%}
-{%- if item.envs %}
-  {%- for source, destination in item.envs.iteritems() -%}
+{%- if item.environment %}
+  {%- for source, destination in item.environment.iteritems() -%}
       {{ ' ' }}--env {{ source }}={{ destination }}
   {%- endfor -%}
 {% endif -%}
