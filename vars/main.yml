@@ -61,6 +61,18 @@ manala_docker_applications_patterns:
     environment:
       USER_ID:  ${UID}
       GROUP_ID: ${GID}
+  manala/parallel-lint:
+    image:       manala/lint-php
+    command:     parallel-lint
+    rm:          true
+    interactive: true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
+    environment:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
   manala/security-checker:
     image:       manala/security-php
     command:     security-checker
