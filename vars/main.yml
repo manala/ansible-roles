@@ -512,8 +512,8 @@ manala_skeletons:
         ohmyzsh:      true
         vim:          true
         alternatives: true
-        docker:       true
-        systemd:      true
+        docker:       "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        systemd:      "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
         mailhog:      true
         supervisor:   true
         cron:         true
@@ -551,7 +551,7 @@ manala_skeletons:
         make:       true
         git:        true
         zsh:        true
-        docker:     true
+        docker:     "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
         mailhog:    true
         supervisor: true
         cron:       true
@@ -590,8 +590,8 @@ manala_skeletons:
         vim:               true
         alternatives:      true
         files:             true
-        docker:            true
-        systemd:           true
+        docker:            "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        systemd:           "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -654,8 +654,8 @@ manala_skeletons:
         vim:               true
         alternatives:      true
         files:             true
-        docker:            true
-        systemd:           true
+        docker:            "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        systemd:           "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -710,7 +710,7 @@ manala_skeletons:
         git:         true
         zsh:         true
         files:       true
-        docker:      true
+        docker:      "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
         mailhog:     true
         supervisor:  true
         cron:        true
