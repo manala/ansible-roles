@@ -11,7 +11,10 @@ manala_skeleton_patterns:
   manala: &pattern_manala
     # Accounts
     accounts_groups: "{{
-      (manala_skeleton_options.docker)|ternary([{'group': 'docker'}],[])
+      (manala_skeleton_options.docker)|ternary([{
+        'group':  'docker',
+        'system': True
+      }],[])
     }}"
     accounts_users_groups_exclusive: false
     accounts_users:
