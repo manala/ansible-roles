@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2017-03-15
+### Fixed
+- manala/security-checker application pattern image
+
 ## [1.0.3] - 2017-03-14
 ### Added
 - manala/parallel-lint application pattern

@@ -74,7 +74,7 @@ manala_docker_applications_patterns:
       USER_ID:  ${UID}
       GROUP_ID: ${GID}
   manala/security-checker:
-    image:       manala/security-php
+    image:       manala/lint-php
     command:     security-checker
     rm:          true
     interactive: true
