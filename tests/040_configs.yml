@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_rsyslog_configs:
+      - file: rules.conf
+        config:
+          - auth,authpriv.*           /var/log/auth.log
+          - '*.*;auth,authpriv.none   -/var/log/syslog'
+          - daemon.*                  -/var/log/daemon.log
+          - kern.*                    -/var/log/kern.log
+          - mail.*                    -/var/log/mail.log
+          - user.*                    -/var/log/user.log
+
+  roles:
+    - manala.rsyslog
+
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

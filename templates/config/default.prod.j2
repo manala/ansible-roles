@@ -1,0 +1,58 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_rsyslog_config -%}
+
+#  /etc/rsyslog.conf	Configuration file for rsyslog.
+#
+#			For more information see
+#			/usr/share/doc/rsyslog-doc/html/rsyslog_conf.html
+
+
+#################
+#### MODULES ####
+#################
+
+{{ macros.config_row(config, '$ModLoad imuxsock', true) }} # provides support for local system logging
+{{ macros.config_row(config, '$ModLoad imklog', false) }} # provides kernel logging support
+
+###########################
+#### GLOBAL DIRECTIVES ####
+###########################
+
+#
+# Use traditional timestamp format.
+# To enable high precision timestamps, comment out the following line.
+#
+{{ macros.config_row(config, '$ActionFileDefaultTemplate', 'RSYSLOG_TraditionalFileFormat') }}
+
+#
+# Set the default permissions for all log files.
+#
+{{ macros.config_row(config, '$FileOwner', 'root') }}
+{{ macros.config_row(config, '$FileGroup', 'adm') }}
+{{ macros.config_row(config, '$FileCreateMode', '0640') }}
+{{ macros.config_row(config, '$DirCreateMode', '0755') }}
+{{ macros.config_row(config, '$Umask', '0022') }}
+
+#
+# Where to place spool and state files
+#
+{{ macros.config_row(config, '$WorkDirectory', '/var/spool/rsyslog') }}
+
+#
+# Include all config files in /etc/rsyslog.d/
+#
+{{ macros.config_row(config, '$IncludeConfig', '/etc/rsyslog.d/*.conf') }}
+
+{{ macros.config(config, [
+    '$ModLoad imuxsock',
+    '$ModLoad imklog',
+    '$ActionFileDefaultTemplate',
+    '$FileOwner',
+    '$FileGroup',
+    '$FileCreateMode',
+    '$DirCreateMode',
+    '$Umask',
+    '$WorkDirectory',
+    '$IncludeConfig'
+]) -}}

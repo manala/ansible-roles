@@ -1,0 +1,12 @@
+---
+
+# Config
+manala_rsyslog_config_file:     /etc/rsyslog.conf
+manala_rsyslog_config_template: ~
+manala_rsyslog_config:          []
+
+# Configs
+manala_rsyslog_configs_exclusive: false
+manala_rsyslog_configs_dir:       /etc/rsyslog.d
+manala_rsyslog_configs_template:  ~
+manala_rsyslog_configs:           []

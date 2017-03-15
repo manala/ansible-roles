@@ -1,0 +1,26 @@
+#
+# First some standard log files.  Log by facility.
+#
+auth,authpriv.*         /var/log/auth.log
+*.*;auth,authpriv.none      -/var/log/syslog
+#cron.*             /var/log/cron.log
+daemon.*            -/var/log/daemon.log
+kern.*              -/var/log/kern.log
+mail.*              -/var/log/mail.log
+user.*              -/var/log/user.log
+
+#
+# Some "catch-all" log files.
+#
+*.=debug;\
+    auth,authpriv.none;\
+    news.none;mail.none -/var/log/debug
+*.=info;*.=notice;*.=warn;\
+    auth,authpriv.none;\
+    cron,daemon.none;\
+    mail,news.none      -/var/log/messages
+
+#
+# Emergencies are sent to everybody logged in.
+#
+*.emerg             :omusrmsg:*

@@ -1,0 +1,11 @@
+---
+
+package:
+  rsyslog:
+    installed: true
+
+command:
+  rsyslogd -version:
+    exit-status: 0
+    stdout:
+      - rsyslogd

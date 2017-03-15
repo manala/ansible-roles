@@ -1,0 +1,6 @@
+---
+
+service:
+  rsyslog:
+    enabled: true
+    running: true
