@@ -18,8 +18,6 @@ manala_docker_applications_patterns:
     image:       manala/lint-css
     command:     stylelint
     rm:          true
-    interactive: true
-    tty:         true
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
@@ -30,8 +28,6 @@ manala_docker_applications_patterns:
     image:       manala/lint-css
     command:     stylefmt
     rm:          true
-    interactive: true
-    tty:         true
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
@@ -42,7 +38,6 @@ manala_docker_applications_patterns:
     image:       manala/lint-php
     command:     php-cs-fixer
     rm:          true
-    interactive: true
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
@@ -53,7 +48,6 @@ manala_docker_applications_patterns:
     image:       manala/lint-php
     command:     phpstan
     rm:          true
-    interactive: true
     tty:         true
     workdir:     ${PWD}
     volumes:
@@ -65,8 +59,6 @@ manala_docker_applications_patterns:
     image:       manala/lint-php
     command:     parallel-lint
     rm:          true
-    interactive: true
-    tty:         true
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}
@@ -77,8 +69,6 @@ manala_docker_applications_patterns:
     image:       manala/lint-php
     command:     security-checker
     rm:          true
-    interactive: true
-    tty:         true
     workdir:     ${PWD}
     volumes:
       ${PWD}: ${PWD}

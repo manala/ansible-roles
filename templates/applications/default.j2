@@ -4,9 +4,17 @@ PWD=`pwd`
 UID=`id -u`
 GID=`id -g`
 
+{% if item.interactive -%}
+# Allow interactive only in terminal mode
+if [ -t 1 ] ; then
+  INTERACTIVE=" --interactive"
+fi
+{%- endif %}
+
+
 docker run
 {%- if item.rm %} --rm{% endif -%}
-{%- if item.interactive %} --interactive{% endif -%}
+{%- if item.interactive %}${INTERACTIVE}{% endif -%}
 {%- if item.tty %} --tty{% endif -%}
 {%- if item.volumes %}
   {%- for source, destination in item.volumes.iteritems() -%}

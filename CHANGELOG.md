@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.5] - 2017-03-16
+### Fixed
+- Better tty/interative applications handling
+
 ## [1.0.4] - 2017-03-15
 ### Fixed
 - manala/security-checker application pattern image
