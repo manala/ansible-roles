@@ -19,13 +19,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.fail2ban
+ansible-galaxy install manala.logrotate
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.fail2ban
+- src: manala.logrotate
 ```
 
 ## Role Handlers
