@@ -40,13 +40,14 @@ None
 
 ### Definition
 
-| Name                      | Default  | Type  | Description                |
-| ------------------------- | -------- | ----- | -------------------------- |
-| `manala_apt_components`   | ['main'] | Array | Collection of components   |
-| `manala_apt_sources_list` | []       | Array | Collection of sources      |
-| `manala_apt_repositories` | []       | Array | Collection of repositories |
-| `manala_apt_preferences`  | []       | Array | Collection of preferences  |
-| `manala_apt_packages`     | []       | Array | Collection of packages     |
+| Name                          | Default  | Type  | Description                            |
+| ----------------------------- | -------- | ----- | -------------------------------------- |
+| `manala_apt_components`       | ['main'] | Array | Collection of components               |
+| `manala_apt_sources_list`     | []       | Array | Collection of sources                  |
+| `manala_apt_repositories`     | []       | Array | Collection of repositories             |
+| `manala_apt_preferences`      | []       | Array | Collection of preferences              |
+| `manala_apt_packages`         | []       | Array | Collection of packages                 |
+| `manala_apt_cache_valid_time` | 3600     | Int   | Permitted age of apt cache, in seconds |
 
 ### Example
 

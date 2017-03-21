@@ -7,7 +7,7 @@
     state: present
     install_recommends: false
     update_cache:       true
-    cache_valid_time:   3600
+    cache_valid_time:   "{{ manala_apt_cache_valid_time }}"
   with_items:
     - apt-transport-https
     - openssl
