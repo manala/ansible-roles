@@ -1,8 +1,8 @@
-# Ansible Role: mysql
+# Ansible Role: mysql [![Build Status](https://travis-ci.org/manala/ansible-role-mysql.svg?branch=master)](https://travis-ci.org/manala/ansible-role-mysql)
 
-This role will deal with the setup of __[mysql](https://www.mysql.com/)__.
+This role will deal with the setup of __[mysql](https://www.mysql.com/)__ (>= 5.6).
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 

@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > MariaDB apt key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 1BB943DB
+
+- name: Pre tasks > MariaDB apt repository 10.1
+  apt_repository:
+    repo: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main

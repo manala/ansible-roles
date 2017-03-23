@@ -1,0 +1,26 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_mysql_configs_exclusive: true
+    manala_mysql_configs:
+      - file: mysqld.cnf
+        config:
+          - mysqld:
+            - user:                           mysql
+            - query_cache_size:               0
+      - file: advanced.cnf
+        config:
+          - mysqld:
+            - max_allowed_packet:      2G
+            - innodb_log_file_size:    2G
+            - innodb_log_buffer_size:  256M
+            - innodb_buffer_pool_size: 3G
+  roles:
+    - manala.mysql
+  pre_tasks:
+    - include: pre_tasks/mysql_56.yml
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

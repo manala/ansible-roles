@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Galera apt key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: BC19DDBA
+
+- name: Pre tasks > Galera apt repository
+  apt_repository:
+    repo: deb http://releases.galeracluster.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main

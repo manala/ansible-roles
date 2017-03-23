@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Mysql apt key
+  apt_key:
+    keyserver: hkp://pgp.mit.edu:80
+    id: 5072E1F5
+
+- name: Pre tasks > Mysql apt repository 56
+  apt_repository:
+    repo: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
