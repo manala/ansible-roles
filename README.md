@@ -35,11 +35,14 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                | Default           | Type   | Description                                            |
-| ----------------------------------- | ----------------- | -------| ------------------------------------------------------ |
-| `manala_maxscale_config_file`       | /etc/maxscale.cnf | String | Configuration file                                     |
-| `manala_maxscale_config_template`   | config/empty.j2   | String | Default configuration template                         |
-| `manala_maxscale_config`            | []                | Array  | Maxscale configuration options                         |
+| Name                                | Default                  | Type   | Description                                            |
+| ----------------------------------- | ------------------------ | -------| ------------------------------------------------------ |
+| `manala_maxscale_config_file`       | /etc/maxscale.cnf        | String | Configuration file                                     |
+| `manala_maxscale_config_template`   | config/empty.j2          | String | Default configuration template                         |
+| `manala_maxscale_config`            | []                       | Array  | Maxscale configuration options                         |
+| `manala_maxscale_users_file`        | /var/lib/maxscale/passwd | String | Configuration file                                     |
+| `manala_maxscale_users_template`    | users/default.j2         | String | Default users file template                            |
+| `manala_maxscale_network_users`     | []                       | Array  | Maxscale network users                                 |
 
 ### Configuration example (Galera cluster configuration)
 
@@ -93,6 +96,13 @@ manala_maxscale_config:
     - protocol: maxscaled
     - address:  localhost
     - port:     6603
+
+maxscale_network_users:
+  # Generating with maxpasswd command
+  - name:     elao
+    password: $1$MXS$nJC9UIcP/IWkgAGEhQSh1/
+  - name:     maxscale-admin
+    password: $1$MXS$aTODkN/QXQSexlaH1dRdA0
 ```
 
 ## Example playbook
