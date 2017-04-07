@@ -383,3 +383,4 @@ manala_apt_preferences_patterns:
   openssh:            openssh*
   ansible:            ansible*
   openjdk:            openjdk-* ca-certificates-java
+  linux:              linux-base linux-image-* linux-headers-*
