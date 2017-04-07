@@ -382,3 +382,4 @@ manala_apt_preferences_patterns:
   yarn:               yarn*
   openssh:            openssh*
   ansible:            ansible*
+  openjdk:            openjdk-* ca-certificates-java
