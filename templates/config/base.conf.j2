@@ -149,7 +149,7 @@
 ### Controls the clustering service configuration.
 ###
 
-{% if not config_coordinator|length %}# {% endif %}[coordinator]
+[coordinator]
   # The default time a write request will wait until a "timeout" error is returned to the caller.
   {{ macros.config_row(config_coordinator, 'write-timeout', '# write-timeout = "10s"', 0, true) }}
 
@@ -187,7 +187,7 @@
 ### Controls the enforcement of retention policies for evicting old data.
 ###
 
-{% if not config_retention|length %}# {% endif %}[retention]
+[retention]
   # Determines whether retention policy enforcment enabled.
   {{ macros.config_row(config_retention, 'enabled', '# enabled = true', 0, true) }}
 
@@ -202,7 +202,7 @@
 ### future, will ever be created. Shards are never precreated that would be wholly
 ### or partially in the past.
 
-{% if not config_shard_precreation|length %}# {% endif %}[shard-precreation]
+[shard-precreation]
   # Determines whether shard pre-creation service is enabled.
   {{ macros.config_row(config_shard_precreation, 'enabled', '# enabled = true', 0, true) }}
 
@@ -222,7 +222,7 @@
 ### and a replication factor of 1, if it does not exist. In all cases the
 ### this retention policy is configured as the default for the database.
 
-{% if not config_monitor|length %}# {% endif %}[monitor]
+[monitor]
   # Whether to record statistics internally.
   {{ macros.config_row(config_monitor, 'store-enabled', '# store-enabled = true', 0, true) }}
 
@@ -240,7 +240,7 @@
 ###
 ### NOTE: This interface is deprecated as of 1.1.0 and will be removed in a future release.
 
-{% if not config_admin|length %}# {% endif %}[admin]
+[admin]
   # Determines whether the admin service is enabled.
   {{ macros.config_row(config_admin, 'enabled', '# enabled = false', 0, true) }}
 
@@ -260,7 +260,7 @@
 ### mechanism for getting data into and out of InfluxDB.
 ###
 
-{% if not config_http|length %}# {% endif %}[http]
+[http]
   # Determines whether HTTP endpoint is enabled.
   {{ macros.config_row(config_http, 'enabled', '# enabled = true', 0, true) }}
 
@@ -296,7 +296,7 @@
   {{ macros.config_row(config_http, 'shared-sercret', '# shared-sercret = ""', 0, true) }}
 
   # The default chunk size for result sets that should be chunked.
-  {{ macros.config_row(config_http, 'max-row-limit', '# max-row-limit = 10000', 0, true) }}
+  {{ macros.config_row(config_http, 'max-row-limit', '# max-row-limit = 0', 0, true) }}
 
   # The maximum number of HTTP connections that may be open at once.  New connections that
   # would exceed this limit are dropped.  Setting this value to 0 disables the limit.
@@ -315,7 +315,7 @@
 ### received by the InfluxDB host.
 ###
 
-{% if not config_subscriber|length %}# {% endif %}[subscriber]
+[subscriber]
   # Determines whether the subscriber service is enabled.
   {{ macros.config_row(config_subscriber, 'enabled', '# enabled = true', 0, true) }}
 
@@ -342,7 +342,7 @@
 ### Controls one or many listeners for Graphite data.
 ###
 
-{% if not config_graphite|length %}# {% endif %}[[graphite]]
+[[graphite]]
   # Determines whether the graphite endpoint is enabled.
   {{ macros.config_row(config_graphite, 'enabled', '# enabled = false', 0, true) }}
   {{ macros.config_row(config_graphite, 'database', '# database = "graphite"', 0, true) }}
@@ -390,12 +390,16 @@
 ### Controls one or many listeners for collectd data.
 ###
 
-{% if not config_collectd|length %}# {% endif %}[[collectd]]
+[[collectd]]
   {{ macros.config_row(config_collectd, 'enabled', '# enabled = false', 0, true) }}
   {{ macros.config_row(config_collectd, 'bind-address', '# bind-address = ":25826"', 0, true) }}
   {{ macros.config_row(config_collectd, 'database', '# database = "collectd"', 0, true) }}
   {{ macros.config_row(config_collectd, 'retention-policy', '# retention-policy = ""', 0, true) }}
-  {{ macros.config_row(config_collectd, 'typesdb', '# typesdb = "/usr/share/collectd/types.db"', 0, true) }}
+  #
+  # The collectd service supports either scanning a directory for multiple types
+  # db files, or specifying a single db file.
+  {{ macros.config_row(config_collectd, 'typesdb', '# typesdb = "/usr/local/share/collectd"', 0, true) }}
+  #
   {{ macros.config_row(config_collectd, 'security-level', '# security-level = "none"', 0, true) }}
   {{ macros.config_row(config_collectd, 'auth-file', '# auth-file = "/etc/collectd/auth_file"', 0, true) }}
 
@@ -421,14 +425,14 @@
 ### Controls one or many listeners for OpenTSDB data.
 ###
 
-{% if not config_opentsdb|length %}# {% endif %}[[opentsdb]]
+[[opentsdb]]
   {{ macros.config_row(config_opentsdb, 'enabled', '# enabled = false', 0, true) }}
   {{ macros.config_row(config_opentsdb, 'bind-address', '# bind-address = ":4242"', 0, true) }}
   {{ macros.config_row(config_opentsdb, 'database', '# database = "opentsdb"', 0, true) }}
   {{ macros.config_row(config_opentsdb, 'retention-policy', '# retention-policy = ""', 0, true) }}
   {{ macros.config_row(config_opentsdb, 'consistency-level', '# consistency-level = "one"', 0, true) }}
   {{ macros.config_row(config_opentsdb, 'tls-enabled', '# tls-enabled = false', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'certificate', '# certificate = "/etc/ssl/influxdb.pem"', 0, true) }}
+  {{ macros.config_row(config_opentsdb, 'certificate', '# certificate= "/etc/ssl/influxdb.pem"', 0, true) }}
 
   # Log an error for every malformed point.
   {{ macros.config_row(config_opentsdb, 'log-point-errors', '# log-point-errors = true', 0, true) }}
@@ -480,7 +484,7 @@
 ### Controls how continuous queries are run within InfluxDB.
 ###
 
-{% if not config_continuous_queries|length %}# {% endif %}[continuous_queries]
+[continuous_queries]
   # Determiens whether the continuous query service is enabled.
   {{ macros.config_row(config_continuous_queries, 'enabled', '# enabled = true', 0, true) }}
 
