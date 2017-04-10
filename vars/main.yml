@@ -159,7 +159,13 @@ manala_skeleton_patterns:
         or manala_skeleton_options.phpredisadmin
       )|ternary([{
         'file':     'admin.conf',
-        'template': 'fpm_pools/admin.' ~ manala_skeleton_env ~ '.j2'
+        'template': 'fpm_pools/admin.' ~ manala_skeleton_env ~ '.j2',
+        'config':   [
+          {'admin': [
+            {'php_admin_value[upload_max_filesize]': '16M'},
+            {'php_admin_value[post_max_size]': '16M'}
+          ]}
+        ]
       }],[])
       + [{
         'file':     'app.conf',
