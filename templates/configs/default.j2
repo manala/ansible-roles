@@ -31,7 +31,6 @@
 {{ macros.config_row(config_server_config, 'auth_type', 'cookie', false, config_server.id) }}
 /* Server parameters */
 {{ macros.config_row(config_server_config, 'host', 'localhost', false, config_server.id) }}
-{{ macros.config_row(config_server_config, 'connect_type', 'tcp', false, config_server.id) }}
 {{ macros.config_row(config_server_config, 'compress', false, false, config_server.id) }}
 {{ macros.config_row(config_server_config, 'AllowNoPassword', false, false, config_server.id) }}
 
@@ -70,7 +69,6 @@
 {{ macros.config(config_server_config, [
     'auth_type',
     'host',
-    'connect_type',
     'compress',
     'AllowNoPassword',
     'controlhost',
