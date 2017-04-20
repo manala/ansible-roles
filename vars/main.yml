@@ -322,7 +322,7 @@ manala_skeleton_patterns:
     mysql_users:
       - name:     "{{ manala_skeleton_options.app.user }}"
         password: ~
-        host:     "%"
+        host:     "localhost" # Mysql 5.6.36 don't handle host wildcard. Before more investigations, switch to localhost.
         priv:     "*.*:ALL,GRANT"
     mysql_install_packages: "{{
       [
