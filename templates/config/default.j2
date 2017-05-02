@@ -27,6 +27,7 @@
 
 ## pass HTTP Basic Auth, X-Forwarded-User and X-Forwarded-Email information to upstream
 {{ macros.config_row(config, 'pass_basic_auth', '# pass_basic_auth = true', 0, true) }}
+{{ macros.config_row(config, 'pass_user_headers', '# pass_user_headers = true', 0, true) }}
 ## pass the request Host Header to upstream
 ## when disabled the upstream Host is used as the Host Header
 {{ macros.config_row(config, 'pass_host_header', '# pass_host_header = true', 0, true) }}
@@ -56,6 +57,9 @@
 ## Templates
 ## optional directory with custom sign_in.html and error.html
 {{ macros.config_row(config, 'custom_templates_dir', '# custom_templates_dir = ""', 0, true) }}
+
+## skip SSL checking for HTTPS requests
+{{ macros.config_row(config, 'ssl_insecure_skip_verify', '# ssl_insecure_skip_verify = false', 0, true) }}
 
 ## Cookie Settings
 ## Name     - the cookie name
