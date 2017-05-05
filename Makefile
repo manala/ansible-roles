@@ -30,18 +30,6 @@ help:
 	{ lastLine = $$0 }' ${MAKEFILE_LIST}
 
 #########
-# Build #
-#########
-
-## Build
-build:
-	EXIT=0 ; ${foreach \
-		repository,\
-		${GIT_REPOSITORIES},\
-		printf "\n${COLOR_INFO}Build ${COLOR_COMMENT}${repository}${COLOR_RESET}\n\n" && ${MAKE} --directory=${repository} build || EXIT=$$? ;\
-	} exit $$EXIT
-
-#########
 # Test #
 #########
 

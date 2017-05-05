@@ -5,9 +5,6 @@ sudo: required
 services:
   - docker
 
-before_install:
-  - make build
-
 script:
   - make test
 
