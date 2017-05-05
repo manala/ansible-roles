@@ -1,9 +1,8 @@
 # List of splits.
 splits:
-  - prefix: manala.docker
-    target: git@github.com:manala/ansible-role-docker.git
+  - prefix: manala.hugo
+    target: git@github.com:manala/ansible-role-hugo.git
 
 # List of references to split (defined as regexp)
 origins:
   - ^master$
-  - ^wip$

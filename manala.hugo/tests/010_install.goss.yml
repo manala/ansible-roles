@@ -1,0 +1,11 @@
+---
+
+package:
+  hugo:
+    installed: true
+
+command:
+  hugo version:
+    exit-status: 0
+    stdout:
+      - Hugo Static Site Generator

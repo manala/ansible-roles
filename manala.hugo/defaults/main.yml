@@ -1,0 +1,5 @@
+---
+
+# Install
+manala_hugo_install_packages:
+  - hugo
