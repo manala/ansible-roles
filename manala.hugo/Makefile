@@ -18,7 +18,7 @@ DEBIAN_DISTRIBUTION ?= wheezy jessie
 
 # Docker
 DOCKER_IMAGE = manala/ansible-debian
-DOCKER_TAG  ?= dev
+DOCKER_TAG  ?= 
 
 ## Docker
 DOCKER_OPTIONS =
