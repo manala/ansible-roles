@@ -6,5 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2017-05-09
 ### Added
 - Install hugo
