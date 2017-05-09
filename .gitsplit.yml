@@ -1,3 +1,6 @@
+# Used to speed up the split over time by reusing git's objects
+cache_dir: "./.gitsplit"
+
 # List of splits.
 splits:
   - prefix: manala.hugo
