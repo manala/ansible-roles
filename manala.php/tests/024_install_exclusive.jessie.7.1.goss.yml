@@ -1,0 +1,21 @@
+---
+
+package:
+  php7.1-cli:
+    installed: true
+  php7.1-fpm:
+    installed: true
+  php7.1-cgi:
+    installed: false
+  php7.1-mbstring:
+    installed: true
+  php7.1-intl:
+    installed: true
+  php-ssh2:
+    installed: true
+  php7.1-curl:
+    installed: true
+  php7.1-tidy:
+    installed: false
+  php-apcu:
+    installed: false

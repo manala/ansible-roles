@@ -1,0 +1,46 @@
+---
+
+# Version
+manala_php_version: ~
+
+# Sapis
+manala_php_sapis_exclusive: false
+manala_php_sapis:           []
+
+# Extensions
+manala_php_extensions_exclusive: false
+manala_php_extensions:           []
+
+# Configs
+manala_php_configs_global:    false # Must be true for php 5.4
+manala_php_configs_template:  ~
+manala_php_configs_exclusive: false
+manala_php_configs:           []
+manala_php_cli_configs:       []
+manala_php_fpm_configs:       []
+manala_php_cgi_configs:       []
+manala_php_phpdbg_configs:    []
+
+# Fpm pools
+manala_php_fpm_pools_template:  ~
+manala_php_fpm_pools_exclusive: false
+manala_php_fpm_pools:
+  - file:     www.conf
+    template: fpm_pools/default.j2
+
+
+
+# Blackfire
+manala_php_blackfire: false
+
+manala_php_blackfire_agent_config_file:     /etc/blackfire/agent
+manala_php_blackfire_agent_config_template: ~
+manala_php_blackfire_agent_config:          []
+
+manala_php_blackfire_client_config_file:     ~/.blackfire.ini
+manala_php_blackfire_client_config_template: ~
+manala_php_blackfire_client_config:          []
+
+# Applications
+manala_php_applications_dir: /usr/local/bin
+manala_php_applications:     []

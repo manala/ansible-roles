@@ -1,0 +1,19 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'xdebug.default_enable', 1) }}
+{{ macros.config_row(config, 'xdebug.max_nesting_level', 300) }}
+{{ macros.config_row(config, 'xdebug.var_display_max_children', 128) }}
+{{ macros.config_row(config, 'xdebug.var_display_max_data', 512) }}
+{{ macros.config_row(config, 'xdebug.var_display_max_depth', 4) }}
+{{ macros.config_row(config, 'xdebug.cli_color', 1) }}
+
+{{ macros.config(config, [
+  'xdebug.default_enable',
+  'xdebug.max_nesting_level',
+  'xdebug.var_display_max_children',
+  'xdebug.var_display_max_data',
+  'xdebug.var_display_max_depth',
+  'xdebug.cli_color'
+]) -}}

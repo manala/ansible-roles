@@ -1,0 +1,68 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_php_blackfire_agent_config -%}
+
+[blackfire]
+;
+; This is a configuration file for Blackfire's Agent.
+;
+
+;
+; setting: ca-cert
+; desc   : Sets the PEM encoded certicates
+; default:
+{{ macros.config_row(config, 'ca-cert', '') }}
+
+;
+; setting: collector
+; desc   : Sets the URL of Blackfire's data collector
+; default: https://blackfire.io
+{{ macros.config_row(config, 'collector', 'https://blackfire.io') }}
+
+;
+; setting: http-proxy
+; desc   : Sets the http proxy to use
+; default:
+{{ macros.config_row(config, 'http-proxy', '') }}
+
+;
+; setting: https-proxy
+; desc   : Sets the https proxy to use
+; default:
+{{ macros.config_row(config, 'https-proxy', '') }}
+
+;
+; setting: log-file
+; desc   : Sets the path of the log file. Use stderr to log to stderr
+; default: stderr
+{{ macros.config_row(config, 'log-file', 'stderr') }}
+
+;
+; setting: log-level
+; desc   : log verbosity level (4: debug, 3: info, 2: warning, 1: error)
+; default: 1
+{{ macros.config_row(config, 'log-level', 1) }}
+
+;
+; setting: server-id
+; desc   : Sets the server id used to authenticate with Blackfire API
+; default:
+{{ macros.config_row(config, 'server-id') }}
+
+;
+; setting: server-token
+; desc   : Sets the server token used to authenticate with Blackfire API. It is unsafe to set this from the command line
+; default:
+{{ macros.config_row(config, 'server-token') }}
+
+;
+; setting: socket
+; desc   : Sets the socket the agent should read traces from. Possible value can be a unix socket or a TCP address. ie: unix:///var/run/blackfire/agent.sock or tcp://127.0.0.1:8307
+; default: unix:///var/run/blackfire/agent.sock
+{{ macros.config_row(config, 'socket', 'unix:///var/run/blackfire/agent.sock') }}
+
+;
+; setting: spec
+; desc   : Sets the path to the json specifications file
+; default:
+{{ macros.config_row(config, 'spec') }}

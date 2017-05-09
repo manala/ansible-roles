@@ -1,0 +1,14 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- for configs in item.config|default(['www']) -%}
+
+    {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
+
+[{{ config_name }}]
+
+{{ macros.config(config) -}}
+
+    {%- endfor %}
+
+
+{% endfor -%}

@@ -1,0 +1,27 @@
+---
+
+file:
+  /etc/php5/cli/conf.d/20-date.ini:
+    exists: false
+  /etc/php5/cli/conf.d/20-mbstring.ini:
+    exists: false
+  /etc/php5/cli/conf.d/20-intl.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: ../../mods-available/intl.ini
+  /etc/php5/cli/conf.d/20-ssh2.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: ../../mods-available/ssh2.ini
+  /etc/php5/cli/conf.d/20-gd.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: ../../mods-available/gd.ini
+  /etc/php5/cli/conf.d/20-tidy.ini:
+    exists: false
+  /etc/php5/cli/conf.d/20-apcu.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: ../../mods-available/apcu.ini
+  /etc/php5/cli/conf.d/20-xdebug.ini:
+    exists: false

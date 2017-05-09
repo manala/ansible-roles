@@ -1,0 +1,70 @@
+---
+
+# Requirements
+- include: requirements.yml
+  tags:
+    - manala_php
+
+# Install
+- include: install.yml
+  tags:
+    - manala_php
+
+# Extensions
+- include: extensions.yml
+  tags:
+    - manala_php
+
+# Configs - Global
+- include: configs_global.yml
+  when: manala_php_configs_global
+  tags:
+    - manala_php
+
+# Configs
+- include: configs.yml
+  when: not manala_php_configs_global
+  with_items: "{{
+    lookup(
+      'manala_php_sapis',
+      manala_php_sapis,
+      manala_php_versions[manala_php_version|string],
+      wantstate='present',
+      wantmap=true,
+      wantlist=true
+    )
+  }}"
+  loop_control:
+    loop_var: __manala_php_sapi
+  tags:
+    - manala_php
+
+# Fpm pools
+- include: fpm_pools.yml
+  when: "'fpm' in lookup(
+    'manala_php_sapis',
+    manala_php_sapis,
+    manala_php_versions[manala_php_version|string],
+    wantstate='present',
+    wantmap=true,
+    wantlist=true
+  )"
+  tags:
+    - manala_php
+
+# Blackfire
+- include: blackfire.yml
+  when: manala_php_blackfire
+  tags:
+    - manala_php
+
+# Services
+- include: services.yml
+  tags:
+    - manala_php
+    - manala.services
+
+# Applications
+- include: applications.yml
+  tags:
+    - manala_php

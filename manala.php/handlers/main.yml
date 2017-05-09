@@ -1,0 +1,46 @@
+---
+
+- name: php fpm restart
+  command: "{{ manala_php_versions[manala_php_version|string]['fpm_bin'] }} -t"
+  when: "'fpm' in lookup(
+    'manala_php_sapis',
+    manala_php_sapis,
+    manala_php_versions[manala_php_version|string],
+    wantstate='present',
+    wantmap=true,
+    wantlist=true
+  )"
+  changed_when: true
+  listen: php restart
+  notify:
+    - do php fpm restart
+
+- name: do php fpm restart
+  service:
+    name:  "{{ manala_php_versions[manala_php_version|string]['fpm_service'] }}"
+    state: restarted
+  when: "'fpm' in lookup(
+    'manala_php_sapis',
+    manala_php_sapis,
+    manala_php_versions[manala_php_version|string],
+    wantstate='present',
+    wantmap=true,
+    wantlist=true
+  )"
+
+- name: php cli restart
+  debug:
+    msg: There is nothing to do here...
+
+- name: php cgi restart
+  debug:
+    msg: There is nothing to do here...
+
+- name: php phpdbg restart
+  debug:
+    msg: There is nothing to do here...
+
+- name: php blackfire agent restart
+  service:
+    name:  blackfire-agent
+    state: restarted

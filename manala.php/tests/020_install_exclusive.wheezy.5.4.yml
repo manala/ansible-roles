@@ -1,0 +1,33 @@
+---
+
+- name: "{{ test }}"
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: true
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: true
+    manala_php_extensions:
+      - date     # Embedded extension
+      - mbstring # Embedded extension
+      - intl     # Native extension
+      - ssh2     # Pecl extension
+      # Native extension
+      - extension: curl
+        state:     present
+  pre_tasks:
+    - include: pre_tasks/dotdeb.yml
+    - apt:
+        package: "{{ item }}"
+      with_items:
+        - php5-cgi  # Sapi
+        - php5-tidy # Native extension
+        - php5-apcu # Pecl extension
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

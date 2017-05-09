@@ -1,0 +1,21 @@
+---
+
+- name: applications > Download
+  get_url:
+    url:  "{{ item.source }}"
+    dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
+    mode: 0755
+  with_manala_php_applications:
+    - "{{ manala_php_applications }}"
+    - "{{ manala_php_applications_patterns }}"
+
+- name: applications > Link versions
+  file:
+    state: link
+    force: yes
+    src:   "{{ item.application ~ '_' ~ item.version }}"
+    dest:  "{{ manala_php_applications_dir }}/{{ item.application }}"
+  when: item.version
+  with_manala_php_applications:
+    - "{{ manala_php_applications }}"
+    - "{{ manala_php_applications_patterns }}"

@@ -1,0 +1,26 @@
+---
+
+- name: "{{ test }}"
+  hosts: wheezy
+  vars:
+    manala_php_version: 5
+    manala_php_sapis_exclusive: false
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: false
+    manala_php_extensions:
+      - xml
+    manala_php_applications:
+      - phpcs
+      - phpunit@4.8.30
+      - application: phpunit
+        version: 4.8.31
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_55.yml
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,251 @@
+---
+
+# Versions
+manala_php_versions:
+  '5':
+    release:             wheezy
+    package_prefix:      php5-
+    package_pecl_prefix: php5-
+    enmod_bin:           /usr/sbin/php5enmod
+    dismod_bin:          /usr/sbin/php5dismod
+    fpm_bin:             /usr/sbin/php5-fpm
+    fpm_service:         php5-fpm
+    config_dir:          /etc/php5
+    log_dir:             /var/log/php5
+    sapis:
+      #############
+      # Available #
+      #############
+      - cli
+      - fpm
+      - cgi
+      #- phpdbg # 5.6
+    extensions:
+      ############
+      # Embedded #
+      ############
+      - bcmath
+      - bz2
+      - calendar
+      - ctype
+      - date
+      - dba
+      #- dom # See xml
+      #- ereg # Deprecated
+      - exif
+      - fileinfo
+      - filter
+      - ftp
+      - gettext
+      - hash
+      - iconv
+      - json
+      #- libxml # See xml
+      - mbstring
+      - mhash
+      - openssl
+      - pcntl
+      - pcre
+      - phar
+      - posix
+      - reflection
+      - session
+      - shmop
+      #- simplexml # See xml
+      - soap
+      - sockets
+      - spl
+      - sysvmsg
+      - sysvsem
+      - sysvshm
+      - tokenizer
+      #- wddx # See xml
+      - xml
+      #- xmlreader # See xml
+      #- xmlwriter # See xml
+      - zip
+      - zlib
+      ##########
+      # Common #
+      ##########
+      - pdo
+      #- opcache # 5.5/5.6
+      #########
+      # Sapis #
+      #########
+      #- readline # 5.5/5.6
+  '7.0':
+    release:             jessie
+    package_prefix:      php7.0-
+    package_pecl_prefix: php7.0-
+    enmod_bin:           /usr/sbin/phpenmod
+    dismod_bin:          /usr/sbin/phpdismod
+    fpm_bin:             /usr/sbin/php-fpm7.0
+    fpm_service:         php7.0-fpm
+    config_dir:          /etc/php/7.0
+    log_dir:             /var/log/php7.0
+    sapis:
+      #############
+      # Available #
+      #############
+      - cli
+      - fpm
+      - cgi
+      - phpdbg
+    extensions:
+      ############
+      # Embedded #
+      ############
+      - date
+      - filter
+      - hash
+      - libxml
+      - openssl
+      - pcntl
+      - pcre
+      - reflection
+      - session
+      - spl
+      - zlib
+      ##########
+      # Common #
+      ##########
+      - calendar
+      - ctype
+      - exif
+      - fileinfo
+      - ftp
+      - gettext
+      - iconv
+      - pdo
+      - phar
+      - posix
+      - shmop
+      - sockets
+      - sysvmsg
+      - sysvsem
+      - sysvshm
+      - tokenizer
+      #########
+      # Sapis #
+      #########
+      #- opcache
+      #- json
+      #- readline
+  '7.1':
+    release:             jessie
+    package_prefix:      php7.1-
+    package_pecl_prefix: php-
+    enmod_bin:           /usr/sbin/phpenmod
+    dismod_bin:          /usr/sbin/phpdismod
+    fpm_bin:             /usr/sbin/php-fpm7.1
+    fpm_service:         php7.1-fpm
+    config_dir:          /etc/php/7.1
+    log_dir:             /var/log/php7.1
+    sapis:
+      #############
+      # Available #
+      #############
+      - cli
+      - fpm
+      - cgi
+      - phpdbg
+    extensions:
+      ############
+      # Embedded #
+      ############
+      - date
+      - filter
+      - hash
+      - libxml
+      - openssl
+      - pcntl
+      - pcre
+      - reflection
+      - session
+      - spl
+      - zlib
+      ##########
+      # Common #
+      ##########
+      - calendar
+      - ctype
+      - exif
+      - fileinfo
+      - ftp
+      - gettext
+      - iconv
+      - pdo
+      - phar
+      - posix
+      - shmop
+      - sockets
+      - sysvmsg
+      - sysvsem
+      - sysvshm
+      - tokenizer
+      #########
+      # Sapis #
+      #########
+      #- opcache
+      #- json
+      #- readline
+
+# Pecl
+manala_php_pecl:
+  extensions:
+    - amqp
+    - apcu
+    - apcu-bc
+    - ast
+    - gearman
+    - geoip
+    - gmagick
+    - http
+    - igbinary
+    - imagick
+    - mailparse
+    - memcache
+    - memcached
+    - mongodb
+    - msgpack
+    - oauth
+    - propro
+    - radius
+    - raphf
+    - redis
+    - rrd
+    - smbclient
+    - solr
+    - ssh2
+    - stomp
+    - tideways
+    - uploadprogress
+    - uuid
+    - xcache
+    - xdebug
+    - yac
+    - yaml
+    - zmq
+
+# Applications
+manala_php_applications_patterns:
+  phpcs:
+    source: https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+  phpcbf:
+    source: https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+  openl10n:
+    source_version: https://github.com/openl10n/openl10n-cli/releases/download/v{version}/openl10n.phar
+  phpunit:
+    source:         https://phar.phpunit.de/phpunit.phar
+    source_version: https://phar.phpunit.de/phpunit-{version}.phar
+  php-cs-fixer:
+    source: http://get.sensiolabs.org/php-cs-fixer.phar
+  couscous:
+    source: http://couscous.io/couscous.phar
+  security-checker:
+    source: http://get.sensiolabs.org/security-checker.phar
+  deptrac:
+    source: http://get.sensiolabs.de/deptrac.phar
+  wp-cli:
+    source: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

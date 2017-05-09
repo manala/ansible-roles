@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Dotdeb apt key
+  apt_key:
+    url: http://www.dotdeb.org/dotdeb.gpg
+    id:  89DF5277
+
+- name: Pre tasks > Dotdeb apt repository
+  apt_repository:
+    repo: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all

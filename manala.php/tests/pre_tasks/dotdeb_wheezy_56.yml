@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Dotdeb apt key
+  apt_key:
+    url: http://www.dotdeb.org/dotdeb.gpg
+    id:  89DF5277
+
+- name: Pre tasks > Dotdeb apt repository 56
+  apt_repository:
+    repo: deb http://packages.dotdeb.org wheezy-php56 all
