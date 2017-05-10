@@ -5,6 +5,8 @@ cache_dir: "./.gitsplit"
 splits:
   - prefix: manala.hugo
     target: git@github.com:manala/ansible-role-hugo.git
+  - prefix: manala.php
+    target: git@github.com:manala/ansible-role-php.git
 
 # List of references to split (defined as regexp)
 origins:

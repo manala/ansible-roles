@@ -1,5 +1,7 @@
 # Ansible Role: Php [![Build Status](https://travis-ci.org/manala/ansible-role-php.svg?branch=master)](https://travis-ci.org/manala/ansible-role-php)
 
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
 This role will deal with the setup and config of PHP.
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
