@@ -20,18 +20,6 @@ DEBIAN_DISTRIBUTION ?= wheezy jessie
 DOCKER_IMAGE = manala/ansible-debian
 DOCKER_TAG  ?=
 
-## Docker
-DOCKER_OPTIONS =
-DOCKER = docker run \
-    --rm \
-    --volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
-    --volume `pwd`:/srv \
-    --workdir /srv \
-    --tty \
-    --privileged \
-    ${DOCKER_OPTIONS} \
-    manala/ansible-debian:${if ${ANSIBLE_VERSION},${ANSIBLE_VERSION}-}${DEBIAN_DISTRIBUTION}
-
 ## Help
 help:
 	printf "${COLOR_COMMENT}Usage:${COLOR_RESET}\n"
