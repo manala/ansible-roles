@@ -71,7 +71,7 @@
 - name: install > Exclusive - Packages presents
   command: dpkg-query --showformat "${Status}    ${binary:Package}\n" --show "php*"
   register: __manala_php_install_packages_presents_result
-  always_run: true
+  check_mode: false
   changed_when: false
   when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
 
@@ -120,7 +120,7 @@
        debfoster --quiet --option UseRecommends=no --show-depends $package
     done
   register: __manala_php_install_packages_dependencies_result
-  always_run: true
+  check_mode: false
   changed_when: false
   when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
 
