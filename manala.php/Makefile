@@ -90,7 +90,7 @@ test:
 				--volume `pwd`:/srv \
 				--workdir /srv \
 				${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
-				make tests \
+				sh -c 'make tests' \
 		|| EXIT=$$? ;\
 	} exit $$EXIT
 
