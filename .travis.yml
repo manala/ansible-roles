@@ -6,6 +6,7 @@ services:
   - docker
 
 script:
+  - make lint
   - make test
 
 notifications:

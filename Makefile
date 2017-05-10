@@ -1,5 +1,5 @@
 .SILENT:
-.PHONY: help build test split
+.PHONY: help lint test split
 
 ## Colors
 COLOR_RESET   = \033[0m
@@ -28,6 +28,18 @@ help:
 		} \
 	} \
 	{ lastLine = $$0 }' ${MAKEFILE_LIST}
+
+########
+# Lint #
+########
+
+## Lint
+lint:
+	EXIT=0 ; ${foreach \
+		repository,\
+		${GIT_REPOSITORIES},\
+		printf "\n${COLOR_INFO}Lint ${COLOR_COMMENT}${repository}${COLOR_RESET}\n\n" && ${MAKE} --directory=${repository} lint || EXIT=$$? ;\
+	} exit $$EXIT
 
 #########
 # Test #
