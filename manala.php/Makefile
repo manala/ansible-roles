@@ -92,6 +92,7 @@ test:
 					--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
 					--volume `pwd`:/srv \
 					--workdir /srv \
+					--privileged \
 					${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
 					sh -c 'make ${test}' || EXIT=$$? ;\
 			} \
