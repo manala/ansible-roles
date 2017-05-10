@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: jessie
+  become: true
   vars:
     manala_php_version: 7.1
     manala_php_sapis_exclusive: false
@@ -20,6 +21,7 @@
     - include: pre_tasks/sury_php.yml
     - apt:
         package: "{{ item }}"
+        install_recommends: false
       with_items:
         - php7.1-fpm
     - copy:

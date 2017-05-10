@@ -2,8 +2,9 @@
 
 - name: "{{ test }}"
   hosts: jessie
+  become: true
   vars:
-    manala_php_version: 7.0
+    manala_php_version: 7.1
     manala_php_sapis_exclusive: false
     manala_php_sapis:
       - cli
@@ -32,18 +33,19 @@
         config:
           - memory_limit: 257M
   pre_tasks:
-    - include: pre_tasks/dotdeb.yml
+    - include: pre_tasks/sury_php.yml
     - apt:
         package: "{{ item }}"
+        install_recommends: false
       with_items:
-        - php7.0-cli
-        - php7.0-fpm
+        - php7.1-cli
+        - php7.1-fpm
     - copy:
-        dest:    /etc/php/7.0/cli/conf.d/baz.ini
+        dest:    /etc/php/7.1/cli/conf.d/baz.ini
         content: |
           memory_limit = 255M
     - copy:
-        dest:    /etc/php/7.0/fpm/conf.d/baz.ini
+        dest:    /etc/php/7.1/fpm/conf.d/baz.ini
         content: |
           memory_limit = 257M
   roles:

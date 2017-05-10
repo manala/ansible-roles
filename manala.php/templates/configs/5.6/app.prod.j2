@@ -1,0 +1,28 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{# Upstream - [PHP] - Error handling and logging #}
+{{ macros.config_row(config, 'error_reporting', 'E_ALL & ~E_DEPRECATED & ~E_STRICT') }}
+{{ macros.config_row(config, 'display_errors', false) }}
+{{ macros.config_row(config, 'display_startup_errors', false) }}
+{{ macros.config_row(config, 'track_errors', false) }}
+
+{# [PHP] - Miscellaneous #}
+{{ macros.config_row(config, 'expose_php', false) }}
+
+{# [PHP] - Resource Limits #}
+{{ macros.config_row(config, 'memory_limit', '512M') }}
+
+{# [PHP] - Error handling and logging #}
+{{ macros.config_row(config, 'error_log', manala_php_versions[manala_php_version|string]['log_dir'] ~ '/error.log') }}
+
+{{ macros.config(config, [
+  'error_reporting',
+  'display_errors',
+  'display_startup_errors',
+  'track_errors',
+  'expose_php',
+  'memory_limit',
+  'error_log'
+]) -}}

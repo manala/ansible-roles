@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: wheezy
+  become: true
   vars:
     manala_php_version: 5
     manala_php_sapis_exclusive: false
@@ -26,6 +27,7 @@
     - include: pre_tasks/dotdeb.yml
     - apt:
         package: "{{ item }}"
+        install_recommends: false
       with_items:
         - php5-cli
         - php5-fpm

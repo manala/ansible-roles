@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: jessie
+  become: true
   vars:
     manala_php_version: 7.1
     manala_php_sapis_exclusive: false
