@@ -2,8 +2,9 @@
 
 - name: "{{ test }}"
   hosts: jessie
+  become: true
   vars:
-    manala_php_version: 7.1
+    manala_php_version: 7.0
     manala_php_sapis_exclusive: true
     manala_php_sapis:
       - cli
@@ -19,13 +20,14 @@
       - extension: curl
         state:     present
   pre_tasks:
-    - include: pre_tasks/sury_php.yml
+    - include: pre_tasks/dotdeb.yml
     - apt:
         package: "{{ item }}"
+        install_recommends: false
       with_items:
-        - php7.1-cgi  # Sapi
-        - php7.1-tidy # Native extension
-        - php-apcu    # Pecl extension
+        - php7.0-cgi  # Sapi
+        - php7.0-tidy # Native extension
+        - php7.0-apcu # Pecl extension
   roles:
     - manala.php
   post_tasks:

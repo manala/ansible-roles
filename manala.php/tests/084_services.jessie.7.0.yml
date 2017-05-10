@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: jessie
+  become: true
   vars:
     manala_php_version: 7.0
     manala_php_sapis_exclusive: false
@@ -9,14 +10,6 @@
       - cli
       - sapi:  fpm
         state: present
-    manala_php_extensions_exclusive: false
-    manala_php_extensions:
-      - xml
-    manala_php_applications:
-      - phpcs
-      - phpunit@4.8.30
-      - application: phpunit
-        version: 4.8.31
   pre_tasks:
     - include: pre_tasks/dotdeb.yml
   roles:

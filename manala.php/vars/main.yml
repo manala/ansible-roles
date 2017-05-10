@@ -31,7 +31,7 @@ manala_php_versions:
       - date
       - dba
       #- dom # See xml
-      #- ereg # Deprecated
+      - ereg # Deprecated
       - exif
       - fileinfo
       - filter
@@ -42,7 +42,7 @@ manala_php_versions:
       - json
       #- libxml # See xml
       - mbstring
-      - mhash
+      - mhash # Deprecated
       - openssl
       - pcntl
       - pcre
@@ -74,6 +74,66 @@ manala_php_versions:
       # Sapis #
       #########
       #- readline # 5.5/5.6
+  '5.6':
+    release:             jessie
+    package_prefix:      php5.6-
+    package_pecl_prefix: php-
+    enmod_bin:           /usr/sbin/phpenmod
+    dismod_bin:          /usr/sbin/phpdismod
+    fpm_bin:             /usr/sbin/php-fpm5.6
+    fpm_service:         php5.6-fpm
+    config_dir:          /etc/php/5.6
+    log_dir:             /var/log/php5.6
+    sapis:
+      #############
+      # Available #
+      #############
+      - cli
+      - fpm
+      - cgi
+      - phpdbg
+    extensions:
+      ############
+      # Embedded #
+      ############
+      - date
+      - ereg # Deprecated
+      - filter
+      - hash
+      - libxml
+      - mhash # Deprecated
+      - openssl
+      - pcntl
+      - pcre
+      - reflection
+      - session
+      - spl
+      - zlib
+      ##########
+      # Common #
+      ##########
+      - calendar
+      - ctype
+      - exif
+      - fileinfo
+      - ftp
+      - gettext
+      - iconv
+      - pdo
+      - phar
+      - posix
+      - shmop
+      - sockets
+      - sysvmsg
+      - sysvsem
+      - sysvshm
+      - tokenizer
+      #########
+      # Sapis #
+      #########
+      #- opcache
+      #- json
+      #- readline
   '7.0':
     release:             jessie
     package_prefix:      php7.0-

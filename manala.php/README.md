@@ -8,7 +8,7 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the __dotdeb__ php debian packages, available on the [__dotdeb__ debian repository](https://www.dotdeb.org/). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the [__dotdeb__](https://www.dotdeb.org/) or [__sury__](https://deb.sury.org/) php debian repositories. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle them properly.
 
 ## Dependencies
 
@@ -87,12 +87,20 @@ manala_apt_preferences:
 manala_php_version: 5
 ```
 
-Php 5.6 (Debian wheezy only)
+Php 5.6 (Debian wheezy)
 ```yaml
 manala_apt_preferences:
   - php@dotdeb_php56
 
 manala_php_version: 5
+```
+
+Php 5.6 (Debian jessie)
+```yaml
+manala_apt_preferences:
+  - php@sury_php
+
+manala_php_version: 5.6
 ```
 
 Php 7.0 (Debian jessie only)

@@ -1,10 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts: wheezy
+  hosts: jessie
   become: true
   vars:
-    manala_php_version: 5
+    manala_php_version: 7.0
     manala_php_sapis_exclusive: false
     manala_php_sapis:
       - cli
@@ -23,9 +23,9 @@
         package: "{{ item }}"
         install_recommends: false
       with_items:
-        - php5-fpm
+        - php7.0-fpm
     - copy:
-        dest:    /etc/php5/fpm/pool.d/foo.conf
+        dest:    /etc/php/7.0/fpm/pool.d/foo.conf
         content: |
           ; Foo
   roles:

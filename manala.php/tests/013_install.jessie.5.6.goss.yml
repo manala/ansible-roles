@@ -1,0 +1,24 @@
+---
+
+package:
+  php5.6-cli:
+    installed: true
+  php5.6-fpm:
+    installed: true
+  php5.6-cgi:
+    installed: false
+  php5.6-intl:
+    installed: true
+  php-ssh2:
+    installed: true
+  php5.6-curl:
+    installed: true
+  php5.6-tidy:
+    installed: false
+  php-apcu:
+    installed: false
+command:
+  php --version:
+    exit-status: 0
+    stdout:
+      - PHP 5.6.

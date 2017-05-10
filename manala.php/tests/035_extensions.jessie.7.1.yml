@@ -2,8 +2,9 @@
 
 - name: "{{ test }}"
   hosts: jessie
+  become: true
   vars:
-    manala_php_version: 7.0
+    manala_php_version: 7.1
     manala_php_sapis_exclusive: false
     manala_php_sapis:
       - cli
@@ -26,16 +27,17 @@
       - extension: xdebug
         enabled:   false
   pre_tasks:
-    - include: pre_tasks/dotdeb.yml
+    - include: pre_tasks/sury_php.yml
     - apt:
         package: "{{ item }}"
+        install_recommends: false
       with_items:
-        - php7.0-cli  # Sapi
-        - php7.0-tidy # Native extension
-        - php7.0-apcu # Pecl extension
+        - php7.1-cli  # Sapi
+        - php7.1-tidy # Native extension
+        - php-apcu    # Pecl extension
     - command: phpdismod apcu
   roles:
     - manala.php
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  # post_tasks:
+  #   - name: Goss
+  #     command: goss --gossfile {{ test }}.goss.yml validate

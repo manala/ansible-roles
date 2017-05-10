@@ -1,10 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts: wheezy
+  hosts: jessie
   become: true
   vars:
-    manala_php_version: 5
+    manala_php_version: 5.6
     manala_php_sapis_exclusive: false
     manala_php_sapis:
       - cli
@@ -33,19 +33,19 @@
         config:
           - memory_limit: 257M
   pre_tasks:
-    - include: pre_tasks/dotdeb_wheezy_55.yml
+    - include: pre_tasks/sury_php.yml
     - apt:
         package: "{{ item }}"
         install_recommends: false
       with_items:
-        - php5-cli
-        - php5-fpm
+        - php5.6-cli
+        - php5.6-fpm
     - copy:
-        dest:    /etc/php5/cli/conf.d/baz.ini
+        dest:    /etc/php/5.6/cli/conf.d/baz.ini
         content: |
           memory_limit = 255M
     - copy:
-        dest:    /etc/php5/fpm/conf.d/baz.ini
+        dest:    /etc/php/5.6/fpm/conf.d/baz.ini
         content: |
           memory_limit = 257M
   roles:

@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: wheezy
+  become: true
   vars:
     manala_php_version: 5
     manala_php_sapis_exclusive: false
@@ -30,6 +31,7 @@
     - include: pre_tasks/dotdeb_wheezy_56.yml
     - apt:
         package: "{{ item }}"
+        install_recommends: false
       with_items:
         - php5-cgi  # Sapi
         - php5-tidy # Native extension
