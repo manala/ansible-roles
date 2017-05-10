@@ -84,14 +84,17 @@ test:
 		distribution,\
 		${DEBIAN_DISTRIBUTION},\
 		printf "\n${COLOR_INFO}Test ${COLOR_COMMENT}${distribution}${COLOR_RESET}\n\n" && \
-			docker run \
-				--rm \
-				--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
-				--volume `pwd`:/srv \
-				--workdir /srv \
-				${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
-				sh -c 'make tests' \
-		|| EXIT=$$? ;\
+			${foreach \
+				test,\
+				${TESTS},\
+				docker run \
+					--rm \
+					--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
+					--volume `pwd`:/srv \
+					--workdir /srv \
+					${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
+					sh -c 'make ${test}' || EXIT=$$? ;\
+			} \
 	} exit $$EXIT
 
 TESTS = ${sort \
@@ -101,14 +104,6 @@ TESTS = ${sort \
 		${if ${findstring .goss.,${test}},,${test}}\
 	}\
 }
-
-## Tests
-tests:
-	EXIT=0 ; ${foreach \
-		test,\
-		${TESTS},\
-		make ${test} || EXIT=$$? ;\
-	} exit $$EXIT
 
 tests/%.yml: FORCE
 	ansible-playbook $@ --extra-vars="test=${subst .yml,,${subst tests/,,$@}}"
