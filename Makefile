@@ -39,7 +39,8 @@ lint:
 	EXIT=0 ; ${foreach \
 		repository,\
 		${GIT_REPOSITORIES},\
-		printf "\n${COLOR_INFO}Lint ${COLOR_COMMENT}${repository}${COLOR_RESET}\n\n" && ${MAKE} --directory=${repository} lint || EXIT=$$? ;\
+		printf "\n${COLOR_INFO}Lint ${COLOR_COMMENT}${repository}${COLOR_RESET}\n\n" && \
+		${MAKE} --directory=${repository} lint || EXIT=$$? ;\
 	} exit $$EXIT
 
 #########
@@ -51,7 +52,8 @@ test:
 	EXIT=0 ; ${foreach \
 		repository,\
 		${GIT_REPOSITORIES},\
-		printf "\n${COLOR_INFO}Test ${COLOR_COMMENT}${repository}${COLOR_RESET}\n\n" && ${MAKE} --directory=${repository} test || EXIT=$$? ;\
+		printf "\n${COLOR_INFO}Test ${COLOR_COMMENT}${repository}${COLOR_RESET}\n\n" && \
+		${MAKE} --directory=${repository} test || EXIT=$$? ;\
 	} exit $$EXIT
 
 #########
