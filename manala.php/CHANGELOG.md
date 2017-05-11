@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.1] - 2017-05-10
 ### Added
-- Handle php version 5.6 on debian jessie using sury php repositor
+- Handle php version 5.6 on debian jessie using sury php repository
 
 ## [1.0.0] - 2017-05-10
 ### Added
