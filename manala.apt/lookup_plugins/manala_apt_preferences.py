@@ -55,7 +55,7 @@ class LookupModule(LookupBase):
                     'priority': int(
                         (term.split(':')[1])
                             if len(term.split(':')) > 1 else
-                        (900)
+                        (990)
                     )
                 })
 

@@ -206,7 +206,7 @@ manala_apt_preferences:
     file:     dotdeb
   - package:  'php-*'
     pin:      release o=Debian,a=stable
-    priority: 900
+    priority: 990
     file:     php
 ```
 

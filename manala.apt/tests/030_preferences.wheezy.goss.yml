@@ -7,14 +7,14 @@ file:
     contains:
       - "Package:      git git-*"
       - "Pin:          release a=wheezy-backports"
-      - "Pin-Priority: 900"
+      - "Pin-Priority: 990"
   /etc/apt/preferences.d/libssl1_0_0:
     exists:   true
     filetype: file
     contains:
       - "Package:      libssl1.0.0"
       - "Pin:          release a=wheezy-backports"
-      - "Pin-Priority: 900"
+      - "Pin-Priority: 990"
   /etc/apt/preferences.d/php:
     exists:   true
     filetype: file
