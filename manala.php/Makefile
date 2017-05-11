@@ -1,5 +1,5 @@
 .SILENT:
-.PHONY: help dev lint test tests
+.PHONY: help dev lint test
 
 ## Colors
 COLOR_RESET   = \033[0m
