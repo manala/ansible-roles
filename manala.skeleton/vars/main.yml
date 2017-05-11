@@ -1,0 +1,743 @@
+---
+
+############
+# Patterns #
+############
+
+manala_skeleton_patterns:
+
+  # Manala
+
+  manala: &pattern_manala
+    # Accounts
+    accounts_groups: "{{
+      (manala_skeleton_options.docker)|ternary([{
+        'group':  'docker',
+        'system': True
+      }],[])
+    }}"
+    accounts_users_groups_exclusive: false
+    accounts_users:
+      - user:   "{{ manala_skeleton_options.app.user }}"
+        groups: "{{
+          (manala_skeleton_options.docker)|ternary(['docker'],[])
+        }}"
+    # Motd
+    motd_template: template/manala.j2
+    # Timezone
+    timezone_default: Etc/UTC
+    # Locales
+    locales_codes: []
+    locales_codes_default: C.UTF-8
+    # Environment
+    environment_files:
+      - zsh
+    # Apt
+    apt_components:
+      - main
+    apt_sources_list_template: sources_list/security_updates.j2
+    apt_repositories_exclusive: true
+    apt_repositories:
+      - manala
+    apt_preferences_exclusive: true
+    apt_preferences: "{{
+      [
+        'thefuck@manala'
+      ]
+      + {
+        'wheezy': [
+          'git@backports',
+          'vim@backports',
+          'openssh@backports',
+          'python-six@backports'
+        ],
+        'jessie': [
+          'git@backports',
+          'htop@backports'
+        ]
+      }[ansible_distribution_release]
+      + (manala_skeleton_options.docker)|ternary(['docker@docker'],[])
+      + (manala_skeleton_options.php)|ternary(
+        {
+          '5.4': ['dotdeb:100', 'php@dotdeb'],
+          '5.5': ['dotdeb:100', 'php@dotdeb_php55'],
+          '5.6': ['dotdeb:100', 'php@dotdeb_php56'],
+          '7.0': ['dotdeb:100', 'php@dotdeb'],
+          '7.1': ['sury_php:100', 'php@sury_php']
+        }[manala_skeleton_options.php_version|string],
+        []
+      )
+      + (manala_skeleton_options.nginx)|ternary(['nginx@nginx'],[])
+      + (manala_skeleton_options.nodejs)|ternary(['nodejs@nodesource_' ~ {'0.10': '0_10', '0.12': '0_12', '4': '4', '5': '5', '6': '6', '7': '7'}[manala_skeleton_options.nodejs_version|string]],[])
+      + (manala_skeleton_options.yarn)|ternary(['yarn@yarn'],[])
+      + (manala_skeleton_options.mysql)|ternary(['mysql@mysql' ~ {'5.6': '_5_6', '5.7': '_5_7'}[manala_skeleton_options.mysql_version|string]],[])
+      + (manala_skeleton_options.mariadb)|ternary(['mariadb@mariadb' ~ {'10.0': '_10_0', '10.1': '_10_1', '10.2': '_10_2'}[manala_skeleton_options.mariadb_version|string]],[])
+      + (manala_skeleton_options.phpmyadmin)|ternary(['phpmyadmin@manala'],[])
+      + (manala_skeleton_options.postgresql)|ternary(['postgresql@postgresql'],[])
+      + (manala_skeleton_options.phppgadmin)|ternary(['phppgadmin@manala'],[])
+      + (manala_skeleton_options.redis)|ternary(['redis@dotdeb'],[])
+      + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
+      + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2'}[manala_skeleton_options.elasticsearch_version|string]],[])
+      + (manala_skeleton_options.influxdb)|ternary(['influxdb@influxdata'],[])
+    }}"
+    apt_update_holds: "{{
+      (ansible_connection == 'local')|ternary(['ansible'],[])
+    }}" # Hold ansible package update when ansible itself runs in local
+    # Ssh
+    ssh_config_sshd_template: config/sshd/default.{{ manala_skeleton_env }}.j2
+    ssh_config_sshd:
+      - HostKey: /etc/ssh/ssh_host_rsa_key
+      - HostKey: /etc/ssh/ssh_host_dsa_key
+      - HostKey: /etc/ssh/ssh_host_ecdsa_key
+      - HostKey: /etc/ssh/ssh_host_ed25519_key
+    ssh_config_template: config/default.{{ manala_skeleton_env }}.j2
+    ssh_known_hosts:
+      - github.com
+    # Git
+    git_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Vim
+    vim_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Alternatives
+    alternatives_selections:
+      - selection: editor
+        path:      "{{ manala_vim_bin }}"
+    # Files
+    files_attributes_defaults:
+      - path:  "^{{ manala_skeleton_options.app.log_dir }}"
+        user:  "{{ manala_skeleton_options.app.user }}"
+        group: "{{ manala_skeleton_options.app.group }}"
+      - path:  "^{{ manala_skeleton_options.app.cache_dir }}"
+        user:  "{{ manala_skeleton_options.app.user }}"
+        group: "{{ manala_skeleton_options.app.group }}"
+      - path:  "^{{ manala_skeleton_options.app.sessions_dir }}"
+        user:  "{{ manala_skeleton_options.app.user }}"
+        group: "{{ manala_skeleton_options.app.group }}"
+    files_attributes:
+      - path:  "{{ manala_skeleton_options.app.log_dir }}"
+        state: directory
+      - path:  "{{ manala_skeleton_options.app.cache_dir }}"
+        state: directory
+      - path:  "{{ manala_skeleton_options.app.sessions_dir }}"
+        state: directory
+    # Systemd
+    systemd_services: "{{
+      (manala_skeleton_options.docker)|ternary(
+        [{
+          'name':    'docker.service',
+          'enabled': False,
+          'state':   'stopped'
+        },{
+          'name':    'docker.socket',
+          'enabled': True,
+          'state':   'started'
+        }],
+        []
+      )
+    }}"
+    # MailHog
+    mailhog_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Supervisor
+    supervisor_config_template: config/default.{{ manala_skeleton_env }}.j2
+    supervisor_configs_exclusive: true
+    # Ngrok
+    ngrok_configs_exclusive: true
+    ngrok_configs:
+      - file:     config.yml
+        template: configs/default.{{ manala_skeleton_env }}.j2
+    # Php
+    php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1})[manala_skeleton_options.php_version|string] }}"
+    php_sapis_exclusive: true
+    php_sapis:
+      - cli
+      - fpm
+    php_fpm_pools_exclusive: true
+    php_fpm_pools: "{{
+      (
+        manala_skeleton_options.opcache_dashboard
+        or manala_skeleton_options.phpmyadmin
+        or manala_skeleton_options.phppgadmin
+        or manala_skeleton_options.phpredisadmin
+      )|ternary([{
+        'file':     'admin.conf',
+        'template': 'fpm_pools/admin.' ~ manala_skeleton_env ~ '.j2',
+        'config':   [
+          {'admin': [
+            {'php_admin_value[upload_max_filesize]': '16M'},
+            {'php_admin_value[post_max_size]': '16M'}
+          ]}
+        ]
+      }],[])
+      + [{
+        'file':     'app.conf',
+        'template': 'fpm_pools/app.' ~ manala_skeleton_env ~ '.j2',
+        'config':   [
+          {'app': [
+            {'user':                       manala_skeleton_options.app.user},
+            {'group':                      manala_skeleton_options.app.group},
+            {'php_admin_value[error_log]': manala_skeleton_options.app.log_dir ~ '/php.error.log'}
+          ]}
+        ]
+      }]
+    }}"
+    php_extensions_exclusive: true
+    php_extensions: "{{
+      {
+        '5.4': ['zendopcache', 'readline'],
+        '5.5': ['readline'],
+        '5.6': ['readline'],
+        '7.0': ['opcache', 'readline', 'json'],
+        '7.1': ['opcache', 'readline', 'json']
+      }[manala_skeleton_options.php_version|string]
+      + [{
+        'extension': 'xdebug',
+        'enabled':   false
+      }]
+      + (
+        manala_skeleton_options.mysql
+        or manala_skeleton_options.mariadb
+      )|ternary(
+        {
+          '5.4': ['mysqlnd'],
+          '5.5': ['mysqlnd'],
+          '5.6': ['mysqlnd'],
+          '7.0': ['mysql'],
+          '7.1': ['mysql']
+        }[manala_skeleton_options.php_version|string],
+        []
+      )
+      + (manala_skeleton_options.phpmyadmin)|ternary(
+        {
+          '5.4': ['mysqlnd'],
+          '5.5': ['mysqlnd'],
+          '5.6': ['mysqlnd'],
+          '7.0': ['mysql', 'mbstring', 'zip', 'bz2'],
+          '7.1': ['mysql', 'mbstring', 'zip', 'bz2']
+        }[manala_skeleton_options.php_version|string],
+        []
+      )
+      + (manala_skeleton_options.sqlite)|ternary(
+        {
+          '5.4': ['sqlite'],
+          '5.5': ['sqlite'],
+          '5.6': ['sqlite'],
+          '7.0': ['sqlite3'],
+          '7.1': ['sqlite3']
+        }[manala_skeleton_options.php_version|string],
+        []
+      )
+      + (manala_skeleton_options.postgresql)|ternary(['pgsql'],[])
+      + (manala_skeleton_options.redis)|ternary(['redis'],[])
+      + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
+    }}"
+    php_configs_exclusive: true
+    php_configs_global: "{{ manala_skeleton_options.php_version|string == '5.4' }}"
+    php_configs:
+      - file: 50-xdebug.ini
+        template: configs/xdebug.{{ manala_skeleton_env }}.j2
+    php_applications:
+      - php-cs-fixer
+      - phpcs
+      - security-checker
+    # Nginx
+    nginx_config_template: config/http.{{ manala_skeleton_env }}.j2
+    nginx_configs_exclusive: true
+    nginx_configs: "{{
+      (
+        manala_skeleton_options.opcache_dashboard
+        or manala_skeleton_options.phpmyadmin
+        or manala_skeleton_options.phppgadmin
+        or manala_skeleton_options.phpredisadmin
+      )|ternary([{
+        'file':     'admin_php_fpm',
+        'template': 'configs/admin_php_fpm.' ~ manala_skeleton_env ~ '.j2'
+      }],[])
+      + (manala_skeleton_options.opcache_dashboard)|ternary([{
+        'file':   'admin.opcache_dashboard.conf',
+        'config': [
+          {'server': [
+            {'listen': 2013},
+            {'root':   manala_opcache_dashboard_dir},
+            {'location /': [
+              {'try_files': '$uri /opcache.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
+          ]}
+        ]
+      }],[])
+      + (manala_skeleton_options.phpmyadmin)|ternary([{
+        'file':   'admin.phpmyadmin.conf',
+        'config': [
+          {'server': [
+            {'listen': 1979},
+            {'root':   manala_phpmyadmin_dir},
+            {'client_max_body_size': '16M'},
+            {'location /': [
+              {'try_files': '$uri /index.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
+          ]}
+        ]
+      }],[])
+      + (manala_skeleton_options.phppgadmin)|ternary([{
+        'file':   'admin.phppgadmin.conf',
+        'config': [
+          {'server': [
+            {'listen': 1980},
+            {'root':   manala_phppgadmin_dir},
+            {'client_max_body_size': '16M'},
+            {'location /': [
+              {'try_files': '$uri /index.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
+          ]}
+        ]
+      }],[])
+      + (manala_skeleton_options.phpredisadmin)|ternary([{
+        'file':   'admin.phpredisadmin.conf',
+        'config': [
+          {'server': [
+            {'listen': 1981},
+            {'root':   manala_phpredisadmin_dir},
+            {'location /': [
+              {'try_files': '$uri /index.php$is_args$args'}
+            ]},
+            {'location ~ ^/.+\\.php(/|$)': [
+              {'include': 'conf.d/admin_php_fpm'}
+            ]}
+          ]}
+        ]
+      }],[])
+    }}"
+    # MySql
+    mysql_configs_exclusive: true
+    mysql_configs:
+      - file: my.cnf
+        template: configs/default.{{ manala_skeleton_env }}.j2
+    mysql_users:
+      - name:     "{{ manala_skeleton_options.app.user }}"
+        password: ~
+        host:     "localhost" # Mysql 5.6.36 don't handle host wildcard. Before more investigations, switch to localhost.
+        priv:     "*.*:ALL,GRANT"
+    mysql_install_packages: "{{
+      [
+        'mariadb-server',
+        'mariadb-client'
+      ]
+        if (manala_skeleton_options.mariadb) else
+      None
+    }}"
+    # PhpMyAdmin
+    phpmyadmin_configs_exclusive: true
+    phpmyadmin_configs:
+      - file:     config.inc.php
+        template: configs/default.{{ manala_skeleton_env }}.j2
+        servers:
+          - id: 1
+            config:
+              - user: "{{ manala_skeleton_options.app.user }}"
+    # PostgreSQL
+    postgresql_version: "{{ manala_skeleton_options.postgresql_version }}"
+    postgresql_config_template: config/default.{{ manala_skeleton_env }}.j2
+    postgresql_config_hba_template: config/hba/default.{{ manala_skeleton_env }}.j2
+    postgresql_roles:
+      - role:       "{{ manala_skeleton_options.app.user }}"
+        password:   ~
+        attributes: ['SUPERUSER']
+    # PhpPgAdmin
+    phppgadmin_configs_exclusive: true
+    phppgadmin_configs:
+      - file:     config.inc.php
+        template: configs/default.{{ manala_skeleton_env }}.j2
+    # Redis
+    redis_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # PhpRedisAdmin
+    phpredisadmin_configs_exclusive: true
+    phpredisadmin_configs:
+      - file:     config.inc.php
+        template: configs/default.{{ manala_skeleton_env }}.j2
+    # MongoDB
+    mongodb_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Mongo Express
+    mongo_express_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Elasticsearch
+    elasticsearch_plugins:
+      - mobz/elasticsearch-head
+    # PhantomJS
+    phantomjs_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Heka
+    heka_config_template: config/default.{{ manala_skeleton_env }}.j2
+    heka_configs:
+      - file:     input_app.toml
+        template: configs/input_app.j2
+      - file:     output_app_rtail.toml
+        template: configs/output_app_rtail.j2
+    # RTail
+    rtail_config_template: config/default.{{ manala_skeleton_env }}.j2
+
+  # Manala - Dev
+
+  manala_dev: &pattern_manala_dev
+    # Apt
+    apt_packages:
+      - debfoster
+      - rsync
+      - curl
+      - htop
+      - less
+      - ssl-cert
+      - thefuck
+      - gitsplit
+    # Supervisor
+    supervisor_configs:
+      - file:     inet-http-server.conf
+        template: configs/inet_http_server.{{ manala_skeleton_env }}.j2
+
+  # Manala - Nginx - Dev
+
+  manala_nginx_dev: &pattern_manala_nginx_dev
+    # Files
+    files_attributes:
+      - path:  /usr/share/manala/html
+        state: directory
+      - path: /usr/share/manala/html/404.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Manala - Error 404</title>
+              <style>
+                body {
+                  width: 35em;
+                  margin: 0 auto;
+                  font-family: Tahoma, Verdana, Arial, sans-serif;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>Manala - Error 404</h1>
+              <p>Not found</p>
+            </body>
+          </html>
+    # Nginx
+    nginx_configs:
+      - file: default.conf
+        config:
+          - server:
+            - listen:     '* default_server'
+            - error_page: '404 /404.html'
+            - location /404.html:
+              - root: /usr/share/manala/html
+              - internal;
+
+  # Manala - Nginx - Test
+
+  manala_nginx_test: &pattern_manala_nginx_test
+    # Nginx
+    nginx_configs:
+      - file: default.conf
+        config:
+          - server:
+            - listen: '* default_server'
+            - return: 404
+
+  # Elao
+
+  elao: &pattern_elao
+    # Motd
+    motd_template: template/elao.j2
+    # Ssh
+    ssh_known_hosts:
+      - git.elao.com
+
+  # Elao - Nginx - Dev
+
+  elao_nginx_dev: &pattern_elao_nginx_dev
+    # Files
+    files_attributes:
+      - path:  /usr/share/elao/html
+        state: directory
+      - path: /usr/share/elao/html/404.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Elao - Error 404</title>
+              <style>
+                body {
+                  width: 35em;
+                  margin: 0 auto;
+                  font-family: Tahoma, Verdana, Arial, sans-serif;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>Elao - Error 404</h1>
+              <p>Not found</p>
+            </body>
+          </html>
+    # Nginx
+    nginx_configs:
+      - file: default.conf
+        config:
+          - server:
+            - listen:     '* default_server'
+            - error_page: '404 /404.html'
+            - location /404.html:
+              - root: /usr/share/elao/html
+              - internal;
+
+
+#############
+# Skeletons #
+#############
+
+manala_skeletons:
+
+  ################
+  # Manala - App #
+  ################
+
+  manala_app:
+
+    dev:
+
+      options:
+
+        # Roles
+        motd:         true
+        timezone:     true
+        locales:      true
+        apt:          true
+        ssh:          true
+        make:         true
+        git:          true
+        zsh:          true
+        ohmyzsh:      true
+        vim:          true
+        alternatives: true
+        docker:       "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        systemd:      "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        mailhog:      true
+        supervisor:   true
+        cron:         true
+        ntp:          true
+        ngrok:        true
+        # App
+        app:
+          env: dev
+
+      patterns:
+        - *pattern_manala
+        - *pattern_manala_dev
+        - *pattern_manala_nginx_dev
+        -
+          # Motd
+          motd_message: App - Dev
+          # Oh my zsh
+          ohmyzsh_users:
+            - user:     "{{ manala_skeleton_options.app.user }}"
+              group:    "{{ manala_skeleton_options.app.group }}"
+              template: users/default.{{ manala_skeleton_env }}.j2
+              config:
+                - "[ -d {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }} ] && cd {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }}"
+
+    test:
+
+      options:
+
+        # Roles
+        motd:       true
+        timezone:   true
+        locales:    true
+        apt:        true
+        ssh:        true
+        make:       true
+        git:        true
+        zsh:        true
+        docker:     "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        mailhog:    true
+        supervisor: true
+        cron:       true
+        # App
+        app:
+          env: test
+
+      patterns:
+        - *pattern_manala
+        - *pattern_manala_nginx_test
+        -
+          # Motd
+          motd_message: App - Test
+
+  ######################
+  # Manala - App - Php #
+  ######################
+
+  manala_app_php:
+
+    dev:
+
+      options:
+
+        # Roles
+        motd:              true
+        timezone:          true
+        locales:           true
+        environment:       true
+        apt:               true
+        ssh:               true
+        make:              true
+        git:               true
+        zsh:               true
+        ohmyzsh:           true
+        vim:               true
+        alternatives:      true
+        files:             true
+        docker:            "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        systemd:           "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        mailhog:           true
+        supervisor:        true
+        cron:              true
+        ntp:               true
+        ngrok:             true
+        nginx:             true
+        php:               true
+        composer:          true
+        nodejs:            true
+        npm:               true
+        yarn:              true
+        phpmyadmin:        true
+        phppgadmin:        true
+        phpredisadmin:     true
+        mongo_express:     true
+        opcache_dashboard: true
+        phantomjs:         true
+        heka:              true
+        rtail:             true
+        # App
+        app:
+          env: dev
+
+      patterns:
+        - *pattern_manala
+        - *pattern_manala_dev
+        - *pattern_manala_nginx_dev
+        -
+          # Motd
+          motd_message: App - Php - Dev
+          # Oh my zsh
+          ohmyzsh_users:
+            - user:     "{{ manala_skeleton_options.app.user }}"
+              group:    "{{ manala_skeleton_options.app.group }}"
+              template: users/php.{{ manala_skeleton_env }}.j2
+              config:
+                - "[ -d {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }} ] && cd {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }}"
+
+  ####################
+  # Elao - App - Php #
+  ####################
+
+  elao_app_php:
+
+    dev:
+
+      options:
+
+        # Roles
+        motd:              true
+        timezone:          true
+        locales:           true
+        environment:       true
+        apt:               true
+        ssh:               true
+        make:              true
+        git:               true
+        zsh:               true
+        ohmyzsh:           true
+        vim:               true
+        alternatives:      true
+        files:             true
+        docker:            "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        systemd:           "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        mailhog:           true
+        supervisor:        true
+        cron:              true
+        ntp:               true
+        ngrok:             true
+        nginx:             true
+        php:               true
+        composer:          true
+        nodejs:            true
+        npm:               true
+        yarn:              true
+        phpmyadmin:        true
+        phppgadmin:        true
+        phpredisadmin:     true
+        mongo_express:     true
+        opcache_dashboard: true
+        phantomjs:         true
+        heka:              true
+        rtail:             true
+        # App
+        app:
+          env: dev
+
+      patterns:
+        - *pattern_manala
+        - *pattern_manala_dev
+        - *pattern_elao
+        - *pattern_elao_nginx_dev
+        -
+          # Motd
+          motd_message: App - Php - Dev
+          # Oh my zsh
+          ohmyzsh_users:
+            - user:     "{{ manala_skeleton_options.app.user }}"
+              group:    "{{ manala_skeleton_options.app.group }}"
+              template: users/php.{{ manala_skeleton_env }}.j2
+              config:
+                - "[ -d {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }} ] && cd {{ manala_skeleton_options.app.dir }}{{ manala_skeleton_options.app.dir_release }}"
+
+    test:
+
+      options:
+
+        # Roles
+        motd:        true
+        timezone:    true
+        locales:     true
+        environment: true
+        apt:         true
+        ssh:         true
+        make:        true
+        git:         true
+        zsh:         true
+        files:       true
+        docker:      "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        mailhog:     true
+        supervisor:  true
+        cron:        true
+        nginx:       true
+        php:         true
+        composer:    true
+        nodejs:      true
+        npm:         true
+        yarn:        true
+        phantomjs:   true
+        # App
+        app:
+          env: test
+
+      patterns:
+        - *pattern_manala
+        - *pattern_manala_nginx_test
+        - *pattern_elao
+        -
+          # Motd
+          motd_message: App - Php - Test
