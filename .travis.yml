@@ -5,6 +5,10 @@ sudo: required
 services:
   - docker
 
+env:
+  - DEBIAN_DISTRIBUTION=wheezy ANSIBLE_VERSION=2.2.0
+  - DEBIAN_DISTRIBUTION=jessie ANSIBLE_VERSION=2.2.0
+
 script:
   - make lint
   - make test
