@@ -18,7 +18,7 @@ DEBIAN_DISTRIBUTION ?= wheezy jessie
 
 # Docker
 DOCKER_IMAGE = manala/ansible-debian
-DOCKER_TAG  ?=
+DOCKER_TAG  ?= ${ANSIBLE_VERSION}
 
 ## Help
 help:
