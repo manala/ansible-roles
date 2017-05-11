@@ -1,0 +1,5 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_apt_sources_list -%}
+
+{{ macros.config(config) }}

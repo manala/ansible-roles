@@ -1,0 +1,32 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_apt_packages:
+      - ecl-doc
+      - package: telnet
+        state: absent
+      - package: telnet
+        state: present
+      - package: pwgen
+        state: absent
+      - xfonts-75dpi # Wkhtmltopdf
+      - http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-{{ ansible_distribution_release }}-amd64.deb
+  pre_tasks:
+    - apt:
+        name:  "{{ item }}"
+        state: absent
+      with_items:
+        - ecl-doc
+        - telnet
+    - apt:
+        name:  "{{ item }}"
+        state: present
+      with_items:
+        - pwgen
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,40 @@
+---
+
+# Dependencies
+- include: dependencies.yml
+  tags:
+    - manala_apt
+
+# Sources list
+- include: sources_list.yml
+  when: (manala_apt_sources_list_template is not none) or (manala_apt_sources_list|length)
+  tags:
+    - manala_apt
+
+# Preferences
+- include: preferences.yml
+  tags:
+    - manala_apt
+
+# Keys
+- include: keys.yml
+  tags:
+    - manala_apt
+
+# Repositories
+- include: repositories.yml
+  tags:
+    - manala_apt
+
+# Update
+- include: update.yml
+  when: "{{ manala_apt['update']|default(false) }}"
+  tags:
+    - manala_apt
+    - manala_apt.update
+    - manala.update
+
+# Packages
+- include: packages.yml
+  tags:
+    - manala_apt

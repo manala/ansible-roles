@@ -1,0 +1,386 @@
+---
+
+# Repositories
+manala_apt_repositories_patterns:
+  security: "{{
+    {
+      'debian': {
+        'source': 'deb http://security.debian.org/ ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': {
+        'source': 'deb http://security.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
+      }
+    }[ansible_distribution|lower]
+  }}"
+  security_src: "{{
+    {
+      'debian': {
+        'source': 'deb-src http://security.debian.org/ ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': None
+    }[ansible_distribution|lower]
+  }}"
+  updates: "{{
+    {
+      'debian': {
+        'source': 'deb http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': {
+        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+      }
+    }[ansible_distribution|lower]
+  }}"
+  updates_src: "{{
+    {
+      'debian': {
+        'source': 'deb-src http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+      },
+      'ubuntu': None
+    }[ansible_distribution|lower]
+  }}"
+  partner: "{{
+    {
+      'debian': None,
+      'ubuntu': {
+        'source': 'deb http://archive.canonical.com/ubuntu ' ~ ansible_distribution_release ~ ' partner'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  backports: "{{
+    {
+      'debian': {
+        'source': 'deb http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
+      },
+      'ubuntu': {
+        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
+  debian_security:
+    source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
+  debian_security_src:
+    source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
+  debian_updates:
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
+  debian_updates_src:
+    source: deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
+  debian_backports:
+    source: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    pin: release a={{ ansible_distribution_release }}-backports
+  # Deprecated
+  ubuntu_security:
+    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
+  # Deprecated
+  ubuntu_updates:
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  # Deprecated
+  ubuntu_partner:
+    source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
+  # Deprecated
+  ubuntu_backports:
+    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    pin: release a={{ ansible_distribution_release }}-backports
+  dotdeb:
+    source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
+    key: dotdeb
+  dotdeb_php55:
+    source: deb http://packages.dotdeb.org wheezy-php55 all
+    key: dotdeb
+  dotdeb_php56:
+    source: deb http://packages.dotdeb.org wheezy-php56 all
+    key: dotdeb
+  nginx:
+    source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
+    key: nginx
+  bearstech:
+    source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
+    key: bearstech
+  nodesource_0_10:
+    source: deb https://deb.nodesource.com/node_0.10 {{ ansible_distribution_release }} main
+    key: nodesource
+  nodesource_0_12:
+    source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
+    key: nodesource
+  nodesource_4:
+    source: deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
+    key: nodesource
+  nodesource_5:
+    source: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
+    key: nodesource
+  nodesource_6:
+    source: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
+    key: nodesource
+  nodesource_7:
+    source: deb https://deb.nodesource.com/node_7.x {{ ansible_distribution_release }} main
+    key: nodesource
+  mysql_5_6:
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
+    key: mysql
+  mysql_5_7:
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
+    key: mysql
+  mariadb_10_0:
+    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian {{ ansible_distribution_release }} main
+    key: mariadb
+  mariadb_10_1:
+    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
+    key: mariadb
+  mariadb_10_2:
+    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
+    key: mariadb
+  maxscale_2_0_4:
+    source: deb https://downloads.mariadb.com/MaxScale/2.0.4/debian {{ ansible_distribution_release }} main
+    key: maxscale
+  postgresql:
+    source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+    key: postgresql
+  mongodb_3_0:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.0 main
+    key: 10gen
+  mongodb_3_2:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.2 main
+    key: mongodb
+  varnish_4_0:
+    source: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
+    key: varnish
+  jenkins:
+    source: deb http://pkg.jenkins-ci.org/debian binary/
+    key: jenkins
+  sensu:
+    source: deb http://repositories.sensuapp.org/apt sensu main
+    key: sensu
+  rabbitmq:
+    source: deb http://www.rabbitmq.com/debian/ testing main
+    key: rabbitmq
+  proxmox:
+    source: deb http://download.proxmox.com/debian {{ ansible_distribution_release }} pve-no-subscription
+  proxmox_enterprise:
+    source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+  logentries:
+    source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+    key: logentries
+  galera:
+    source: deb http://releases.galeracluster.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
+  grafana:
+    source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
+    key: packagecloud
+  elasticsearch_1_5:
+    source: deb http://packages.elastic.co/elasticsearch/1.5/debian stable main
+    key: elasticsearch
+  elasticsearch_1_6:
+    source: deb http://packages.elastic.co/elasticsearch/1.6/debian stable main
+    key: elasticsearch
+  elasticsearch_1_7:
+    source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
+    key: elasticsearch
+  elasticsearch_2:
+    source: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
+    key: elasticsearch
+  ansible: "{{
+    {
+      'debian': None,
+      'ubuntu': {
+        'source': 'ppa:ansible/ansible'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
+  ppa_ansible:
+    source: ppa:ansible/ansible
+  blackfire:
+    source: deb http://packages.blackfire.io/debian any main
+    key: packagecloud
+  gitlab-ce:
+    source: deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ ansible_distribution_release }} main
+    key: gitlab
+  aptly:
+    source: deb http://repo.aptly.info/ squeeze main
+    key: aptly
+  docker:
+    source: deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main
+    key: docker
+  manala:
+    source: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main
+    key: manala
+  newrelic:
+    source: deb http://apt.newrelic.com/debian/ newrelic non-free
+    key: newrelic
+  influxdata:
+    source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
+    key: influxdata
+  yarn:
+    source: deb http://dl.yarnpkg.com/debian/ stable main
+    key: yarn
+  sury_php: "{{
+    {
+      'debian': {
+        'source': 'deb https://packages.sury.org/php/ ' ~ ansible_distribution_release ~ ' main',
+        'key':    'sury_php'
+      },
+      'ubuntu': {
+        'source': 'ppa:ondrej/php',
+        'key':    'sury_php'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
+  sury_php_debian:
+    source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
+    key: sury_php_debian
+  # Deprecated
+  sury_php_ubuntu:
+    source: ppa:ondrej/php
+    key: sury_php_ubuntu
+
+# Keys
+manala_apt_keys_patterns:
+  dotdeb:
+    url: http://www.dotdeb.org/dotdeb.gpg
+    id: 89DF5277
+  nginx:
+    url: http://nginx.org/keys/nginx_signing.key
+    id: 7BD9BF62
+  bearstech:
+    url: http://deb.bearstech.com/bearstech-archive.gpg
+    id: 90158EE0
+  nodesource:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 68576280
+  mysql:
+    keyserver: hkp://pgp.mit.edu:80
+    id: 5072E1F5
+  mariadb:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 1BB943DB
+  maxscale:
+    url: https://downloads.mariadb.com/MaxScale/MariaDB-MaxScale-GPG-KEY
+    id: 8167EE24
+  postgresql:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    id: ACCC4CF8
+  10gen:
+    url: https://docs.mongodb.org/10gen-gpg-key.asc
+    id: 7F0CEB10
+    # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
+    # Instead of hacking things on python or system, simply don't validate certs...
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
+  mongodb:
+    url: https://www.mongodb.org/static/pgp/server-3.2.asc
+    id: EA312927
+    # See 10gen
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
+  varnish:
+    url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
+    id: C4DEFFEB
+  jenkins:
+    url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+    id: D50582E6
+  sensu:
+    url: http://repositories.sensuapp.org/apt/pubkey.gpg
+    id: EB9C94BB
+  rabbitmq:
+    url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+    id: 056E8E56
+  logentries:
+    keyserver: hkp://pgp.mit.edu:80
+    id: C43C79AD
+  galera:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: BC19DDBA
+  packagecloud:
+    url: https://packagecloud.io/gpg.key
+    id: D59097AB
+  elasticsearch:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    id: D88E42B4
+  gitlab:
+    url: https://packages.gitlab.com/gpg.key
+    id: E15E78F4
+  aptly:
+    url: https://www.aptly.info/pubkey.txt
+    id: 9C7DE460
+  docker:
+    keyserver: keys.gnupg.net
+    id: 2C52609D
+  manala:
+    keyserver: keys.gnupg.net
+    id: 1394DEA3
+  newrelic:
+    url: https://download.newrelic.com/548C16BF.gpg
+    id: 548C16BF
+  influxdata:
+    url: https://repos.influxdata.com/influxdb.key
+    id: 2582E0C5
+  yarn:
+    url: http://dl.yarnpkg.com/debian/pubkey.gpg
+    id: 86E50310
+  sury_php: "{{
+    {
+      'debian': {
+        'url': 'https://packages.sury.org/php/apt.gpg',
+        'id':  '4A7A714D'
+      },
+      'ubuntu': {
+        'keyserver': 'hkp://keyserver.ubuntu.com:80',
+        'id':        'E5267A6C'
+      }
+    }[ansible_distribution|lower]
+  }}"
+  # Deprecated
+  sury_php_debian:
+    url: https://packages.sury.org/php/apt.gpg
+    id: 4A7A714D
+  # Deprecated
+  sury_php_ubuntu:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: E5267A6C
+
+# Preferences
+manala_apt_preferences_patterns:
+  vim:                vim*
+  git:                git git-*
+  php:                php-* php5-* php5.6-* php7.0-* php7.1-*
+  mysql:              mysql* libmysql*
+  nginx:              nginx*
+  ruby:               ruby*
+  nodejs:             nodejs*
+  rabbitmq:           rabbitmq*
+  redis:              redis*
+  logentries:         logentries*
+  sensu:              sensu*
+  haproxy:            haproxy*
+  galera:             galera*
+  grafana:            grafana*
+  elasticsearch:      elasticsearch*
+  postgresql:         postgresql*
+  mongodb:            mongodb*
+  keepalived:         keepalived*
+  gitlab-ce:          gitlab-ce*
+  phpmyadmin:         phpmyadmin*
+  phppgadmin:         phppgadmin*
+  docker:             docker*
+  chrony:             chrony*
+  backup-manager:     backup-manager*
+  pam-ssh-agent-auth: pam-ssh-agent-auth*
+  oauth2-proxy:       oauth2-proxy*
+  cloud:              cloud-init cloud-utils
+  mariadb:            mariadb* libmariadb*
+  maxscale:           maxscale*
+  influxdb:           influxdb*
+  telegraf:           telegraf*
+  thefuck:            thefuck*
+  python-six:         python-six*
+  htop:               htop*
+  yarn:               yarn*
+  openssh:            openssh*
+  ansible:            ansible*
+  openjdk:            openjdk-* ca-certificates-java
+  linux:              linux-base linux-image-* linux-headers-*

@@ -1,0 +1,35 @@
+---
+
+# Components
+manala_apt_components: ['main']
+
+# Sources list
+manala_apt_sources_list_file:     /etc/apt/sources.list
+manala_apt_sources_list_template: ~
+manala_apt_sources_list:          []
+
+# Repositories
+manala_apt_repositories_exclusive: false
+manala_apt_repositories_dir:       /etc/apt/sources.list.d
+manala_apt_repositories:           []
+
+# Preferences
+manala_apt_preferences_exclusive: false
+manala_apt_preferences_dir:       /etc/apt/preferences.d
+manala_apt_preferences:           []
+
+# Keys
+manala_apt_keys: []
+
+# Update
+manala_apt_update_holds: []
+
+# Packages
+manala_apt_packages: []
+
+# Cache
+manala_apt_cache_valid_time: 3600
+
+# Manala
+manala_apt:
+  update: "{{ (manala|default({'update':false}))['update'] }}"

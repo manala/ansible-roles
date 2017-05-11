@@ -1,0 +1,26 @@
+
+{%- macro config(parameters, exclusions = []) -%}
+    {%- for parameter in parameters -%}
+        {%- if parameter is string or parameter is number -%}
+            {{ parameter }}{{ '\n' }}
+        {%- elif parameter is mapping -%}
+            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+                {%- if parameter_key not in exclusions -%}
+                    {{ _config_parameter(parameter_key, parameter_value) }}{{ '\n' }}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro _config_parameter(key, value) -%}
+    {{ _config_parameter_key(key) }} {{ _config_parameter_value(value) }}
+{%- endmacro -%}
+
+{%- macro _config_parameter_key(key) -%}
+    {{ key }}
+{%- endmacro -%}
+
+{%- macro _config_parameter_value(value) -%}
+    {{ value }}
+{%- endmacro -%}

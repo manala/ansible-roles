@@ -1,0 +1,12 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_apt:
+      update: true
+    manala_apt_update_holds:
+      - foo
+      - unzip
+  roles:
+    - manala.apt

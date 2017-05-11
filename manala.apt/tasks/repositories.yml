@@ -1,0 +1,55 @@
+---
+
+- name: repositories > Repositories
+  apt_repository:
+    repo:         "{{ item.source }}"
+    state:        "{{ item.state|default('present') }}"
+    update_cache: false
+  with_manala_apt_repositories:
+    # Repositories
+    - "{{ manala_apt_repositories }}"
+    - "{{ manala_apt_repositories_patterns }}"
+    # Preferences
+    - "{{ manala_apt_preferences }}"
+  register: __manala_apt_repositories_results
+
+- name: repositories > Exclusive - find files
+  command: "find -type f -name '*.list' -printf '%P\n'"
+  args:
+    chdir: "{{ manala_apt_repositories_dir }}"
+  changed_when: false
+  register: __manala_apt_repositories_find_output
+  when: manala_apt_repositories_exclusive
+
+# Here come the tricky part
+# Simulate what file name ansible apt_repository module will generate
+# Something like "deb http://nginx.org/packages/debian/ wheezy nginx" -> "nginx_org_packages_debian.list"
+- name: repositories > Exclusive - remove files
+  file:
+    path:  "{{ manala_apt_repositories_dir }}/{{ item }}"
+    state: absent
+  when: "{{
+    manala_apt_repositories_exclusive
+    and (
+      item not in __manala_apt_repositories_results.results
+        |map(attribute='item')
+        |map(attribute='source')
+        |map('regex_replace', '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$', '\\2')
+        |map('replace', '.', ' ')
+        |map('replace', '/', ' ')
+        |map('trim')
+        |map('replace', ' ', '_')
+        |map('replace', '-', '_')
+        |map('regex_replace', '(.*)', '\\1.list')
+        |list
+    )
+  }}"
+  with_items: "{{ __manala_apt_repositories_find_output.stdout_lines|default([]) }}"
+  register: __manala_apt_repositories_exclusive_results
+
+- name: repositories > Update cache
+  apt:
+    update_cache: true
+  when: __manala_apt_repositories_results|changed or __manala_apt_repositories_exclusive_results|changed
+  tags:
+    - skip_ansible_lint

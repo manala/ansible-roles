@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_apt_components:
+      - main
+    manala_apt_sources_list_template: sources_list/security_updates.j2
+  pre_tasks:
+    - copy:
+        dest: /etc/apt/sources.list
+        content: |
+          deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
+          deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
+          deb http://security.debian.org {{ ansible_distribution_release }}/updates main
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.{{ ansible_distribution_release }}.goss.yml validate

@@ -1,0 +1,26 @@
+---
+
+- name: udate > Backup package marks
+  shell: "dpkg --get-selections {{ item }} | cut -f 2- | tr -d '\t'"
+  with_items: "{{ manala_apt_update_holds }}"
+  when: manala_apt_update_holds|length
+  register: __manala_apt_update_marks_results
+
+- name: udate > Hold packages
+  shell: "echo '{{ item.0 }} hold' | dpkg --set-selections"
+  when: item.1 != '' and item.1 != 'hold'
+  with_together:
+    - "{{ manala_apt_update_holds }}"
+    - "{{ __manala_apt_update_marks_results.results|map(attribute='stdout')|list }}"
+
+- name: update > Upgrade dist
+  apt:
+    upgrade:      dist
+    update_cache: true
+
+- name: udate > Restore package marks
+  shell: "echo '{{ item.0 }} {{ item.1 }}' | dpkg --set-selections"
+  when: item.1 != ''
+  with_together:
+    - "{{ manala_apt_update_holds }}"
+    - "{{ __manala_apt_update_marks_results.results|map(attribute='stdout')|list }}"

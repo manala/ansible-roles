@@ -1,0 +1,5 @@
+---
+
+package:
+  apt-transport-https:
+    installed: true

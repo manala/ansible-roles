@@ -1,0 +1,34 @@
+---
+
+- name: preferences > Templates
+  template:
+    src:  preferences/default.j2
+    dest: "{{ manala_apt_preferences_dir ~ '/' ~ item.file }}"
+  with_manala_apt_preferences:
+    - "{{ manala_apt_preferences }}"
+    - "{{ manala_apt_preferences_patterns }}"
+    # Repositories
+    - "{{ manala_apt_repositories_patterns }}"
+  register: __manala_apt_preferences_results
+
+- name: preferences > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_apt_preferences_dir }}"
+  changed_when: false
+  register: __manala_apt_preferences_find_output
+  when: manala_apt_preferences_exclusive
+
+- name: preferences > Exclusive - remove files
+  file:
+    path:  "{{ manala_apt_preferences_dir }}/{{ item }}"
+    state: absent
+  when: |
+    manala_apt_preferences_exclusive
+    and (
+      item not in __manala_apt_preferences_results.results
+        |map(attribute='item')
+        |map(attribute='file')
+        |list
+    )
+  with_items: "{{ __manala_apt_preferences_find_output.stdout_lines|default([]) }}"
