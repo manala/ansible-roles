@@ -3,6 +3,8 @@ cache_dir: "./.gitsplit"
 
 # List of splits.
 splits:
+  - prefix: manala.apt
+    target: git@github.com:manala/ansible-role-apt.git
   - prefix: manala.hugo
     target: git@github.com:manala/ansible-role-hugo.git
   - prefix: manala.php

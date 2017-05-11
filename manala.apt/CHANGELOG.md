@@ -6,4 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- Handle sources list
 - Handle preferences
+- Handle repositories keys
+- Handle repositories
+- Handle update
+- Handle packages

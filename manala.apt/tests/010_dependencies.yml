@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: all
+  become: true
   pre_tasks:
     - apt:
         name:  apt-transport-https

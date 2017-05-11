@@ -1,5 +1,7 @@
 # Ansible Role: Apt [![Build Status](https://travis-ci.org/manala/ansible-role-apt.svg?branch=master)](https://travis-ci.org/manala/ansible-role-apt)
 
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
 This role will add third party sources to the package manager by:
 - Adding source URL as new repository
 - Adding secure key specified
