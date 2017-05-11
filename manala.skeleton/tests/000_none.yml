@@ -1,0 +1,5 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
