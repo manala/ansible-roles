@@ -9,6 +9,8 @@ splits:
     target: git@github.com:manala/ansible-role-hugo.git
   - prefix: manala.php
     target: git@github.com:manala/ansible-role-php.git
+  - prefix: manala.skeleton
+    target: git@github.com:manala/ansible-role-skeleton.git
 
 # List of references to split (defined as regexp)
 origins:
