@@ -5,6 +5,7 @@
 COLOR_RESET   = \033[0m
 COLOR_INFO    = \033[32m
 COLOR_COMMENT = \033[33m
+COLOR_ERROR   = \033[31m
 
 # Git
 GIT_REPOSITORIES_DELTA = ${shell git diff --name-only ${TRAVIS_COMMIT_RANGE} | grep "/" | cut -d "/" -f1 | sort -u | tr "\n" " "}
