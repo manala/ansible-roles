@@ -91,6 +91,8 @@ test:
 					--rm \
 					--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
 					--volume `pwd`:/srv \
+					--volume `pwd`/tests/cache/apt/archives:/var/cache/apt/archives \
+					--volume `pwd`/tests/cache/apt/lists:/var/lib/apt/lists \
 					--workdir /srv \
 					--privileged \
 					${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
