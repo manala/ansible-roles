@@ -30,7 +30,7 @@
           url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
           id:  ACCC4CF8
     manala_apt_keys:
-      - mysql
+      - jenkins
       - sensu
       - sensu
       - 10gen
