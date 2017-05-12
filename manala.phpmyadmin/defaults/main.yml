@@ -1,0 +1,10 @@
+---
+
+# Dir
+manala_phpmyadmin_dir: /usr/share/phpmyadmin
+
+# Configs
+manala_phpmyadmin_configs_exclusive: false
+manala_phpmyadmin_configs_dir:       /etc/phpmyadmin/conf.d
+manala_phpmyadmin_configs_template:  ~
+manala_phpmyadmin_configs:           []
