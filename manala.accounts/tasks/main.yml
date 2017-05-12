@@ -1,0 +1,11 @@
+---
+
+# Groups
+- include: groups.yml
+  tags:
+    - manala_accounts
+
+# Users
+- include: users.yml
+  tags:
+    - manala_accounts

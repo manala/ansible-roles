@@ -1,0 +1,8 @@
+---
+
+# Groups
+manala_accounts_groups: []
+
+# Users
+manala_accounts_users: []
+manala_accounts_users_groups_exclusive: true
