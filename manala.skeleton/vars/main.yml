@@ -42,7 +42,8 @@ manala_skeleton_patterns:
     apt_preferences_exclusive: true
     apt_preferences: "{{
       [
-        'thefuck@manala'
+        'thefuck@manala',
+        'httpie@manala'
       ]
       + {
         'wheezy': [
@@ -393,6 +394,7 @@ manala_skeleton_patterns:
       - ssl-cert
       - thefuck
       - gitsplit
+      - httpie
     # Supervisor
     supervisor_configs:
       - file:     inet-http-server.conf

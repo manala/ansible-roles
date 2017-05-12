@@ -384,3 +384,4 @@ manala_apt_preferences_patterns:
   ansible:            ansible*
   openjdk:            openjdk-* ca-certificates-java
   linux:              linux-base linux-image-* linux-headers-*
+  httpie:             httpie*
