@@ -6,14 +6,14 @@ file:
     filetype: file
     contains:
       - "Package:      git git-*"
-      - "Pin:          release a=jessie-backports"
+      - "Pin:          release a={{.Env.RELEASE}}-backports"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d/libssl1_0_0:
     exists:   true
     filetype: file
     contains:
       - "Package:      libssl1.0.0"
-      - "Pin:          release a=jessie-backports"
+      - "Pin:          release a={{.Env.RELEASE}}-backports"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d/php:
     exists:   true

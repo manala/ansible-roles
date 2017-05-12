@@ -38,6 +38,8 @@
     - command: phpdismod apcu
   roles:
     - manala.php
-  # post_tasks:
-  #   - name: Goss
-  #     command: goss --gossfile {{ test }}.goss.yml validate
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

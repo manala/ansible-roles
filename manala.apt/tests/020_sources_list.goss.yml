@@ -1,0 +1,10 @@
+---
+
+file:
+  /etc/apt/sources.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb http://httpredir.debian.org/debian {{.Env.RELEASE}} main"
+      - "deb http://security.debian.org/ {{.Env.RELEASE}}/updates main"
+      - "deb http://httpredir.debian.org/debian {{.Env.RELEASE}}-updates main"

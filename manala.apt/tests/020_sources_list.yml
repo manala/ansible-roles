@@ -18,4 +18,6 @@
     - manala.apt
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.{{ ansible_distribution_release }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
