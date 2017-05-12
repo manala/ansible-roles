@@ -11,6 +11,8 @@ splits:
     target: git@github.com:manala/ansible-role-hugo.git
   - prefix: manala.php
     target: git@github.com:manala/ansible-role-php.git
+  - prefix: manala.phpmyadmin
+    target: git@github.com:manala/ansible-role-phpmyadmin.git
   - prefix: manala.skeleton
     target: git@github.com:manala/ansible-role-skeleton.git
 

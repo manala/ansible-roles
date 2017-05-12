@@ -1,6 +1,8 @@
-# Ansible Role: phpMyAdmin
+# Ansible Role: PhpMyAdmin [![Build Status](https://travis-ci.org/manala/ansible-role-phpmyadmin.svg?branch=master)](https://travis-ci.org/manala/ansible-role-phpmyadmin)
 
-This role will deal with the install and config of __phpMyAdmin__ via composer.
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
+This role will deal with the setup of [PhpMyAdmin](https://www.phpmyadmin.net/).
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
@@ -51,10 +53,12 @@ manala_phpmyadmin_configs_exclusive: true
 manala_phpmyadmin_configs:
   - file:     config.inc.php
     template: configs/default.dev.j2
+    config:
+      - blowfish_secret: "WU9VIEdPVCBSSUNLIFJPTExFRA=="
     servers:
       - id: 1
         config:
-          - user: foo
+          - host: mysql
 ```
 
 ## Example playbook
