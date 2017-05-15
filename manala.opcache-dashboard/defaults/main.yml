@@ -1,0 +1,8 @@
+---
+
+# User / Group
+manala_opcache_dashboard_user:  ~
+manala_opcache_dashboard_group: ~
+
+# Dir
+manala_opcache_dashboard_dir: /usr/share/opcache-dashboard
