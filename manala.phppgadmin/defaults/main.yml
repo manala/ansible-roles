@@ -1,0 +1,10 @@
+---
+
+# Dir
+manala_phppgadmin_dir: /usr/share/phppgadmin
+
+# Configs
+manala_phppgadmin_configs_exclusive: false
+manala_phppgadmin_configs_dir:       /etc/phppgadmin/conf.d
+manala_phppgadmin_configs_template:  ~
+manala_phppgadmin_configs:           []

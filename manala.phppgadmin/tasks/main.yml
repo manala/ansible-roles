@@ -1,0 +1,11 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_phppgadmin
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_phppgadmin
