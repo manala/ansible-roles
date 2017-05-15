@@ -1,0 +1,10 @@
+---
+
+# Dir
+manala_phpredisadmin_dir: /usr/share/phpredisadmin
+
+# Configs
+manala_phpredisadmin_configs_exclusive: false
+manala_phpredisadmin_configs_dir:       /etc/phpredisadmin/conf.d
+manala_phpredisadmin_configs_template:  ~
+manala_phpredisadmin_configs:           []
