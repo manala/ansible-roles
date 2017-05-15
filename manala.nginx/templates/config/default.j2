@@ -1,0 +1,58 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_nginx_config -%}
+
+{% set config_events = [] -%}
+{% set config_http = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'events' -%}
+            {%- if config_events.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'http' -%}
+            {%- if config_http.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+{{ macros.config_row(config, 'user', manala_nginx_user) }}
+{{ macros.config_row(config, 'worker_processes', 1) }}
+
+{{ macros.config_row(config, 'error_log', manala_nginx_log_dir ~ '/error.log warn') }}
+{{ macros.config_row(config, 'pid', '/var/run/nginx.pid') }}
+
+events {
+{{ macros.config_row(config_events, 'worker_connections', 1024, 4) }}
+{{ macros.config(config_events, ['worker_connections'], 4) -}}
+}
+
+http {
+{{ macros.config_row(config_http, 'default_type', 'application/octet-stream', 4) }}
+
+{{ macros.config_row(config_http, 'log_format', 'main  \'$remote_addr - $remote_user [$time_local] "$request" \'
+                      \'$status $body_bytes_sent "$http_referer" \'
+                      \'"$http_user_agent" "$http_x_forwarded_for"\'', 4) }}
+
+{{ macros.config_row(config_http, 'access_log', manala_nginx_log_dir ~ '/access.log main', 4) }}
+
+{{ macros.config_row(config_http, 'sendfile', true, 4) }}
+{{ macros.config_row(config_http, 'tcp_nopush', '#tcp_nopush     on;', 4, true) }}
+
+{{ macros.config_row(config_http, 'keepalive_timeout', 65, 4) }}
+
+{{ macros.config_row(config_http, 'include', [
+    '/etc/nginx/mime.types',
+    manala_nginx_configs_dir ~ '/*.conf'
+], 4) }}
+{{ macros.config(config_http, [
+    'default_type',
+    'log_format',
+    'access_log',
+    'sendfile',
+    'tcp_nopush',
+    'keepalive_timeout',
+    'include'
+], 4) -}}
+}
+
+{{ macros.config(config, ['user', 'worker_processes', 'pid', 'events', 'http']) }}

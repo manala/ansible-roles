@@ -1,0 +1,21 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'gzip', false) }}
+{{ macros.config_row(config, 'gzip_disable', 'msie6') }}
+{{ macros.config_row(config, 'gzip_vary', true) }}
+{{ macros.config_row(config, 'gzip_proxied', 'expired no-cache no-store private auth') }}
+{{ macros.config_row(config, 'gzip_comp_level', 6) }}
+{{ macros.config_row(config, 'gzip_min_length', 1000) }}
+{{ macros.config_row(config, 'gzip_types', 'text/css text/javascript text/xml text/plain text/x-component application/javascript application/x-javascript application/json application/xml application/rss+xml font/truetype application/x-font-ttf font/opentype application/vnd.ms-fontobject image/svg+xml') }}
+
+{{ macros.config(config, [
+    'gzip',
+    'gzip_disable',
+    'gzip_vary',
+    'gzip_proxied',
+    'gzip_comp_level',
+    'gzip_min_length',
+    'gzip_types'
+]) }}

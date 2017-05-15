@@ -1,0 +1,18 @@
+---
+
+# Config
+manala_nginx_config_file:     /etc/nginx/nginx.conf
+manala_nginx_config_template: ~
+manala_nginx_config:          []
+
+# Configs
+manala_nginx_configs_exclusive: false
+manala_nginx_configs_dir:       /etc/nginx/conf.d
+manala_nginx_configs_template:  ~
+manala_nginx_configs:           []
+
+# User
+manala_nginx_user: www-data
+
+# Logs
+manala_nginx_log_dir: /var/log/nginx

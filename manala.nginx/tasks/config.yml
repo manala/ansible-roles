@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_nginx_config_template|ternary(manala_nginx_config_template, 'config/default.j2') }}"
+    dest: "{{ manala_nginx_config_file }}"
+  when: (manala_nginx_config_template is not none) or (manala_nginx_config|length)
+  notify:
+    - nginx restart

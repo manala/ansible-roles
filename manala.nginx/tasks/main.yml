@@ -1,0 +1,23 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_nginx
+
+# Config
+- include: config.yml
+  tags:
+    - manala_nginx
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_nginx
+
+# Services
+- include: services.yml
+  tags:
+    - manala_nginx
+    - manala_nginx.services
+    - manala.services

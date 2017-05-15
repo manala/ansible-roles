@@ -1,0 +1,21 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'fastcgi_split_path_info', '^(.+\.php)(/.*)$') }}
+{{ macros.config_row(config, 'fastcgi_read_timeout', '60s') }}
+{{ macros.config_row(config, 'include', [
+    'fastcgi_params'
+]) }}
+{{ macros.config_row(config, 'fastcgi_param', [
+    'SCRIPT_FILENAME $realpath_root$fastcgi_script_name',
+    'DOCUMENT_ROOT $realpath_root',
+    'HTTPS off'
+]) }}
+
+{{ macros.config(config, [
+    'fastcgi_split_path_info',
+    'fastcgi_read_timeout',
+    'include',
+    'fastcgi_param'
+]) }}
