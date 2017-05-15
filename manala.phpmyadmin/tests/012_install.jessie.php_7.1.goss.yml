@@ -1,15 +1,11 @@
 ---
 
 package:
-  hugo:
+  phpmyadmin:
     installed: true
 
 command:
-  dpkg -s hugo:
+  dpkg -s phpmyadmin:
     exit-status: 0
     stdout:
       - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"
-  hugo version:
-    exit-status: 0
-    stdout:
-      - Hugo Static Site Generator
