@@ -1,8 +1,10 @@
-# Ansible Role: phpPgAdmin
+# Ansible Role: PhpPgAdmin [![Build Status](https://travis-ci.org/manala/ansible-role-phppgadmin.svg?branch=master)](https://travis-ci.org/manala/ansible-role-phppgadmin)
 
-This role will deal with the install and config of __phpPgAdmin__ via composer.
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will deal with the setup and config of [PhpPgAdmin](http://phppgadmin.sourceforge.net/doku.php).
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
@@ -10,7 +12,7 @@ This role is made to work with the __manala__ phppgadmin debian package, availab
 
 ```yaml
 manala_apt_preferences:
- - phpmyadmin@manala
+ - phppgadmin@manala
 ```
 
 ## Dependencies
@@ -38,22 +40,24 @@ Using ansible galaxy requirements file:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-`manala_phppgadmin_user`|None|String|User
-`manala_phppgadmin_user_group`|None|String|User group
-`manala_phppgadmin_path`|/opt/phppgadmin|String|Path
-`manala_phppgadmin_config`|Array|Dictionnary|Config
-`manala_phppgadmin_config.servers`|Array|Array|Servers
-`manala_phppgadmin_config.servers.host`|localhost|String|Host
+`manala_phppgadmin_configs_exclusive`|false|Boolean|Exclusive configs
+`manala_phppgadmin_configs`|[]|Array|Configs
 
 ### Configuration example
 
 ```yaml
 ---
 
-manala_phppgadmin_config:
-  blowfish_secret: 'ThisSecretIsNotSoSecret'
-  servers:
-    - host: localhost
+manala_phppgadmin_configs_exclusive: true
+manala_phppgadmin_configs:
+  - file:     config.inc.php
+    template: configs/default.dev.j2
+    config:
+      - owned_only: true
+    servers:
+      - id: 0
+        config:
+          - host: postgresql
 ```
 
 ## Example playbook

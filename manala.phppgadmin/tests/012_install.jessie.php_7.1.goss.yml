@@ -1,0 +1,11 @@
+---
+
+package:
+  phppgadmin:
+    installed: true
+
+command:
+  dpkg -s phppgadmin:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"

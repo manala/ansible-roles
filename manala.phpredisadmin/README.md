@@ -1,16 +1,18 @@
-# Ansible Role: phpRedisAdmin
+# Ansible Role: PhpRedisAdmin [![Build Status](https://travis-ci.org/manala/ansible-role-phpredisadmin.svg?branch=master)](https://travis-ci.org/manala/ansible-role-phpredisadmin)
 
-This role will deal with the install and config o __phpRedisAdmin__ via composer.
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will deal with the setup and config of [PhpRedisAdmin](https://github.com/erikdubbelboer/phpRedisAdmin).
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
-This role is made to work with the __manala__ phpredisadmin/ debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the __manala__ phpredisadmin debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
 ```yaml
-manala_apt_repositories:
- - manala
+manala_apt_preferences:
+ - phpredisadmin@manala
 ```
 
 ## Dependencies
@@ -38,22 +40,23 @@ Using ansible galaxy requirements file:
 
 |Name|Default|Type|Description|
 |----|-------|----|-----------|
-`manala_phpredisadmin_user`|None|String|User
-`manala_phpredisadmin_user_group`|None|String|User group
-`manala_phpredisadmin_path`|/opt/phpredisadmin|String|Path
-`manala_phpredisadmin_config`|Array|Dictionnary|Config
-`manala_phpredisadmin_config.servers`|Array|Array|Servers
-`manala_phpredisadmin_config.servers.host`|localhost|String|Host
+`manala_phpredisadmin_configs_exclusive`|false|Boolean|Exclusive configs
+`manala_phpredisadmin_configs`|[]|Array|Configs
 
 ### Configuration example
 
 ```yaml
 ---
 
-manala_phpredisadmin_config:
-  blowfish_secret: 'ThisSecretIsNotSoSecret'
-  servers:
-    - host: localhost
+manala_phpredisadmin_configs_exclusive: true
+manala_phpredisadmin_configs:
+  - file:     config.inc.php
+    template: configs/default.dev.j2
+    config:
+      - maxkeylen: 128
+    servers:
+      - config:
+          - host: redis
 ```
 
 

@@ -9,10 +9,16 @@ splits:
     target: git@github.com:manala/ansible-role-apt.git
   - prefix: manala.hugo
     target: git@github.com:manala/ansible-role-hugo.git
+  - prefix: manala.opcache-dashboard
+    target: git@github.com:manala/ansible-role-opcache-dashboard.git
   - prefix: manala.php
     target: git@github.com:manala/ansible-role-php.git
   - prefix: manala.phpmyadmin
     target: git@github.com:manala/ansible-role-phpmyadmin.git
+  - prefix: manala.phppgadmin
+    target: git@github.com:manala/ansible-role-phppgadmin.git
+  - prefix: manala.phpredisadmin
+    target: git@github.com:manala/ansible-role-phpredisadmin.git
   - prefix: manala.skeleton
     target: git@github.com:manala/ansible-role-skeleton.git
 

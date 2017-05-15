@@ -13,12 +13,12 @@ $config = array(
 {%- set config_server_config = config_server.config|default([]) %}
 
     array(
-      {{ macros.config_row(config, 'name', 'local server') }}, // Optional name.
-      {{ macros.config_row(config, 'host', '127.0.0.1') }},
-      {{ macros.config_row(config, 'port', 6379) }},
-      {{ macros.config_row(config, 'filter', '*') }},
-      {{ macros.config_row(config, 'scheme', 'tcp') }}, // Optional. Connection scheme. 'tcp' - for TCP connection, 'unix' - for connection by unix domain socket
-      {{ macros.config_row(config, 'path', '') }} // Optional. Path to unix domain socket. Uses only if 'scheme' => 'unix'. Example: '/var/run/redis/redis.sock'
+      {{ macros.config_row(config_server_config, 'name', 'local server') }}, // Optional name.
+      {{ macros.config_row(config_server_config, 'host', '127.0.0.1') }},
+      {{ macros.config_row(config_server_config, 'port', 6379) }},
+      {{ macros.config_row(config_server_config, 'filter', '*') }},
+      {{ macros.config_row(config_server_config, 'scheme', 'tcp') }}, // Optional. Connection scheme. 'tcp' - for TCP connection, 'unix' - for connection by unix domain socket
+      {{ macros.config_row(config_server_config, 'path', '') }} // Optional. Path to unix domain socket. Uses only if 'scheme' => 'unix'. Example: '/var/run/redis/redis.sock'
 
       // Optional Redis authentication.
       //'auth' => 'redispasswordhere' // Warning: The password is sent in plain-text to the Redis server.
