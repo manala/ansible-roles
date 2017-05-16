@@ -23,7 +23,7 @@
         - telnet
     - apt:
         name:  "{{ item }}"
-        state: present
+        install_recommends: false
       with_items:
         - pwgen
   roles:
