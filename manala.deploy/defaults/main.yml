@@ -24,6 +24,9 @@ manala_deploy_strategy_synchronize_src: ~
 manala_deploy_strategy_synchronize_dst: ~
 manala_deploy_strategy_synchronize_rsync_options: []
 
+# Strategy - Unarchive
+manala_deploy_strategy_unarchive_src: ~
+
 # Shared
 manala_deploy_shared_files: []
 manala_deploy_shared_dirs:  []
