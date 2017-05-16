@@ -1,12 +1,19 @@
-# Ansible Role: Nginx
+# Ansible Role: Nginx [![Build Status](https://travis-ci.org/manala/ansible-role-nginx.svg?branch=master)](https://travis-ci.org/manala/ansible-role-nginx)
 
-This role will deal with the setup and config of nginx
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
+This role will deal with the setup and config of [Nginx](https://nginx.org/en/).
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
-None.
+This role is made to work with the official __nginx__ debian packages, available on the __nginx__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - nginx@nginx
+```
 
 ## Dependencies
 
@@ -91,43 +98,43 @@ manala_nginx_config:
   - events:
     - worker_connections: 1024
 manala_nginx_configs:
-  - file: test.conf
-    template: configs/server.j2
+  - file: foo.conf
     config:
-      - listen: 8080
-      - location /:
-        - root:  /srv/foo
+      - server:
+        - listen: 8080
+        - location /:
+          - root:  /srv/foo
   - file: symfony2.conf
-    template: configs/server.j2
     config:
-      - server_name: symfony2.dev
-      - root: /srv/symfony2/web
-      - access_log:  "{{ manala_nginx_log_dir }}/app.access.log"
-      - error_log:   "{{ manala_nginx_log_dir }}/app.error.log"
-      - client_max_body_size: 8G
-      - include:     conf.d/gzip
-      - location ^~ /sf/:
-        - alias: "/usr/share/symfony/symfony-1.4/data/web/sf/"
-      - location /:
-        - try_files: $uri /index.php$is_args$args
-      - location ~ ^/(index|frontend_dev)\.php(/|$):
-        - include: conf.d/php_fpm_params
-  - file: wp.conf
-    template: configs/server.j2
+      - server:
+        - server_name: symfony2.dev
+        - root: /srv/symfony2/web
+        - access_log:  "{{ manala_nginx_log_dir }}/app.access.log"
+        - error_log:   "{{ manala_nginx_log_dir }}/app.error.log"
+        - client_max_body_size: 8G
+        - include:     conf.d/gzip
+        - location ^~ /sf/:
+          - alias: "/usr/share/symfony/symfony-1.4/data/web/sf/"
+        - location /:
+          - try_files: $uri /index.php$is_args$args
+        - location ~ ^/(index|frontend_dev)\.php(/|$):
+          - include: conf.d/php_fpm_params
+  - file: wordpress.conf
     config:
-      - listen: 80
-      - location /:
-        - root:  /srv/wordpress/
+      - server:
+        - listen: 80
+        - location /:
+          - root:  /srv/wordpress/
   - file: pma.conf
-    template: configs/server.j2
     config:
-      - server_name:          pma.my_domain.com
-      - listen:               "{{ ansible_venet0_0.ipv4.address }}:80"
-      - root:                 /opt/phpmyadmin
-      - include:              conf.d/gzip
-      - client_max_body_size: 16M
-      - location /:
-        - try_files: $uri /index.php$is_args$args
+      - server:
+        - server_name:          pma.my_domain.com
+        - listen:               "{{ ansible_venet0_0.ipv4.address }}:80"
+        - root:                 /opt/phpmyadmin
+        - include:              conf.d/gzip
+        - client_max_body_size: 16M
+        - location /:
+          - try_files: $uri /index.php$is_args$args
 ```
 
 ## Example playbook

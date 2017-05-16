@@ -1,0 +1,23 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_nginx_configs_exclusive: true
+    manala_nginx_configs:
+      - file: foo.conf
+        config:
+          - server:
+            - listen: 8080
+            - location /:
+              - root:  /srv/foo
+  pre_tasks:
+    - include: pre_tasks/nginx.yml
+  roles:
+    - manala.nginx
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

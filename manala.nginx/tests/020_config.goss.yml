@@ -1,0 +1,12 @@
+---
+
+file:
+  /etc/nginx/nginx.conf:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - worker_processes 3;
+      - worker_connections 1234;

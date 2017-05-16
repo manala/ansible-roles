@@ -1,0 +1,14 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - include: pre_tasks/nginx.yml
+  roles:
+    - manala.nginx
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
