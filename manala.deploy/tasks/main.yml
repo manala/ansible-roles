@@ -1,0 +1,67 @@
+---
+
+# Setup
+- include: setup.yml
+  tags:
+    - manala_deploy
+    - manala_deploy.setup
+
+# Strategy
+- include: strategy.yml
+  tags:
+    - manala_deploy
+
+# Unfinished
+- include: unfinished.yml
+  tags:
+    - manala_deploy
+
+# Shared
+- include: shared.yml
+  tags:
+    - manala_deploy
+
+# Copied
+- include: copied.yml
+  tags:
+    - manala_deploy
+
+# Writable - Dirs
+- block:
+  - include: writable/dirs.yml
+    with_manala_deploy_writable_dirs:
+      - "{{ manala_deploy_writable_dirs }}"
+      - "{{ manala_deploy_writable_dirs_default }}"
+  tags:
+    - manala_deploy
+
+# Tasks
+- include: tasks/{{ item.task }}.yml
+  with_manala_deploy_tasks: "{{ manala_deploy_tasks }}"
+  when: "{{ item.when }}"
+  tags:
+    - manala_deploy
+    - manala_deploy.tasks
+
+# Removed
+- include: removed.yml
+  tags:
+    - manala_deploy
+
+# Finalize
+- include: finalize.yml
+  tags:
+    - manala_deploy
+
+# Clean
+- include: clean.yml
+  tags:
+    - manala_deploy
+
+# Post tasks
+- include: tasks/{{ item.task }}.yml
+  with_manala_deploy_tasks: "{{ manala_deploy_post_tasks }}"
+  when: "{{ item.when }}"
+  tags:
+    - manala_deploy
+    - manala_deploy.tasks

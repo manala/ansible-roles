@@ -1,0 +1,33 @@
+---
+
+- name: shared > Ensure release targets are absent
+  file:
+    path:  "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
+    state: absent
+  with_items: "{{ manala_deploy_shared_files + manala_deploy_shared_dirs }}"
+
+- name: shared > Ensure shared directories files are present
+  file:
+    path:  "{{ (deploy_helper.shared_path ~ '/' ~ item)|dirname }}"
+    state: directory
+  with_items: "{{ manala_deploy_shared_files }}"
+
+- name: shared > Ensure shared files are present
+  file:
+    path:  "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+    state: touch
+  with_items: "{{ manala_deploy_shared_files }}"
+
+- name: shared > Ensure shared dirs are present
+  file:
+    path:  "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+    state: directory
+    follow: true
+  with_items: "{{ manala_deploy_shared_dirs }}"
+
+- name: shared > Links
+  file:
+    path:  "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
+    src:   "{{ (deploy_helper.shared_path ~ '/' ~ item)|relpath((deploy_helper.new_release_path ~ '/' ~ item)|dirname) }}"
+    state: link
+  with_items: "{{ manala_deploy_shared_files + manala_deploy_shared_dirs }}"

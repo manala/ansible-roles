@@ -1,0 +1,13 @@
+---
+
+- name: writable/dirs > "{{ item.dir }}"
+  file:
+    path:    "{{ deploy_helper.new_release_path ~ '/' ~ item.dir }}"
+    recurse: "{{ item.recurse|default(omit) }}"
+    follow:  "{{ item.follow|default(omit) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+    state:   directory
+
+- name: writable/dirs > Raw "{{ item.dir }}"
+  raw: "{{ item.raw|format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
+  when: item.raw is defined

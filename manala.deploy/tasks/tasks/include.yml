@@ -1,0 +1,4 @@
+---
+
+- name: tasks/include > "{{ item.options }}"
+  include: "{{ item.options }}"

@@ -1,0 +1,16 @@
+---
+
+- name: tasks
+  include: "tasks/{{ item if item is string else item.keys()[0] }}.yml"
+  vars:
+    options: "{{ [] if item is string else item.values()[0] }}"
+    dir: "{{
+      deploy_helper.new_release_path
+        if (deploy_helper is defined) else
+      manala_deploy_dir ~ '/' ~  manala_deploy_current_dir
+    }}"
+    shared_dir: "{{
+      deploy_helper.shared_path
+        if (deploy_helper is defined) else
+      manala_deploy_dir ~ '/' ~  manala_deploy_shared_dir
+    }}"

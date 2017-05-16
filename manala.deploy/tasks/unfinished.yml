@@ -1,0 +1,6 @@
+---
+
+- name: unfinished > Add an unfinished file, to allow cleanup on successful finalize
+  file:
+    path:  "{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}"
+    state: touch
