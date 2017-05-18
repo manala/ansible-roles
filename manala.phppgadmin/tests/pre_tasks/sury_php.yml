@@ -2,8 +2,8 @@
 
 - name: Pre tasks > Sury php apt key
   apt_key:
-    url: https://packages.sury.org/php/apt.gpg
-    id:  4A7A714D
+    file: pre_tasks/apt_keys/sury_php.pgp
+    id: 4A7A714D
 
 - name: Pre tasks > Sury php apt repository
   apt_repository:

@@ -2,8 +2,8 @@
 
 - name: Pre tasks > Dotdeb apt key
   apt_key:
-    url: http://www.dotdeb.org/dotdeb.gpg
-    id:  89DF5277
+    file: pre_tasks/apt_keys/dotdeb.pgp
+    id: 89DF5277
 
 - name: Pre tasks > Dotdeb apt repository 56
   apt_repository:
