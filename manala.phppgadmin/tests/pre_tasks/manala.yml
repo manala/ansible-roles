@@ -2,8 +2,8 @@
 
 - name: Pre tasks > Manala apt key
   apt_key:
-    keyserver: keys.gnupg.net
-    id:        1394DEA3
+    file: pre_tasks/apt_keys/manala.pgp
+    id: 1394DEA3
 
 - name: Pre tasks > Manala apt repository
   apt_repository:

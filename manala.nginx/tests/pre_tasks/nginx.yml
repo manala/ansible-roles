@@ -2,8 +2,8 @@
 
 - name: Pre tasks > Nginx apt key
   apt_key:
-    url: http://nginx.org/keys/nginx_signing.key
-    id:  7BD9BF62
+    file: pre_tasks/apt_keys/nginx.pgp
+    id: 7BD9BF62
 
 - name: Pre tasks > Nginx apt repository
   apt_repository:
