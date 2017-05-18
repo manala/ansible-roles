@@ -8,7 +8,6 @@ file:
       - "[mysqld]"
       - user = mysql
       - query_cache_size = 0
-
   /etc/mysql/conf.d/advanced.cnf:
     exists:   true
     filetype: file

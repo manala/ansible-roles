@@ -2,7 +2,7 @@
 
 - name: Pre tasks > Galera apt key
   apt_key:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    file: pre_tasks/apt_keys/galera.pgp
     id: BC19DDBA
 
 - name: Pre tasks > Galera apt repository

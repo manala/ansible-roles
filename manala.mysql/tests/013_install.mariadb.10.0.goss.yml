@@ -3,8 +3,6 @@
 package:
   mariadb-server:
     installed: true
-
-package:
   mariadb-client:
     installed: true
 
@@ -12,4 +10,4 @@ command:
   mysql --version:
     exit-status: 0
     stdout:
-      - "/mysql(.)*Distrib 10.0.29-MariaDB/"
+      - "/mysql(.)*Distrib 10.0.(.){2}-MariaDB/"

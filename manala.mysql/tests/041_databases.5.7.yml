@@ -2,14 +2,17 @@
 
 - name: "{{ test }}"
   hosts: all
+  become: true
   vars:
     manala_mysql_databases:
       - name: manala_test_1
       - name: manala_test_2
+  pre_tasks:
+    - include: pre_tasks/mysql_5.7.yml
   roles:
     - manala.mysql
-  pre_tasks:
-    - include: pre_tasks/mysql_57.yml
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

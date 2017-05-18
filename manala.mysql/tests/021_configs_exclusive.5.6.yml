@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: all
+  become: true
   vars:
     manala_mysql_configs_exclusive: true
     manala_mysql_configs:
@@ -17,10 +18,12 @@
             - innodb_log_file_size:    2G
             - innodb_log_buffer_size:  256M
             - innodb_buffer_pool_size: 3G
+  pre_tasks:
+    - include: pre_tasks/mysql_5.6.yml
   roles:
     - manala.mysql
-  pre_tasks:
-    - include: pre_tasks/mysql_56.yml
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

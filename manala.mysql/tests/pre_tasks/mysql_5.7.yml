@@ -2,9 +2,9 @@
 
 - name: Pre tasks > Mysql apt key
   apt_key:
-    keyserver: hkp://pgp.mit.edu:80
+    file: pre_tasks/apt_keys/mysql.pgp
     id: 5072E1F5
 
-- name: Pre tasks > Mysql apt repository 57
+- name: Pre tasks > Mysql apt repository 5.7
   apt_repository:
     repo: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7

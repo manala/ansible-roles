@@ -2,16 +2,19 @@
 
 - name: "{{ test }}"
   hosts: all
+  become: true
   vars:
     manala_apt_preferences:
       - mariadb@mariadb_10_1
     manala_mysql_install_packages:
       - mariadb-server
       - mariadb-client
-  roles:
-    - manala.mysql
   pre_tasks:
     - include: pre_tasks/mariadb_10.1.yml
+  roles:
+    - manala.mysql
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

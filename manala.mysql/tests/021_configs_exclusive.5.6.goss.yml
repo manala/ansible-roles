@@ -4,13 +4,11 @@ file:
   /etc/mysql/conf.d/mysql.cnf:
     exists:   false
     filetype: file
-
   /etc/mysql/conf.d/mysqld.cnf:
     exists:   true
     filetype: file
     contains:
       - "[mysqld]"
-
   /etc/mysql/conf.d/advanced.cnf:
     exists:   true
     filetype: file

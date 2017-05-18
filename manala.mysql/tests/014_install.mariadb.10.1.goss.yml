@@ -3,8 +3,6 @@
 package:
   mariadb-server:
     installed: true
-
-package:
   mariadb-client:
     installed: true
 

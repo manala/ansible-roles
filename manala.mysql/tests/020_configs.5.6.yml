@@ -2,6 +2,7 @@
 
 - name: "{{ test }}"
   hosts: all
+  become: true
   vars:
     manala_mysql_configs:
       - file: mysqld.cnf
@@ -25,10 +26,12 @@
             - max_heap_table_size:     200M
             - tmp_table_size:          100M
             - max_connections:         500
+  pre_tasks:
+    - include: pre_tasks/mysql_5.6.yml
   roles:
     - manala.mysql
-  pre_tasks:
-    - include: pre_tasks/mysql_56.yml
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
