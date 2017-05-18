@@ -1,0 +1,16 @@
+---
+
+# Install
+manala_mysql_install_packages: ~
+
+# Configs
+manala_mysql_configs_exclusive: false
+manala_mysql_configs_dir:       /etc/mysql/conf.d
+manala_mysql_configs_template:  ~
+manala_mysql_configs:           []
+
+# Users
+manala_mysql_users: []
+
+# Databases
+manala_mysql_databases: []

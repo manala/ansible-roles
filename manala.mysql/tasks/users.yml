@@ -1,0 +1,18 @@
+---
+
+- name: users > Install python-mysqldb package
+  apt:
+    name: python-mysqldb
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  when: manala_mysql_users|length > 0
+
+- name: users > Create mysql users
+  mysql_user:
+    name:     "{{ item.name }}"
+    password: "{{ item.password|default(omit) }}"
+    host:     "{{ item.host|default('localhost') }}"
+    priv:     "{{ item.priv }}"
+    state:    "{{ item.state|default(omit) }}"
+  with_items: "{{ manala_mysql_users }}"

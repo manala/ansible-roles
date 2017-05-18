@@ -1,0 +1,28 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_mysql
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_mysql
+
+# Services
+- include: services.yml
+  tags:
+    - manala_mysql
+    - manala_mysql.services
+    - manala.services
+
+# Users
+- include: users.yml
+  tags:
+    - manala_mysql
+
+# Databases
+- include: databases.yml
+  tags:
+    - manala_mysql

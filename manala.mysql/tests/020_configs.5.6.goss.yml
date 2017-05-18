@@ -1,0 +1,19 @@
+---
+
+file:
+  /etc/mysql/conf.d/mysqld.cnf:
+    exists:   true
+    filetype: file
+    contains:
+      - "[mysqld]"
+      - user = mysql
+      - query_cache_size = 0
+
+  /etc/mysql/conf.d/advanced.cnf:
+    exists:   true
+    filetype: file
+    contains:
+      - "[mysqld]"
+      - innodb_log_file_size = 2G
+      - innodb_log_buffer_size = 256M
+      - innodb_buffer_pool_size = 3G

@@ -1,0 +1,11 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  roles:
+    - manala.mysql
+  pre_tasks:
+    - include: pre_tasks/mysql_57.yml
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

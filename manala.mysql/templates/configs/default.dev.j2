@@ -1,0 +1,18 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{% set config_mysqld = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'mysqld' -%}
+            {%- if config_mysqld.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+[mysqld]
+{{ macros.config_row(config_mysqld, 'bind-address', '0.0.0.0') }}
+{{ macros.config(config_mysqld, ['bind-address']) }}
+{{ macros.config(config, ['mysqld']) }}

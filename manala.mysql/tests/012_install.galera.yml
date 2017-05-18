@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_mysql_install_packages:
+      - galera-3
+      - galera-arbitrator-3
+      - mysql-wsrep-5.6
+  roles:
+    - manala.mysql
+  pre_tasks:
+    - include: pre_tasks/mysql_galera.yml
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
