@@ -9,10 +9,10 @@
     manala_mysql_install_packages:
       - mariadb-server
       - mariadb-client
-  # pre_tasks:
-  #   - include: pre_tasks/mariadb_10.0.yml
-  # roles:
-  #   - manala.mysql
+  pre_tasks:
+    - include: pre_tasks/mariadb_10.0.yml
+  roles:
+    - manala.mysql
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
