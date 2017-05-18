@@ -255,7 +255,7 @@ manala_apt_keys_patterns:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 68576280
   mysql:
-    keyserver: hkp://pgp.mit.edu:80
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: 5072E1F5
   mariadb:
     keyserver: hkp://keyserver.ubuntu.com:80
