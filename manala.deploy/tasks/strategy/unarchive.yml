@@ -1,0 +1,11 @@
+---
+
+- name: strategy/unarchive > Create dir
+  file:
+    path: "{{ deploy_helper.new_release_path }}/"
+    state: directory
+
+- name: strategy/unarchive > Unarchive
+  unarchive:
+    src: "{{ manala_deploy_strategy_unarchive_src }}"
+    dest: "{{ deploy_helper.new_release_path }}"
