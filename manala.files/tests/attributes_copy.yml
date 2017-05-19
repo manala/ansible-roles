@@ -1,0 +1,23 @@
+---
+
+- name: Attributes - Copy
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
+  vars:
+    manala_files_attributes:
+      - path: /srv/tests/temp/file
+        copy: /srv/tests/fixtures/file
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /srv/tests/temp/file:
+              exists:  true
+              filetype: file
+              contains:
+                - Hello world!

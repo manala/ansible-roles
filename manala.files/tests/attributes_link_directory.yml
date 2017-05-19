@@ -1,0 +1,57 @@
+---
+
+- name: Attributes - Link directory
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
+  vars:
+    manala_files_attributes:
+      - path:  /srv/tests/temp/link
+        src:   /srv/tests/temp/directory
+        state: link_directory
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /srv/tests/temp/directory:
+              exists:   true
+              filetype: directory
+            /srv/tests/temp/link:
+              exists:    true
+              filetype:  symlink
+              linked-to: /srv/tests/temp/directory
+
+- name: Attributes - Link directory - Permissions
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
+  vars:
+    manala_files_attributes:
+      - path:  /srv/tests/temp/link
+        src:   /srv/tests/temp/directory
+        state: link_directory
+        user:  backup
+        group: games
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /srv/tests/temp/directory:
+              exists:   true
+              filetype: directory
+              owner:    backup
+              group:    games
+            /srv/tests/temp/link:
+              exists:    true
+              filetype:  symlink
+              linked-to: /srv/tests/temp/directory
+              owner:     root
+              group:     root

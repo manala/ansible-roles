@@ -1,0 +1,10 @@
+---
+
+- name: attributes > Template "{{ item.path }}"
+  template:
+    dest:   "{{ item.path }}"
+    src:    "{{ item.template }}"
+    force:  "{{ item.force|default(omit) }}"
+    owner:   "{{ item.user|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
+    mode:   "{{ item.mode|default(omit) }}"

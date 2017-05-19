@@ -1,0 +1,13 @@
+---
+
+- name: attributes > File "{{ item.path }}"
+  file:
+    path:    "{{ item.path }}"
+    follow:  "{{ item.follow|default(omit) }}"
+    recurse: "{{ item.recurse|default(omit) }}"
+    src:     "{{ item.src|default(omit) }}"
+    force:   "{{ item.force|default(omit) }}"
+    owner:   "{{ item.user|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
+    mode:    "{{ item.mode|default(omit) }}"
+    state:   "{{ item.state|default(omit) }}"

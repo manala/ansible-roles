@@ -1,0 +1,50 @@
+---
+
+- name: Attributes - Defaults
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
+    - shell: mkdir /srv/tests/temp/root
+    - shell: mkdir /srv/tests/temp/nobody
+    - shell: mkdir /srv/tests/temp/mail
+  vars:
+    manala_files_attributes_defaults:
+      - path:  ^/srv/tests/temp/root
+        user:  root
+        group: root
+      - path:  ^/srv/tests/temp/nobody
+        user:  nobody
+        group: nogroup
+      - path:  ^/srv/tests/temp/mail
+        user:  mail
+        group: mail
+    manala_files_attributes:
+      - path:  /srv/tests/temp/root/file
+        state: touch
+      - path:  /srv/tests/temp/nobody/file
+        state: touch
+      - path:  /srv/tests/temp/mail/file
+        state: touch
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /srv/tests/temp/root/file:
+              exists:   true
+              filetype: file
+              owner:    root
+              group:    root
+            /srv/tests/temp/nobody/file:
+              exists:   true
+              filetype: file
+              owner:    nobody
+              group:    nogroup
+            /srv/tests/temp/mail/file:
+              exists:   true
+              filetype: file
+              owner:    mail
+              group:    mail

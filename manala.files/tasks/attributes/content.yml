@@ -1,0 +1,10 @@
+---
+
+- name: attributes > Content "{{ item.path }}"
+  copy:
+    dest:    "{{ item.path }}"
+    content: "{{ item.content }}"
+    force:   "{{ item.force|default(omit) }}"
+    owner:   "{{ item.user|default(omit) }}"
+    group:   "{{ item.group|default(omit) }}"
+    mode:    "{{ item.mode|default(omit) }}"

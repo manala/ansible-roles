@@ -1,0 +1,26 @@
+---
+
+- name: Attributes - Link file
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - shell: rm -rf /srv/tests/temp/*
+  vars:
+    manala_files_attributes:
+      - path:  /srv/tests/temp/link
+        src:   /srv/tests/temp/file
+        state: link_file
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /srv/tests/temp/file:
+              exists:   true
+              filetype: file
+            /srv/tests/temp/link:
+              exists:    true
+              filetype:  symlink
+              linked-to: /srv/tests/temp/file
