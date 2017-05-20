@@ -1,0 +1,7 @@
+---
+
+- apt:
+    package: "{{ item }}"
+    install_recommends: false
+  with_items:
+    - git

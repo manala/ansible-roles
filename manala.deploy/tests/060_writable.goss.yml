@@ -1,0 +1,7 @@
+---
+
+file:
+  /tmp/app/current/logs:
+    exists: true
+    mode: "0775"
+    filetype: directory

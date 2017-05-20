@@ -1,0 +1,12 @@
+---
+
+file:
+  /tmp/app:
+    exists: true
+    filetype: directory
+  /tmp/app/releases:
+    exists: true
+    filetype: directory
+  /tmp/app/shared:
+    exists: true
+    filetype: directory

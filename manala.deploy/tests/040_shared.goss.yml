@@ -1,0 +1,22 @@
+---
+
+file:
+  /tmp/app/current/index.html:
+    exists: true
+    filetype: file
+
+  /tmp/app/shared/parameters.yml:
+    exists: true
+    filetype: file
+  /tmp/app/shared/logs:
+    exists: true
+    filetype: directory
+
+  /tmp/app/current/parameters.yml:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/parameters.yml
+  /tmp/app/current/logs:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/logs

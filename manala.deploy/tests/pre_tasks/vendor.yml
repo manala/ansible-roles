@@ -1,0 +1,5 @@
+---
+
+- file:
+    path: /tmp/app/current/vendor
+    state: directory

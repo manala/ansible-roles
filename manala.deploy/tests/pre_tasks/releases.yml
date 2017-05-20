@@ -1,0 +1,25 @@
+---
+
+- file:
+    path: /tmp/app/releases/20170520092302
+    state: directory
+
+- file:
+    path: /tmp/app/releases/20170520092413
+    state: directory
+
+- file:
+    path: /tmp/app/releases/20170520092714
+    state: directory
+
+- file:
+    path: /tmp/app/releases/20170520092738
+    state: directory
+
+- file:
+    path: /tmp/app/releases/20170520093012
+    state: directory
+
+- file:
+    path: /tmp/app/releases/20170520093234
+    state: directory

@@ -1,0 +1,6 @@
+---
+
+file:
+  /tmp/app:
+    exists: true
+    filetype: directory
