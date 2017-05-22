@@ -7,7 +7,7 @@
     manala_telegraf_configs:
       # Telegraf require one configured input and output to run.
       - file: minimal_config.conf
-        template: "{{ playbook_dir }}/templates/minimal_config.j2"
+        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
       - file: input_cpu.conf
         template: configs/input_cpu.conf.j2
         config:
@@ -20,7 +20,7 @@
           - tagdrop:
             - cpu: [cpu6, cpu7]
       - file: custom.conf
-        template: "{{ playbook_dir }}/templates/custom.j2"
+        template: "{{ playbook_dir }}/fixtures/custom.j2"
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
     - include: pre_tasks/influxdata.yml
