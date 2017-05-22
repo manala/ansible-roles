@@ -3,11 +3,6 @@
 - name: "{{ test }}"
   hosts: all
   become: true
-  pre_tasks:
-    - include: pre_tasks/ssh.yml
-    - include: pre_tasks/rsync.yml
-  roles:
-    - manala.deploy
   vars:
     manala_deploy_dir: /tmp/app
     manala_deploy_strategy: synchronize
@@ -16,8 +11,13 @@
       mode:    ug=rwx,o=rx
       follow:  true
       recurse: true
-    manala_deploy_writable_dirs:
-      - logs
+      manala_deploy_writable_dirs:
+        - logs
+  pre_tasks:
+    - include: pre_tasks/ssh.yml
+    - include: pre_tasks/rsync.yml
+  roles:
+    - manala.deploy
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

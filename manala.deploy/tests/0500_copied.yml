@@ -3,15 +3,18 @@
 - name: "{{ test }}"
   hosts: all
   become: true
-  pre_tasks:
-    - include: pre_tasks/ssh.yml
-    - include: pre_tasks/rsync.yml
-  roles:
-    - manala.deploy
   vars:
     manala_deploy_dir: /tmp/app
     manala_deploy_strategy: synchronize
     manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
+    manala_deploy_copied:
+      - vendor
+  pre_tasks:
+    - include: pre_tasks/ssh.yml
+    - include: pre_tasks/rsync.yml
+    - include: pre_tasks/vendor.yml
+  roles:
+    - manala.deploy
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
