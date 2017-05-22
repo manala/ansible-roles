@@ -1,0 +1,18 @@
+---
+
+# Databases
+manala_influxdb_databases:  []
+
+# Users
+manala_influxdb_users:      []
+
+# Privileges
+manala_influxdb_privileges: []
+
+# Bin
+manala_influxdb_influx_bin: /usr/bin/influx
+
+# Config
+manala_influxdb_config_file:     /etc/influxdb/influxdb.conf
+manala_influxdb_config_template: config/base.conf.j2
+manala_influxdb_config:          []

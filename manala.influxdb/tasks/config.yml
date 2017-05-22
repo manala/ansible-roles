@@ -1,0 +1,8 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_influxdb_config_template }}"
+    dest: "{{ manala_influxdb_config_file }}"
+  notify:
+    - influxdb restart

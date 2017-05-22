@@ -1,0 +1,65 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_influxdb_databases:
+      - my_db
+
+    manala_influxdb_users:
+      - database: my_db
+        name:     my_user
+        password: my_password
+
+    manala_influxdb_privileges:
+      - database: my_db
+        user:     my_user
+        grant:    ALL
+
+    manala_influxdb_config:
+      - reporting-disabled: true
+
+  pre_tasks:
+    - name: test install > Disable systemctl to force sysv init script
+      command: mv /bin/systemctl /bin/systemctl.disabled
+      failed_when: false
+      changed_when: false
+    # Configuring the Debian repository
+    - name: test install > Https transport
+      apt: name='apt-transport-https'
+      changed_when: false
+    - name: test install > Register the influxdata key
+      apt_key: url='https://repos.influxdata.com/influxdb.key' state=present validate_certs=no
+      changed_when: false
+    - name: test install > Add influxdata repository
+      apt_repository: "repo='deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable'"
+      changed_when: false
+
+  roles:
+    - manala.influxdb
+
+  post_tasks:
+
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            influxdb:
+              installed: true
+        - process:
+            influxd:
+              running: true
+        - file:
+            /etc/influxdb/influxdb.conf:
+              exists: true
+              contains:
+                - reporting-disabled = true
+        - command:
+            influx -execute 'show databases'|grep ^my_db$:
+               exit-status: 0
+            influx -execute 'show databases'|grep ^not_found_db$:
+               exit-status: 1
+            influx -execute 'show users'|grep my_user:
+                exit-status: 0
+            influx -execute 'show users'|grep not_found_user:
+                exit-status: 1
