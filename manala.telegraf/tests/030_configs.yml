@@ -1,0 +1,33 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_telegraf_configs:
+      # Telegraf require one configured input and output to run.
+      - file: minimal_config.conf
+        template: "{{ playbook_dir }}/templates/minimal_config.j2"
+      - file: input_cpu.conf
+        template: configs/input_cpu.conf.j2
+        config:
+          - percpu: true
+          - totalcpu: false
+          - fielddrop: [cpu_time]
+          - tags:
+            - tag-1: foo
+            - tag-2: bar
+          - tagdrop:
+            - cpu: [cpu6, cpu7]
+      - file: custom.conf
+        template: "{{ playbook_dir }}/templates/custom.j2"
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
+
+  roles:
+    - manala.telegraf
+
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,23 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.haproxy' -%}
+
+# Read metrics about haproxy
+[[{{ section }}]]
+  ## An array of address to gather stats about. Specify an ip on hostname
+  ## with optional port. ie localhost, 10.10.3.33:1936, etc.
+  ## If no servers are specified, then default to 127.0.0.1:1936
+  {{ macros.config_row(config, 'servers', true) }}
+  ## Or you can also use local socket(not work yet)
+  ## servers = ["socket://run/haproxy/admin.sock"]
+
+{{ macros.config(config, [
+  'servers',
+  'drop',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

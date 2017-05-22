@@ -1,0 +1,9 @@
+---
+
+package:
+  telegraf:
+    installed: true
+
+process:
+  telegraf:
+    running: true

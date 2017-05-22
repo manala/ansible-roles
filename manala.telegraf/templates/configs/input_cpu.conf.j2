@@ -1,0 +1,24 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.cpu' -%}
+
+# Read metrics about cpu usage
+[[{{ section }}]]
+  # Whether to report per-cpu stats or not
+  {{ macros.config_row(config, 'percpu', true) }}
+  # Whether to report total system cpu stats or not
+  {{ macros.config_row(config, 'totalcpu', true) }}
+  # Comment this line if you want the raw CPU time metrics
+  {{ macros.config_row(config, 'drop', 'drop = ["time_*"]', 0, true) }}
+
+{{ macros.config(config, [
+  'percpu',
+  'totalcpu',
+  'drop',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

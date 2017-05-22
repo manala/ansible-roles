@@ -1,0 +1,27 @@
+{% set config_tags = [] -%}
+{% set config_tagpass = [] -%}
+{% set config_tagdrop = [] -%}
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'tags' -%}
+            {%- if config_tags.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'tagpass' -%}
+            {%- if config_tagpass.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'tagdrop' -%}
+            {%- if config_tagdrop.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+{% if config_tags|length %}
+  [{{ section }}.tags]
+{{ macros.config(config_tags, [], 4) }}
+{% endif %}
+{% if config_tagpass|length %}
+  [{{ section }}.tagpass]
+{{ macros.config(config_tagpass, [], 4) }}
+{% endif %}
+{% if config_tagdrop|length %}
+  [{{ section }}.tagdrop]
+{{ macros.config(config_tagdrop, [], 4) }}
+{% endif %}

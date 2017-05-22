@@ -1,0 +1,37 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+# Configuration for influxdb server to send metrics to
+[[outputs.influxdb]]
+  # The full HTTP or UDP endpoint URL for your InfluxDB instance.
+  # Multiple urls can be specified but it is assumed that they are part of the same
+  # cluster, this means that only ONE of the urls will be written to each interval.
+  # urls = ["udp://localhost:8089"] # UDP endpoint example
+  {{ macros.config_row(config, 'urls', '["http://localhost:8086"]') }}
+  # The target database for metrics (telegraf will create it if not exists)
+  {{ macros.config_row(config, 'database', 'telegraf') }}
+  # Precision of writes, valid values are n, u, ms, s, m, and h
+  # note: using second precision greatly helps InfluxDB compression
+  {{ macros.config_row(config, 'precision', 's') }}
+
+  # Connection timeout (for the connection with InfluxDB), formatted as a string.
+  # If not provided, will default to 0 (no timeout)
+  {{ macros.config_row(config, 'timeout', '# timeout = "5s"', 0, true) }}
+  {{ macros.config_row(config, 'username', '# username = "telegraf"', 0, true) }}
+  {{ macros.config_row(config, 'password', '# password = "metricsmetricsmetricsmetrics"', 0, true) }}
+  # Set the user agent for HTTP POSTs (can be useful for log differentiation)
+  {{ macros.config_row(config, 'user_agent', '# user_agent = "telegraf"', 0, true) }}
+  # Set UDP payload size, defaults to InfluxDB UDP Client default (512 bytes)
+  {{ macros.config_row(config, 'udp_payload', '# udp_payload = 512', 0, true) }}
+
+{{ macros.config(config, [
+  'urls',
+  'database',
+  'precision',
+  'timeout',
+  'username',
+  'password',
+  'user_agent',
+  'udp_payload'
+], 2) }}
