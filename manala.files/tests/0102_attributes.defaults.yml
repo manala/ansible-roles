@@ -1,0 +1,34 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - shell: mkdir /tmp/root
+    - shell: mkdir /tmp/nobody
+    - shell: mkdir /tmp/mail
+  vars:
+    manala_files_attributes_defaults:
+      - path:  ^/tmp/root
+        user:  root
+        group: root
+      - path:  ^/tmp/nobody
+        user:  nobody
+        group: nogroup
+      - path:  ^/tmp/mail
+        user:  mail
+        group: mail
+    manala_files_attributes:
+      - path:  /tmp/root/file
+        state: touch
+      - path:  /tmp/nobody/file
+        state: touch
+      - path:  /tmp/mail/file
+        state: touch
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

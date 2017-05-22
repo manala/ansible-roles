@@ -1,0 +1,6 @@
+---
+
+file:
+  /tmp/file:
+    exists:  true
+    filetype: file

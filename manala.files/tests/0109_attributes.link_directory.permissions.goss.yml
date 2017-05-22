@@ -1,0 +1,14 @@
+---
+
+file:
+  /tmp/directory:
+    exists:   true
+    filetype: directory
+    owner:    backup
+    group:    games
+  /tmp/link:
+    exists:    true
+    filetype:  symlink
+    linked-to: /tmp/directory
+    owner:     root
+    group:     root

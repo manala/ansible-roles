@@ -1,4 +1,2 @@
 /tests/*.retry
-/tests/temp/*
-!tests/temp/.gitkeep
 /lookup_plugins/*.pyc

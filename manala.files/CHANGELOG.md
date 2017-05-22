@@ -5,7 +5,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-
-## [1.0.0] - 2016-11-30
 ### Added
-- Handle selections
+- Handle attributes

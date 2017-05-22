@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    foo: bar
+    manala_files_attributes:
+      - path:     /tmp/file
+        template: /srv/tests/fixtures/template.j2
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

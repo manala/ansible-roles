@@ -5,10 +5,14 @@ cache_dir: "./.gitsplit"
 splits:
   - prefix: manala.accounts
     target: git@github.com:manala/ansible-role-accounts.git
+  - prefix: manala.alternatives
+    target: git@github.com:manala/ansible-role-alternatives.git
   - prefix: manala.apt
     target: git@github.com:manala/ansible-role-apt.git
   - prefix: manala.deploy
     target: git@github.com:manala/ansible-role-deploy.git
+  - prefix: manala.files
+    target: git@github.com:manala/ansible-role-files.git
   - prefix: manala.hugo
     target: git@github.com:manala/ansible-role-hugo.git
   - prefix: manala.influxdb

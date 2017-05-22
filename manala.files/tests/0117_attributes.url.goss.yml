@@ -1,0 +1,10 @@
+---
+
+file:
+  /tmp/file:
+    exists:   true
+    filetype: file
+    contains:
+      - TEAM
+      - THANKS
+      - SITE

@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_files_attributes:
+      - path:  /tmp/link
+        src:   /tmp/directory
+        state: link
+  pre_tasks:
+    - shell: mkdir /tmp/directory
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

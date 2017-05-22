@@ -1,0 +1,23 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_alternatives_selections:
+      - selection: editor
+        path:      /usr/bin/vim.basic
+  pre_tasks:
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - nano
+        - vim
+  roles:
+    - manala.alternatives
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
