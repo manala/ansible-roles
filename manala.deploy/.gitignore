@@ -1,2 +1,3 @@
 /tests/*.retry
 /lookup_plugins/*.pyc
+/callback_plugins/*.pyc

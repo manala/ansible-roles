@@ -1,0 +1,7 @@
+---
+
+command:
+  find /tmp/app/releases -mindepth 1 -maxdepth 1 -type d | wc -l:
+    exit-status: 0
+    stdout:
+      - 3

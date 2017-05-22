@@ -1,0 +1,10 @@
+---
+
+- file:
+    path: /tmp/app/releases/20170520092302/vendor
+    state: directory
+
+- file:
+    path: /tmp/app/current
+    state: link
+    src: /tmp/app/releases/20170520092302

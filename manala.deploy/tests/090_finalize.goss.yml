@@ -1,0 +1,6 @@
+---
+
+file:
+  /tmp/app/current:
+    exists: true
+    filetype: symlink

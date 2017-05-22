@@ -1,0 +1,6 @@
+---
+
+file:
+  /tmp/manala_deploy_post_tasks.txt:
+    exists: true
+    filetype: file
