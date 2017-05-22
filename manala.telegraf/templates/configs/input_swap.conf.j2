@@ -1,0 +1,16 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.swap' -%}
+
+# Read metrics about swap memory usage
+[[{{ section }}]]
+  # no configuration
+
+{{ macros.config(config, [
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

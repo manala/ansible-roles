@@ -27,6 +27,8 @@ splits:
     target: git@github.com:manala/ansible-role-phpredisadmin.git
   - prefix: manala.skeleton
     target: git@github.com:manala/ansible-role-skeleton.git
+  - prefix: manala.telegraf
+    target: git@github.com:manala/ansible-role-telegraf.git
 
 # List of references to split (defined as regexp)
 origins:
