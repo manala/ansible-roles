@@ -1,0 +1,6 @@
+---
+
+service:
+  influxdb:
+    enabled: true
+    running: true

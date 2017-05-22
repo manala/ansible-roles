@@ -1,0 +1,7 @@
+---
+
+command:
+  influx -execute 'show databases':
+    exit-status: 0
+    stdout:
+      - my_db
