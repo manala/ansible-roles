@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
-
+- name: "{{ test }}"
+  hosts: all
+  become: true
   vars:
     manala_telegraf_configs:
       # Telegraf require one configured input and output to run.
@@ -20,14 +21,13 @@
             - cpu: [cpu6, cpu7]
       - file: custom.conf
         template: "{{ playbook_dir }}/templates/custom.j2"
-
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
-    - include: pre_tasks/apt.yml
-
+    - include: pre_tasks/influxdata.yml
   roles:
     - manala.telegraf
-
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
