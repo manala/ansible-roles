@@ -6,7 +6,7 @@
   pre_tasks:
     - include: pre_tasks/manala.yml
     - copy:
-        dest: /etc/apt/preferences.d/phpmyadmin
+        dest: /etc/apt/preferences.d/hugo
         content: |
           Package:      hugo*
           Pin:          origin debian.manala.io
