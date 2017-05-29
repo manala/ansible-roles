@@ -1,0 +1,5 @@
+---
+
+# Install
+manala_sqlite_install_packages:
+  - sqlite3

@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  gather_facts: false
+  roles:
+    - manala.sqlite
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            sqlite3:
+              installed: true
