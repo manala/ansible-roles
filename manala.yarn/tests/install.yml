@@ -1,0 +1,14 @@
+---
+
+- name: Install
+  hosts: all
+  pre_tasks:
+    - include: pre_tasks/yarn.yml
+  roles:
+    - manala.yarn
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            yarn:
+              installed: true
