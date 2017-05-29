@@ -1,0 +1,20 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  author:              Manala
+  company:             Manala
+  description:         Handle nodejs
+  license:             MIT
+  min_ansible_version: 2.0.0
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+  galaxy_tags:
+    - development
+    - web
+    - nodejs
