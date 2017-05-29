@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - include: pre_tasks/yarn.yml
+    - copy:
+        dest: /etc/apt/preferences.d/yarn
+        content: |
+          Package:      yarn*
+          Pin:          origin dl.yarnpkg.com
+          Pin-Priority: 900
+  roles:
+    - manala.yarn
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

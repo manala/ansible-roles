@@ -1,16 +1,9 @@
 ---
 
-- name: Pre tasks > Clean yarn packages
-  apt:
-    package: yarn*
-    state:   absent
-    purge:   true
-  ignore_errors: true
-
 - name: Pre tasks > Yarn apt key
   apt_key:
-    keyserver: http://dl.yarnpkg.com/debian/pubkey.gpg
-    id:        86E50310
+    file: pre_tasks/apt_keys/yarn.pgp
+    id: 86E50310
 
 - name: Pre tasks > Yarn apt repository
   apt_repository:

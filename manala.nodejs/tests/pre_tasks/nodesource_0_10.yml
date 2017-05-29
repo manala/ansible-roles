@@ -1,46 +1,9 @@
 ---
 
-- name: Pre tasks > Clean nodejs packages
-  apt:
-    package: nodejs*
-    state:   absent
-    purge:   true
-  ignore_errors: true
-
 - name: Pre tasks > Nodesource apt key
   apt_key:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id:        68576280
-
-- name: Pre tasks > Nodesource apt repository
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
-    state: absent
-    update_cache: false
-
-- name: Pre tasks > Nodesource apt repository
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
-    state: absent
-    update_cache: false
-
-- name: Pre tasks > Nodesource apt repository
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
-    state: absent
-    update_cache: false
-
-- name: Pre tasks > Nodesource apt repository
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
-    state: absent
-    update_cache: false
-
-- name: Pre tasks > Nodesource apt repository
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_7.x {{ ansible_distribution_release }} main
-    state: absent
-    update_cache: false
+    file: pre_tasks/apt_keys/nodesource.pgp
+    id: 68576280
 
 - name: Pre tasks > Nodesource apt repository
   apt_repository:

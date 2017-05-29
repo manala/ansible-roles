@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - include: pre_tasks/nodesource_0_12.yml
+    - copy:
+        dest: /etc/apt/preferences.d/nodejs
+        content: |
+          Package:      nodejs*
+          Pin:          origin deb.nodesource.com
+          Pin-Priority: 900
+  roles:
+    - manala.nodejs
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
