@@ -1,0 +1,7 @@
+---
+
+# Configs
+manala_cloud_init_configs_exclusive: false
+manala_cloud_init_configs_dir:       /etc/cloud/cloud.cfg.d
+manala_cloud_init_configs_template:  ~
+manala_cloud_init_configs:           []
