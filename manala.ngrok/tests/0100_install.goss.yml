@@ -1,0 +1,15 @@
+---
+
+package:
+  ngrok:
+    installed: true
+
+command:
+  dpkg -s ngrok:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"
+  ngrok --version:
+    exit-status: 0
+    stdout:
+      - ngrok version

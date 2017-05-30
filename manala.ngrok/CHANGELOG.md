@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ## [1.0.0] - 2016-12-21
-
 ### Added
-- Install ngrok package
-- Handle ngrok configs
+- Handle installation
+- Handle configs
