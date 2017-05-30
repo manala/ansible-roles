@@ -1,0 +1,5 @@
+---
+
+package:
+  vim:
+    installed: true

@@ -57,6 +57,8 @@ splits:
     target: git@github.com:manala/ansible-role-sqlite.git
   - prefix: manala.telegraf
     target: git@github.com:manala/ansible-role-telegraf.git
+  - prefix: manala.vim
+    target: git@github.com:manala/ansible-role-vim.git
   - prefix: manala.yarn
     target: git@github.com:manala/ansible-role-yarn.git
   - prefix: manala.zsh
