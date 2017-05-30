@@ -1,0 +1,53 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  pre_tasks:
+    - file:
+        path:  /tmp/logrotate.d
+        state: directory
+
+  vars:
+    manala_logrotate_configs_dir: /tmp/logrotate.d
+    manala_logrotate_configs:
+      - file: foo
+        config:
+          - /var/log/foo/*.log:
+            - rotate: 12
+            - monthly
+            - postrotate:
+              - invoke-rc.d rsyslog rotate > /dev/null
+      - file: bar
+        config:
+          - /var/log/bar/roger.log
+          - /var/log/bar/syd.log
+          - /var/log/bar/dave.log:
+            - rotate: 12
+            - monthly
+
+  roles:
+    - manala.logrotate
+
+  post_tasks:
+
+    - set_fact:
+        test_foo: |
+          /var/log/foo/*.log {
+              rotate 12
+              monthly
+              postrotate
+                  invoke-rc.d rsyslog rotate > /dev/null
+              endscript
+          }
+        test_bar: |
+          /var/log/bar/roger.log
+          /var/log/bar/syd.log
+          /var/log/bar/dave.log {
+              rotate 12
+              monthly
+          }
+    - assert:
+        that:
+          - "{{ lookup('file', '/tmp/logrotate.d/foo') == test_foo|trim }}"
+          - "{{ lookup('file', '/tmp/logrotate.d/bar') == test_bar|trim }}"
