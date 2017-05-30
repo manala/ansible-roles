@@ -1,0 +1,5 @@
+---
+
+package:
+  shorewall:
+    installed: true

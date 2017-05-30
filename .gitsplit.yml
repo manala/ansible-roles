@@ -49,6 +49,8 @@ splits:
     target: git@github.com:manala/ansible-role-phppgadmin.git
   - prefix: manala.phpredisadmin
     target: git@github.com:manala/ansible-role-phpredisadmin.git
+  - prefix: manala.shorewall
+    target: git@github.com:manala/ansible-role-shorewall.git
   - prefix: manala.skeleton
     target: git@github.com:manala/ansible-role-skeleton.git
   - prefix: manala.sqlite

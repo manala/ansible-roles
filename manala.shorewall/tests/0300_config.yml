@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_shorewall_config:
+      - LOG_MARTIANS:  "No"
+      - IP_FORWARDING: "On"
+      - MULTICAST:     "Yes"
+  roles:
+    - manala.shorewall
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_shorewall_configs:
+      - file: policy
+        config:
+          - fw:    all ACCEPT
+          - net:   all DROP   info
+          - vrack: all DROP   info
+          - all:   all REJECT info
+  roles:
+    - manala.shorewall
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

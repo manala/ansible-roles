@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/shorewall/policy:
+    exists:   true
+    filetype: file
+    contains:
+      - fw all ACCEPT
+      - net all DROP   info
+      - vrack all DROP   info
+      - all all REJECT info

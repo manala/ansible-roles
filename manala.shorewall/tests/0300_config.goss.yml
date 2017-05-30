@@ -1,0 +1,10 @@
+---
+
+file:
+  /etc/shorewall/shorewall.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - LOG_MARTIANS=No
+      - IP_FORWARDING=On
+      - MULTICAST=Yes
