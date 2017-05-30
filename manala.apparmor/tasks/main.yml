@@ -1,0 +1,9 @@
+---
+
+- include: install.yml
+  tags:
+    - manala_apparmor
+
+- include: configs.yml
+  tags:
+    - manala_apparmor
