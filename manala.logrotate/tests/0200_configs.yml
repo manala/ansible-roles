@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_logrotate_configs:
+      - file: foo
+        config:
+          - /var/log/foo/*.log:
+            - rotate: 17
+            - weekly
+  roles:
+    - manala.logrotate
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

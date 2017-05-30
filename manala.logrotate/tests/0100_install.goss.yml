@@ -1,0 +1,5 @@
+---
+
+package:
+  logrotate:
+    installed: true
