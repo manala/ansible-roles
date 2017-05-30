@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ## [1.0.0] - 2017-01-09
-
 ### Added
-- Install backup-manager package
-- Handle backup-manager configs
+- Handle installation
+- Handle configs
