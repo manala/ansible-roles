@@ -11,6 +11,8 @@ splits:
     target: git@github.com:manala/ansible-role-ansible.git
   - prefix: manala.apt
     target: git@github.com:manala/ansible-role-apt.git
+  - prefix: manala.apparmor
+    target: git@github.com:manala/ansible-role-apparmor.git
   - prefix: manala.deploy
     target: git@github.com:manala/ansible-role-deploy.git
   - prefix: manala.files

@@ -1,0 +1,8 @@
+---
+
+file:
+  /etc/apparmor.d/lxc/lxc-default:
+    exists:   true
+    filetype: file
+    contains:
+      - Do not load this file.
