@@ -1,0 +1,9 @@
+---
+
+- include: install.yml
+  tags:
+    - manala_ngrok
+
+- include: configs.yml
+  tags:
+    - manala_ngrok

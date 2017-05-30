@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'web_addr', '0.0.0.0:4040') }}
+{{ macros.config(config, [
+    'web_addr'
+]) }}
