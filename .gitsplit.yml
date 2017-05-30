@@ -15,6 +15,8 @@ splits:
     target: git@github.com:manala/ansible-role-apparmor.git
   - prefix: manala.backup-manager
     target: git@github.com:manala/ansible-role-backup-manager.git
+  - prefix: manala.cloud-init
+    target: git@github.com:manala/ansible-role-cloud-init.git
   - prefix: manala.deploy
     target: git@github.com:manala/ansible-role-deploy.git
   - prefix: manala.files

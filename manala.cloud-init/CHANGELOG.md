@@ -5,7 +5,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-
 ### Added
-- Install cloud-init package
-- Configure /etc/cloud/cloud.cfg.d files
+- Handle installation
+- Handle configs

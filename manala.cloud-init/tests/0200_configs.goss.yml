@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/cloud/cloud.cfg.d/99_hostname.cfg:
+    exists:   true
+    filetype: file
+    contains:
+      - "fqdn: foo.manala.io"
+      - "hostname: foo"

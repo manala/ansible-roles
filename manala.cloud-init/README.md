@@ -1,6 +1,8 @@
-# Ansible Role: Cloud-init
+# Ansible Role: Cloud-init [![Build Status](https://travis-ci.org/manala/ansible-role-cloud-init.svg?branch=master)](https://travis-ci.org/manala/ansible-role-cloud-init)
 
-This role will deal with the configuration of [cloud-init](https://cloud-init.io/).
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
+This role will deal with the configuration of [Cloud-init](https://cloud-init.io/).
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 

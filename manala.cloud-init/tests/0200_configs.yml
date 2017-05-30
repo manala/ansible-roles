@@ -1,0 +1,21 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_cloud_init_configs:
+      - file: 99_hostname.cfg
+        config:
+          - fqdn:     foo.manala.io
+          - hostname: foo
+  pre_tasks:
+    - include: pre_tasks/backports.yml
+      when:    ansible_distribution_release == 'wheezy'
+  roles:
+    - manala.cloud-init
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
