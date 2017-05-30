@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Manala apt key
+  apt_key:
+    file: pre_tasks/apt_keys/gitlab.pgp
+    id: E15E78F4
+
+- name: Pre tasks > Gitlab apt repository
+  apt_repository:
+    repo: deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ ansible_distribution_release }} main

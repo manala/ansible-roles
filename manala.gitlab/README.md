@@ -1,14 +1,14 @@
-[![Ansible Role](https://img.shields.io/ansible/role/6902.svg?style=plastic)](https://galaxy.ansible.com/list#/roles/6902) [![Platforms](https://img.shields.io/badge/platforms-debian-lightgrey.svg?style=plastic)](#) [![License](http://img.shields.io/:license-mit-lightgrey.svg?style=plastic)](#)
+# Ansible Role: Gitlab [![Build Status](https://travis-ci.org/manala/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/manala/ansible-role-gitlab)
 
-# Ansible Role: Gitlab
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-This role will assume the setup of [gitlab community edition](https://about.gitlab.com/)
+This role will assume the setup of [Gitlab](https://about.gitlab.com/)
 
-It's part of the <a href="http://www.manala.io" target="_blank">Manala Ansible stack</a> but can be used as a stand alone component.
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
-- Ansible 2.0.0+
+None.
 
 ## Dependencies
 
