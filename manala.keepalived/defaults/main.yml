@@ -1,0 +1,6 @@
+---
+
+# Config
+manala_keepalived_config_file:     /etc/keepalived/keepalived.conf
+manala_keepalived_config_template: ~
+manala_keepalived_config:          []

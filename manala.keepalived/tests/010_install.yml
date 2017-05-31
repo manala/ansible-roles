@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_keepalived_config:
+      - global_defs:
+        - router_id: LVS_DEVEL
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
+
+  roles:
+    - manala.keepalived
+
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
