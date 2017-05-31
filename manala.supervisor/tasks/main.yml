@@ -1,0 +1,22 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_supervisor
+
+# Config
+- include: config.yml
+  tags:
+    - manala_supervisor
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_supervisor
+
+# Services
+- include: services.yml
+  tags:
+    - manala_supervisor
+    - manala.services

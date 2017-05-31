@@ -1,0 +1,6 @@
+---
+
+- name: supervisor restart
+  service:
+    name:  supervisor
+    state: restarted

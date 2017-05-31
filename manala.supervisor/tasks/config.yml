@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_supervisor_config_template|ternary(manala_supervisor_config_template, 'config/default.j2') }}"
+    dest: "{{ manala_supervisor_config_file }}"
+  when: (manala_supervisor_config_template is not none) or (manala_supervisor_config|length)
+  notify:
+    - supervisor restart

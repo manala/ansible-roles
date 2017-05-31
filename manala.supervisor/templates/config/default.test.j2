@@ -1,0 +1,63 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_supervisor_config -%}
+
+{% set config_unix_http_server = [] -%}
+{% set config_supervisord = [] -%}
+{% set config_supervisorctl = [] -%}
+{% set config_include = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'unix_http_server' -%}
+            {%- if config_unix_http_server.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'supervisord' -%}
+            {%- if config_supervisord.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'supervisorctl' -%}
+            {%- if config_supervisorctl.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'include' -%}
+            {%- if config_include.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+; supervisor config file
+
+[unix_http_server]
+{{ macros.config_row(config_unix_http_server, 'file', '/var/run/supervisor.sock') }}   ; (the path to the socket file)
+{{ macros.config_row(config_unix_http_server, 'chmod', '0700') }}                       ; sockef file mode (default 0700)
+{{ macros.config(config_unix_http_server, [
+    'file',
+    'chmod'
+]) }}
+[supervisord]
+{{ macros.config_row(config_supervisord, 'logfile', manala_supervisor_log_dir ~ '/supervisord.log') }} ; (main log file;default $CWD/supervisord.log)
+{{ macros.config_row(config_supervisord, 'pidfile', '/var/run/supervisord.pid') }} ; (supervisord pidfile;default supervisord.pid)
+{{ macros.config_row(config_supervisord, 'childlogdir', manala_supervisor_log_dir) }}            ; ('AUTO' child log dir, default $TEMP)
+{{ macros.config(config_supervisord, [
+    'logfile',
+    'pidfile',
+    'childlogdir'
+]) }}
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+{{ macros.config_row(config_supervisorctl, 'serverurl', 'unix:///var/run/supervisor.sock') }} ; use a unix:// URL  for a unix socket
+{{ macros.config(config_supervisorctl, [
+    'serverurl'
+]) }}
+; The [include] section can just contain the "files" setting.  This
+; setting can list multiple files (separated by whitespace or
+; newlines).  It can also contain wildcards.  The filenames are
+; interpreted as relative to this file.  Included files *cannot*
+; include files themselves.
+
+[include]
+{{ macros.config_row(config_include, 'files', manala_supervisor_configs_dir ~ '/*.conf') }}
+{{ macros.config(config_include, ['files']) }}
+
+{{ macros.config(config, ['unix_http_server', 'supervisord', 'config_supervisorctl', 'include']) }}
