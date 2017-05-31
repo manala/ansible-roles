@@ -1,0 +1,6 @@
+---
+
+- include: install.yml
+- include: services.yml
+  tags:
+     - manala.services

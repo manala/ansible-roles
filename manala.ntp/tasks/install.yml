@@ -1,0 +1,9 @@
+---
+
+- name: install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+    install_recommends: false
+  with_items:
+    - ntp
