@@ -1,0 +1,9 @@
+---
+
+# Redis version. Available values are '~' (autodetect), '2.4', '2.8', '3.0'
+manala_redis_version: ~
+
+# Config
+manala_redis_config_file:     /etc/redis/redis.conf
+manala_redis_config_template: ~
+manala_redis_config:          []

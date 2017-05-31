@@ -1,0 +1,25 @@
+---
+
+- name: install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  with_items:
+    - redis-server
+
+- name: install > Version
+  shell: redis-server -v | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'
+  register: __manala_redis_version
+  when: not manala_redis_version
+  always_run: yes
+  changed_when: false
+
+- name: install > Version
+  set_fact:
+    manala_redis_version: "{{ (__manala_redis_version.stdout == '')|ternary('3.0', __manala_redis_version.stdout) }}"
+  when: not manala_redis_version
+  always_run: yes
+  changed_when: false

@@ -1,0 +1,14 @@
+---
+
+- include: install.yml
+  tags:
+    - manala_redis
+
+- include: config.yml
+  tags:
+    - manala_redis
+
+- include: services.yml
+  tags:
+    - manala_redis
+    - manala.services

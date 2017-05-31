@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:   "{{ manala_redis_config_template|ternary(manala_redis_config_template, 'config/default.j2') }}"
+    dest:  "{{ manala_redis_config_file }}"
+  when: (manala_redis_config_template is not none) or (manala_redis_config|length)
+  notify:
+    - redis restart
