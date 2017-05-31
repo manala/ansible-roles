@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_mailhog_config -%}
+
+# Additional options that are passed to the Daemon.
+DAEMON_ARGS="{{ macros.config_row(config, 'smtp-bind-addr', '127.0.0.1:25') }}{{ (' ' ~ macros.config(config, [
+    'smtp-bind-addr'
+])).rstrip() }}"

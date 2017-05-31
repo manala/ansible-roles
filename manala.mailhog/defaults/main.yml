@@ -1,0 +1,5 @@
+---
+
+# Config
+manala_mailhog_config_template: ~
+manala_mailhog_config:          []

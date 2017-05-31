@@ -1,0 +1,4 @@
+---
+
+# Config
+manala_mailhog_config_file: /etc/default/mailhog

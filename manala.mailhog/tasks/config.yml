@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_mailhog_config_template|ternary(manala_mailhog_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_mailhog_config_file }}"
+  when: (manala_mailhog_config_template is not none) or (manala_mailhog_config|length)
+  notify:
+    - mailhog restart
