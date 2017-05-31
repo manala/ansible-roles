@@ -1,0 +1,88 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_oauth2_proxy_config -%}
+
+## OAuth2 Proxy Config File
+## https://github.com/bitly/oauth2_proxy
+
+## <addr>:<port> to listen on for HTTP/HTTPS clients
+{{ macros.config_row(config, 'http_address', '# http_address = "127.0.0.1:4180"', 0, true) }}
+{{ macros.config_row(config, 'https_address', '# https_address = ":443"', 0, true) }}
+
+## TLS Settings
+{{ macros.config_row(config, 'tls_cert_file', '# tls_cert_file = ""', 0, true) }}
+{{ macros.config_row(config, 'tls_key_file', '# tls_key_file = ""', 0, true) }}
+
+## the OAuth Redirect URL.
+# defaults to the "https://" + requested host header + "/oauth2/callback"
+{{ macros.config_row(config, 'redirect_url', '# redirect_url = "https://internalapp.yourcompany.com/oauth2/callback"', 0, true) }}
+
+## the http url(s) of the upstream endpoint. If multiple, routing is based on path
+{{ macros.config_row(config, 'upstreams', '# upstreams = [
+#     "http://127.0.0.1:8080/"
+# ]', 0, true) }}
+
+## Log requests to stdout
+{{ macros.config_row(config, 'request_logging', '# request_logging = true', 0, true) }}
+
+## pass HTTP Basic Auth, X-Forwarded-User and X-Forwarded-Email information to upstream
+{{ macros.config_row(config, 'pass_basic_auth', '# pass_basic_auth = true', 0, true) }}
+{{ macros.config_row(config, 'pass_user_headers', '# pass_user_headers = true', 0, true) }}
+## pass the request Host Header to upstream
+## when disabled the upstream Host is used as the Host Header
+{{ macros.config_row(config, 'pass_host_header', '# pass_host_header = true', 0, true) }}
+
+## Email Domains to allow authentication for (this authorizes any email on this domain)
+## for more granular authorization use `authenticated_emails_file`
+## To authorize any email addresses use "*"
+{{ macros.config_row(config, 'email_domains', '# email_domains = [
+#     "yourcompany.com"
+# ]', 0, true) }}
+
+## The OAuth Client ID, Secret
+{{ macros.config_row(config, 'client_id', '# client_id = "123456.apps.googleusercontent.com"', 0, true) }}
+{{ macros.config_row(config, 'client_secret', '# client_secret = ""', 0, true) }}
+
+## Pass OAuth Access token to upstream via "X-Forwarded-Access-Token"
+{{ macros.config_row(config, 'pass_access_token', '# pass_access_token = false', 0, true) }}
+
+## Authenticated Email Addresses File (one email per line)
+{{ macros.config_row(config, 'authenticated_emails_file', '# authenticated_emails_file = ""', 0, true) }}
+
+## Htpasswd File (optional)
+## Additionally authenticate against a htpasswd file. Entries must be created with "htpasswd -s" for SHA encryption
+## enabling exposes a username/login signin form
+{{ macros.config_row(config, 'htpasswd_file', '# htpasswd_file = ""', 0, true) }}
+
+## Templates
+## optional directory with custom sign_in.html and error.html
+{{ macros.config_row(config, 'custom_templates_dir', '# custom_templates_dir = ""', 0, true) }}
+
+## skip SSL checking for HTTPS requests
+{{ macros.config_row(config, 'ssl_insecure_skip_verify', '# ssl_insecure_skip_verify = false', 0, true) }}
+
+## Cookie Settings
+## Name     - the cookie name
+## Secret   - the seed string for secure cookies; should be 16, 24, or 32 bytes
+##            for use with an AES cipher when cookie_refresh or pass_access_token
+##            is set
+## Domain   - (optional) cookie domain to force cookies to (ie: .yourcompany.com)
+## Expire   - (duration) expire timeframe for cookie
+## Refresh  - (duration) refresh the cookie when duration has elapsed after cookie was initially set.
+##            Should be less than cookie_expire; set to 0 to disable.
+##            On refresh, OAuth token is re-validated.
+##            (ie: 1h means tokens are refreshed on request 1hr+ after it was set)
+## Secure   - secure cookies are only sent by the browser of a HTTPS connection (recommended)
+## HttpOnly - httponly cookies are not readable by javascript (recommended)
+{{ macros.config_row(config, 'cookie_name', '# cookie_name = "_oauth2_proxy"', 0, true) }}
+{{ macros.config_row(config, 'cookie_secret', '# cookie_secret = ""', 0, true) }}
+{{ macros.config_row(config, 'cookie_domain', '# cookie_domain = ""', 0, true) }}
+{{ macros.config_row(config, 'cookie_expire', '# cookie_expire = "168h"', 0, true) }}
+{{ macros.config_row(config, 'cookie_refresh', '# cookie_refresh = ""', 0, true) }}
+{{ macros.config_row(config, 'cookie_secure', '# cookie_secure = true', 0, true) }}
+{{ macros.config_row(config, 'cookie_httponly', '# cookie_httponly = true', 0, true) }}
+
+## Bypass authentication for requests path's that match (may be given multiple times)
+{{ macros.config_row(config, 'skip_auth_regex', '# skip_auth_regex = [
+#     "/foo"
+# ]', 0, true) }}

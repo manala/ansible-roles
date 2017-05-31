@@ -1,0 +1,18 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_oauth2_proxy
+
+# Config
+- include: config.yml
+  tags:
+    - manala_oauth2_proxy
+
+# Services
+- include: services.yml
+  tags:
+    - manala_oauth2_proxy
+    - manala_oauth2_proxy.services
+    - manala.services

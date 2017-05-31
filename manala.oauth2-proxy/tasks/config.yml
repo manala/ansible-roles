@@ -1,0 +1,8 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_oauth2_proxy_config_template|ternary(manala_oauth2_proxy_config_template, 'config/default.j2') }}"
+    dest: "{{ manala_oauth2_proxy_config_file }}"
+  notify:
+    - oauth2 proxy restart

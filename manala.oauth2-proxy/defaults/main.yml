@@ -1,0 +1,6 @@
+---
+
+# Config
+manala_oauth2_proxy_config_file:     /etc/oauth2-proxy/config.cfg
+manala_oauth2_proxy_config_template: ~
+manala_oauth2_proxy_config:          []
