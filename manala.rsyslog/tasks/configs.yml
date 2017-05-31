@@ -1,0 +1,26 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template|default(manala_rsyslog_configs_template|ternary(manala_rsyslog_configs_template, 'configs/empty.j2')) }}"
+    dest: "{{ manala_rsyslog_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_rsyslog_configs }}"
+  notify:
+    - rsyslog restart
+
+- name: configs > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_rsyslog_configs_dir }}"
+  changed_when: false
+  register: __manala_rsyslog_configs_find_output
+  when: manala_rsyslog_configs_exclusive
+
+- name: configs > Exclusive - remove files
+  file:
+    path:  "{{ manala_rsyslog_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_rsyslog_configs_exclusive and (item not in manala_rsyslog_configs|map(attribute='file'))
+  with_items: "{{ __manala_rsyslog_configs_find_output.stdout_lines|default([]) }}"
+  notify:
+    - rsyslog restart

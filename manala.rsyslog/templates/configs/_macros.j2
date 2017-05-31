@@ -1,0 +1,68 @@
+{%- macro config(parameters, exclusions = []) -%}
+    {%- for parameter in parameters -%}
+        {%- if parameter is string or parameter is number -%}
+            {{ parameter }}{{ '\n' }}
+        {%- elif parameter is mapping -%}
+            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+                {%- if parameter_key not in exclusions -%}
+                    {{ _config_parameter(parameter_key, parameter_value) }}{{ '\n' }}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro config_row(parameters, key, default, placeholder = false) -%}
+    {%- set vars = {'values': []} -%}
+    {%- for parameter in parameters -%}
+        {%- if parameter is mapping -%}
+            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+                {%- if parameter_key == key -%}
+                    {%- if vars.update({'values': vars['values'] + [parameter_value]}) -%}{%- endif -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if vars['values']|length -%}
+        {%- for value in vars['values'] -%}
+            {{ _config_parameter(key, value) }}{% if not loop.last %}{{ '\n' }}{% endif %}
+        {%- endfor -%}
+    {%- else -%}
+        {%- if placeholder -%}
+            {{ default }}
+        {%- else -%}
+            {%- for value in (default if (default is sequence and default is not string) else [default]) -%}
+                {{ _config_parameter(key, value) }}{% if not loop.last %}{{ '\n' }}{% endif %}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro _config_parameter(key, value) -%}
+    {%- if 'ModLoad' in key -%}
+        {%- if value is sameas false -%}
+            #{{ _config_parameter_key(key) }}
+        {%- else -%}
+            {{ _config_parameter_key(key) }}
+        {%- endif -%}
+    {%- else -%}
+        {{ _config_parameter_key(key) }} {{ _config_parameter_value(value) }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro _config_parameter_key(key) -%}
+    {{ key }}
+{%- endmacro -%}
+
+{%- macro _config_parameter_value(value) -%}
+    {%- if value is sameas none -%}
+    {%- elif value is sameas true -%}
+        on
+    {%- elif value is sameas false -%}
+        off
+    {%- elif value is string -%}
+        {{ value }}
+    {%- elif value is number -%}
+        {{ value }}
+    {%- endif -%}
+{%- endmacro -%}

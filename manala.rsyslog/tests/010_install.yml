@@ -1,0 +1,9 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  roles:
+    - manala.rsyslog
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,23 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_rsyslog
+
+# Config
+- include: config.yml
+  tags:
+    - manala_rsyslog
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_rsyslog
+
+# Services
+- include: services.yml
+  tags:
+    - manala_rsyslog
+    - manala_rsyslog.services
+    - manala.services

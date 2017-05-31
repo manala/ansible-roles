@@ -1,0 +1,14 @@
+---
+
+process:
+  rsyslogd:
+    running: true
+
+file:
+  /etc/rsyslog.conf:
+    exists: true
+    contains:
+      - $ModLoad imuxsock
+      - '#$ModLoad imklog'
+      - $ModLoad immark
+
