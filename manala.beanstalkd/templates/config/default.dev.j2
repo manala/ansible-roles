@@ -1,0 +1,26 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- set config = manala_beanstalkd_config -%}
+
+## Defaults for the beanstalkd init script, /etc/init.d/beanstalkd on
+## Debian systems. Append ``-b /var/lib/beanstalkd'' for persistent
+## storage.
+
+{{ macros.config_row(config, 'BEANSTALKD_LISTEN_ADDR', '0.0.0.0') }}
+{{ macros.config_row(config, 'BEANSTALKD_LISTEN_PORT', 11300) }}
+{{ macros.config_row(config, 'DAEMON_OPTS', '-l $BEANSTALKD_LISTEN_ADDR -p $BEANSTALKD_LISTEN_PORT $BEANSTALKD_EXTRA') }}
+
+# You can use BEANSTALKD_EXTRA to pass additional options. See beanstalkd(1)
+# for a list of the available options. Uncomment the following line for
+# persistent job storage.
+{{ macros.config_row(config, 'BEANSTALKD_EXTRA', '#BEANSTALKD_EXTRA="-b /var/lib/beanstalkd"', true) }}
+
+{{ macros.config_row(config, 'START', true) }}
+
+{{ macros.config(config, [
+    'BEANSTALKD_LISTEN_ADDR',
+    'BEANSTALKD_LISTEN_PORT',
+    'DAEMON_OPTS',
+    'BEANSTALKD_EXTRA',
+    'START'
+]) }}

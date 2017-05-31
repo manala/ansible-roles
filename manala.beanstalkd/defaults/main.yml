@@ -1,0 +1,6 @@
+---
+
+# Config
+manala_beanstalkd_config_file:     /etc/default/beanstalkd
+manala_beanstalkd_config_template: ~
+manala_beanstalkd_config:          []

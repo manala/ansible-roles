@@ -1,0 +1,6 @@
+---
+
+- name: beanstalkd restart
+  service:
+    name:  beanstalkd
+    state: restarted
