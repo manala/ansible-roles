@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_rtail_config -%}
+
+# Additional options that are passed to the Daemon.
+DAEMON_ARGS="{{ macros.config_row(config, 'web-host', '0.0.0.0') }}{{ (' ' ~ macros.config(config, [
+    'web-host'
+])).rstrip() }}"

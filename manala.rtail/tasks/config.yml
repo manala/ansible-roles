@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_rtail_config_template|ternary(manala_rtail_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_rtail_config_file }}"
+  when: (manala_rtail_config_template is not none) or (manala_rtail_config|length)
+  notify:
+    - rtail restart
