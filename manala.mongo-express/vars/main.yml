@@ -1,0 +1,4 @@
+---
+
+# Config
+manala_mongo_express_config_file: /etc/mongo-express/config.js
