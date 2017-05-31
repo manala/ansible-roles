@@ -1,0 +1,76 @@
+[input_nginx]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/nginx"
+file_match = '(?P<Type>access|error)\.log'
+differentiator = ["nginx.", "Type"]
+
+[input_nginx_domain]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/nginx"
+file_match = '(?P<Domain>[^/]+)\.(?P<Type>access|error)\.log'
+differentiator = ["nginx.", "Domain", ".", "Type"]
+
+[input_supervisor]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/supervisor"
+file_match = 'supervisord\.log'
+differentiator = ["supervisor"]
+
+[input_supervisor_program]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/supervisor"
+file_match = 'program\.(?P<Program>[^/]+)\.log'
+differentiator = ["program.", "Program"]
+
+[php_fpm]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log"
+file_match = 'php(?P<Version>[\d\.]*)-fpm\.log'
+differentiator = ["php.fpm"]
+priority = ["Version"]
+
+[input_app]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/app"
+file_match = '(?P<Env>[^/]+)\.log'
+differentiator = ["app.", "Env"]
+
+[input_app_nginx]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/app"
+file_match = 'nginx\.(?P<Type>access|error)\.log'
+differentiator = ["app.nginx.", "Type"]
+
+[input_app_php_error]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/app"
+file_match = 'php\.error\.log'
+differentiator = ["app.php.error"]
+
+[input_app_cron_job]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/app"
+file_match = 'cron\.(?P<Job>[^/]+)\.log'
+differentiator = ["app.cron.", "Job"]
+
+[input_app_supervisor_program]
+type = "LogstreamerInput"
+decoder = "decoder_app"
+log_directory = "/var/log/app"
+file_match = 'supervisor\.(?P<Program>[^/]+)\.log'
+differentiator = ["app.supervisor.", "Program"]
+
+[decoder_app]
+type = "ScribbleDecoder"
+
+    [decoder_app.message_fields]
+    channel = "app"

@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_heka_config_template }}"
+    dest: "{{ manala_heka_config_file }}"
+  when: manala_heka_config_template is not none
+  notify:
+    - heka restart

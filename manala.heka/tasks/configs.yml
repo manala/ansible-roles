@@ -1,0 +1,10 @@
+---
+
+- name: configs > Templates
+  template:
+    src:  "{{ item.template }}"
+    dest: "{{ manala_heka_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_heka_configs }}"
+  notify:
+    - heka restart
+

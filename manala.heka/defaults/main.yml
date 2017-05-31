@@ -1,0 +1,8 @@
+---
+
+# Config
+manala_heka_config_template: ~
+
+# Configs
+manala_heka_configs_dir: /etc/heka/conf.d
+manala_heka_configs:     []

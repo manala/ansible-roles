@@ -1,0 +1,7 @@
+[PayloadEncoder]
+
+[output_app_file]
+type = "FileOutput"
+message_matcher = "Fields[channel] == 'app'"
+path = "/var/log/app.log"
+encoder = "PayloadEncoder"
