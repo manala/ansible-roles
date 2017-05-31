@@ -1,0 +1,6 @@
+---
+
+- name: phantomjs restart
+  service:
+    name:  phantomjs
+    state: restarted

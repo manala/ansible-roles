@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_phantomjs_config_template|ternary(manala_phantomjs_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_phantomjs_config_file }}"
+  when: (manala_phantomjs_config_template is not none) or (manala_phantomjs_config|length)
+  notify:
+    - phantomjs restart

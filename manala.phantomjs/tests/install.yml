@@ -1,0 +1,28 @@
+---
+
+- name: Install
+  hosts: all
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+  roles:
+    - manala.phantomjs
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            phantomjs:
+              installed: true
+        - service:
+            phantomjs:
+              enabled: true
+              running: true
+        - file:
+            /etc/phantomjs/config.json:
+              exists:   true
+              mode:     "0644"
+              owner:    root
+              group:    root
+              filetype: file
+              contains:
+                - webdriver
+                - 127.0.0.1:8910

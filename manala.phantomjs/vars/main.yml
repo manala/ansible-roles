@@ -1,0 +1,4 @@
+---
+
+# Config
+manala_phantomjs_config_file: /etc/phantomjs/config.json

@@ -1,0 +1,5 @@
+---
+
+# Config
+manala_phantomjs_config_template: ~
+manala_phantomjs_config:          []

@@ -1,0 +1,7 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_phantomjs_config -%}
+
+{
+{{ macros.config(config, [], 4) }}
+}

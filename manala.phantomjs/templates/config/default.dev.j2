@@ -1,0 +1,7 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_phantomjs_config -%}
+
+{
+{{ (macros.config_row(config, 'webdriver', 4444, 4) ~ ',\n' ~ macros.config(config, ['webdriver'], 4)).rstrip(',\n') }}
+}

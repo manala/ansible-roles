@@ -1,0 +1,18 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_phantomjs
+
+# Config
+- include: config.yml
+  tags:
+    - manala_phantomjs
+
+# Services
+- include: services.yml
+  tags:
+    - manala_phantomjs
+    - manala_phantomjs.services
+    - manala.services

@@ -1,0 +1,17 @@
+---
+
+- name: Pre tasks > Clean phantomjs packages
+  apt:
+    package: phantomjs*
+    state:   absent
+    purge:   true
+  ignore_errors: true
+
+- name: Pre tasks > Manala apt key
+  apt_key:
+    keyserver: keys.gnupg.net
+    id:        1394DEA3
+
+- name: Pre tasks > Manala apt repository
+  apt_repository:
+    repo: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main

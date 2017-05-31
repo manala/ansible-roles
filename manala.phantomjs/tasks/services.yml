@@ -1,0 +1,8 @@
+---
+
+- name: services > Services
+  service:
+    name:  "{{ item }}"
+    state: started
+  with_items:
+    - phantomjs
