@@ -1,0 +1,18 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_logentries
+
+# Config
+- include: config.yml
+  tags:
+    - manala_logentries
+
+# Services
+- include: services.yml
+  tags:
+    - manala_logentries
+    - manala_logentries.services
+    - manala.services

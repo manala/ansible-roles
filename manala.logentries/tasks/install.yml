@@ -1,0 +1,10 @@
+---
+
+- name: install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+  with_items:
+    - logentries
+    - logentries-daemon
+
