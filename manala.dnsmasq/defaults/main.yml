@@ -1,0 +1,7 @@
+---
+
+# Configs
+manala_dnsmasq_configs_exclusive: false
+manala_dnsmasq_configs_dir:       /etc/dnsmasq.d
+manala_dnsmasq_configs_template:  ~
+manala_dnsmasq_configs:           []
