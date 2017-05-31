@@ -1,0 +1,17 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_fail2ban
+
+# Config
+- include: config.yml
+  tags:
+    - manala_fail2ban
+
+# Services
+- include: services.yml
+  tags:
+    - manala_fail2ban
+    - manala.services

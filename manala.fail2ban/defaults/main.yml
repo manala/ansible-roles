@@ -1,0 +1,6 @@
+---
+
+# Config
+manala_fail2ban_config_file:     /etc/fail2ban/jail.local
+manala_fail2ban_config_template: ~
+manala_fail2ban_config:          []
