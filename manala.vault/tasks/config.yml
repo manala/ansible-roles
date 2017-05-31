@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_vault_config_template }}"
+    dest: "{{ manala_vault_config_file }}"
+  when: manala_vault_config_template is not none
+  notify:
+    - vault restart
