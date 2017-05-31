@@ -1,0 +1,21 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  author:              Manala
+  company:             Manala
+  description:         Installation and configuration of Maxscale (MySQL/MariaDB Proxy)
+  license:             MIT
+  min_ansible_version: 2.2.0
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+  galaxy_tags:
+    - system
+    - mysql
+    - mariadb
+    - maxscale

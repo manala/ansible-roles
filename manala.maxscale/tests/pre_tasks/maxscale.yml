@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Maxscale apt key
+  apt_key:
+    url: https://downloads.mariadb.com/MaxScale/MariaDB-MaxScale-GPG-KEY
+    id:  8167EE24
+
+- name: Pre tasks > Maxscale (MariaDB) apt repository
+  apt_repository:
+    repo: deb https://downloads.mariadb.com/MaxScale/2.0.4/debian {{ ansible_distribution_release }} main

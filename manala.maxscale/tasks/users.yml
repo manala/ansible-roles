@@ -1,0 +1,9 @@
+---
+
+- name: users > Template config
+  template:
+    src:  "{{ manala_maxscale_users_template|ternary(manala_maxscale_users_template, 'users/default.j2') }}"
+    dest: "{{ manala_maxscale_users_file }}"
+    mode: 0600
+    owner: maxscale
+    group: maxscale
