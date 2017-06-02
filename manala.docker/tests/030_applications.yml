@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  vars:
+    manala_docker_applications:
+      - hello-world
+      - application: npm
+        image:       node
+        command:     npm
+        tag:         alpine
+  pre_tasks:
+    - include: pre_tasks/docker.yml
+    - include: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'wheezy'
+  roles:
+    - manala.docker
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

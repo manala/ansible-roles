@@ -1,0 +1,33 @@
+#!/bin/sh
+
+PWD=`pwd`
+UID=`id -u`
+GID=`id -g`
+
+{% if item.interactive -%}
+# Allow interactive only in terminal mode
+if [ -t 1 ] ; then
+  INTERACTIVE=" --interactive"
+fi
+{%- endif %}
+
+
+docker run
+{%- if item.rm %} --rm{% endif -%}
+{%- if item.interactive %}${INTERACTIVE}{% endif -%}
+{%- if item.tty %} --tty{% endif -%}
+{%- if item.volumes %}
+  {%- for source, destination in item.volumes.iteritems() -%}
+      {{ ' ' }}--volume {{ source }}:{{ destination }}
+  {%- endfor -%}
+{% endif -%}
+{%- if item.environment %}
+  {%- for source, destination in item.environment.iteritems() -%}
+      {{ ' ' }}--env {{ source }}={{ destination }}
+  {%- endfor -%}
+{% endif -%}
+{%- if item.workdir %} --workdir {{ item.workdir }}{% endif -%}
+{{ ' ' }}{{ item.image }}
+{%- if item.tag %}:{{ item.tag }}{% endif -%}
+{%- if item.command %} {{ item.command }}{% endif -%}
+{{ ' ' }}"$@"
