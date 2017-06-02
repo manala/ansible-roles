@@ -1,0 +1,5 @@
+---
+
+package:
+  dnsmasq:
+    installed: true

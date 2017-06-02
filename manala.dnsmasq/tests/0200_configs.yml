@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_dnsmasq_configs:
+      - file: foo
+        config:
+          - alias: 11.22.33.44,55.66.77.88
+  roles:
+    - manala.dnsmasq
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
