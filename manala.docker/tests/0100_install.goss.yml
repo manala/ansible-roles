@@ -1,0 +1,11 @@
+---
+
+package:
+  docker-engine:
+    installed: true
+
+command:
+  docker --version:
+    exit-status: 0
+    stdout:
+      - Docker version

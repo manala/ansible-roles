@@ -1,0 +1,26 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_docker
+
+# Services
+- include: services.yml
+  tags:
+    - manala_docker
+    - manala_docker.services
+    - manala.services
+
+# Applications
+- include: applications.yml
+  tags:
+    - manala_docker
+
+# Update
+- include: update.yml
+  when: "{{ manala_docker['update']|default(false) }}"
+  tags:
+    - manala_docker
+    - manala_docker.update
+    - manala.update
