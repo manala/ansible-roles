@@ -19,6 +19,8 @@ splits:
     target: git@github.com:manala/ansible-role-cloud-init.git
   - prefix: manala.deploy
     target: git@github.com:manala/ansible-role-deploy.git
+  - prefix: manala.docker
+    target: git@github.com:manala/ansible-role-docker.git
   - prefix: manala.files
     target: git@github.com:manala/ansible-role-files.git
   - prefix: manala.gitlab

@@ -2,8 +2,8 @@
 
 - name: Pre tasks > Docker apt key
   apt_key:
-    keyserver: keys.gnupg.net
-    id:        2C52609D
+    file: pre_tasks/apt_keys/docker.pgp
+    id: 2C52609D
 
 - name: Pre tasks > Docker apt repository
   apt_repository:
