@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
-
+- name: "{{ test }}"
+  hosts: all
+  become: true
   vars:
     manala_keepalived_config:
       - global_defs:
@@ -14,17 +15,22 @@
         - virtual_ipaddress:
           - 192.168.200.11/24 dev eth0
           - 192.168.200.12/24 dev eth0
-
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
-    - include: pre_tasks/apt.yml
-
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/keepalived
+        content: |
+          Package:      keepalived*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
   roles:
     - manala.keepalived
-
   post_tasks:
     - pause:
         prompt: Make sure transition to MASTER STATE finish
         seconds: 2
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

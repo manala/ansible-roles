@@ -1,9 +1,5 @@
 ---
 
-process:
-  keepalived:
-    running: true
-
 file:
   /etc/keepalived/keepalived.conf:
     exists: true

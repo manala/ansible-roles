@@ -1,0 +1,15 @@
+---
+
+package:
+  keepalived:
+    installed: true
+
+command:
+  dpkg -s keepalived:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-\\dmanala\\d+~{{.Env.RELEASE}}\\d+$/"
+  keepalived --version:
+    exit-status: 0
+    stderr:
+      - Keepalived v

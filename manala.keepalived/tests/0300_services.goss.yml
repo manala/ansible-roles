@@ -1,0 +1,6 @@
+---
+
+service:
+  keepalived:
+    enabled: true
+    running: true

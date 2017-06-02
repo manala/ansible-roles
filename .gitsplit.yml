@@ -39,6 +39,8 @@ splits:
     target: git@github.com:manala/ansible-role-influxdb.git
   - prefix: manala.java
     target: git@github.com:manala/ansible-role-java.git
+  - prefix: manala.keepalived
+    target: git@github.com:manala/ansible-role-keepalived.git
   - prefix: manala.logrotate
     target: git@github.com:manala/ansible-role-logrotate.git
   - prefix: manala.make
