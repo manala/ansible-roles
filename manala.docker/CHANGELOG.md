@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.6] - 2017-06-02
+### Added
+- manala/openl10n-cli application pattern
+
 ## [1.0.5] - 2017-03-16
 ### Fixed
 - Better tty/interative applications handling

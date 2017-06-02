@@ -75,3 +75,14 @@ manala_docker_applications_patterns:
     environment:
       USER_ID:  ${UID}
       GROUP_ID: ${GID}
+  manala/openl10n-cli:
+    image:       manala/openl10n-cli
+    command:     openl10n
+    rm:          true
+    tty:         true
+    workdir:     ${PWD}
+    volumes:
+      ${PWD}: ${PWD}
+    environment:
+      USER_ID:  ${UID}
+      GROUP_ID: ${GID}
