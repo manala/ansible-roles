@@ -23,6 +23,8 @@ splits:
     target: git@github.com:manala/ansible-role-deploy.git
   - prefix: manala.dnsmasq
     target: git@github.com:manala/ansible-role-dnsmasq.git
+  - prefix: manala.fail2ban
+    target: git@github.com:manala/ansible-role-fail2ban.git
   - prefix: manala.files
     target: git@github.com:manala/ansible-role-files.git
   - prefix: manala.gitlab

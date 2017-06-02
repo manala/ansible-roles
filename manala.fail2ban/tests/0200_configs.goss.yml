@@ -1,0 +1,8 @@
+---
+
+file:
+  /etc/fail2ban/jail.local:
+    exists: true
+    contains:
+      - "[DEFAULT]"
+      - "maxretry = 5"

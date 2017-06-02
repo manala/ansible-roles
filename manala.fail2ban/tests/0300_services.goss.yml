@@ -1,0 +1,6 @@
+---
+
+service:
+  fail2ban:
+    enabled: true
+    running: true

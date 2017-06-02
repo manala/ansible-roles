@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_fail2ban_config:
+      - ssh:
+        - enabled: false
+  roles:
+    - manala.fail2ban
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
