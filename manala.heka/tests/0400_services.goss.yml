@@ -1,0 +1,6 @@
+---
+
+service:
+  heka:
+    enabled: true
+    running: true
