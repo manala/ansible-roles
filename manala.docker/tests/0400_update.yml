@@ -10,8 +10,5 @@
     - include: pre_tasks/docker.yml
     - include: pre_tasks/backports.yml
       when: ansible_distribution_release == 'wheezy'
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
-      environment:
-        RELEASE: "{{ ansible_distribution_release }}"
+  roles:
+    - manala.docker
