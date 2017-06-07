@@ -1,0 +1,15 @@
+---
+
+package:
+  mailhog:
+    installed: true
+
+command:
+  dpkg -s mailhog:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"
+  mailhog --version:
+    exit-status: 0
+    stdout:
+      - "MailHog version: "

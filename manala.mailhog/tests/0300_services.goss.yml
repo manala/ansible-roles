@@ -1,0 +1,6 @@
+---
+
+service:
+  mailhog:
+    enabled: true
+    running: true
