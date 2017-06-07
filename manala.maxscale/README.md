@@ -1,19 +1,28 @@
 # Ansible Role: Maxscale [![Build Status](https://travis-ci.org/manala/ansible-role-maxscale.svg?branch=master)](https://travis-ci.org/manala/ansible-role-maxscale)
 
-This role will deal with the setup and configuration of MaxScale the Mysql/MariaDB proxy.
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
+This role will deal with the setup and configuration of [Maxscale](https://mariadb.com/products/technology/maxscale).
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
-This role is made to work with the __mariadb maxscale__ debian packages, available on the [__mariadb__ repository](https://downloads.mariadb.com/MaxScale/).
+This role is made to work with the __mariadb maxscale__ debian packages, available on the [__mariadb maxscale__ repository](https://downloads.mariadb.com/MaxScale/).
 Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+
+```yaml
+manala_apt_preferences:
+ - maxscale@maxscale_2_0_4
+```
 
 ## Dependencies
 
 None.
 
 ## Installation
+
+### Ansible 2+
 
 Using ansible galaxy cli:
 

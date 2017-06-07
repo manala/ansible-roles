@@ -8,4 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.0] - 2017-02-14
 ### Added
-- Install maxscale
+- Handle installation
+- Handle config
+- Handle services
+- Handle users
