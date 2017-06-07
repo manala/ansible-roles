@@ -45,8 +45,12 @@ splits:
     target: git@github.com:manala/ansible-role-logentries.git
   - prefix: manala.logrotate
     target: git@github.com:manala/ansible-role-logrotate.git
+  - prefix: manala.mailhog
+    target: git@github.com:manala/ansible-role-mailhog.git
   - prefix: manala.make
     target: git@github.com:manala/ansible-role-make.git
+  - prefix: manala.maxscale
+    target: git@github.com:manala/ansible-role-maxscale.git
   - prefix: manala.mongo-express
     target: git@github.com:manala/ansible-role-mongo-express.git
   - prefix: manala.mysql
