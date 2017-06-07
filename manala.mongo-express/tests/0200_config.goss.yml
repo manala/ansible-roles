@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/mongo-express/config.js:
+    exists: true
+    contains:
+      - "url: 'mongodb://localhost:27017/db'"

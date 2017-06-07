@@ -1,0 +1,11 @@
+---
+
+package:
+  node-mongo-express:
+    installed: true
+
+command:
+  dpkg -s node-mongo-express:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"

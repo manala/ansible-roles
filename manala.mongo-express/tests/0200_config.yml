@@ -1,0 +1,22 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_mongo_express_config_template: config/default.dev.j2
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/mongo-express
+        content: |
+          Package:      node-mongo-express*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.mongo-express
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
