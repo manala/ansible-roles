@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Mongodb apt key
+  apt_key:
+    file: pre_tasks/apt_keys/mongodb.pgp
+    id: EA312927
+
+- name: Pre tasks > Mongodb 3.2 apt repository
+  apt_repository:
+    repo: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.2 main

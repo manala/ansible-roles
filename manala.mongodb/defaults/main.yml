@@ -1,6 +1,6 @@
 ---
 
 # Config
-manala_mongodb_config_file:     "/etc/mongod.conf"
+manala_mongodb_config_file:     /etc/mongod.conf
 manala_mongodb_config_template: ~
 manala_mongodb_config:          []
