@@ -1,0 +1,5 @@
+---
+
+package:
+  logentries:
+    installed: true

@@ -3,4 +3,4 @@
 # Config
 manala_logentries_config_file:      /etc/le/config
 manala_logentries_config_template:  config/default.j2
-manala_logentries_config:           {}
+manala_logentries_config:           []

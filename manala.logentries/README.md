@@ -1,8 +1,10 @@
-# Ansible Role: Logentries
+# Ansible Role: Logentries [![Build Status](https://travis-ci.org/manala/ansible-role-logentries.svg?branch=master)](https://travis-ci.org/manala/ansible-role-logentries)
 
-This role will deal with the configuration of __logentries__.
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will deal with the configuration of [Logentries](https://logentries.com/).
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
@@ -40,18 +42,18 @@ Using ansible galaxy requirements file:
 | ----------------------------------- | --------------------------- | ------ | -------------------- |
 | `manala_logentries_config_template` | config/default.j2           | String | Main config template |
 | `manala_logentries_config_file`     | /etc/le/config              | String | Main config file     |
-| `manala_logentries_config`          | {}                          | Array  | Main config          |
+| `manala_logentries_config`          | []                          | Array  | Main config          |
 
 ### Configuration example
 
 ```yaml
 manala_logentries_config:
   - Main:
-    - 'pull-server-side-config': 'False'
-  - 'nginx-access':
+    - pull-server-side-config: false
+  - nginx-access:
     - path: /var/log/nginx/access.log
     - token: "{{ _logentries_nginx_access_token }}"
-  - 'nginx-error':
+  - nginx-error:
     - path: /var/log/nginx/error.log
     - token: "{{ _logentries_nginx_error_token }}"
 ```

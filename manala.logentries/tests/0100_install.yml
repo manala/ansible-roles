@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - include: pre_tasks/logentries.yml
+    - copy:
+        dest: /etc/apt/preferences.d/logentries
+        content: |
+          Package:      logentries*
+          Pin:          origin rep.logentries.com
+          Pin-Priority: 900
+  roles:
+    - manala.logentries
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

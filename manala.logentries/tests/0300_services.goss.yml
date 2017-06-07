@@ -1,0 +1,6 @@
+---
+
+service:
+  logentries:
+    enabled: true
+    running: true

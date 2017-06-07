@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Logentries apt key
+  apt_key:
+    file: pre_tasks/apt_keys/logentries.pgp
+    id: C43C79AD
+
+- name: Pre tasks > Logentries apt repository
+  apt_repository:
+    repo: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main

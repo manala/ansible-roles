@@ -41,6 +41,8 @@ splits:
     target: git@github.com:manala/ansible-role-java.git
   - prefix: manala.keepalived
     target: git@github.com:manala/ansible-role-keepalived.git
+  - prefix: manala.logentries
+    target: git@github.com:manala/ansible-role-logentries.git
   - prefix: manala.logrotate
     target: git@github.com:manala/ansible-role-logrotate.git
   - prefix: manala.make

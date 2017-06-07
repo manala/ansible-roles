@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/le/config:
+    exists: true
+    contains:
+      - "[Main]"
+      - "pull-server-side-config = False"
+      - "user-key = e720a1e8-a7d5-4f8b-8879-854e51c9290d"
