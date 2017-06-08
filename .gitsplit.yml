@@ -65,8 +65,12 @@ splits:
     target: git@github.com:manala/ansible-role-nodejs.git
   - prefix: manala.ntp
     target: git@github.com:manala/ansible-role-ntp.git
+  - prefix: manala.oauth2-proxy
+    target: git@github.com:manala/ansible-role-oauth2-proxy.git
   - prefix: manala.opcache-dashboard
     target: git@github.com:manala/ansible-role-opcache-dashboard.git
+  - prefix: manala.phantomjs
+    target: git@github.com:manala/ansible-role-phantomjs.git
   - prefix: manala.php
     target: git@github.com:manala/ansible-role-php.git
   - prefix: manala.phpmyadmin
@@ -75,14 +79,24 @@ splits:
     target: git@github.com:manala/ansible-role-phppgadmin.git
   - prefix: manala.phpredisadmin
     target: git@github.com:manala/ansible-role-phpredisadmin.git
+  - prefix: manala.redis
+    target: git@github.com:manala/ansible-role-redis.git
+  - prefix: manala.rsyslog
+    target: git@github.com:manala/ansible-role-rsyslog.git
+  - prefix: manala.rtail
+    target: git@github.com:manala/ansible-role-rtail.git
   - prefix: manala.shorewall
     target: git@github.com:manala/ansible-role-shorewall.git
   - prefix: manala.skeleton
     target: git@github.com:manala/ansible-role-skeleton.git
   - prefix: manala.sqlite
     target: git@github.com:manala/ansible-role-sqlite.git
+  - prefix: manala.supervisor
+    target: git@github.com:manala/ansible-role-supervisor.git
   - prefix: manala.telegraf
     target: git@github.com:manala/ansible-role-telegraf.git
+  - prefix: manala.vault
+    target: git@github.com:manala/ansible-role-vault.git
   - prefix: manala.vim
     target: git@github.com:manala/ansible-role-vim.git
   - prefix: manala.yarn
