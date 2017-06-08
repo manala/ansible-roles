@@ -1,0 +1,23 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_phantomjs_config:
+      - webdriver: 1234
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/phantomjs
+        content: |
+          Package:      phantomjs*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.phantomjs
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

@@ -1,0 +1,13 @@
+---
+
+package:
+  phantomjs:
+    installed: true
+
+command:
+  dpkg -s phantomjs:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"
+  phantomjs --version:
+    exit-status: 0

@@ -7,8 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ## [1.0.0] - 2016-12-21
-
 ### Added
-- Install phantomjs package
-- Handle phantomjs config
-- Handle phantomjs service
+- Handle installation
+- Handle config
+- Handle services
