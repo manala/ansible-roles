@@ -2,8 +2,11 @@
 
 - name: "{{ test }}"
   hosts: all
+  become: true
   roles:
     - manala.rsyslog
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

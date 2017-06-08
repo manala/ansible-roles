@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
-
+- name: "{{ test }}"
+  hosts: all
+  become: true
   vars:
     manala_rsyslog_config_template: config/default.prod.j2
     manala_rsyslog_config:
@@ -12,10 +13,10 @@
             auth,authpriv.none;\
             cron,daemon.none;\
             mail,news.none    -/var/log/messages
-
   roles:
     - manala.rsyslog
-
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

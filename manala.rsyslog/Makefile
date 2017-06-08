@@ -5,25 +5,20 @@
 COLOR_RESET   = \033[0m
 COLOR_INFO    = \033[32m
 COLOR_COMMENT = \033[33m
+COLOR_ERROR   = \033[31m
 
 ## Ansible
 ANSIBLE_ROLE     = manala.rsyslog
 ANSIBLE_VERSION ?=
 
-## Debian
-DEBIAN_DISTRIBUTION ?= jessie
+export ANSIBLE_FORCE_COLOR = true
 
-## Docker
-DOCKER_OPTIONS =
-DOCKER = docker run \
-    --rm \
-    --volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
-    --volume `pwd`:/srv \
-    --workdir /srv \
-    --tty \
-    --privileged \
-    ${DOCKER_OPTIONS} \
-    manala/ansible-debian:${if ${ANSIBLE_VERSION},${ANSIBLE_VERSION}-}${DEBIAN_DISTRIBUTION}
+## Debian
+DEBIAN_DISTRIBUTION ?= wheezy jessie
+
+# Docker
+DOCKER_IMAGE = manala/ansible-debian
+DOCKER_TAG  ?= ${ANSIBLE_VERSION}
 
 ## Help
 help:
@@ -44,6 +39,19 @@ help:
 # Dev #
 #######
 
+## Dev
+dev:
+	docker run \
+		--rm \
+		--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
+		--volume `pwd`:/srv \
+		--workdir /srv \
+		--tty --interactive \
+		--privileged \
+		--env USER_ID=`id -u` \
+		--env GROUP_ID=`id -g` \
+		${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)$(lastword ${DEBIAN_DISTRIBUTION})
+
 ## Dev - Wheezy
 dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
 dev@wheezy: dev
@@ -52,30 +60,45 @@ dev@wheezy: dev
 dev@jessie: DEBIAN_DISTRIBUTION = jessie
 dev@jessie: dev
 
-## Dev
-dev: DOCKER_OPTIONS = --interactive
-dev:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	${DOCKER} /bin/bash
-
 ########
 # Lint #
 ########
 
 ## Lint
 lint:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	${DOCKER} ansible-lint -v -x deprecated .
+	printf "${COLOR_INFO}Lint${COLOR_RESET}\n\n"
+	docker run \
+		--rm \
+		--volume `pwd`:/srv \
+		--workdir /srv \
+		${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)$(lastword ${DEBIAN_DISTRIBUTION}) \
+		ansible-lint --force-color -v .
 
 ########
 # Test #
 ########
 
-test@wheezy: DEBIAN_DISTRIBUTION = wheezy
-test@wheezy: test
-
-test@jessie: DEBIAN_DISTRIBUTION = jessie
-test@jessie: test
+## Test
+test:
+	EXIT=0 ; ${foreach \
+		distribution,\
+		${DEBIAN_DISTRIBUTION},\
+		printf "\n${COLOR_INFO}Test ${COLOR_COMMENT}${distribution}${COLOR_RESET}\n\n" && \
+			${foreach \
+				test,\
+				${TESTS},\
+				docker run \
+					--rm \
+					--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
+					--volume `pwd`:/srv \
+					--volume `pwd`/tests/cache/apt/archives:/var/cache/apt/archives \
+					--volume `pwd`/tests/cache/apt/lists:/var/lib/apt/lists \
+					--workdir /srv \
+					--privileged \
+					${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
+					sh -c 'make ${test}' || EXIT=$$? ;\
+			} \
+	} exit $$EXIT
 
 TESTS = ${sort \
 	${foreach \
@@ -85,14 +108,14 @@ TESTS = ${sort \
 	}\
 }
 
-## Test
-test:
-	EXIT=0 ; ${foreach \
-		test,\
-		${TESTS},\
-		printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n" && ${DOCKER} sh -c 'make ${test}' || EXIT=$$? ;\
-	} exit $$EXIT
-
 tests/%.yml: FORCE
 	ansible-playbook $@ --extra-vars="test=${subst .yml,,${subst tests/,,$@}}"
 FORCE:
+
+## Test - Wheezy
+test@wheezy: DEBIAN_DISTRIBUTION = wheezy
+test@wheezy: test
+
+## Test - Jessie
+test@jessie: DEBIAN_DISTRIBUTION = jessie
+test@jessie: test

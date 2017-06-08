@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
-
+- name: "{{ test }}"
+  hosts: all
+  become: true
   vars:
     manala_rsyslog_configs:
       - file: rules.conf
@@ -12,10 +13,10 @@
           - kern.*                    -/var/log/kern.log
           - mail.*                    -/var/log/mail.log
           - user.*                    -/var/log/user.log
-
   roles:
     - manala.rsyslog
-
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
