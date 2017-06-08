@@ -63,6 +63,8 @@ splits:
     target: git@github.com:manala/ansible-role-ngrok.git
   - prefix: manala.nodejs
     target: git@github.com:manala/ansible-role-nodejs.git
+  - prefix: manala.ntp
+    target: git@github.com:manala/ansible-role-ntp.git
   - prefix: manala.opcache-dashboard
     target: git@github.com:manala/ansible-role-opcache-dashboard.git
   - prefix: manala.php
