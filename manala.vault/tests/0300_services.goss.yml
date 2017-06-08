@@ -1,0 +1,6 @@
+---
+
+service:
+  vault:
+    enabled: true
+    running: true

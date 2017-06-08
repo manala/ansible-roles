@@ -1,0 +1,22 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_vault_config_template: fixtures/config.j2
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/vault
+        content: |
+          Package:      vault*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.vault
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
