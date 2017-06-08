@@ -1,0 +1,6 @@
+---
+
+service:
+  supervisor:
+    enabled: true
+    running: true

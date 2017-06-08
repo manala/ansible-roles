@@ -1,0 +1,13 @@
+---
+
+package:
+  supervisor:
+    installed: true
+
+command:
+  dpkg -s supervisor:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-\\dmanala\\d+~{{.Env.RELEASE}}\\d+$/"
+  supervisord --version:
+    exit-status: 0

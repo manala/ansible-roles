@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/supervisor/supervisord.conf:
+    exists: true
+    contains:
+      - file=/tmp/supervisor.sock   ; (the path to the socket file)

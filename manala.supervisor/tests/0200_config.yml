@@ -1,0 +1,24 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_supervisor_config:
+      - unix_http_server:
+        - file: /tmp/supervisor.sock
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/supervisor
+        content: |
+          Package:      supervisor*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.supervisor
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

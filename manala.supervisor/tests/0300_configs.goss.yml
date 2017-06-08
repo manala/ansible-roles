@@ -1,0 +1,8 @@
+---
+
+file:
+  /etc/supervisor/conf.d/foo.conf:
+    exists: true
+    contains:
+      - "[program:foo]"
+      - "command=bar ; the program (relative uses PATH, can take args)"
