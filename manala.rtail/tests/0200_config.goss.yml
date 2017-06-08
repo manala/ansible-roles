@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/default/rtail:
+    exists: true
+    contains:
+      - 'DAEMON_ARGS="--web-host 127.0.0.1"'

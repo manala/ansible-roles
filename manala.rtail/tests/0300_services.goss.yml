@@ -1,0 +1,6 @@
+---
+
+service:
+  rtail:
+    enabled: true
+    running: true

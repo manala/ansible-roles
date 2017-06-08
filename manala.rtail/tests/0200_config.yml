@@ -1,0 +1,29 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_rtail_config:
+      - web-host: 127.0.0.1
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/rtail
+        content: |
+          Package:      rtail*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - nodejs
+        - nodejs-legacy
+  roles:
+    - manala.rtail
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
