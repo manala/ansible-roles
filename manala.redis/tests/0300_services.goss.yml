@@ -1,0 +1,6 @@
+---
+
+service:
+  redis-server:
+    enabled: true
+    running: true
