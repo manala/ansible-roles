@@ -1,0 +1,15 @@
+---
+
+package:
+  oauth2-proxy:
+    installed: true
+
+command:
+  dpkg -s oauth2-proxy:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"
+  oauth2-proxy --version:
+    exit-status: 0
+    stdout:
+      - oauth2_proxy v
