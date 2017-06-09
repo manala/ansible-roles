@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.0] - 2017-02-14
+## [1.0.0] - 2017-06-09
 ### Added
 - Handle installation
 - Handle config
