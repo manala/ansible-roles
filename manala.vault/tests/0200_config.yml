@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: jessie
   become: true
   vars:
     manala_vault_config_template: fixtures/config.j2
