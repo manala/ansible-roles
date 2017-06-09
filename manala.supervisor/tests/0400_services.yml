@@ -5,6 +5,8 @@
   become: true
   pre_tasks:
     - include: pre_tasks/manala.yml
+    - include: pre_tasks/backports.yml
+      when:    ansible_distribution_release == 'wheezy'
     - copy:
         dest: /etc/apt/preferences.d/supervisor
         content: |
