@@ -4,5 +4,8 @@
   service:
     name:  "{{ item }}"
     state: started
-  with_items:
-    - redis-server
+  with_items: "{{
+    []
+    + (manala_redis_server)|ternary(['redis-server'], [])
+    + (manala_redis_sentinel)|ternary(['redis-sentinel'], [])
+  }}"

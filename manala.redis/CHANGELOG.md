@@ -13,3 +13,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add redis 3.0 config templates
 - Add redis 2.8 config templates
 - Add redis 2.4 config templates
+- Install and configure redis-sentinel (>= 3.0)
