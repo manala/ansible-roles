@@ -4,4 +4,4 @@
   service:
     name:  vault
     state: restarted
-    sleep: 3
+    sleep: 5
