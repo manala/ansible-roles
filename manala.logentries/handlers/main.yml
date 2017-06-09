@@ -4,4 +4,4 @@
   service:
     name:  logentries
     state: restarted
-
+    sleep: 3
