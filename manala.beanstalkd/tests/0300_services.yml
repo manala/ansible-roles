@@ -3,6 +3,8 @@
 - name: "{{ test }}"
   hosts: all
   become: true
+  vars:
+    manala_beanstalkd_config_template: config/default.dev.j2
   roles:
     - manala.beanstalkd
   post_tasks:

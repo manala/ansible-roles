@@ -4,6 +4,7 @@
   hosts: all
   become: true
   vars:
+    manala_beanstalkd_config_template: config/default.dev.j2
     manala_beanstalkd_config:
       - BEANSTALKD_LISTEN_PORT: 12345
   roles:
