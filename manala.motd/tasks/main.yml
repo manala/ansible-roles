@@ -1,0 +1,6 @@
+---
+
+# Template
+- include: template.yml
+  tags:
+    - manala_motd

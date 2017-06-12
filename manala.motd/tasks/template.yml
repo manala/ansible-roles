@@ -1,0 +1,7 @@
+---
+
+- name: template > Template
+  template:
+    src:  "{{ manala_motd_template|ternary(manala_motd_template, 'template/empty.j2') }}"
+    dest: "{{ manala_motd_file }}"
+  when: (manala_motd_template is not none) or (manala_motd_message is not none)

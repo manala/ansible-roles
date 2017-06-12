@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+  gather_facts: false
+  vars:
+    manala_motd_template: template/manala.j2
+    manala_motd_message:  One of these days, I'm going to cut you into little pieces
+  pre_tasks:
+    - file:
+        path:  /etc/motd
+        state: absent
+  roles:
+    - manala.motd
+  post_tasks:
+    - raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/motd:
+              exists: true
+              contains:
+                - One of these days, I'm going to cut you into little pieces
