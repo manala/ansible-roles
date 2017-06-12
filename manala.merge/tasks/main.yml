@@ -1,0 +1,4 @@
+---
+
+- include: hashes.yml
+  with_items: "{{ manala_merge_hashes }}"
