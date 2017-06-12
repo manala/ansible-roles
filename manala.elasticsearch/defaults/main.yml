@@ -1,0 +1,11 @@
+---
+
+manala_elasticsearch_dir: /usr/share/elasticsearch
+
+# Config
+manala_elasticsearch_config_file:     /etc/elasticsearch/elasticsearch.yml
+manala_elasticsearch_config_template: ~
+manala_elasticsearch_config:          []
+
+# Plugins
+manala_elasticsearch_plugins: []
