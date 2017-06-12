@@ -1,0 +1,18 @@
+---
+
+- name: repositories > List
+  command: "{{ manala_aptly_user|ternary('su ' ~ manala_aptly_user ~ ' -c \"', '') }}aptly repo list --raw{{ manala_aptly_user|ternary('\"', '') }}"
+  always_run: true
+  failed_when: false
+  changed_when: false
+  register: __manala_aptly_repositories_find_output
+
+- name: repositories > Create
+  command: "{{ manala_aptly_user|ternary('su ' ~ manala_aptly_user ~ ' -c \"', '') }}aptly repo create -comment={{ item.comment }} -component={{ item.component }} -distribution={{ item.distribution }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '') }}"
+  when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
+  with_items: "{{ manala_aptly_repositories }}"
+
+- name: repositories > Publish
+  command: "{{ manala_aptly_user|ternary('su ' ~ manala_aptly_user ~ ' -c \"', '') }}aptly publish repo -origin={{ item.origin }} -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '') }}"
+  when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
+  with_items: "{{ manala_aptly_repositories }}"

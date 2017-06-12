@@ -1,0 +1,7 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_aptly_config_template|ternary(manala_aptly_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_aptly_config_file }}"
+  when: (manala_aptly_config_template is not none) or (manala_aptly_config|length)
