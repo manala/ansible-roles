@@ -1,0 +1,14 @@
+---
+
+- name: alternatives > Check alt-galaxy
+  command: which alt-galaxy
+  changed_when: false
+  failed_when: false
+  register: __manala_ansible_galaxy_alternatives_check_alt_galaxy_result
+  when: not manala_ansible_galaxy_bin
+
+- name: alternatives > Set alt-galaxy
+  set_fact:
+     manala_ansible_galaxy_bin:   "{{ __manala_ansible_galaxy_alternatives_check_alt_galaxy_result.stdout }}"
+     manala_ansible_galaxy_force: true # Alt-galaxy force mode need to be explicitly set. See: https://github.com/gantsign/alt-galaxy/issues/30
+  when: not manala_ansible_galaxy_bin and __manala_ansible_galaxy_alternatives_check_alt_galaxy_result|succeeded

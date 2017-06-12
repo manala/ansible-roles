@@ -1,0 +1,27 @@
+---
+
+- name: roles > Requirements
+  copy:
+    dest: /tmp/manala_ansible_galaxy_roles.yml
+    content: |
+      {% for role in lookup('manala_ansible_galaxy_roles', manala_ansible_galaxy_roles, wantlist=True) %}
+      - src: {{ role.src }}
+      {% if role.scm is defined %}
+        scm: {{ role.scm }}
+      {% endif %}
+      {% if role.version is defined %}
+        version: {{ role.version }}
+      {% endif %}
+      {% if role.name is defined %}
+        name: {{ role.name }}
+      {% endif %}
+      {% endfor %}
+  when: manala_ansible_galaxy_roles|length
+
+- name: roles > Install
+  command: >
+    {{ manala_ansible_galaxy_bin|ternary(manala_ansible_galaxy_bin, 'ansible-galaxy') }} install
+    --role-file=/tmp/manala_ansible_galaxy_roles.yml
+    --roles-path={{ manala_ansible_galaxy_roles_path|ternary(manala_ansible_galaxy_roles_path, '/etc/ansible/roles') }}
+    {{ manala_ansible_galaxy_force|ternary('--force', '') }}
+  when: manala_ansible_galaxy_roles|length

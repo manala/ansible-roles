@@ -1,0 +1,32 @@
+---
+
+- name: Roles
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/ansible/roles/carlosbuenosvinos.ansistrano-deploy
+        - /etc/ansible/roles/jdauphant.nginx
+  vars:
+    manala_ansible_galaxy_roles:
+      - carlosbuenosvinos.ansistrano-deploy
+      - jdauphant.nginx
+      - src: jdauphant.nginx
+        version: v1.11.4
+  roles:
+    - manala.ansible-galaxy
+  post_tasks:
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/ansible/roles/carlosbuenosvinos.ansistrano-deploy:
+              exists:   true
+              filetype: directory
+            /etc/ansible/roles/jdauphant.nginx:
+              exists:   true
+              filetype: directory
