@@ -1,0 +1,34 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_grafana_config:
+      - server:
+        - http_port: 3002
+
+    manala_grafana_api_url: http://127.0.0.1:3002
+    manala_grafana_api_user: admin
+    manala_grafana_api_password: admin
+
+    manala_grafana_dashboards_exclusive: true
+    manala_grafana_dashboards:
+      - template: "{{ playbook_dir }}/templates/dashboard_test.json"
+        overwrite: true
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
+
+  roles:
+    - manala.grafana
+
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - http:
+            http://admin:admin@127.0.0.1:3002/api/search:
+              status: 200
+              timeout: 1000
+              body: ["dashboard_test"]

@@ -1,0 +1,26 @@
+---
+
+- name: Pre tasks > Clean grafana packages
+  apt:
+    package: grafana*
+    state:   absent
+    purge:   true
+  ignore_errors: true
+
+- name: Pre tasks > Clean grafana config
+  file:
+    path:  "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/grafana
+    - /default/grafana-server
+    - /var/log/grafana
+
+- name: Pre tasks > Grafana apt key
+  apt_key:
+    url: https://packagecloud.io/gpg.key
+    id:  D59097AB
+
+- name: Pre tasks > Grafana apt repository
+  apt_repository:
+    repo: deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main

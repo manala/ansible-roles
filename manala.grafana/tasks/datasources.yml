@@ -1,0 +1,60 @@
+---
+
+# Get existing datasources
+- name: datasources > Retrieve datasources
+  uri:
+    url:              "{{ manala_grafana_api_url }}/api/datasources"
+    force_basic_auth: true
+    user:             "{{ manala_grafana_api_user }}"
+    password:         "{{ manala_grafana_api_password }}"
+    return_content:   true
+  register: _manala_grafana_datasources_output
+
+# Update existing datasources
+- name: datasources > Update datasources
+  register: _manala_grafana_datasources_update_output
+  failed_when: "'Datasource updated' not in _manala_grafana_datasources_update_output|to_json"
+  uri:
+    url:                  "{{ manala_grafana_api_url }}/api/datasources/{{ item[0].id }}"
+    method:               PUT
+    HEADER_Content-Type:  application/json
+    body:                 "{{ item[1]|to_json }}"
+    force_basic_auth:     true
+    user:                 "{{ manala_grafana_api_user }}"
+    password:             "{{ manala_grafana_api_password }}"
+    status_code:          200
+  with_nested:
+    - "{{ _manala_grafana_datasources_output.json|default([]) }}"
+    - "{{ manala_grafana_datasources }}"
+  when: item[0].name == item[1].name
+
+# Create non existing datasources
+- name: datasources > Create datasources
+  register: _manala_grafana_datasources_create_output
+  failed_when: "'Datasource added' not in _manala_grafana_datasources_create_output|to_json"
+  uri:
+    url:                  "{{ manala_grafana_api_url }}/api/datasources"
+    method:               POST
+    HEADER_Content-Type:  application/json
+    body:                 '{{ item|to_json }}'
+    force_basic_auth:     true
+    user:                 "{{ manala_grafana_api_user }}"
+    password:             "{{ manala_grafana_api_password }}"
+    status_code:          200
+  with_items: "{{ manala_grafana_datasources }}"
+  when: item.name not in _manala_grafana_datasources_output.json|map(attribute='name')|list
+
+# Delete non added datasources
+- name: datasources > Delete datasources
+  register: _manala_grafana_datasources_delete_output
+  failed_when: "'Data source deleted' not in _manala_grafana_datasources_delete_output.json.message"
+  uri:
+    url:                  "{{ manala_grafana_api_url }}/api/datasources/{{ item.id }}"
+    method:               DELETE
+    HEADER_Content-Type:  application/json
+    force_basic_auth:     true
+    user:                 "{{ manala_grafana_api_user }}"
+    password:             "{{ manala_grafana_api_password }}"
+    status_code:          200
+  with_items: "{{ _manala_grafana_datasources_output.json|default([]) }}"
+  when: manala_grafana_datasources_exclusive and item.name not in manala_grafana_datasources|map(attribute='name')|list

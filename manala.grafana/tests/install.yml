@@ -1,0 +1,36 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_grafana_config:
+      - server:
+        - http_port: 3002
+
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/apt.yml
+
+  roles:
+    - manala.grafana
+
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            grafana:
+              installed: true
+        - process:
+            grafana-server:
+              running: true
+        - file:
+            /etc/grafana/grafana.ini:
+              exists: true
+              contains:
+                - http_port = 3002
+        - port:
+            tcp6:3002:
+              listening: true
+              ip:
+                - '::'
