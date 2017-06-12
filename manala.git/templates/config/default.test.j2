@@ -1,0 +1,18 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_git_config -%}
+
+{% set config_core = [] -%}
+{% set config_oh_my_zsh = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'core' -%}
+            {%- if config_core.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'oh-my-zsh' -%}
+            {%- if config_oh_my_zsh.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+{{ macros.config(config, ['core', 'oh-my-zsh']) }}

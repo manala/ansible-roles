@@ -1,0 +1,7 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_git_config_template|ternary(manala_git_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_git_config_file }}"
+  when: (manala_git_config_template is not none) or (manala_git_config|length)
