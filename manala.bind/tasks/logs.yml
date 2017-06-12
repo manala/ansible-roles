@@ -1,0 +1,8 @@
+---
+
+- name: logs > Directory
+  file:
+    path:  "{{ manala_bind_log_dir }}"
+    state: directory
+    owner: "{{ manala_bind_user }}"
+    group: "{{ manala_bind_group }}"

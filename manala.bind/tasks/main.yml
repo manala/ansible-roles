@@ -1,0 +1,28 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_bind
+
+# Logs
+- include: logs.yml
+  tags:
+    - manala_bind
+
+# Configs
+- include: configs.yml
+  tags:
+    - manala_bind
+
+# Zones
+- include: zones.yml
+  tags:
+    - manala_bind
+
+# Services
+- include: services.yml
+  tags:
+    - manala_bind
+    - manala_bind.services
+    - manala.services

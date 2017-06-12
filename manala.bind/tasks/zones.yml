@@ -1,0 +1,19 @@
+---
+
+- name: zones > Directory
+  file:
+    path:  "{{ manala_bind_zones_dir }}"
+    state: directory
+    owner: "{{ manala_bind_user }}"
+    group: "{{ manala_bind_group }}"
+
+- name: zones > Templates
+  template:
+    src:  "{{ item.template }}"
+    dest: "{{ manala_bind_zones_dir }}/{{ item.file }}"
+    owner: root
+    group: "{{ manala_bind_group }}"
+    mode:  0644
+  with_items: "{{ manala_bind_zones }}"
+  notify:
+    - bind reload

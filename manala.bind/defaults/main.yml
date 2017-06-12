@@ -1,0 +1,16 @@
+---
+
+# User / Group
+manala_bind_user:  bind
+manala_bind_group: bind
+
+# Logs
+manala_bind_log_dir: /var/log/bind
+
+# Configs
+manala_bind_configs_dir: /etc/bind
+manala_bind_configs:     []
+
+# Zones
+manala_bind_zones_dir: "{{ manala_bind_configs_dir }}/zones"
+manala_bind_zones:     []
