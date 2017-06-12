@@ -1,0 +1,23 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_haproxy
+
+# Errorfiles
+- include: errorfiles.yml
+  tags:
+    - manala_haproxy
+
+# Config
+- include: config.yml
+  tags:
+    - manala_haproxy
+
+# Services
+- include: services.yml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.services
+    - manala.services

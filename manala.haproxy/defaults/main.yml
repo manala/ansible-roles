@@ -1,0 +1,9 @@
+---
+
+# Errorfiles
+manala_haproxy_errorfiles_dir: /etc/haproxy/errors
+manala_haproxy_errorfiles:     []
+
+# Config
+manala_haproxy_config_file:     /etc/haproxy/haproxy.cfg
+manala_haproxy_config_template: ~
