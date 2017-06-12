@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+
+  roles:
+    - manala.locales
+
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - package:
+            locales:
+              installed: true
+        - file:
+            /etc/default/locale:
+              exists: true

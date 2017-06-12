@@ -1,0 +1,7 @@
+---
+
+- name: codes_default > Configure
+  lineinfile:
+    dest:   /etc/default/locale
+    regexp: "LANG="
+    line:   "LANG={{ manala_locales_codes_default }}"

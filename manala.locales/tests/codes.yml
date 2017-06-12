@@ -1,0 +1,26 @@
+---
+
+- hosts: all
+
+  vars:
+    manala_locales_codes:
+      - de_DE.UTF-8
+      - en_US.UTF-8
+      - es_ES.UTF-8
+      - fr_FR.UTF-8
+
+  roles:
+    - manala.locales
+
+  post_tasks:
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - command:
+            locale -a:
+              exit-status: 0
+              stdout:
+                - de_DE.utf8
+                - en_US.utf8
+                - es_ES.utf8
+                - fr_FR.utf8
