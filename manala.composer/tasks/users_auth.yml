@@ -1,0 +1,15 @@
+---
+
+- name: users_auth > Directory
+  file:
+    path:  "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer"
+    state: directory
+    owner: "{{ item.user }}"
+  with_items: "{{ manala_composer_users_auth }}"
+
+- name: users_auth > Template
+  template:
+    src:   "{{ item.template|default(manala_composer_users_auth_template|ternary(manala_composer_users_auth_template, 'users/auth/empty.j2')) }}"
+    dest:  "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer/auth.json"
+    owner: "{{ item.user }}"
+  with_items: "{{ manala_composer_users_auth }}"

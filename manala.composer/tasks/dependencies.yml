@@ -1,0 +1,13 @@
+---
+
+- name: dependencies > Packages
+  apt:
+    name:  "{{ item }}"
+    force: true
+    state: present
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  with_items:
+    - openssl
+    - ca-certificates
