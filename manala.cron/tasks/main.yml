@@ -1,0 +1,17 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_cron
+
+# Files
+- include: files.yml
+  tags:
+    - manala_cron
+
+# Services
+- include: services.yml
+  tags:
+    - manala_cron
+    - manala.services

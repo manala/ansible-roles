@@ -1,0 +1,19 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  author:              Manala
+  company:             Manala
+  description:         Handle cron
+  license:             MIT
+  min_ansible_version: 2.1.0
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+  galaxy_tags:
+    - system
+    - cron
