@@ -1,0 +1,83 @@
+---
+
+- hosts: localhost
+
+  vars:
+
+    manala_environment_files:
+      - pam
+      - zsh
+      - file:   /etc/profile.d/test.sh
+        export: true
+
+    manala_environment_variables:
+      - FOO: bar
+      - BAR: foo
+      - BAR: baz
+      - name:  FOO_EXPANDED
+        value: bar_expanded
+      - FOO_NULL:  null
+      - FOO_TRUE:  true
+      - FOO_FALSE: false
+
+  pre_tasks:
+    - copy:
+        dest:    /etc/environment
+        content: |
+          BAZ="baz"
+          FOO="foo"
+    - file:
+        path:  /etc/zsh
+        state: directory
+    - copy:
+        dest:    /etc/zsh/zshenv
+        content: |
+          # /etc/zsh/zshenv
+    - copy:
+        dest:    /etc/profile.d/test.sh
+        content: |
+          # /etc/profile.d/test.sh
+
+  roles:
+    - manala.environment
+
+  post_tasks:
+
+    # Goss
+    - name: Goss
+      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
+      with_items:
+        - file:
+            /etc/environment:
+              exists:   true
+              filetype: file
+              contains:
+                - 'BAZ=\"baz\"'
+                - 'FOO=\"bar\"'
+                - 'BAR=\"baz\"'
+                - 'FOO_EXPANDED=\"bar_expanded\"'
+                - 'FOO_NULL=\"null\"'
+                - 'FOO_TRUE=\"true\"'
+                - 'FOO_FALSE=\"false\"'
+            /etc/zsh/zshenv:
+              exists:   true
+              filetype: file
+              contains:
+                - '# /etc/zsh/zshenv'
+                - 'export FOO=\"bar\"'
+                - 'export BAR=\"baz\"'
+                - 'export FOO_EXPANDED=\"bar_expanded\"'
+                - 'export FOO_NULL=\"null\"'
+                - 'export FOO_TRUE=\"true\"'
+                - 'export FOO_FALSE=\"false\"'
+            /etc/profile.d/test.sh:
+              exists:   true
+              filetype: file
+              contains:
+                - '# /etc/profile.d/test.sh'
+                - 'export FOO=\"bar\"'
+                - 'export BAR=\"baz\"'
+                - 'export FOO_EXPANDED=\"bar_expanded\"'
+                - 'export FOO_NULL=\"null\"'
+                - 'export FOO_TRUE=\"true\"'
+                - 'export FOO_FALSE=\"false\"'
