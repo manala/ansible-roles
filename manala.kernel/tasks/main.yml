@@ -1,0 +1,11 @@
+---
+
+# Modules
+- include: modules.yml
+  tags:
+    - manala_kernel
+
+# Parameters
+- include: parameters.yml
+  tags:
+    - manala_kernel
