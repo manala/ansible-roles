@@ -9,6 +9,8 @@ splits:
     target: git@github.com:manala/ansible-role-alternatives.git
   - prefix: manala.ansible
     target: git@github.com:manala/ansible-role-ansible.git
+  - prefix: manala.ansible-galaxy
+    target: git@github.com:manala/ansible-role-ansible-galaxy.git
   - prefix: manala.apparmor
     target: git@github.com:manala/ansible-role-apparmor.git
   - prefix: manala.apt

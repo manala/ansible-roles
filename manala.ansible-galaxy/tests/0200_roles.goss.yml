@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/ansible/roles/carlosbuenosvinos.ansistrano-deploy:
+    exists:   true
+    filetype: directory
+  /etc/ansible/roles/jdauphant.nginx:
+    exists:   true
+    filetype: directory
