@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.2] - 2017-06-14
+### Added
+- Force npm update to false to avoid unwanted npm package updates
+
 ## [1.0.1] - 2017-05-12
 ### Added
 - `httpie` package preference & pattern
