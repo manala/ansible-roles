@@ -1,0 +1,8 @@
+---
+
+# Packages
+manala_npm_packages: []
+
+# Manala
+manala_npm:
+  update: "{{ (manala|default({'update':false}))['update'] }}"
