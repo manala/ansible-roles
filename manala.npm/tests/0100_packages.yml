@@ -1,0 +1,33 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_npm_packages:
+      - is-positive
+      - user-home
+      - package: negative-zero
+        state: absent
+      - package: negative-zero
+        state: present
+  pre_tasks:
+    - include: pre_tasks/nodesource_6.yml
+    - copy:
+        dest: /etc/apt/preferences.d/nodejs
+        content: |
+          Package:      nodejs*
+          Pin:          origin deb.nodesource.com
+          Pin-Priority: 900
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - nodejs
+  roles:
+    - manala.npm
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

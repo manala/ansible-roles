@@ -1,0 +1,12 @@
+---
+
+file:
+  /usr/lib/node_modules/is-positive:
+    exists:   true
+    filetype: directory
+  /usr/lib/node_modules/user-home:
+    exists:   true
+    filetype: directory
+  /usr/lib/node_modules/negative-zero:
+    exists:   true
+    filetype: directory

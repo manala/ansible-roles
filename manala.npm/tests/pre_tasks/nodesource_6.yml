@@ -2,15 +2,9 @@
 
 - name: Pre tasks > Nodesource apt key
   apt_key:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id:        68576280
+    file: pre_tasks/apt_keys/nodesource.pgp
+    id: 68576280
 
 - name: Pre tasks > Nodesource apt repository
   apt_repository:
     repo: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
-
-- name: Pre tasks > Nodejs
-  apt:
-    package: "{{ item }}"
-  with_items:
-    - nodejs
