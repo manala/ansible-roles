@@ -137,6 +137,12 @@ manala_skeleton_patterns:
     }}"
     # MailHog
     mailhog_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Npm
+    npm:
+      # Force npm update to false, even if global manala.update si set to true.
+      # In case of a project setup, update npm itself (as a global npm package)
+      # could lead to unwanted behaviors
+      update: false
     # Supervisor
     supervisor_config_template: config/default.{{ manala_skeleton_env }}.j2
     supervisor_configs_exclusive: true
