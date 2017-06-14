@@ -1,0 +1,12 @@
+---
+- name: requirements > Node check
+  command: "node --version"
+  always_run: true
+  failed_when: false
+  changed_when: false
+  register: __manala_node_check_output
+
+- name: requirements > Node check fail
+  fail:
+    msg: Need node, you can use https://github.com/manala/ansible-role-nodejs
+  when: __manala_node_check_output.stdout is not defined

@@ -1,0 +1,19 @@
+---
+
+# Requirements
+- include: requirements.yml
+  tags:
+    - manala_npm
+
+# Update
+- include: update.yml
+  when: "{{ manala_npm['update']|default(false) }}"
+  tags:
+    - manala_npm
+    - manala_npm.update
+    - manala.update
+
+# Packages
+- include: packages.yml
+  tags:
+    - manala_npm
