@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - include: pre_tasks/aptly.yml
+    - copy:
+        dest: /etc/apt/preferences.d/aptly
+        content: |
+          Package:      aptly*
+          Pin:          origin repo.aptly.info
+          Pin-Priority: 900
+  roles:
+    - manala.aptly
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

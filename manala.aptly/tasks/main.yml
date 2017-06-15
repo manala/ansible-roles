@@ -1,5 +1,16 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_aptly
+
+# Config
 - include: config.yml
+  tags:
+    - manala_aptly
+
+# Repositories
 - include: repositories.yml
+  tags:
+    - manala_aptly

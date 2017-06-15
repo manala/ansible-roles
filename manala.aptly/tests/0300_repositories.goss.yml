@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/aptly.conf:
+    exists: true
+    contains:
+      - '"rootDir": "/tmp/aptly"'

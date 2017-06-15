@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Aptly apt key
+  apt_key:
+    file: pre_tasks/apt_keys/aptly.pgp
+    id: 9C7DE460
+
+- name: Pre tasks > Aptly apt repository
+  apt_repository:
+    repo: deb http://repo.aptly.info/ squeeze main

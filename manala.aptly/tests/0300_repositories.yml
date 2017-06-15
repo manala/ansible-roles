@@ -1,0 +1,45 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_aptly_config:
+      - rootDir: /tmp/aptly
+      - architectures:
+          - amd64
+    manala_aptly_repositories:
+      - name:         foo
+        comment:      Foo
+        component:    main
+        distribution: jessie
+        origin:       Bar
+        label:        Bar
+  pre_tasks:
+    - include: pre_tasks/aptly.yml
+    - copy:
+        dest: /etc/apt/preferences.d/aptly
+        content: |
+          Package:      aptly*
+          Pin:          origin repo.aptly.info
+          Pin-Priority: 900
+    - copy:
+        dest: /tmp/gpg
+        content: |
+          Key-Type: 1
+          Key-Length: 2048
+          Subkey-Type: 1
+          Subkey-Length: 2048
+          Name-Real: Foo
+          Name-Email: foo@bar.com
+          Expire-Date: 0
+    - command: gpg --batch --gen-key /tmp/gpg
+      args:
+        creates: ~/.gnupg/trustdb.gpg
+  roles:
+    - manala.aptly
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

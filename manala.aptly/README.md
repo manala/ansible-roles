@@ -1,12 +1,10 @@
-# Ansible Role: Aptly
+# Ansible Role: Aptly [![Build Status](https://travis-ci.org/manala/ansible-role-aptly.svg?branch=master)](https://travis-ci.org/manala/ansible-role-aptly)
 
-This role will add third party sources to the package manager by:
-- Adding source URL as new repository
-- Adding secure key specified
-- Managing packages preferences files (aka. pinning)
-- Installing packages
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will deal with the setup of [Aptly](https://www.aptly.info/).
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
