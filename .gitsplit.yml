@@ -45,6 +45,8 @@ splits:
     target: git@github.com:manala/ansible-role-java.git
   - prefix: manala.keepalived
     target: git@github.com:manala/ansible-role-keepalived.git
+  - prefix: manala.locales
+    target: git@github.com:manala/ansible-role-locales.git
   - prefix: manala.logentries
     target: git@github.com:manala/ansible-role-logentries.git
   - prefix: manala.logrotate
@@ -59,6 +61,8 @@ splits:
     target: git@github.com:manala/ansible-role-mongo-express.git
   - prefix: manala.mongodb
     target: git@github.com:manala/ansible-role-mongodb.git
+  - prefix: manala.motd
+    target: git@github.com:manala/ansible-role-motd.git
   - prefix: manala.mysql
     target: git@github.com:manala/ansible-role-mysql.git
   - prefix: manala.nginx
