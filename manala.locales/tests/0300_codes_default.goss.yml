@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/default/locale:
+    exists: true
+    contains:
+      - LANG=fr_FR.UTF-8

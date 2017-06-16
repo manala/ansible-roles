@@ -1,0 +1,9 @@
+---
+
+package:
+  locales:
+    installed: true
+
+file:
+  /etc/default/locale:
+    exists: true

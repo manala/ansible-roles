@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_locales_codes:
+      - de_DE.UTF-8
+      - en_US.UTF-8
+      - es_ES.UTF-8
+      - fr_FR.UTF-8
+  roles:
+    - manala.locales
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
