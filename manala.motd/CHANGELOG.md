@@ -7,6 +7,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ## [1.0.0] - 2016-11-22
-
 ### Added
 - Provision motd template file.

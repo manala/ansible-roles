@@ -1,0 +1,15 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_motd_template: template/manala.j2
+    manala_motd_message:  One of these days, I'm going to cut you into little pieces
+  roles:
+    - manala.motd
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
