@@ -1,0 +1,37 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_environment_files:
+      - pam
+      - zsh
+      - file:   /etc/profile.d/test.sh
+        export: true
+    manala_environment_variables:
+      - FOO: bar
+  pre_tasks:
+    - copy:
+        dest: /etc/environment
+        content: |
+          BAZ="baz"
+          FOO="foo"
+    - file:
+        path: /etc/zsh
+        state: directory
+    - copy:
+        dest: /etc/zsh/zshenv
+        content: |
+          # /etc/zsh/zshenv
+    - copy:
+        dest: /etc/profile.d/test.sh
+        content: |
+          # /etc/profile.d/test.sh
+  roles:
+    - manala.environment
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

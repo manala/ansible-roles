@@ -1,0 +1,36 @@
+---
+
+file:
+  /etc/environment:
+    exists: true
+    filetype: file
+    contains:
+      - 'BAZ="baz"'
+      - 'FOO="bar"'
+      - 'BAR="baz"'
+      - 'FOO_EXPANDED="bar_expanded"'
+      - 'FOO_NULL="null"'
+      - 'FOO_TRUE="true"'
+      - 'FOO_FALSE="false"'
+  /etc/zsh/zshenv:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/zsh/zshenv'
+      - 'export FOO="bar"'
+      - 'export BAR="baz"'
+      - 'export FOO_EXPANDED="bar_expanded"'
+      - 'export FOO_NULL="null"'
+      - 'export FOO_TRUE="true"'
+      - 'export FOO_FALSE="false"'
+  /etc/profile.d/test.sh:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/profile.d/test.sh'
+      - 'export FOO="bar"'
+      - 'export BAR="baz"'
+      - 'export FOO_EXPANDED="bar_expanded"'
+      - 'export FOO_NULL="null"'
+      - 'export FOO_TRUE="true"'
+      - 'export FOO_FALSE="false"'
