@@ -1,8 +1,10 @@
-# Ansible Role: Composer
+# Ansible Role: Composer [![Build Status](https://travis-ci.org/manala/ansible-role-composer.svg?branch=master)](https://travis-ci.org/manala/ansible-role-composer)
 
-This role will deal with the setup of [composer](https://getcomposer.org)
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will deal with the setup of [Composer](https://getcomposer.org)
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
@@ -53,23 +55,15 @@ None.
 #### Composer configuration with github token
 
 ```yaml
-manala_composer_config:
-  auth:
-    github-oauth:
-      github.com: <your-github-token>
-```
-
-#### Composer configuration with global packages
-
-```yaml
-manala_composer_home: /home/vagrant/.composer
-manala_composer_packages:
-  - name:     phpunit/phpunit
-    version:  '@stable'
-    bin_dir:  /usr/local/bin
-  - name:     squizlabs/php_codesniffer
-    version:  '@stable'
-    bin_dir:  /usr/local/bin
+manala_composer_users_auth:
+  - user: foo
+    config:
+      - github-oauth:
+        - github.com: 9927d2878ffa105fc5236c762f2fd7zfd28b841d
+      - http-basic:
+        - repo.example1.org:
+          - username: my-username1
+          - password: my-secret-password1
 ```
 
 ## Example playbook

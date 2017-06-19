@@ -1,0 +1,28 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_composer_users_auth:
+      - user: root
+        config:
+          - github-oauth:
+            - github.com: 9927d2878ffa105fc5236c762f2fd7zfd28b841d
+          - http-basic:
+            - repo.example1.org:
+              - username: my-username1
+              - password: my-secret-password1
+  pre_tasks:
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - php5-cli
+  roles:
+    - manala.composer
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
