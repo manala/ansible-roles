@@ -1,10 +1,9 @@
 ---
 
-- hosts: localhost
-  gather_facts: false
-
+- name: "{{ test }}"
+  hosts: all
+  become: true
   vars:
-
     manala_merge_hashes:
       # Simple
       - hashes:
@@ -24,15 +23,12 @@
       - hashes:
           - test_regex
           - test_(\w*)_regex
-
     test_a:
       pattern_a: 1
       pattern_b: b
       pattern_c: d
-
     test_b:
       pattern_c: c
-
     # Regex
     test_regex:
       pattern_regex:
@@ -46,12 +42,9 @@
     test_foo_bar_123_regex:
       pattern_regex:
         - 4
-
   roles:
     - manala.merge
-
   post_tasks:
-
     # Asserts
     - assert:
         that:

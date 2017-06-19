@@ -57,6 +57,8 @@ splits:
     target: git@github.com:manala/ansible-role-make.git
   - prefix: manala.maxscale
     target: git@github.com:manala/ansible-role-maxscale.git
+  - prefix: manala.merge
+    target: git@github.com:manala/ansible-role-merge.git
   - prefix: manala.mongo-express
     target: git@github.com:manala/ansible-role-mongo-express.git
   - prefix: manala.mongodb
