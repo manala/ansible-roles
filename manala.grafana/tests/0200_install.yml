@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_grafana_config:
+      - server:
+        - http_port: 3002
+  pre_tasks:
+    - include: pre_tasks/disable_systemd.yml
+    - include: pre_tasks/grafana.yml
+  roles:
+   - manala.grafana
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

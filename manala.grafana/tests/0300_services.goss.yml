@@ -1,0 +1,16 @@
+---
+
+service:
+  grafana-server:
+    enabled: true
+    running: true
+
+process:
+  grafana-server:
+    running: true
+
+port:
+  tcp6:3000:
+    listening: true
+    ip:
+      - '::'

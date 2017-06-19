@@ -1,25 +1,24 @@
 .SILENT:
-.PHONY: help
+.PHONY: help dev lint test
 
 ## Colors
 COLOR_RESET   = \033[0m
 COLOR_INFO    = \033[32m
 COLOR_COMMENT = \033[33m
+COLOR_ERROR   = \033[31m
 
-## Role
-ROLE_NAME = manala.grafana
+## Ansible
+ANSIBLE_ROLE     = manala.grafana
+ANSIBLE_VERSION ?=
 
-## Macros
-DOCKER = docker run \
-    --rm \
-    --volume `pwd`:/etc/ansible/roles/${ROLE_NAME} \
-    --volume `pwd`:/srv \
-    --workdir /srv \
-    --tty \
-    --cap-add SYS_PTRACE \
-    ${DOCKER_OPTIONS} \
-    manala/ansible-debian:${DEBIAN_DISTRIBUTION} \
-    ${DOCKER_COMMAND}
+export ANSIBLE_FORCE_COLOR = true
+
+## Debian
+DEBIAN_DISTRIBUTION ?= wheezy jessie
+
+# Docker
+DOCKER_IMAGE = manala/ansible-debian
+DOCKER_TAG  ?= ${ANSIBLE_VERSION}
 
 ## Help
 help:
@@ -34,77 +33,89 @@ help:
 			printf " ${COLOR_INFO}%-16s${COLOR_RESET} %s\n", helpCommand, helpMessage; \
 		} \
 	} \
-	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+	{ lastLine = $$0 }' ${MAKEFILE_LIST}
 
 #######
 # Dev #
 #######
 
-## Run dev container on debian wheezy
-dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
-dev@wheezy: DOCKER_OPTIONS      = --interactive --publish 3002:3002
-dev@wheezy: DOCKER_COMMAND      = /bin/bash
-dev@wheezy:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+## Dev
+dev:
+	docker run \
+		--rm \
+		--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
+		--volume `pwd`:/srv \
+		--workdir /srv \
+		--tty --interactive \
+		--privileged \
+		--env USER_ID=`id -u` \
+		--env GROUP_ID=`id -g` \
+		${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)$(lastword ${DEBIAN_DISTRIBUTION})
 
-## Run dev container on debian jesssie
+## Dev - Wheezy
+dev@wheezy: DEBIAN_DISTRIBUTION = wheezy
+dev@wheezy: dev
+
+## Dev - Jessie
 dev@jessie: DEBIAN_DISTRIBUTION = jessie
-dev@jessie: DOCKER_OPTIONS      = --interactive --publish 3002:3002
-dev@jessie: DOCKER_COMMAND      = /bin/bash
-dev@jessie:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+dev@jessie: dev
 
 ########
 # Lint #
 ########
 
-lint@wheezy: DEBIAN_DISTRIBUTION = wheezy
-lint@wheezy: DOCKER_COMMAND      = make lint
-lint@wheezy:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
-
-lint@jessie: DEBIAN_DISTRIBUTION = jessie
-lint@jessie: DOCKER_COMMAND      = make lint
-lint@jessie:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
-
+## Lint
 lint:
-	ansible-lint -v -x deprecated .
+	printf "${COLOR_INFO}Lint${COLOR_RESET}\n\n"
+	docker run \
+		--rm \
+		--volume `pwd`:/srv \
+		--workdir /srv \
+		${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)$(lastword ${DEBIAN_DISTRIBUTION}) \
+		ansible-lint --force-color -v .
 
 ########
 # Test #
 ########
 
-## Run tests on debian wheezy
+## Test
+test:
+	EXIT=0 ; ${foreach \
+		distribution,\
+		${DEBIAN_DISTRIBUTION},\
+		printf "\n${COLOR_INFO}Test ${COLOR_COMMENT}${distribution}${COLOR_RESET}\n\n" && \
+			${foreach \
+				test,\
+				${TESTS},\
+				docker run \
+					--rm \
+					--volume `pwd`:/etc/ansible/roles/${ANSIBLE_ROLE} \
+					--volume `pwd`:/srv \
+					--volume `pwd`/tests/cache/apt/archives:/var/cache/apt/archives \
+					--volume `pwd`/tests/cache/apt/lists:/var/lib/apt/lists \
+					--workdir /srv \
+					--privileged \
+					${DOCKER_IMAGE}:$(if ${DOCKER_TAG},${DOCKER_TAG}-)${distribution} \
+					sh -c 'make ${test}' || EXIT=$$? ;\
+			} \
+	} exit $$EXIT
+
+TESTS = ${sort \
+	${foreach \
+		test,\
+		${wildcard tests/*.yml},\
+		${if ${findstring .goss.,${test}},,${test}}\
+	}\
+}
+
+tests/%.yml: FORCE
+	ansible-playbook $@ --extra-vars="test=${subst .yml,,${subst tests/,,$@}}"
+FORCE:
+
+## Test - Wheezy
 test@wheezy: DEBIAN_DISTRIBUTION = wheezy
-test@wheezy: DOCKER_COMMAND      = sh -c 'make test'
-test@wheezy: DOCKER_OPTIONS      =
-test@wheezy:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
+test@wheezy: test
 
-## Run tests on debian jessie
+## Test - Jessie
 test@jessie: DEBIAN_DISTRIBUTION = jessie
-test@jessie: DOCKER_COMMAND      = sh -c 'make test'
-test@wheezy: DOCKER_OPTIONS      =
-test@jessie:
-	printf "${COLOR_INFO}Run docker...${COLOR_RESET}\n"
-	$(DOCKER)
-
-test: test-install test-datasources test-dashboards
-
-test-install:
-	ansible-playbook tests/install.yml --syntax-check
-	ansible-playbook tests/install.yml
-
-test-datasources:
-	ansible-playbook tests/datasources.yml --syntax-check
-	ansible-playbook tests/datasources.yml
-
-test-dashboards:
-	ansible-playbook tests/dashboards.yml --syntax-check
-	ansible-playbook tests/dashboards.yml
+test@jessie: test

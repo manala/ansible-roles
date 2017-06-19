@@ -1,0 +1,7 @@
+---
+
+http:
+  http://admin:admin@127.0.0.1:3002/api/datasources:
+    status: 200
+    timeout: 1000
+    body: ["datasource_test"]

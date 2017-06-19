@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Packagecloud apt key
+  apt_key:
+    file: pre_tasks/apt_keys/packagecloud.pgp
+    id: D59097AB
+
+- name: Pre tasks > Grafana apt repository
+  apt_repository:
+    repo: deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main
