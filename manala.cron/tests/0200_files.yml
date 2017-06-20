@@ -1,0 +1,23 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_cron_files:
+      - file: app
+        user: foo
+        environment:
+          - FOO: bar
+        jobs:
+          - name:   foo-bar
+            job:    "php /srv/app/bin/console app:foo:bar"
+            minute: 0
+            hour:   7
+  roles:
+    - manala.cron
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

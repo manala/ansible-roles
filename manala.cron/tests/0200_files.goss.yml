@@ -1,0 +1,13 @@
+---
+
+file:
+  /etc/cron.d/app:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - 'FOO="bar"'
+      - '#Ansible: foo-bar'
+      - '0 7 * * * foo php /srv/app/bin/console app:foo:bar'

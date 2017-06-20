@@ -27,6 +27,8 @@ splits:
     target: git@github.com:manala/ansible-role-cloud-init.git
   - prefix: manala.composer
     target: git@github.com:manala/ansible-role-composer.git
+  - prefix: manala.cron
+    target: git@github.com:manala/ansible-role-cron.git
   - prefix: manala.deploy
     target: git@github.com:manala/ansible-role-deploy.git
   - prefix: manala.dnsmasq
