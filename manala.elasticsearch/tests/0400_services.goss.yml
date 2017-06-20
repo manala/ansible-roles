@@ -1,0 +1,6 @@
+---
+
+service:
+  elasticsearch:
+    enabled: true
+    running: true

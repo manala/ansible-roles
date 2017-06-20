@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/elasticsearch/elasticsearch.yml:
+    exists: true
+    mode: "0750"
+    owner: root
+    group: elasticsearch
+    filetype: file
+    contains:
+      - "node.name: Foo Bar"

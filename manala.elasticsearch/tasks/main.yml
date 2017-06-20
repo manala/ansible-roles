@@ -1,9 +1,27 @@
 ---
 
+# Requirements
 - include: requirements.yml
+  tags:
+    - manala_elasticsearch
+
+# Install
 - include: install.yml
+  tags:
+    - manala_elasticsearch
+
+# Config
 - include: config.yml
+  tags:
+    - manala_elasticsearch
+
+# Services
 - include: services.yml
   tags:
+    - manala_elasticsearch
     - manala.services
+
+# Plugins
 - include: plugins.yml
+  tags:
+    - manala_elasticsearch
