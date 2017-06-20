@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_bind_zones:
+      - file: db.foo.bar
+        template: fixtures/db.foo.bar.j2
+  roles:
+    - manala.bind
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

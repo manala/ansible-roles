@@ -1,0 +1,8 @@
+---
+
+file:
+  /etc/bind/named.conf.local:
+    exists: true
+    filetype: file
+    contains:
+      - // Foo bar

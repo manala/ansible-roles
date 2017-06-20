@@ -1,0 +1,9 @@
+---
+
+file:
+  /var/log/bind:
+    exists: true
+    mode: "0755"
+    owner: bind
+    group: bind
+    filetype: directory

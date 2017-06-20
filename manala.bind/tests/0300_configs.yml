@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_bind_configs:
+      - file: named.conf.local
+        template: fixtures/named.conf.local.j2
+  roles:
+    - manala.bind
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

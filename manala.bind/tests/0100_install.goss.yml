@@ -1,0 +1,5 @@
+---
+
+package:
+  bind9:
+    installed: true
