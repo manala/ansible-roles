@@ -61,6 +61,8 @@ splits:
     target: git@github.com:manala/ansible-role-java.git
   - prefix: manala.keepalived
     target: git@github.com:manala/ansible-role-keepalived.git
+  - prefix: manala.kernel
+    target: git@github.com:manala/ansible-role-kernel.git
   - prefix: manala.locales
     target: git@github.com:manala/ansible-role-locales.git
   - prefix: manala.logentries
