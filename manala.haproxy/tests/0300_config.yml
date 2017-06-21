@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_haproxy_config_template: fixtures/haproxy.cfg.j2
+  pre_tasks:
+    - include: pre_tasks/backports.yml
+  roles:
+    - manala.haproxy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

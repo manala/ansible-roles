@@ -47,6 +47,8 @@ splits:
     target: git@github.com:manala/ansible-role-gitlab.git
   - prefix: manala.grafana
     target: git@github.com:manala/ansible-role-grafana.git
+  - prefix: manala.haproxy
+    target: git@github.com:manala/ansible-role-haproxy.git
   - prefix: manala.heka
     target: git@github.com:manala/ansible-role-heka.git
   - prefix: manala.hugo

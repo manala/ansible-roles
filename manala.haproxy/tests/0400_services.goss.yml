@@ -1,0 +1,6 @@
+---
+
+service:
+  haproxy:
+    enabled: true
+    running: true
