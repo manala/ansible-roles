@@ -43,6 +43,8 @@ splits:
     target: git@github.com:manala/ansible-role-fail2ban.git
   - prefix: manala.files
     target: git@github.com:manala/ansible-role-files.git
+  - prefix: manala.git
+    target: git@github.com:manala/ansible-role-git.git
   - prefix: manala.gitlab
     target: git@github.com:manala/ansible-role-gitlab.git
   - prefix: manala.grafana

@@ -1,0 +1,9 @@
+---
+
+file:
+  /tmp/ansible-role-git/.git:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: directory

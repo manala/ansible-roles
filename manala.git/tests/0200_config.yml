@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_git_config:
+      - core:
+        - preloadindex: true
+  pre_tasks:
+    - include: pre_tasks/backports.yml
+  roles:
+    - manala.git
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

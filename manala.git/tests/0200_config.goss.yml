@@ -1,0 +1,12 @@
+---
+
+file:
+  /etc/gitconfig:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "[core]"
+      - "    preloadindex = true"
