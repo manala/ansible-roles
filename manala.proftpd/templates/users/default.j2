@@ -1,0 +1,3 @@
+{% for user in manala_proftpd_users %}
+    {{ user.name }}:{{ user.password }}:{{ user.uid|default(108) }}:{{ user.gid|default(100) }}::{{ user.home }}:{{ user.shell|default('/bin/false') }}
+{% endfor %}

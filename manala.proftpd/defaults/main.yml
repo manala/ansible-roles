@@ -1,0 +1,12 @@
+---
+
+# Configs
+manala_proftpd_configs_exclusive: false
+manala_proftpd_configs_dir:       /etc/proftpd/conf.d
+manala_proftpd_configs_template:  ~
+manala_proftpd_configs:           []
+
+# Users
+manala_proftpd_users_file:        /etc/ftpd.passwd
+manala_proftpd_users_template:    ~
+manala_proftpd_users:             []
