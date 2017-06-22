@@ -1,0 +1,9 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_varnish_config_template|ternary(manala_varnish_config_template, 'config/default.j2') }}"
+    dest: "{{ manala_varnish_config_file }}"
+  when: (manala_varnish_config_template is not none) or (manala_varnish_config|length)
+  notify:
+    - varnish restart
