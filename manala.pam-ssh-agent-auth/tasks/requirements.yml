@@ -1,0 +1,13 @@
+---
+
+- name: requirements > Sudo package check
+  command: "dpkg -s sudo"
+  always_run: yes
+  failed_when: false
+  changed_when: false
+  register: _elao_sudo_package_check_output
+
+- name: requirements > Sudo package check fail
+  fail:
+    msg: Package "sudo" must be installed
+  when: _elao_sudo_package_check_output.rc != 0
