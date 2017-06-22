@@ -1,0 +1,33 @@
+---
+
+- name: templates > Download
+  get_url:
+    url:  "{{ item.url }}"
+    dest: "{{ manala_proxmox_templates_dir }}/{{ item.file|default(item.url|basename) }}"
+  with_items: "{{ manala_proxmox_templates }}"
+
+- name: templates > Compute files 1
+  set_fact:
+    __manala_proxmox_templates_files_item: "{{ item.file|default(item.url|basename) }}"
+  with_items: "{{ manala_proxmox_templates }}"
+  register: __manala_proxmox_templates_files_result
+
+- name: templates > Compute files 2
+  set_fact:
+    __manala_proxmox_templates_files: "{{ __manala_proxmox_templates_files_result.results|map(attribute='ansible_facts.__manala_proxmox_templates_files_item')|list }}"
+  when: __manala_proxmox_templates_files_result.results is defined
+
+- name: templates > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_proxmox_templates_dir }}"
+  changed_when: false
+  register: __manala_proxmox_templates_find_output
+  when: manala_proxmox_templates_exclusive
+
+- name: templates > Exclusive - remove files
+  file:
+    path:  "{{ manala_proxmox_templates_dir }}/{{ item }}"
+    state: absent
+  when: manala_proxmox_templates_exclusive and (item not in __manala_proxmox_templates_files)
+  with_items: "{{ __manala_proxmox_templates_find_output.stdout_lines|default([]) }}"

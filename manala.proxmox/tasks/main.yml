@@ -1,0 +1,11 @@
+---
+
+# Templates
+- include: templates.yml
+  tags:
+    - manala_proxmox
+
+# Storages
+- include: storages.yml
+  tags:
+    - manala_proxmox
