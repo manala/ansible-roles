@@ -1,0 +1,10 @@
+---
+
+- name: points > Mount points
+  mount:
+    name:   "{{ item.path }}"
+    fstype: "{{ item.fstype }}"
+    src:    "{{ item.src }}"
+    opts:   "{{ item.opts|default(omit) }}"
+    state:  "{{ item.state|default('mounted') }}"
+  with_items: "{{ manala_mount_points }}"
