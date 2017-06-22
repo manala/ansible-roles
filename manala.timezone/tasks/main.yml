@@ -1,0 +1,6 @@
+---
+
+# Default
+- include: default.yml
+  tags:
+    - manala_timezone

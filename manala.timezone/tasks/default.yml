@@ -1,0 +1,12 @@
+---
+
+- name: default > Template
+  template:
+    src:   "{{ manala_timezone_template|ternary(manala_timezone_template, 'timezone/timezone.j2') }}"
+    dest:  "{{ manala_timezone_file }}"
+    owner: root
+    group: root
+    mode:  0644
+  when: (manala_timezone_template is not none) or (manala_timezone_default is not none)
+  notify:
+    - dpkg-reconfigure tzdata

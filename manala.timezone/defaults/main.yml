@@ -1,0 +1,6 @@
+---
+
+# Timezone
+manala_timezone_file:     /etc/timezone
+manala_timezone_template: ~
+manala_timezone_default:  ~
