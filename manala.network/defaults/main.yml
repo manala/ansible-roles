@@ -1,0 +1,15 @@
+---
+
+# Hosts
+manala_network_hosts_file: /etc/hosts
+manala_network_hosts: []
+
+# Resolver
+manala_network_resolver_file:     /etc/resolv.conf
+manala_network_resolver_template: ~
+manala_network_resolver_config:   []
+
+# Interfaces
+manala_network_interfaces_file:     /etc/network/interfaces
+manala_network_interfaces_template: ~
+manala_network_interfaces_config:   []

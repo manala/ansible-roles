@@ -1,0 +1,7 @@
+---
+
+- name: resolver > Template
+  template:
+    src:  "{{ manala_network_resolver_template|ternary(manala_network_resolver_template, 'resolver/empty.conf.j2') }}"
+    dest: "{{ manala_network_resolver_file }}"
+  when: (manala_network_resolver_template is not none) or (manala_network_resolver_config|length)

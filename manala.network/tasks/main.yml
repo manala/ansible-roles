@@ -1,0 +1,16 @@
+---
+
+# Hosts
+- include: hosts.yml
+  tags:
+    - manala_network
+
+# Resolver
+- include: resolver.yml
+  tags:
+    - manala_network
+
+# Inerfaces
+- include: interfaces.yml
+  tags:
+    - manala_network
