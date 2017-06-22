@@ -1,0 +1,7 @@
+---
+
+- name: requirements > Check if version is defined.
+  fail:
+    msg: Please define manala_postgresql_version variable
+  when: not manala_postgresql_version
+  always_run: true
