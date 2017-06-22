@@ -1,0 +1,26 @@
+---
+
+- include: install.yml
+  tags:
+    - manala_sensu
+
+- include: config.yml
+  tags:
+    - manala_sensu
+
+- include: gems.yml
+  tags:
+    - manala_sensu
+
+- include: configs.yml
+  tags:
+    - manala_sensu
+
+- include: checks.yml
+  tags:
+    - manala_sensu
+
+- include: services.yml
+  tags:
+    - manala_sensu
+    - manala.services

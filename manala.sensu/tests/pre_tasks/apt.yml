@@ -1,0 +1,26 @@
+---
+
+- name: Pre tasks > Clean sensu packages
+  apt:
+    package: sensu*
+    state:   absent
+    purge:   true
+  ignore_errors: true
+
+- name: Pre tasks > Clean sensu config
+  file:
+    path:  "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/sensu
+    - /default/sensu
+    - /var/log/sensu
+
+- name: Pre tasks > Sensu apt key
+  apt_key:
+    url: http://repositories.sensuapp.org/apt/pubkey.gpg
+    id:  EB9C94BB
+
+- name: Pre tasks > Sensu apt repository
+  apt_repository:
+    repo: deb http://repositories.sensuapp.org/apt sensu main

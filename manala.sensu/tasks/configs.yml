@@ -1,0 +1,29 @@
+---
+
+- name: configs > Templates
+  template:
+    src:   "{{ item.template|default(manala_sensu_configs_template|ternary(manala_sensu_configs_template, 'configs/default.j2')) }}"
+    dest:  "{{ manala_sensu_configs_dir }}/{{ item.file }}"
+    owner: "{{ item.user|default(manala_sensu_configs_user|ternary(manala_sensu_configs_user, 'root')) }}"
+    group: "{{ item.group|default(manala_sensu_configs_group|ternary(manala_sensu_configs_group, 'root')) }}"
+    mode:  "{{ item.mode|default(manala_sensu_configs_mode|ternary(manala_sensu_configs_mode, '0644')) }}"
+  with_items: "{{ manala_sensu_configs }}"
+  notify:
+    - sensu restart
+
+- name: configs > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_sensu_configs_dir }}"
+  changed_when: false
+  register: __manala_sensu_configs_find_output
+  when: manala_sensu_configs_exclusive
+
+- name: configs > Exclusive - remove files
+  file:
+    path:  "{{ manala_sensu_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_sensu_configs_exclusive and (item not in manala_sensu_configs|map(attribute='file') and item != "checks.json")
+  with_items: "{{ __manala_sensu_configs_find_output.stdout_lines|default([]) }}"
+  notify:
+    - sensu restart
