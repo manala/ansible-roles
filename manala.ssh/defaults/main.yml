@@ -1,0 +1,14 @@
+---
+
+# Config
+manala_ssh_config_file:     /etc/ssh/ssh_config
+manala_ssh_config_template: ~
+manala_ssh_config:          []
+
+# Config - Sshd
+manala_ssh_config_sshd_file:     /etc/ssh/sshd_config
+manala_ssh_config_sshd_template: ~
+manala_ssh_config_sshd:          []
+
+# Known hosts
+manala_ssh_known_hosts: []
