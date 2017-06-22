@@ -1,0 +1,38 @@
+---
+
+# Find the primary group of users whose group has not been manually defined
+- name: users > Find primary groups
+  command: "id -g -n {{ item.user }}"
+  with_items: "{{ manala_ohmyzsh_users }}"
+  when: item.group is not defined
+  register: __manala_ohmyzsh_users
+  changed_when: false
+
+# Pair users with their found groups
+- name: users > Pair primary groups
+  set_fact:
+    # Waiting for the ansible 2 "combine" filter...
+    __item: "{% set __item = item.0.update(({}) if (item.1|skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
+  with_together:
+    - "{{ manala_ohmyzsh_users }}"
+    - "{{ __manala_ohmyzsh_users.results }}"
+  register: __manala_ohmyzsh_users
+
+# Flatten results structure to the original variable
+- name: users > Flatten primary groups
+  set_fact:
+    manala_ohmyzsh_users: "{{ __manala_ohmyzsh_users.results|map(attribute='ansible_facts.__item')|list }}"
+
+- name: users > Templates
+  template:
+    src:   "{{ item.template|default(manala_ohmyzsh_users_template|ternary(manala_ohmyzsh_users_template, 'users/default.j2')) }}"
+    dest:  "~{{ item.user }}/.zshrc"
+    owner: "{{ item.user }}"
+    group: "{{ item.group|default(omit) }}"
+  with_items: "{{ manala_ohmyzsh_users }}"
+
+- name: users > Shells
+  user:
+    name: "{{ item.user }}"
+    shell: /bin/zsh
+  with_items: "{{ manala_ohmyzsh_users }}"

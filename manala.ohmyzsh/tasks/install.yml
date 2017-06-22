@@ -1,0 +1,7 @@
+---
+
+- name: install > Git repository
+  git:
+    repo:   https://github.com/robbyrussell/oh-my-zsh.git
+    dest:   "{{ manala_ohmyzsh_dir }}"
+    update: "{{ manala_ohmyzsh_update|bool }}"
