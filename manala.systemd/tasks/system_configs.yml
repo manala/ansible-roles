@@ -1,0 +1,39 @@
+---
+
+- name: system_configs > Directory
+  file:
+    path: "{{ manala_systemd_system_configs_dir ~ '/' ~ item.file|dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items: "{{ manala_systemd_system_configs }}"
+
+- name: system_configs > Templates
+  template:
+    src: "{{ item.template|default(manala_systemd_system_configs_template|ternary(manala_systemd_system_configs_template, 'system_configs/empty.j2')) }}"
+    dest: "{{ manala_systemd_system_configs_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ manala_systemd_system_configs }}"
+  notify:
+    - systemd reload
+
+- name: system_configs > Exclusive - find files
+  command: "find -type f -printf '%P\n'"
+  args:
+    chdir: "{{ manala_systemd_system_configs_dir }}"
+  changed_when: false
+  always_run: true
+  register: __manala_systemd_system_configs_find_output
+  when: manala_systemd_system_configs_exclusive
+
+- name: system_configs > Exclusive - remove files
+  file:
+    path: "{{ manala_systemd_system_configs_dir }}/{{ item }}"
+    state: absent
+  when: manala_systemd_system_configs_exclusive and (item not in manala_systemd_system_configs|map(attribute='file'))
+  with_items: "{{ __manala_systemd_system_configs_find_output.stdout_lines|default([]) }}"
+  notify:
+    - systemd reload

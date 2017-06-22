@@ -1,0 +1,13 @@
+---
+
+- include: services.yml
+  tags:
+    - manala_systemd
+
+- include: tmpfiles_configs.yml
+  tags:
+    - manala_systemd
+
+- include: system_configs.yml
+  tags:
+    - manala_systemd
