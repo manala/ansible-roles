@@ -1,0 +1,25 @@
+---
+
+- name: sudoers > Templates
+  template:
+    src:  "{{ item.template|default('sudoers/empty.j2') }}"
+    dest: "{{ manala_sudo_sudoers_dir }}/{{ item.file }}"
+    mode: 0440
+  with_items: "{{ manala_sudo_sudoers }}"
+
+- name: sudoers > Exclusive - find files
+  command: "find -type f \\( ! -iname 'README' \\) -printf '%P\n'"
+  args:
+    chdir: "{{ manala_sudo_sudoers_dir }}"
+  changed_when: false
+  register: __manala_sudo_sudoers_find_output
+  when: manala_sudo_sudoers_exclusive
+
+- name: sudoers > Exclusive - remove files
+  file:
+    path:  "{{ manala_sudo_sudoers_dir }}/{{ item }}"
+    state: absent
+  when: manala_sudo_sudoers_exclusive and (item not in manala_sudo_sudoers|map(attribute='file'))
+  with_items: "{{ __manala_sudo_sudoers_find_output.stdout_lines|default([]) }}"
+  notify:
+    - sudo restart

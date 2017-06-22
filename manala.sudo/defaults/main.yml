@@ -1,0 +1,6 @@
+---
+
+# Sudoers
+manala_sudo_sudoers_exclusive: false
+manala_sudo_sudoers_dir:       /etc/sudoers.d
+manala_sudo_sudoers:           []
