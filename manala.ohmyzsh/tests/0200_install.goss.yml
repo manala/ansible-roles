@@ -1,0 +1,9 @@
+---
+
+file:
+  /usr/local/share/oh-my-zsh:
+    exists: true
+    mode: "2755"
+    owner: root
+    group: staff
+    filetype: directory

@@ -97,6 +97,8 @@ splits:
     target: git@github.com:manala/ansible-role-ntp.git
   - prefix: manala.oauth2-proxy
     target: git@github.com:manala/ansible-role-oauth2-proxy.git
+  - prefix: manala.ohmyzsh
+    target: git@github.com:manala/ansible-role-ohmyzsh.git
   - prefix: manala.opcache-dashboard
     target: git@github.com:manala/ansible-role-opcache-dashboard.git
   - prefix: manala.phantomjs

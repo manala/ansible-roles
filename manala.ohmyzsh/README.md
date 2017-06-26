@@ -1,8 +1,8 @@
-# Ansible Role: OhMyZsh (see: [https://github.com/robbyrussell/oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh))
+# Ansible Role: Oh My Zsh [![Build Status](https://travis-ci.org/manala/ansible-role-ohmyzsh.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ohmyzsh)
 
-This role will deal with the following configuration:
-- Install ohmyzsh globally
-- Setup a local zshrc file
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+
+This role will deal with the setup of [Oh My Zsh](http://ohmyz.sh/).
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 

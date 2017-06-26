@@ -1,0 +1,11 @@
+---
+
+file:
+  /root/.zshrc:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - 'export ZSH="/usr/local/share/oh-my-zsh"'

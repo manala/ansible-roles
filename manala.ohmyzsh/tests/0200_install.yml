@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - git
+        - zsh
+  roles:
+    - manala.ohmyzsh
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
