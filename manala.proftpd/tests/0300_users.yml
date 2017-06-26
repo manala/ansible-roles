@@ -1,10 +1,10 @@
 ---
 
-- hosts: localhost
-  gather_facts: false
-
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
   vars:
-
     manala_proftpd_users:
         - name:     user-1
           password: $1$Z4eVi1jp$IQJdkHh28GGFbq9oSQR/b0 # mkpasswd --method=md5 --salt=Z4eVi1jp testpasswordproftpd
@@ -14,25 +14,10 @@
           password: $1$Z4eVi1jp$o4qLQc670sqyO2CKWzYBm1 # mkpasswd --method=md5 --salt=Z4eVi1jp proftpdtestpassword
           home:     /tmp
           shell:    /bin/false
-
   roles:
     - manala.proftpd
-
-  tasks:
-
-    # Goss
+  post_tasks:
     - name: Goss
-      raw: "{{ 'echo \"' ~ item|to_yaml ~ '\"|goss -g - validate' }}"
-      with_items:
-        - file:
-            /etc/ftpd.passwd:
-              exists:   true
-              mode:     "0600"
-              owner:    root
-              group:    root
-              filetype: file
-              contains:
-                - user-1
-                - user-2
-                - /tmp
-                - /bin/false
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

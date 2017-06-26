@@ -1,0 +1,14 @@
+---
+
+file:
+  /etc/ftpd.passwd:
+    exists:   true
+    mode:     "0600"
+    owner:    root
+    group:    root
+    filetype: file
+    contains:
+      - user-1
+      - user-2
+      - /tmp
+      - /bin/false
