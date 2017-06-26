@@ -7,3 +7,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Handle install
+- Handle themes
+- Handle users
