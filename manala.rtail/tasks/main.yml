@@ -1,7 +1,18 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_rtail
+
+# Config
 - include: config.yml
+  tags:
+    - manala_rtail
+
+# Services
 - include: services.yml
   tags:
+    - manala_rtail
+    - manala_rtail.services
     - manala.services
