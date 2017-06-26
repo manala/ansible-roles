@@ -1,0 +1,5 @@
+---
+
+package:
+  sudo:
+    installed: true

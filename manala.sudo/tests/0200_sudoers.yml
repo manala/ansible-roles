@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  pre_tasks:
+  vars:
+    manala_sudo_sudoers:
+      - file: vagrant
+        config:
+          - vagrant: ALL=NOPASSWD:ALL
+  roles:
+    - manala.sudo
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
