@@ -83,6 +83,8 @@ splits:
     target: git@github.com:manala/ansible-role-mongodb.git
   - prefix: manala.motd
     target: git@github.com:manala/ansible-role-motd.git
+  - prefix: manala.mount
+    target: git@github.com:manala/ansible-role-mount.git
   - prefix: manala.mysql
     target: git@github.com:manala/ansible-role-mysql.git
   - prefix: manala.nginx

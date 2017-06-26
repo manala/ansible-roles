@@ -1,0 +1,24 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_mount_points:
+      - path: /tmp/foo
+        src: "{{ playbook_dir }}/fixtures"
+        fstype: none
+        opts: bind
+  pre_tasks:
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - bindfs
+  roles:
+    - manala.mount
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
