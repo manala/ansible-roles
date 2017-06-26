@@ -1,0 +1,30 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_sensu_configs_user: root
+    manala_sensu_configs_group: sensu
+    manala_sensu_configs_mode: '0640'
+    manala_sensu_configs:
+      - file: transport.json
+        config:
+          transport:
+            name: redis
+      - file: redis.json
+        user: sensu
+        group: sensu
+        mode: '0600'
+        config:
+          redis:
+            host: localhost
+  pre_tasks:
+    - include: pre_tasks/sensu.yml
+  roles:
+    - manala.sensu
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

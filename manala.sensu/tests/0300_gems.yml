@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_sensu_config:
+      EMBEDDED_RUBY: true
+    manala_sensu_gems:
+      - name: sensu-plugins-slack
+        version: 1.0.0
+  pre_tasks:
+    - include: pre_tasks/sensu.yml
+  roles:
+    - manala.sensu
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

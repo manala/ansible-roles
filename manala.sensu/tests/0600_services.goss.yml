@@ -1,0 +1,12 @@
+---
+
+service:
+  sensu-server:
+    enabled: true
+    running: true
+  sensu-api:
+    enabled: true
+    running: true
+  sensu-client:
+    enabled: true
+    running: true

@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ## [1.0.0] - 2016-01-24
-
 ### Added
 - Install and configure sensu-server, sensu-client and sensu-api
 - Install ruby gems

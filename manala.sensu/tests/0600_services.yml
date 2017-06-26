@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_sensu_services:
+      - sensu-server
+      - sensu-api
+      - sensu-client
+  pre_tasks:
+    - include: pre_tasks/sensu.yml
+  roles:
+    - manala.sensu
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

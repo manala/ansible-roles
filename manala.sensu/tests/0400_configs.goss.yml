@@ -1,0 +1,17 @@
+---
+
+file:
+  /etc/sensu/conf.d/transport.json:
+    exists: true
+    owner: root
+    group: sensu
+    mode:  '0640'
+    contains:
+      - redis
+  /etc/sensu/conf.d/redis.json:
+    exists: true
+    owner: sensu
+    group: sensu
+    mode:  '0600'
+    contains:
+      - localhost

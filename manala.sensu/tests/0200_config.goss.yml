@@ -1,0 +1,10 @@
+---
+
+file:
+  /etc/default/sensu:
+    exists: true
+    owner: root
+    group: root
+    contains:
+      - EMBEDDED_RUBY=true
+      - LOG_LEVEL=warn
