@@ -9,5 +9,5 @@
 - name: requirements > Version release
   fail:
      msg: Your "manala_php_version" is not compatible with your release
-  when: manala_php_versions[manala_php_version|string].release != ansible_distribution_release
+  when: ansible_distribution_release not in manala_php_versions[manala_php_version|string].release
   check_mode: false
