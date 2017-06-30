@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.2] - 2017-06-30
+### Added
+- Add stretch to debian distributions allowed to install php 7 or php 7.1
+
 ## [1.0.1] - 2017-05-10
 ### Added
 - Handle php version 5.6 on debian jessie using sury php repository
