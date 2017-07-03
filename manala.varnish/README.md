@@ -37,7 +37,6 @@ Role Handlers
 | Name              | Type    | Description                  |
 | ----------------- | ------- | ---------------------------- |
 | `varnish restart` | Service | Restart varnish server       |
-| `systemd reload`  | Service | Load systemd varnish service |
 
 Role Variables
 --------------
@@ -51,8 +50,6 @@ Role Variables
 | `manala_varnish_configs_dir`        | /etc/varnish/                                    | String  | Path to the main configuration directory     |
 | `manala_varnish_configs_template`   | None                                             | String  | Main config template                         |
 | `manala_varnish_configs`            | default.vcl                                      | Array   | List of VCL files                            |
-| `manala_varnish_systemd_template`   | systemd/varnish.service.j2                       | String  | Template of systemd service definition       |
-| `manala_varnish_systemd_file`       | /etc/systemd/system/varnish.service.d/local.conf | String  | File where the systemd config will be stored |
 
 ### Varnish configuration
 

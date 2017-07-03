@@ -15,12 +15,6 @@
   tags:
     - manala_varnish
 
-# SystemD
-- include: systemd.yml
-  when: ansible_distribution == 'Debian' and ansible_distribution_version > '7'
-  tags:
-    - manala_varnish
-
 # Services
 - include: services.yml
   tags:

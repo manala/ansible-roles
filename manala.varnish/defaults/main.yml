@@ -10,8 +10,4 @@ manala_varnish_configs_exclusive: false
 manala_varnish_configs_dir:       /etc/varnish/
 manala_varnish_configs_template:  ~
 manala_varnish_configs:
-    - file: default.vcl
-
-# SystemD
-manala_varnish_systemd_template:            systemd/varnish.service.j2
-manala_varnish_systemd_file:                /etc/systemd/system/varnish.service.d/local.conf
+  - file: default.vcl
