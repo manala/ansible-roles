@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/ssh/ssh_known_hosts:
+    exists: true
+    contains:
+      - github.com ssh-rsa

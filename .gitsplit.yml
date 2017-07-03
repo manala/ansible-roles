@@ -129,6 +129,8 @@ splits:
     target: git@github.com:manala/ansible-role-skeleton.git
   - prefix: manala.sqlite
     target: git@github.com:manala/ansible-role-sqlite.git
+  - prefix: manala.ssh
+    target: git@github.com:manala/ansible-role-ssh.git
   - prefix: manala.sudo
     target: git@github.com:manala/ansible-role-sudo.git
   - prefix: manala.supervisor

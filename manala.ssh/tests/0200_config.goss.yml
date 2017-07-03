@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/ssh/ssh_config:
+    exists: true
+    contains:
+      - "    SendEnv LANG LC_* FOO"

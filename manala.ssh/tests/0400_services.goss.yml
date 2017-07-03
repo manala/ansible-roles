@@ -1,0 +1,6 @@
+---
+
+service:
+  ssh:
+    enabled: true
+    running: true
