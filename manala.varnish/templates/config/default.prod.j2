@@ -12,7 +12,7 @@
 # edit that file.
 
 # Should we start varnishd at boot?  Set to "no" to disable.
-{{ macros.config_row(config, 'START', 'yes') }}
+{{ macros.config_row(config, 'START', true) }}
 
 # Maximum number of open files (for ulimit -n)
 {{ macros.config_row(config, 'NFILES', 131072) }}

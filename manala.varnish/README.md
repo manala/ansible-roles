@@ -1,9 +1,10 @@
-Ansible Role: Varnish
---------------------
+# Ansible Role: Varnish [![Build Status](https://travis-ci.org/manala/ansible-role-varnish.svg?branch=master)](https://travis-ci.org/manala/ansible-role-varnish)
 
-This role will setup and config Varnish Cache, a high-performance HTTP accelerator (see: <a href="https://varnish-cache.org/" target="_blank">https://varnish-cache.org/</a>).
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will deal with the setup of [Varnish](https://varnish-cache.org/).
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
@@ -71,7 +72,7 @@ The `manala_varnish_config` key is made to allow you to define custom directives
 
 ```yaml
 manala_varnish_config:
-    - START:                    "yes"
+    - START:                    true
     - NFILES:                   131072
     - MEMLOCK:                  82000
     - VARNISH_VCL_CONF:         /etc/varnish/foobar.vcl

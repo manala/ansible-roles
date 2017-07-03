@@ -50,9 +50,9 @@
 {%- macro _config_parameter_value(value) -%}
     {%- if value is sameas none -%}
     {%- elif value is sameas true -%}
-        On
+        yes
     {%- elif value is sameas false -%}
-        Off
+        no
     {%- elif value is string -%}
         {{ value }}
     {%- elif value is number -%}
