@@ -1,8 +1,23 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_heka
+
+# Config
 - include: config.yml
+  tags:
+    - manala_heka
+
+# Config
 - include: configs.yml
+  tags:
+    - manala_heka
+
+# Services
 - include: services.yml
   tags:
+    - manala_heka
+    - manala_heka.services
     - manala.services

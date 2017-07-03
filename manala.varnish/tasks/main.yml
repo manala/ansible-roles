@@ -25,4 +25,5 @@
 - include: services.yml
   tags:
     - manala_varnish
+    - manala_varnish.services
     - manala.services

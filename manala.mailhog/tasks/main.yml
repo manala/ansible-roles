@@ -1,7 +1,18 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_mailhog
+
+# Config
 - include: config.yml
+  tags:
+    - manala_mailhog
+
+# Services
 - include: services.yml
   tags:
+    - manala_mailhog
+    - manala_mailhog.services
     - manala.services

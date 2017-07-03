@@ -1,26 +1,33 @@
 ---
 
+# Install
 - include: install.yml
   tags:
     - manala_influxdb
 
+# Config
 - include: config.yml
   tags:
     - manala_influxdb
 
+# Services
 - include: services.yml
   tags:
     - manala_influxdb
+    - manala_influxdb.services
     - manala.services
 
+# Databases
 - include: databases.yml
   tags:
     - manala_influxdb
 
+# Users
 - include: users.yml
   tags:
     - manala_influxdb
 
+# Privileges
 - include: privileges.yml
   tags:
     - manala_influxdb

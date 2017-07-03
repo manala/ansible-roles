@@ -15,4 +15,5 @@
 - include: services.yml
   tags:
     - manala_telegraf
+    - manala_telegraf.services
     - manala.services

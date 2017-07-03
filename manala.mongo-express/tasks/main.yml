@@ -1,7 +1,18 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_mongo_express
+
+# Config
 - include: config.yml
+  tags:
+    - manala_mongo_express
+
+# Services
 - include: services.yml
   tags:
+    - manala_mongo_express
+    - manala_mongo_express.services
     - manala.services

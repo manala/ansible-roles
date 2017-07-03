@@ -19,6 +19,7 @@
 - include: services.yml
   tags:
     - manala_elasticsearch
+    - manala_elasticsearch.services
     - manala.services
 
 # Plugins

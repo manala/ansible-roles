@@ -14,4 +14,5 @@
 - include: services.yml
   tags:
     - manala_fail2ban
+    - manala_fail2ban.services
     - manala.services

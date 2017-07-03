@@ -1,23 +1,29 @@
 ---
 
+# Install
 - include: install.yml
   tags:
     - manala_grafana
 
+# Config
 - include: config.yml
   tags:
     - manala_grafana
 
+# Services
 - include: services.yml
   tags:
     - manala_grafana
+    - manala_grafana.services
     - manala.services
 
+# Datasources
 - include: datasources.yml
   when: manala_grafana_datasources|length > 0 or manala_grafana_datasources_exclusive
   tags:
     - manala_grafana
 
+# Dashboards
 - include: dashboards.yml
   when: manala_grafana_dashboards|length > 0 or manala_grafana_dashboards_exclusive
   tags:

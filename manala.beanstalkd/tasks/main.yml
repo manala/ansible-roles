@@ -1,7 +1,18 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+    - manala_beanstalkd
+
+# Config
 - include: config.yml
+  tags:
+    - manala_beanstalkd
+
+# Services
 - include: services.yml
   tags:
+    - manala_beanstalkd
+    - manala_beanstalkd.services
     - manala.services

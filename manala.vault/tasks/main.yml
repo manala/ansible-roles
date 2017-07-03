@@ -1,14 +1,18 @@
 ---
 
+# Install
 - include: install.yml
   tags:
     - manala_vault
 
+# Config
 - include: config.yml
   tags:
     - manala_vault
 
+# Services
 - include: services.yml
   tags:
     - manala_vault
+    - manala_vault.services
     - manala.services

@@ -62,6 +62,7 @@
 - include: services.yml
   tags:
     - manala_php
+    - manala_php.services
     - manala.services
 
 # Applications

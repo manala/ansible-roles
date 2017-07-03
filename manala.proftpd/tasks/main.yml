@@ -19,4 +19,5 @@
 - include: services.yml
   tags:
     - manala_proftpd
+    - manala_proftpd.services
     - manala.services

@@ -1,6 +1,13 @@
 ---
 
+# Install
 - include: install.yml
+  tags:
+     - manala_ntp
+
+# Services
 - include: services.yml
   tags:
+     - manala_ntp
+     - manala_ntp.services
      - manala.services
