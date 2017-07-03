@@ -1,0 +1,6 @@
+---
+
+service:
+  telegraf:
+    enabled: true
+    running: true

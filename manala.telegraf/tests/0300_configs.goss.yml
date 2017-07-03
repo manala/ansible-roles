@@ -1,9 +1,5 @@
 ---
 
-process:
-  telegraf:
-    running: true
-
 file:
   /etc/telegraf/telegraf.d/input_cpu.conf:
     exists: true
