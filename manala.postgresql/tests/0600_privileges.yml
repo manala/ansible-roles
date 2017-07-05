@@ -1,0 +1,31 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_postgresql_version: 9.4
+    manala_postgresql_config_template: config/default.dev.j2
+    manala_postgresql_config_hba_template: config/hba/default.dev.j2
+    manala_postgresql_roles:
+      - role:       foo
+        password:   ~
+        attributes: ['SUPERUSER']
+      - role:       pipi
+        password:   ~
+    manala_postgresql_databases:
+      - database: bar
+    manala_postgresql_privileges:
+      - role: foo
+        database: bar
+        privileges:
+          - ALL
+  pre_tasks:
+    - include: pre_tasks/postgresql.yml
+  roles:
+    - manala.postgresql
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

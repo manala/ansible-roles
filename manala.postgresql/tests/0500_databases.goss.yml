@@ -1,0 +1,7 @@
+---
+
+command:
+  psql --host=127.0.0.1 --username=postgres --command="\l":
+    exit-status: 0
+    stdout:
+      - bar       | postgres | UTF8     | C.UTF-8 | C.UTF-8 |

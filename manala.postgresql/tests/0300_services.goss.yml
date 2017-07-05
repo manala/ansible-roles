@@ -1,0 +1,6 @@
+---
+
+service:
+  postgresql:
+    enabled: true
+    running: true

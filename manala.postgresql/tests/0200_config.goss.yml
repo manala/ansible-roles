@@ -1,0 +1,13 @@
+---
+
+file:
+  /etc/postgresql/9.4/main/postgresql.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - max_connections = 123
+  /etc/postgresql/9.4/main/pg_hba.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - local   foo             bar                                     peer

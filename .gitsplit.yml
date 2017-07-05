@@ -113,6 +113,8 @@ splits:
     target: git@github.com:manala/ansible-role-phppgadmin.git
   - prefix: manala.phpredisadmin
     target: git@github.com:manala/ansible-role-phpredisadmin.git
+  - prefix: manala.postgresql
+    target: git@github.com:manala/ansible-role-postgresql.git
   - prefix: manala.proftpd
     target: git@github.com:manala/ansible-role-proftpd.git
   - prefix: manala.redis

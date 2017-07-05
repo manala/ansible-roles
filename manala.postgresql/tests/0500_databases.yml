@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_postgresql_version: 9.4
+    manala_postgresql_config_template: config/default.dev.j2
+    manala_postgresql_config_hba_template: config/hba/default.dev.j2
+    manala_postgresql_databases:
+      - database: bar
+  pre_tasks:
+    - include: pre_tasks/postgresql.yml
+  roles:
+    - manala.postgresql
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
