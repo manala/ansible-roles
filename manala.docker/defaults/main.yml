@@ -9,6 +9,10 @@ manala_docker_applications_template: ~
 manala_docker_applications_dir:      /usr/local/bin
 manala_docker_applications:          []
 
+# Docker Compose
+manala_docker_install_docker_compose: false
+manala_docker_docker_compose_version: 1.14.0
+
 # Manala
 manala_docker:
   update: "{{ (manala|default({'update':false}))['update'] }}"

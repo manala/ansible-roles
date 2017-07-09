@@ -8,3 +8,12 @@
     update_cache:       true
     cache_valid_time:   3600
   with_items: "{{ manala_docker_install_packages }}"
+
+- name: install > Docker Compose
+  get_url:
+    url:   "https://github.com/docker/compose/releases/download/{{ manala_docker_docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest:  /usr/local/bin/docker-compose
+    owner: root
+    group: root
+    mode:  0755
+  when: manala_docker_install_docker_compose
