@@ -119,6 +119,8 @@ splits:
     target: git@github.com:manala/ansible-role-postgresql.git
   - prefix: manala.proftpd
     target: git@github.com:manala/ansible-role-proftpd.git
+  - prefix: manala.proxmox
+    target: git@github.com:manala/ansible-role-proxmox.git
   - prefix: manala.redis
     target: git@github.com:manala/ansible-role-redis.git
   - prefix: manala.rsyslog

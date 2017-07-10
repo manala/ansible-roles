@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_proxmox_templates:
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+  pre_tasks:
+    - file:
+        path: /var/lib/vz/template/cache
+        state: directory
+  roles:
+    - manala.proxmox
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
