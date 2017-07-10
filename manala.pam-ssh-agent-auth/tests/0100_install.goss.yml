@@ -1,0 +1,5 @@
+---
+
+package:
+  pam-ssh-agent-auth:
+    installed: true
