@@ -1,8 +1,10 @@
-# Ansible Role: Network
+# Ansible Role: Network [![Build Status](https://travis-ci.org/manala/ansible-role-network.svg?branch=master)](https://travis-ci.org/manala/ansible-role-network)
 
-This role will handle network hosts, resolver and interfaces
+:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-It's part of the Manala <a href="http://www.manala.io" target="_blank">Ansible stack</a> but can be used as a stand alone component.
+This role will handle network hosts, resolver and interfaces.
+
+It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
 ## Requirements
 
@@ -38,18 +40,19 @@ None
 
 |Name|Default|Type|Description|
 |----|----|-----------|-------|
-`manala_network_config.hosts`|Array|Array|List of static hosts.
+`manala_network_hosts`|Array|Array|List of static hosts.
 `manala_network_config.resolv.searches`|Array|Array|List of domain for default DNS resolution.
 `manala_network_config.resolv.nameservers`|Array|Array|List of nameservers.
 `manala_network_interfaces`|Array|Collection|List of network interfaces.
 
 ### Configuration example
 
-```
+```yaml
 ---
 
-manala_network_config:
-  hosts:            [ { name: bismuth.manala.local, ip: 189.234.23.35 } ]
+manala_network_hosts:
+  - 189.234.23.35: bismuth.manala.local
+
   resolv:
     searches:       [manala.local, manala.com]
     nameservers:    [172.16.0.10, 172.16.0.11]
