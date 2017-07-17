@@ -25,7 +25,7 @@
   args:
     chdir: "{{ manala_systemd_system_configs_dir }}"
   changed_when: false
-  always_run: true
+  check_mode: false
   register: __manala_systemd_system_configs_find_output
   when: manala_systemd_system_configs_exclusive
 

@@ -1,13 +1,15 @@
 ---
 
+# Services
 - include: services.yml
   tags:
     - manala_systemd
+    - manala_systemd.services
+    - manala.services
 
+# Configs - Tmpfiles
 - include: tmpfiles_configs.yml
   tags:
     - manala_systemd
 
-- include: system_configs.yml
-  tags:
-    - manala_systemd
+# Configs - System

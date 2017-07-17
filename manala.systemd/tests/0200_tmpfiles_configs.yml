@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_systemd_tmpfiles_configs:
+      - file: mysql.conf
+        config:
+          - d: /var/run/mysqld 0755 mysql mysql -
+  roles:
+    - manala.systemd
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"

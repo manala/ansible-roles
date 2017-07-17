@@ -23,7 +23,7 @@
   args:
     chdir: "{{ manala_systemd_tmpfiles_configs_dir }}"
   changed_when: false
-  always_run: true
+  check_mode: false
   register: __manala_systemd_tmpfiles_configs_find_output
   when: manala_systemd_tmpfiles_configs_exclusive
 

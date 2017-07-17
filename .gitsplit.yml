@@ -141,6 +141,8 @@ splits:
     target: git@github.com:manala/ansible-role-sudo.git
   - prefix: manala.supervisor
     target: git@github.com:manala/ansible-role-supervisor.git
+  - prefix: manala.systemd
+    target: git@github.com:manala/ansible-role-systemd.git
   - prefix: manala.telegraf
     target: git@github.com:manala/ansible-role-telegraf.git
   - prefix: manala.timezone
