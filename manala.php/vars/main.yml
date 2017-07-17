@@ -3,7 +3,8 @@
 # Versions
 manala_php_versions:
   '5':
-    release:             wheezy
+    release:
+      - wheezy
     package_prefix:      php5-
     package_pecl_prefix: php5-
     enmod_bin:           /usr/sbin/php5enmod
@@ -75,7 +76,8 @@ manala_php_versions:
       #########
       #- readline # 5.5/5.6
   '5.6':
-    release:             jessie
+    release:
+      - jessie
     package_prefix:      php5.6-
     package_pecl_prefix: php-
     enmod_bin:           /usr/sbin/phpenmod
@@ -135,7 +137,9 @@ manala_php_versions:
       #- json
       #- readline
   '7.0':
-    release:             jessie
+    release:
+      - jessie
+      - stretch
     package_prefix:      php7.0-
     package_pecl_prefix: php7.0-
     enmod_bin:           /usr/sbin/phpenmod
@@ -193,7 +197,9 @@ manala_php_versions:
       #- json
       #- readline
   '7.1':
-    release:             jessie
+    release:
+      - jessie
+      - stretch
     package_prefix:      php7.1-
     package_pecl_prefix: php-
     enmod_bin:           /usr/sbin/phpenmod
