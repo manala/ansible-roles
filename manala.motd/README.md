@@ -2,7 +2,7 @@
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-This role is far simple, functionally useless and because of this, essential. It will setup your Message Of The Day on your linux boxes.
+This role will deal with the setup of Message Of The Day.
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
