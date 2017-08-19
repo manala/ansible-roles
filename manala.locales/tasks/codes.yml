@@ -1,7 +1,14 @@
 ---
 
-- name: codes > Handle
+- name: Debian | codes > Handle
   locale_gen:
-    name:  "{{ (item) if (item is string) else (item.name) }}"
+    name:  "{{ (item) if (item is string) else (item.input+'.'+item.charmap) }}"
     state: "{{ item.state|default('present') }}"
   with_items: "{{ manala_locales_codes }}"
+  when: ansible_os_family == "Debian"
+
+- name: RedHat | codes > Handle
+  command: "localedef -v -c -i {{ item.input }} -f {{ item.charmap }} {{ item.input }}.{{ item.charmap }}"
+  with_items: "{{ manala_locales_codes }}"
+  ignore_errors: true
+  when: ansible_os_family == "RedHat"

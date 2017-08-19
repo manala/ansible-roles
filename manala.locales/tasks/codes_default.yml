@@ -1,7 +1,15 @@
 ---
 
-- name: codes_default > Configure
+- name: Debian | codes_default > Configure
   lineinfile:
     dest:   /etc/default/locale
     regexp: "LANG="
     line:   "LANG={{ manala_locales_codes_default }}"
+  when: ansible_os_family == "Debian"
+
+- name: RedHat | codes_default > Configure
+  lineinfile:
+    dest:   /etc/locale.conf
+    regexp: "LANG="
+    line:   "LANG={{ manala_locales_codes_default }}"
+  when: ansible_os_family == "RedHat"
