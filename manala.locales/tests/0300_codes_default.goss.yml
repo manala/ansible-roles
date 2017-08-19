@@ -1,7 +1,7 @@
 ---
 
-file:
-  /etc/default/locale:
-    exists: true
-    contains:
-      - LANG=fr_FR.UTF-8
+command:
+  su $USER --login --shell /bin/sh --command "locale":
+    exit-status: 0
+    stdout:
+      - "/^LANG=fr_FR.UTF-8$/"

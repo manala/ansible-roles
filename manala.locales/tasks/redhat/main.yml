@@ -1,0 +1,15 @@
+---
+
+# Install
+- name: redhat > main > Include "install" tasks
+  include: install.yml
+
+# Codes
+- name: redhat > main > Include "codes" tasks
+  include: codes.yml
+  when: manala_locales_codes|length
+
+# Codes Defaults
+- name: redhat > main > Include "codes_default" tasks
+  include: codes_default.yml
+  when: manala_locales_codes_default is not none

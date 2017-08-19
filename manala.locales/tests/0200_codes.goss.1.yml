@@ -1,0 +1,12 @@
+---
+
+command:
+  locale --all-locales:
+    exit-status: 0
+    stdout:
+      - "/^fr_FR.utf8$/"
+      - "/^en_DK.iso885915$/"
+      - "!/^hy_AM.armscii8$/"
+      - "/^ru_RU$/"
+      - "/^vi_VN$/"
+      - "!/^th_TH$/"

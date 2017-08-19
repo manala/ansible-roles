@@ -1,0 +1,7 @@
+---
+
+- name: debian > codes_default > Configure
+  lineinfile:
+    dest:   "{{ manala_locales_codes_default_file }}"
+    regexp: "LANG="
+    line:   "LANG={{ manala_locales_codes_default }}"

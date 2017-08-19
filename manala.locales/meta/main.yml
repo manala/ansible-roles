@@ -14,6 +14,12 @@ galaxy_info:
       versions:
         - wheezy
         - jessie
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - xenial
   galaxy_tags:
     - system
     - locales
