@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2017-08-22
+### Changed
+- Fix systemd configs task
+
 ## [1.0.0] - 2017-07-17
 ### Added
 - Add support for tmpfiles.d (#1)
