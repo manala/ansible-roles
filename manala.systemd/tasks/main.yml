@@ -13,3 +13,6 @@
     - manala_systemd
 
 # Configs - System
+- include: system_configs.yml
+  tags:
+    - manala_systemd
