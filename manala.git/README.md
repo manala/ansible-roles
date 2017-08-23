@@ -128,6 +128,7 @@ The `manala_git_repositories` key is a "special one", it's designed to allow aut
 | `dest`    | ~ (required) | String     | PAbsolute path of where the repository should be checked out to |
 | `version` | HEAD         | String     | What version of the repository to check out                     |
 | `update`  | true         | Boolean    | If no, do not retrieve new revisions from the origin repository |
+| `user`    | ~            | String     | Checkout repository as specified user                           |
 
 #### Example:
 
@@ -138,6 +139,7 @@ manala_git_repositories:
     dest:    /usr/share/symfony/symfony-1.4
     version: v1.4.20
     update:  false
+    user:    app
 ```
 
 ## Example playbook

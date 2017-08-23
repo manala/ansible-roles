@@ -7,3 +7,8 @@ file:
     owner: root
     group: root
     filetype: directory
+  /tmp/ansible-role-git-user/.git:
+    exists: true
+    mode: "0755"
+    owner: ansible
+    filetype: directory
