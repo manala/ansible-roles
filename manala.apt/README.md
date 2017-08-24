@@ -223,7 +223,7 @@ Verbose
 
 ```yaml
 manala_apt_packages:
-  - name:  bzip2  # Name of package, required
+  - package:  bzip2  # Name of package, required
     state: absent # State of package, optionnal, default 'present'
     force: true   # Force installation, optionnal
 ```
