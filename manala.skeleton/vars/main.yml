@@ -54,7 +54,8 @@ manala_skeleton_patterns:
         'jessie': [
           'git@backports',
           'htop@backports',
-          'httpie@manala'
+          'httpie@manala',
+          'python3-requests@backports'
         ]
       }[ansible_distribution_release]
       + (manala_skeleton_options.docker)|ternary(['docker@docker'],[])
