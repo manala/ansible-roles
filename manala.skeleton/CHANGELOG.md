@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Respect thefuck dependencies (python-pathlib2 is available on wheezy via manala,
+  and on jessie via backports, python-pkg-resources is already available in a poor version on wheezy, and in a decent version on jessie via backports)
 
 ## [1.0.3] - 2017-09-06
 ### Changed

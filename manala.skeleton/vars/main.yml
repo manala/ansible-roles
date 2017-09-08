@@ -54,6 +54,8 @@ manala_skeleton_patterns:
         'jessie': [
           'git@backports',
           'htop@backports',
+          'python-pathlib2@backports',
+          'python-pkg-resources@backports',
           'httpie@manala',
           'python3-requests@backports',
           'python3-urllib3@backports'
