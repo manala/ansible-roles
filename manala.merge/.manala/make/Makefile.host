@@ -1,0 +1,29 @@
+########
+# Host #
+########
+
+MANALA_HOST ?= local
+
+# Usage:
+#   target: .host_restrict(local)
+#   	# Do something on local host...
+
+.host_restrict(%):
+	$(call if_eq,$(*),$(MANALA_HOST),,$(call message_error,Must be run on \"$(*)\" host); exit 1)
+
+# Usage:
+#   $(call if_host,local,Yes,No) = Yes
+
+define if_host
+$(call if_eq,$(1),$(MANALA_HOST),$(2),$(3))
+endef
+
+.host_switch(%):
+	$(call host_switch,$(*))
+
+# Usage:
+#   $(call host_switch,target) => make target@[host]
+
+define host_switch
+$(MAKE) $(1)@$(MANALA_HOST)
+endef

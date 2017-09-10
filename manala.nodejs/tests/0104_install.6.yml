@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   pre_tasks:
     - include: pre_tasks/nodesource_6.yml

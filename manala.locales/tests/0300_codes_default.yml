@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   vars:
     manala_locales_codes_default: fr_FR.UTF-8

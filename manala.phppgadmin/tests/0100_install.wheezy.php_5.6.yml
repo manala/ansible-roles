@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: wheezy
+  hosts: debian.wheezy
   become: true
   pre_tasks:
     - include: pre_tasks/dotdeb_wheezy_56.yml

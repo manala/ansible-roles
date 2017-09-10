@@ -1,9 +1,0 @@
-file:
-  /var/lib/vz/template/cache/5MB.zip:
-    exists: true
-    mode: "0644"
-    size: 5242880
-    owner: root
-    group: root
-    filetype: file
-    contains: []

@@ -1,7 +1,5 @@
 language: generic
 
-sudo: required
-
 branches:
   only:
     - master
@@ -10,12 +8,28 @@ services:
   - docker
 
 env:
-  - DEBIAN_DISTRIBUTION=wheezy ANSIBLE_VERSION=2.2.0
-  - DEBIAN_DISTRIBUTION=jessie ANSIBLE_VERSION=2.2.0
+  global:
+    - VERBOSE=1
+  matrix:
+    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.2.0.0 PART=1/3
+    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.2.0.0 PART=2/3
+    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.2.0.0 PART=3/3
+    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.2.0.0 PART=1/3
+    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.2.0.0 PART=2/3
+    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.2.0.0 PART=3/3
+    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.2.0.0 PART=1/3
+    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.2.0.0 PART=2/3
+    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.2.0.0 PART=3/3
+    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.2.0.0 PART=1/3
+    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.2.0.0 PART=2/3
+    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.2.0.0 PART=3/3
+    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.2.0.0 PART=1/3
+    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.2.0.0 PART=2/3
+    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.2.0.0 PART=3/3
 
 script:
-  - make lint
-  - make test
+  - make lint.diff
+  - make test.diff
 
 notifications:
   webhooks:

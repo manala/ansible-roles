@@ -1,9 +1,0 @@
-file:
-  /etc/tmpfiles.d/mysql.conf:
-    exists: true
-    mode: "0644"
-    size: 37
-    owner: root
-    group: root
-    filetype: file
-    contains: []

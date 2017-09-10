@@ -1,13 +1,19 @@
 language: generic
 
-sudo: required
+branches:
+  only:
+    - master
 
 services:
   - docker
 
 env:
-  - DEBIAN_DISTRIBUTION=wheezy ANSIBLE_VERSION=2.2.0
-  - DEBIAN_DISTRIBUTION=jessie ANSIBLE_VERSION=2.2.0
+  matrix:
+    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.2.0.0
+    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.2.0.0
+    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.2.0.0
+    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.2.0.0
+    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.2.0.0
 
 script:
   - make lint
