@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   vars:
     manala_rsyslog_config_template: config/default.prod.j2

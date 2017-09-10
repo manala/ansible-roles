@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   roles:
     - manala.rsyslog

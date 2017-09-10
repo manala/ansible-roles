@@ -1,0 +1,52 @@
+define docker_run
+	docker run \
+		--rm \
+		$(if $(MANALA_DOCKER_DIR), \
+			--volume $(MANALA_CURRENT_DIR):$(MANALA_DOCKER_DIR) \
+			--workdir $(MANALA_DOCKER_DIR) \
+		) \
+		$(if $(MANALA_INTERACTIVE),--tty --interactive) \
+		$(if $(MANALA_DOCKER_HOST),--hostname $(MANALA_DOCKER_HOST)) \
+		--env USER_ID=$(shell id -u) \
+		--env GROUP_ID=$(shell id -g) \
+		$(if $(MANALA_DOCKER_VOLUMES), \
+			$(foreach \
+				VOLUME,\
+				$(MANALA_DOCKER_VOLUMES),\
+				--volume $(VOLUME) \
+			) \
+		) \
+		$(if $(MANALA_DOCKER_ENV), \
+			$(foreach \
+				ENV,\
+				$(MANALA_DOCKER_ENV),\
+				--env $(ENV) \
+			) \
+		) \
+		$(MANALA_DOCKER_OPTIONS) \
+		$(MANALA_DOCKER_RUN_OPTIONS) \
+		$(MANALA_DOCKER_IMAGE):$(if $(MANALA_DOCKER_IMAGE_TAG),$(MANALA_DOCKER_IMAGE_TAG),latest) \
+		$(1)
+endef
+
+define docker_shell
+	$(call docker_run)
+endef
+
+define docker_make
+	$(call docker_run,sh -c "make --silent --directory=$(MANALA_DOCKER_DIR) $(1)")
+endef
+
+define docker_pull
+	docker pull \
+	  $(MANALA_DOCKER_OPTIONS) \
+		$(MANALA_DOCKER_PULL_OPTIONS) \
+		$(MANALA_DOCKER_IMAGE):$(if $(MANALA_DOCKER_IMAGE_TAG),$(MANALA_DOCKER_IMAGE_TAG),latest)
+endef
+
+define docker_build
+	docker build \
+		$(MANALA_DOCKER_OPTIONS) \
+		$(MANALA_DOCKER_BUILD_OPTIONS) \
+		--tag $(MANALA_DOCKER_IMAGE):$(if $(MANALA_DOCKER_IMAGE_TAG),$(MANALA_DOCKER_IMAGE_TAG),latest)
+endef
