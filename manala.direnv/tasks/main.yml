@@ -1,0 +1,11 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_direnv
+
+# Files
+- include: files.yml
+  tags:
+    - manala_direnv

@@ -1,0 +1,9 @@
+---
+
+file:
+  /tmp/.envrc:
+    exists: true
+    owner: ansible
+    group: ansible
+    contains:
+      - export FOO="BAR"

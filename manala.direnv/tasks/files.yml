@@ -1,0 +1,20 @@
+---
+
+- name: files > Write environment files
+  copy:
+    dest:   "{{ item.path }}"
+    owner:  "{{ item.user }}"
+    group:  "{{ item.group }}"
+    content: |
+      {% for variable in item.variables %}
+      export {{ variable.keys()[0] }}="{{ variable.values()[0] }}"
+      {% endfor %}
+  with_items:
+    - "{{ manala_direnv_files }}"
+
+- name: files > Authorized environment files
+  command: "direnv allow {{ item.path|dirname }}"
+  become: yes
+  become_user: "{{ item.user }}"
+  with_items:
+    - "{{ manala_direnv_files }}"
