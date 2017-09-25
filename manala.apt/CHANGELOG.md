@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Change testing manual debian package (smaller and more reliable)
 
 ## [1.0.1] - 2017-05-12
 ### Added
