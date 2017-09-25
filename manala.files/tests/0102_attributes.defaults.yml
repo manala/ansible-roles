@@ -3,10 +3,6 @@
 - name: "{{ test }}"
   hosts: all
   become: true
-  pre_tasks:
-    - shell: mkdir /tmp/root
-    - shell: mkdir /tmp/nobody
-    - shell: mkdir /tmp/mail
   vars:
     manala_files_attributes_defaults:
       - path:  ^/tmp/root
@@ -25,6 +21,14 @@
         state: touch
       - path:  /tmp/mail/file
         state: touch
+  pre_tasks:
+    - file:
+        path:  "{{ item }}"
+        state: directory
+      with_items:
+        - /tmp/root
+        - /tmp/nobody
+        - /tmp/mail
   roles:
     - manala.files
   post_tasks:

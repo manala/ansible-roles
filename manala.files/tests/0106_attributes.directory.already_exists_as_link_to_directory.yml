@@ -8,8 +8,13 @@
       - path:  /tmp/link
         state: directory
   pre_tasks:
-    - shell: mkdir /tmp/directory
-    - shell: ln -s /tmp/directory /tmp/link
+    - file:
+        path:  /tmp/directory
+        state: directory
+    - file:
+        path:  /tmp/link
+        src:   /tmp/directory
+        state: link
   roles:
     - role: manala.files
       ignore_errors: true

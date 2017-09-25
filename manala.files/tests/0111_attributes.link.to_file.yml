@@ -9,7 +9,9 @@
         src:   /tmp/file
         state: link
   pre_tasks:
-    - shell: touch /tmp/file
+    - file:
+        path:  /tmp/file
+        state: touch
   roles:
     - manala.files
   post_tasks:

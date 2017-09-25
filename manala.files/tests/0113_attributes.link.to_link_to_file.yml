@@ -9,8 +9,13 @@
         src:   /tmp/link_file
         state: link
   pre_tasks:
-    - shell: touch /tmp/file
-    - shell: ln -s /tmp/file /tmp/link_file
+    - file:
+        path:  /tmp/file
+        state: touch
+    - file:
+        path:  /tmp/link_file
+        src:   /tmp/file
+        state: link
   roles:
     - manala.files
   post_tasks:
