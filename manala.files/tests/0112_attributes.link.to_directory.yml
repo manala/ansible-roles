@@ -9,7 +9,9 @@
         src:   /tmp/directory
         state: link
   pre_tasks:
-    - shell: mkdir /tmp/directory
+    - file:
+        path:  /tmp/directory
+        state: directory
   roles:
     - manala.files
   post_tasks:

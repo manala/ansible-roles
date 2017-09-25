@@ -6,7 +6,7 @@
   vars:
     manala_files_attributes:
       - path: /tmp/file
-        copy: /srv/tests/fixtures/file
+        copy: fixtures/file
   roles:
     - manala.files
   post_tasks:

@@ -7,7 +7,7 @@
     foo: bar
     manala_files_attributes:
       - path:     /tmp/file
-        template: /srv/tests/fixtures/template.j2
+        template: fixtures/template.j2
   roles:
     - manala.files
   post_tasks:

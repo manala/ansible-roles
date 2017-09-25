@@ -8,7 +8,9 @@
       - path:  /tmp/file
         state: directory
   pre_tasks:
-    - shell: touch /tmp/file
+    - file:
+        path:  /tmp/file
+        state: touch
   roles:
     - role: manala.files
       ignore_errors: true
