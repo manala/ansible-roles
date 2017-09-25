@@ -6,6 +6,8 @@
   failed_when: false
   changed_when: false
   register: __manala_git_check_output
+  tags:
+    - skip_ansible_lint # [ANSIBLE0006] git used in place of git module
 
 - name: requirements > Git check fail
   fail:
