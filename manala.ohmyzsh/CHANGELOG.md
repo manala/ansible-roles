@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - Skip linting on manual git usage
+- Explicit git checkout version
 
 ## [1.0.0] - 2017-07-17
 ### Added
