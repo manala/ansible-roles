@@ -9,7 +9,7 @@
         dest: /tmp/ansible-role-git
       - repo: https://github.com/manala/ansible-role-git.git
         dest: /tmp/ansible-role-git-user
-        user: ansible
+        user: manala
   pre_tasks:
     - include: pre_tasks/backports.yml
   roles:
