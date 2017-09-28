@@ -7,4 +7,4 @@
 
 - name: Pre tasks > Yarn apt repository
   apt_repository:
-    repo: deb http://dl.yarnpkg.com/debian/ stable main
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
