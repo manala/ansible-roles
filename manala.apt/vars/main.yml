@@ -217,7 +217,7 @@ manala_apt_repositories_patterns:
     source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
     key: influxdata
   yarn:
-    source: deb http://dl.yarnpkg.com/debian/ stable main
+    source: deb https://dl.yarnpkg.com/debian/ stable main
     key: yarn
   sury_php: "{{
     {
@@ -320,7 +320,7 @@ manala_apt_keys_patterns:
     url: https://repos.influxdata.com/influxdb.key
     id: 2582E0C5
   yarn:
-    url: http://dl.yarnpkg.com/debian/pubkey.gpg
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
     id: 86E50310
   sury_php: "{{
     {
