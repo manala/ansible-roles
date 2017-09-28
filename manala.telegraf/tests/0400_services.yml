@@ -3,6 +3,11 @@
 - name: "{{ test }}"
   hosts: all
   become: true
+  vars:
+    # Telegraf require one configured input and output to run.
+    manala_telegraf_configs:
+      - file: minimal_config.conf
+        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
     - include: pre_tasks/influxdata.yml
