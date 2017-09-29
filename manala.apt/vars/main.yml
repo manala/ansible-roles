@@ -148,8 +148,8 @@ manala_apt_repositories_patterns:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.2 main
     key: mongodb
   varnish_4_0:
-    source: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
-    key: varnish
+    source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    key: varnish_4_0
   jenkins:
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key: jenkins
@@ -277,9 +277,9 @@ manala_apt_keys_patterns:
     id: EA312927
     # See 10gen
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
-  varnish:
-    url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
-    id: C4DEFFEB
+  varnish_4_0:
+    url: https://packagecloud.io/varnishcache/varnish40/gpgkey
+    id: DE3FFEA4
   jenkins:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
     id: D50582E6
