@@ -58,28 +58,28 @@ manala_mysql_configs:
   - file: my.cnf
     template: configs/default.dev.j2
     config:
-      client:
-        port:                   3306
-        socket:                 /var/run/mysqld/mysqld.sock
-      mysqld_safe:
-        nice:                   0
-        socket:                 /var/run/mysqld/mysqld.sock
-      mysqld:
-        user:                   mysql
-        socket:                 /var/run/mysqld/mysqld.sock
-        bind_address:           127.0.0.1
-        port:                   3306
-        character_set_server:   utf8
-        collation_server:       utf8_general_ci
-        max_connections:        100
-        thread_concurrency:     10
-        slow_query_log:         1
-        slow_query_log_file:    /var/log/mysql/mysql-slow.log
-        long_query_time:        2
+      - client:
+        - port:                   3306
+        - socket:                 /var/run/mysqld/mysqld.sock
+      - mysqld_safe:
+        - nice:                   0
+        - socket:                 /var/run/mysqld/mysqld.sock
+      - mysqld:
+        - user:                   mysql
+        - socket:                 /var/run/mysqld/mysqld.sock
+        - bind_address:           127.0.0.1
+        - port:                   3306
+        - character_set_server:   utf8
+        - collation_server:       utf8_general_ci
+        - max_connections:        100
+        - thread_concurrency:     10
+        - slow_query_log:         1
+        - slow_query_log_file:    /var/log/mysql/mysql-slow.log
+        - long_query_time:        2
   - file: mysqld_safe_syslog.cnf
     config:
-      mysqld_safe:
-        syslog: true
+      - mysqld_safe:
+        - syslog: true
 
 ```
 
