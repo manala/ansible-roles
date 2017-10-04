@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Use unsafe_writes when updating /etc/hosts to work around some situations
+  where /etc/hosts is mounted and atomic writes are impossible (such as docker)
 
 ## [1.0.0] - 2017-07-17
 ### Added
