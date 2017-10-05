@@ -38,7 +38,7 @@
 # Tasks
 - include: tasks/{{ item.task }}.yml
   with_manala_deploy_tasks: "{{ manala_deploy_tasks }}"
-  when: "{{ item.when }}"
+  when: item.when
   tags:
     - manala_deploy
     - manala_deploy.tasks
@@ -61,7 +61,7 @@
 # Post tasks
 - include: tasks/{{ item.task }}.yml
   with_manala_deploy_tasks: "{{ manala_deploy_post_tasks }}"
-  when: "{{ item.when }}"
+  when: item.when
   tags:
     - manala_deploy
     - manala_deploy.tasks

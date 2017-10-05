@@ -4,4 +4,4 @@ command:
   update-alternatives --query editor:
     exit-status: 0
     stdout:
-      - "Value: /usr/bin/vim.basic"
+      - "Value: /bin/ed"
