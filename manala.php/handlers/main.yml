@@ -2,14 +2,15 @@
 
 - name: php fpm restart
   command: "{{ manala_php_versions[manala_php_version|string]['fpm_bin'] }} -t"
-  when: "'fpm' in lookup(
-    'manala_php_sapis',
-    manala_php_sapis,
-    manala_php_versions[manala_php_version|string],
-    wantstate='present',
-    wantmap=true,
-    wantlist=true
-  )"
+  when: |
+    'fpm' in lookup(
+      'manala_php_sapis',
+      manala_php_sapis,
+      manala_php_versions[manala_php_version|string],
+      wantstate='present',
+      wantmap=true,
+      wantlist=true
+    )
   changed_when: true
   listen: php restart
   notify:
@@ -19,14 +20,15 @@
   service:
     name:  "{{ manala_php_versions[manala_php_version|string]['fpm_service'] }}"
     state: restarted
-  when: "'fpm' in lookup(
-    'manala_php_sapis',
-    manala_php_sapis,
-    manala_php_versions[manala_php_version|string],
-    wantstate='present',
-    wantmap=true,
-    wantlist=true
-  )"
+  when: |
+    'fpm' in lookup(
+      'manala_php_sapis',
+      manala_php_sapis,
+      manala_php_versions[manala_php_version|string],
+      wantstate='present',
+      wantmap=true,
+      wantlist=true
+    )
 
 - name: php cli restart
   debug:

@@ -6,14 +6,17 @@
   vars:
     manala_alternatives_selections:
       - selection: editor
-        path:      /usr/bin/vim.basic
+        path:      /bin/ed
   pre_tasks:
     - apt:
         name:  "{{ item }}"
         install_recommends: false
       with_items:
         - nano
-        - vim
+        - ed
+    - alternatives:
+        name: editor
+        path: /bin/nano
   roles:
     - manala.alternatives
   post_tasks:
