@@ -18,50 +18,42 @@ user:
   user_1:
     exists: true
     home:   /home/user_1
-    shell:  /bin/sh
     groups:
       - group_1
   user_2:
     exists: true
     home:   /home/user_2
-    shell:  /bin/sh
     groups:
       - group_2
       - group_1
   user_3:
     exists: true
     home:   /home/user_3
-    shell:  /bin/sh
     groups:
       - users
   user_4:
     exists: true
     home:   /home/user_4
-    shell:  /bin/sh
     groups:
       - users
   user_5:
     exists: true
     home:   /home/user_5
-    shell:  /bin/sh
     groups:
       - user_5
   user_6:
     exists: true
     home:   /home/user_6
-    shell:  /bin/sh
     groups:
       - user_6
   user_7:
     exists: true
     home:   /home/user_7
-    shell:  /bin/sh
     groups:
       - user_7
   user_8:
     exists: true
     home:   /home/user_8
-    shell:  /bin/sh
     groups:
       - user_8
 
