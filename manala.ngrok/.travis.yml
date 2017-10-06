@@ -8,6 +8,8 @@ services:
   - docker
 
 env:
+  global:
+    - CACHE_DIR=${TRAVIS_BUILD_DIR}/.cache
   matrix:
     - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.3.2.0
     - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.3.2.0

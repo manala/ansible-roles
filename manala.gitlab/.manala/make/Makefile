@@ -29,8 +29,8 @@ ROLE_TESTS_DIR := $(ROLE_DIR)/tests
 # Distribution #
 ################
 
-DISTRIBUTION_FAMILY  := $(call list_first,$(call list_split,.,$(DISTRIBUTION)))
-DISTRIBUTION_RELEASE := $(call list_last,$(call list_split,.,$(DISTRIBUTION)))
+DISTRIBUTION_FAMILY  = $(call list_first,$(call list_split,.,$(DISTRIBUTION)))
+DISTRIBUTION_RELEASE = $(call list_last,$(call list_split,.,$(DISTRIBUTION)))
 
 ##########
 # Docker #
@@ -43,9 +43,11 @@ MANALA_DOCKER_HOST        = $(ROLE).$(DISTRIBUTION).test
 MANALA_DOCKER_RUN_OPTIONS = --privileged
 MANALA_DOCKER_VOLUMES     = \
 	$(ROLE_DIR):/etc/ansible/roles/$(ROLE) \
-	$(call if_eq,$(DISTRIBUTION_FAMILY),debian, \
-		$(ROLE_TESTS_DIR)/cache/apt/archives:/var/cache/apt/archives \
-		$(ROLE_TESTS_DIR)/cache/apt/lists:/var/lib/apt/lists \
+	$(if $(CACHE_DIR), \
+		$(call if_in,$(DISTRIBUTION_FAMILY),debian ubuntu, \
+			$(CACHE_DIR)/$(DISTRIBUTION_FAMILY)/$(DISTRIBUTION_RELEASE)/apt/archives:/var/cache/apt/archives \
+			$(CACHE_DIR)/$(DISTRIBUTION_FAMILY)/$(DISTRIBUTION_RELEASE)/apt/lists:/var/lib/apt/lists \
+		) \
 	)
 MANALA_DOCKER_ENV         = \
 	MANALA_HOST=test \
