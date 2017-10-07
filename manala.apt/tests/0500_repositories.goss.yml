@@ -5,27 +5,27 @@ file:
     exists:   true
     filetype: file
     contains:
-      - "deb http://apt.postgresql.org/pub/repos/apt/ {{.Env.RELEASE}}-pgdg main"
+      - "deb http://apt.postgresql.org/pub/repos/apt/ {{ .Env.DISTRIBUTION_RELEASE }}-pgdg main"
   /etc/apt/sources.list.d/deb_bearstech_com_debian.list:
     exists:   true
     filetype: file
     contains:
-      - "deb http://deb.bearstech.com/debian {{.Env.RELEASE}}-bearstech main"
+      - "deb http://deb.bearstech.com/debian {{ .Env.DISTRIBUTION_RELEASE }}-bearstech main"
   /etc/apt/sources.list.d/httpredir_debian_org_debian.list:
     exists:   true
     filetype: file
     contains:
-      - "deb http://httpredir.debian.org/debian {{.Env.RELEASE}}-backports main"
+      - "deb http://httpredir.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
   /etc/apt/sources.list.d/nginx_org_packages_debian.list:
     exists:   true
     filetype: file
     contains:
-      - "deb http://nginx.org/packages/debian/ {{.Env.RELEASE}} nginx"
+      - "deb http://nginx.org/packages/debian/ {{ .Env.DISTRIBUTION_RELEASE }} nginx"
   /etc/apt/sources.list.d/packages_dotdeb_org.list:
     exists:   true
     filetype: file
     contains:
-      - "deb http://packages.dotdeb.org {{.Env.RELEASE}} all"
+      - "deb http://packages.dotdeb.org {{ .Env.DISTRIBUTION_RELEASE }} all"
   /etc/apt/sources.list.d/packages_elastic_co_elasticsearch_1_7_debian.list:
     exists:   true
     filetype: file
@@ -35,6 +35,6 @@ file:
     exists:   true
     filetype: file
     contains:
-      - "deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{.Env.RELEASE}} main"
+      - "deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ .Env.DISTRIBUTION_RELEASE }} main"
   /etc/apt/sources.list.d/yarn.list:
     exists: false
