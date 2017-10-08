@@ -26,11 +26,6 @@ file:
     filetype: file
     contains:
       - "deb http://packages.dotdeb.org {{ .Env.DISTRIBUTION_RELEASE }} all"
-  /etc/apt/sources.list.d/packages_elastic_co_elasticsearch_1_7_debian.list:
-    exists:   true
-    filetype: file
-    contains:
-      - "deb http://packages.elastic.co/elasticsearch/1.7/debian stable main"
   /etc/apt/sources.list.d/packages_gitlab_com_gitlab_gitlab_ce_debian.list:
     exists:   true
     filetype: file

@@ -6,23 +6,11 @@
   vars:
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
-      - git@backports
-      - libssl1.0.0@backports
-      - php@dotdeb:300
       - dotdeb:100
-      - dotdeb:200
-      - package:  foo
-        pin:      bar
-        priority: 100
-        file:     foo_bar
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
       - security
       - nginx
-      - nginx
-      - gitlab-ce
-      - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
-      - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
       - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
         key: bearstech
       - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
@@ -30,27 +18,12 @@
           url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
           id:  ACCC4CF8
     manala_apt_keys:
-      - jenkins
-      - sensu
       - sensu
       - 10gen
       - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
         id:  056E8E56
       - keyserver: keyserver.ubuntu.com
         id: BC19DDBA
-  pre_tasks:
-    - command: apt-key del {{ item }}
-      ignore_errors: true
-      with_items:
-        - 89DF5277
-        - 7BD9BF62
-        - 90158EE0
-        - ACCC4CF8
-        - EB9C94BB
-        - 7F0CEB10
-        - 056E8E56
-        - BC19DDBA
-        - E15E78F4
   roles:
     - manala.apt
   post_tasks:
