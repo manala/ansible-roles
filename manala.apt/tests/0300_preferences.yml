@@ -16,15 +16,6 @@
         priority: 100
         file:     foo_bar
   pre_tasks:
-    - file:
-        path:  "{{ item }}"
-        state: absent
-      with_items:
-        - /etc/apt/preferences.d/git
-        - /etc/apt/preferences.d/libssl1_0_0
-        - /etc/apt/preferences.d/php
-        - /etc/apt/preferences.d/dotdeb
-        - /etc/apt/preferences.d/foo_bar
     - copy:
         dest: /etc/apt/preferences.d/bar
         content: |

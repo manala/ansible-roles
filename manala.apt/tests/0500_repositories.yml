@@ -21,8 +21,7 @@
       - nginx
       - nginx
       - gitlab-ce
-      - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
-      - source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
+      - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
       - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
         key: bearstech
       - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
@@ -32,20 +31,10 @@
       - pattern: proxmox_enterprise
         state:   absent
   pre_tasks:
-    - file:
-        path:  "{{ item }}"
-        state: absent
-      with_items:
-        - /etc/apt/sources.list.d/apt_postgresql_org_pub_repos_apt.list
-        - /etc/apt/sources.list.d/deb_bearstech_com_debian.list
-        - /etc/apt/sources.list.d/deb_debian_org_debian.list
-        - /etc/apt/sources.list.d/nginx_org_packages_debian.list
-        - /etc/apt/sources.list.d/packages_dotdeb_org.list
-        - /etc/apt/sources.list.d/packages_elastic_co_elasticsearch_1_7_debian.list
     - copy:
         dest: /etc/apt/sources.list.d/yarn.list
         content: |
-          deb http://dl.yarnpkg.com/debian/ stable main
+          deb https://dl.yarnpkg.com/debian/ stable main
   roles:
     - manala.apt
   post_tasks:

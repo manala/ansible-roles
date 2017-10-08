@@ -5,7 +5,7 @@
   become: true
   vars:
     manala_apt_packages:
-      - ecl-doc
+      - e3
       - package: telnet
         state: absent
       - package: telnet
@@ -18,7 +18,7 @@
         name:  "{{ item }}"
         state: absent
       with_items:
-        - ecl-doc
+        - e3
         - telnet
     - apt:
         name:  "{{ item }}"

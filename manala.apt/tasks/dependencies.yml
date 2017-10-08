@@ -12,3 +12,4 @@
     - apt-transport-https
     - openssl
     - ca-certificates
+    - gnupg
