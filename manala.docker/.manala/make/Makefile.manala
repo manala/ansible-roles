@@ -162,6 +162,20 @@ space +=
 $(space) :=
 $(space) +=
 
+# A lot of makefile functions, such as "foreach", don't support space escaping operator "\ ".
+# Using escape/unescape, one can simulate such support.
+#
+# Usage:
+#   $(foreach ITEM,$(call escape,foo bar\ baz),echo $(call unescape,$(ITEM))) = foo\nbar baz\n
+
+define escape
+$(subst \ ,␣,$(1))
+endef
+
+define unescape
+$(subst ␣, ,$(1))
+endef
+
 ########
 # Fail #
 ########
@@ -248,7 +262,7 @@ $(call last,$(1))
 endef
 
 # Usage:
-#   $(call list_loop,ITEM,foo bar baz,$$(ITEM)) = foo\nbar\nbaz\n
+#   $(call list_loop,ITEM,foo bar baz,echo $$(ITEM)) = foo\nbar\nbaz\n
 
 define list_loop
 	( MANALA_LIST_LOOP_EXIT=0 ; \

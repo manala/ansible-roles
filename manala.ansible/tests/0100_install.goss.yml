@@ -8,7 +8,7 @@ command:
   dpkg -s ansible:
     exit-status: 0
     stdout:
-      - "/^Version: .+-\\dmanala\\d+~{{.Env.RELEASE}}\\d+$/"
+      - "/^Version: .+-\\dmanala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
   ansible --version:
     exit-status: 0
     stdout:

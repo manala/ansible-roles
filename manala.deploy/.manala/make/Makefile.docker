@@ -19,8 +19,8 @@ define docker_run
 		$(if $(MANALA_DOCKER_ENV), \
 			$(foreach \
 				ENV,\
-				$(MANALA_DOCKER_ENV),\
-				--env $(ENV) \
+				 $(call escape,$(MANALA_DOCKER_ENV)),\
+				--env $(call unescape,$(ENV)) \
 			) \
 		) \
 		$(MANALA_DOCKER_OPTIONS) \
