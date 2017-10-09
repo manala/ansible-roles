@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Nodejs 8 support
+
 ### Fixed
 - Nodejs 7 comes now with npm 4 (tests were referecing npm 3)
 
