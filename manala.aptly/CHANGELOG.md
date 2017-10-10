@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Debian stretch support
+- Import pre-generated gpg key instead of generate it in tests
 
 ## [1.0.0] - 2017-06-21
 ### Added
