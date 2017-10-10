@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Databases config option (See: https://github.com/erikdubbelboer/phpRedisAdmin/commit/d344599f6c3e4bd080fe3d0f243a561c55b1a7f9)
+- Possibility of connection via UNIX domain socket (See: https://github.com/erikdubbelboer/phpRedisAdmin/commit/94150ccd534c91b53220006fe36b79621920d19f) (was missing from default template)
 
 ## [1.0.0] - 2017-05-15
 ### Added
