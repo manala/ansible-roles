@@ -1,0 +1,20 @@
+---
+
+file:
+  /etc/ansible/hosts.test:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "foo bar=baz"
+      - "bar"
+      - "[foo_var]"
+      - "foo"
+      - "bar"
+      - "[foo_var:vars]"
+      - "foo=bar"
+      - "bar=baz"
+      - "[bar:children]"
+      - "foo"

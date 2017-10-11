@@ -4,3 +4,8 @@
 - include: install.yml
   tags:
     - manala_ansible
+
+# Hosts
+- include: hosts.yml
+  tags:
+    - manala_ansible

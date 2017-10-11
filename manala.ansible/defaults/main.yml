@@ -1,0 +1,6 @@
+---
+
+# Hosts
+manala_ansible_hosts_file:     /etc/ansible/hosts
+manala_ansible_hosts_template: ~
+manala_ansible_hosts:          []
