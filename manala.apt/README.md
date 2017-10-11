@@ -113,6 +113,7 @@ manala_apt_repositories:
   - updates # Distribution auto-detection
   - partner # Distribution auto-detection
   - backports # Distribution auto-detection
+  - backports_sloppy # Distribution auto-detection
   - debian_security # Deprecated, use 'security'
   - debian_security_src # Deprecated, use 'security_src'
   - debian_updates # Deprecated, use 'updates'
