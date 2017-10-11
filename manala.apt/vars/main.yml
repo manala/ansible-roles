@@ -58,6 +58,15 @@ manala_apt_repositories_patterns:
       }
     }[ansible_distribution|lower]
   }}"
+  backports_sloppy: "{{
+    {
+      'debian': {
+        'source': 'deb http://httpredir.debian.org/debian ' ~ ansible_distribution_release ~ '-backports-sloppy ' ~ manala_apt_components|join(' '),
+        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports-sloppy'
+      },
+      'ubuntu': None
+    }[ansible_distribution|lower]
+  }}"
   # Deprecated
   debian_security:
     source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
