@@ -8,4 +8,4 @@ command:
   dpkg -s phppgadmin:
     exit-status: 0
     stdout:
-      - "/^Version: .+-manala\\d+~{{.Env.RELEASE}}\\d+$/"
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"

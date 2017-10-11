@@ -131,6 +131,10 @@ manala_apt_repositories:
   - nodesource_0_10
   - nodesource_0_12
   - nodesource_4
+  - nodesource_5
+  - nodesource_6
+  - nodesource_7
+  - nodesource_8
   - postgresql
   - mongodb_3_0
   - mongodb_3_1
@@ -223,7 +227,7 @@ Verbose
 
 ```yaml
 manala_apt_packages:
-  - name:  bzip2  # Name of package, required
+  - package:  bzip2  # Name of package, required
     state: absent # State of package, optionnal, default 'present'
     force: true   # Force installation, optionnal
 ```

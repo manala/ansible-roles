@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   vars:
     manala_rsyslog_config_template: config/default.prod.j2
@@ -18,5 +18,3 @@
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
-      environment:
-        RELEASE: "{{ ansible_distribution_release }}"

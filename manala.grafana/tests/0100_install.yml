@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
@@ -11,5 +11,3 @@
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
-      environment:
-        RELEASE: "{{ ansible_distribution_release }}"

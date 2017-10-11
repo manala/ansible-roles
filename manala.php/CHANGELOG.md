@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Fix ansible 2.3 warnings "when statements should not include jinja2 templating delimiters"
 
 ## [1.0.2] - 2017-06-30
 ### Added

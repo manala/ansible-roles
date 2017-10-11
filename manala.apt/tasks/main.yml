@@ -28,7 +28,7 @@
 
 # Update
 - include: update.yml
-  when: "{{ manala_apt['update']|default(false) }}"
+  when: manala_apt['update']|default(false)
   tags:
     - manala_apt
     - manala_apt.update

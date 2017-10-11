@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: wheezy
+  hosts: debian.wheezy
   become: true
   pre_tasks:
     - include: pre_tasks/dotdeb_wheezy_56.yml
@@ -22,5 +22,3 @@
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
-      environment:
-        RELEASE: "{{ ansible_distribution_release }}"

@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: jessie
+  hosts: debian.jessie
   become: true
   vars:
     manala_keepalived_config:
@@ -32,5 +32,3 @@
         seconds: 2
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
-      environment:
-        RELEASE: "{{ ansible_distribution_release }}"

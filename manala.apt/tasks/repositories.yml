@@ -28,7 +28,7 @@
   file:
     path:  "{{ manala_apt_repositories_dir }}/{{ item }}"
     state: absent
-  when: "{{
+  when: |
     manala_apt_repositories_exclusive
     and (
       item not in __manala_apt_repositories_results.results
@@ -43,7 +43,6 @@
         |map('regex_replace', '(.*)', '\\1.list')
         |list
     )
-  }}"
   with_items: "{{ __manala_apt_repositories_find_output.stdout_lines|default([]) }}"
   register: __manala_apt_repositories_exclusive_results
 

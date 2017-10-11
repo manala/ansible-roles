@@ -2,9 +2,9 @@
 
 - name: Pre tasks > Varnish 4.0 apt key
   apt_key:
-    file: pre_tasks/apt_keys/varnish.pgp
-    id: C4DEFFEB
+    file: pre_tasks/apt_keys/varnish_4_0.pgp
+    id: DE3FFEA4
 
 - name: Pre tasks > Varnish 4.0 apt repository
   apt_repository:
-    repo: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
+    repo: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main

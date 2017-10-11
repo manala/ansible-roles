@@ -8,6 +8,6 @@ command:
   dpkg -s supervisor:
     exit-status: 0
     stdout:
-      - "/^Version: .+-\\dmanala\\d+~{{.Env.RELEASE}}\\d+$/"
+      - "/^Version: .+-\\dmanala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
   supervisord --version:
     exit-status: 0

@@ -120,6 +120,9 @@ manala_apt_repositories_patterns:
   nodesource_7:
     source: deb https://deb.nodesource.com/node_7.x {{ ansible_distribution_release }} main
     key: nodesource
+  nodesource_8:
+    source: deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
+    key: nodesource
   mysql_5_6:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
     key: mysql
@@ -148,8 +151,8 @@ manala_apt_repositories_patterns:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.2 main
     key: mongodb
   varnish_4_0:
-    source: deb https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} varnish-4.0
-    key: varnish
+    source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    key: varnish_4_0
   jenkins:
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key: jenkins
@@ -217,7 +220,7 @@ manala_apt_repositories_patterns:
     source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
     key: influxdata
   yarn:
-    source: deb http://dl.yarnpkg.com/debian/ stable main
+    source: deb https://dl.yarnpkg.com/debian/ stable main
     key: yarn
   sury_php: "{{
     {
@@ -277,9 +280,9 @@ manala_apt_keys_patterns:
     id: EA312927
     # See 10gen
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
-  varnish:
-    url: https://repo.varnish-cache.org/{{ ansible_distribution|lower }}/GPG-key.txt
-    id: C4DEFFEB
+  varnish_4_0:
+    url: https://packagecloud.io/varnishcache/varnish40/gpgkey
+    id: DE3FFEA4
   jenkins:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
     id: D50582E6
@@ -320,7 +323,7 @@ manala_apt_keys_patterns:
     url: https://repos.influxdata.com/influxdb.key
     id: 2582E0C5
   yarn:
-    url: http://dl.yarnpkg.com/debian/pubkey.gpg
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
     id: 86E50310
   sury_php: "{{
     {

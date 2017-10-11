@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2017-09-29
+### Changed
+- Fix tests debian repository
+
 ## [1.0.0] - 2017-07-17
 ### Added
 - Handle install

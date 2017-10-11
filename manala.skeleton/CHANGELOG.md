@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.5] - 2017-10-09
+### Added
+- Nodejs 8 support
+
+## [1.0.4] - 2017-09-08
+### Added
+- Respect thefuck dependencies (python-pathlib2 is available on wheezy via manala,
+  and on jessie via backports, python-pkg-resources is already available in a poor version on wheezy, and in a decent version on jessie via backports)
+
+## [1.0.3] - 2017-09-06
+### Changed
+- Limit httpie installation on jessie
+
+### Added
+- Respect httpie dependencies (python3-requests >= 2.5.2, python3-urllib3 >= 1.16, available on backports)
+
 ## [1.0.2] - 2017-06-14
 ### Added
 - Force npm update to false to avoid unwanted npm package updates

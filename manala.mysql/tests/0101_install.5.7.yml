@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   pre_tasks:
     - include: pre_tasks/mysql_5.7.yml
@@ -10,5 +10,3 @@
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
-      environment:
-        RELEASE: "{{ ansible_distribution_release }}"

@@ -8,7 +8,7 @@ command:
   dpkg -s backup-manager:
     exit-status: 0
     stdout:
-      - "/^Version: .+-\\dmanala\\d+~{{.Env.RELEASE}}\\d+$/"
+      - "/^Version: .+-\\dmanala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
   backup-manager --version:
     exit-status: 0
     stdout:
