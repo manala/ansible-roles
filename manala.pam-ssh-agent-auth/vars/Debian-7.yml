@@ -1,6 +1,6 @@
 ---
 
 pamsshagent_pkgs:
-  - libpam-ssh-agent-auth
+  - pam-ssh-agent-auth
 
 sudo_requirement_check: "dpkg -s sudo"
