@@ -4,4 +4,6 @@ file:
   /etc/mongo-express/config.js:
     exists: true
     contains:
-      - "url: 'mongodb://localhost:27017/db'"
+      - "admin: true"
+      - "host:             process.env.VCAP_APP_HOST                 || '0.0.0.0'"
+      - "useBasicAuth: false"

@@ -42,7 +42,8 @@ manala_skeleton_patterns:
     apt_preferences_exclusive: true
     apt_preferences: "{{
       [
-        'thefuck@manala'
+        'thefuck@manala',
+        'exa@manala'
       ]
       + {
         'wheezy': [
@@ -404,7 +405,8 @@ manala_skeleton_patterns:
         'less',
         'ssl-cert',
         'thefuck',
-        'gitsplit'
+        'gitsplit',
+        'exa'
       ]
       + {
         'wheezy': [
