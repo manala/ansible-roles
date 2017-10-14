@@ -1,7 +1,16 @@
 ---
 
+- name: Include distribution version-specific variables
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version|int }}.yml"
+
 # Requirements
 - include: requirements.yml
+  tags:
+    - manala_pam_ssh_agent_auth
+
+# Extra ppa when needed
+- include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version|int < 17
   tags:
     - manala_pam_ssh_agent_auth
 

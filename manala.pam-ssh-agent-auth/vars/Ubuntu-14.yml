@@ -1,0 +1,6 @@
+---
+
+pamsshagent_pkgs:
+  - pam-ssh-agent-auth
+
+sudo_requirement_check: "dpkg -s sudo"

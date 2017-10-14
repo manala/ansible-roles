@@ -1,0 +1,12 @@
+---
+
+- name: Ubuntu | add ppa repo
+  apt_repository:
+    repo: "{{ pamsshagentauth_ppa_repo }}"
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+  register: repo
+
+- name: Ubuntu | update apt cache
+  apt: update_cache=yes
+  when: repo.changed
