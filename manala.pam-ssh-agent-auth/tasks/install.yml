@@ -12,9 +12,9 @@
 
 - block:
     - name: RedHat | Ensure EPEL repository is present
-      command: "rpm -qi epel-release"
-      changed_when: false
-      check_mode: false
+      yum:
+        name: epel-release
+        state: present
     - name: RedHat | install > Packages
       yum:
         name:  "{{ item }}"
