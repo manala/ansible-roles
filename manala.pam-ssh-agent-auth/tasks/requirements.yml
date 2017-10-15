@@ -1,7 +1,7 @@
 ---
 
 - name: requirements > Sudo package check
-  command: "{{ sudo_requirement_check }}"
+  command: "dpkg -s sudo"
   check_mode: false
   failed_when: false
   changed_when: false

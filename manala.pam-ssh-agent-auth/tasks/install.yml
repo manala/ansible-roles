@@ -1,24 +1,11 @@
 ---
 
-- name: Debian | install > Packages
+- name: install > Packages
   apt:
     name:  "{{ item }}"
     state: present
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items: "{{ pamsshagent_pkgs }}"
-  when: ansible_os_family == 'Debian'
-
-- block:
-    - name: RedHat | Ensure EPEL repository is present
-      yum:
-        name: epel-release
-        state: present
-    - name: RedHat | install > Packages
-      yum:
-        name:  "{{ item }}"
-        state: present
-        update_cache:       true
-      with_items: "{{ pamsshagent_pkgs }}"
-  when: ansible_os_family == 'RedHat'
+  with_items:
+    - pam-ssh-agent-auth

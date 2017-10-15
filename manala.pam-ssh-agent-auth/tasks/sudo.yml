@@ -5,8 +5,6 @@
     dest:  /etc/sudoers
     block: |
       Defaults env_keep += SSH_AUTH_SOCK
-    backup: "{{ pamsshagentauth_backup_files }}"
-    validate: 'visudo -cf %s'
   notify:
     - sudo restart
 
@@ -16,6 +14,5 @@
     insertbefore: '^@include common-auth'
     block: |
       auth sufficient pam_ssh_agent_auth.so file=%h/.ssh/authorized_keys
-    backup: "{{ pamsshagentauth_backup_files }}"
   notify:
     - sudo restart

@@ -2,8 +2,5 @@
 
 - name: sudo restart
   service:
-    name: sudo
+    name:  sudo
     state: restarted
-  when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "docker")) and not ansible_distribution == 'Ubuntu'
-- name: update apt cache
-  apt: update_cache=yes

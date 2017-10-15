@@ -1,6 +1,0 @@
----
-
-pamsshagent_pkgs:
-  - pam_ssh_agent_auth
-
-sudo_requirement_check: "rpm -qi sudo"

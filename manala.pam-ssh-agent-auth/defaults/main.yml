@@ -1,5 +1,0 @@
----
-
-## Trust ppa is your own choice for ubuntu release < 17.04 (zetsy)
-pamsshagentauth_ppa_repo: 'ppa:cpick/pam-ssh-agent-auth'
-pamsshagentauth_backup_files: no
