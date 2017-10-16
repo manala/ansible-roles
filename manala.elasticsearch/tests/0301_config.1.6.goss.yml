@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/elasticsearch/elasticsearch.yml:
+    exists: true
+    owner: root
+    filetype: file
+    contains:
+      - "node.name: Foo Bar"

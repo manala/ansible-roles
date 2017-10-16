@@ -1,5 +1,9 @@
 ---
 
+package:
+  elasticsearch:
+    installed: true
+
 service:
   elasticsearch:
     enabled: true

@@ -1,0 +1,29 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian.jessie
+  become: true
+  vars:
+    manala_elasticsearch_config:
+      - node.name: Foo Bar
+  pre_tasks:
+    - include: pre_tasks/elasticsearch_5.yml
+    - include: pre_tasks/backports.yml
+    - copy:
+        dest: /etc/apt/preferences.d/openjdk
+        content: |
+          Package:      openjdk-* ca-certificates-java
+          Pin:          release a={{ ansible_distribution_release }}-backports
+          Pin-Priority: 900
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - openjdk-8-jre-headless
+  roles:
+    - manala.elasticsearch
+  post_tasks:
+    - pause:
+        seconds: 3
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

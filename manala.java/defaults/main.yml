@@ -1,0 +1,4 @@
+---
+
+# Java version. Available values are '~' (autodetect), '7', '8'
+manala_java_version: ~
