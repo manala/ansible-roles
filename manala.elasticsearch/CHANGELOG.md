@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Handle version (autodetect or fixed)
+- Version based configurations
+- Version based / distribution release requirements
+- Version based tests
+- Support version 5
 
 ## [1.0.0] - 2017-06-21
 ### Added

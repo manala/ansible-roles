@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Exa package from manala by default
+- Elasticsearch 5 support (become default) (elasticsearch-head plugin not supported)
+- Java version 8 (backports) for debian jessie
 
 ## [1.0.5] - 2017-10-09
 ### Added

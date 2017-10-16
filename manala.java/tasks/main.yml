@@ -1,5 +1,10 @@
 ---
 
+# Requirements
+- include: requirements.yml
+  tags:
+    - manala_java
+
 # Install
 - include: install.yml
   tags:

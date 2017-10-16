@@ -8,4 +8,8 @@
     update_cache:       true
     cache_valid_time:   3600
   with_items:
-    - openjdk-7-jre
+    - "{{
+        'openjdk-' ~ manala_java_version ~ '-jre-headless'
+          if (manala_java_version) else
+        'default-jre-headless'
+    }}"

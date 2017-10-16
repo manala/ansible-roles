@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Backports sloppy support
+- Elasticsearch 5 support
+
+### Fixed
+- Elasticsearch repositories patterns source urls
+- Elasticsearch keys patterns urls
 
 ## [1.0.5] - 2017-10-09
 ### Added

@@ -9,3 +9,21 @@
     cache_valid_time:   3600
   with_items:
     - elasticsearch
+
+- name: install > Version
+  shell: "dpkg -s elasticsearch | grep \"Version: \" | sed -e 's/Version: //g'"
+  register: __manala_elasticsearch_version
+  when: not manala_elasticsearch_version
+  check_mode: false
+  changed_when: false
+
+- name: install > Version
+  set_fact:
+    manala_elasticsearch_version: "{{
+      __manala_elasticsearch_version.stdout.split('.')[0] ~ '.' ~ __manala_elasticsearch_version.stdout.split('.')[1]
+        if (__manala_elasticsearch_version.stdout|version_compare('2.0.0', '<')) else
+      __manala_elasticsearch_version.stdout.split('.')[0]
+    }}"
+  when: not manala_elasticsearch_version
+  check_mode: false
+  changed_when: false
