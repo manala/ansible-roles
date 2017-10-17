@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.6] - 2017-10-17
 ### Added
 - Exa package from manala by default
 - Elasticsearch 5 support (become default) (elasticsearch-head plugin not supported)

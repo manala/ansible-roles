@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.6] - 2017-10-17
 ### Added
 - Backports sloppy support
 - Elasticsearch 5 support
