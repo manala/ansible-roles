@@ -1,5 +1,0 @@
----
-
-package:
-  elasticsearch:
-    installed: true

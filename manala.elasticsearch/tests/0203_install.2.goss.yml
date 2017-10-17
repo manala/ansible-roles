@@ -1,0 +1,10 @@
+---
+
+package:
+  elasticsearch:
+    installed: true
+
+service:
+  elasticsearch:
+    enabled: true
+    running: true
