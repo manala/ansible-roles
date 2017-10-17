@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Backports sloppy support
 
+### Fixed
+- Mongodb repository apt key
+
 ## [1.0.5] - 2017-10-09
 ### Added
 - Nodejs 8 support

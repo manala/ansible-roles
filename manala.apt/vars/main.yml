@@ -285,10 +285,8 @@ manala_apt_keys_patterns:
     # Instead of hacking things on python or system, simply don't validate certs...
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   mongodb:
-    url: https://www.mongodb.org/static/pgp/server-3.2.asc
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: EA312927
-    # See 10gen
-    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   varnish_4_0:
     url: https://packagecloud.io/varnishcache/varnish40/gpgkey
     id: DE3FFEA4
