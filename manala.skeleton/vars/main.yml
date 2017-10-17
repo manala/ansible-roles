@@ -53,6 +53,7 @@ manala_skeleton_patterns:
           'python-six@backports'
         ],
         'jessie': [
+          'openjdk@backports',
           'git@backports',
           'htop@backports',
           'python-pathlib2@backports',
@@ -83,7 +84,7 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.phppgadmin)|ternary(['phppgadmin@manala'],[])
       + (manala_skeleton_options.redis)|ternary(['redis@dotdeb'],[])
       + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
-      + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2'}[manala_skeleton_options.elasticsearch_version|string]],[])
+      + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2', '5': '_5'}[manala_skeleton_options.elasticsearch_version|string]],[])
       + (manala_skeleton_options.influxdb)|ternary(['influxdb@influxdata'],[])
     }}"
     apt_update_holds: "{{
@@ -156,6 +157,13 @@ manala_skeleton_patterns:
     ngrok_configs:
       - file:     config.yml
         template: configs/default.{{ manala_skeleton_env }}.j2
+    # Ngrok
+    java_version: "{{
+      {
+        'wheezy': '7',
+        'jessie': '8'
+      }[ansible_distribution_release]
+    }}"
     # Php
     php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1})[manala_skeleton_options.php_version|string] }}"
     php_sapis_exclusive: true
@@ -378,8 +386,15 @@ manala_skeleton_patterns:
     # Mongo Express
     mongo_express_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Elasticsearch
-    elasticsearch_plugins:
-      - mobz/elasticsearch-head
+    elasticsearch_plugins: "{{
+      {
+        '1.5': ['mobz/elasticsearch-head'],
+        '1.6': ['mobz/elasticsearch-head'],
+        '1.7': ['mobz/elasticsearch-head'],
+        '2': ['mobz/elasticsearch-head'],
+        '5': []
+      }[manala_skeleton_options.elasticsearch_version|string]
+    }}"
     # PhantomJS
     phantomjs_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Heka

@@ -1,0 +1,10 @@
+---
+
+- name: requirements > Version
+  fail:
+     msg: Your "manala_java_version" is not compatible with your release
+  when:
+    - manala_java_version != None
+    - manala_java_version|version_compare('7', '>')
+      and ansible_distribution_release == 'wheezy'
+  check_mode: false

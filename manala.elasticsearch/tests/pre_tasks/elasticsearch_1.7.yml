@@ -5,6 +5,6 @@
     file: pre_tasks/apt_keys/elasticsearch.pgp
     id: D88E42B4
 
-- name: Pre tasks > Elasticsearch apt repository
+- name: Pre tasks > Elasticsearch 1.7 apt repository
   apt_repository:
-    repo: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
+    repo: deb https://packages.elastic.co/elasticsearch/1.7/debian stable main

@@ -185,16 +185,19 @@ manala_apt_repositories_patterns:
     source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
     key: packagecloud
   elasticsearch_1_5:
-    source: deb http://packages.elastic.co/elasticsearch/1.5/debian stable main
+    source: deb https://packages.elastic.co/elasticsearch/1.5/debian stable main
     key: elasticsearch
   elasticsearch_1_6:
-    source: deb http://packages.elastic.co/elasticsearch/1.6/debian stable main
+    source: deb https://packages.elastic.co/elasticsearch/1.6/debian stable main
     key: elasticsearch
   elasticsearch_1_7:
-    source: deb http://packages.elastic.co/elasticsearch/1.7/debian stable main
+    source: deb https://packages.elastic.co/elasticsearch/1.7/debian stable main
     key: elasticsearch
   elasticsearch_2:
-    source: deb http://packages.elastic.co/elasticsearch/2.x/debian stable main
+    source: deb https://packages.elastic.co/elasticsearch/2.x/debian stable main
+    key: elasticsearch
+  elasticsearch_5:
+    source: deb https://artifacts.elastic.co/packages/5.x/apt stable main
     key: elasticsearch
   ansible: "{{
     {
@@ -309,7 +312,7 @@ manala_apt_keys_patterns:
     url: https://packagecloud.io/gpg.key
     id: D59097AB
   elasticsearch:
-    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     id: D88E42B4
   gitlab:
     url: https://packages.gitlab.com/gpg.key
