@@ -2,4 +2,4 @@
 
 - name: Pre tasks > Backports apt repository
   apt_repository:
-    repo: deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main
+    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main

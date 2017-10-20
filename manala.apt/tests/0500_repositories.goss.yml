@@ -11,11 +11,11 @@ file:
     filetype: file
     contains:
       - "deb http://deb.bearstech.com/debian {{ .Env.DISTRIBUTION_RELEASE }}-bearstech main"
-  /etc/apt/sources.list.d/httpredir_debian_org_debian.list:
+  /etc/apt/sources.list.d/deb_debian_org_debian.list:
     exists:   true
     filetype: file
     contains:
-      - "deb http://httpredir.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
+      - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
   /etc/apt/sources.list.d/nginx_org_packages_debian.list:
     exists:   true
     filetype: file

@@ -38,7 +38,7 @@
       with_items:
         - /etc/apt/sources.list.d/apt_postgresql_org_pub_repos_apt.list
         - /etc/apt/sources.list.d/deb_bearstech_com_debian.list
-        - /etc/apt/sources.list.d/httpredir_debian_org_debian.list
+        - /etc/apt/sources.list.d/deb_debian_org_debian.list
         - /etc/apt/sources.list.d/nginx_org_packages_debian.list
         - /etc/apt/sources.list.d/packages_dotdeb_org.list
         - /etc/apt/sources.list.d/packages_elastic_co_elasticsearch_1_7_debian.list
