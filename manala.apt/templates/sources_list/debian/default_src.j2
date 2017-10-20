@@ -2,6 +2,6 @@
 
 {% set config = manala_apt_sources_list -%}
 
-deb http://httpredir.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
-deb-src http://httpredir.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+deb-src http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
 {{ macros.config(config) }}
