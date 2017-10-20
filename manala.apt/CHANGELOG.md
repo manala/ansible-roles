@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.7] - 2017-10-20
 ### Fixed
 - Debian httpredir.debian.org deprecated in favour of deb.debian.org
 - Debian security repository trailing slash
