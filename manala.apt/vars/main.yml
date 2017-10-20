@@ -5,7 +5,7 @@ manala_apt_repositories_patterns:
   security: "{{
     {
       'debian': {
-        'source': 'deb http://security.debian.org/ ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb http://security.debian.org ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': {
         'source': 'deb http://security.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
@@ -15,7 +15,7 @@ manala_apt_repositories_patterns:
   security_src: "{{
     {
       'debian': {
-        'source': 'deb-src http://security.debian.org/ ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb-src http://security.debian.org ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': None
     }[ansible_distribution|lower]
@@ -69,10 +69,10 @@ manala_apt_repositories_patterns:
   }}"
   # Deprecated
   debian_security:
-    source: deb http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_security_src:
-    source: deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_updates:
     source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
