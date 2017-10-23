@@ -4,12 +4,12 @@
 # Manala #
 ##########
 
-MANALA_DIR := $(abspath $(patsubst %/make/Makefile,%,$(firstword $(filter %.manala/make/Makefile,$(MAKEFILE_LIST)))))
+MANALA_MAKE_DIR := $(abspath $(patsubst %/Makefile,%,$(lastword $(MAKEFILE_LIST))))
 
 include \
-	$(MANALA_DIR)/make/Makefile.manala \
-	$(MANALA_DIR)/make/Makefile.travis \
-	$(MANALA_DIR)/make/Makefile.gitsplit
+	$(MANALA_MAKE_DIR)/Makefile.manala \
+	$(MANALA_MAKE_DIR)/Makefile.travis \
+	$(MANALA_MAKE_DIR)/Makefile.gitsplit
 
 -include \
 	$(MANALA_CURRENT_DIR)/.env
@@ -29,8 +29,8 @@ ROLES_DIFF := $(filter-out .manala,$(sort $(shell git diff --name-only $(TRAVIS_
 
 PART ?= 1/1
 
-PARTITION_PART  := $(call list_first,$(call list_split,/,$(PART)))
-PARTITION_PARTS := $(call list_last,$(call list_split,/,$(PART)))
+PARTITION_PART  := $(call list_split_first,/,$(PART))
+PARTITION_PARTS := $(call list_split_last,/,$(PART))
 
 ########
 # Lint #
@@ -101,7 +101,7 @@ SYNC_HELP = \
 	$(call help,sync,Sync roles)
 
 sync:
-	$(call fail_unless,FROM)
+	$(call fail_if_not,$(FROM),FROM is empty or not set)
 	$(call confirm,Please confirm sync from \"$(FROM)\" ansible role)
 	for ROLE in */; do \
 		echo $$ROLE; \

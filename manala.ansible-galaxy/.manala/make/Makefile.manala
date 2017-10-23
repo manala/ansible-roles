@@ -5,24 +5,27 @@
 # GNU Make Standard Library #
 #############################
 
-include $(MANALA_DIR)/make/gmsl/gmsl
+include $(MANALA_MAKE_DIR)/gmsl/gmsl
 
-#############
-# Variables #
-#############
+###############
+# Directories #
+###############
 
-# MANALA_CURRENT_DIR [String]  Current directory
-# MANALA_DIR         [String]  Manala base directory
-# MANALA_HELP        [String]  Help content
-# MANALA_INTERACTIVE [Empty]|1 Run in interactive mode
+MANALA_DIR         := $(patsubst %/make,%,$(MANALA_MAKE_DIR))
+MANALA_CURRENT_DIR := $(CURDIR)
 
+###########
+# Contact #
+###########
+
+MANALA_CONTACT       = $(MANALA_CONTACT_NAME) <$(MANALA_CONTACT_MAIL)>
 MANALA_CONTACT_NAME := Manala
 MANALA_CONTACT_MAIL := contact@manala.io
 
-# Current dir
-MANALA_CURRENT_DIR := $(CURDIR)
+##########
+# Colors #
+##########
 
-# Colors
 MANALA_COLOR_RESET   := \033[0m
 MANALA_COLOR_ERROR   := \033[31m
 MANALA_COLOR_INFO    := \033[32m
@@ -61,6 +64,13 @@ ifneq ($(MANALA_CURRENT_DIR),$(MANALA_DIR))
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 endif
 	@printf "\n\n"
+
+################
+# User / Group #
+################
+
+MANALA_USER_ID  := $(shell id -u)
+MANALA_GROUP_ID := $(shell id -g)
 
 ###############
 # Interactive #
@@ -162,17 +172,25 @@ space +=
 $(space) :=
 $(space) +=
 
-# A lot of makefile functions, such as "foreach", don't support space escaping operator "\ ".
-# Using escape/unescape, one can simulate such support.
-#
 # Usage:
-#   $(foreach ITEM,$(call escape,foo bar\ baz),echo $(call unescape,$(ITEM))) = foo\nbar baz\n
+#   $(call escape_spaces,foo bar)    = foo\ bar
+#   $(call unescape_spaces,foo\ bar) = foo bar
+#   $(call encode_spaces,foo\ bar)   = foo␣bar
+#   $(call decode_spaces,foo␣bar)    = foo bar
 
-define escape
+define escape_spaces
+$(subst $( ),\ ,$(1))
+endef
+
+define unescape_spaces
+$(subst \ ,$( ),$(1))
+endef
+
+define encode_spaces
 $(subst \ ,␣,$(1))
 endef
 
-define unescape
+define decode_spaces
 $(subst ␣, ,$(1))
 endef
 
@@ -180,8 +198,12 @@ endef
 # Fail #
 ########
 
-define fail_unless
-	$(if $($(1)),,$(call message_error,\"$(1)\" is empty or not set); exit 1)
+define fail_if_not
+	$(if $(1),,$(call message_error,$(2)); exit 1)
+endef
+
+define fail_if_not_in
+	$(call if_in,$(1),$(2),,$(call message_error,$(3)); exit 1)
 endef
 
 ###########
@@ -233,6 +255,7 @@ endef
 # List #
 ########
 
+# Returns the list with duplicate elements removed without reordering
 # Usage:
 #   $(call list_uniq,foo bar bar baz) = foo bar
 
@@ -240,6 +263,7 @@ define list_uniq
 $(call uniq,$(1))
 endef
 
+# Splits a string into a list separated by spaces at the split character in the first argument
 # Usage:
 #   $(call list_split,:,foo:bar) = foo bar
 
@@ -248,17 +272,49 @@ $(call split,$(1),$(2))
 endef
 
 # Usage:
+#   $(call list_split_first,:,foo:bar) = foo
+
+define list_split_first
+$(call list_first,$(call list_split,$(1),$(2)))
+endef
+
+# Usage:
+#   $(call list_split_last,:,foo:bar) = bar
+
+define list_split_last
+$(call list_last,$(call list_split,$(1),$(2)))
+endef
+
+# Returns the first element of a list
+# Usage:
 #   $(call list_first,foo bar) = foo
 
 define list_first
 $(call first,$(1))
 endef
 
+# Returns the last element of a list
 # Usage:
 #   $(call list_last,foo bar) = bar
 
 define list_last
 $(call last,$(1))
+endef
+
+# Returns the list with the first element removed
+# Usage:
+#   $(call list_rest,foo bar baz) = bar baz
+
+define list_rest
+$(call rest,$(1))
+endef
+
+# Returns the list with the last element removed
+# Usage:
+#   $(call list_chop,foo bar baz) = foo bar
+
+define list_chop
+$(call chop,$(1))
 endef
 
 # Usage:
@@ -297,6 +353,32 @@ endef
 define list_partition_size
 $(call if_eq,$(1),$(2),$(3),$(call subtract,$(call if_gte,$(3),$(2),$(call divide,$(3),$(2)),1,),1))
 endef
+
+##########
+# Semver #
+##########
+
+# Usage:
+#   $(call semver_major,3.2.1) = 3
+
+define semver_major
+$(call list_first,$(call list_split,.,$(1)))
+endef
+
+# Usage:
+#   $(call semver_minor,3.2.1) = 2
+
+define semver_minor
+$(call list_first,$(call list_rest,$(call list_split,.,$(1))))
+endef
+
+# Usage:
+#   $(call semver_patch,3.2.1) = 1
+
+define semver_patch
+$(call list_last,$(call list_split,.,$(1)))
+endef
+
 
 ########
 # Rand #
