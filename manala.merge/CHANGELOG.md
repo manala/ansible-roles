@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Python six import path (See: https://github.com/ansible/ansible/pull/22855)
 
 ## [1.0.0] - 2017-06-21
 ### Added
