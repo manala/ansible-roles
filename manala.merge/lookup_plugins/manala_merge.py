@@ -1,6 +1,6 @@
 from ansible.plugins.lookup import LookupBase
 from ansible.template import Templar
-from ansible.compat.six import iteritems, string_types
+from ansible.module_utils.six import iteritems, string_types
 
 import re
 
