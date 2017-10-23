@@ -13,7 +13,6 @@
 
 # Codes Defaults
 - include: codes_default.yml
-  # see https://github.com/ansible/ansible/issues/20392
-  when: manala_locales_codes_default|default('') != ''
+  when: manala_locales_codes_default is not none
   tags:
     - manala_locales
