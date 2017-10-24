@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.8] - 2017-10-24
 ### Changed
 - Pam Ssh Agent Auth preferences pattern
 
