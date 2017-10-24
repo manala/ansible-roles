@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.3] - 2017-10-24
 ### Fixed
 - Default user template ssh key path (See: https://github.com/robbyrussell/oh-my-zsh/pull/5603)
 
