@@ -8,7 +8,7 @@
     - copy:
         dest: /etc/apt/preferences.d/pam-ssh-agent-auth
         content: |
-          Package:      pam-ssh-agent-auth*
+          Package:      libpam-ssh-agent-auth*
           Pin:          origin debian.manala.io
           Pin-Priority: 900
   roles:
