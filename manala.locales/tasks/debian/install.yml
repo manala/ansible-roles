@@ -1,0 +1,13 @@
+---
+
+- name: debian > install > Packages
+  apt:
+    name:  "{{ item }}"
+    state: present
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  with_items:
+    - locales # Provides "locale-gen" binary for module "locale_gen".
+              # Note that "locales" package has a dependency on
+              # "libc-bin" package, providing "locale" binary

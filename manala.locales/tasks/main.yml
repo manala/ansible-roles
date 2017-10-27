@@ -1,18 +1,11 @@
 ---
 
-# Install
-- include: install.yml
-  tags:
-    - manala_locales
+- name: main > Include "{{ ansible_os_family|lower }}" vars
+  include_vars:
+    file: "{{ ansible_os_family|lower }}/main.yml"
 
-# Codes
-- include: codes.yml
-  when: manala_locales_codes|length
+- name: main > Include "{{ ansible_os_family|lower }}" tasks
+  include: "{{ ansible_os_family|lower }}/main.yml"
+  static: false
   tags:
-    - manala_locales
-
-# Codes Defaults
-- include: codes_default.yml
-  when: manala_locales_codes_default is not none
-  tags:
-    - manala_locales
+     - manala_locales

@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- CentOS 7 support
+- Ubuntu Xenial support
+
 ### Fixed
 - Weak conditional check
 

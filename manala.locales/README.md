@@ -48,7 +48,7 @@ manala_locales_codes_default: C.UTF-8
 
 manala_locales_codes:
   - fr_FR.UTF-8
-  - name: en_EN.UTF-8
+  - code: en_EN.UTF-8
     state: absent
 ```
 

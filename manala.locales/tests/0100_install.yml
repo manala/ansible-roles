@@ -1,7 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts:
+    - debian
+    - ubuntu
+    - centos
   become: true
   roles:
     - manala.locales
