@@ -1,3 +1,7 @@
+#############
+# Functions #
+#############
+
 define docker_run
 	docker run \
 		--rm \
@@ -7,8 +11,6 @@ define docker_run
 		) \
 		$(if $(MANALA_INTERACTIVE),--tty --interactive) \
 		$(if $(MANALA_DOCKER_HOST),--hostname $(MANALA_DOCKER_HOST)) \
-		--env USER_ID=$(shell id -u) \
-		--env GROUP_ID=$(shell id -g) \
 		$(if $(MANALA_DOCKER_VOLUMES), \
 			$(foreach \
 				VOLUME,\
@@ -19,8 +21,8 @@ define docker_run
 		$(if $(MANALA_DOCKER_ENV), \
 			$(foreach \
 				ENV,\
-				 $(call escape,$(MANALA_DOCKER_ENV)),\
-				--env $(call unescape,$(ENV)) \
+				 $(call encode_spaces,$(MANALA_DOCKER_ENV)),\
+				--env $(call decode_spaces,$(ENV)) \
 			) \
 		) \
 		$(MANALA_DOCKER_OPTIONS) \

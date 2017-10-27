@@ -1,3 +1,7 @@
+#############
+# Functions #
+#############
+
 ifeq ($(shell uname -s),Darwin)
 define gitsplit
 	docker run \

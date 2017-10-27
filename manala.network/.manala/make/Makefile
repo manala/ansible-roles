@@ -4,13 +4,13 @@
 # Manala #
 ##########
 
-MANALA_DIR := $(abspath $(patsubst %/make/Makefile,%,$(firstword $(filter %.manala/make/Makefile,$(MAKEFILE_LIST)))))
+MANALA_MAKE_DIR := $(abspath $(patsubst %/Makefile,%,$(lastword $(MAKEFILE_LIST))))
 
 include \
-	$(MANALA_DIR)/make/Makefile.manala \
-	$(MANALA_DIR)/make/Makefile.docker \
-	$(MANALA_DIR)/make/Makefile.host \
-	$(MANALA_DIR)/make/Makefile.travis
+	$(MANALA_MAKE_DIR)/Makefile.manala \
+	$(MANALA_MAKE_DIR)/Makefile.docker \
+	$(MANALA_MAKE_DIR)/Makefile.host \
+	$(MANALA_MAKE_DIR)/Makefile.travis
 
 -include \
 	$(MANALA_CURRENT_DIR)/../.env \
@@ -29,8 +29,8 @@ ROLE_TESTS_DIR := $(ROLE_DIR)/tests
 # Distribution #
 ################
 
-DISTRIBUTION_FAMILY  = $(call list_first,$(call list_split,.,$(DISTRIBUTION)))
-DISTRIBUTION_RELEASE = $(call list_last,$(call list_split,.,$(DISTRIBUTION)))
+DISTRIBUTION_ID      = $(call list_split_first,.,$(DISTRIBUTION))
+DISTRIBUTION_RELEASE = $(call list_split_last,.,$(DISTRIBUTION))
 
 ##########
 # Docker #
@@ -44,18 +44,20 @@ MANALA_DOCKER_RUN_OPTIONS = --privileged
 MANALA_DOCKER_VOLUMES     = \
 	$(ROLE_DIR):/etc/ansible/roles/$(ROLE) \
 	$(if $(CACHE_DIR), \
-		$(call if_in,$(DISTRIBUTION_FAMILY),debian ubuntu, \
-			$(CACHE_DIR)/$(DISTRIBUTION_FAMILY)/$(DISTRIBUTION_RELEASE)/apt/archives:/var/cache/apt/archives \
-			$(CACHE_DIR)/$(DISTRIBUTION_FAMILY)/$(DISTRIBUTION_RELEASE)/apt/lists:/var/lib/apt/lists \
+		$(call if_in,$(DISTRIBUTION_ID),debian ubuntu, \
+			$(CACHE_DIR)/$(DISTRIBUTION_ID)/$(DISTRIBUTION_RELEASE)/apt/archives:/var/cache/apt/archives \
+			$(CACHE_DIR)/$(DISTRIBUTION_ID)/$(DISTRIBUTION_RELEASE)/apt/lists:/var/lib/apt/lists \
 		) \
 	)
 MANALA_DOCKER_ENV         = \
+	USER_ID=$(MANALA_USER_ID) \
+	GROUP_ID=$(MANALA_GROUP_ID) \
 	MANALA_HOST=test \
 	MANALA_VERBOSE=$(MANALA_VERBOSE) \
 	DISTRIBUTION=$(DISTRIBUTION) \
-	DISTRIBUTION_FAMILY=$(DISTRIBUTION_FAMILY) \
+	DISTRIBUTION_ID=$(DISTRIBUTION_ID) \
 	DISTRIBUTION_RELEASE=$(DISTRIBUTION_RELEASE) \
-	ANSIBLE_SUDO_FLAGS="-H\ -S\ -n\ -E" \
+	ANSIBLE_SUDO_FLAGS="$(call escape_spaces,-H -S -n -E)" \
 	ANSIBLE_RETRY_FILES_ENABLED=0 \
 	ANSIBLE_FORCE_COLOR=1
 
@@ -68,8 +70,8 @@ MANALA_HELP += $(call if_host,local,$(SH_HELP)\n)
 SH_HELP = \
 	$(call help_section,Test host shell)
 
-sh: .host_restrict(local)
-	$(call fail_unless,DISTRIBUTION)
+sh: .fail_if_host_not(local)
+	$(call fail_if_not,$(DISTRIBUTION),DISTRIBUTION is empty or not set)
 	$(call if_in,$(DISTRIBUTION),$(ROLE_DISTRIBUTIONS), \
 		$(call docker_shell), \
 		$(call log_warning,Shell on \"$(DISTRIBUTION)\" is not supported) \
@@ -105,7 +107,7 @@ UPDATE_HELP = \
 	$(call help_section,Test host update) \
 	$(call help,update,               Update test hosts across distributions)
 
-update: .host_restrict(local)
+update: .fail_if_host_not(local)
 	$(call list_loop,DISTRIBUTION,$(if $(DISTRIBUTIONS),$(DISTRIBUTIONS),$(ROLE_DISTRIBUTIONS)), \
 		$$(call if_in,$$(DISTRIBUTION),$$(ROLE_DISTRIBUTIONS), \
 			$$(call log,Update \"$$(DISTRIBUTION)\") ; \
@@ -148,7 +150,7 @@ LINT_HELP_TEST  = $(LINT_HELP) \
 
 lint: .host_switch(lint)
 
-lint@local: .host_restrict(local)
+lint@local: .fail_if_host_not(local)
 	$(call list_loop,DISTRIBUTION,$(if $(DISTRIBUTIONS),$(DISTRIBUTIONS),$(ROLE_DISTRIBUTIONS)), \
 		$$(call if_in,$$(DISTRIBUTION),$$(ROLE_DISTRIBUTIONS), \
 			$$(call log,Lint \"$$(ROLE)\" on \"$$(DISTRIBUTION)\") ; \
@@ -157,7 +159,7 @@ lint@local: .host_restrict(local)
 		) \
 	)
 
-lint@test: .host_restrict(test)
+lint@test: .fail_if_host_not(test)
 	ansible-lint --force-color -v $(ROLE_DIR)
 
 LINT_HELP_LOCAL += $(call if_in,debian.wheezy,$(ROLE_DISTRIBUTIONS),$(call help,lint.debian.wheezy, Lint role - Debian Wheezy))
@@ -209,7 +211,7 @@ TEST_HELP_BUILD = $(TEST_HELP) \
 
 test: .host_switch(test)
 
-test@local: .host_restrict(local)
+test@local: .fail_if_host_not(local)
 	$(call list_loop,DISTRIBUTION,$(if $(DISTRIBUTIONS),$(DISTRIBUTIONS),$(ROLE_DISTRIBUTIONS)), \
 		$$(call if_in,$$(DISTRIBUTION),$$(ROLE_DISTRIBUTIONS), \
 		  $$(call log,Test \"$$(ROLE)\" on \"$$(DISTRIBUTION)\") ; \
@@ -222,7 +224,7 @@ test@local: .host_restrict(local)
 		) \
 	)
 
-test@test: .host_restrict(test)
+test@test: .fail_if_host_not(test)
 	$(call list_loop,TEST,$(TESTS), \
 		$$(call log,Test \"$$(TEST)\") ; \
 		$$(MAKE) $$(TEST) \
