@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.locales
-ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie ubuntu.xenial centos.7
+ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch ubuntu.xenial centos.7
