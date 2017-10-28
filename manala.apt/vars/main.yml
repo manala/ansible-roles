@@ -220,7 +220,7 @@ manala_apt_repositories_patterns:
     source: deb http://repo.aptly.info/ squeeze main
     key: aptly
   docker:
-    source: deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main
+    source: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
     key: docker
   manala:
     source: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main
@@ -321,8 +321,8 @@ manala_apt_keys_patterns:
     url: https://www.aptly.info/pubkey.txt
     id: 9C7DE460
   docker:
-    keyserver: keys.gnupg.net
-    id: 2C52609D
+    url: https://download.docker.com/linux/debian/gpg
+    id: 0EBFCD88
   manala:
     keyserver: keys.gnupg.net
     id: 1394DEA3
