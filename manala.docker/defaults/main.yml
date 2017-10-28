@@ -2,7 +2,7 @@
 
 # Install
 manala_docker_install_packages:
-  - docker-engine
+  - docker-ce
 
 # Applications
 manala_docker_applications_template: ~
