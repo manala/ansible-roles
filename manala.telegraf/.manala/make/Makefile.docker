@@ -5,9 +5,9 @@
 define docker_run
 	docker run \
 		--rm \
-		$(if $(MANALA_DOCKER_DIR), \
-			--volume $(MANALA_CURRENT_DIR):$(MANALA_DOCKER_DIR) \
-			--workdir $(MANALA_DOCKER_DIR) \
+		$(if $(MANALA_DOCKER_MOUNT_DIR), \
+			--volume $(MANALA_CURRENT_DIR):$(MANALA_DOCKER_MOUNT_DIR) \
+			--workdir $(MANALA_DOCKER_MOUNT_DIR) \
 		) \
 		$(if $(MANALA_INTERACTIVE),--tty --interactive) \
 		$(if $(MANALA_DOCKER_HOST),--hostname $(MANALA_DOCKER_HOST)) \
@@ -36,7 +36,7 @@ define docker_shell
 endef
 
 define docker_make
-	$(call docker_run,sh -c "make --silent --directory=$(MANALA_DOCKER_DIR) $(1)")
+	$(call docker_run,sh -c "make --silent --directory=$(MANALA_DOCKER_MOUNT_DIR) $(1)")
 endef
 
 define docker_pull
