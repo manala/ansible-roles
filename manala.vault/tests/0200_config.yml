@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.jessie
+  hosts: debian
   become: true
   vars:
     manala_vault_config_template: fixtures/config.j2
