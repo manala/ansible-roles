@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Galera apt key
+  apt_key:
+    file: pre_tasks/apt_keys/galera.pgp
+    id: BC19DDBA
+
+- name: Pre tasks > MySQL Wsrep 5.6 apt repository
+  apt_repository:
+    repo: deb http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
