@@ -9,3 +9,9 @@ manala_ansible_hosts:          []
 manala_ansible_config_file:     /etc/ansible/ansible.cfg
 manala_ansible_config_template: ~
 manala_ansible_config:          []
+
+# Host vars
+manala_ansible_host_vars_exclusive: false
+manala_ansible_host_vars_dir:       /etc/ansible/host_vars
+manala_ansible_host_vars_template:  ~
+manala_ansible_host_vars:           []

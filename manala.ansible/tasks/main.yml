@@ -14,3 +14,8 @@
 - include: config.yml
   tags:
     - manala_ansible
+
+# Host vars
+- include: host_vars.yml
+  tags:
+    - manala_ansible

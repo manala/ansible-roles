@@ -1,0 +1,54 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_ansible_host_vars_dir: /etc/ansible/host_vars.test
+    manala_ansible_host_vars:
+      - file: foo.yml
+        config:
+          - foo: ~
+          - bar: bar
+          - baz: 123
+          - qux: true
+          - quux:
+            - foo
+            - bar
+          - corge:
+              foo: bar
+              baz: qux
+      - file: bar.yml
+        state: present
+      - file: baz.yml
+        state: absent
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/ansible
+        content: |
+          Package:      ansible*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.ansible
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_ansible_host_vars_dir: /etc/ansible/host_vars.test
+    manala_ansible_host_vars:
+      - file: foo.yml
+      - file: bar.yml
+        state: absent
+      - file: baz.yml
+        state: present
+  roles:
+    - manala.ansible
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

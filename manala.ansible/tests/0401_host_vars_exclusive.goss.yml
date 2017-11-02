@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/ansible/host_vars.test/foo.yml:
+    exists: false
+  /etc/ansible/host_vars.test/bar.yml:
+    exists: true
+  /etc/ansible/host_vars.test/baz.yml:
+    exists: false
