@@ -178,8 +178,14 @@ manala_apt_repositories_patterns:
   logentries:
     source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
     key: logentries
-  galera:
-    source: deb http://releases.galeracluster.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+  galera_3:
+    source: deb http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
+  mysql_wsrep_5_6:
+    source: deb http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
+  mysql_wsrep_5_7:
+    source: deb http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
     source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main

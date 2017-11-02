@@ -1,0 +1,31 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_mysql_install_packages:
+      - galera-3
+      - galera-arbitrator-3
+      - mysql-wsrep-server-5.6
+      - mysql-wsrep-client-5.6
+  pre_tasks:
+    - include: pre_tasks/galera_3.yml
+    - copy:
+        dest: /etc/apt/preferences.d/galera
+        content: |
+          Package:      galera*
+          Pin:          origin releases.galeracluster.com
+          Pin-Priority: 900
+    - include: pre_tasks/mysql_wsrep_5.6.yml
+    - copy:
+        dest: /etc/apt/preferences.d/mysql
+        content: |
+          Package:      mysql* libmysql*
+          Pin:          origin releases.galeracluster.com
+          Pin-Priority: 900
+  roles:
+    - manala.mysql
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

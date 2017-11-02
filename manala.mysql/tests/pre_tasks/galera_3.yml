@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Galera apt key
+  apt_key:
+    file: pre_tasks/apt_keys/galera.pgp
+    id: BC19DDBA
+
+- name: Pre tasks > Galera 3 apt repository
+  apt_repository:
+    repo: deb http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main

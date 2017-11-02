@@ -146,7 +146,7 @@ manala_apt_repositories:
   - proxmox
   - proxmox_enterprise
   - logentries
-  - galera
+  - galera_3
   - grafana
   - elasticsearch_1_5
   - elasticsearch_1_6
