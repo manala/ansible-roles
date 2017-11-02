@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Handle hosts file
+- Handle config
 
 ## [1.0.0] - 2017-05-29
 ### Added

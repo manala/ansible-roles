@@ -9,3 +9,8 @@
 - include: hosts.yml
   tags:
     - manala_ansible
+
+# Config
+- include: config.yml
+  tags:
+    - manala_ansible
