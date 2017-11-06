@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Nodesource apt key
+  apt_key:
+    file: pre_tasks/apt_keys/nodesource.pgp
+    id: 68576280
+
+- name: Pre tasks > Nodesource apt repository
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_9.x {{ ansible_distribution_release }} main
