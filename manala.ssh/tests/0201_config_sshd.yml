@@ -1,0 +1,15 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_ssh_config_sshd:
+      - AcceptEnv: LANG LC_* FOO
+      - Match User bar:
+        - AcceptEnv: LANG LC_* BAR
+  roles:
+    - manala.ssh
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

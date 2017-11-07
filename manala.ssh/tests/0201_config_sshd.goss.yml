@@ -1,0 +1,8 @@
+---
+
+file:
+  /etc/ssh/sshd_config:
+    exists: true
+    contains:
+      - "AcceptEnv LANG LC_* FOO"
+      - "    AcceptEnv LANG LC_* BAR"
