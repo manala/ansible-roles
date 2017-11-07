@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/ansible/group_vars.test/foo.yml:
+    exists: true
+  /etc/ansible/group_vars.test/bar.yml:
+    exists: false
+  /etc/ansible/group_vars.test/baz.yml:
+    exists: true

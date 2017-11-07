@@ -15,3 +15,9 @@ manala_ansible_host_vars_exclusive: false
 manala_ansible_host_vars_dir:       /etc/ansible/host_vars
 manala_ansible_host_vars_template:  ~
 manala_ansible_host_vars:           []
+
+# Group vars
+manala_ansible_group_vars_exclusive: false
+manala_ansible_group_vars_dir:       /etc/ansible/group_vars
+manala_ansible_group_vars_template:  ~
+manala_ansible_group_vars:           []

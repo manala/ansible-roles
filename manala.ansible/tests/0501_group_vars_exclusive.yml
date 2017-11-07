@@ -1,0 +1,35 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_ansible_group_vars_dir: /etc/ansible/group_vars.test
+    manala_ansible_group_vars:
+      - file: foo.yml
+      - file: bar.yml
+      - file: baz.yml
+  pre_tasks:
+    - include: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/ansible
+        content: |
+          Package:      ansible*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.ansible
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_ansible_group_vars_dir: /etc/ansible/group_vars.test
+    manala_ansible_group_vars_exclusive: true
+    manala_ansible_group_vars:
+      - file: bar.yml
+  roles:
+    - manala.ansible
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

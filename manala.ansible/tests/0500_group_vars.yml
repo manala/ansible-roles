@@ -4,8 +4,8 @@
   hosts: debian
   become: true
   vars:
-    manala_ansible_host_vars_dir: /etc/ansible/host_vars.test
-    manala_ansible_host_vars:
+    manala_ansible_group_vars_dir: /etc/ansible/group_vars.test
+    manala_ansible_group_vars:
       - file: foo.yml
         vars:
           - foo: ~
@@ -40,8 +40,8 @@
   hosts: debian
   become: true
   vars:
-    manala_ansible_host_vars_dir: /etc/ansible/host_vars.test
-    manala_ansible_host_vars:
+    manala_ansible_group_vars_dir: /etc/ansible/group_vars.test
+    manala_ansible_group_vars:
       - file: foo.yml
       - file: bar.yml
         state: absent

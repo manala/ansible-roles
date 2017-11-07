@@ -39,18 +39,22 @@ None
 
 ### Definition
 
-| Name                                 | Default                | Type          | Description                    |
-| ------------------------------------ | ---------------------- | ------------- | ------------------------------ |
-| `manala_ansible_hosts_file`          | /etc/ansible/hosts     | String (path) | Hosts file path                |
-| `manala_ansible_hosts_template`      | hosts/empty.j2         | String (path) | Default hosts template         |
-| `manala_ansible_hosts`               | [ ]                    | Array         | Hosts                          |
-| `manala_ansible_config_file`         | config/_base.j2        | String (path) | Configuration file path        |
-| `manala_ansible_config_template`     | hosts/empty.j2         | String (path) | Default configuration template |
-| `manala_ansible_config`              | [ ]                    | Array         | Configuration                  |
-| `manala_ansible_host_vars_exclusive` | false                  | Boolean       | Host vars exclusivity          |
-| `manala_ansible_host_vars_dir`       | /etc/ansible/host_vars | String (path) | Host vars dir                  |
-| `manala_ansible_host_vars_template`  | host_vars/empty.j2     | String (path) | Default host vars template     |
-| `manala_ansible_host_vars`           | [ ]                    | Array         | Host vars                      |
+| Name                                  | Default                 | Type          | Description                    |
+| ------------------------------------- | ----------------------- | ------------- | ------------------------------ |
+| `manala_ansible_hosts_file`           | /etc/ansible/hosts      | String (path) | Hosts file path                |
+| `manala_ansible_hosts_template`       | hosts/empty.j2          | String (path) | Default hosts template         |
+| `manala_ansible_hosts`                | [ ]                     | Array         | Hosts                          |
+| `manala_ansible_config_file`          | config/_base.j2         | String (path) | Configuration file path        |
+| `manala_ansible_config_template`      | hosts/empty.j2          | String (path) | Default configuration template |
+| `manala_ansible_config`               | [ ]                     | Array         | Configuration                  |
+| `manala_ansible_host_vars_exclusive`  | false                   | Boolean       | Host vars exclusivity          |
+| `manala_ansible_host_vars_dir`        | /etc/ansible/host_vars  | String (path) | Host vars dir                  |
+| `manala_ansible_host_vars_template`   | host_vars/empty.j2      | String (path) | Default host vars template     |
+| `manala_ansible_host_vars`            | [ ]                     | Array         | Host vars                      |
+| `manala_ansible_group_vars_exclusive` | false                   | Boolean       | Group vars exclusivity         |
+| `manala_ansible_group_vars_dir`       | /etc/ansible/group_vars | String (path) | Group vars dir                 |
+| `manala_ansible_group_vars_template`  | group_vars/empty.j2     | String (path) | Default group vars template    |
+| `manala_ansible_group_vars`           | [ ]                     | Array         | Group vars                     |
 
 ### Configuration example
 
@@ -73,10 +77,22 @@ manala_ansible_config:
 manala_ansible_host_vars_exclusive: true
 manala_ansible_host_vars:
   - file: foo.yml
-    config:
+    vars:
       - foo: ~
       - bar: bar
       - baz: 123
+  - file: bar.yml
+    state: absent
+
+manala_ansible_group_vars_exclusive: true
+manala_ansible_group_vars:
+  - file: foo.yml
+    vars:
+      - foo: ~
+      - bar: bar
+      - baz: 123
+  - file: bar.yml
+    state: absent      
 ```
 
 ### Example

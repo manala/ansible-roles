@@ -1,0 +1,20 @@
+---
+
+file:
+  /etc/ansible/group_vars.test/foo.yml:
+    exists: true
+    contains:
+      - "foo: null"
+      - "bar: bar"
+      - "baz: 123"
+      - "qux: true"
+      - "quux:"
+      - "- foo"
+      - "- bar"
+      - "corge:"
+      - "  baz: qux"
+      - "  foo: bar"
+  /etc/ansible/group_vars.test/bar.yml:
+    exists: true
+  /etc/ansible/group_vars.test/baz.yml:
+    exists: false
