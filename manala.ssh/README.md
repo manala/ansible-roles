@@ -36,19 +36,41 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-|Name|Action|Description|
-|----|----|-----------|-------|
-`sudo restart`|Service restarted|Ensure sudo service has been restarted.
-`ssh reload`|Service reloaded|Ensure ssh service has been reloaded.
+| Name          | Type    | Description          |
+| ------------- | ------- | -------------------- |
+| ssh reload    | Service | Restart ssh service  |
 
 ## Role Variables
 
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-`manala_ssh_known_hosts`|Empty collection|Collection|Ssh known hosts.
-`manala_ssh_sudo_auth`|false|Binary|Allow sudo authentication over ssh.
-`manala_ssh_config.daemon.password_authentication`|true|Binary|Enable/Disable the SSH daemon password authentication.
-`manala_ssh_config.daemon.accept_env`|LANG LC_*|String|SSH daemon accepted environment variables.
+| Name                              | Default                                 | Type          | Description                         |
+| --------------------------------- | --------------------------------------- | ------------- | ----------------------------------- |
+| `manala_ssh_config_file`          | /etc/ssh/ssh_config                     | String (path) | Configuration file path             |
+| `manala_ssh_config_template`      | config/[distribution]_[release].j2      | String (path) | Default configuration template      |
+| `manala_ssh_config`               | [ ]                                     | Array         | Configuration                       |
+| `manala_ssh_config_sshd_file`     | /etc/ssh/sshd_config                    | String (path) | Sshd configuration file path        |
+| `manala_ssh_config_sshd_template` | config/sshd/[distribution]_[release].j2 | String (path) | Sshd default configuration template |
+| `manala_ssh_config_sshd`          | [ ]                                     | Array         | Sshd configuration                  |
+| `manala_ssh_known_hosts`          | [ ]                                     | Array         | Known hosts                         |
+
+### Configuration example
+
+```yaml
+# Use default custom templates
+manala_ssh_config_template: config/default.[env].j2
+manala_ssh_config_sshd_template: config/sshd/default.[env].j2
+
+manala_ssh_config:
+  - Host *:
+    - SendEnv: LANG LC_* FOO
+
+manala_ssh_config_sshd:
+  - AcceptEnv: LANG LC_* FOO
+  - Match User bar:
+    - AcceptEnv: LANG LC_* BAR
+
+manala_ssh_known_hosts:
+  - github.com
+```
 
 ## Example playbook
 
