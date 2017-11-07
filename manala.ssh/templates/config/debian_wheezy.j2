@@ -2,12 +2,12 @@
 
 {% set config = manala_ssh_config -%}
 
-{% set config_host_asterisk = [] -%}
+{% set config_host_wildcard = [] -%}
 
 {%- for configs in config -%}
     {%- for config_name, config_parameters in configs.iteritems() -%}
         {%- if config_name == 'Host *' -%}
-            {%- if config_host_asterisk.extend(config_parameters) -%}{%- endif -%}
+            {%- if config_host_wildcard.extend(config_parameters) -%}{%- endif -%}
         {%- endif -%}
     {%- endfor -%}
 {%- endfor -%}
@@ -30,39 +30,41 @@
 # ssh_config(5) man page.
 
 Host *
-{{ macros.config_row(config_host_asterisk, 'ForwardAgent', '#   ForwardAgent no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'ForwardX11', '#   ForwardX11 no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'ForwardX11Trusted', '#   ForwardX11Trusted yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'RhostsRSAAuthentication', '#   RhostsRSAAuthentication no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'RSAAuthentication', '#   RSAAuthentication yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'PasswordAuthentication', '#   PasswordAuthentication yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'HostbasedAuthentication', '#   HostbasedAuthentication no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIAuthentication', '#   GSSAPIAuthentication no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIDelegateCredentials', '#   GSSAPIDelegateCredentials no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIKeyExchange', '#   GSSAPIKeyExchange no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPITrustDNS', '#   GSSAPITrustDNS no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'BatchMode', '#   BatchMode no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'CheckHostIP', '#   CheckHostIP yes', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'AddressFamily', '#   AddressFamily any', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'ConnectTimeout', '#   ConnectTimeout 0', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'StrictHostKeyChecking', '#   StrictHostKeyChecking ask', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'IdentityFile', '#   IdentityFile ~/.ssh/identity\n#   IdentityFile ~/.ssh/id_rsa\n#   IdentityFile ~/.ssh/id_dsa', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Port', '#   Port 22', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Protocol', '#   Protocol 2,1', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Cipher', '#   Cipher 3des', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Ciphers', '#   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'MACs', '#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'EscapeChar', '#   EscapeChar ~', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'Tunnel', '#   Tunnel no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'TunnelDevice', '#   TunnelDevice any:any', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'PermitLocalCommand', '#   PermitLocalCommand no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'VisualHostKey', '#   VisualHostKey no', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'ProxyCommand', '#   ProxyCommand ssh -q -W %h:%p gateway.example.com', 0, true) }}
-{{ macros.config_row(config_host_asterisk, 'SendEnv', 'LANG LC_*', 4) }}
-{{ macros.config_row(config_host_asterisk, 'HashKnownHosts', true, 4) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIAuthentication', true, 4) }}
-{{ macros.config_row(config_host_asterisk, 'GSSAPIDelegateCredentials', false, 4) }}
-{{ macros.config(config_host_asterisk, [
+{{ macros.config_row(config_host_wildcard, 'ForwardAgent', '#   ForwardAgent no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ForwardX11', '#   ForwardX11 no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ForwardX11Trusted', '#   ForwardX11Trusted yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'RhostsRSAAuthentication', '#   RhostsRSAAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'RSAAuthentication', '#   RSAAuthentication yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'PasswordAuthentication', '#   PasswordAuthentication yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'HostbasedAuthentication', '#   HostbasedAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', '#   GSSAPIAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIDelegateCredentials', '#   GSSAPIDelegateCredentials no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIKeyExchange', '#   GSSAPIKeyExchange no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPITrustDNS', '#   GSSAPITrustDNS no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'BatchMode', '#   BatchMode no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'CheckHostIP', '#   CheckHostIP yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'AddressFamily', '#   AddressFamily any', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ConnectTimeout', '#   ConnectTimeout 0', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'StrictHostKeyChecking', '#   StrictHostKeyChecking ask', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'IdentityFile', '#   IdentityFile ~/.ssh/identity
+#   IdentityFile ~/.ssh/id_rsa
+#   IdentityFile ~/.ssh/id_dsa', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Port', '#   Port 22', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Protocol', '#   Protocol 2,1', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Cipher', '#   Cipher 3des', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Ciphers', '#   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'MACs', '#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'EscapeChar', '#   EscapeChar ~', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Tunnel', '#   Tunnel no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'TunnelDevice', '#   TunnelDevice any:any', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'PermitLocalCommand', '#   PermitLocalCommand no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'VisualHostKey', '#   VisualHostKey no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ProxyCommand', '#   ProxyCommand ssh -q -W %h:%p gateway.example.com', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'SendEnv', 'LANG LC_*', 4) }}
+{{ macros.config_row(config_host_wildcard, 'HashKnownHosts', true, 4) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', true, 4) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIDelegateCredentials', false, 4) }}
+{{ macros.config(config_host_wildcard, [
     'ForwardAgent',
     'ForwardX11',
     'ForwardX11Trusted',
