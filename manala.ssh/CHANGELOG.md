@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Config sshd tests
 
 ### Changed
-- Cleanup readme
-- Cleanup templates
+- Don't redefine already default options in default sshd config templates
 
 ### Removed
 - Unused testing files
