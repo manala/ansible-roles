@@ -47,7 +47,7 @@ Using ansible galaxy requirements file:
 
 ## Configuration examples (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 
-```
+```yaml
 manala_shorewall_configs:
   - file: policy
     config:

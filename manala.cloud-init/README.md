@@ -41,7 +41,7 @@ Using ansible galaxy requirements file:
 
 ### Configuration example
 
-```
+```yaml
 manala_cloud_init_configs:
   - file: 99_hostname.cfg
     config:
