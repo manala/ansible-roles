@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  become: true
+  vars:
+    manala_direnv_files:
+      - path: /tmp/.envrc
+        user: ansible
+        group: ansible
+        variables:
+          - FOO: BAR
+  roles:
+    - manala.direnv
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
+      environment:
+        RELEASE: "{{ ansible_distribution_release }}"
