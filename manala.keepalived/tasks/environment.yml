@@ -1,0 +1,9 @@
+---
+
+- name: environment > Template
+  template:
+    src:  "{{ manala_keepalived_environment_template|ternary(manala_keepalived_environment_template, 'environment/default.j2') }}"
+    dest: "{{ manala_keepalived_environment_file }}"
+  when: (manala_keepalived_environment_template is not none) or (manala_keepalived_environment|length)
+  notify:
+    - keepalived restart

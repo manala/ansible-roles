@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/default/keepalived:
+    exists: true
+    contains:
+      - DAEMON_ARGS="--log-console --log-detail"

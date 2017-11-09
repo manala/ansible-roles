@@ -1,17 +1,11 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.jessie
+  hosts: debian
   become: true
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
     - include: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/keepalived
-        content: |
-          Package:      keepalived*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.keepalived
   post_tasks:

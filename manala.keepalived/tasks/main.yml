@@ -10,6 +10,11 @@
   tags:
     - manala_keepalived
 
+# Environment
+- include: environment.yml
+  tags:
+    - manala_keepalived
+
 # Services
 - include: services.yml
   tags:
