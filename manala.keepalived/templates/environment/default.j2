@@ -1,0 +1,12 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_keepalived_environment -%}
+
+# Options to pass to keepalived
+
+# DAEMON_ARGS are appended to the keepalived command-line
+{{ macros.config_row(config, 'DAEMON_ARGS') }}
+
+{{- macros.config(config, [
+    'DAEMON_ARGS',
+]) -}}

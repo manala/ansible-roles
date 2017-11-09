@@ -11,3 +11,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Handle installation
 - Handle config
 - Handle services
+- Configure keepalived environment file

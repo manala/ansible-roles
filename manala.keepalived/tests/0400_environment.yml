@@ -4,9 +4,8 @@
   hosts: debian
   become: true
   vars:
-    manala_keepalived_config:
-      - global_defs:
-        - router_id: LVS_DEVEL
+    manala_keepalived_environment:
+      - DAEMON_ARGS: --log-console --log-detail
   pre_tasks:
     - include: pre_tasks/disable_systemd.yml
     - include: pre_tasks/manala.yml
