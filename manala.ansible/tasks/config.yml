@@ -1,0 +1,7 @@
+---
+
+- name: config > Template
+  template:
+    src:  "{{ manala_ansible_config_template|ternary(manala_ansible_config_template, 'config/_base.j2') }}"
+    dest: "{{ manala_ansible_config_file }}"
+  when: (manala_ansible_config_template is not none) or (manala_ansible_config|length)

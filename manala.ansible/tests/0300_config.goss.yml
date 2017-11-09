@@ -1,0 +1,17 @@
+---
+
+file:
+  /etc/ansible/ansible.cfg.test:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "inventory = foo"
+      - "forks = 123"
+      - "ask_sudo_pass = False"
+      - "module_set_locale = True"
+      - "foo = bar"
+      - "[foo]"
+      - "bar = baz"

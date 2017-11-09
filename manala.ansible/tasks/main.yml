@@ -4,3 +4,23 @@
 - include: install.yml
   tags:
     - manala_ansible
+
+# Hosts
+- include: hosts.yml
+  tags:
+    - manala_ansible
+
+# Config
+- include: config.yml
+  tags:
+    - manala_ansible
+
+# Host vars
+- include: host_vars.yml
+  tags:
+    - manala_ansible
+
+# Group vars
+- include: group_vars.yml
+  tags:
+    - manala_ansible
