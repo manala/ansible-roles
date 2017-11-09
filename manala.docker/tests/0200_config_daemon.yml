@@ -5,6 +5,7 @@
   become: true
   vars:
     manala_docker_config_daemon:
+      - storage-driver: vfs
       - experimental: false
   pre_tasks:
     - include: pre_tasks/docker.yml

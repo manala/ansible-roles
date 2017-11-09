@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle daemon config
 
+### Fixed
+- Use the most safe storage-driver (vfs) in tests, to avoid platform dependant issues
+
 ## [1.0.7] - 2017-10-28
 ### Fixed
 - Repository key/url and package name

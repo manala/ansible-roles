@@ -4,6 +4,8 @@
   hosts: debian
   become: true
   vars:
+    manala_docker_config_daemon:
+      - storage-driver: vfs
     manala_docker_applications:
       - hello-world
       - application: npm
