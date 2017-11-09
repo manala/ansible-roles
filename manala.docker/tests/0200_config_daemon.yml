@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_docker_config_daemon:
+      - experimental: false
+  pre_tasks:
+    - include: pre_tasks/docker.yml
+    - include: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'wheezy'
+  roles:
+    - manala.docker
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
