@@ -19,4 +19,6 @@
     - manala_elasticsearch_version != None
     - manala_elasticsearch_version|version_compare('5.0.0', '>=')
       and ansible_distribution_release == 'wheezy'
+    - manala_elasticsearch_version|version_compare('2.0.0', '<')
+      and ansible_distribution_release == 'stretch'
   check_mode: false
