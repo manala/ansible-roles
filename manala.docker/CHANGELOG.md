@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Handle daemon config
+
+### Fixed
+- Use the most safe storage-driver (vfs) in tests, to avoid platform dependant issues
 
 ## [1.0.7] - 2017-10-28
 ### Fixed

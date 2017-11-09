@@ -4,12 +4,9 @@
   hosts: debian
   become: true
   vars:
-    manala_docker_applications:
-      - hello-world
-      - application: npm
-        image:       node
-        command:     npm
-        tag:         alpine
+    manala_docker_config_daemon:
+      - storage-driver: vfs
+      - experimental: false
   pre_tasks:
     - include: pre_tasks/docker.yml
     - include: pre_tasks/backports.yml

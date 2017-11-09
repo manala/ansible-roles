@@ -1,0 +1,15 @@
+---
+
+- name: config_daemon > Directory
+  file:
+    path: "{{ manala_docker_config_daemon_file|dirname }}"
+    state: directory
+  when: (manala_docker_config_daemon_template is not none) or (manala_docker_config_daemon|length)
+
+- name: config_daemon > Template
+  template:
+    src:  "{{ manala_docker_config_daemon_template|ternary(manala_docker_config_daemon_template, 'config_daemon/empty.j2') }}"
+    dest: "{{ manala_docker_config_daemon_file }}"
+  when: (manala_docker_config_daemon_template is not none) or (manala_docker_config_daemon|length)
+  notify:
+    - docker restart

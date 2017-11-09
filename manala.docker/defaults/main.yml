@@ -5,9 +5,14 @@ manala_docker_install_packages:
   - docker-ce
 
 # Applications
-manala_docker_applications_template: ~
 manala_docker_applications_dir:      /usr/local/bin
+manala_docker_applications_template: ~
 manala_docker_applications:          []
+
+# Config - Daemon
+manala_docker_config_daemon_file:     /etc/docker/daemon.json
+manala_docker_config_daemon_template: ~
+manala_docker_config_daemon:          []
 
 # Manala
 manala_docker:

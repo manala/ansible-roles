@@ -5,6 +5,11 @@
   tags:
     - manala_docker
 
+# Config - Daemon
+- include: config_daemon.yml
+  tags:
+    - manala_docker
+
 # Services
 - include: services.yml
   tags:
