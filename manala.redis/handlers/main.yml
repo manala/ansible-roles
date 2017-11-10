@@ -4,3 +4,8 @@
   service:
     name:  redis-server
     state: restarted
+
+- name: redis-sentinel restart
+  service:
+    name:  redis-sentinel
+    state: restarted

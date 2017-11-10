@@ -8,3 +8,11 @@
 - name: Pre tasks > Dotdeb apt repository
   apt_repository:
     repo: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
+
+- name: Pre tasks > Dotdeb preferences
+  copy:
+    dest: /etc/apt/preferences.d/redis
+    content: |
+      Package:      redis*
+      Pin:          origin packages.dotdeb.org
+      Pin-Priority: 900
