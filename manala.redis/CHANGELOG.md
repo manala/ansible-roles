@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Install and configure redis-sentinel (>= 3.0)
 
 ## [1.0.0] - 2017-06-09
 ### Added
@@ -13,4 +15,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add redis 3.0 config templates
 - Add redis 2.8 config templates
 - Add redis 2.4 config templates
-- Install and configure redis-sentinel (>= 3.0)

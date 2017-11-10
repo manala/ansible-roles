@@ -5,12 +5,6 @@
   become: true
   pre_tasks:
     - include: pre_tasks/dotdeb.yml
-    - copy:
-        dest: /etc/apt/preferences.d/redis
-        content: |
-          Package:      redis*
-          Pin:          origin packages.dotdeb.org
-          Pin-Priority: 900
   roles:
     - manala.redis
   post_tasks:

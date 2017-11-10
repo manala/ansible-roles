@@ -3,6 +3,8 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
+  vars:
+    manala_redis_sentinel: true
   pre_tasks:
     - include: pre_tasks/dotdeb.yml
   roles:
