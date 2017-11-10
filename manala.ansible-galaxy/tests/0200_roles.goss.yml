@@ -1,6 +1,8 @@
 ---
 
 file:
+  /tmp/manala_ansible_galaxy_roles.yml:
+    exists: false
   /etc/ansible/roles/carlosbuenosvinos.ansistrano-deploy:
     exists:   true
     filetype: directory
