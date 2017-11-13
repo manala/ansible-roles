@@ -1,0 +1,11 @@
+---
+
+package:
+  opcache-dashboard:
+    installed: true
+
+command:
+  dpkg -s opcache-dashboard:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
