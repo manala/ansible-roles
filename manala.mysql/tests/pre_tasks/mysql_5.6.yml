@@ -5,6 +5,14 @@
     file: pre_tasks/apt_keys/mysql.pgp
     id: 5072E1F5
 
-- name: Pre tasks > Mysql apt repository 5.6
+- name: Pre tasks > Mysql 5.6 apt repository
   apt_repository:
-    repo: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
+    repo: deb {{ (ansible_distribution_release|string == 'stretch')|ternary('[trusted=yes] ','') }}http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
+
+- name: Pre tasks > MySQL apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/mysql
+    content: |
+      Package:      mysql* libmysql*
+      Pin:          origin repo.mysql.com
+      Pin-Priority: 900

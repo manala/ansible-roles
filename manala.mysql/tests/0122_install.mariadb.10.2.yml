@@ -1,16 +1,14 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.wheezy
-    - debian.jessie
+  hosts: debian
   become: true
   vars:
     manala_mysql_install_packages:
       - mariadb-server
       - mariadb-client
   pre_tasks:
-    - include: pre_tasks/mariadb_10.0.yml
+    - include: pre_tasks/mariadb_10.2.yml
   roles:
     - manala.mysql
   post_tasks:

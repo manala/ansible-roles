@@ -1,0 +1,13 @@
+---
+
+package:
+  mysql-wsrep-server-5.7:
+    installed: true
+  mysql-wsrep-client-5.7:
+    installed: true
+
+command:
+  mysql --version:
+    exit-status: 0
+    stdout:
+      - "/mysql(.)*Distrib 5.7/"

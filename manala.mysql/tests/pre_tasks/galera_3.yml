@@ -7,4 +7,12 @@
 
 - name: Pre tasks > Galera 3 apt repository
   apt_repository:
-    repo: deb http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    repo: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+
+- name: Pre tasks > Galera apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/galera
+    content: |
+      Package:      galera*
+      Pin:          origin releases.galeracluster.com
+      Pin-Priority: 900
