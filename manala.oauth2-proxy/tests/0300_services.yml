@@ -13,12 +13,6 @@
       - cookie_secret: bar
   pre_tasks:
     - include: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/oauth2-proxy
-        content: |
-          Package:      oauth2-proxy*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.oauth2-proxy
   post_tasks:
