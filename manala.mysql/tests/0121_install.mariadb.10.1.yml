@@ -4,8 +4,6 @@
   hosts: debian
   become: true
   vars:
-    manala_apt_preferences:
-      - mariadb@mariadb_10_1
     manala_mysql_install_packages:
       - mariadb-server
       - mariadb-client
