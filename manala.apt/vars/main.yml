@@ -178,9 +178,11 @@ manala_apt_repositories_patterns:
     source: deb http://www.rabbitmq.com/debian/ testing main
     key: rabbitmq
   proxmox:
-    source: deb http://download.proxmox.com/debian {{ ansible_distribution_release }} pve-no-subscription
+    source: deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
+    key: proxmox
   proxmox_enterprise:
-    source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+    source: deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise
+    key: proxmox
   logentries:
     source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
     key: logentries
@@ -317,6 +319,9 @@ manala_apt_keys_patterns:
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     id: 6026DFCA
+  proxmox:
+    url: http://download.proxmox.com/debian/proxmox-ve-release-5.x.gpg
+    id: E2EF0603
   logentries:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: C43C79AD

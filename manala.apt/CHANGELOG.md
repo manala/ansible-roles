@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - MaxScale 2.1.10 support
+- Proxmox key
 
 ### Changed
 - Always use keyserver.ubuntu.com when possible
