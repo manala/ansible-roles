@@ -196,7 +196,7 @@ manala_apt_repositories_patterns:
     source: deb http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
-    source: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
+    source: deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main
     key: packagecloud
   elasticsearch_1_5:
     source: deb https://packages.elastic.co/elasticsearch/1.5/debian stable main

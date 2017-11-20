@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - RabbitMQ key id
+- Make Grafana repository distribution release dependent
 
 ## [1.0.11] - 2017-11-06
 ### Added
