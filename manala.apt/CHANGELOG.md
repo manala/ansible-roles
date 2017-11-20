@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Always use keyserver.ubuntu.com when possible
 
+### Fixed
+- RabbitMQ key id
+
 ## [1.0.11] - 2017-11-06
 ### Added
 - Nodejs 9 support
