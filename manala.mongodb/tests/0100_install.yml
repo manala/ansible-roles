@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts: debian.wheezy
   become: true
   pre_tasks:
     - include: pre_tasks/mongodb_3_2.yml
