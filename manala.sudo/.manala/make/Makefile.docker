@@ -43,7 +43,20 @@ define docker_pull
 	docker pull \
 	  $(MANALA_DOCKER_OPTIONS) \
 		$(MANALA_DOCKER_PULL_OPTIONS) \
-		$(MANALA_DOCKER_IMAGE):$(if $(MANALA_DOCKER_IMAGE_TAG),$(MANALA_DOCKER_IMAGE_TAG),latest)
+		$(if $(1), \
+			$(1), \
+			$(MANALA_DOCKER_IMAGE):$(if $(MANALA_DOCKER_IMAGE_TAG),$(MANALA_DOCKER_IMAGE_TAG),latest) \
+		)
+endef
+
+define docker_push
+	docker push \
+	  $(MANALA_DOCKER_OPTIONS) \
+		$(MANALA_DOCKER_PUSH_OPTIONS) \
+		$(if $(1), \
+			$(1), \
+			$(MANALA_DOCKER_IMAGE):$(if $(MANALA_DOCKER_IMAGE_TAG),$(MANALA_DOCKER_IMAGE_TAG),latest) \
+		)
 endef
 
 define docker_build

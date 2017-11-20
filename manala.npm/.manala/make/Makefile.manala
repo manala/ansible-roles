@@ -373,6 +373,13 @@ $(call list_first,$(call list_rest,$(call list_split,.,$(1))))
 endef
 
 # Usage:
+#   $(call semver_major_minor,3.2.1) = 3.2
+
+define semver_major_minor
+$(call semver_major,$(1)).$(call semver_minor,$(1))
+endef
+
+# Usage:
 #   $(call semver_patch,3.2.1) = 1
 
 define semver_patch
