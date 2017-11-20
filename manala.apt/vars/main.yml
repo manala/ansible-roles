@@ -294,7 +294,7 @@ manala_apt_keys_patterns:
     url: hkp://keyserver.ubuntu.com:80
     id: 28C12247
   postgresql:
-    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: ACCC4CF8
   10gen:
     url: https://docs.mongodb.org/10gen-gpg-key.asc
@@ -318,7 +318,7 @@ manala_apt_keys_patterns:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     id: 056E8E56
   logentries:
-    keyserver: hkp://pgp.mit.edu:80
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: C43C79AD
   galera:
     keyserver: hkp://keyserver.ubuntu.com:80
@@ -339,7 +339,7 @@ manala_apt_keys_patterns:
     url: https://download.docker.com/linux/debian/gpg
     id: 0EBFCD88
   manala:
-    keyserver: keys.gnupg.net
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: 1394DEA3
   newrelic:
     url: https://download.newrelic.com/548C16BF.gpg

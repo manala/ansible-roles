@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - MaxScale 2.1.10 support
 
+### Changed
+- Always use keyserver.ubuntu.com when possible
+
 ## [1.0.11] - 2017-11-06
 ### Added
 - Nodejs 9 support
