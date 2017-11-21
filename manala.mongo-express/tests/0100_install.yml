@@ -10,7 +10,7 @@
     - copy:
         dest: /etc/apt/preferences.d/mongo-express
         content: |
-          Package:      node-mongo-express*
+          Package:      mongo-express*
           Pin:          origin debian.manala.io
           Pin-Priority: 900
   roles:
