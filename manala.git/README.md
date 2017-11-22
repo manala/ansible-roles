@@ -53,9 +53,8 @@ The `manala_git_config_file` key allow you to specify the path to the config fil
 #### Example:
 
 ```yaml
----
-
-manala_git_config_file: "{{ playbook_dir }}/templates/git/default.dev.j2"
+# Use default custom templates
+manala_git_config_template: config/default.{{env}}.j2
 ```
 
 The `manala_git_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
