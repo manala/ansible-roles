@@ -116,6 +116,9 @@ manala_proftpd_users:
       home:             "/home/toto"
       shell:            "/bin/false"
 ```
+The encrypted password method is MD5.
+On debian, it can be generate with : 
+`echo -n yourpassword | makepasswd --crypt-md5 --clearfrom -`
 
 Example playbook
 ----------------
@@ -123,7 +126,7 @@ Example playbook
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.nginx }
+    - { role: manala.proftpd }
 ```
 
 Tests
