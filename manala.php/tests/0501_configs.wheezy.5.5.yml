@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: wheezy
+  hosts: debian.wheezy
   become: true
   vars:
     manala_php_version: 5
