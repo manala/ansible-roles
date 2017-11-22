@@ -7,3 +7,7 @@ manala_proxmox_templates:           []
 
 # Storages
 manala_proxmox_storages: []
+
+# Instances
+manala_proxmox_instances: []
+manala_proxmox_instances_defaults: {}

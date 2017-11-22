@@ -9,3 +9,8 @@
 - include: storages.yml
   tags:
     - manala_proxmox
+
+# Instances
+- include: instances.yml
+  tags:
+    - manala_proxmox
