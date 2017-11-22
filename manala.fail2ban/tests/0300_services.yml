@@ -4,9 +4,16 @@
   hosts: debian
   become: true
   vars:
-    manala_fail2ban_config:
-      - ssh:
-        - enabled: false
+    manala_fail2ban_config: "{{
+      (
+        ansible_distribution_release == 'stretch'
+      )|ternary([{
+        'ssh': [{'enabled': false}],
+        'sshd': [{'enabled': false}]
+      }], [{
+        'ssh': [{'enabled': false}]
+      }])
+    }}"
   roles:
     - manala.fail2ban
   post_tasks:
