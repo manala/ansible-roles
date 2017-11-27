@@ -135,6 +135,9 @@ manala_nginx_configs:
         - client_max_body_size: 16M
         - location /:
           - try_files: $uri /index.php$is_args$args
+  # Enables HTTPS offloading support based on a self-signed certificate
+  - file: app_ssl.conf
+    template: configs/app_ssl_offloading.dev.j2
 ```
 
 ## Example playbook
