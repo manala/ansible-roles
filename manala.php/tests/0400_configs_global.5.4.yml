@@ -1,0 +1,41 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.wheezy
+  become: true
+  vars:
+    manala_php_version: 5
+    manala_php_sapis:
+      - cli
+      - fpm
+    manala_php_configs_global: true
+    manala_php_configs_exclusive: true
+    manala_php_configs:
+      - file: foo.ini
+        config:
+          - memory_limit: 123M
+      - file: foo.ini
+        config:
+          - memory_limit: 456M
+      - file:     bar.ini
+        template: configs/app.dev.j2
+        config:
+          - memory_limit: 256M
+  pre_tasks:
+    - include: pre_tasks/dotdeb.yml
+    - apt:
+        package: "{{ item }}"
+        install_recommends: false
+      with_items:
+        - php5-cli
+        - php5-fpm
+    - copy:
+        dest:    /etc/php5/conf.d/baz.ini
+        content: |
+          memory_limit = 256M
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

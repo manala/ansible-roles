@@ -28,8 +28,9 @@
           wantlist=true
         )
       ),
-      manala_php_pecl,
-      manala_php_versions[manala_php_version|string],
+      manala_php_version|string,
+      manala_php_extensions_pecl,
+      manala_php_extensions_pecl_versioned,
       wantlist=true
     )
   }}"
@@ -61,8 +62,9 @@
           wantlist=true
         )
       ),
-      manala_php_pecl,
-      manala_php_versions[manala_php_version|string],
+      manala_php_version|string,
+      manala_php_extensions_pecl,
+      manala_php_extensions_pecl_versioned,
       wantlist=true
     )
   }}"
@@ -111,8 +113,9 @@
             wantlist=true
           )
         ),
-        manala_php_pecl,
-        manala_php_versions[manala_php_version|string],
+        manala_php_version|string,
+        manala_php_extensions_pecl,
+        manala_php_extensions_pecl_versioned,
         wantlist=true
       )|join(' ')
     }}
@@ -152,8 +155,9 @@
             wantlist=true
           )
         ),
-        manala_php_pecl,
-        manala_php_versions[manala_php_version|string],
+        manala_php_version|string,
+        manala_php_extensions_pecl,
+        manala_php_extensions_pecl_versioned,
         wantlist=true
       )
     }}"
@@ -161,8 +165,9 @@
       lookup(
         'manala_php_packages',
         manala_php_versions[manala_php_version|string]['sapis'],
-        manala_php_pecl,
-        manala_php_versions[manala_php_version|string],
+        manala_php_version|string,
+        manala_php_extensions_pecl,
+        manala_php_extensions_pecl_versioned,
         wantlist=true
       )
     }}"

@@ -11,6 +11,20 @@ manala_php_sapis:           []
 manala_php_extensions_exclusive: false
 manala_php_extensions:           []
 
+# Based by default on php version to ensure backward compatibility.
+# Btw, should be based on a per repository basis, with a false default value,
+# and a true value for "dotdeb".
+manala_php_extensions_pecl_versioned: "{{
+  manala_php_version|string|version_compare('7.0', '<=')|ternary(
+    {
+      '5':   true,
+      '5.6': false,
+      '7.0': true
+    }[manala_php_version|string],
+    false
+  )
+}}"
+
 # Configs
 manala_php_configs_global:    false # Must be true for php 5.4
 manala_php_configs_template:  ~
@@ -27,8 +41,6 @@ manala_php_fpm_pools_exclusive: false
 manala_php_fpm_pools:
   - file:     www.conf
     template: fpm_pools/default.j2
-
-
 
 # Blackfire
 manala_php_blackfire: false

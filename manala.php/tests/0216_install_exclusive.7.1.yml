@@ -1,0 +1,37 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.jessie
+    - debian.stretch
+  become: true
+  vars:
+    manala_php_version: 7.1
+    manala_php_sapis_exclusive: true
+    manala_php_sapis:
+      - cli
+      - sapi:  fpm
+        state: present
+    manala_php_extensions_exclusive: true
+    manala_php_extensions:
+      - date     # Embedded extension
+      - mbstring # Native extension
+      - intl     # Native extension
+      - ssh2     # Pecl extension
+      # Native extension
+      - extension: curl
+        state:     present
+  pre_tasks:
+    - include: pre_tasks/sury_php.yml
+    - apt:
+        package: "{{ item }}"
+        install_recommends: false
+      with_items:
+        - php7.1-cgi  # Sapi
+        - php7.1-tidy # Native extension
+        - php-apcu    # Pecl extension
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

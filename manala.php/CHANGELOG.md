@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Debian stretch support
+- Introduce "manala_php_extensions_pecl_versioned" variable
 
 ## [1.0.3] - 2017-10-30
 ### Changed
