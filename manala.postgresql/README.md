@@ -30,10 +30,6 @@ Using ansible galaxy requirements file:
 - src: manala.postgresql
 ```
 
-## Role Handlers
-
-    postgresql restart  # Restart PostgreSQL server
-
 ## Role Variables
 
 ### Definition
