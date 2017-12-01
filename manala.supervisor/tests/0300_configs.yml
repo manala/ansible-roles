@@ -14,12 +14,6 @@
     - include: pre_tasks/backports.yml
       when:    ansible_distribution_release == 'wheezy'
     - include: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/supervisor
-        content: |
-          Package:      supervisor*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.supervisor
   post_tasks:
