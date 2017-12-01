@@ -5,12 +5,12 @@ manala_php_versions:
   '5':
     release:
       - wheezy
-    enmod_bin:           /usr/sbin/php5enmod
-    dismod_bin:          /usr/sbin/php5dismod
-    fpm_bin:             /usr/sbin/php5-fpm
-    fpm_service:         php5-fpm
-    config_dir:          /etc/php5
-    log_dir:             /var/log/php5
+    enmod_bin:   /usr/sbin/php5enmod
+    dismod_bin:  /usr/sbin/php5dismod
+    fpm_bin:     /usr/sbin/php5-fpm
+    fpm_service: php5-fpm
+    config_dir:  /etc/php5
+    log_dir:     /var/log/php5
     sapis:
       #############
       # Available #
@@ -77,12 +77,12 @@ manala_php_versions:
     release:
       - jessie
       - stretch
-    enmod_bin:           /usr/sbin/phpenmod
-    dismod_bin:          /usr/sbin/phpdismod
-    fpm_bin:             /usr/sbin/php-fpm5.6
-    fpm_service:         php5.6-fpm
-    config_dir:          /etc/php/5.6
-    log_dir:             /var/log/php5.6
+    enmod_bin:   /usr/sbin/phpenmod
+    dismod_bin:  /usr/sbin/phpdismod
+    fpm_bin:     /usr/sbin/php-fpm5.6
+    fpm_service: php5.6-fpm
+    config_dir:  /etc/php/5.6
+    log_dir:     /var/log/php5.6
     sapis:
       #############
       # Available #
@@ -137,12 +137,12 @@ manala_php_versions:
     release:
       - jessie
       - stretch
-    enmod_bin:           /usr/sbin/phpenmod
-    dismod_bin:          /usr/sbin/phpdismod
-    fpm_bin:             /usr/sbin/php-fpm7.0
-    fpm_service:         php7.0-fpm
-    config_dir:          /etc/php/7.0
-    log_dir:             /var/log/php7.0
+    enmod_bin:   /usr/sbin/phpenmod
+    dismod_bin:  /usr/sbin/phpdismod
+    fpm_bin:     /usr/sbin/php-fpm7.0
+    fpm_service: php7.0-fpm
+    config_dir:  /etc/php/7.0
+    log_dir:     /var/log/php7.0
     sapis:
       #############
       # Available #
@@ -195,12 +195,12 @@ manala_php_versions:
     release:
       - jessie
       - stretch
-    enmod_bin:           /usr/sbin/phpenmod
-    dismod_bin:          /usr/sbin/phpdismod
-    fpm_bin:             /usr/sbin/php-fpm7.1
-    fpm_service:         php7.1-fpm
-    config_dir:          /etc/php/7.1
-    log_dir:             /var/log/php7.1
+    enmod_bin:   /usr/sbin/phpenmod
+    dismod_bin:  /usr/sbin/phpdismod
+    fpm_bin:     /usr/sbin/php-fpm7.1
+    fpm_service: php7.1-fpm
+    config_dir:  /etc/php/7.1
+    log_dir:     /var/log/php7.1
     sapis:
       #############
       # Available #
@@ -249,6 +249,65 @@ manala_php_versions:
       #- opcache
       #- json
       #- readline
+  '7.2':
+    release:
+      - jessie
+      - stretch
+    enmod_bin:   /usr/sbin/phpenmod
+    dismod_bin:  /usr/sbin/phpdismod
+    fpm_bin:     /usr/sbin/php-fpm7.2
+    fpm_service: php7.2-fpm
+    config_dir:  /etc/php/7.2
+    log_dir:     /var/log/php7.2
+    sapis:
+      #############
+      # Available #
+      #############
+      - cli
+      - fpm
+      - cgi
+      - phpdbg
+    extensions:
+      ############
+      # Embedded #
+      ############
+      - date
+      - filter
+      - hash
+      - libxml
+      - openssl
+      - pcntl
+      - pcre
+      - reflection
+      - session
+      - sodium
+      - spl
+      - zlib
+      ##########
+      # Common #
+      ##########
+      - calendar
+      - ctype
+      - exif
+      - fileinfo
+      - ftp
+      - gettext
+      - iconv
+      - pdo
+      - phar
+      - posix
+      - shmop
+      - sockets
+      - sysvmsg
+      - sysvsem
+      - sysvshm
+      - tokenizer
+      #########
+      # Sapis #
+      #########
+      #- opcache
+      #- json
+      #- readline
 
 # Pecl
 manala_php_extensions_pecl:
@@ -256,6 +315,7 @@ manala_php_extensions_pecl:
     - apcu
     - apcu-bc
     - ast
+    - ds
     - gearman
     - geoip
     - gmagick
@@ -265,6 +325,7 @@ manala_php_extensions_pecl:
     - mailparse
     - memcache
     - memcached
+    - mongo
     - mongodb
     - msgpack
     - oauth
@@ -273,6 +334,7 @@ manala_php_extensions_pecl:
     - raphf
     - redis
     - rrd
+    - sass
     - smbclient
     - solr
     - ssh2

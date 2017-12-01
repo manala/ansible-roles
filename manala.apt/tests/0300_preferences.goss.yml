@@ -19,7 +19,7 @@ file:
     exists:   true
     filetype: file
     contains:
-      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-*"
+      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-*"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 300"
   /etc/apt/preferences.d/dotdeb:

@@ -1,0 +1,12 @@
+---
+
+file:
+  /etc/phppgadmin/conf.d/config.inc.php:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - $conf['owned_only'] = true;
+      - $conf['servers'][0]['host'] = 'postgresql';
