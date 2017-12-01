@@ -27,11 +27,11 @@ manala_skeleton_options:
   systemd:               false
   mailhog:               false
   nodejs:                false
-  nodejs_version:        "{{ {'wheezy': '6', 'jessie': '8'}[ansible_distribution_release] }}" # '0.10'|'0.12'|'4'|'5'|'6'|'7'|'8'
+  nodejs_version:        "{{ {'wheezy': '6', 'jessie': '8', 'stretch': '8'}[ansible_distribution_release] }}" # '0.10'|'0.12'|'4'|'5'|'6'|'7'|'8'
   npm:                   false
   yarn:                  false
   php:                   false
-  php_version:           "{{ {'wheezy': '5.6', 'jessie': '7.1'}[ansible_distribution_release] }}" # '5.4'|'5.5'|'5.6'|'7.0'|'7.1'
+  php_version:           "{{ {'wheezy': '5.6', 'jessie': '7.1', 'stretch': '7.1'}[ansible_distribution_release] }}" # '5.4'|'5.5'|'5.6'|'7.0'|'7.1'
   composer:              false
   nginx:                 false
   supervisor:            false

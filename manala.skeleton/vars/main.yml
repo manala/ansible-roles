@@ -61,6 +61,10 @@ manala_skeleton_patterns:
           'httpie@manala',
           'python3-requests@backports',
           'python3-urllib3@backports'
+        ],
+        'stretch': [
+          'git@backports',
+          'httpie@manala'
         ]
       }[ansible_distribution_release]
       + (manala_skeleton_options.docker)|ternary(['docker@docker'],[])
@@ -169,7 +173,8 @@ manala_skeleton_patterns:
     java_version: "{{
       {
         'wheezy': '7',
-        'jessie': '8'
+        'jessie': '8',
+        'stretch': '8'
       }[ansible_distribution_release]
     }}"
     # Php
@@ -436,6 +441,9 @@ manala_skeleton_patterns:
         ],
         'jessie': [
           'httpie'
+        ],
+        'stretch': [
+          'httpie'
         ]
       }[ansible_distribution_release]
     }}"
@@ -635,8 +643,8 @@ manala_skeletons:
         ohmyzsh:      true
         vim:          true
         alternatives: true
-        docker:       "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
-        systemd:      "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        docker:       "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
+        systemd:      "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:      true
         supervisor:   true
         cron:         true
@@ -674,7 +682,7 @@ manala_skeletons:
         make:       true
         git:        true
         zsh:        true
-        docker:     "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        docker:     "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:    true
         supervisor: true
         cron:       true
@@ -713,8 +721,8 @@ manala_skeletons:
         vim:               true
         alternatives:      true
         files:             true
-        docker:            "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
-        systemd:           "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        docker:            "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
+        systemd:           "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -777,8 +785,8 @@ manala_skeletons:
         vim:               true
         alternatives:      true
         files:             true
-        docker:            "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
-        systemd:           "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        docker:            "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
+        systemd:           "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -833,7 +841,7 @@ manala_skeletons:
         git:         true
         zsh:         true
         files:       true
-        docker:      "{{ {'wheezy': False, 'jessie': True}[ansible_distribution_release] }}"
+        docker:      "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:     true
         supervisor:  true
         cron:        true
