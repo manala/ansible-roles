@@ -1,5 +1,17 @@
 ---
 
+# Need to restart postgresql immediately to properly
+# handle the next tasks who may need the latest changes.
+- name: services > Restart postgresql on config change
+  service:
+    name:    "{{ item }}"
+    state:   restarted
+  with_items:
+    - postgresql
+  when: __manala_postgresql_config_result|changed or __manala_postgresql_config_hba_result|changed
+  tags:
+    - skip_ansible_lint
+
 - name: services > Ensure postgresql is running
   service:
     name:    "{{ item }}"
