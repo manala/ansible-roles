@@ -1,11 +1,11 @@
 ---
 
 package:
-  node-rtail:
+  rtail:
     installed: true
 
 command:
-  dpkg -s node-rtail:
+  dpkg -s rtail:
     exit-status: 0
     stdout:
       - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
