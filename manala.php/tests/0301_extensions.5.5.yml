@@ -1,0 +1,43 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.wheezy
+  become: true
+  vars:
+    manala_php_version: 5
+    manala_php_sapis:
+      - cli
+    manala_php_extensions_pecl_versioned: true
+    manala_php_extensions:
+      - date     # Embedded extension
+      - mbstring # Embedded extension
+      - intl     # Native extension
+      - ssh2     # Pecl extension
+      # Native extension
+      - extension: gd
+        enabled:   true
+      # Native extension
+      - extension: tidy
+        enabled:   false
+      # Pecl extension
+      - extension: apcu
+        enabled:   true
+      # Pecl extension
+      - extension: xdebug
+        enabled:   false
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_55.yml
+    - apt:
+        package: "{{ item }}"
+        install_recommends: false
+      with_items:
+        - php5-cli  # Sapi
+        - php5-tidy # Native extension
+        - php5-apcu # Pecl extension
+    - command: php5dismod apcu
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

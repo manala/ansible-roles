@@ -69,57 +69,22 @@ Using ansible galaxy requirements file:
 
 ### Configuration example
 
-#### Version
+#### Version matrix
 
-Php 5.4 (Debian wheezy only)
-```yaml
-manala_apt_preferences:
-  - php@dotdeb
+| Version | Distribution | Repository | *manala_apt_preferences* | *manala_php_version* | *manala_php_extensions_pecl_versioned* |
+| :---    | :---:        | :---:      | ---:                     | ---:                 | ---:                                   |
+| **5.4** | Wheezy       | Dotdeb     | `php@dotdeb`             | `5`                  | `true` (default)                       |
+| **5.5** | Wheezy       | Dotdeb     | `php@dotdeb_php55`       | `5`                  | `true` (default)                       |
+| **5.6** | Wheezy       | Dotdeb     | `php@dotdeb_php56`       | `5`                  | `true` (default)                       |
+| **5.6** | Jessie       | Sury       | `php@sury_php`           | `5.6`                |                                        |
+| **5.6** | Stretch      | Sury       | `php@sury_php`           | `5.6`                |                                        |
+| **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                | `true` (default)                       |
+| **7.0** | Jessie       | Sury       | `php@sury_php`           | `7.0`                | `false`                                |
+| **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                | `false`                                |
+| **7.1** | Jessie       | Sury       | `php@sury_php`           | `7.1`                |                                        |
+| **7.1** | Stretch      | Sury       | `php@sury_php`           | `7.1`                |                                        |
 
-manala_php_version: 5
-```
-
-Php 5.5 (Debian wheezy only)
-```yaml
-manala_apt_preferences:
-  - php@dotdeb_php55
-
-manala_php_version: 5
-```
-
-Php 5.6 (Debian wheezy)
-```yaml
-manala_apt_preferences:
-  - php@dotdeb_php56
-
-manala_php_version: 5
-```
-
-Php 5.6 (Debian jessie)
-```yaml
-manala_apt_preferences:
-  - php@sury_php
-
-manala_php_version: 5.6
-```
-
-Php 7.0 (Debian jessie only)
-```yaml
-manala_apt_preferences:
-  - php@dotdeb
-
-manala_php_version: 7.0
-```
-
-Php 7.1 (Debian jessie only)
-```yaml
-manala_apt_preferences:
-  - php@sury_php
-
-manala_php_version: 7.1
-```
-
-#### SAPIs
+#### Sapis
 
 ```yaml
 manala_php_sapis_exclusive: true # Ensure other sapis are automatically absents

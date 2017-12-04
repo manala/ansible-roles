@@ -8,7 +8,7 @@
         name:  "{{ item }}"
         install_recommends: false
       with_items:
-        - php5-cli
+        - "{{ (ansible_distribution_release == 'stretch')|ternary('php7.0-cli','php5-cli') }}"
   roles:
     - manala.composer
   post_tasks:

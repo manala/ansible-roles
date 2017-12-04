@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.gitlab
-ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie
+ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch

@@ -1,18 +1,15 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.jessie
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_java_version: 8
   pre_tasks:
     - include: pre_tasks/backports.yml
-    - copy:
-        dest: /etc/apt/preferences.d/openjdk
-        content: |
-          Package:      openjdk-* ca-certificates-java
-          Pin:          release a={{ ansible_distribution_release }}-backports
-          Pin-Priority: 900
+      when: ansible_distribution_release == 'jessie'
   roles:
     - manala.java
   post_tasks:

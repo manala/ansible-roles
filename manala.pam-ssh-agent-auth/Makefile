@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.pam-ssh-agent-auth
-ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie
+ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch

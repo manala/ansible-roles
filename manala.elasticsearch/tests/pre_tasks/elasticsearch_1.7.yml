@@ -7,4 +7,4 @@
 
 - name: Pre tasks > Elasticsearch 1.7 apt repository
   apt_repository:
-    repo: deb https://packages.elastic.co/elasticsearch/1.7/debian stable main
+    repo: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}https://packages.elastic.co/elasticsearch/1.7/debian stable main

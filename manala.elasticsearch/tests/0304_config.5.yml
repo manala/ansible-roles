@@ -1,7 +1,9 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.jessie
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_elasticsearch_config:
@@ -9,12 +11,14 @@
   pre_tasks:
     - include: pre_tasks/elasticsearch_5.yml
     - include: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'jessie'
     - copy:
         dest: /etc/apt/preferences.d/openjdk
         content: |
           Package:      openjdk-* ca-certificates-java
           Pin:          release a={{ ansible_distribution_release }}-backports
           Pin-Priority: 900
+      when: ansible_distribution_release == 'jessie'
     - apt:
         name:  "{{ item }}"
         install_recommends: false

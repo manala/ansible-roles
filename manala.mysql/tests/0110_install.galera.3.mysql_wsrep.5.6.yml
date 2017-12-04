@@ -11,19 +11,7 @@
       - mysql-wsrep-client-5.6
   pre_tasks:
     - include: pre_tasks/galera_3.yml
-    - copy:
-        dest: /etc/apt/preferences.d/galera
-        content: |
-          Package:      galera*
-          Pin:          origin releases.galeracluster.com
-          Pin-Priority: 900
     - include: pre_tasks/mysql_wsrep_5.6.yml
-    - copy:
-        dest: /etc/apt/preferences.d/mysql
-        content: |
-          Package:      mysql* libmysql*
-          Pin:          origin releases.galeracluster.com
-          Pin-Priority: 900
   roles:
     - manala.mysql
   post_tasks:

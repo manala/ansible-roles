@@ -2,9 +2,17 @@
 
 - name: Pre tasks > MariaDB apt key
   apt_key:
-    file: pre_tasks/apt_keys/mariadb.pgp
+    file: pre_tasks/apt_keys/mariadb_legacy.pgp
     id: 1BB943DB
 
-- name: Pre tasks > MariaDB apt repository 10.0
+- name: Pre tasks > MariaDB 10.0 apt repository
   apt_repository:
     repo: deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian {{ ansible_distribution_release }} main
+
+- name: Pre tasks > MariaDB apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/mysql
+    content: |
+      Package:      mariadb* libmariadb*
+      Pin:          origin ftp.osuosl.org
+      Pin-Priority: 900

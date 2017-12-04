@@ -5,8 +5,6 @@ manala_php_versions:
   '5':
     release:
       - wheezy
-    package_prefix:      php5-
-    package_pecl_prefix: php5-
     enmod_bin:           /usr/sbin/php5enmod
     dismod_bin:          /usr/sbin/php5dismod
     fpm_bin:             /usr/sbin/php5-fpm
@@ -78,8 +76,7 @@ manala_php_versions:
   '5.6':
     release:
       - jessie
-    package_prefix:      php5.6-
-    package_pecl_prefix: php-
+      - stretch
     enmod_bin:           /usr/sbin/phpenmod
     dismod_bin:          /usr/sbin/phpdismod
     fpm_bin:             /usr/sbin/php-fpm5.6
@@ -140,8 +137,6 @@ manala_php_versions:
     release:
       - jessie
       - stretch
-    package_prefix:      php7.0-
-    package_pecl_prefix: php7.0-
     enmod_bin:           /usr/sbin/phpenmod
     dismod_bin:          /usr/sbin/phpdismod
     fpm_bin:             /usr/sbin/php-fpm7.0
@@ -200,8 +195,6 @@ manala_php_versions:
     release:
       - jessie
       - stretch
-    package_prefix:      php7.1-
-    package_pecl_prefix: php-
     enmod_bin:           /usr/sbin/phpenmod
     dismod_bin:          /usr/sbin/phpdismod
     fpm_bin:             /usr/sbin/php-fpm7.1
@@ -258,8 +251,7 @@ manala_php_versions:
       #- readline
 
 # Pecl
-manala_php_pecl:
-  extensions:
+manala_php_extensions_pecl:
     - amqp
     - apcu
     - apcu-bc

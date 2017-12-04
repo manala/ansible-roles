@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.wheezy
+  become: true
+  vars:
+    manala_mysql_install_packages:
+      - galera-3
+      - galera-arbitrator-3
+      - mysql-wsrep-server-5.7
+      - mysql-wsrep-client-5.7
+  pre_tasks:
+    - include: pre_tasks/galera_3.yml
+    - include: pre_tasks/mysql_wsrep_5.7.yml
+  roles:
+    - manala.mysql
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

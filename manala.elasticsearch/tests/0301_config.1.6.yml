@@ -1,28 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.wheezy
-  become: true
-  vars:
-    manala_elasticsearch_config:
-      - node.name: Foo Bar
-  pre_tasks:
-    - include: pre_tasks/elasticsearch_1.6.yml
-    - apt:
-        name:  "{{ item }}"
-        install_recommends: false
-      with_items:
-        - openjdk-7-jre-headless
-  roles:
-    - manala.elasticsearch
-  post_tasks:
-    - pause:
-        seconds: 3
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
-
-- name: "{{ test }}"
-  hosts: debian.jessie
+  hosts: debian
   become: true
   vars:
     manala_elasticsearch_config:
@@ -30,17 +9,19 @@
   pre_tasks:
     - include: pre_tasks/elasticsearch_1.6.yml
     - include: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'jessie'
     - copy:
         dest: /etc/apt/preferences.d/openjdk
         content: |
           Package:      openjdk-* ca-certificates-java
           Pin:          release a={{ ansible_distribution_release }}-backports
           Pin-Priority: 900
+      when: ansible_distribution_release == 'jessie'
     - apt:
         name:  "{{ item }}"
         install_recommends: false
       with_items:
-        - openjdk-8-jre-headless
+        - "{{ 'openjdk-7-jre-headless' if (ansible_distribution_release == 'wheezy') else 'openjdk-8-jre-headless' }}"
   roles:
     - manala.elasticsearch
   post_tasks:

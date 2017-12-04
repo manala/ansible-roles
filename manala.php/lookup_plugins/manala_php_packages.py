@@ -10,21 +10,22 @@ class LookupModule(LookupBase):
 
         results = []
 
-        # Pecl
-        pecl = terms[1]
+        # Version
+        version = terms[1]
 
-        # Version parameters
-        version = terms[2]
+        # Extensions - Pecl
+        extensionsPecl          = terms[2]
+        extensionsPeclVersioned = terms[3]
 
         for term in self._flatten(terms[0]):
 
             items = []
 
-            # Pecl
-            if term in pecl.get('extensions'):
-                items.append(version.get('package_pecl_prefix') + term)
+            # Extensions
+            if (term in extensionsPecl) and (not extensionsPeclVersioned):
+                items.append('php-' + term)
             else:
-                items.append(version.get('package_prefix') + term)
+                items.append('php' + version + '-' + term)
 
             # Merge
             for item in items:

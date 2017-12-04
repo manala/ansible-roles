@@ -3,3 +3,11 @@
 - name: Pre tasks > Backports apt repository
   apt_repository:
     repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
+
+- name: Pre tasks > Backports OpenJDK apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/openjdk
+    content: |
+      Package:      openjdk-* ca-certificates-java
+      Pin:          release a={{ ansible_distribution_release }}-backports
+      Pin-Priority: 900

@@ -1,0 +1,34 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.wheezy
+  become: true
+  vars:
+    manala_php_version: 5
+    manala_php_sapis:
+      - cli
+      - fpm
+    manala_php_fpm_pools_exclusive: true
+    manala_php_fpm_pools:
+      - file:     www.conf
+        template: fpm_pools/default.j2
+        config:
+          - www:
+            - pm.max_children: 12
+  pre_tasks:
+    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - apt:
+        package: "{{ item }}"
+        install_recommends: false
+      with_items:
+        - php5-fpm
+    - copy:
+        dest:    /etc/php5/fpm/pool.d/foo.conf
+        content: |
+          ; Foo
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

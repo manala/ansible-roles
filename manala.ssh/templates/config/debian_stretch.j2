@@ -1,0 +1,104 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_ssh_config -%}
+
+{% set config_host_wildcard = [] -%}
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.iteritems() -%}
+        {%- if config_name == 'Host *' -%}
+            {%- if config_host_wildcard.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+# This is the ssh client system-wide configuration file.  See
+# ssh_config(5) for more information.  This file provides defaults for
+# users, and the values can be changed in per-user configuration files
+# or on the command line.
+
+# Configuration data is parsed as follows:
+#  1. command line options
+#  2. user-specific file
+#  3. system-wide file
+# Any configuration value is only changed the first time it is set.
+# Thus, host-specific definitions should be at the beginning of the
+# configuration file, and defaults at the end.
+
+# Site-wide defaults for some commonly used options.  For a comprehensive
+# list of available options, their meanings and defaults, please see the
+# ssh_config(5) man page.
+
+Host *
+{{ macros.config_row(config_host_wildcard, 'ForwardAgent', '#   ForwardAgent no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ForwardX11', '#   ForwardX11 no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ForwardX11Trusted', '#   ForwardX11Trusted yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'RhostsRSAAuthentication', '#   RhostsRSAAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'RSAAuthentication', '#   RSAAuthentication yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'PasswordAuthentication', '#   PasswordAuthentication yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'HostbasedAuthentication', '#   HostbasedAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', '#   GSSAPIAuthentication no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIDelegateCredentials', '#   GSSAPIDelegateCredentials no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIKeyExchange', '#   GSSAPIKeyExchange no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPITrustDNS', '#   GSSAPITrustDNS no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'BatchMode', '#   BatchMode no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'CheckHostIP', '#   CheckHostIP yes', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'AddressFamily', '#   AddressFamily any', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ConnectTimeout', '#   ConnectTimeout 0', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'StrictHostKeyChecking', '#   StrictHostKeyChecking ask', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'IdentityFile', '#   IdentityFile ~/.ssh/identity
+#   IdentityFile ~/.ssh/id_rsa
+#   IdentityFile ~/.ssh/id_dsa
+#   IdentityFile ~/.ssh/id_ecdsa
+#   IdentityFile ~/.ssh/id_ed25519', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Port', '#   Port 22', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Protocol', '#   Protocol 2', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Cipher', '#   Cipher 3des', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Ciphers', '#   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'MACs', '#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'EscapeChar', '#   EscapeChar ~', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'Tunnel', '#   Tunnel no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'TunnelDevice', '#   TunnelDevice any:any', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'PermitLocalCommand', '#   PermitLocalCommand no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'VisualHostKey', '#   VisualHostKey no', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'ProxyCommand', '#   ProxyCommand ssh -q -W %h:%p gateway.example.com', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'RekeyLimit 1G 1h', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'SendEnv', 'LANG LC_*', 4) }}
+{{ macros.config_row(config_host_wildcard, 'HashKnownHosts', true, 4) }}
+{{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', true, 4) }}
+{{ macros.config(config_host_wildcard, [
+    'ForwardAgent',
+    'ForwardX11',
+    'ForwardX11Trusted',
+    'RhostsRSAAuthentication',
+    'RSAAuthentication',
+    'PasswordAuthentication',
+    'HostbasedAuthentication',
+    'GSSAPIAuthentication',
+    'GSSAPIDelegateCredentials',
+    'GSSAPIKeyExchange',
+    'GSSAPITrustDNS',
+    'BatchMode',
+    'CheckHostIP',
+    'AddressFamily',
+    'ConnectTimeout',
+    'StrictHostKeyChecking',
+    'IdentityFile',
+    'Port',
+    'Protocol',
+    'Cipher',
+    'Ciphers',
+    'MACs',
+    'EscapeChar',
+    'Tunnel',
+    'TunnelDevice',
+    'PermitLocalCommand',
+    'VisualHostKey',
+    'ProxyCommand',
+    'RekeyLimit',
+    'SendEnv',
+    'HashKnownHosts',
+    'GSSAPIAuthentication'
+], 4) }}
+
+{{ macros.config(config, ['Host *']) }}

@@ -23,17 +23,7 @@
           Package:      aptly*
           Pin:          origin repo.aptly.info
           Pin-Priority: 900
-    - copy:
-        dest: /tmp/gpg
-        content: |
-          Key-Type: 1
-          Key-Length: 2048
-          Subkey-Type: 1
-          Subkey-Length: 2048
-          Name-Real: Foo
-          Name-Email: foo@bar.com
-          Expire-Date: 0
-    - command: gpg --batch --gen-key /tmp/gpg
+    - command: gpg --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
       args:
         creates: ~/.gnupg/trustdb.gpg
   roles:
