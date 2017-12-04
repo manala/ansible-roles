@@ -1,12 +1,34 @@
 ---
 
-- name: default > Template
-  template:
-    src:   "{{ manala_timezone_template|ternary(manala_timezone_template, 'timezone/timezone.j2') }}"
-    dest:  "{{ manala_timezone_file }}"
-    owner: root
-    group: root
-    mode:  0644
-  when: (manala_timezone_template is not none) or (manala_timezone_default is not none)
+- name: default > Localtime stat
+  stat:
+    path: /etc/localtime
+  when:
+    - manala_timezone_default is not none
+  register: __manala_timezone_default_localtime
+
+# If "/etc/localtime" is a regular file, the good old strategy consists in
+# editing "/etc/timezone" and reconfiguring tzdata package...
+- name: default > Timezone content
+  copy:
+    dest: /etc/timezone
+    content: >
+      {{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
+  when:
+    - not __manala_timezone_default_localtime|skipped
+    - __manala_timezone_default_localtime.stat.isreg
+  notify:
+    - dpkg-reconfigure tzdata
+
+# ...on the contrary, if it's a link, we need to update it before reconfiguring tzdata
+- name: default > Localtime link
+  file:
+    src:   /usr/share/zoneinfo/{{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
+    dest:  /etc/localtime
+    state: link
+    force: yes
+  when:
+    - not __manala_timezone_default_localtime|skipped
+    - __manala_timezone_default_localtime.stat.islnk
   notify:
     - dpkg-reconfigure tzdata
