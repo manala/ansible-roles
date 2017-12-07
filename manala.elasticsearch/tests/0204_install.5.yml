@@ -1,9 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.jessie
-    - debian.stretch
+  hosts: debian:!debian.wheezy
   become: true
   pre_tasks:
     - include: pre_tasks/elasticsearch_5.yml

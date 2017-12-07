@@ -2,8 +2,8 @@
 
 - name: "{{ test }}"
   hosts:
-      - debian.wheezy
-      - debian.jessie
+    - debian.wheezy
+    - debian.jessie
   become: true
   pre_tasks:
     - include: pre_tasks/nodesource_5.yml
