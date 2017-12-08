@@ -6,15 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.4] - 2017-12-06
+## [1.0.5] - 2017-12-08
 ### Added
-- Debian stretch support
-- Introduce "manala_php_extensions_pecl_versioned" variable
 - Handle PHP 7.2 version
   * Remove deprecated "track_errors" config option
   * Add new "request_slowlog_trace_depth" fpm pool option
   * Add "sodium" embedded extension
   * Add "ds", "mongo", "sass" pecl or like extensions
+
+## [1.0.4] - 2017-12-06
+### Added
+- Debian stretch support
+- Introduce "manala_php_extensions_pecl_versioned" variable
 
 ## [1.0.3] - 2017-10-30
 ### Changed
