@@ -1,8 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.jessie
+  hosts: debian.jessie
   become: true
   vars:
     manala_php_version: 7.0

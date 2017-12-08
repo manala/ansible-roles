@@ -22,7 +22,7 @@
   file:
     path:  "{{ manala_php_versions[manala_php_version|string]['config_dir'] }}/{{ __manala_php_sapi }}/conf.d/{{ item }}"
     state: absent
-  when: manala_php_configs_exclusive and (item not in (manala_php_configs + manala_php_{{ __manala_php_sapi }}_configs)|map(attribute='file'))
+  when: manala_php_configs_exclusive and (item not in (manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'])|map(attribute='file'))
   with_items: "{{ __manala_php_configs_exclusive_find_result.stdout_lines|default([]) }}"
   notify:
     - "php {{ __manala_php_sapi }} restart"

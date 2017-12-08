@@ -1,0 +1,24 @@
+---
+
+file:
+  /usr/local/bin/phpcs:
+    exists:   true
+    filetype: file
+    mode:     "0755"
+  /usr/local/bin/phpunit_5.7.25:
+    exists:   true
+    filetype: file
+    mode:     "0755"
+  /usr/local/bin/phpunit:
+    exists:    true
+    filetype:  symlink
+    linked-to: phpunit_5.7.25
+command:
+  phpcs --version:
+    exit-status: 0
+    stdout:
+      - PHP_CodeSniffer version
+  phpunit --version:
+    exit-status: 0
+    stdout:
+      - PHPUnit 5.7.25

@@ -8,3 +8,11 @@
 - name: Pre tasks > Manala apt repository
   apt_repository:
     repo: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main
+
+- name: Pre tasks > Manala PhpPgAdmin apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/phppgadmin
+    content: |
+      Package:      phppgadmin*
+      Pin:          origin debian.manala.io
+      Pin-Priority: 900

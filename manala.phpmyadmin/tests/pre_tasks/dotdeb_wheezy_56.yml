@@ -5,6 +5,6 @@
     file: pre_tasks/apt_keys/dotdeb.pgp
     id: 89DF5277
 
-- name: Pre tasks > Dotdeb apt repository 56
+- name: Pre tasks > Dotdeb wheezy php 5.6 apt repository
   apt_repository:
     repo: deb http://packages.dotdeb.org wheezy-php56 all
