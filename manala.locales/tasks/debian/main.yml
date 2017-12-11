@@ -1,15 +1,12 @@
 ---
 
 # Install
-- name: debian > main > Include "install" tasks
-  include: install.yml
+- include: install.yml
 
 # Codes
-- name: debian > main > Include "codes" tasks
-  include: codes.yml
+- include: codes.yml
   when: manala_locales_codes|length
 
 # Codes Defaults
-- name: debian > main > Include "codes_default" tasks
-  include: codes_default.yml
+- include: codes_default.yml
   when: manala_locales_codes_default is not none

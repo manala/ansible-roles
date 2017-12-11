@@ -1,10 +1,7 @@
 ---
 
 - name: "{{ test }}.1"
-  hosts:
-    - debian
-    - ubuntu
-    - centos
+  hosts: all
   become: true
   vars:
     manala_locales_codes:
@@ -27,10 +24,7 @@
       command: goss --gossfile {{ test }}.goss.1.yml validate
 
 - name: "{{ test }}.2"
-  hosts:
-    - debian
-    - ubuntu
-    - centos
+  hosts: all
   become: true
   vars:
     manala_locales_codes:

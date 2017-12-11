@@ -1,11 +1,19 @@
 ---
 
-- name: main > Include "{{ ansible_os_family|lower }}" vars
+- name: main > Include "{{ ansible_os_family }}" vars
   include_vars:
     file: "{{ ansible_os_family|lower }}/main.yml"
+  tags:
+     - manala_locales
 
-- name: main > Include "{{ ansible_os_family|lower }}" tasks
-  include: "{{ ansible_os_family|lower }}/main.yml"
-  static: false
+- name: main > Include "Debian" tasks
+  include: debian/main.yml
+  when: ansible_os_family == 'Debian'
+  tags:
+     - manala_locales
+
+- name: main > Include "RedHat" tasks
+  include: redhat/main.yml
+  when: ansible_os_family == 'RedHat'
   tags:
      - manala_locales
