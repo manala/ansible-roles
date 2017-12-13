@@ -11,10 +11,6 @@
         export: true
     manala_environment_variables:
       FOO: bar
-      BAR: baz
-      FOO_NULL:  null
-      FOO_TRUE:  true
-      FOO_FALSE: false
   pre_tasks:
     - copy:
         dest: /etc/environment

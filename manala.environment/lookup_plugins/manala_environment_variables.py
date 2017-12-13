@@ -20,36 +20,44 @@ class LookupModule(LookupBase):
 
         results = []
 
-        for term in self._flatten(terms):
-
-            # Term must be a dict
-            if not isinstance(term, dict):
-                raise AnsibleError('Expect a dict')
-
-            items = []
-
-            if term.has_key('name') and term.has_key('value'):
-                # Expanded syntax
-                items.append({
-                    'name':  term.get('name'),
-                    'value': self.format_value(term.get('value'))
+        if isinstance(terms[0], dict):
+            for name, value in terms[0].iteritems():
+                results.append({
+                    'name':  name,
+                    'value': self.format_value(value)
                 })
-            else:
-                # Short syntax
-                items.append({
-                    'name':  term.keys()[0],
-                    'value': self.format_value(term.values()[0])
-                })
+        else:
+            # Legacy
+            for term in self._flatten(terms):
 
-            # Merge by index key
-            for item in items:
-                itemFound = False
-                for i, result in enumerate(results):
-                    if result['name'] == item['name']:
-                        results[i] = item
-                        itemFound = True
-                        break
-                if not itemFound:
-                    results.append(item)
+                # Term must be a dict
+                if not isinstance(term, dict):
+                    raise AnsibleError('Expect a dict')
+
+                items = []
+
+                if term.has_key('name') and term.has_key('value'):
+                    # Expanded syntax
+                    items.append({
+                        'name':  term.get('name'),
+                        'value': self.format_value(term.get('value'))
+                    })
+                else:
+                    # Short syntax
+                    items.append({
+                        'name':  term.keys()[0],
+                        'value': self.format_value(term.values()[0])
+                    })
+
+                # Merge by index key
+                for item in items:
+                    itemFound = False
+                    for i, result in enumerate(results):
+                        if result['name'] == item['name']:
+                            results[i] = item
+                            itemFound = True
+                            break
+                    if not itemFound:
+                        results.append(item)
 
         return results

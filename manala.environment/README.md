@@ -34,13 +34,30 @@ Using ansible galaxy requirements file:
 
 | Name                           | Default | Type    | Description            |
 | ------------------------------ | ------- | ------- | ---------------------- |
-| `manala_environment_variables` | []      | Array   |  Environment variables |
+| `manala_environment_files`     | ['pam'] | Array   |  Environment files     |
+| `manala_environment_variables` | {}/[]   | Array   |  Environment variables |
 
 ### Configuration example
 
 ```yaml
+manala_environment_files:
+  - pam # /etc/environment
+  - zsh # /etc/zsh/zshenv
+  - file:   /etc/profile.d/test.sh # Custom file
+    export: true                   # Use "export" when setting variable
+
+manala_environment_variables:
+  FOO: bar
+  BAR: true
+```
+
+For legacy purposes, `manala_environment_variables` also accepts values as
+a dictionnary list:
+
+```yaml
 manala_environment_variables:
   - FOO: bar
+  - BAR: true
 ```
 
 ## Example playbook
