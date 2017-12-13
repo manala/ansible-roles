@@ -35,10 +35,16 @@ Using ansible galaxy requirements file:
 | Name                  | Default | Type  | Description       |
 | --------------------- | ------- | ----  | ----------------- |
 | `manala_npm_packages` | [ ]     | Array | Npm packages list |
+| `manala_npm.update`   | false   | Boolean | Update to the latest version of npm |
+| `manala_npm.state`    |         | String | The version of npm, could be `latest` to always have the latest one |
+| `manala_npm.global` | true | Boolean | Install npm globally |
 
 ### Configuration example
 
 ```yaml
+manala_npm:
+  update: true
+
 manala_npm_packages:
   - yarn          # Lightweight syntax
   - name:    gulp
