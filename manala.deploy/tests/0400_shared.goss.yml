@@ -1,20 +1,78 @@
 ---
 
 file:
-  /tmp/app/current/index.html:
+
+  /tmp/app/shared/file_shared:
     exists: true
     filetype: file
-  /tmp/app/shared/parameters.yml:
+  /tmp/app/shared/file_shared_existing:
     exists: true
     filetype: file
-  /tmp/app/shared/logs:
+  /tmp/app/current/file_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/file_shared
+  /tmp/app/current/file_shared_existing:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/file_shared_existing
+
+  /tmp/app/shared/dir:
     exists: true
     filetype: directory
-  /tmp/app/current/parameters.yml:
+  /tmp/app/shared/dir/file_shared:
+    exists: true
+    filetype: file
+  /tmp/app/shared/dir/file_shared_existing:
+    exists: true
+    filetype: file
+  /tmp/app/current/dir/file_shared:
     exists: true
     filetype: symlink
-    linked-to: ../../shared/parameters.yml
-  /tmp/app/current/logs:
+    linked-to: ../../../shared/dir/file_shared
+  /tmp/app/current/dir/file_shared_existing:
     exists: true
     filetype: symlink
-    linked-to: ../../shared/logs
+    linked-to: ../../../shared/dir/file_shared_existing
+
+  /tmp/app/shared/dir/dir:
+    exists: true
+    filetype: directory
+  /tmp/app/shared/dir/dir/file_shared:
+    exists: true
+    filetype: file
+  /tmp/app/shared/dir/dir/file_shared_existing:
+    exists: true
+    filetype: file
+  /tmp/app/current/dir/dir/file_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/file_shared
+  /tmp/app/current/dir/dir/file_shared_existing:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/file_shared_existing
+
+  /tmp/app/shared/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/dir_shared
+
+  /tmp/app/shared/dir/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/dir_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../shared/dir/dir_shared
+
+  /tmp/app/shared/dir/dir/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/dir/dir_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/dir_shared

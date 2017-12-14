@@ -1,12 +1,32 @@
 ---
 
 file:
-  /tmp/app/current/index.html:
+  /tmp/app/current/file:
     exists: true
     filetype: file
-  /tmp/app/current/parameters.yml:
+  /tmp/app/current/file_shared:
     exists: true
     filetype: file
-  /tmp/app/current/logs:
+
+  /tmp/app/current/dir:
     exists: true
     filetype: directory
+  /tmp/app/current/dir/dir:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/file:
+    exists: true
+    filetype: file
+  /tmp/app/current/dir/file_shared:
+    exists: true
+    filetype: file
+
+  /tmp/app/current/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir_shared/file:
+    exists: true
+    filetype: file

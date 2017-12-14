@@ -8,12 +8,33 @@
     manala_deploy_strategy: synchronize
     manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
     manala_deploy_shared_files:
-      - parameters.yml
+      - file_shared
+      - file_shared_existing
+      - dir/file_shared
+      - dir/file_shared_existing
+      - dir/dir/file_shared
+      - dir/dir/file_shared_existing
     manala_deploy_shared_dirs:
-      - logs
+      - dir_shared
+      - dir/dir_shared
+      - dir/dir/dir_shared
   pre_tasks:
     - include: pre_tasks/ssh.yml
     - include: pre_tasks/rsync.yml
+    - file:
+        path: /tmp/app/{{ item }}
+        state: directory
+      with_items:
+        - shared
+        - shared/dir
+        - shared/dir/dir
+    - file:
+        path: /tmp/app/{{ item }}
+        state: touch
+      with_items:
+        - shared/file_shared_existing
+        - shared/dir/file_shared_existing
+        - shared/dir/dir/file_shared_existing
   roles:
     - manala.deploy
   post_tasks:

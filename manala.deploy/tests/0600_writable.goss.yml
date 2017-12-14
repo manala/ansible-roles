@@ -1,7 +1,7 @@
 ---
 
 file:
-  /tmp/app/current/logs:
+  /tmp/app/current/dir:
     exists: true
-    mode: "0775"
+    mode: "0777"
     filetype: directory
