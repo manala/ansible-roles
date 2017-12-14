@@ -10,11 +10,12 @@
       - file:   /etc/profile.d/test.sh
         export: true
     manala_environment_variables:
-      FOO: bar
-      BAR: baz
-      FOO_NULL:  null
-      FOO_TRUE:  true
-      FOO_FALSE: false
+      - FOO: bar
+      - BAR: foo
+      - BAR: baz
+      - FOO_NULL:  null
+      - FOO_TRUE:  true
+      - FOO_FALSE: false
   pre_tasks:
     - copy:
         dest: /etc/environment

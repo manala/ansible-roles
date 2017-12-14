@@ -5,4 +5,4 @@ manala_environment_files:
   - pam
 
 # Variables
-manala_environment_variables: []
+manala_environment_variables: {}
