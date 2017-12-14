@@ -6,17 +6,25 @@
     state: absent
   with_items: "{{ manala_deploy_shared_files + manala_deploy_shared_dirs }}"
 
+- name: shared > Stat shared files
+  stat:
+    path: "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+  register: __manala_deploy_shared_files_stats_output
+  with_items: "{{ manala_deploy_shared_files }}"
+
 - name: shared > Ensure shared directories files are present
   file:
-    path:  "{{ (deploy_helper.shared_path ~ '/' ~ item)|dirname }}"
+    path:  "{{ (deploy_helper.shared_path ~ '/' ~ item.1)|dirname }}"
     state: directory
-  with_items: "{{ manala_deploy_shared_files }}"
+  with_indexed_items: "{{ manala_deploy_shared_files }}"
+  when: not __manala_deploy_shared_files_stats_output.results[item.0].stat.exists
 
 - name: shared > Ensure shared files are present
   file:
-    path:  "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+    path:  "{{ deploy_helper.shared_path ~ '/' ~ item.1 }}"
     state: touch
-  with_items: "{{ manala_deploy_shared_files }}"
+  with_indexed_items: "{{ manala_deploy_shared_files }}"
+  when: not __manala_deploy_shared_files_stats_output.results[item.0].stat.exists
 
 - name: shared > Ensure shared dirs are present
   file:

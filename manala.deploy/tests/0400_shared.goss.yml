@@ -8,6 +8,10 @@ file:
   /tmp/app/shared/file_shared_existing:
     exists: true
     filetype: file
+  /tmp/app/shared/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/app/shared/file_shared_existing
   /tmp/app/current/file_shared:
     exists: true
     filetype: symlink
@@ -16,6 +20,10 @@ file:
     exists: true
     filetype: symlink
     linked-to: ../../shared/file_shared_existing
+  /tmp/app/current/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/file_shared_existing_link
 
   /tmp/app/shared/dir:
     exists: true
@@ -26,6 +34,10 @@ file:
   /tmp/app/shared/dir/file_shared_existing:
     exists: true
     filetype: file
+  /tmp/app/shared/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/app/shared/dir/file_shared_existing
   /tmp/app/current/dir/file_shared:
     exists: true
     filetype: symlink
@@ -34,6 +46,10 @@ file:
     exists: true
     filetype: symlink
     linked-to: ../../../shared/dir/file_shared_existing
+  /tmp/app/current/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../shared/dir/file_shared_existing_link
 
   /tmp/app/shared/dir/dir:
     exists: true
@@ -44,6 +60,10 @@ file:
   /tmp/app/shared/dir/dir/file_shared_existing:
     exists: true
     filetype: file
+  /tmp/app/shared/dir/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/app/shared/dir/dir/file_shared_existing
   /tmp/app/current/dir/dir/file_shared:
     exists: true
     filetype: symlink
@@ -52,6 +72,10 @@ file:
     exists: true
     filetype: symlink
     linked-to: ../../../../shared/dir/dir/file_shared_existing
+  /tmp/app/current/dir/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/file_shared_existing_link
 
   /tmp/app/shared/dir_shared:
     exists: true
