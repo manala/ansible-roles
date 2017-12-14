@@ -2,7 +2,7 @@
 
 - name: copied > Stat
   stat:
-    path:  "{{ deploy_helper.previous_release_path ~ '/' ~ item }}"
+    path: "{{ deploy_helper.previous_release_path ~ '/' ~ item }}"
   register: __manala_deploy_copied_stats_output
   with_items: "{{ manala_deploy_copied }}"
 
