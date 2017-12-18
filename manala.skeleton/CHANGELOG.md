@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.10] - 2017-12-18
 ### Fixed
 - Drop global low priority sury apt preferences for php (this was taken from dotdeb repository policy, but became irrelevant for sury)
 
