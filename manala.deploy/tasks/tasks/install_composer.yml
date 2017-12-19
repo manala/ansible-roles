@@ -7,7 +7,7 @@
 
 - name: tasks/install_composer > Download installer
   get_url:
-    url:  http://getcomposer.org/installer
+    url:  https://getcomposer.org/installer
     dest: /tmp
   when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
