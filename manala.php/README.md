@@ -155,6 +155,9 @@ manala_php_cli_configs:
 ```yaml
 manala_php_fpm_pools:
   - file: www.conf
+    env:
+      foo: bar
+      app_env: prod
     config:
       - www:
         - pm.max_children:          5

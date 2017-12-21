@@ -15,6 +15,15 @@
         config:
           - www:
             - pm.max_children: 12
+      - file:     env.conf
+        template: fpm_pools/default.j2
+        env:
+          FOO: bar
+          BAR: 1
+        config:
+          - env:
+            - listen: /run/php-fpm.env.sock
+            - env[BAR]: 2
   pre_tasks:
     - include: pre_tasks/dotdeb_wheezy_55.yml
     - apt:

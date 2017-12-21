@@ -9,3 +9,9 @@ file:
       - "listen = /run/php/php5.6-fpm.sock"
   /etc/php/5.6/fpm/pool.d/bar.conf:
     exists: false
+  /etc/php/5.6/fpm/pool.d/env.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - "env[FOO] = bar"
+      - "env[BAR] = 2"

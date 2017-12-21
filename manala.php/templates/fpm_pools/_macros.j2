@@ -62,3 +62,10 @@
         {{ value }}
     {%- endif -%}
 {%- endmacro -%}
+
+{%- macro pool_env(pool) -%}
+    {%- set variables = pool.env|default({}) -%}
+    {%- for key, value in variables.iteritems() -%}
+        env[{{ key }}] = {{ value }}{{ '\n' }}
+    {%- endfor -%}
+{%- endmacro -%}

@@ -465,6 +465,8 @@
   'php_admin_value[memory_limit]'
 ] + config_extra.keys()) -}}
 
+{{ macros.pool_env(item) }}
+
     {%- endfor %}
 
 
