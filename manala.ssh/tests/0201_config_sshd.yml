@@ -7,7 +7,7 @@
     manala_ssh_config_sshd:
       - AcceptEnv: LANG LC_* FOO
       - Match User bar:
-        - AcceptEnv: LANG LC_* BAR
+        - X11Forwarding: false
   roles:
     - manala.ssh
   post_tasks:

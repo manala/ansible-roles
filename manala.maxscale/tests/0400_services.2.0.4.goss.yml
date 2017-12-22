@@ -2,5 +2,5 @@
 
 service:
   maxscale:
-    enabled: false
+    enabled: true
     running: true

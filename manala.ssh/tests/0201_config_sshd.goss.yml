@@ -5,4 +5,4 @@ file:
     exists: true
     contains:
       - "AcceptEnv LANG LC_* FOO"
-      - "    AcceptEnv LANG LC_* BAR"
+      - "    X11Forwarding no"
