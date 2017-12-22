@@ -17,12 +17,13 @@
   uri:
     url:                  "{{ manala_grafana_api_url }}/api/datasources/{{ item[0].id }}"
     method:               PUT
-    HEADER_Content-Type:  application/json
     body:                 "{{ item[1]|to_json }}"
     force_basic_auth:     true
     user:                 "{{ manala_grafana_api_user }}"
     password:             "{{ manala_grafana_api_password }}"
     status_code:          200
+    headers:
+      Content-Type: application/json
   with_nested:
     - "{{ _manala_grafana_datasources_output.json|default([]) }}"
     - "{{ manala_grafana_datasources }}"
@@ -35,12 +36,13 @@
   uri:
     url:                  "{{ manala_grafana_api_url }}/api/datasources"
     method:               POST
-    HEADER_Content-Type:  application/json
     body:                 '{{ item|to_json }}'
     force_basic_auth:     true
     user:                 "{{ manala_grafana_api_user }}"
     password:             "{{ manala_grafana_api_password }}"
     status_code:          200
+    headers:
+      Content-Type: application/json
   with_items: "{{ manala_grafana_datasources }}"
   when: item.name not in _manala_grafana_datasources_output.json|map(attribute='name')|list
 
@@ -51,10 +53,11 @@
   uri:
     url:                  "{{ manala_grafana_api_url }}/api/datasources/{{ item.id }}"
     method:               DELETE
-    HEADER_Content-Type:  application/json
     force_basic_auth:     true
     user:                 "{{ manala_grafana_api_user }}"
     password:             "{{ manala_grafana_api_password }}"
     status_code:          200
+    headers:
+      Content-Type: application/json
   with_items: "{{ _manala_grafana_datasources_output.json|default([]) }}"
   when: manala_grafana_datasources_exclusive and item.name not in manala_grafana_datasources|map(attribute='name')|list
