@@ -1,6 +1,6 @@
 ---
 
-- name: redhat > codes_default > Configure
+- name: RedHat > codes_default > Configure
   lineinfile:
     dest:   "{{ manala_locales_codes_default_file }}"
     regexp: "LANG="

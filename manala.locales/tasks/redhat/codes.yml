@@ -1,12 +1,12 @@
 ---
 
-- name: redhat > codes > Currents
+- name: RedHat > codes > Currents
   command: "locale --all-locales"
   changed_when: false
   check_mode: false
   register: __manala_locales_codes_locale_output
 
-- name: redhat > codes > Handle
+- name: RedHat > codes > Handle
   command: "{{
     (
       'localedef --force --inputfile ' ~ item.code.split('.')[0] ~ (' --charmap ' ~ item.code.split('.')[1] ~ ' ' if (item.code.split('.')|length > 1) else ' ') ~ item.code

@@ -1,10 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian
-    - ubuntu
-    - centos
+  hosts: all
   become: true
   vars:
     manala_locales_codes:
