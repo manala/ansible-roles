@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Quote pool environment variables when necessary
+
 ### Added
 - "apc.enable_cli" config options set as true by default
 

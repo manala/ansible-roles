@@ -13,5 +13,7 @@ file:
     exists:   true
     filetype: file
     contains:
-      - "env[FOO] = bar"
-      - "env[BAR] = 2"
+      - "env[QUX] = 2"
+      - "env[FOO] = \"bar\""
+      - "env[BAR] = 1"
+      - "env[BAZ] = \"foo=bar\""

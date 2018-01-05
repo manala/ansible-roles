@@ -20,10 +20,11 @@
         env:
           FOO: bar
           BAR: 1
+          BAZ: foo=bar
         config:
           - env:
             - listen: /run/php-fpm.env.sock
-            - env[BAR]: 2
+            - env[QUX]: 2
   pre_tasks:
     - include: pre_tasks/dotdeb_wheezy_55.yml
     - apt:
