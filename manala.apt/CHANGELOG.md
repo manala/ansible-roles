@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Use keyserver.ubuntu.com for influxdata key (avoid everlasting sni issues with
+  wheezy) 
 
 ## [1.0.14] - 2017-12-08
 ### Added
