@@ -355,7 +355,7 @@ manala_apt_keys_patterns:
     url: https://download.newrelic.com/548C16BF.gpg
     id: 548C16BF
   influxdata:
-    url: https://repos.influxdata.com/influxdb.key
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: 2582E0C5
   yarn:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
