@@ -42,6 +42,7 @@ manala_skeleton_patterns:
     apt_preferences_exclusive: true
     apt_preferences: "{{
       [
+        'phantomjs@manala',
         'thefuck@manala',
         'exa@manala'
       ]
