@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.11] - 2018-01-15
 ### Fixed
 - Force phantomjs debian package from manala repository (even if available on
   debian jessie-backports and stretch, upstream version is not statically linked
