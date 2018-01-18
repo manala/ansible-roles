@@ -27,6 +27,10 @@
 {{ macros.config_row(config, 'realpath_cache_size', '4096k') }}
 {{ macros.config_row(config, 'realpath_cache_ttl', 7200) }}
 
+{# APCu #}
+{{ macros.config_row(config, 'apc.enabled', true) }}
+{{ macros.config_row(config, 'apc.enable_cli', true) }}
+
 {{ macros.config(config, [
   'display_errors',
   'display_startup_errors',
@@ -47,5 +51,7 @@
   'url_rewriter.tags',
   'error_log',
   'realpath_cache_size',
-  'realpath_cache_ttl'
+  'realpath_cache_ttl',
+  'apc.enabled',
+  'apc.enable_cli'
 ]) -}}
