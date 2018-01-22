@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- "apc.enabled" and "apc.enable_cli" config options set as true by default
+- "apc.enable_cli" config options set as true by default
 
 ## [1.0.6] - 2017-12-21
 ### Added

@@ -23,13 +23,12 @@
 {# Error log #}
 {{ macros.config_row(config, 'error_log', manala_php_versions[manala_php_version|string]['log_dir'] ~ '/error.log') }}
 
+{# Enable apc in cli as soon as apcu/apcu-bc extension is installed #}
+{{ macros.config_row(config, 'apc.enable_cli', true) }}
+
 {# See: http://stackoverflow.com/questions/12905404/symfony2-slow-initialization-time #}
 {{ macros.config_row(config, 'realpath_cache_size', '4096k') }}
 {{ macros.config_row(config, 'realpath_cache_ttl', 7200) }}
-
-{# APCu #}
-{{ macros.config_row(config, 'apc.enabled', true) }}
-{{ macros.config_row(config, 'apc.enable_cli', true) }}
 
 {{ macros.config(config, [
   'display_errors',
@@ -49,6 +48,8 @@
   'session.gc_divisor',
   'session.hash_bits_per_character',
   'url_rewriter.tags',
-  'apc.enabled',
-  'apc.enable_cli'
+  'error_log',
+  'apc.enable_cli',
+  'realpath_cache_size',
+  'realpath_cache_ttl'
 ]) -}}

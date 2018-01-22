@@ -20,8 +20,7 @@
 {# [PHP] - Error handling and logging #}
 {{ macros.config_row(config, 'error_log', manala_php_versions[manala_php_version|string]['log_dir'] ~ '/error.log') }}
 
-{# APCu #}
-{{ macros.config_row(config, 'apc.enabled', true) }}
+{# Enable apc in cli as soon as apcu/apcu-bc extension is installed #}
 {{ macros.config_row(config, 'apc.enable_cli', true) }}
 
 {{ macros.config(config, [
@@ -33,6 +32,5 @@
   'expose_php',
   'memory_limit',
   'error_log',
-  'apc.enabled',
   'apc.enable_cli'
 ]) -}}
