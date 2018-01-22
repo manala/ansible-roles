@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Support non-scalar variable intepretation only in legacy mode
 
 ## [1.0.2] - 2017-12-14
 ### Added
