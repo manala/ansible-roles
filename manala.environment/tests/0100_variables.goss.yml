@@ -7,22 +7,22 @@ file:
     contains:
       - 'BAZ="baz"'
       - 'FOO="foo"'
-      - 'FOO="bar"'
       - 'BAR="123"'
+      - 'FOO="bar"'
       - 'QUZ="1.2"'
   /etc/zsh/zshenv:
     exists: true
     filetype: file
     contains:
       - '# /etc/zsh/zshenv'
-      - 'export FOO="bar"'
       - 'export BAR="123"'
+      - 'export FOO="bar"'
       - 'export QUZ="1.2"'
   /etc/profile.d/test.sh:
     exists: true
     filetype: file
     contains:
       - '# /etc/profile.d/test.sh'
-      - 'export FOO="bar"'
       - 'export BAR="123"'
+      - 'export FOO="bar"'
       - 'export QUZ="1.2"'

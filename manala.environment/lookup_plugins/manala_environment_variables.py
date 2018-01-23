@@ -21,7 +21,8 @@ class LookupModule(LookupBase):
         results = []
 
         if isinstance(terms[0], dict):
-            for name, value in terms[0].iteritems():
+            for name in sorted(terms[0]):
+                value = terms[0].get(name)
                 if not isinstance(value, (basestring, int, float)) or isinstance(value, bool):
                     raise AnsibleError("Expected a string, an integer or a float for key \"%s\" in manala_environment_variables" % name)
                 results.append({
