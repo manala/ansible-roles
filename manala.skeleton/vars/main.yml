@@ -198,7 +198,8 @@ manala_skeleton_patterns:
         'config':   [
           {'admin': [
             {'php_admin_value[upload_max_filesize]': '16M'},
-            {'php_admin_value[post_max_size]': '16M'}
+            {'php_admin_value[post_max_size]': '16M'},
+            {'php_admin_value[max_input_vars]': 2000}
           ]}
         ]
       }],[])
