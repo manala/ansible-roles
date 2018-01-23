@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Fixed
-- Quote pool environment variables when necessary
+- Quote pool environment variables and restrict allowed types
+
+### Changed
+- Pass 'env' variables on a per-pool basis
+- Alphabetically sort pools 'env' variables
 
 ### Added
 - "apc.enable_cli" config options set as true by default

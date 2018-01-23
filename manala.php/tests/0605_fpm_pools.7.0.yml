@@ -15,16 +15,18 @@
         config:
           - www:
             - pm.max_children: 12
-      - file:     env.conf
+      - file:     foo.conf
         template: fpm_pools/default.j2
-        env:
-          FOO: bar
-          BAR: 1
-          BAZ: foo=bar
         config:
-          - env:
-            - listen: /run/php-fpm.env.sock
-            - env[QUX]: 2
+          - foo:
+            - listen: /run/php-fpm.foo.sock
+            - env[_FOO]: bar
+            - env[_BAR]: 123
+            - env:
+                FOO: bar
+                BAR: 123
+                BAZ: 1.2
+                QUX: foo=bar
   pre_tasks:
     - include: pre_tasks/sury_php.yml
     - apt:
@@ -33,7 +35,7 @@
       with_items:
         - php7.0-fpm
     - copy:
-        dest:    /etc/php/7.0/fpm/pool.d/foo.conf
+        dest:    /etc/php/7.0/fpm/pool.d/bar.conf
         content: |
           ; Foo
   roles:

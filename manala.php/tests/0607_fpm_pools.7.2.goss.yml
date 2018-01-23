@@ -9,11 +9,13 @@ file:
       - "listen = /run/php/php7.2-fpm.sock"
   /etc/php/7.2/fpm/pool.d/bar.conf:
     exists: false
-  /etc/php/7.2/fpm/pool.d/env.conf:
+  /etc/php/7.2/fpm/pool.d/foo.conf:
     exists:   true
     filetype: file
     contains:
-      - "env[QUX] = 2"
-      - "env[FOO] = \"bar\""
-      - "env[BAR] = 1"
-      - "env[BAZ] = \"foo=bar\""
+      - 'env[_FOO] = bar'
+      - 'env[_BAR] = 123'
+      - 'env[BAR] = "123"'
+      - 'env[BAZ] = "1.2"'
+      - 'env[FOO] = "bar"'
+      - 'env[QUX] = "foo=bar"'

@@ -155,16 +155,15 @@ manala_php_cli_configs:
 ```yaml
 manala_php_fpm_pools:
   - file: www.conf
-    env:
-      foo: bar
-      app_env: prod
     config:
       - www:
         - pm.max_children:          5
         - pm.start_servers:         2
         - pm.min_spare_servers:     1
         - pm.max_spare_servers:     3
-        - env[HOSTNAME]:            $HOSTNAME
+        - env:
+            FOO:     bar
+            APP_ENV: prod
         - php_flag[display_errors]: true
 ```
 
