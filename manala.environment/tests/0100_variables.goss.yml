@@ -5,29 +5,27 @@ file:
     exists: true
     filetype: file
     contains:
-      - 'BAZ="baz"'
+      - '_FOO="bar"'
+      - '_BAR="123"'
+      - 'BAR="123"'
+      - 'BAZ="1.2"'
       - 'FOO="bar"'
-      - 'BAR="baz"'
-      - 'FOO_NULL="null"'
-      - 'FOO_TRUE="true"'
-      - 'FOO_FALSE="false"'
+      - 'QUX="foo=bar"'
   /etc/zsh/zshenv:
     exists: true
     filetype: file
     contains:
       - '# /etc/zsh/zshenv'
+      - 'export BAR="123"'
+      - 'export BAZ="1.2"'
       - 'export FOO="bar"'
-      - 'export BAR="baz"'
-      - 'export FOO_NULL="null"'
-      - 'export FOO_TRUE="true"'
-      - 'export FOO_FALSE="false"'
+      - 'export QUX="foo=bar"'
   /etc/profile.d/test.sh:
     exists: true
     filetype: file
     contains:
       - '# /etc/profile.d/test.sh'
+      - 'export BAR="123"'
+      - 'export BAZ="1.2"'
       - 'export FOO="bar"'
-      - 'export BAR="baz"'
-      - 'export FOO_NULL="null"'
-      - 'export FOO_TRUE="true"'
-      - 'export FOO_FALSE="false"'
+      - 'export QUX="foo=bar"'

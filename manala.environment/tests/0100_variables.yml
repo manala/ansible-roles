@@ -11,16 +11,15 @@
         export: true
     manala_environment_variables:
       FOO: bar
-      BAR: baz
-      FOO_NULL:  null
-      FOO_TRUE:  true
-      FOO_FALSE: false
+      BAR: 123
+      BAZ: 1.2
+      QUX: foo=bar
   pre_tasks:
     - copy:
         dest: /etc/environment
         content: |
-          BAZ="baz"
-          FOO="foo"
+          _FOO="bar"
+          _BAR="123"
     - file:
         path: /etc/zsh
         state: directory

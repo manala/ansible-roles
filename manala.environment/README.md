@@ -39,6 +39,8 @@ Using ansible galaxy requirements file:
 
 ### Configuration example
 
+Note that only string, integer or float variables are supported.
+
 ```yaml
 manala_environment_files:
   - pam # /etc/environment
@@ -52,12 +54,16 @@ manala_environment_variables:
 ```
 
 For legacy purposes, `manala_environment_variables` also accepts values as
-a dictionnary list:
+a dictionnary list.
+Note that in this mode (and only in this mode), some non-scalar values are
+interpreted to strings.
 
 ```yaml
 manala_environment_variables:
   - FOO: bar
-  - BAR: true
+  - FOO_NULL: ~      # -> "null"
+  - FOO_TRUE: true   # -> "true"
+  - FOO_FALSE: false # -> "false"
 ```
 
 ## Example playbook

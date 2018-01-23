@@ -6,7 +6,7 @@ from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
 
-    def format_value(self, value):
+    def legacy_format_value(self, value):
         if (value is None):
             return 'null'
         elif (value is True):
@@ -21,10 +21,13 @@ class LookupModule(LookupBase):
         results = []
 
         if isinstance(terms[0], dict):
-            for name, value in terms[0].iteritems():
+            for name in sorted(terms[0]):
+                value = terms[0].get(name)
+                if not isinstance(value, (basestring, int, float)) or isinstance(value, bool):
+                    raise AnsibleError("Expected a string, an integer or a float for key \"%s\" in manala_environment_variables" % name)
                 results.append({
                     'name':  name,
-                    'value': self.format_value(value)
+                    'value': value
                 })
         else:
             # Legacy
@@ -40,13 +43,13 @@ class LookupModule(LookupBase):
                     # Expanded syntax
                     items.append({
                         'name':  term.get('name'),
-                        'value': self.format_value(term.get('value'))
+                        'value': self.legacy_format_value(term.get('value'))
                     })
                 else:
                     # Short syntax
                     items.append({
                         'name':  term.keys()[0],
-                        'value': self.format_value(term.values()[0])
+                        'value': self.legacy_format_value(term.values()[0])
                     })
 
                 # Merge by index key
