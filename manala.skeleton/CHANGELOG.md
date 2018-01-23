@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.12] - 2018-01-23
 ### Fixed
 - Increase "max_input_vars" in php admin pool (phpmyadmin is a bit greedy when
   a mysql table has many fields)
