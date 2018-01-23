@@ -389,11 +389,11 @@
 ; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from
 ; the current environment.
 ; Default Value: clean env
-{{ macros.config_row(config, 'env[HOSTNAME]', ';env[HOSTNAME] = $HOSTNAME', true) }}
-{{ macros.config_row(config, 'env[PATH]', ';env[PATH] = /usr/local/bin:/usr/bin:/bin', true) }}
-{{ macros.config_row(config, 'env[TMP]', ';env[TMP] = /tmp', true) }}
-{{ macros.config_row(config, 'env[TMPDIR]', ';env[TMPDIR] = /tmp', true) }}
-{{ macros.config_row(config, 'env[TEMP]', ';env[TEMP] = /tmp', true) }}
+{{ lookup('manala_php_fpm_pools_config', config, wantrow='env', wantrowtype='env', wantrowdefault=';env[HOSTNAME] = $HOSTNAME
+;env[PATH] = /usr/local/bin:/usr/bin:/bin
+;env[TMP] = /tmp
+;env[TMPDIR] = /tmp
+;env[TEMP] = /tmp', wantlist=True) }}
 
 ; Additional php.ini defines, specific to this pool of workers. These settings
 ; overwrite the values previously defined in the php.ini. The directives are the
@@ -460,19 +460,13 @@
   'catch_workers_output',
   'clear_env',
   'security.limit_extensions',
-  'env[HOSTNAME]',
-  'env[PATH]',
-  'env[TMP]',
-  'env[TMPDIR]',
-  'env[TEMP]',
+  'env',
   'php_admin_value[sendmail_path]',
   'php_flag[display_errors]',
   'php_admin_value[error_log]',
   'php_admin_flag[log_errors]',
   'php_admin_value[memory_limit]'
 ] + config_extra.keys()) -}}
-
-{{ macros.pool_env(item) }}
 
     {%- endfor %}
 
