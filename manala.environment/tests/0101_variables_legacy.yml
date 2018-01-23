@@ -11,8 +11,9 @@
         export: true
     manala_environment_variables:
       - FOO: bar
-      - BAR: foo
-      - BAR: baz
+      - BAR: 123
+      - BAZ: 1.2
+      - QUX: foo=bar
       - FOO_NULL:  null
       - FOO_TRUE:  true
       - FOO_FALSE: false
@@ -20,8 +21,8 @@
     - copy:
         dest: /etc/environment
         content: |
-          BAZ="baz"
-          FOO="foo"
+          _FOO="bar"
+          _BAR="123"
     - file:
         path: /etc/zsh
         state: directory

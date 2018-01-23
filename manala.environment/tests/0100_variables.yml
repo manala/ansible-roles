@@ -12,13 +12,14 @@
     manala_environment_variables:
       FOO: bar
       BAR: 123
-      QUZ: 1.2
+      BAZ: 1.2
+      QUX: foo=bar
   pre_tasks:
     - copy:
         dest: /etc/environment
         content: |
-          BAZ="baz"
-          FOO="foo"
+          _FOO="bar"
+          _BAR="123"
     - file:
         path: /etc/zsh
         state: directory

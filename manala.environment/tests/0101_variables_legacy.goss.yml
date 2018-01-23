@@ -5,9 +5,12 @@ file:
     exists: true
     filetype: file
     contains:
-      - 'BAZ="baz"'
+      - '_FOO="bar"'
+      - '_BAR="123"'
       - 'FOO="bar"'
-      - 'BAR="baz"'
+      - 'BAR="123"'
+      - 'BAZ="1.2"'
+      - 'QUX="foo=bar"'
       - 'FOO_NULL="null"'
       - 'FOO_TRUE="true"'
       - 'FOO_FALSE="false"'
@@ -17,7 +20,9 @@ file:
     contains:
       - '# /etc/zsh/zshenv'
       - 'export FOO="bar"'
-      - 'export BAR="baz"'
+      - 'export BAR="123"'
+      - 'export BAZ="1.2"'
+      - 'export QUX="foo=bar"'
       - 'export FOO_NULL="null"'
       - 'export FOO_TRUE="true"'
       - 'export FOO_FALSE="false"'
@@ -27,7 +32,9 @@ file:
     contains:
       - '# /etc/profile.d/test.sh'
       - 'export FOO="bar"'
-      - 'export BAR="baz"'
+      - 'export BAR="123"'
+      - 'export BAZ="1.2"'
+      - 'export QUX="foo=bar"'
       - 'export FOO_NULL="null"'
       - 'export FOO_TRUE="true"'
       - 'export FOO_FALSE="false"'
