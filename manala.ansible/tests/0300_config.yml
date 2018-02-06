@@ -15,6 +15,8 @@
       - foo:
           - bar: baz
   pre_tasks:
+    - include: pre_tasks/backports.yml
+      when:    ansible_distribution_release == 'wheezy'
     - include: pre_tasks/manala.yml
     - copy:
         dest: /etc/apt/preferences.d/ansible
