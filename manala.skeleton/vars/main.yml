@@ -42,9 +42,7 @@ manala_skeleton_patterns:
     apt_preferences_exclusive: true
     apt_preferences: "{{
       [
-        'phantomjs@manala',
-        'thefuck@manala',
-        'exa@manala'
+        'phantomjs@manala'
       ]
       + {
         'wheezy': [
@@ -59,12 +57,16 @@ manala_skeleton_patterns:
           'htop@backports',
           'python-pathlib2@backports',
           'python-pkg-resources@backports',
+          'thefuck@manala',
+          'exa@manala',
           'httpie@manala',
           'python3-requests@backports',
           'python3-urllib3@backports'
         ],
         'stretch': [
           'git@backports',
+          'thefuck@manala',
+          'exa@manala',
           'httpie@manala'
         ]
       }[ansible_distribution_release]
@@ -439,17 +441,19 @@ manala_skeleton_patterns:
         'htop',
         'less',
         'ssl-cert',
-        'thefuck',
-        'gitsplit',
-        'exa'
+        'gitsplit'
       ]
       + {
         'wheezy': [
         ],
         'jessie': [
+          'thefuck',
+          'exa',
           'httpie'
         ],
         'stretch': [
+          'thefuck',
+          'exa',
           'httpie'
         ]
       }[ansible_distribution_release]
