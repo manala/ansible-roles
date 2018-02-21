@@ -46,12 +46,16 @@ Using ansible galaxy requirements file:
 | `manala_docker_applications_dir`       | /usr/local/bin          | String (path) | Applications dir                      |
 | `manala_docker_applications_template`  | applications/default.j2 | String (path) | Applications default template         |
 | `manala_docker_applications`           | [ ]                     | Array         | Applications                          |
+| `manala_docker_containers`             | [ ]                     | Array         | Containers                            |
 | `manala_docker_config_daemon_file`     | /etc/docker/daemon.json | String (path) | Daemon configuration file             |
 | `manala_docker_config_daemon_template` | config_daemon/empty.j2  | String (path) | Daemon configuration default template |
 | `manala_docker_config_daemon`          | [ ]                     | Array         | Daemon configuration                  |
 | `manala_docker.update`                 | False                   | Boolean       | Update images                         |
 
 ### Configuration example
+
+Note: Containers handling need `python-docker` debian package > 1.8.0 which is
+only available since debian stretch.
 
 ```yaml
 manala_docker_config_daemon:
@@ -62,7 +66,21 @@ manala_docker_applications:
   - application: npm
     image:       node
     command:     npm
-    tag:         alpine     
+    tag:         alpine
+
+manala_docker_containers:
+  - name:           postgres
+    image:          postgres:9.6
+    state:          started
+    restart_policy: unless-stopped
+    env:
+      POSTGRES_USER:     foo
+      POSTGRES_PASSWORD: bar
+      POSTGRES_DB:       baz
+  - name:           memcached
+    image:          memcached:alpine
+    state:          started
+    restart_policy: unless-stopped
 ```
 
 ## Example playbook
