@@ -1,0 +1,7 @@
+---
+
+command:
+  docker ps -a:
+    exit-status: 0
+    stdout:
+      - hello-world

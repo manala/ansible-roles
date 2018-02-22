@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy:!debian.jessie
+  become: true
+  vars:
+    manala_docker_config_daemon:
+      - storage-driver: vfs
+    manala_docker_containers:
+      - name: hello-world
+        image: hello-world
+  pre_tasks:
+    - include: pre_tasks/docker.yml
+  roles:
+    - manala.docker
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

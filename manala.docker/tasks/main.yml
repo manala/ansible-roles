@@ -22,6 +22,11 @@
   tags:
     - manala_docker
 
+# Containers
+- include: containers.yml
+  tags:
+    - manala_docker
+
 # Update
 - include: update.yml
   when: manala_docker['update']|default(false)

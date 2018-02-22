@@ -1,0 +1,25 @@
+---
+
+- name: containers > Install python-docker package
+  apt:
+    name: python-docker
+    install_recommends: false
+    update_cache:       true
+    cache_valid_time:   3600
+  when: manala_docker_containers|length > 0
+
+- name: containers > Create docker containers
+  docker_container:
+    name:               "{{ item.name }}"
+    image:              "{{ item.image|default(omit) }}"
+    hostname:           "{{ item.hostname|default(omit) }}"
+    user:               "{{ item.user|default(omit) }}"
+    state:              "{{ item.state|default('started') }}"
+    restart_policy:     "{{ item.restart_policy|default('on-failure') }}"
+    dns_servers:        "{{ item.dns_servers|default(omit) }}"
+    dns_search_domains: "{{ item.dns_search_domains|default(omit) }}"
+    volumes:            "{{ item.volumes|default(omit) }}"
+    ports:              "{{ item.ports|default(omit) }}"
+    links:              "{{ item.links|default(omit) }}"
+    env:                "{{ item.env|default(omit) }}"
+  with_items: "{{ manala_docker_containers }}"
