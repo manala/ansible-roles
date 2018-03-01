@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
-- Disable client_max_body_size on ssl offloading on dev template
+- Disable client_max_body_size on ssl offloading dev template
 
 ## [1.0.1] - 2017-12-06
 ### Added
