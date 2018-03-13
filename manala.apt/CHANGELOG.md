@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Certbot backports
+- Certbot preferences pattern
 
 ## [1.0.15] - 2018-01-15
 ### Fixed
