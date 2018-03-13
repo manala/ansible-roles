@@ -15,8 +15,12 @@ galaxy_info:
         - wheezy
         - jessie
         - stretch
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - xenial
   galaxy_tags:
-    - ansible
-    - modules
-    - lookups
+    - vars
     - merge

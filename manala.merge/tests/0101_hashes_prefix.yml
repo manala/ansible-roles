@@ -1,0 +1,25 @@
+---
+
+- name: "{{ test }}"
+  hosts: all
+  gather_facts: false
+  vars:
+    hash_1:
+      foo: foo
+      bar: qux
+    hash_2:
+      bar: bar
+      baz: baz
+    manala_merge_hashes:
+      - hashes:
+          - hash_1
+          - hash_2
+        prefix: foo_
+  roles:
+    - manala.merge
+  post_tasks:
+    - assert:
+        that:
+          - foo_foo == 'foo'
+          - foo_bar == 'bar'
+          - foo_baz == 'baz'
