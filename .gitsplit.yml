@@ -31,6 +31,8 @@ splits:
     target: git@github.com:manala/ansible-role-cron.git
   - prefix: manala.deploy
     target: git@github.com:manala/ansible-role-deploy.git
+  - prefix: manala.dhcp
+    target: git@github.com:manala/ansible-role-dhcp.git
   - prefix: manala.dnsmasq
     target: git@github.com:manala/ansible-role-dnsmasq.git
   - prefix: manala.docker

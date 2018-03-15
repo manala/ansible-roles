@@ -1,0 +1,401 @@
+.DEFAULT_GOAL := help
+.PHONY: help manala
+
+#############################
+# GNU Make Standard Library #
+#############################
+
+include $(MANALA_MAKE_DIR)/gmsl/gmsl
+
+###############
+# Directories #
+###############
+
+MANALA_DIR         := $(patsubst %/make,%,$(MANALA_MAKE_DIR))
+MANALA_CURRENT_DIR := $(CURDIR)
+
+###########
+# Contact #
+###########
+
+MANALA_CONTACT       = $(MANALA_CONTACT_NAME) <$(MANALA_CONTACT_MAIL)>
+MANALA_CONTACT_NAME := Manala
+MANALA_CONTACT_MAIL := contact@manala.io
+
+##########
+# Colors #
+##########
+
+MANALA_COLOR_RESET   := \033[0m
+MANALA_COLOR_ERROR   := \033[31m
+MANALA_COLOR_INFO    := \033[32m
+MANALA_COLOR_WARNING := \033[33m
+MANALA_COLOR_COMMENT := \033[36m
+
+########
+# Help #
+########
+
+define help_section
+	\n$(MANALA_COLOR_COMMENT)$(1):$(MANALA_COLOR_RESET)
+endef
+
+define help
+  \n  $(MANALA_COLOR_INFO)$(1)$(MANALA_COLOR_RESET) $(2)
+endef
+
+MANALA_HELP = \
+	\nUsage: make [$(MANALA_COLOR_INFO)target$(MANALA_COLOR_RESET)]\n\
+	$(call help_section,Help)\
+	$(call help,help,This help)\
+	\n
+
+help:
+	@printf "$(MANALA_HELP)"
+ifneq ($(MANALA_CURRENT_DIR),$(MANALA_DIR))
+	@awk '/^[a-zA-Z\-\_0-9\.@%]+:/ { \
+		helpMessage = match(lastLine, /^## (.*)/); \
+		if (helpMessage) { \
+			helpCommand = substr($$1, 0, index($$1, ":")); \
+			helpMessage = substr(lastLine, RSTART + 3, RLENGTH); \
+			printf "\n  $(MANALA_COLOR_INFO)%-20s$(MANALA_COLOR_RESET) %s", helpCommand, helpMessage; \
+		} \
+	} \
+	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+endif
+	@printf "\n\n"
+
+################
+# User / Group #
+################
+
+MANALA_USER_ID  := $(shell id -u)
+MANALA_GROUP_ID := $(shell id -g)
+
+###############
+# Interactive #
+###############
+
+MANALA_INTERACTIVE := $(shell [ -t 0 ] && echo 1)
+
+###############
+# Date / Time #
+###############
+
+# Usage:
+#   $(call time)      = 11:06:20
+#   $(call date_nano) = 1504443855143518510
+
+define time
+`date -u +%T`
+endef
+
+ifeq ($(shell uname -s),Darwin)
+define date_nano
+`date -u +%s000000000`
+endef
+else
+define date_nano
+`date -u +%s%N`
+endef
+endif
+
+###########
+# Verbose #
+###########
+
+# 0: Nothing
+# 1: Nothing but errors and logs
+# 2: Normal
+# 3: Verbose
+MANALA_VERBOSE ?= 2
+
+# Usage:
+#   [MANALA_VERBOSE = 0]
+#   $(call verbose,foo,bar) = foo
+#   $(call verbose,foo)     = foo
+#   [MANALA_VERBOSE = 1]
+#   $(call verbose,foo,bar) = bar
+#   $(call verbose,foo,)    =
+#   $(call verbose,foo)     = foo
+
+define verbose
+$(call if_eq,$(MANALA_VERBOSE),0,$(1),$(call if_eq,$(MANALA_VERBOSE),1,$(if $(2),$(2),$(1)),$(call if_eq,$(MANALA_VERBOSE),2,$(if $(3),$(3),$(if $(2),$(2),$(1))),$(if $(4),$(4),$(if $(3),$(3),$(if $(2),$(2),$(1)))))))
+endef
+
+#################
+# Message / Log #
+#################
+
+# Usage:
+#   $(call message,Foo bar)         = Foo bar
+#   $(call message_warning,Foo bar) = ¯\_(ツ)_/¯ Foo bar
+#   $(call message_error,Foo bar)   = (╯°□°)╯︵ ┻━┻ Foo bar
+#   $(call log,Foo bar)             = [11:06:20] [target] Foo bar
+#   $(call log_warning,Foo bar)     = [11:06:20] [target] ¯\_(ツ)_/¯ Foo bar
+#   $(call log_error,Foo bar)       = [11:06:20] [target] (╯°□°)╯︵ ┻━┻ Foo bar
+
+define message
+	$(call verbose,:,printf "$(MANALA_COLOR_INFO)$(1)$(MANALA_COLOR_RESET)\n")
+endef
+
+define message_warning
+	$(call verbose,:,printf "$(MANALA_COLOR_WARNING)¯\_(ツ)_/¯ $(1)$(MANALA_COLOR_RESET)\n")
+endef
+
+define message_error
+	$(call verbose,:,printf "$(MANALA_COLOR_ERROR)(╯°□°)╯︵ ┻━┻  $(1)$(MANALA_COLOR_RESET)\n")
+endef
+
+define log
+	$(call verbose,:,printf "[$(MANALA_COLOR_COMMENT)$(call time)$(MANALA_COLOR_RESET)] [$(MANALA_COLOR_COMMENT)$(@)$(MANALA_COLOR_RESET)] $(MANALA_COLOR_INFO)$(1)$(MANALA_COLOR_RESET)\n")
+endef
+
+define log_warning
+	$(call verbose,:,printf "[$(MANALA_COLOR_COMMENT)$(call time)$(MANALA_COLOR_RESET)] [$(MANALA_COLOR_COMMENT)$(@)$(MANALA_COLOR_RESET)] $(MANALA_COLOR_WARNING)¯\_(ツ)_/¯ $(1)$(MANALA_COLOR_RESET)\n")
+endef
+
+define log_error
+	$(call verbose,:,printf "[$(MANALA_COLOR_COMMENT)$(call time)$(MANALA_COLOR_RESET)] [$(MANALA_COLOR_COMMENT)$(@)$(MANALA_COLOR_RESET)] $(MANALA_COLOR_ERROR)(╯°□°)╯︵ ┻━┻  $(1)$(MANALA_COLOR_RESET)\n")
+endef
+
+######################
+# Special Characters #
+######################
+
+# Hide special characters from Make's parser
+# See: http://blog.jgc.org/2007/06/escaping-comma-and-space-in-gnu-make.html
+
+, := ,
+space :=
+space +=
+$(space) :=
+$(space) +=
+
+# Usage:
+#   $(call escape_spaces,foo bar)    = foo\ bar
+#   $(call unescape_spaces,foo\ bar) = foo bar
+#   $(call encode_spaces,foo\ bar)   = foo␣bar
+#   $(call decode_spaces,foo␣bar)    = foo bar
+
+define escape_spaces
+$(subst $( ),\ ,$(1))
+endef
+
+define unescape_spaces
+$(subst \ ,$( ),$(1))
+endef
+
+define encode_spaces
+$(subst \ ,␣,$(1))
+endef
+
+define decode_spaces
+$(subst ␣, ,$(1))
+endef
+
+########
+# Fail #
+########
+
+define fail_if_not
+	$(if $(1),,$(call message_error,$(2)); exit 1)
+endef
+
+define fail_if_not_in
+	$(call if_in,$(1),$(2),,$(call message_error,$(3)); exit 1)
+endef
+
+###########
+# Confirm #
+###########
+
+define confirm
+	printf "\n$(MANALA_COLOR_INFO) ༼ つ ◕_◕ ༽つ $(MANALA_COLOR_WARNING)$(1) (y/N)$(MANALA_COLOR_RESET): "; \
+	read CONFIRM ; if [ "$$CONFIRM" != "y" ]; then printf "\n"; exit 1; fi; \
+	printf "\n"
+endef
+
+######
+# If #
+######
+
+# If element in list list
+
+# Usage:
+#   $(call if_in,foo,foo bar baz,Yes,No) = Yes
+#   $(call if_in,qux,foo bar baz,Yes,No) = No
+
+define if_in
+$(if $(call set_is_member,$(1),$(2)),$(3),$(4))
+endef
+
+# If equal
+
+# Usage:
+#   $(call if_eq,1,1,Yes,No) = Yes
+#   $(call if_eq,1,2,Yes,No) = No
+
+define if_eq
+$(if $(call seq,$(1),$(2)),$(3),$(4))
+endef
+
+# If number greater than or equal
+
+# Usage:
+#   $(call if_gte,1,1,Yes,No) = Yes
+#   $(call if_gte,2,1,Yes,No) = Yes
+#   $(call if_gte,2,1,Yes,No) = No
+
+define if_gte
+$(if $(call gte,$(1),$(2)),$(3),$(4))
+endef
+
+########
+# List #
+########
+
+# Returns the list with duplicate elements removed without reordering
+# Usage:
+#   $(call list_uniq,foo bar bar baz) = foo bar
+
+define list_uniq
+$(call uniq,$(1))
+endef
+
+# Splits a string into a list separated by spaces at the split character in the first argument
+# Usage:
+#   $(call list_split,:,foo:bar) = foo bar
+
+define list_split
+$(call split,$(1),$(2))
+endef
+
+# Usage:
+#   $(call list_split_first,:,foo:bar) = foo
+
+define list_split_first
+$(call list_first,$(call list_split,$(1),$(2)))
+endef
+
+# Usage:
+#   $(call list_split_last,:,foo:bar) = bar
+
+define list_split_last
+$(call list_last,$(call list_split,$(1),$(2)))
+endef
+
+# Returns the first element of a list
+# Usage:
+#   $(call list_first,foo bar) = foo
+
+define list_first
+$(call first,$(1))
+endef
+
+# Returns the last element of a list
+# Usage:
+#   $(call list_last,foo bar) = bar
+
+define list_last
+$(call last,$(1))
+endef
+
+# Returns the list with the first element removed
+# Usage:
+#   $(call list_rest,foo bar baz) = bar baz
+
+define list_rest
+$(call rest,$(1))
+endef
+
+# Returns the list with the last element removed
+# Usage:
+#   $(call list_chop,foo bar baz) = foo bar
+
+define list_chop
+$(call chop,$(1))
+endef
+
+# Usage:
+#   $(call list_loop,ITEM,foo bar baz,echo $$(ITEM)) = foo\nbar\nbaz\n
+
+define list_loop
+	( MANALA_LIST_LOOP_EXIT=0 ; \
+	$(foreach \
+		$(1), \
+		$(2), \
+			MANALA_LIST_LOOP_ITEM=$($(1)) ; \
+			$(foreach MANALA_LIST_LOOP_START_HOOK,$(4),$(eval MANALA_LIST_LOOP_HOOK = $(value MANALA_LIST_LOOP_HOOK_START_$(MANALA_LIST_LOOP_START_HOOK))) $(MANALA_LIST_LOOP_HOOK)) \
+			( $(eval MANALA_LIST_LOOP := $(3)) $(MANALA_LIST_LOOP) ) ; \
+			MANALA_LIST_LOOP_ITEM_EXIT=$${?} ; MANALA_LIST_LOOP_EXIT=$$(($${MANALA_LIST_LOOP_EXIT} || $${MANALA_LIST_LOOP_ITEM_EXIT})) ; \
+			$(foreach MANALA_LIST_LOOP_END_HOOK,$(4),$(eval MANALA_LIST_LOOP_HOOK = $(value MANALA_LIST_LOOP_HOOK_END_$(MANALA_LIST_LOOP_END_HOOK))) $(MANALA_LIST_LOOP_HOOK)) \
+	) \
+	[ $${MANALA_LIST_LOOP_EXIT} -eq 0 ] )
+endef
+
+MANALA_LIST_LOOP_HOOK_START_DEBUG = printf "$(MANALA_COLOR_COMMENT)===$(MANALA_COLOR_RESET) Loop start \"$(MANALA_COLOR_INFO)$${MANALA_LIST_LOOP_ITEM}$(MANALA_COLOR_RESET)\" $(MANALA_COLOR_COMMENT)===$(MANALA_COLOR_RESET)\n" ;
+MANALA_LIST_LOOP_HOOK_END_DEBUG   = printf "$(MANALA_COLOR_COMMENT)===$(MANALA_COLOR_RESET) Loop stop \"$(MANALA_COLOR_INFO)$${MANALA_LIST_LOOP_ITEM}$(MANALA_COLOR_RESET)\" $(MANALA_COLOR_COMMENT)===$(MANALA_COLOR_RESET) Exit \"$(MANALA_COLOR_INFO)$${MANALA_LIST_LOOP_ITEM_EXIT}$(MANALA_COLOR_RESET)\" $(MANALA_COLOR_COMMENT)===$(MANALA_COLOR_RESET)\n" ;
+
+# Usage:
+#   $(call list_partition,1,3,aaa zzz eee rrr ttt yyy uuu iii ooo ppp) = aaa zzz eee
+#   $(call list_partition,2,3,aaa zzz eee rrr ttt yyy uuu iii ooo ppp) = rrr ttt yyy
+#   $(call list_partition,3,3,aaa zzz eee rrr ttt yyy uuu iii ooo ppp) = uuu iii ooo ppp
+
+define list_partition
+$(wordlist $(call list_partition_index,$(1),$(2),$(words $(3))),$(call plus,$(call list_partition_index,$(1),$(2),$(words $(3))),$(call list_partition_size,$(1),$(2),$(words $(3)))),$(3))
+endef
+
+define list_partition_index
+$(call if_gte,$(3),$(2),$(call plus,$(call multiply,$(call subtract,$(1),1),$(call divide,$(3),$(2))),1),$(1))
+endef
+
+define list_partition_size
+$(call if_eq,$(1),$(2),$(3),$(call subtract,$(call if_gte,$(3),$(2),$(call divide,$(3),$(2)),1,),1))
+endef
+
+##########
+# Semver #
+##########
+
+# Usage:
+#   $(call semver_major,3.2.1) = 3
+
+define semver_major
+$(call list_first,$(call list_split,.,$(1)))
+endef
+
+# Usage:
+#   $(call semver_minor,3.2.1) = 2
+
+define semver_minor
+$(call list_first,$(call list_rest,$(call list_split,.,$(1))))
+endef
+
+# Usage:
+#   $(call semver_patch,3.2.1) = 1
+
+define semver_patch
+$(call list_last,$(call list_split,.,$(1)))
+endef
+
+
+########
+# Rand #
+########
+
+# Usage:
+#   $(call rand) = 51088
+#   $(call rand) = 49478
+#   ...
+
+define rand
+`od -An -N2 -i /dev/random | tr -d ' '`
+endef
+
+##########
+# Manala #
+##########
+
+manala:
+	@curl -s -L http://bit.ly/10hA8iC | bash

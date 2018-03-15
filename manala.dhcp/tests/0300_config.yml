@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_dhcp_interfaces:
+      - "{{ ansible_default_ipv4.interface }}"
+    manala_dhcp_config_content: |
+      subnet {{ ansible_default_ipv4.network }} netmask {{ ansible_default_ipv4.netmask }} {
+      }
+      # Foo
+  roles:
+    - manala.dhcp
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

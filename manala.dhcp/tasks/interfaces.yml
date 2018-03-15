@@ -1,0 +1,9 @@
+---
+
+- name: interfaces > Default
+  lineinfile:
+    path: /etc/default/isc-dhcp-server
+    regexp: '^INTERFACESv4='
+    line: INTERFACESv4="{{ manala_dhcp_interfaces|join(' ') }}"
+  notify:
+    - dhcp restart

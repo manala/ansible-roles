@@ -1,0 +1,23 @@
+---
+
+# Install
+- include: install.yml
+  tags:
+    - manala_dhcp
+
+# Interfaces
+- include: interfaces.yml
+  tags:
+    - manala_dhcp
+
+# Config
+- include: config.yml
+  tags:
+    - manala_dhcp
+
+# Services
+- include: services.yml
+  tags:
+    - manala_dhcp
+    - manala_dhcp.services
+    - manala.services
