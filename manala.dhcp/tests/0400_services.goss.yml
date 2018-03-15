@@ -1,0 +1,6 @@
+---
+
+service:
+  isc-dhcp-server:
+    enabled: true
+    running: true

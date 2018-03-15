@@ -1,0 +1,5 @@
+---
+
+package:
+  isc-dhcp-server:
+    installed: true
