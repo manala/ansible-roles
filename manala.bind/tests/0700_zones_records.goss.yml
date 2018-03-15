@@ -1,0 +1,9 @@
+---
+
+command:
+  host -l foo.local localhost:
+    exit-status: 0
+    stdout:
+      - foo.local name server ns.foo.local.
+      - ns.foo.local has address 172.16.1.1
+      - bar.foo.local has address 172.16.1.123

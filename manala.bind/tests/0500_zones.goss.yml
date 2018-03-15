@@ -1,0 +1,27 @@
+---
+
+file:
+  /var/cache/bind/db.foo.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Foo
+  /var/cache/bind/db.bar.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Bar
+  /var/cache/bind/db.baz.com:
+    exists: false
+  /var/cache/bind/db.qux.com:
+    exists: false
+  /var/cache/bind/db.quux.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Quux
+  /var/cache/bind/db.corge.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Corge

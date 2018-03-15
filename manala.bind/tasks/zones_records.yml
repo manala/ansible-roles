@@ -1,0 +1,26 @@
+---
+
+- name: zones_records > Records
+  nsupdate:
+    server: localhost
+    zone:   "{{ item.0.zone }}"
+    record: "{{ item.1.record }}"
+    value:  "{{ item.1.value|default(omit) }}"
+    state:  "{{ item.1.state|default(omit) }}"
+    type:   "{{
+      item.1.type|default(
+        (item.0.records_default|default({})).type|default(omit)
+      )
+    }}"
+    ttl:    "{{
+      item.1.ttl|default(
+        (item.0.records_default|default({})).ttl|default(omit)
+      )
+    }}"
+  with_subelements:
+     - "{{ manala_bind_zones }}"
+     - records
+     - skip_missing: true
+  when: (item.0.dynamic|default(False))
+        and (item.0.state|default('present') == 'present')
+        and (not item.0.omit|default(False))

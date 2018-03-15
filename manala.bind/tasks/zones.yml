@@ -1,19 +1,38 @@
 ---
 
-- name: zones > Directory
-  file:
-    path:  "{{ manala_bind_zones_dir }}"
-    state: directory
-    owner: "{{ manala_bind_user }}"
-    group: "{{ manala_bind_group }}"
-
 - name: zones > Templates
   template:
     src:  "{{ item.template }}"
-    dest: "{{ manala_bind_zones_dir }}/{{ item.file }}"
-    owner: root
+    dest: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala_bind_zone_file) }}"
+    owner: "{{ manala_bind_user }}"
     group: "{{ manala_bind_group }}"
     mode:  0644
+    force: "{{ not item.dynamic|default(False) }}"
   with_items: "{{ manala_bind_zones }}"
-  notify:
-    - bind reload
+  when: (item.template is defined)
+        and (item.state|default('present') == 'present')
+        and (not item.omit|default(False))
+  register: __manala_bind_zones_templates
+
+- name: zones > Contents
+  copy:
+    content: "{{ item.content }}"
+    dest:    "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala_bind_zone_file) }}"
+    owner:   "{{ manala_bind_user }}"
+    group:   "{{ manala_bind_group }}"
+    mode:    0644
+    force:   "{{ not item.dynamic|default(False) }}"
+  with_items: "{{ manala_bind_zones }}"
+  when: (item.content is defined)
+        and (item.state|default('present') == 'present')
+        and (not item.omit|default(False))
+  register: __manala_bind_zones_contents
+
+- name: zones > Absents
+  file:
+    path:  "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala_bind_zone_file) }}"
+    state: absent
+  with_items: "{{ manala_bind_zones }}"
+  when: (item.state|default('present') == 'absent')
+        and (not item.omit|default(False))
+  register: __manala_bind_zones_absents

@@ -5,6 +5,11 @@
   tags:
     - manala_bind
 
+# Options
+- include: options.yml
+  tags:
+    - manala_bind
+
 # Logs
 - include: logs.yml
   tags:
@@ -26,3 +31,8 @@
     - manala_bind
     - manala_bind.services
     - manala.services
+
+# Zones - Records
+- include: zones_records.yml
+  tags:
+    - manala_bind
