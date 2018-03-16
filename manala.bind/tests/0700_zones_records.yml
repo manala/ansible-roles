@@ -1,0 +1,39 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_bind_configs:
+      - file: named.conf.local
+        content: |
+          zone "foo.local" {
+              type master;
+              file "{{ 'foo.local'|manala_bind_zone_file }}";
+              allow-update { localhost; };
+          };
+    manala_bind_zones:
+      - zone: foo.local
+        dynamic: true
+        content: |
+          @  IN SOA ns.foo.local. contact.foo.local. (
+                      1       ; serial
+                      604800  ; refresh (1 week)
+                      86400   ; retry (1 day)
+                      2419200 ; expire (4 weeks)
+                      86400   ; minimum (1 day)
+                      )
+          @  IN NS  ns.foo.local.
+          ns IN A   172.16.1.1
+        records:
+          - { record: bar, value: 172.16.1.123 }
+  roles:
+    - manala.bind
+  post_tasks:
+    - apt:
+        name:  "{{ item }}"
+        install_recommends: false
+      with_items:
+        - bind9-host
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

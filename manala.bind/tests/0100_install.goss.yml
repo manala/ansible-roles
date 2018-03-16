@@ -3,3 +3,5 @@
 package:
   bind9:
     installed: true
+  python-dnspython:
+    installed: true

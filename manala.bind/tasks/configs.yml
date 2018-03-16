@@ -8,5 +8,29 @@
     group: "{{ manala_bind_group }}"
     mode:  0644
   with_items: "{{ manala_bind_configs }}"
-  notify:
-    - bind reload
+  when: (item.template is defined)
+        and (item.state|default('present') == 'present')
+        and (not item.omit|default(False))
+  register: __manala_bind_configs_templates
+
+- name: configs > Contents
+  copy:
+    content: "{{ item.content }}"
+    dest:    "{{ manala_bind_configs_dir }}/{{ item.file }}"
+    owner:   root
+    group:   "{{ manala_bind_group }}"
+    mode:    0644
+  with_items: "{{ manala_bind_configs }}"
+  when: (item.content is defined)
+        and (item.state|default('present') == 'present')
+        and (not item.omit|default(False))
+  register: __manala_bind_configs_contents
+
+- name: configs > Absents
+  file:
+    path:  "{{ manala_bind_configs_dir }}/{{ item.file }}"
+    state: absent
+  with_items: "{{ manala_bind_configs }}"
+  when: (item.state|default('present') == 'absent')
+        and (not item.omit|default(False))
+  register: __manala_bind_configs_absents

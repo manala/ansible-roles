@@ -4,9 +4,9 @@
   hosts: debian
   become: true
   vars:
-    manala_bind_configs:
-      - file: named.conf.local
-        template: fixtures/named.conf.local.j2
+    manala_bind_options:
+      - -u {{ manala_bind_user }}
+      - -4 # IPv4 only
   roles:
     - manala.bind
   post_tasks:

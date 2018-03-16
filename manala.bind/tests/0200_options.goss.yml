@@ -1,0 +1,14 @@
+---
+
+file:
+  /etc/default/bind9:
+    exists: true
+    filetype: file
+    contains:
+      - OPTIONS="-u bind -4"
+
+command:
+  ps aux:
+    exit-status: 0
+    stdout:
+      - /usr/sbin/named -u bind -4

@@ -1,0 +1,31 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_bind_configs:
+      - file: named.conf.foo
+        template: fixtures/configs/named.conf.foo.j2
+      - file: named.conf.bar
+        content: |
+          // Bar
+      - file: named.conf.baz
+        state: absent
+      - file: named.conf.qux
+        content: |
+          // Qux
+        omit: true
+  pre_tasks:
+    - file:
+        path: "{{ manala_bind_configs_dir }}"
+        state: directory
+    - copy:
+        dest: "{{ manala_bind_configs_dir }}/named.conf.baz"
+        content: |
+          // Baz
+  roles:
+    - manala.bind
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

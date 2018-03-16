@@ -3,6 +3,19 @@
 - name: services > Services
   service:
     name:  "{{ item }}"
-    state: started
+    state: "{{
+      'restarted'
+        if (__manala_bind_options|default({})|changed) else
+      'reloaded'
+        if (
+          __manala_bind_configs_templates|default({})|changed
+          or __manala_bind_configs_contents|default({})|changed
+          or __manala_bind_configs_absents|default({})|changed
+          or __manala_bind_zones_templates|default({})|changed
+          or __manala_bind_zones_contents|default({})|changed
+          or __manala_bind_zones_absents|default({})|changed
+        ) else
+      'started'
+    }}"
   with_items:
     - bind9

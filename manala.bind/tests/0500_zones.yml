@@ -1,0 +1,43 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_bind_zones:
+      - zone: foo.com
+        template: fixtures/zones/db.foo.com.j2
+      - zone: bar.com
+        content: |
+          // Bar
+      - zone: baz.com
+        state: absent
+      - zone: qux.com
+        content: |
+          // Qux
+        omit: true
+      - zone: quux.com
+        content: |
+          // Quux
+        dynamic: true
+      - zone: corge.com
+        content: |
+          // Grault
+        dynamic: true
+  pre_tasks:
+    - file:
+        path: "{{ manala_bind_zones_dir }}"
+        state: directory    
+    - copy:
+        dest: "{{ manala_bind_zones_dir }}/db.baz.com"
+        content: |
+          // Baz
+    - copy:
+        dest: "{{ manala_bind_zones_dir }}/db.corge.com"
+        content: |
+          // Corge
+  roles:
+    - manala.bind
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

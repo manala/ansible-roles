@@ -1,6 +1,0 @@
----
-
-- name: bind reload
-  service:
-    name:  bind9
-    state: reloaded

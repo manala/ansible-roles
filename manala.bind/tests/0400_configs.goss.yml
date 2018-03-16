@@ -1,0 +1,17 @@
+---
+
+file:
+  /etc/bind/named.conf.foo:
+    exists: true
+    filetype: file
+    contains:
+      - // Foo
+  /etc/bind/named.conf.bar:
+    exists: true
+    filetype: file
+    contains:
+      - // Bar
+  /etc/bind/named.conf.baz:
+    exists: false
+  /etc/bind/named.conf.qux:
+    exists: false
