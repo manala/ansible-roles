@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.17] - 2018-03-19
+### Added
+- MongoDB version 3.6
+
 ## [1.0.16] - 2018-03-14
 ### Added
 - Certbot preferences pattern
