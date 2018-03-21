@@ -165,6 +165,9 @@ manala_apt_repositories_patterns:
   mongodb_3_2:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.2 main
     key: mongodb
+  mongodb_3_6:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.6 main
+    key: mongodb
   varnish_4_0:
     source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
     key: varnish_4_0

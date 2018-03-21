@@ -139,6 +139,7 @@ manala_apt_repositories:
   - postgresql
   - mongodb_3_0
   - mongodb_3_1
+  - mongodb_3_6
   - varnish_4_0
   - jenkins
   - sensu
