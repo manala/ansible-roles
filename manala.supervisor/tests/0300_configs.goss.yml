@@ -6,3 +6,10 @@ file:
     contains:
       - "[program:foo]"
       - "command=bar ; the program (relative uses PATH, can take args)"
+      - 'environment=BAR="12",FOO="bar"'
+  /etc/supervisor/conf.d/bar.conf:
+    exists: true
+    contains:
+      - "[program:bar]"
+      - "command=bar ; the program (relative uses PATH, can take args)"
+      - 'environment=BAR="12",FOO="bar"'
