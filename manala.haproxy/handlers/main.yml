@@ -1,12 +1,6 @@
 ---
 
-- name: haproxy restart
-  command: "haproxy -c -f {{ manala_haproxy_config_file }}"
-  changed_when: true
-  notify:
-    - do haproxy restart
-
-- name: do haproxy restart
+- name: haproxy reload
   service:
     name:  haproxy
-    state: restarted
+    state: reloaded
