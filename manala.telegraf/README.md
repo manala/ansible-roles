@@ -34,13 +34,15 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                               | Default                | Type   | Description                                                                |
-| ---------------------------------- | ---------------------- | ------ | -------------------------------------------------------------------------- |
-| `manala_telegraf_config_template`  | config/empty.j2        | String | Telegraf config base template                                              |
-| `manala_telegraf_config`           | []                     | Array  | Telegraf config directives                                                 |
-| `manala_telegraf_configs_template` | configs/default.j2     | String | Telegraf configs base template                                             |
-| `manala_telegraf_configs`          | []                     | Array  | Telegraf additional configs                                                |
-| `manala_telegraf_configs_exclusive`| false                  | Array  | If true, will remove extra files in /etc/telegraf/telegraf.d               |
+| Name                                       | Default              | Type   | Description                                  |
+| ------------------------------------------ | -------------------- | ------ | -------------------------------------------- |
+| `manala_telegraf_install_packages`         | ~                    | String | Dependency packages to install               |
+| `manala_telegraf_install_packages_default` | ['telegraf']         | String | Default dependency packages to install       |
+| `manala_telegraf_config_template`          | 'config/empty.j2'    | String | Main configuration base template path        |
+| `manala_telegraf_config`                   | []                   | Array  | Main configuration directives                |
+| `manala_telegraf_configs_template`         | 'configs/default.j2' | String | Additional configurations base template path |
+| `manala_telegraf_configs`                  | []                   | Array  | Additional configurations directives         |
+| `manala_telegraf_configs_exclusive`        | false                | Array  | Additional configurations exclusivity        |
 
 ### Configuration example
 

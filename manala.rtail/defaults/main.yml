@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_rtail_install_packages: ~
+manala_rtail_install_packages_default:
+  - rtail
+
 # Config
 manala_rtail_config_template: ~
 manala_rtail_config:          []

@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_vault_install_packages: ~
+manala_vault_install_packages_default:
+  - vault
+
 # Config
 manala_vault_config_file:     /etc/vault/config.hcl
 manala_vault_config_template: ~

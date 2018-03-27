@@ -7,11 +7,7 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items: "{{
-    []
-    + (manala_redis_server)|ternary(['redis-server'], [])
-    + (manala_redis_sentinel)|ternary(['redis-sentinel'], [])
-  }}"
+  with_items: "{{ manala_redis_install_packages|default(manala_redis_install_packages_default, True) }}"
 
 - name: install > Version
   shell: redis-server -v | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'

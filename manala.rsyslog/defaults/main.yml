@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_rsyslog_install_packages: ~
+manala_rsyslog_install_packages_default:
+  - rsyslog
+
 # Config
 manala_rsyslog_config_file:     /etc/rsyslog.conf
 manala_rsyslog_config_template: ~

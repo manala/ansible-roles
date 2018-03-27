@@ -1,5 +1,7 @@
 ---
 
 package:
+  bzip2:
+    installed: true
   aptly:
     installed: true

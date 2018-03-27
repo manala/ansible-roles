@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_dnsmasq_install_packages: ~
+manala_dnsmasq_install_packages_default:
+  - dnsmasq
+
 # Configs
 manala_dnsmasq_configs_exclusive: false
 manala_dnsmasq_configs_dir:       /etc/dnsmasq.d

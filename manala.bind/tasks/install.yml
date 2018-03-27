@@ -7,6 +7,7 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items:
-    - bind9
-    - python-dnspython
+  with_items: "{{
+    manala_bind_install_packages|default(manala_bind_install_packages_default, True)
+    + ['python-dnspython']
+  }}"

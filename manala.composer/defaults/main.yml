@@ -1,5 +1,11 @@
 ---
 
+# Install
+manala_composer_install_packages: ~
+manala_composer_install_packages_default:
+  - openssl
+  - ca-certificates
+
 # Bin
 manala_composer_bin: /usr/local/bin/composer
 

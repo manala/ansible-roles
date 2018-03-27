@@ -39,11 +39,13 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-`manala_opcache_dashboard_user`|None|String|User
-`manala_opcache_dashboard_user_group`|None|String|User group
-`manala_opcache_dashboard_path`|/opt/opcache-dashboard|String|Path
+| Name                                                | Default                        | Type   | Description                            |
+| --------------------------------------------------- | ------------------------------ | ------ | -------------------------------------- |
+| `manala_opcache_dashboard_install_packages`         | ~                              | Array  | Dependency packages to install         |
+| `manala_opcache_dashboard_install_packages_default` | ['opcache-dashboard']          | Array  | Default dependency packages to install |
+| `manala_opcache_dashboard_user`                     | ~                              | String | User                                   |
+| `manala_opcache_dashboard_group`                    | ~                              | String | Group                                  |
+| `manala_opcache_dashboard_dir`                      | '/usr/share/opcache-dashboard' | String | Directory path                         |
 
 ## Example playbook
 

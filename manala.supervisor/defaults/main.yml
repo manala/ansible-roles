@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_supervisor_install_packages: ~
+manala_supervisor_install_packages_default:
+  - supervisor
+
 # Config
 manala_supervisor_config_file:     /etc/supervisor/supervisord.conf
 manala_supervisor_config_template: ~

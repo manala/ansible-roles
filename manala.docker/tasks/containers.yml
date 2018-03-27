@@ -1,13 +1,5 @@
 ---
 
-- name: containers > Install python-docker package
-  apt:
-    name: python-docker
-    install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
-  when: manala_docker_containers|length > 0
-
 - name: containers > Create docker containers
   docker_container:
     name:               "{{ item.name }}"

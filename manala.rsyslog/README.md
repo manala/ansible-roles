@@ -32,20 +32,22 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-| Name            | Type    | Description             |
-| --------------- | ------- | ----------------------- |
-| rsyslog restart | Service | Restart rsyslog service |
+| Name              | Type    | Description             |
+| ----------------- | ------- | ----------------------- |
+| `rsyslog restart` | Service | Restart rsyslog service |
 
 
 ## Role Variables
 
-| Name                              | Default                | Type   | Description                                           |
-| --------------------------------- | ---------------------- | ------ | ----------------------------------------------------- |
-| `manala_rsyslog_config_template`  | config/default.j2      | String | Rsyslog config base template (version 8.4.2)          |
-| `manala_rsyslog_config`           | []                     | Array  | Rsyslog config directives                             |
-| `manala_rsyslog_configs_template` | configs/empty.j2       | String | Rsyslog configs base template                         |
-| `manala_rsyslog_configs`          | []                     | Array  | Rsyslog additional configs                            |
-| `manala_rsyslog_configs_exclusive`| false                  | Array  | If true, will remove extra files in /etc/rsyslog.d    |
+| Name                                     | Default              | Type   | Description                            |
+| ----------------------------------------- | ------------------- | ------ | -------------------------------------- |
+| `manala_rsyslog_install_packages`         | ~                   | Array  | Dependency packages to install         |
+| `manala_rsyslog_install_packages_default` | ['rsyslog']         | Array  | Default dependency packages to install |
+| `manala_rsyslog_config_template`          | 'config/default.j2' | String | Configuration base template path       |
+| `manala_rsyslog_config`                   | []                  | Array  | Configuration directives               |
+| `manala_rsyslog_configs_template`         | 'configs/empty.j2'  | String | Configurations base template path      |
+| `manala_rsyslog_configs`                  | []                  | Array  | Additional configurations              |
+| `manala_rsyslog_configs_exclusive`        | false               | Array  | Additional configurations exclusivity  |
 
 ### Configuration example
 

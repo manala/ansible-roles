@@ -43,16 +43,18 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                              | Default           | Type    | Description                                 |
-| --------------------------------- | ----------------- | ------- | ------------------------------------------- |
-| `manala_nginx_config_template`    | config/default.j2 | String  | Main config template                        |
-| `manala_nginx_config`             | {}                | Array   | Main config                                 |
-| `manala_nginx_configs`            | {}                | Array   | Configs                                     |
-| `manala_nginx_configs_template`   | configs/empty.j2  | String  | Template to use to define a host            |
-| `manala_nginx_configs_exclusive`  | false             | Boolean | Exclusion of existings files                |
-| `manala_nginx_configs_dir`        | /etc/nginx/conf.d | String  | Path to the main configuration directory    |
-| `manala_nginx_user`               | www-data          | String  | User running nginx                          |
-| `manala_nginx_log_dir`            | /var/log/nginx    | String  | Directory where Nginx will store is logs    |
+| Name                                    | Default             | Type    | Description                                    |
+| --------------------------------------- | ------------------- | ------- | ---------------------------------------------- |
+| `manala_nginx_install_packages`         | 'config/default.j2' | String  | Dependency packages to install                 |
+| `manala_nginx_install_packages_default` | 'config/default.j2' | String  | Default dependency packages to install         |
+| `manala_nginx_config_template`          | 'config/default.j2' | String  | Main configuration template path               |
+| `manala_nginx_config`                   | []                  | Array   | Main configuration                             |
+| `manala_nginx_configs`                  | []                  | Array   | Configurations                                 |
+| `manala_nginx_configs_template`         | 'configs/empty.j2'  | String  | Configurations template path                   |
+| `manala_nginx_configs_exclusive`        | false               | Boolean | Exclusion of existings files                   |
+| `manala_nginx_configs_dir`              | '/etc/nginx/conf.d' | String  | Configurations directory path                  |
+| `manala_nginx_user`                     | 'www-data'          | String  | User running nginx                             |
+| `manala_nginx_log_dir`                  | '/var/log/nginx'    | String  | Directory path where Nginx will store its logs |
 
 
 ### Nginx configuration

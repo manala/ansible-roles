@@ -32,12 +32,14 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                    | Default                | Type   | Description                 |
-| --------------------------------------- | ---------------------- | -------| --------------------------- |
-| `manala_cloud_init_configs_exclusive`   | false                  | String |                             |
-| `manala_cloud_init_configs_dir`         | /etc/cloud/cloud.cfg.d | String |                             |
-| `manala_cloud_init_configs_template`    | configs/empty.j2       | Array  | Cloud-init configs template |
-| `manala_cloud_init_configs`             | []                     | Array  | Cloud-init configs          |
+| Name                                         | Default                  | Type   | Description                            |
+| -------------------------------------------- | ------------------------ | -------| -------------------------------------- |
+| `manala_cloud_init_install_packages`         | ~                        | String | Dependency packages to install         |
+| `manala_cloud_init_install_packages_default` | ['cloud-init']           | String | Default dependency packages to install |
+| `manala_cloud_init_configs_exclusive`        | false                    | String | Configs exclusivity                    |
+| `manala_cloud_init_configs_dir`              | '/etc/cloud/cloud.cfg.d' | String | Configs directory path                 |
+| `manala_cloud_init_configs_template`         | 'configs/empty.j2'       | Array  | Configs template path                  |
+| `manala_cloud_init_configs`                  | []                       | Array  | Configs collection                     |
 
 ### Configuration example
 

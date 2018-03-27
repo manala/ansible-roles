@@ -35,6 +35,17 @@ Using ansible galaxy requirements file:
 - src: manala.mongo-express
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                            | Default           | Type   | Description                            |
+| ----------------------------------------------- | ----------------- | ------ | -------------------------------------- |
+| `manala_mongo_express_install_packages`         | ~                 | Array  | Dependency packages to install         |
+| `manala_mongo_express_install_packages_default` | ['mongo-express'] | Array  | Default dependency packages to install |
+| `manala_mongo_express_config_template`          | ~                 | String | Configuration template path            |
+| `manala_mongo_express_config`                   | []                | String | Configuration                          |
+
 ## Example playbook
 
 ```yaml

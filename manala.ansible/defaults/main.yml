@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_ansible_install_packages: ~
+manala_ansible_install_packages_default:
+  - ansible
+
 # Hosts
 manala_ansible_hosts_file:     /etc/ansible/hosts
 manala_ansible_hosts_template: ~

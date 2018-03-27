@@ -1,5 +1,12 @@
 ---
 
+# Install
+manala_apt_install_packages: ~
+manala_apt_install_packages_default:
+  - apt-transport-https
+  - openssl
+  - ca-certificates
+
 # Components
 manala_apt_components: ['main']
 

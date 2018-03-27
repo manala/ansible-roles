@@ -1,13 +1,5 @@
 ---
 
-- name: instances > Install python-proxmoxer package
-  apt:
-    name: python-proxmoxer
-    install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
-  when: manala_proxmox_instances|length > 0
-
 - name: instances > Manage proxmox VE instances
   proxmox:
     api_host:       "{{ item.api_host|default(manala_proxmox_instances_defaults.api_host) }}"

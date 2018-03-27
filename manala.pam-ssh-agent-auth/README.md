@@ -35,6 +35,15 @@ Using ansible galaxy requirements file:
 - src: manala.pam-ssh-agent-auth
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                                | Default                    | Type    | Description                            |
+| ---------------------------------------------------- | ------------------------- | ------- | -------------------------------------- |
+| `manala_pam_ssh_agent_auth_install_packages`         | ~                         | Array   | Dependency packages to install         |
+| `manala_pam_ssh_agent_auth_install_packages_default` | ['libpam-ssh-agent-auth'] | Array   | Default dependency packages to install |
+
 ## Example playbook
 
 ```yaml

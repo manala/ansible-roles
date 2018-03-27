@@ -1,13 +1,5 @@
 ---
 
-- name: databases > Install python-psycopg2 package
-  apt:
-    name: python-psycopg2
-    install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
-  when: manala_postgresql_databases|length > 0
-
 - name: databases > Create postgresql databases
   postgresql_db:
     name:       "{{ (item) if (item is string) else (item.database) }}"

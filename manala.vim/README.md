@@ -36,11 +36,13 @@ None
 
 ## Role Variables
 
-| Name                         | Default              | Type         | Description                        |
-|----------------------------- |--------------------- |------------- |----------------------------------- |
-| `manala_vim_config_template` | config/empty.j2      | String (path)| Path to `vimrc.local` template     |
-| `manala_vim_config_file`     | /etc/vim/vimrc.local | String       | Path to the vim configuration file |
-| `manala_vim_config`          | Array                | List         | List of vim options                |
+| Name                                  | Default                | Type   | Description                            |
+| ------------------------------------- | ---------------------- | ------ | -------------------------------------- |
+| `manala_vim_install_packages`         | ~                      | Array  | Dependency packages to install         |
+| `manala_vim_install_packages_default` | ['vim']                | Array  | Default dependency packages to install |
+| `manala_vim_config_template`          | 'config/empty.j2'      | String | `vimrc.local` template path            |
+| `manala_vim_config_file`              | '/etc/vim/vimrc.local' | String | Configuration file path                |
+| `manala_vim_config`                   | []                     | Array  | Configuration directives               |
 
 ### Configuring VIM
 

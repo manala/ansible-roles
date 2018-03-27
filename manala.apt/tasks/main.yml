@@ -1,7 +1,7 @@
 ---
 
-# Dependencies
-- include: dependencies.yml
+# Install
+- include: install.yml
   tags:
     - manala_apt
 

@@ -41,19 +41,21 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                            | Default                | Type   | Description                                                                |
-| ------------------------------- | ---------------------- | ------ | -------------------------------------------------------------------------- |
-| `manala_sensu_services`         | []                     | Array  | Enable and start sensu services (sensu-server, sensu-client, sensu-server) |
-| `manala_sensu_gems`             | []                     | Array  | Install sensu gems (http://sensu-plugins.io/)                              |
-| `manala_sensu_config_template`  | config/empty.j2        | String | Sensu config base template                                                 |
-| `manala_sensu_config`           | []                     | Array  | Sensu config directives                                                    |
-| `manala_sensu_configs_template` | configs/default.j2     | String | Sensu configs base template                                                |
-| `manala_sensu_configs`          | []                     | Array  | Sensu additional configs                                                   |
-| `manala_sensu_configs_exclusive`| false                  | Array  | If true, will remove extra files in /etc/sensu/conf.d                      |
-| `manala_sensu_configs_user      | root                   | String | Name of the user that should own config files                              |
-| `manala_sensu_configs_group     | sensu                  | String | Name of the group that should own config files                             |
-| `manala_sensu_configs_mode      | 0640                   | String | Config files mode                                                          |
-| `manala_sensu_checks`           | []                     | Array  | Sensu checks definitions                                                   |
+| Name                                    | Default              | Type   | Description                                                                |
+| --------------------------------------- | -------------------- | ------ | -------------------------------------------------------------------------- |
+| `manala_sensu_install_packages`         | ~                    | Array  | Dependency packages to install                                             |
+| `manala_sensu_install_packages_default` | ['sensu']            | Array  | Default dependency packages to install                                     |
+| `manala_sensu_config_template`          | 'config/empty.j2'    | String | Configuration base template path                                           |
+| `manala_sensu_config`                   | []                   | Array  | Configuration directives                                                   |
+| `manala_sensu_gems`                     | []                   | Array  | Gems to install (http://sensu-plugins.io/)                                 |
+| `manala_sensu_configs_template`         | 'configs/default.j2' | String | Additional configurations base template path                               |
+| `manala_sensu_configs`                  | []                   | Array  | Additional configurations directives                                       |
+| `manala_sensu_configs_exclusive`        | false                | Array  | Additional configurations exclusivity                                      |
+| `manala_sensu_configs_user              | 'root'               | String | Name of the user that should own config files                              |
+| `manala_sensu_configs_group             | 'sensu'              | String | Name of the group that should own config files                             |
+| `manala_sensu_configs_mode              | 0640                 | Octal  | Additional configurations files mode                                       |
+| `manala_sensu_checks`                   | []                   | Array  | Checks directives                                                          |
+| `manala_sensu_services`                 | []                   | Array  | Enable and start sensu services (sensu-server, sensu-client, sensu-server) |
 
 ### Configuration example
 

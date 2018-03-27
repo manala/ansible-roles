@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_varnish_install_packages: ~
+manala_varnish_install_packages_default:
+  - varnish
+
 # Config
 manala_varnish_config_file:     /etc/default/varnish
 manala_varnish_config_template: config/default.j2

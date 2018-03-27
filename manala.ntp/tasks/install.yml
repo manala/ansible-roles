@@ -5,5 +5,6 @@
     name:  "{{ item }}"
     state: present
     install_recommends: false
-  with_items:
-    - ntp
+    update_cache:       true
+    cache_valid_time:   3600
+  with_items: "{{ manala_ntp_install_packages|default(manala_ntp_install_packages_default, True) }}"

@@ -1,5 +1,11 @@
 ---
 
+# Install
+manala_gitlab_install_packages: ~
+manala_gitlab_install_packages_default:
+  - gitlab-ce
+
+# Configs
 manala_gitlab_configs_dir: /etc/gitlab
 manala_gitlab_configs_exclusive: false
 manala_gitlab_configs: []

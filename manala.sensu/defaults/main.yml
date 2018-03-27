@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_sensu_install_packages: ~
+manala_sensu_install_packages_default:
+  - sensu
+
 # Config
 manala_sensu_config_template:   ~
 manala_sensu_config:            []

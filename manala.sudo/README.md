@@ -32,19 +32,21 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-|Name|Type|Description|
-|----|-----------|-------|
-`sudo restart`|Service|Restart sudo service
+| Name           | Type    | Description          |
+| -------------- | ------- | -------------------- |
+| `sudo restart` | Service | Restart sudo service |
 
 ## Role Variables
 
 ### Definition
 
-| Name                            | Default         | Type    | Description                       |
-| ------------------------------- | --------------- | ------- | --------------------------------- |
-| `manala_sudo_sudoers_exclusive` | false           | Boolean | Sudoers files exclusivity         |
-| `manala_sudo_sudoers_dir`       | /etc/sudoers.d  | String  | Path to sudo configuration files  |
-| `manala_sudo_sudoers`           | []              | Array   | Collection of sudoers             |
+| Name                                   | Default          | Type    | Description                            |
+| -------------------------------------- | ---------------- | ------- | -------------------------------------- |
+| `manala_sudo_install_packages`         | ~                | Boolean | Dependency packages to install         |
+| `manala_sudo_install_packages_default` | ['sudo']         | Boolean | Default dependency packages to install |
+| `manala_sudo_sudoers_exclusive`        | false            | Boolean | Sudoers files exclusivity              |
+| `manala_sudo_sudoers_dir`              | '/etc/sudoers.d' | String  | Sudoers files directory path           |
+| `manala_sudo_sudoers`                  | []               | Array   | Sudoers files directives               |
 
 ### Example
 

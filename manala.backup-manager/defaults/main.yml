@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_backup_manager_install_packages: ~
+manala_backup_manager_install_packages_default:
+  - backup-manager
+
 # Configs
 manala_backup_manager_configs_exclusive: false
 manala_backup_manager_configs_dir:       /etc/backup-manager.d

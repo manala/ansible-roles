@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_ngrok_install_packages: ~
+manala_ngrok_install_packages_default:
+  - ngrok
+
 # Configs
 manala_ngrok_configs_exclusive: false
 manala_ngrok_configs_dir:       /etc/ngrok

@@ -1,0 +1,6 @@
+---
+
+# Install
+manala_pam_ssh_agent_auth_install_packages: ~
+manala_pam_ssh_agent_auth_install_packages_default:
+  - libpam-ssh-agent-auth

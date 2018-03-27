@@ -38,16 +38,18 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                      | Default                       | Type   | Description            |
-| ------------------------- | ----------------------------- | ------ | ---------------------- |
-| `manala_bind_user`        | bind                          | String | User                   |
-| `manala_bind_group`       | bind                          | String | Group                  |
-| `manala_bind_options`     | ['-u {{ manala_bind_user }}'] | Array  | Options                |
-| `manala_bind_log_dir`     | /var/log/bind                 | String | Log dir                |
-| `manala_bind_configs`     | []                            | Array  | List of config files   |
-| `manala_bind_configs_dir` | /etc/bind                     | String | Config files directory |
-| `manala_bind_zones_dir`   | /var/cache/bind               | String | Zone files directory   |
-| `manala_bind_zones`       | []                            | Array  | List of zone files     |
+| Name                                   | Default                       | Type   | Description                            |
+| -------------------------------------- | ----------------------------- | ------ | -------------------------------------- |
+| `manala_bind_install_packages`         | ~                             | Array  | Dependency packages to install         |
+| `manala_bind_install_packages_default` | ['bind9']                     | Array  | Default dependency packages to install |
+| `manala_bind_user`                     | 'bind'                        | String | User                                   |
+| `manala_bind_group`                    | 'bind'                        | String | Group                                  |
+| `manala_bind_options`                  | ['-u {{ manala_bind_user }}'] | Array  | Options                                |
+| `manala_bind_log_dir`                  | '/var/log/bind'               | String | Log dir                                |
+| `manala_bind_configs`                  | []                            | Array  | List of config files                   |
+| `manala_bind_configs_dir`              | '/etc/bind'                   | String | Config files directory                 |
+| `manala_bind_zones_dir`                | '/var/cache/bind'             | String | Zone files directory                   |
+| `manala_bind_zones`                    | []                            | Array  | List of zone files                     |
 
 ### Configuration example
 

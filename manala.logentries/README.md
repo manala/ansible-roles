@@ -38,11 +38,13 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                | Default                     | Type   | Description          |
-| ----------------------------------- | --------------------------- | ------ | -------------------- |
-| `manala_logentries_config_template` | config/default.j2           | String | Main config template |
-| `manala_logentries_config_file`     | /etc/le/config              | String | Main config file     |
-| `manala_logentries_config`          | []                          | Array  | Main config          |
+| Name                                         | Default                             | Type   | Description                            |
+| -------------------------------------------- | ----------------------------------- | ------ | -------------------------------------- |
+| `manala_logentries_install_packages`         | ~                                   | Array  | Dependency packages to install         |
+| `manala_logentries_install_packages_default` | ['logentries', 'logentries-daemon'] | Array  | Default dependency packages to install |
+| `manala_logentries_config_template`          | 'config/default.j2'                 | String | Main configuration template path       |
+| `manala_logentries_config_file`              | '/etc/le/config'                    | String | Main configuration file path           |
+| `manala_logentries_config`                   | []                                  | Array  | Main configuration                     |
 
 ### Configuration example
 

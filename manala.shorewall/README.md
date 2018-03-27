@@ -32,18 +32,21 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-| Name                   | Type    | Description                |
-| ---------------------- | ------- | -------------------------- |
-| `shorewall restart`    | Service | Restart shorewall          |
+| Name                | Type    | Description       |
+| ------------------- | ------- | ----------------- |
+| `shorewall restart` | Service | Restart shorewall |
 
 ## Role Variables
 
-| Name                              | Default                       | Type    | Description                                 |
-| --------------------------------- | ----------------------------- | ------- | ------------------------------------------- |
-| `manala_shorewall_configs_dir`    | /etc/shorewall                | String  | Path to configs directory                   |
-| `manala_shorewall_configs`        | []                            | Array   | Configs (zones, rules, interfaces, ...)     |
-| `manala_shorewall_config_file`    | /etc/shorewall/shorewall.conf | String  | Path to main config file                    |
-| `manala_shorewall_config`         | []                            | Array   | Main config                                 |
+| Name                                        | Default                         | Type   | Description                                                          |
+| ------------------------------------------- | ------------------------------- | ------ | -------------------------------------------------------------------- |
+| `manala_shorewall_install_packages`         | ~                               | Array  | Dependency packages to install                                       |
+| `manala_shorewall_install_packages_default` | ['shorewall']                   | Array  | Default dependency packages to install                               |
+| `manala_shorewall_config_file`              | '/etc/shorewall/shorewall.conf' | String | Main configuration file path                                         |
+| `manala_shorewall_config`                   | []                              | Array  | Main configuration directives                                        |
+| `manala_shorewall_configs_dir`              | '/etc/shorewall'                | String | Additional configurations directory path                             |
+| `manala_shorewall_configs`                  | []                              | Array  | Additional configurations directives (zones, rules, interfaces, ...) |
+                               |
 
 ## Configuration examples (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 

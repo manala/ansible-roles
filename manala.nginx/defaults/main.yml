@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_nginx_install_packages: ~
+manala_nginx_install_packages_default:
+  - nginx
+
 # Config
 manala_nginx_config_file:     /etc/nginx/nginx.conf
 manala_nginx_config_template: ~

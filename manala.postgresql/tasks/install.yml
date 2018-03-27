@@ -7,6 +7,14 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items:
-    - postgresql-{{ manala_postgresql_version }}
-    - postgresql-contrib-{{ manala_postgresql_version }}
+  with_items: "{{
+    manala_postgresql_install_packages|default(manala_postgresql_install_packages_default, True)
+    + (
+      (manala_postgresql_databases|length > 0)
+      or (manala_postgresql_privileges|length > 0)
+      or (manala_postgresql_roles|length > 0)
+    )|ternary(
+      ['python-psycopg2'],
+      []
+    )
+  }}"

@@ -7,5 +7,4 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items:
-    - oauth2-proxy
+  with_items: "{{ manala_oauth2_proxy_install_packages|default(manala_oauth2_proxy_install_packages_default, True) }}"

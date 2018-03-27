@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_mailhog_install_packages: ~
+manala_mailhog_install_packages_default:
+  - mailhog
+
 # Config
 manala_mailhog_config_template: ~
 manala_mailhog_config:          []

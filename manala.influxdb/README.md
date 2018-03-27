@@ -47,14 +47,16 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                              | Default                     | Type   | Description                                    |
-| --------------------------------- | --------------------------- | ------ | ---------------------------------------------- |
-| `manala_influxdb_databases`       | []                          | Array  | Databases                                      |
-| `manala_influxdb_users`           | []                          | Array  | Users                                          |
-| `manala_influxdb_privileges`      | []                          | Array  | Privileges                                     |
-| `manala_influxdb_config`          | []                          | Array  | Config                                         |
-| `manala_influxdb_config_file`     | /etc/influxdb/influxdb.conf | String | Config dest                                    |
-| `manala_influxdb_config_template` | config/base.conf.j2         | String | Config template                                |
+| Name                                       | Default                       | Type   | Description                                    |
+| ------------------------------------------ | ----------------------------- | ------ | ---------------------------------------------- |
+| `manala_influxdb_install_packages`         | ~                             | Array  | Dependency packages to install                 |
+| `manala_influxdb_install_packages_default` | ['influxdb']                  | Array  | Default dependency packages to install         |
+| `manala_influxdb_databases`                | []                            | Array  | Databases                                      |
+| `manala_influxdb_users`                    | []                            | Array  | Users                                          |
+| `manala_influxdb_privileges`               | []                            | Array  | Privileges                                     |
+| `manala_influxdb_config`                   | []                            | Array  | Configuration                                  |
+| `manala_influxdb_config_file`              | '/etc/influxdb/influxdb.conf' | String | Configuration file path                        |
+| `manala_influxdb_config_template`          | 'config/base.conf.j2'         | String | Configuration template path                    |
 
 ### Configuration example
 

@@ -32,18 +32,20 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-| Name          | Type    | Description          |
-| ------------- | ------- | -------------------- |
-| mysql restart | Service | Restart MySQL server |
+| Name            | Type    | Description          |
+| --------------- | ------- | -------------------- |
+| `mysql restart` | Service | Restart MySQL server |
 
 ## Role Variables
 
-| Name                             | Default           | Type          | Description                                            |
-| -------------------------------- | ------------------| ------------- | ------------------------------------------------------ |
-| `manala_mysql_configs_dir`       | /etc/mysql/conf.d | String (path) | Configurations directory path                          |
-| `manala_mysql_configs_template`  | configs/empty.j2  | String (path) | Default configuration template                         |
-| `manala_mysql_configs_exclusive` | false             | Boolean       | Whether to remove all other non-specified config files |
-| `manala_mysql_configs`           | [ ]               | Array         | Mysql configuration files                              |
+| Name                                    | Default                          | Type    | Description                                            |
+| --------------------------------------- | -------------------------------- | ------- | ------------------------------------------------------ |
+| `manala_mysql_install_packages`         | ~                                | Array   | Dependency packages to install                         |
+| `manala_mysql_install_packages_default` | ['mysql-server', 'mysql-client'] | Array   | Default dependency packages to install                 |
+| `manala_mysql_configs_dir`              | '/etc/mysql/conf.d'              | String  | Configurations directory path                          |
+| `manala_mysql_configs_template`         | 'configs/empty.j2'               | String  | Default configuration template path                    |
+| `manala_mysql_configs_exclusive`        | false                            | Boolean | Whether to remove all other non-specified config files |
+| `manala_mysql_configs`                  | []                               | Array   | Configurations files                                   |
 
 ### Configuration example
 
@@ -73,7 +75,7 @@ manala_mysql_configs:
         - collation_server:       utf8_general_ci
         - max_connections:        100
         - thread_concurrency:     10
-        - slow_query_log:         1
+        - slow_query_log:         true
         - slow_query_log_file:    /var/log/mysql/mysql-slow.log
         - long_query_time:        2
   - file: mysqld_safe_syslog.cnf

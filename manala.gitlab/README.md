@@ -37,11 +37,13 @@ dependencies:
 
 ## Role Variables
 
-| Name                                | Default                           | Type    | Description                                                               |
-| ----------------------------------- | --------------------------------  | ------- | ------------------------------------------------------------------------- |
-| `manala_gitlab_configs`             | []                                | Array   | Configuration files                                                       |
-| `manala_gitlab_configs_exclusive`   | false                             | Boolean | If true, will delete any extra configuration files.                       |
-| `manala_gitlab_configs_dir`         | /etc/gitlab                       | String  | Path to the main configuration directory.                                 |
+| Name                                     | Default       | Type    | Description                                        |
+| ---------------------------------------- | ------------- | ------- | -------------------------------------------------- |
+| `manala_gitlab_install_packages`         | ~             | Array   | Dependency packages to install                     |
+| `manala_gitlab_install_packages_default` | ['gitlab-ce'] | Array   | Default dependency packages to install             |
+| `manala_gitlab_configs`                  | []            | Array   | Configuration files                                |
+| `manala_gitlab_configs_exclusive`        | false         | Boolean | If true, will delete any extra configuration files |
+| `manala_gitlab_configs_dir`              | '/etc/gitlab' | String  | Path to the main configuration directory           |
 
 ### Configuration example
 

@@ -1,5 +1,11 @@
 ---
 
+# Install
+manala_aptly_install_packages: ~
+manala_aptly_install_packages_default:
+  - bzip2
+  - aptly
+
 # User
 manala_aptly_user: ~
 

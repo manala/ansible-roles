@@ -1,7 +1,8 @@
 ---
 
 # Install
-manala_apparmor_install_packages:
+manala_apparmor_install_packages: ~
+manala_apparmor_install_packages_default:
   - apparmor
 
 # Configs

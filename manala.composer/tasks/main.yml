@@ -1,10 +1,5 @@
 ---
 
-# Dependencies
-- include: dependencies.yml
-  tags:
-    - manala_composer
-
 # Install
 - include: install.yml
   tags:

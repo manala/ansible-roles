@@ -1,13 +1,5 @@
 ---
 
-- name: databases > Install python-mysqldb package
-  apt:
-    name: python-mysqldb
-    install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
-  when: manala_mysql_databases|length > 0
-
 - name: databases > Create mysql databases
   mysql_db:
     name:      "{{ item.name }}"

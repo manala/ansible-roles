@@ -39,12 +39,14 @@ None
 
 ## Role Variables
 
-| Name                         | Default           | Type          | Description                      |
-|----------------------------- |------------------ |-------------- |--------------------------------- |
-| `manala_git_config_file`     | /etc/gitconfig    | String (path) | Path to config file              |
-| `manala_git_config_template` | config/empty.j2   | String (path) | Path to config template          |
-| `manala_git_config`          | []                | Array         | List of git config options       |
-| `manala_git_repositories`    | []                | Array         | List of repositories to checkout |
+| Name                                  | Default           | Type   | Description                            |
+| ------------------------------------- | ----------------- | ------ | -------------------------------------- |
+| `manala_git_install_packages`         | ~                 | Array  | Dependency packages to install         |
+| `manala_git_install_packages_default` | ['git']           | Array  | Default dependency packages to install |
+| `manala_git_config_file`              | '/etc/gitconfig'  | String | Configuration file path                |
+| `manala_git_config_template`          | 'config/empty.j2' | String | Configuration template path            |
+| `manala_git_config`                   | []                | Array  | List of git config options             |
+| `manala_git_repositories`             | []                | Array  | List of repositories to checkout       |
 
 ### GIT configuration
 

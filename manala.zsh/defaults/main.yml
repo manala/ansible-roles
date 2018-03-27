@@ -2,3 +2,8 @@
 
 # Bin
 manala_zsh_bin: /bin/zsh
+
+# Install
+manala_zsh_install_packages: ~
+manala_zsh_install_packages_default:
+  - zsh

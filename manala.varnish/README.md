@@ -34,22 +34,24 @@ Using ansible galaxy requirements file:
 Role Handlers
 -------------
 
-| Name              | Type    | Description                  |
-| ----------------- | ------- | ---------------------------- |
-| `varnish restart` | Service | Restart varnish server       |
+| Name              | Type    | Description            |
+| ----------------- | ------- | ---------------------- |
+| `varnish restart` | Service | Restart varnish server |
 
 Role Variables
 --------------
 
-| Name                                | Default                                          | Type    | Description                                  |
-| ----------------------------------- | ------------------------------------------------ | ------- | -------------------------------------------- |
-| `manala_varnish_config_file`        | /etc/default/varnish                             | String  | Main varnish configuration file              |
-| `manala_varnish_config_template`    | config/default.j2                                | String  | The default template (based on package file) |
-| `manala_varnish_config`             | []                                               | Array   | Custom directives                            |
-| `manala_varnish_configs_exclusive`  | false                                            | Boolean | Exclusion of existings files                 |
-| `manala_varnish_configs_dir`        | /etc/varnish/                                    | String  | Path to the main configuration directory     |
-| `manala_varnish_configs_template`   | None                                             | String  | Main config template                         |
-| `manala_varnish_configs`            | default.vcl                                      | Array   | List of VCL files                            |
+| Name                                      | Default                | Type    | Description                                  |
+| ----------------------------------------- | ---------------------- | ------- | -------------------------------------------- |
+| `manala_varnish_install_packages`         | ~                      | String  | Dependency packages to install               |
+| `manala_varnish_install_packages_default` | ['varnish']            | String  | Default dependency packages to install       |
+| `manala_varnish_config_file`              | '/etc/default/varnish' | String  | Main configuration file path                 |
+| `manala_varnish_config_template`          | 'config/default.j2'    | String  | The default template (based on package file) |
+| `manala_varnish_config`                   | []                     | Array   | Configuration directives                     |
+| `manala_varnish_configs_exclusive`        | false                  | Boolean | Exclusion of existings files                 |
+| `manala_varnish_configs_dir`              | '/etc/varnish/'        | String  | Path to the main configuration directory     |
+| `manala_varnish_configs_template`         | ~                      | String  | Main config template                         |
+| `manala_varnish_configs`                  | 'default.vcl'          | Array   | List of VCL files                            |
 
 ### Varnish configuration
 

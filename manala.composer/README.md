@@ -36,19 +36,15 @@ None.
 
 ## Role Variables
 
-### Configuration paths
+### Definition
 
-| Name                                          | Default                        | Type        | Description            |
-| --------------------------------------------- | ------------------------------ | ----------- | ---------------------- |
-| `manala_composer_bin`                         | /usr/local/bin/composer        | String      | Composer bin path.     |
-| `manala_composer_home`                        | ~/.composer                    | String      | Composer home path.    |
-| `manala_composer_config_auth`                 | { }                            | Array       | Composer auth config.  |
-
-### Configuration definitions
-
-| Name                          | Default         | Type        | Description                            |
-| ----------------------------- | --------------- | ----------- | -------------------------------------- |
-| `manala_composer_config.auth` | Emptycollection | Collection  | Definition of composer authentication. |
+| Name                                       | Default                        | Type   | Description                            |
+| ------------------------------------------ | ------------------------------ | ------ | -------------------------------------- |
+| `manala_composer_install_packages`         | ~                              | Array  | Dependency packages to install         |
+| `manala_composer_install_packages_default` | ['openssl', 'ca-certificates'] | Array  | Default dependency packages to install |
+| `manala_composer_bin`                      | '/usr/local/bin/composer'      | String | Binary path                            |
+| `manala_composer_users_auth_template`      | ~                              | String | User auth template path                |
+| `manala_composer_users_auth`               | []                             | Array  | User auth config                       |
 
 ### Configuration example
 

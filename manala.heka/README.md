@@ -35,6 +35,18 @@ Using ansible galaxy requirements file:
 - src: manala.heka
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                   | Default            | Type   | Description                            |
+| -------------------------------------- | ------------------ | ------ | -------------------------------------- |
+| `manala_heka_install_packages`         | ~                  | Array  | Dependency packages to install         |
+| `manala_heka_install_packages_default` | ['heka']           | Array  | Default dependency packages to install |
+| `manala_heka_config_template`          | ~                  | String | Configuration template path            |
+| `manala_heka_configs_dir`              | '/etc/heka/conf.d' | String | Configurations directory path          |
+| `manala_heka_configs`                  | []                 | Array  | Configurations                         |
+
 ## Example playbook
 
 ```yaml

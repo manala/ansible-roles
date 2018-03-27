@@ -43,11 +43,13 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                  | Default                      | Type   | Description          |
-| ------------------------------------- | ---------------------------- | ------ | -------------------- |
-| `manala_oauth2_proxy_config_file`     | /etc/oauth2-proxy/config.cfg | String | Config file          |
-| `manala_oauth2_proxy_config_template` | ~                            | String | Config template      |
-| `manala_oauth2_proxy_config`          | []                           | Array  | Config               |
+| Name                                          | Default                         | Type   | Description                            |
+| ---------------------------------------------- | ------------------------------ | ------ | -------------------------------------- |
+| `manala_oauth2_proxy_install_packages`         | ~                              | String | Dependency packages to install         |
+| `manala_oauth2_proxy_install_packages_default` | ['oauth2-proxy']               | String | Default dependency packages to install |
+| `manala_oauth2_proxy_config_file`              | '/etc/oauth2-proxy/config.cfg' | String | Configuration file path                |
+| `manala_oauth2_proxy_config_template`          | ~                              | String | Configuration template path            |
+| `manala_oauth2_proxy_config`                   | []                             | Array  | Configuration                          |
 
 ### Configuration example
 

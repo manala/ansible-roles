@@ -3,6 +3,12 @@
 # Version
 manala_postgresql_version: ~
 
+# Install
+manala_postgresql_install_packages: ~
+manala_postgresql_install_packages_default:
+  - postgresql-{{ manala_postgresql_version }}
+  - postgresql-contrib-{{ manala_postgresql_version }}
+
 # Config
 manala_postgresql_config_template:     ~
 manala_postgresql_config:              []

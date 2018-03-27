@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_opcache_dashboard_install_packages: ~
+manala_opcache_dashboard_install_packages_default:
+  - opcache-dashboard
+
 # User / Group
 manala_opcache_dashboard_user:  ~
 manala_opcache_dashboard_group: ~

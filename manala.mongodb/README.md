@@ -38,10 +38,12 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                             | Default           | Type    | Description       |
-| -------------------------------- | ----------------- | ------- | ----------------- |
-| `manala_mongodb_config`          | {}                | Array   |  Main config.     |
-| `manala_mongodb_config_template` | config/default.j2 | String  |  Config template. |
+| Name                                      | Default                                                                         | Type   | Description                             |
+| ----------------------------------------- | ------------------------------------------------------------------------------- | ------ | --------------------------------------- |
+| `manala_mongodb_install_packages`         | ~                                                                               | Array  |  Dependency packages to install         |
+| `manala_mongodb_install_packages_default` | ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-tools'] | Array  |  Default dependency packages to install |
+| `manala_mongodb_config`                   | []                                                                              | Array  |  Configuration                          |
+| `manala_mongodb_config_template`          | 'config/default.j2'                                                             | String |  Configuration template path            |
 
 ### Configuration example
 

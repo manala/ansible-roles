@@ -1,0 +1,6 @@
+---
+
+# Install
+manala_ntp_install_packages: ~
+manala_ntp_install_packages_default:
+  - ntp

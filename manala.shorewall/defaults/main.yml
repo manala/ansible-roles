@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_shorewall_install_packages: ~
+manala_shorewall_install_packages_default:
+  - shorewall
+
 # Configs
 manala_shorewall_configs_dir: /etc/shorewall
 manala_shorewall_configs:     []

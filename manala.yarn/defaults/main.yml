@@ -1,5 +1,6 @@
 ---
 
 # Install
-manala_yarn_install_packages:
+manala_yarn_install_packages: ~
+manala_yarn_install_packages_default:
   - yarn
