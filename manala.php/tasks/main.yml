@@ -27,7 +27,7 @@
   with_items: "{{
     lookup(
       'manala_php_sapis',
-      manala_php_sapis,
+      manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_versions[manala_php_version|string],
       wantstate='present',
       wantmap=true,
@@ -44,7 +44,7 @@
   when: |
     'fpm' in lookup(
       'manala_php_sapis',
-      manala_php_sapis,
+      manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_versions[manala_php_version|string],
       wantstate='present',
       wantmap=true,

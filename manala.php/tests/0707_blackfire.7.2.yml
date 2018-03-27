@@ -5,9 +5,6 @@
   become: true
   vars:
     manala_php_version: 7.2
-    manala_php_sapis:
-      - cli
-      - fpm
     manala_php_blackfire: true
     manala_php_blackfire_agent_config:
       - server-id: c74906db-43d3-4c96-ab27-010600321b89
