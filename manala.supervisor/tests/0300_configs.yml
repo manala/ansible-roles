@@ -9,7 +9,17 @@
         template: configs/program.dev.j2
         config:
           - foo:
-            - command: bar
+            - command: cat
+            - environment:
+               FOO: bar
+               BAR: 12
+      - file: bar.conf
+        template: configs/program.dev.j2
+        config:
+          - bar:
+            - command: cat
+            - environment: BAR="12",FOO="bar"
+
   pre_tasks:
     - include: pre_tasks/backports.yml
       when:    ansible_distribution_release == 'wheezy'
