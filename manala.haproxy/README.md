@@ -33,8 +33,7 @@ Using ansible galaxy requirements file:
 ## Role Handlers
 |Name|Type|Description|
 |----|----|-----------|
-|haproxy restart|Command|Test config and notify "do haproxy restart" handler
-|do haproxy restart|Service|Restart haproxy service
+|haproxy reload|Service|Reload haproxy service
 
 ## Role Variables
 

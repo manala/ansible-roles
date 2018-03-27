@@ -5,5 +5,5 @@
     src:  "{{ manala_haproxy_config_template }}"
     dest: "{{ manala_haproxy_config_file }}"
   notify:
-    - haproxy restart
+    - haproxy reload
   when: manala_haproxy_config_template is not none
