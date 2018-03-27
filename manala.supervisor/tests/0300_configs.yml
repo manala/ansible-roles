@@ -9,7 +9,7 @@
         template: configs/program.dev.j2
         config:
           - foo:
-            - command: bar
+            - command: cat
             - environment:
                FOO: bar
                BAR: 12
@@ -17,7 +17,7 @@
         template: configs/program.dev.j2
         config:
           - bar:
-            - command: bar
+            - command: cat
             - environment: BAR="12",FOO="bar"
 
   pre_tasks:
