@@ -9,8 +9,8 @@
       - file: mysqld.cnf
         config:
           - mysqld:
-            - user:                           mysql
-            - query_cache_size:               0
+            - user:             mysql
+            - query_cache_size: 0
       - file: advanced.cnf
         config:
           - mysqld:

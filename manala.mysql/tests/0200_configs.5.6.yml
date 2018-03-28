@@ -8,24 +8,10 @@
       - file: mysqld.cnf
         config:
           - mysqld:
-            - user:                           mysql
-            - query_cache_size:               0
-            - binlog_format:                  ROW
-            - default-storage-engine:         innodb
-            - innodb_autoinc_lock_mode:       2
-            - innodb_flush_log_at_trx_commit: 0
-            - query_cache_type:               0
-            - bind-address:                   0.0.0.0
-      - file: advanced.cnf
-        config:
-          - mysqld:
-            - max_allowed_packet:      2G
-            - innodb_log_file_size:    2G
-            - innodb_log_buffer_size:  256M
-            - innodb_buffer_pool_size: 3G
-            - max_heap_table_size:     200M
-            - tmp_table_size:          100M
-            - max_connections:         500
+            - user:                     mysql
+            - query_cache_size:         0
+            - gtid_mode:                true
+            - enforce_gtid_consistency: false
   pre_tasks:
     - include: pre_tasks/mysql_5.6.yml
   roles:
