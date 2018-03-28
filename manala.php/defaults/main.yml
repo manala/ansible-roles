@@ -5,7 +5,10 @@ manala_php_version: ~
 
 # Sapis
 manala_php_sapis_exclusive: false
-manala_php_sapis:           []
+manala_php_sapis:           ~
+manala_php_sapis_default:
+  - cli
+  - fpm
 
 # Extensions
 manala_php_extensions_exclusive: false
