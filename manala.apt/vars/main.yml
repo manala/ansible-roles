@@ -271,6 +271,9 @@ manala_apt_repositories_patterns:
   sury_php_ubuntu:
     source: ppa:ondrej/php
     key: sury_php_ubuntu
+  percona:
+    source: deb http://repo.percona.com/apt {{ ansible_distribution_release }} main
+    key: percona
 
 # Keys
 manala_apt_keys_patterns:
@@ -383,6 +386,9 @@ manala_apt_keys_patterns:
   sury_php_ubuntu:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: E5267A6C
+  percona:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 8507EFA5
 
 # Preferences
 manala_apt_preferences_patterns:
