@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Percona repository pattern
 
+### Changed
+- Update aptly key
+
 ## [1.0.17] - 2018-03-21
 ### Added
 - MongoDB 3.6 support
