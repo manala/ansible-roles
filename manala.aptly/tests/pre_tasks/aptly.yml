@@ -3,7 +3,7 @@
 - name: Pre tasks > Aptly apt key
   apt_key:
     file: pre_tasks/apt_keys/aptly.pgp
-    id: 9C7DE460
+    id: ED75B5A4483DA07C
 
 - name: Pre tasks > Aptly apt repository
   apt_repository:

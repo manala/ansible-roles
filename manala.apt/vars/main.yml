@@ -350,7 +350,7 @@ manala_apt_keys_patterns:
     id: E15E78F4
   aptly:
     url: https://www.aptly.info/pubkey.txt
-    id: 9C7DE460
+    id: ED75B5A4483DA07C
   docker:
     url: https://download.docker.com/linux/debian/gpg
     id: 0EBFCD88
