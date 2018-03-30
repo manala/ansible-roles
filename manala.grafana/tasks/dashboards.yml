@@ -1,46 +1,46 @@
 ---
 
-# Import dashboards
-- name: dashboards > List dashboards
-  register: _manala_grafana_dashboards_list_output
+- name: dashboards > List
   uri:
     url:              "{{ manala_grafana_api_url }}/api/search"
-    method:           GET
     force_basic_auth: true
     user:             "{{ manala_grafana_api_user }}"
     password:         "{{ manala_grafana_api_password }}"
-    status_code:      200
     headers:
       Content-Type: application/json
+  register: __manala_grafana_dashboards_output
   when: manala_grafana_dashboards_exclusive
 
-# Delete dashboards
-- name: dashboards > Delete dashboards
-  register: _manala_grafana_dashboards_delete_output
-  failed_when: "'Dashboard not found' in _manala_grafana_dashboards_delete_output|to_json"
+- name: dashboards > Delete
   uri:
     url:              "{{ manala_grafana_api_url }}/api/dashboards/{{ item.uri }}"
     method:           DELETE
     force_basic_auth: true
     user:             "{{ manala_grafana_api_user }}"
     password:         "{{ manala_grafana_api_password }}"
-    status_code:      200
     headers:
       Content-Type: application/json
-  with_items: "{{ _manala_grafana_dashboards_list_output.json|default([]) }}"
+  with_items: "{{ __manala_grafana_dashboards_output.json|default([]) }}"
+  register: __manala_grafana_dashboards_delete_output
+  failed_when: "'Dashboard not found' in __manala_grafana_dashboards_delete_output.json.message"
   when: manala_grafana_dashboards_exclusive
 
-# Import dashboards
-- name: dashboards > Import dashboards
-  register: _manala_grafana_dashboards_import_output
+- name: dashboards > Import
   uri:
     url:              "{{ manala_grafana_api_url }}/api/dashboards/import"
     method:           POST
-    body:             "{{ { 'dashboard': lookup('file', item.template)|from_json, 'overwrite': item.overwrite|default(true), 'inputs': item.inputs|default([]) }|to_json }}"
+    body:             "{{
+      {
+        'dashboard': lookup('file', item.template)|from_json,
+        'overwrite': item.overwrite|default(true),
+        'inputs': item.inputs|default([])
+      }|to_json
+    }}"
     force_basic_auth: true
     user:             "{{ manala_grafana_api_user }}"
     password:         "{{ manala_grafana_api_password }}"
-    status_code:      200
     headers:
       Content-Type: application/json
   with_items: "{{ manala_grafana_dashboards }}"
+  register: __manala_grafana_dashboards_import_output
+  failed_when: not __manala_grafana_dashboards_import_output.json.imported
