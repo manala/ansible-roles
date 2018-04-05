@@ -26,3 +26,8 @@
 - include: databases.yml
   tags:
     - manala_mysql
+
+# Replications
+- include: replications.yml
+  tags:
+    - manala_mysql
