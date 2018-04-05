@@ -12,4 +12,4 @@ command:
   ansible --version:
     exit-status: 0
     stdout:
-      - "/^ansible \\d\\.\\d\\.\\d\\.\\d$/"
+      - "/^ansible \\d\\.\\d\\.\\d$/"
