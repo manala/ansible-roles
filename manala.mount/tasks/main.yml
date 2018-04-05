@@ -1,6 +1,6 @@
 ---
 
 # Points
-- include: points.yml
+- import_tasks: points.yml
   tags:
     - manala_mount

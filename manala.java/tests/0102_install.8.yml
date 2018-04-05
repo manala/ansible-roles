@@ -6,7 +6,7 @@
   vars:
     manala_java_version: 8
   pre_tasks:
-    - include: pre_tasks/backports.yml
+    - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
   roles:
     - manala.java

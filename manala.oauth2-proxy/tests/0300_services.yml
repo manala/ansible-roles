@@ -12,7 +12,7 @@
       - client_secret: bar
       - cookie_secret: bar
   pre_tasks:
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.oauth2-proxy
   post_tasks:

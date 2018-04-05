@@ -26,7 +26,7 @@
       - extension: xdebug
         enabled:   false
   pre_tasks:
-    - include: pre_tasks/dotdeb.yml
+    - import_tasks: pre_tasks/dotdeb.yml
     - apt:
         package: "{{ item }}"
         install_recommends: false

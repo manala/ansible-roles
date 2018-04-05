@@ -1,4 +1,11 @@
 ---
 
-- include: install.yml
-- include: configs.yml
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_phpredisadmin
+
+# Configs
+- import_tasks: configs.yml
+  tags:
+    - manala_phpredisadmin

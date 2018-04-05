@@ -1,11 +1,6 @@
 ---
 
 # Variables
-- include: variables.yml
-  with_manala_environment_files:
-    - "{{ manala_environment_files }}"
-    - "{{ manala_environment_files_patterns }}"
-  loop_control:
-    loop_var: item_file
+- import_tasks: variables.yml
   tags:
     - manala_environment

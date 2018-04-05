@@ -6,9 +6,9 @@ galaxy_info:
 
   author:              Manala
   company:             Manala
-  description:         Install and configure grafana.
+  description:         Handle grafana
   license:             MIT
-  min_ansible_version: 2.1.0
+  min_ansible_version: 2.4.0
   platforms:
     - name: Debian
       versions:

@@ -7,7 +7,7 @@
     manala_phantomjs_config:
       - webdriver: 1234
   pre_tasks:
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/manala.yml
     - copy:
         dest: /etc/apt/preferences.d/phantomjs
         content: |

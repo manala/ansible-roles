@@ -1,17 +1,17 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_oauth2_proxy
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_oauth2_proxy
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_oauth2_proxy
     - manala_oauth2_proxy.services

@@ -8,7 +8,7 @@
       - mariadb-server
       - mariadb-client
   pre_tasks:
-    - include: pre_tasks/mariadb_10.1.yml
+    - import_tasks: pre_tasks/mariadb_10.1.yml
   roles:
     - manala.mysql
   post_tasks:

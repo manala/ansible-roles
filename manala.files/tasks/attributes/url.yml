@@ -1,11 +1,16 @@
 ---
 
-- name: files > Url "{{ item.path }}"
-  get_url:
-    dest:           "{{ item.path }}"
-    url:            "{{ item.url }}"
-    validate_certs: "{{ item.validate_certs|default(true)|bool }}"
-    force:          "{{ item.force|default(omit) }}"
-    owner:          "{{ item.user|default(omit) }}"
-    group:          "{{ item.group|default(omit) }}"
-    mode:           "{{ item.mode|default(omit) }}"
+- name: attributes/url
+  tags:
+    - manala_files
+  block:
+
+    - name: attributes/url > Get "{{ item.path }}"
+      get_url:
+        dest:           "{{ item.path }}"
+        url:            "{{ item.url }}"
+        validate_certs: "{{ item.validate_certs|default(true)|bool }}"
+        force:          "{{ item.force|default(omit) }}"
+        owner:          "{{ item.user|default(omit) }}"
+        group:          "{{ item.group|default(omit) }}"
+        mode:           "{{ item.mode|default(omit) }}"

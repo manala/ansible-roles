@@ -8,7 +8,7 @@
       EMBEDDED_RUBY: true
       LOG_LEVEL: warn
   pre_tasks:
-    - include: pre_tasks/sensu.yml
+    - import_tasks: pre_tasks/sensu.yml
   roles:
     - manala.sensu
   post_tasks:

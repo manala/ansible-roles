@@ -1,22 +1,22 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_varnish
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_varnish
 
 # Configs
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_varnish
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_varnish
     - manala_varnish.services

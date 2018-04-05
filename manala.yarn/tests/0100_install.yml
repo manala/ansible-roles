@@ -4,7 +4,7 @@
   hosts: debian
   become: true
   pre_tasks:
-    - include: pre_tasks/yarn.yml
+    - import_tasks: pre_tasks/yarn.yml
     - copy:
         dest: /etc/apt/preferences.d/yarn
         content: |

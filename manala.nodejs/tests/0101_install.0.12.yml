@@ -6,7 +6,7 @@
     - debian.jessie
   become: true
   pre_tasks:
-    - include: pre_tasks/nodesource_0_12.yml
+    - import_tasks: pre_tasks/nodesource_0_12.yml
     - copy:
         dest: /etc/apt/preferences.d/nodejs
         content: |

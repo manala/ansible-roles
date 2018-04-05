@@ -1,6 +1,6 @@
 ---
 
 # Template
-- include: template.yml
+- import_tasks: template.yml
   tags:
     - manala_motd

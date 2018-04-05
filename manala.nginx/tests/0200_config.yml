@@ -9,7 +9,7 @@
       - events:
         - worker_connections: 1234
   pre_tasks:
-    - include: pre_tasks/nginx.yml
+    - import_tasks: pre_tasks/nginx.yml
   roles:
     - manala.nginx
   post_tasks:

@@ -1,11 +1,11 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_sudo
 
 # Sudoers
-- include: sudoers.yml
+- import_tasks: sudoers.yml
   tags:
     - manala_sudo

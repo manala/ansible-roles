@@ -1,12 +1,12 @@
 ---
 
 # Requirements
-- include: requirements.yml
+- import_tasks: requirements.yml
   tags:
     - manala_npm
 
 # Update
-- include: update.yml
+- import_tasks: update.yml
   when: manala_npm['update']|default(false)
   tags:
     - manala_npm
@@ -14,6 +14,6 @@
     - manala.update
 
 # Packages
-- include: packages.yml
+- import_tasks: packages.yml
   tags:
     - manala_npm

@@ -6,7 +6,7 @@
   vars:
     manala_haproxy_config_template: fixtures/haproxy.cfg.j2
   pre_tasks:
-    - include: pre_tasks/backports.yml
+    - import_tasks: pre_tasks/backports.yml
   roles:
     - manala.haproxy
   post_tasks:

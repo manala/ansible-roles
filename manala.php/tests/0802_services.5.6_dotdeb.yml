@@ -8,7 +8,7 @@
     manala_php_sapis:
       - fpm
   pre_tasks:
-    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - import_tasks: pre_tasks/dotdeb_wheezy_56.yml
   roles:
     - manala.php
   post_tasks:

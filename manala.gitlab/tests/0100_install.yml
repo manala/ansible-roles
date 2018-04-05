@@ -4,7 +4,7 @@
   hosts: debian
   become: true
   pre_tasks:
-    - include: pre_tasks/gitlab.yml
+    - import_tasks: pre_tasks/gitlab.yml
   roles:
     - manala.gitlab
   post_tasks:

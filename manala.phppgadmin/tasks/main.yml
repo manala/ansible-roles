@@ -1,11 +1,11 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_phppgadmin
 
 # Configs
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_phppgadmin

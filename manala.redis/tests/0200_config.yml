@@ -7,7 +7,7 @@
     manala_redis_config:
       - port: 1234
   pre_tasks:
-    - include: pre_tasks/dotdeb.yml
+    - import_tasks: pre_tasks/dotdeb.yml
   roles:
     - manala.redis
   post_tasks:

@@ -4,8 +4,8 @@
   hosts: debian
   become: true
   pre_tasks:
-    - include: pre_tasks/elasticsearch_1.5.yml
-    - include: pre_tasks/backports.yml
+    - import_tasks: pre_tasks/elasticsearch_1.5.yml
+    - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - copy:
         dest: /etc/apt/preferences.d/openjdk
@@ -22,6 +22,6 @@
   roles:
     - manala.elasticsearch
   post_tasks:
-    - include: post_tasks/pretty_response.yml
+    - import_tasks: post_tasks/pretty_response.yml
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

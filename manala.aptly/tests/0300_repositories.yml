@@ -16,7 +16,7 @@
         origin:       Bar
         label:        Bar
   pre_tasks:
-    - include: pre_tasks/aptly.yml
+    - import_tasks: pre_tasks/aptly.yml
     - copy:
         dest: /etc/apt/preferences.d/aptly
         content: |

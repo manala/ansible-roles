@@ -1,18 +1,18 @@
 ---
 
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_telegraf
 
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_telegraf
 
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_telegraf
 
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_telegraf
     - manala_telegraf.services

@@ -16,7 +16,7 @@
       - host    all             all             ::1/128                 md5
       - local   foo             bar                                     peer
   pre_tasks:
-    - include: pre_tasks/postgresql.yml
+    - import_tasks: pre_tasks/postgresql.yml
   roles:
     - manala.postgresql
   post_tasks:

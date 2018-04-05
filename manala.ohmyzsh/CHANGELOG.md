@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Replace deprecated jinja tests used as filters
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.5] - 2018-01-31
 ### Added
 - Yarn plugin in php users template

@@ -25,7 +25,7 @@
                 BAZ: 1.2
                 QUX: foo=bar
   pre_tasks:
-    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - import_tasks: pre_tasks/dotdeb_wheezy_56.yml
     - apt:
         package: "{{ item }}"
         install_recommends: false

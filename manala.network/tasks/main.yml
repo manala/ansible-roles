@@ -1,16 +1,16 @@
 ---
 
 # Hosts
-- include: hosts.yml
+- import_tasks: hosts.yml
   tags:
     - manala_network
 
 # Resolver
-- include: resolver.yml
+- import_tasks: resolver.yml
   tags:
     - manala_network
 
 # Inerfaces
-- include: interfaces.yml
+- import_tasks: interfaces.yml
   tags:
     - manala_network

@@ -1,33 +1,33 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_mysql
 
 # Configs
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_mysql
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_mysql
     - manala_mysql.services
     - manala.services
 
 # Users
-- include: users.yml
+- import_tasks: users.yml
   tags:
     - manala_mysql
 
 # Databases
-- include: databases.yml
+- import_tasks: databases.yml
   tags:
     - manala_mysql
 
 # Replications
-- include: replications.yml
+- import_tasks: replications.yml
   tags:
     - manala_mysql

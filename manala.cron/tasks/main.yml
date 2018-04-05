@@ -1,17 +1,17 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_cron
 
 # Files
-- include: files.yml
+- import_tasks: files.yml
   tags:
     - manala_cron
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_cron
     - manala_cron.services

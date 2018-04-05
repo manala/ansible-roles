@@ -1,22 +1,22 @@
 ---
 
 # Requirements
-- include: requirements.yml
+- import_tasks: requirements.yml
   tags:
     - manala_php
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_php
 
 # Extensions
-- include: extensions.yml
+- import_tasks: extensions.yml
   tags:
     - manala_php
 
 # Configs - Global
-- include: configs_global.yml
+- import_tasks: configs_global.yml
   when: manala_php_configs_global
   tags:
     - manala_php
@@ -40,7 +40,7 @@
     - manala_php
 
 # Fpm pools
-- include: fpm_pools.yml
+- import_tasks: fpm_pools.yml
   when: |
     'fpm' in lookup(
       'manala_php_sapis',
@@ -54,19 +54,19 @@
     - manala_php
 
 # Blackfire
-- include: blackfire.yml
+- import_tasks: blackfire.yml
   when: manala_php_blackfire
   tags:
     - manala_php
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_php
     - manala_php.services
     - manala.services
 
 # Applications
-- include: applications.yml
+- import_tasks: applications.yml
   tags:
     - manala_php

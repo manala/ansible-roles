@@ -1,9 +1,11 @@
 ---
 
-- include: install.yml
+# Install
+- import_tasks: install.yml
   tags:
     - manala_ngrok
 
-- include: configs.yml
+# Configs
+- import_tasks: configs.yml
   tags:
     - manala_ngrok

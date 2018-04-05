@@ -1,34 +1,34 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_docker
 
 # Config - Daemon
-- include: config_daemon.yml
+- import_tasks: config_daemon.yml
   tags:
     - manala_docker
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_docker
     - manala_docker.services
     - manala.services
 
 # Applications
-- include: applications.yml
+- import_tasks: applications.yml
   tags:
     - manala_docker
 
 # Containers
-- include: containers.yml
+- import_tasks: containers.yml
   tags:
     - manala_docker
 
 # Update
-- include: update.yml
+- import_tasks: update.yml
   when: manala_docker['update']|default(false)
   tags:
     - manala_docker

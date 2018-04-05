@@ -1,38 +1,38 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_bind
 
 # Options
-- include: options.yml
+- import_tasks: options.yml
   tags:
     - manala_bind
 
 # Logs
-- include: logs.yml
+- import_tasks: logs.yml
   tags:
     - manala_bind
 
 # Configs
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_bind
 
 # Zones
-- include: zones.yml
+- import_tasks: zones.yml
   tags:
     - manala_bind
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_bind
     - manala_bind.services
     - manala.services
 
 # Zones - Records
-- include: zones_records.yml
+- import_tasks: zones_records.yml
   tags:
     - manala_bind

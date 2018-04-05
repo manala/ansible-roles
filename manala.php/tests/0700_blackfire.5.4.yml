@@ -13,8 +13,8 @@
       - client-id: b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
       - client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
   pre_tasks:
-    - include: pre_tasks/dotdeb.yml
-    - include: pre_tasks/blackfire.yml
+    - import_tasks: pre_tasks/dotdeb.yml
+    - import_tasks: pre_tasks/blackfire.yml
   roles:
     - manala.php
   post_tasks:

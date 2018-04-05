@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Update base config template for ansible 2.5.0
+- Replace deprecated uses of "include"
 
 ## [1.0.3] - 2018-03-14
 ### Changed
