@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Replace deprecated jinja tests used as filters
 
 ## [1.0.5] - 2018-01-31
 ### Added

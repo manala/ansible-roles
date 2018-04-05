@@ -85,7 +85,7 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.nginx)|ternary(['nginx@nginx'],[])
       + (manala_skeleton_options.nodejs)|ternary(
         [
-          'nodejs@nodesource_' ~ manala_skeleton_options.nodejs_version|string|version_compare('4', '<')|ternary(
+          'nodejs@nodesource_' ~ manala_skeleton_options.nodejs_version|string is version_compare('4', '<')|ternary(
             {'0.10': '0_10', '0.12': '0_12'}[manala_skeleton_options.nodejs_version|string],
             manala_skeleton_options.nodejs_version|string
           )

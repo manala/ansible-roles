@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Changed
+- Replace deprecated jinja tests used as filters
+
 ## [1.0.2] - 2017-12-06
 ### Added
 - Debian stretch support

@@ -8,7 +8,7 @@
     state:   restarted
   with_items:
     - postgresql
-  when: __manala_postgresql_config_result|changed or __manala_postgresql_config_hba_result|changed
+  when: __manala_postgresql_config_result is changed or __manala_postgresql_config_hba_result is changed
   tags:
     - skip_ansible_lint
 

@@ -49,6 +49,6 @@
 - name: repositories > Update cache
   apt:
     update_cache: true
-  when: __manala_apt_repositories_results|changed or __manala_apt_repositories_exclusive_results|changed
+  when: __manala_apt_repositories_results is changed or __manala_apt_repositories_exclusive_results is changed
   tags:
     - skip_ansible_lint # [ANSIBLE0016] Tasks that run when changed should likely be handlers

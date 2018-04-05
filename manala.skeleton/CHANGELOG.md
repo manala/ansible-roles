@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Replace deprecated jinja tests used as filters
+
 ### Removed
 - Default php sapis (cli & fpm) as they are now handled by the manala.php role itself
 

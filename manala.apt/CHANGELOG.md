@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Update aptly key
+- Replace deprecated jinja tests used as filters
 
 ## [1.0.17] - 2018-03-21
 ### Added

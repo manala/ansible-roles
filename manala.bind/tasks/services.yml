@@ -5,15 +5,15 @@
     name:  "{{ item }}"
     state: "{{
       'restarted'
-        if (__manala_bind_options|default({})|changed) else
+        if (__manala_bind_options|default({}) is changed) else
       'reloaded'
         if (
-          __manala_bind_configs_templates|default({})|changed
-          or __manala_bind_configs_contents|default({})|changed
-          or __manala_bind_configs_absents|default({})|changed
-          or __manala_bind_zones_templates|default({})|changed
-          or __manala_bind_zones_contents|default({})|changed
-          or __manala_bind_zones_absents|default({})|changed
+          __manala_bind_configs_templates|default({}) is changed
+          or __manala_bind_configs_contents|default({}) is changed
+          or __manala_bind_configs_absents|default({}) is changed
+          or __manala_bind_zones_templates|default({}) is changed
+          or __manala_bind_zones_contents|default({}) is changed
+          or __manala_bind_zones_absents|default({}) is changed
         ) else
       'started'
     }}"

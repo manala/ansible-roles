@@ -12,7 +12,7 @@
 - name: users > Pair primary groups
   set_fact:
     # Waiting for the ansible 2 "combine" filter...
-    __item: "{% set __item = item.0.update(({}) if (item.1|skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
+    __item: "{% set __item = item.0.update(({}) if (item.1 is skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
   with_together:
     - "{{ manala_ohmyzsh_users }}"
     - "{{ __manala_ohmyzsh_users.results }}"

@@ -15,7 +15,7 @@
     content: >
       {{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
   when:
-    - not __manala_timezone_default_localtime|skipped
+    - __manala_timezone_default_localtime is not skipped
     - __manala_timezone_default_localtime.stat.isreg
   notify:
     - dpkg-reconfigure tzdata
@@ -28,7 +28,7 @@
     state: link
     force: yes
   when:
-    - not __manala_timezone_default_localtime|skipped
+    - __manala_timezone_default_localtime is not skipped
     - __manala_timezone_default_localtime.stat.islnk
   notify:
     - dpkg-reconfigure tzdata
