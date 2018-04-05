@@ -1,13 +1,5 @@
 ---
 
-- name: roles > Requirements
-  apt:
-    name: python-psycopg2
-    install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
-  when: manala_postgresql_roles|length > 0
-
 - name: roles > Handle
   postgresql_user:
     name:            "{{ item.role }}"

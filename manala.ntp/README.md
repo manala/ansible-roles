@@ -30,6 +30,15 @@ Using ansible galaxy requirements file:
 - src: manala.ntp
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                  | Default | Type  | Description                            |
+| ------------------------------------- | ------- | ----- | -------------------------------------- |
+| `manala_ntp_install_packages`         | ~       | Array | Dependency packages to install         |
+| `manala_ntp_install_packages_default` | ['ntp'] | Array | Default dependency packages to install |
+
 ## Example playbook
 
 ```yaml

@@ -31,19 +31,20 @@ Using ansible galaxy requirements file:
 ```
 
 ## Role Handlers
-|Name|Type|Description|
-|----|----|-----------|
-|haproxy reload|Service|Reload haproxy service
+| Name             | Type    | Description            |
+| ---------------- | ------- | ---------------------- |
+| `haproxy reload` | Service | Reload haproxy service |
 
 ## Role Variables
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-|manala_haproxy_errorfiles_path|/etc/haproxy/errors|String|Errorfiles path
-|manala_haproxy_errorfiles|Array|Array|Errorfiles templates
-|manala_haproxy_config_path|/etc/haproxy/haproxy.cfg|String|Config path
-|manala_haproxy_config_template|config/http_default.cfg.j2|String|Config template
-|manala_haproxy_config|Array|Array|Config
+| Name                                      | Default                      | Type   | Description                            |
+| ----------------------------------------- | ---------------------------- | ------ | -------------------------------------- |
+| `manala_haproxy_install_packages`         | ~                            | Array  | Dependency packages to install         |
+| `manala_haproxy_install_packages_default` | []                           | Array  | Default dependency packages to install |
+| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String | Errorfiles directory path              |
+| `manala_haproxy_errorfiles`               | []                           | Array  | Errorfiles                             |
+| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String | Configuration file path                |
+| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String | Configuration template                 |
 
 ### Configuration example
 

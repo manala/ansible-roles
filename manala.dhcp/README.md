@@ -32,18 +32,20 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-| Name         | Type     | Description          |
-| ------------ | -------- | -------------------- |
-| dhcp restart | Service  | Restart dhcp service |
+| Name           | Type    | Description          |
+| -------------- | ------- | -------------------- |
+| `dhcp restart` | Service | Restart dhcp service |
 
 ## Role Variables
 
-| Name                          | Default              | Type   | Description               |
-| ----------------------------- | -------------------- | ------ | ------------------------- |
-| `manala_dhcp_interfaces`      | []                   | Array  | Network interfaces        |
-| `manala_dhcp_config_file`     | /etc/dhcp/dhcpd.conf | String | Configuration destination |
-| `manala_dhcp_config_template` | ~                    | String | Configuration template    |
-| `manala_dhcp_config_content`  | ~                    | String | Configuration content     |
+| Name                                   | Default                | Type   | Description                            |
+| -------------------------------------- | ---------------------- | ------ | -------------------------------------- |
+| `manala_dhcp_install_packages`         | ~                      | Array  | Dependency packages to install         |
+| `manala_dhcp_install_packages_default` | ['isc-dhcp-server']    | Array  | Default dependency packages to install |
+| `manala_dhcp_interfaces`               | []                     | Array  | Network interfaces                     |
+| `manala_dhcp_config_file`              | '/etc/dhcp/dhcpd.conf' | String | Configuration destination path         |
+| `manala_dhcp_config_template`          | ~                      | String | Configuration template                 |
+| `manala_dhcp_config_content`           | ~                      | String | Configuration content                  |
 
 ### Configuration example
 

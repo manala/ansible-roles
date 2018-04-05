@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_mongo_express_install_packages: ~
+manala_mongo_express_install_packages_default:
+  - mongo-express
+
 # Config
 manala_mongo_express_config_template: ~
 manala_mongo_express_config:          []

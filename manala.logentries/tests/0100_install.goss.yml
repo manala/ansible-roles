@@ -3,3 +3,5 @@
 package:
   logentries:
     installed: true
+  logentries-daemon:
+    installed: true

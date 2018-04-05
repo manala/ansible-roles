@@ -1,11 +1,16 @@
 ---
 
+# Install
+manala_maxscale_install_packages: ~
+manala_maxscale_install_packages_default:
+  - maxscale
+
 # Config
-manala_maxscale_config_file:       /etc/maxscale.cnf
-manala_maxscale_config_template:  ~
-manala_maxscale_config:           []
+manala_maxscale_config_file:     /etc/maxscale.cnf
+manala_maxscale_config_template: ~
+manala_maxscale_config:          []
 
 # Users
-manala_maxscale_users_file:        /var/lib/maxscale/passwd
-manala_maxscale_users_template:    ~
-manala_maxscale_network_users:    []
+manala_maxscale_users_file:     /var/lib/maxscale/passwd
+manala_maxscale_users_template: ~
+manala_maxscale_network_users:  []

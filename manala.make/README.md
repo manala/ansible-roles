@@ -30,6 +30,15 @@ Using ansible galaxy requirements file:
 - src: manala.make
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                   | Default  | Type  | Description                            |
+| -------------------------------------- | -------- | ----- | -------------------------------------- |
+| `manala_make_install_packages`         | ~        | Array | Dependency packages to install         |
+| `manala_make_install_packages_default` | ['make'] | Array | Default dependency packages to install |
+
 ## Example playbook
 
 ```yaml

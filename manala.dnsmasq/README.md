@@ -32,15 +32,20 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-|Name|Type|Description|
-|----|----|-----------|
-|dnsmasq restart|Service|Restart dnsmasq service
+| Name              | Type    | Description             |
+| ----------------- | ------- | ----------------------- |
+| `dnsmasq restart` | Service | Restart dnsmasq service |
 
 ## Role Variables
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-|manala_dnsmasq_configs|[]|Array|Configs
+| Name                                      | Default          | Type    | Description                            |
+| ----------------------------------------- | ---------------- | ------- | -------------------------------------- |
+| `manala_dnsmasq_install_packages`         | ~                | Array   | Dependency packages to install         |
+| `manala_dnsmasq_install_packages_default` | ['dnsmasq']      | Array   | Default dependency packages to install |
+| `manala_dnsmasq_configs_exclusive`        | false            | Boolean | Configurations exclusivity             |
+| `manala_dnsmasq_configs_dir`              | '/etc/dnsmasq.d' | String  | Configurations directory path          |
+| `manala_dnsmasq_configs_template`         |  ~               | String  | Configurations template                |
+| `manala_dnsmasq_configs`                  | []               | Array   | Configurations                         |
 
 ### Configuration example
 

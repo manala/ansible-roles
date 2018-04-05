@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_dhcp_install_packages: ~
+manala_dhcp_install_packages_default:
+  - isc-dhcp-server
+
 # Interfaces
 manala_dhcp_interfaces: []
 

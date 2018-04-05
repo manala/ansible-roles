@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_bind_install_packages: ~
+manala_bind_install_packages_default:
+  - bind9
+
 # User / Group
 manala_bind_user:  bind
 manala_bind_group: bind

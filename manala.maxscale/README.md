@@ -38,20 +38,22 @@ Using ansible galaxy requirements file:
 ```
 ## Role Handlers
 
-| Name             | Type    | Description              |
-| ---------------- | ------- | ------------------------ |
-| maxscale restart | Service | Restart Maxscale service |
+| Name               | Type    | Description              |
+| ------------------ | ------- | ------------------------ |
+| `maxscale restart` | Service | Restart Maxscale service |
 
 ## Role Variables
 
-| Name                                | Default                  | Type   | Description                                            |
-| ----------------------------------- | ------------------------ | -------| ------------------------------------------------------ |
-| `manala_maxscale_config_file`       | /etc/maxscale.cnf        | String | Configuration file                                     |
-| `manala_maxscale_config_template`   | config/empty.j2          | String | Default configuration template                         |
-| `manala_maxscale_config`            | []                       | Array  | Maxscale configuration options                         |
-| `manala_maxscale_users_file`        | /var/lib/maxscale/passwd | String | Configuration file                                     |
-| `manala_maxscale_users_template`    | users/default.j2         | String | Default users file template                            |
-| `manala_maxscale_network_users`     | []                       | Array  | Maxscale network users                                 |
+| Name                                       | Default                    | Type   | Description                            |
+| ------------------------------------------ | -------------------------- | ------ | -------------------------------------- |
+| `manala_maxscale_install_packages`         | ~                          | Array  | Dependency packages to install         |
+| `manala_maxscale_install_packages_default` | ['maxscale']               | Array  | Default dependency packages to install |
+| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'        | String | Configuration file path                |
+| `manala_maxscale_config_template`          | 'config/empty.j2'          | String | Default configuration template path    |
+| `manala_maxscale_config`                   | []                         | Array  | Configuration                          |
+| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd' | String | Users file path                        |
+| `manala_maxscale_users_template`           | 'users/default.j2'         | String | Default users template path            |
+| `manala_maxscale_network_users`            | []                         | Array  | Network users                          |
 
 ### Configuration example (Galera cluster configuration)
 

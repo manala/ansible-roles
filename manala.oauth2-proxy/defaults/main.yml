@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_oauth2_proxy_install_packages: ~
+manala_oauth2_proxy_install_packages_default:
+  - oauth2-proxy
+
 # Config
 manala_oauth2_proxy_config_file:     /etc/oauth2-proxy/config.cfg
 manala_oauth2_proxy_config_template: ~

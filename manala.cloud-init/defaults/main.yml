@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_cloud_init_install_packages: ~
+manala_cloud_init_install_packages_default:
+  - cloud-init
+
 # Configs
 manala_cloud_init_configs_exclusive: false
 manala_cloud_init_configs_dir:       /etc/cloud/cloud.cfg.d

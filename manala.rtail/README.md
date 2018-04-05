@@ -35,6 +35,17 @@ Using ansible galaxy requirements file:
 - src: manala.rtail
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                    | Default   | Type   | Description                            |
+| --------------------------------------- | --------- | ------ | -------------------------------------- |
+| `manala_rtail_install_packages`         | ~         | Array  | Dependency packages to install         |
+| `manala_rtail_install_packages_default` | ['rtail'] | Array  | Default dependency packages to install |
+| `manala_rtail_config_template`          | ~         | String | Configuration template path            |
+| `manala_rtail_config`                   | []        | Array  | Configuration directives               |
+
 ## Example playbook
 
 ```yaml

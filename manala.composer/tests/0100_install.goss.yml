@@ -1,5 +1,11 @@
 ---
 
+package:
+  openssl:
+    installed: true
+  ca-certificates:
+    installed: true
+
 file:
   /usr/local/bin/composer:
     exists:   true

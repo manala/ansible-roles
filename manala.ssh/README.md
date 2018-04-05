@@ -36,21 +36,23 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-| Name          | Type    | Description          |
-| ------------- | ------- | -------------------- |
-| ssh reload    | Service | Restart ssh service  |
+| Name         | Type    | Description         |
+| ------------ | ------- | ------------------- |
+| `ssh reload` | Service | Restart ssh service |
 
 ## Role Variables
 
-| Name                              | Default                                 | Type          | Description                         |
-| --------------------------------- | --------------------------------------- | ------------- | ----------------------------------- |
-| `manala_ssh_config_file`          | /etc/ssh/ssh_config                     | String (path) | Configuration file path             |
-| `manala_ssh_config_template`      | config/[distribution]_[release].j2      | String (path) | Default configuration template      |
-| `manala_ssh_config`               | [ ]                                     | Array         | Configuration                       |
-| `manala_ssh_config_sshd_file`     | /etc/ssh/sshd_config                    | String (path) | Sshd configuration file path        |
-| `manala_ssh_config_sshd_template` | config/sshd/[distribution]_[release].j2 | String (path) | Sshd default configuration template |
-| `manala_ssh_config_sshd`          | [ ]                                     | Array         | Sshd configuration                  |
-| `manala_ssh_known_hosts`          | [ ]                                     | Array         | Known hosts                         |
+| Name                                  | Default                                   | Type   | Description                              |
+| ------------------------------------- | ----------------------------------------- | ------ | ---------------------------------------- |
+| `manala_ssh_install_packages`         | ~                                         | Array  | Dependency packages to install           |
+| `manala_ssh_install_packages_default` | ['openssh-server']                        | Array  | Default dependency packages to install   |
+| `manala_ssh_config_file`              | '/etc/ssh/ssh_config'                     | String | Configuration file path                  |
+| `manala_ssh_config_template`          | 'config/[distribution]_[release].j2'      | String | Default configuration template path      |
+| `manala_ssh_config`                   | []                                        | Array  | Configuration directives                 |
+| `manala_ssh_config_sshd_file`         | '/etc/ssh/sshd_config'                    | String | Sshd configuration file path             |
+| `manala_ssh_config_sshd_template`     | 'config/sshd/[distribution]_[release].j2' | String | Sshd default configuration template path |
+| `manala_ssh_config_sshd`              | []                                        | Array  | Sshd configuration directives            |
+| `manala_ssh_known_hosts`              | []                                        | Array  | Known hosts                              |
 
 ### Configuration example
 

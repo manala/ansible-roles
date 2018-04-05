@@ -43,10 +43,12 @@ None.
 
 ### Definition
 
-| Name                             | Default  | Type   | Description     |
-| -------------------------------- | -------- | ------ | --------------- |
-| `manala_mailhog_config_template` | ~        | String | Config template |
-| `manala_mailhog_config`          | []       | Array  | Config          |
+| Name                                      | Default     | Type   | Description                            |
+| ----------------------------------------- | ----------- | ------ | -------------------------------------- |
+| `manala_mailhog_install_packages`         | ~           | String | Dependency packages to install         |
+| `manala_mailhog_install_packages_default` | ['mailhog'] | String | Default dependency packages to install |
+| `manala_mailhog_config_template`          | ~           | String | Configuration template path            |
+| `manala_mailhog_config`                   | []          | Array  | Configuration                          |
 
 ### Example
 

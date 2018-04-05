@@ -30,6 +30,15 @@ Using ansible galaxy requirements file:
 - src: manala.nodejs
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                     | Default    | Type  | Description                            |
+| ---------------------------------------- | ---------- | ----- | -------------------------------------- |
+| `manala_nodejs_install_packages`         | ~          | Array | Dependency packages to install         |
+| `manala_nodejs_install_packages_default` | ['nodejs'] | Array | Default dependency packages to install |
+
 ## Example playbook
 
 ```yaml

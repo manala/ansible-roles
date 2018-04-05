@@ -3,6 +3,11 @@
 # Elasticsearch version. Available values are '~' (autodetect), '1.5', '1.6', '1.7', '2', '5'
 manala_elasticsearch_version: ~
 
+# Install
+manala_elasticsearch_install_packages: ~
+manala_elasticsearch_install_packages_default:
+  - elasticsearch
+
 # Config
 manala_elasticsearch_config_file:     /etc/elasticsearch/elasticsearch.yml
 manala_elasticsearch_config_template: ~

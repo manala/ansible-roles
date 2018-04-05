@@ -33,15 +33,17 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-| Name         | Type     | Description           |
-| ------------ | -------- | --------------------- |
-| cron restart | Service  |  Restart cron service |
+| Name          | Type    | Description          |
+| ------------- | ------- | -------------------- |
+| `cron restart | Service | Restart cron service |
 
 ## Role Variables
 
-| Name              | Default | Type  | Description |
-| ----------------- | ------- | ----- | ----------- |
-| manala_cron_files | []      | Array | Cron files  |
+| Name                                   | Default  | Type  | Description                            |
+| -------------------------------------- | -------- | ----- | -------------------------------------- |
+| `manala_cron_install_packages`         | ~        | Array | Dependency packages to install         |
+| `manala_cron_install_packages_default` | ['cron'] | Array | Default dependency packages to install |
+| `manala_cron_files`                    | []       | Array | Cron files collection                  |
 
 ### Configuration example
 

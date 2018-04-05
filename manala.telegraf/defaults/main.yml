@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_telegraf_install_packages: ~
+manala_telegraf_install_packages_default:
+  - telegraf
+
 # Config
 manala_telegraf_config_file:     /etc/telegraf/telegraf.conf
 manala_telegraf_config_template: ~

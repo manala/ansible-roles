@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_phppgadmin_install_packages: ~
+manala_phppgadmin_install_packages_default:
+  - phppgadmin
+
 # Dir
 manala_phppgadmin_dir: /usr/share/phppgadmin
 

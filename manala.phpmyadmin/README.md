@@ -39,10 +39,12 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-`manala_phpmyadmin_configs_exclusive`|false|Boolean|Exclusive configs
-`manala_phpmyadmin_configs`|[]|Array|Configs
+| Name                                         | Default        | Type    | Description                            |
+| -------------------------------------------- | -------------- | ------- | -------------------------------------- |
+| `manala_phpmyadmin_install_packages`         | ~              | Array   | Dependency packages to install         |
+| `manala_phpmyadmin_install_packages_default` | ['phpmyadmin'] | Array   | Default dependency packages to install |
+| `manala_phpmyadmin_configs_exclusive`        | false          | Boolean | Configurations exclusivity             |
+| `manala_phpmyadmin_configs`                  | []             | Array   | Configurations                         |
 
 ### Configuration example
 

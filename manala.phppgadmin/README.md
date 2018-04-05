@@ -38,10 +38,12 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-`manala_phppgadmin_configs_exclusive`|false|Boolean|Exclusive configs
-`manala_phppgadmin_configs`|[]|Array|Configs
+| Name                                         | Default        | Type    | Description                            |
+| -------------------------------------------- | -------------- | ------- | -------------------------------------- |
+| `manala_phppgadmin_install_packages`         | ~              | Array   | Dependency packages to install         |
+| `manala_phppgadmin_install_packages_default` | ['phppgadmin'] | Array   | Default dependency packages to install |
+| `manala_phppgadmin_configs_exclusive`        | false          | Boolean | Configurations exclusivity             |
+| `manala_phppgadmin_configs`                  | []             | Array   | Configurations                         |
 
 ### Configuration example
 

@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_keepalived_install_packages: ~
+manala_keepalived_install_packages_default:
+  - keepalived
+
 # Config
 manala_keepalived_config_file:     /etc/keepalived/keepalived.conf
 manala_keepalived_config_template: ~

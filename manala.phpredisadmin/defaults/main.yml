@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_phpredisadmin_install_packages: ~
+manala_phpredisadmin_install_packages_default:
+  - phpredisadmin
+
 # Dir
 manala_phpredisadmin_dir: /usr/share/phpredisadmin
 

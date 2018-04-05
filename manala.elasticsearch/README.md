@@ -40,9 +40,15 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-| Name                           | Default  | Type  | Description                |
-| ------------------------------ | -------- | ----- | -------------------------- |
-| `manala_elasticsearch_plugins` | []       | Array | Plugins                    |
+| Name                                            | Default                                | Type   | Description                            |
+| ----------------------------------------------- | -------------------------------------- | ------ | -------------------------------------- |
+| `manala_elasticsearch_version`                  | ~                                      | String | Version                                |
+| `manala_elasticsearch_install_packages`         | ~                                      | Array  | Dependency packages to install         |
+| `manala_elasticsearch_install_packages_default` | ['elasticsearch']                      | Array  | Default dependency packages to install |
+| `manala_elasticsearch_config_file`              | '/etc/elasticsearch/elasticsearch.yml' | String | Configuration file path                |
+| `manala_elasticsearch_config_template`          | ~                                      | String | Configuration file template path       |
+| `manala_elasticsearch_config`                   | []                                     | Array  | Configuration                          |
+| `manala_elasticsearch_plugins`                  | []                                     | Array  | Plugins                                |
 
 ### Example
 

@@ -3,6 +3,11 @@
 # Bin
 manala_vim_bin: /usr/bin/vim.basic
 
+# Install
+manala_vim_install_packages: ~
+manala_vim_install_packages_default:
+  - vim
+
 # Config
 manala_vim_config_file:     /etc/vim/vimrc.local
 manala_vim_config_template: ~

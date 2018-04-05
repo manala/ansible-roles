@@ -39,6 +39,15 @@ Using ansible galaxy requirements file:
 
 None.
 
+## Role Variables
+
+### Definition
+
+| Name                                   | Default  | Type  | Description                            |
+| -------------------------------------- | -------- | ----- | -------------------------------------- |
+| `manala_hugo_install_packages`         | ~        | Array | Dependency packages to install         |
+| `manala_hugo_install_packages_default` | ['hugo'] | Array | Default dependency packages to install |
+
 ## Example playbook
 
 ```yaml

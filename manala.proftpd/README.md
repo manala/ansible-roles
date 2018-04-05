@@ -41,15 +41,17 @@ Role Handlers
 Role Variables
 --------------
 
-| Name                                | Default             | Type    | Description                                 |
-| ----------------------------------- | ------------------- | ------- | ------------------------------------------- |
-| `manala_proftpd_configs`            | []                  | Array   | Configs                                     |
-| `manala_proftpd_configs_template`   | configs/empty.j2    | String  | Template to use to define a config set      |
-| `manala_proftpd_configs_exclusive`  | false               | Boolean | Exclusion of existings files                |
-| `manala_proftpd_configs_dir`        | /etc/proftpd/conf.d | String  | Path to the main configuration directory    |
-| `manala_proftpd_users_template`     | users/default.j2    | String  | Main user config template                   |
-| `manala_proftpd_users_file`         | /etc/ftpd.passwd    | String  | proFTPd user accounts definition file       |
-| `manala_proftpd_users`              | []                  | Array   | Array of proFTPd user accounts              |
+| Name                                      | Default               | Type    | Description                            |
+| ----------------------------------------- | --------------------- | ------- | -------------------------------------- |
+| `manala_proftpd_install_packages`         | ~                     | Array   | Dependency packages to install         |
+| `manala_proftpd_install_packages_default` | ['proftpd-basic']     | Array   | Default dependency packages to install |
+| `manala_proftpd_configs`                  | []                    | Array   | Configurations                         |
+| `manala_proftpd_configs_template`         | 'configs/empty.j2'    | String  | Configurations template path           |
+| `manala_proftpd_configs_exclusive`        | false                 | Boolean | Configurations exclusivity             |
+| `manala_proftpd_configs_dir`              | '/etc/proftpd/conf.d' | String  | Configurations directory path          |
+| `manala_proftpd_users_template`           | 'users/default.j2     | String  | User accounts definition template path |
+| `manala_proftpd_users_file`               | '/etc/ftpd.passwd'    | String  | User accounts definition file path     |
+| `manala_proftpd_users`                    | []                    | Array   | Array of proFTPd user accounts         |
 
 ### ProFTPd configuration
 
@@ -117,7 +119,7 @@ manala_proftpd_users:
       shell:            "/bin/false"
 ```
 The encrypted password method is MD5.
-On debian, it can be generate with : 
+On debian, it can be generate with :
 `echo -n yourpassword | makepasswd --crypt-md5 --clearfrom -`
 
 Example playbook

@@ -8,11 +8,12 @@
     update_cache:       true
     cache_valid_time:   3600
   with_items: "{{
-    manala_mysql_install_packages|ternary(
-      manala_mysql_install_packages,
-      [
-        'mysql-server',
-        'mysql-client'
-      ]
+    manala_mysql_install_packages|default(manala_mysql_install_packages_default, True)
+    + (
+      (manala_mysql_users|length > 0)
+      or (manala_mysql_databases|length > 0)
+    )|ternary(
+      ['python-mysqldb'],
+      []
     )
   }}"

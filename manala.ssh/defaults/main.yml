@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_ssh_install_packages: ~
+manala_ssh_install_packages_default:
+  - openssh-server
+
 # Config
 manala_ssh_config_file:     /etc/ssh/ssh_config
 manala_ssh_config_template: ~

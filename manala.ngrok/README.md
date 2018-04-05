@@ -39,8 +39,14 @@ None
 
 ### Definition
 
-| Name                           | Default  | Type   | Description     |
-| ------------------------------ | -------- | ------ | --------------- |
+| Name                                    | Default      | Type    | Description                            |
+| --------------------------------------- | ------------ | ------- | -------------------------------------- |
+| `manala_ngrok_install_packages`         | ~            | Array   | Dependency packages to install         |
+| `manala_ngrok_install_packages_default` | ['ngrok']    | Array   | Default dependency packages to install |
+| `manala_ngrok_configs_exclusive`        | false        | Boolean | Configurations exclusivity             |
+| `manala_ngrok_configs_dir`              | '/etc/ngrok' | String  | Configurations directory path          |
+| `manala_ngrok_configs_template`         | ~            | String  | Configurations template path           |
+| `manala_ngrok_configs`                  | []           | Array   | Configurations                         |
 
 ### Example
 

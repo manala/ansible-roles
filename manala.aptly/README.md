@@ -38,13 +38,15 @@ None.
 
 ### Definition
 
-| Name                           | Default         | Type   | Description                |
-| ------------------------------ | --------------- | ------ | -------------------------- |
-| `manala_aptly_user`            | ~               | String | Update                     |
-| `manala_aptly_config_file`     | /etc/aptly.conf | String | Upgrade                    |
-| `manala_aptly_config_template` | ~               | String | Collection of components   |
-| `manala_aptly_config`          | []              | Array  | Config                     |
-| `manala_aptly_repositories`    | []              | Array  | Collection of repositories |
+| Name                                    | Default            | Type   | Description                            |
+| --------------------------------------- | ------------------ | ------ | -------------------------------------- |
+| `manala_aptly_install_packages`         | ~                  | Array  | Dependency packages to install         |
+| `manala_aptly_install_packages_default` | ['bzip2', 'aptly'] | Array  | Default dependency packages to install |
+| `manala_aptly_user`                     | ~                  | String | User                                   |
+| `manala_aptly_config_file`              | '/etc/aptly.conf'  | String | Config file path                       |
+| `manala_aptly_config_template`          | ~                  | String | Config template path                   |
+| `manala_aptly_config`                   | []                 | Array  | Config                                 |
+| `manala_aptly_repositories`             | []                 | Array  | Collection of repositories             |
 
 ### Example
 

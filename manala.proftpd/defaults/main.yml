@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_proftpd_install_packages: ~
+manala_proftpd_install_packages_default:
+  - proftpd-basic
+
 # Configs
 manala_proftpd_configs_exclusive: false
 manala_proftpd_configs_dir:       /etc/proftpd/conf.d

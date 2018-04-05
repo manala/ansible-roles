@@ -38,10 +38,12 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-`manala_phpredisadmin_configs_exclusive`|false|Boolean|Exclusive configs
-`manala_phpredisadmin_configs`|[]|Array|Configs
+| Name                                            | Default           | Type    | Description                            |
+| ----------------------------------------------- | ----------------- | ------- | -------------------------------------- |
+| `manala_phpredisadmin_install_packages`         | ~                 | Array   | Dependency packages to install         |
+| `manala_phpredisadmin_install_packages_default` | ['phpredisadmin'] | Array   | Default dependency packages to install |
+| `manala_phpredisadmin_configs_exclusive`        | false             | Boolean | Configurations exclusivity             |
+| `manala_phpredisadmin_configs`                  | []                | Array   | Configurations                         |
 
 ### Configuration example
 

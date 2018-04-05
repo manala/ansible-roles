@@ -7,9 +7,4 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items:
-    - "{{
-        'openjdk-' ~ manala_java_version ~ '-jre-headless'
-          if (manala_java_version) else
-        'default-jre-headless'
-    }}"
+  with_items: "{{ manala_java_install_packages|default(manala_java_install_packages_default, True) }}"

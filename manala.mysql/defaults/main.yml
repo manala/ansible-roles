@@ -2,6 +2,9 @@
 
 # Install
 manala_mysql_install_packages: ~
+manala_mysql_install_packages_default:
+  - mysql-server
+  - mysql-client
 
 # Configs
 manala_mysql_configs_exclusive: false

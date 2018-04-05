@@ -1,5 +1,6 @@
 ---
 
 # Install
-manala_make_install_packages:
+manala_make_install_packages: ~
+manala_make_install_packages_default:
   - make

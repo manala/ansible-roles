@@ -30,6 +30,16 @@ Using ansible galaxy requirements file:
 - src: manala.java
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                      | Default                                                                         | Type   | Description                            |
+| ----------------------------------------- | ------------------------------------------------------------------------------- | ------ | -------------------------------------- |
+| `manala_java_version`                     | ~                                                                               | String | Version                                |
+| `manala_ansible_install_packages`         | ~                                                                               | Array  | Dependency packages to install         |
+| `manala_ansible_install_packages_default` | ['default-jre-headless'] / ['openjdk-' ~ manala_java_version ~ '-jre-headless'] | Array  | Default dependency packages to install |
+
 ## Example playbook
 
 ```yaml

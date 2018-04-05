@@ -2,3 +2,12 @@
 
 # Java version. Available values are '~' (autodetect), '7', '8'
 manala_java_version: ~
+
+# Install
+manala_java_install_packages: ~
+manala_java_install_packages_default:
+  - "{{
+      'openjdk-' ~ manala_java_version ~ '-jre-headless'
+        if (manala_java_version) else
+      'default-jre-headless'
+  }}"

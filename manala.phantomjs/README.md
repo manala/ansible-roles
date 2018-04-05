@@ -35,6 +35,17 @@ Using ansible galaxy requirements file:
 - src: manala.phantomjs
 ```
 
+## Role Variables
+
+### Definition
+
+| Name                                        | Default       | Type   | Description                            |
+| ------------------------------------------- | ------------- | ------ | -------------------------------------- |
+| `manala_phantomjs_install_packages`         | ~             | Array  | Dependency packages to install         |
+| `manala_phantomjs_install_packages_default` | ['phantomjs'] | Array  | Default dependency packages to install |
+| `manala_phantomjs_config_template`          | ~             | String | Configuration template path            |
+| `manala_phantomjs_config`                   | []            | Array  | Configuration                          |
+
 ## Configuration example
 
 ```yaml

@@ -37,16 +37,18 @@ Using ansible galaxy requirements file:
 
 ## Role Handlers
 
-|Name|Type|Description|
-|----|----|-----------|
-|supervisor restart|Service|Restart supervisor service
+| Name                 | Type    | Description                |
+| -------------------- | ------- | -------------------------- |
+| `supervisor restart` | Service | Restart supervisor service |
 
 ## Role Variables
 
-|Name|Default|Type|Description|
-|----|-------|----|-----------|
-|manala_supervisor_config|{}|Array|Config
-|manala_supervisor_configs|[]|Array|Configs
+| Name                                         | Default        | Type  | Description                            |
+| -------------------------------------------- | -------------- | ----- | -------------------------------------- |
+| `manala_supervisor_install_packages`         | ~              | Array | Dependency packages to install         |
+| `manala_supervisor_install_packages_default` | ['supervisor'] | Array | Default dependency packages to install |
+| `manala_supervisor_config                    | []             | Array | Main configuration directives          |
+| `manala_supervisor_configs                   | []             | Array | Additional configurations directives   |
 
 ### Configuration example
 

@@ -1,4 +1,9 @@
 ---
 
+# Install
+manala_cron_install_packages: ~
+manala_cron_install_packages_default:
+  - cron
+
 # Files
 manala_cron_files: []

@@ -1,6 +1,12 @@
 ---
 
+# Install
+manala_logentries_install_packages: ~
+manala_logentries_install_packages_default:
+  - logentries
+  - logentries-daemon
+
 # Config
-manala_logentries_config_file:      /etc/le/config
-manala_logentries_config_template:  config/default.j2
-manala_logentries_config:           []
+manala_logentries_config_file:     /etc/le/config
+manala_logentries_config_template: config/default.j2
+manala_logentries_config:          []
