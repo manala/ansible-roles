@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Default php sapis (cli & fpm) as they are now handled by the manala.php role itself
 
 ## [1.0.13] - 2018-02-06
 ### Removed
