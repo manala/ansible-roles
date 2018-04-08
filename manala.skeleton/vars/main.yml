@@ -184,9 +184,6 @@ manala_skeleton_patterns:
     # Php
     php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1, '7.2': 7.2})[manala_skeleton_options.php_version|string] }}"
     php_sapis_exclusive: true
-    php_sapis:
-      - cli
-      - fpm
     php_fpm_pools_exclusive: true
     php_fpm_pools: "{{
       (
@@ -367,10 +364,7 @@ manala_skeleton_patterns:
         host:     "localhost" # Mysql 5.6.36 don't handle host wildcard. Before more investigations, switch to localhost.
         priv:     "*.*:ALL,GRANT"
     mysql_install_packages: "{{
-      [
-        'mariadb-server',
-        'mariadb-client'
-      ]
+      ['mariadb-server', 'mariadb-client']
         if (manala_skeleton_options.mariadb) else
       None
     }}"
