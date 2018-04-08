@@ -1,4 +1,6 @@
 ---
 
+# Hashes
 - include: hashes.yml
-  with_items: "{{ manala_merge_hashes }}"
+  tags:
+    - manala_merge

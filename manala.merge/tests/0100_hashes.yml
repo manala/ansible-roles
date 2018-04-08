@@ -1,71 +1,36 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
-  become: true
+  hosts: all
+  gather_facts: false
   vars:
+    foo: bar
+    bar:
+      - bar_1
+    baz:
+      1: "{{ 'baz_1' }}"
+    hash_1_1:
+      foo: foo
+      bar:
+        - bar_2
+    hash_1_2:
+      bar: "{{ ['bar_3'] }}"
+    hash_2_1:
+      qux: qux
     manala_merge_hashes:
-      # Simple
       - hashes:
-          - test_a
-          - test_b
-      # Prefix
+          - hash_1_1
+          - hash_1_2
+          - baz:
+              2: baz_2
       - hashes:
-          - test_a
-          - test_b
-        prefix: foo_
-      # Var
-      - hashes:
-          - test_a
-          - test_b
-        var: bar
-      # Regex
-      - hashes:
-          - test_regex
-          - test_(\w*)_regex
-    test_a:
-      pattern_a: 1
-      pattern_b: b
-      pattern_c: d
-    test_b:
-      pattern_c: c
-    # Regex
-    test_regex:
-      pattern_regex:
-        - 1
-    test_foo_regex:
-      pattern_regex:
-        - 2
-    test_foo_bar_regex:
-      pattern_regex:
-        - 3
-    test_foo_bar_123_regex:
-      pattern_regex:
-        - 4
+          - hash_2_(\w*)
   roles:
     - manala.merge
   post_tasks:
-    # Asserts
     - assert:
         that:
-          # Simple
-          - "{{ pattern_a == 1 }}"
-          - "{{ pattern_b == 'b' }}"
-          - "{{ pattern_c == 'c' }}"
-          # Prefix
-          - "{{ foo_pattern_a == 1 }}"
-          - "{{ foo_pattern_b == 'b' }}"
-          - "{{ foo_pattern_c == 'c' }}"
-          # Var
-          - "{{ bar == {
-            'pattern_a': 1,
-            'pattern_b': 'b',
-            'pattern_c': 'c'
-          } }}"
-          # Regex
-          - "{{ pattern_regex == [
-            1,
-            2,
-            4,
-            3
-          ] }}"
+          - foo == 'foo'
+          - bar == ['bar_1', 'bar_2', 'bar_3']
+          - "baz == {1: 'baz_1', 2: 'baz_2'}"
+          - qux == 'qux'
