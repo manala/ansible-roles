@@ -17,3 +17,6 @@ manala_mysql_users: []
 
 # Databases
 manala_mysql_databases: []
+
+# Replications
+manala_mysql_replications: []

@@ -12,6 +12,7 @@
     + (
       (manala_mysql_users|length > 0)
       or (manala_mysql_databases|length > 0)
+      or (manala_mysql_replications|length > 0)
     )|ternary(
       ['python-mysqldb'],
       []
