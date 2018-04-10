@@ -57,6 +57,7 @@
 {{ macros.config_row(config_defaults, 'module_utils', '#module_utils   = /usr/share/my_module_utils/', 0, true) }}
 {{ macros.config_row(config_defaults, 'remote_tmp', '#remote_tmp     = ~/.ansible/tmp', 0, true) }}
 {{ macros.config_row(config_defaults, 'local_tmp', '#local_tmp      = ~/.ansible/tmp', 0, true) }}
+{{ macros.config_row(config_defaults, 'plugin_filters_cfg', '#plugin_filters_cfg = /etc/ansible/plugin_filters.yml', 0, true) }}
 {{ macros.config_row(config_defaults, 'forks', '#forks          = 5', 0, true) }}
 {{ macros.config_row(config_defaults, 'poll_interval', '#poll_interval  = 15', 0, true) }}
 {{ macros.config_row(config_defaults, 'sudo_user', '#sudo_user      = root', 0, true) }}
@@ -117,8 +118,8 @@
 # default. As of 2.0, includes are dynamic by default. Setting these
 # values to True will make includes behave more like they did in the
 # 1.x versions.
-{{ macros.config_row(config_defaults, 'task_includes_static', '#task_includes_static = True', 0, true) }}
-{{ macros.config_row(config_defaults, 'handler_includes_static', '#handler_includes_static = True', 0, true) }}
+{{ macros.config_row(config_defaults, 'task_includes_static', '#task_includes_static = False', 0, true) }}
+{{ macros.config_row(config_defaults, 'handler_includes_static', '#handler_includes_static = False', 0, true) }}
 
 # Controls if a missing handler for a notification event is an error or a warning
 {{ macros.config_row(config_defaults, 'error_on_missing_handler', '#error_on_missing_handler = True', 0, true) }}
@@ -325,7 +326,7 @@
 # on the CLI.  If this is True then multiple arguments are merged together.  If
 # it is False, then the last specified argument is used and the others are ignored.
 # This option will be removed in 2.8.
-{{ macros.config_row(config_defaults, 'merge_multiple_cli_flags', '#merge_multiple_cli_flags = False', 0, true) }}
+{{ macros.config_row(config_defaults, 'merge_multiple_cli_flags', '#merge_multiple_cli_flags = True', 0, true) }}
 
 # Controls showing custom stats at the end, off by default
 {{ macros.config_row(config_defaults, 'show_custom_stats', '#show_custom_stats = True', 0, true) }}
@@ -336,7 +337,7 @@
 
 # This family of modules use an alternative execution path optimized for network appliances
 # only update this setting if you know how this works, otherwise it can break module execution
-{{ macros.config_row(config_defaults, 'network_group_modules', '#network_group_modules=[\'eos\', \'nxos\', \'ios\', \'iosxr\', \'junos\', \'vyos\']', 0, true) }}
+{{ macros.config_row(config_defaults, 'network_group_modules', '#network_group_modules=eos, nxos, ios, iosxr, junos, vyos', 0, true) }}
 
 # When enabled, this option allows lookups (via variables like {{ '{{' }}lookup('foo'){{ '}}' }} or when used as
 # a loop with `with_foo`) to return data that is not marked "unsafe". This means the data may contain
@@ -353,6 +354,7 @@
     'remote_tmp',
     'local_tmp',
     'forks',
+    'plugin_filters_cfg',
     'poll_interval',
     'sudo_user',
     'ask_sudo_pass',
@@ -535,6 +537,11 @@
 # types of file transfer failures impossible to catch however, and should
 # only be disabled if your sftp version has problems with batch mode
 {{ macros.config_row(config_ssh_connection, 'sftp_batch_mode', '#sftp_batch_mode = False', 0, true) }}
+
+# The -tt argument is passed to ssh when pipelining is not enabled because sudo 
+# requires a tty by default. 
+{{ macros.config_row(config_ssh_connection, 'use_tty', '#use_tty = True', 0, true) }}
+
 {{ macros.config(config_ssh_connection, [
     'ssh_args',
     'control_path_dir',
@@ -542,7 +549,8 @@
     'pipelining',
     'scp_if_ssh',
     'transfer_method',
-    'sftp_batch_mode'
+    'sftp_batch_mode',
+    'use_tty'
 ]) }}
 [persistent_connection]
 

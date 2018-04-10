@@ -54,7 +54,7 @@
     {%- elif value is sameas false -%}
         "false"
     {%- elif value is string -%}
-        {%- if value|match('^\(.*\)$') -%}
+        {%- if value is match('^\(.*\)$') -%}
             {{ value }}
         {%- else -%}
             "{{ value }}"

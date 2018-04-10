@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Changed
+- Update base config template for ansible 2.5.0
+
 ## [1.0.3] - 2018-03-14
 ### Changed
 - Update base config template
