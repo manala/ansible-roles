@@ -100,7 +100,7 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.phppgadmin)|ternary(['phppgadmin@manala'],[])
       + (manala_skeleton_options.redis)|ternary(['redis@dotdeb'],[])
       + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
-      + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2', '5': '_5'}[manala_skeleton_options.elasticsearch_version|string]],[])
+      + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2', '5': '_5', '6': '_6'}[manala_skeleton_options.elasticsearch_version|string]],[])
       + (manala_skeleton_options.influxdb)|ternary(['influxdb@influxdata'],[])
     }}"
     apt_update_holds: "{{
@@ -408,7 +408,8 @@ manala_skeleton_patterns:
         '1.6': ['mobz/elasticsearch-head'],
         '1.7': ['mobz/elasticsearch-head'],
         '2': ['mobz/elasticsearch-head'],
-        '5': []
+        '5': [],
+        '6': []
       }[manala_skeleton_options.elasticsearch_version|string]
     }}"
     # PhantomJS

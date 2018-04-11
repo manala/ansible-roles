@@ -1,10 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts: debian:!debian.wheezy
   become: true
   pre_tasks:
-    - include: pre_tasks/elasticsearch_1.7.yml
+    - include: pre_tasks/elasticsearch_6.yml
     - include: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - copy:
@@ -18,7 +18,7 @@
         name:  "{{ item }}"
         install_recommends: false
       with_items:
-        - "{{ 'openjdk-7-jre-headless' if (ansible_distribution_release == 'wheezy') else 'openjdk-8-jre-headless' }}"
+        - openjdk-8-jre-headless
   roles:
     - manala.elasticsearch
   post_tasks:

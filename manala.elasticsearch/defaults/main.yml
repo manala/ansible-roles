@@ -1,6 +1,6 @@
 ---
 
-# Elasticsearch version. Available values are '~' (autodetect), '1.5', '1.6', '1.7', '2', '5'
+# Elasticsearch version. Available values are '~' (autodetect), '1.5', '1.6', '1.7', '2', '5', '6'
 manala_elasticsearch_version: ~
 
 # Install
