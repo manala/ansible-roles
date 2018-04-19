@@ -1,7 +1,7 @@
 ---
 
 # Alternatives
-- include: alternatives.yml
+- import_tasks: alternatives.yml
   tags:
     - manala_ansible_galaxy
     # Ensure alternatives in update mode
@@ -9,7 +9,7 @@
     - manala.update
 
 # Roles
-- include: roles.yml
+- import_tasks: roles.yml
   tags:
     - manala_ansible_galaxy
     - manala_ansible_galaxy.update

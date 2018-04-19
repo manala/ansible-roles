@@ -8,7 +8,7 @@
       - NFILES:  1310723
       - MEMLOCK: 82001
   pre_tasks:
-    - include: pre_tasks/varnish_4_0.yml
+    - import_tasks: pre_tasks/varnish_4_0.yml
     - copy:
         dest: /etc/apt/preferences.d/varnish
         content: |

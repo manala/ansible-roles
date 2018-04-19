@@ -1,6 +1,6 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_nodejs

@@ -4,7 +4,7 @@
   hosts: debian:!debian.wheezy
   become: true
   pre_tasks:
-    - include: pre_tasks/nodesource_9.yml
+    - import_tasks: pre_tasks/nodesource_9.yml
     - copy:
         dest: /etc/apt/preferences.d/nodejs
         content: |

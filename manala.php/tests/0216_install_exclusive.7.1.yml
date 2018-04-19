@@ -20,7 +20,7 @@
       - extension: curl
         state:     present
   pre_tasks:
-    - include: pre_tasks/sury_php.yml
+    - import_tasks: pre_tasks/sury_php.yml
     - apt:
         package: "{{ item }}"
         install_recommends: false

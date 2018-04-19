@@ -1,11 +1,11 @@
 ---
 
 # Groups
-- include: groups.yml
+- import_tasks: groups.yml
   tags:
     - manala_accounts
 
 # Users
-- include: users.yml
+- import_tasks: users.yml
   tags:
     - manala_accounts

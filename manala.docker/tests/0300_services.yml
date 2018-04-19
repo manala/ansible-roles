@@ -7,8 +7,8 @@
     manala_docker_config_daemon:
       - storage-driver: vfs
   pre_tasks:
-    - include: pre_tasks/docker.yml
-    - include: pre_tasks/backports.yml
+    - import_tasks: pre_tasks/docker.yml
+    - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'wheezy'
   roles:
     - manala.docker

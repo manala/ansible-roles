@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.2] - 2018-03-01
 ### Changed
 - Disable client_max_body_size on ssl offloading dev template

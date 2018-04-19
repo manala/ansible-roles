@@ -1,26 +1,26 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_ansible
 
 # Hosts
-- include: hosts.yml
+- import_tasks: hosts.yml
   tags:
     - manala_ansible
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_ansible
 
 # Host vars
-- include: host_vars.yml
+- import_tasks: host_vars.yml
   tags:
     - manala_ansible
 
 # Group vars
-- include: group_vars.yml
+- import_tasks: group_vars.yml
   tags:
     - manala_ansible

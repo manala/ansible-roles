@@ -1,24 +1,29 @@
 ---
 
-- name: attributes > Link file - Src file "{{ item.src }}"
-  file:
-    path:    "{{ item.src }}"
-    follow:  "{{ item.follow|default(omit) }}"
-    recurse: "{{ item.recurse|default(omit) }}"
-    force:   "{{ item.force|default(omit) }}"
-    owner:   "{{ item.user|default(omit) }}"
-    group:   "{{ item.group|default(omit) }}"
-    mode:    "{{ item.mode|default(omit) }}"
-    state:   touch
+- name: attributes/link_file
+  tags:
+    - manala_files
+  block:
 
-- name: attributes > Link file - Path link "{{ item.path }}"
-  file:
-    path:    "{{ item.path }}"
-    follow:  "{{ item.follow|default(omit) }}"
-    recurse: "{{ item.recurse|default(omit) }}"
-    src:     "{{ item.src|default(omit) }}"
-    force:   "{{ item.mode|default(omit) }}"
-    owner:   "{{ item.user|default(omit) }}"
-    group:   "{{ item.group|default(omit) }}"
-    mode:    "{{ item.mode|default(omit) }}"
-    state:   link
+    - name: attributes/link_file > File "{{ item.src }}"
+      file:
+        path:    "{{ item.src }}"
+        follow:  "{{ item.follow|default(omit) }}"
+        recurse: "{{ item.recurse|default(omit) }}"
+        force:   "{{ item.force|default(omit) }}"
+        owner:   "{{ item.user|default(omit) }}"
+        group:   "{{ item.group|default(omit) }}"
+        mode:    "{{ item.mode|default(omit) }}"
+        state:   touch
+
+    - name: attributes/link_file > Link "{{ item.path }}"
+      file:
+        path:    "{{ item.path }}"
+        follow:  "{{ item.follow|default(omit) }}"
+        recurse: "{{ item.recurse|default(omit) }}"
+        src:     "{{ item.src|default(omit) }}"
+        force:   "{{ item.mode|default(omit) }}"
+        owner:   "{{ item.user|default(omit) }}"
+        group:   "{{ item.group|default(omit) }}"
+        mode:    "{{ item.mode|default(omit) }}"
+        state:   link

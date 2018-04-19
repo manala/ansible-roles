@@ -1,9 +1,6 @@
 ---
 
 # Attributes
-- include: attributes/{{ item['task'] }}.yml
-  with_manala_files_attributes:
-    - "{{ manala_files_attributes }}"
-    - "{{ manala_files_attributes_defaults }}"
+- import_tasks: attributes.yml
   tags:
     - manala_files

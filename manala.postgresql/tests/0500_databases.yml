@@ -10,7 +10,7 @@
     manala_postgresql_databases:
       - database: bar
   pre_tasks:
-    - include: pre_tasks/postgresql.yml
+    - import_tasks: pre_tasks/postgresql.yml
   roles:
     - manala.postgresql
   post_tasks:

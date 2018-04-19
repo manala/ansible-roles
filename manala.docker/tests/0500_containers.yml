@@ -10,7 +10,7 @@
       - name: hello-world
         image: hello-world
   pre_tasks:
-    - include: pre_tasks/docker.yml
+    - import_tasks: pre_tasks/docker.yml
   roles:
     - manala.docker
   post_tasks:

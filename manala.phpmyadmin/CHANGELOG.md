@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.2] - 2017-12-08
 ### Added
 - PHP 7.2 support

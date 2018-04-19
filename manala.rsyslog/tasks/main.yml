@@ -1,22 +1,22 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_rsyslog
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_rsyslog
 
 # Configs
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_rsyslog
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_rsyslog
     - manala_rsyslog.services

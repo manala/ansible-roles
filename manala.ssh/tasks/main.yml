@@ -1,22 +1,22 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_ssh
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_ssh
 
 # Known Hosts
-- include: known_hosts.yml
+- import_tasks: known_hosts.yml
   tags:
     - manala_ssh
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_ssh
     - manala_ssh.services

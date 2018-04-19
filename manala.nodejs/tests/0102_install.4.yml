@@ -4,7 +4,7 @@
   hosts: debian
   become: true
   pre_tasks:
-    - include: pre_tasks/nodesource_4.yml
+    - import_tasks: pre_tasks/nodesource_4.yml
     - copy:
         dest: /etc/apt/preferences.d/nodejs
         content: |

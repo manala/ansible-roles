@@ -14,13 +14,13 @@
             config:
               - host: postgresql
   pre_tasks:
-    - include: pre_tasks/sury_php.yml
+    - import_tasks: pre_tasks/sury_php.yml
     - apt:
         package: "{{ item }}"
         install_recommends: false
       with_items:
         - php7.2-fpm
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.phppgadmin
   post_tasks:

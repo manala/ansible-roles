@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Handle default dependency packages to install
 - Handle replications
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.3] - 2018-03-28
 ### Changed
 - Allow passing configs variables as boolean

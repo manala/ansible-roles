@@ -11,8 +11,8 @@
         name:     my_user
         password: my_password
   pre_tasks:
-    - include: pre_tasks/disable_systemd.yml
-    - include: pre_tasks/influxdata.yml
+    - import_tasks: pre_tasks/disable_systemd.yml
+    - import_tasks: pre_tasks/influxdata.yml
   roles:
     - manala.influxdb
   post_tasks:

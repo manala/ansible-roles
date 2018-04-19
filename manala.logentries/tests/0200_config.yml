@@ -9,7 +9,7 @@
         - pull-server-side-config: false
         - user-key: e720a1e8-a7d5-4f8b-8879-854e51c9290d
   pre_tasks:
-    - include: pre_tasks/logentries.yml
+    - import_tasks: pre_tasks/logentries.yml
     - copy:
         dest: /etc/apt/preferences.d/logentries
         content: |

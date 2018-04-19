@@ -16,7 +16,7 @@
       - application: phpunit
         version: 4.8.31
   pre_tasks:
-    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - import_tasks: pre_tasks/dotdeb_wheezy_56.yml
   roles:
     - manala.php
   post_tasks:

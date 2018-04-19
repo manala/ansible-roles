@@ -1,17 +1,17 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_phantomjs
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_phantomjs
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_phantomjs
     - manala_phantomjs.services

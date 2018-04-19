@@ -5,3 +5,4 @@
     hash:   "{{ lookup('manala_merge', item.hashes, wantlist=true) }}"
     prefix: "{{ item.prefix|default(omit) }}"
     var:    "{{ item.var|default(omit) }}"
+  with_items: "{{ manala_merge_hashes }}"

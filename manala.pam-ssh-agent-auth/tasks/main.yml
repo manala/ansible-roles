@@ -1,16 +1,16 @@
 ---
 
 # Requirements
-- include: requirements.yml
+- import_tasks: requirements.yml
   tags:
     - manala_pam_ssh_agent_auth
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_pam_ssh_agent_auth
 
 # Sudo
-- include: sudo.yml
+- import_tasks: sudo.yml
   tags:
     - manala_pam_ssh_agent_auth

@@ -6,7 +6,7 @@ galaxy_info:
   company:              Elao
   issue_tracker_url:    https://github.com/manala/ansible-role-varnish/issues
   license:              MIT
-  min_ansible_version:  1.9.4
+  min_ansible_version:  2.4.0
   platforms:
     - name: Debian
       versions:

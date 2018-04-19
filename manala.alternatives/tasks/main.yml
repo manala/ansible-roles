@@ -1,7 +1,6 @@
 ---
 
 # Selections
-- include: selections.yml
-  when: manala_alternatives_selections|length
+- import_tasks: selections.yml
   tags:
     - manala_alternatives

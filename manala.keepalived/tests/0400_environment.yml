@@ -7,8 +7,8 @@
     manala_keepalived_environment:
       - DAEMON_ARGS: --log-console --log-detail
   pre_tasks:
-    - include: pre_tasks/disable_systemd.yml
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/disable_systemd.yml
+    - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.keepalived
   post_tasks:

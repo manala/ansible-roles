@@ -6,14 +6,12 @@
   tags:
      - manala_locales
 
-- name: main > Include "Debian" tasks
-  include: debian/main.yml
+- import_tasks: debian/main.yml
   when: ansible_os_family == 'Debian'
   tags:
      - manala_locales
 
-- name: main > Include "RedHat" tasks
-  include: redhat/main.yml
+- import_tasks: redhat/main.yml
   when: ansible_os_family == 'RedHat'
   tags:
      - manala_locales

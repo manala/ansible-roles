@@ -4,7 +4,7 @@
   hosts: debian.wheezy
   become: true
   pre_tasks:
-    - include: pre_tasks/mongodb_3_2.yml
+    - import_tasks: pre_tasks/mongodb_3_2.yml
     - copy:
         dest: /etc/apt/preferences.d/mongodb
         content: |

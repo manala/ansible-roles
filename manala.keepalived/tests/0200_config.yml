@@ -16,8 +16,8 @@
           - 192.168.200.11/24 dev eth0
           - 192.168.200.12/24 dev eth0
   pre_tasks:
-    - include: pre_tasks/disable_systemd.yml
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/disable_systemd.yml
+    - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.keepalived
   post_tasks:

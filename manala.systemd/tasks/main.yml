@@ -1,18 +1,18 @@
 ---
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_systemd
     - manala_systemd.services
     - manala.services
 
 # Configs - Tmpfiles
-- include: tmpfiles_configs.yml
+- import_tasks: tmpfiles_configs.yml
   tags:
     - manala_systemd
 
 # Configs - System
-- include: system_configs.yml
+- import_tasks: system_configs.yml
   tags:
     - manala_systemd

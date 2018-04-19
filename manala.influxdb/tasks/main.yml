@@ -1,33 +1,33 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_influxdb
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_influxdb
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_influxdb
     - manala_influxdb.services
     - manala.services
 
 # Databases
-- include: databases.yml
+- import_tasks: databases.yml
   tags:
     - manala_influxdb
 
 # Users
-- include: users.yml
+- import_tasks: users.yml
   tags:
     - manala_influxdb
 
 # Privileges
-- include: privileges.yml
+- import_tasks: privileges.yml
   tags:
     - manala_influxdb

@@ -1,22 +1,22 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_haproxy
 
 # Errorfiles
-- include: errorfiles.yml
+- import_tasks: errorfiles.yml
   tags:
     - manala_haproxy
 
 # Config
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - manala_haproxy
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_haproxy
     - manala_haproxy.services

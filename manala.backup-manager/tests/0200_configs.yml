@@ -10,7 +10,7 @@
         config:
           - BM_REPOSITORY_ROOT: /srv/backup/mysql
   pre_tasks:
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.backup-manager
   post_tasks:

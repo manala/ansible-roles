@@ -8,7 +8,7 @@ galaxy_info:
   company:             Manala
   description:         Install and configure rsyslog
   license:             MIT
-  min_ansible_version: 2.2.0
+  min_ansible_version: 2.4.0
   platforms:
     - name: Debian
       versions:

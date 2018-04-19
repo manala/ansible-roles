@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.2] - 2018-03-28
 ### Added
 - Allow to pass 'environment' dictionary to supervisor configs

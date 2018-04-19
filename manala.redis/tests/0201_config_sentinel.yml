@@ -9,7 +9,7 @@
       sentinel monitor: mymaster 127.0.0.1 6379 2
       sentinel down-after-milliseconds: mymaster 5000
   pre_tasks:
-    - include: pre_tasks/dotdeb.yml
+    - import_tasks: pre_tasks/dotdeb.yml
   roles:
     - manala.redis
   post_tasks:

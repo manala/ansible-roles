@@ -14,16 +14,16 @@
             config:
               - host: postgresql
   pre_tasks:
-    - include: pre_tasks/dotdeb_wheezy_56.yml
+    - import_tasks: pre_tasks/dotdeb_wheezy_56.yml
       when: ansible_distribution_release == 'wheezy'
-    - include: pre_tasks/sury_php.yml
+    - import_tasks: pre_tasks/sury_php.yml
       when: ansible_distribution_release != 'wheezy'
     - apt:
         package: "{{ item }}"
         install_recommends: false
       with_items:
         - "{{ (ansible_distribution_release == 'wheezy')|ternary('php5-fpm','php5.6-fpm') }}"
-    - include: pre_tasks/manala.yml
+    - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.phppgadmin
   post_tasks:

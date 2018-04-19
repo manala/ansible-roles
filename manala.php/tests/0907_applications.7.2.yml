@@ -15,7 +15,7 @@
       - application: phpunit
         version: 5.7.25
   pre_tasks:
-    - include: pre_tasks/sury_php.yml
+    - import_tasks: pre_tasks/sury_php.yml
   roles:
     - manala.php
   post_tasks:

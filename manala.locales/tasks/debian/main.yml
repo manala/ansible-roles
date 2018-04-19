@@ -1,12 +1,12 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
 
 # Codes
-- include: codes.yml
+- import_tasks: codes.yml
   when: manala_locales_codes|length
 
 # Codes Defaults
-- include: codes_default.yml
+- import_tasks: codes_default.yml
   when: manala_locales_codes_default is not none

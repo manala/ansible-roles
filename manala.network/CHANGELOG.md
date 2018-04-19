@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Debian stretch support
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.1] - 2017-10-04
 ### Changed
 - Use unsafe_writes when updating /etc/hosts to work around some situations

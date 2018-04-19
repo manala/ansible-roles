@@ -1,22 +1,22 @@
 ---
 
 # Install
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - manala_proftpd
 
 # Configs
-- include: configs.yml
+- import_tasks: configs.yml
   tags:
     - manala_proftpd
 
 # Users
-- include: users.yml
+- import_tasks: users.yml
   tags:
     - manala_proftpd
 
 # Services
-- include: services.yml
+- import_tasks: services.yml
   tags:
     - manala_proftpd
     - manala_proftpd.services

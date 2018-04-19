@@ -1,6 +1,18 @@
 ---
 
-- include: install.yml
-- include: configs.yml
-- include: services.yml
-  tags: manala_services
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_dnsmasq
+
+# Configs
+- import_tasks: configs.yml
+  tags:
+    - manala_dnsmasq
+
+# Services
+- import_tasks: services.yml
+  tags:
+    - manala_dnsmasq
+    - manala_dnsmasq.services
+    - manala.services

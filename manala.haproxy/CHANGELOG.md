@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Changed
+- Replace deprecated uses of "include"
+
 ## [1.0.2] - 2018-03-28
 ### Changed
 - Replace handlers "haproxy restart"/"do haproxy restart" by a single "haproxy reload",
