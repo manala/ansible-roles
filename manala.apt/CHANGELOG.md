@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Percona repository pattern
 - Handle dependency packages to install
+- Elasticsearch 6 support
 
 ### Changed
 - Update aptly key

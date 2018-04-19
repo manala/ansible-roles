@@ -15,4 +15,4 @@ http:
     timeout: 1000
     body:
       - '/"cluster_name" : "elasticsearch",/'
-      - '/"number" : "5/'
+      - '/"number" : "6/'

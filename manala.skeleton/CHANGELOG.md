@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Elasticsearch 6 support (become default)
+
 ### Changed
 - Replace deprecated jinja tests used as filters
 
