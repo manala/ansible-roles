@@ -22,13 +22,6 @@
   roles:
     - manala.elasticsearch
   post_tasks:
-    - pause:
-        seconds: 3
-    - uri:
-        url: http://localhost:9200/?pretty
-        retries: 60
-        delay: 1
-        register: result
-        until: result is succeeded
+    - include: post_tasks/pretty_response.yml
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

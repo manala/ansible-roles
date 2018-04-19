@@ -25,7 +25,6 @@
   roles:
     - manala.elasticsearch
   post_tasks:
-    - pause:
-        seconds: 3
+    - include: post_tasks/pretty_response.yml
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
