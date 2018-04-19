@@ -50,6 +50,8 @@ Using ansible galaxy requirements file:
 | `manala_network_interfaces_file`     | '/etc/network/interfaces' | String | Interfaces file path     |
 | `manala_network_interfaces_template` | ~                         | String | Interfaces file template |
 | `manala_network_interfaces_config`   | []                        | Array  | Interfaces configuration |
+| `manala_network_routing_tables_file` | '/etc/iproute2/rt_tables' | String | Routing tables file path |
+| `manala_network_routing_tables`      | []                        | Array  | Routing tables           |
 
 ### Configuration example
 
@@ -77,6 +79,9 @@ manala_network_interfaces_config:
   - iface eth1 inet manual:
       - pre-up: ip link set dev $IFACE up
       - post-down: ip link set dev $IFACE down
+
+manala_network_routing_tables:
+  - 1: public
 ```
 ## Example playbook
 

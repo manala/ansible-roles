@@ -1,0 +1,8 @@
+---
+
+- name: routing_tables > File
+  lineinfile:
+    path:   "{{ manala_network_routing_tables_file }}"
+    regexp: "^{{ item.keys()[0] }}\\s+"
+    line:   "{{ item.keys()[0] }}	{{ item.values()[0] }}"
+  with_items: "{{ manala_network_routing_tables }}"

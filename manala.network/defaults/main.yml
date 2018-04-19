@@ -13,3 +13,7 @@ manala_network_resolver_config:   []
 manala_network_interfaces_file:     /etc/network/interfaces
 manala_network_interfaces_template: ~
 manala_network_interfaces_config:   []
+
+# Routing Tables
+manala_network_routing_tables_file: /etc/iproute2/rt_tables
+manala_network_routing_tables: []
