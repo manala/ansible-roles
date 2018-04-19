@@ -1,8 +1,11 @@
 ---
 
 file:
-  /etc/hosts:
+  /tmp/hosts:
     exists: true
     filetype: file
     contains:
-      - 1.2.3.4 foo.bar
+      - 1.1.1.111 foo.com
+      - 1.1.1.222 bar.com
+      - 1.1.1.2 baz.com
+      - 1.1.1.333 qux.com
