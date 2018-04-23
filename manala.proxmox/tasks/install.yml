@@ -2,15 +2,13 @@
 
 - name: install > Packages
   apt:
-    name:  "{{ item }}"
-    state: present
+    name:  "{{
+      []
+      + (manala_proxmox_instances|length > 0)|ternary(
+        ['python-proxmoxer'],
+        []
+      )
+    }}"
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items: "{{
-    []
-    + (manala_proxmox_instances|length > 0)|ternary(
-      ['python-proxmoxer'],
-      []
-    )
-  }}"

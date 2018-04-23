@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Update aptly key
 - Replace deprecated jinja tests used as filters
 - Replace deprecated uses of "include"
+- Pass apt module packages list directly to the `name` option
 
 ## [1.0.17] - 2018-03-21
 ### Added

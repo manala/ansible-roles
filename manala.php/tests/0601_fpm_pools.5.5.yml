@@ -27,10 +27,9 @@
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb_wheezy_55.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php5-fpm
         install_recommends: false
-      with_items:
-        - php5-fpm
     - copy:
         dest:    /etc/php5/fpm/pool.d/bar.conf
         content: |

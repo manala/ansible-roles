@@ -2,15 +2,13 @@
 
 - name: install > Packages
   apt:
-    name:  "{{ item }}"
-    state: present
+    name: "{{
+      manala_docker_install_packages|default(manala_docker_install_packages_default, True)
+      + (manala_docker_containers|length > 0)|ternary(
+        ['python-docker'],
+        []
+      )
+    }}"
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items: "{{
-    manala_docker_install_packages|default(manala_docker_install_packages_default, True)
-    + (manala_docker_containers|length > 0)|ternary(
-      ['python-docker'],
-      []
-    )
-  }}"

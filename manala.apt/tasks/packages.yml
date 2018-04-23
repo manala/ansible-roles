@@ -2,8 +2,7 @@
 
 - name: packages > Deb present
   apt:
-    deb:   "{{ item }}"
-    state: present
+    deb: "{{ item }}"
   with_items: "{{ lookup(
       'manala_apt_packages',
       manala_apt_packages,
@@ -16,32 +15,29 @@
 
 - name: packages > Packages present
   apt:
-    package: "{{ item }}"
-    state:   present
+    name: "{{ lookup(
+        'manala_apt_packages',
+        manala_apt_packages,
+        wantstate='present',
+        wantmap=True,
+        wantdeb=False,
+        wantlist=True
+      )
+    }}"
     install_recommends: false
     update_cache:       true
     cache_valid_time:   "{{ manala_apt_cache_valid_time }}"
-  with_items: "{{ lookup(
-      'manala_apt_packages',
-      manala_apt_packages,
-      wantstate='present',
-      wantmap=True,
-      wantdeb=False,
-      wantlist=True
-    )
-  }}"
 
 - name: packages > Packages absent
   apt:
-    package: "{{ item }}"
-    state:   absent
+    name: "{{ lookup(
+        'manala_apt_packages',
+        manala_apt_packages,
+        wantstate='absent',
+        wantmap=True,
+        wantlist=True
+      )
+    }}"
+    state: absent
     purge:      true
     autoremove: true
-  with_items: "{{ lookup(
-      'manala_apt_packages',
-      manala_apt_packages,
-      wantstate='absent',
-      wantmap=True,
-      wantlist=True
-    )
-  }}"

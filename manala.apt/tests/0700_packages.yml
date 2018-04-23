@@ -13,18 +13,24 @@
       - package: pwgen
         state: absent
       - http://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb
+      - package: http://snapshot.debian.org/archive/debian/20171229T170214Z/pool/main/w/wait-for-it/wait-for-it_0.0~git20170723-1_all.deb
+        state: absent
+      - package: http://snapshot.debian.org/archive/debian/20160619T164515Z/pool/main/w/wait-for-it/wait-for-it_0.0~git20160501-1_all.deb
+        state: present
+      - package: pscan
+        state: absent
   pre_tasks:
     - apt:
-        name:  "{{ item }}"
+        name:
+          - e3
+          - telnet
         state: absent
-      with_items:
-        - e3
-        - telnet
     - apt:
-        name:  "{{ item }}"
+        name:
+          - pwgen
         install_recommends: false
-      with_items:
-        - pwgen
+    - apt:
+        deb: http://snapshot.debian.org/archive/debian-archive/20120328T092752Z/debian/pool/main/p/pscan/pscan_1.2-9_amd64.deb
   roles:
     - manala.apt
   post_tasks:

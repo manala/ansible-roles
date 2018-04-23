@@ -20,10 +20,9 @@
           Pin:          origin deb.nodesource.com
           Pin-Priority: 900
     - apt:
-        name:  "{{ item }}"
+        name:
+          - nodejs
         install_recommends: false
-      with_items:
-        - nodejs
   roles:
     - manala.npm
   post_tasks:

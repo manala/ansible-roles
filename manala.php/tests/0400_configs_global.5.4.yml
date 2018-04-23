@@ -21,11 +21,10 @@
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php5-cli
+          - php5-fpm
         install_recommends: false
-      with_items:
-        - php5-cli
-        - php5-fpm
     - copy:
         dest:    /etc/php5/conf.d/baz.ini
         content: |

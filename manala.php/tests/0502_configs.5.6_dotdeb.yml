@@ -30,11 +30,10 @@
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb_wheezy_56.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php5-cli
+          - php5-fpm
         install_recommends: false
-      with_items:
-        - php5-cli
-        - php5-fpm
     - copy:
         dest:    /etc/php5/cli/conf.d/baz.ini
         content: |

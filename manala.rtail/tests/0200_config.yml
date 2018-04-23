@@ -17,11 +17,10 @@
           Pin:          origin debian.manala.io
           Pin-Priority: 900
     - apt:
-        name:  "{{ item }}"
+        name:
+          - nodejs
+          - nodejs-legacy
         install_recommends: false
-      with_items:
-        - nodejs
-        - nodejs-legacy
   roles:
     - manala.rtail
   post_tasks:

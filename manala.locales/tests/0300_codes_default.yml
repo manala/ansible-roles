@@ -12,7 +12,8 @@
     # which provides "/etc/profile.d/lang.sh",
     # to handle properly locale settings
     - yum:
-        name: initscripts
+        name:
+          - initscripts
       when: ansible_os_family|lower == 'redhat'
   roles:
     - manala.locales

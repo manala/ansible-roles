@@ -2,10 +2,7 @@
 
 - name: install > Packages
   apt:
-    name:  "{{ item }}"
-    force: true
-    state: present
+    name: "{{ manala_apt_install_packages|default(manala_apt_install_packages_default, True) }}"
     install_recommends: false
     update_cache:       true
     cache_valid_time:   "{{ manala_apt_cache_valid_time }}"
-  with_items: "{{ manala_apt_install_packages|default(manala_apt_install_packages_default, True) }}"

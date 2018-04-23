@@ -2,19 +2,17 @@
 
 - name: install > Packages
   apt:
-    name:  "{{ item }}"
-    state: present
+    name: "{{
+      manala_mysql_install_packages|default(manala_mysql_install_packages_default, True)
+      + (
+        (manala_mysql_users|length > 0)
+        or (manala_mysql_databases|length > 0)
+        or (manala_mysql_replications|length > 0)
+      )|ternary(
+        ['python-mysqldb'],
+        []
+      )
+    }}"
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items: "{{
-    manala_mysql_install_packages|default(manala_mysql_install_packages_default, True)
-    + (
-      (manala_mysql_users|length > 0)
-      or (manala_mysql_databases|length > 0)
-      or (manala_mysql_replications|length > 0)
-    )|ternary(
-      ['python-mysqldb'],
-      []
-    )
-  }}"

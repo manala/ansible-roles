@@ -18,10 +18,9 @@
           Pin-Priority: 900
       when: ansible_distribution_release == 'jessie'
     - apt:
-        name:  "{{ item }}"
+        name:
+          - "{{ 'openjdk-7-jre-headless' if (ansible_distribution_release == 'wheezy') else 'openjdk-8-jre-headless' }}"
         install_recommends: false
-      with_items:
-        - "{{ 'openjdk-7-jre-headless' if (ansible_distribution_release == 'wheezy') else 'openjdk-8-jre-headless' }}"
   roles:
     - manala.elasticsearch
   post_tasks:

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Replace deprecated jinja tests used as filters
 - Add curl to pretty in Goss tests to check installed version
 - Replace deprecated uses of "include"
+- Pass apt module packages list directly to the `name` option
 
 ## [1.0.2] - 2017-12-06
 ### Added

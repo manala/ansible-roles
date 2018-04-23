@@ -16,10 +16,9 @@
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php7.2-fpm
         install_recommends: false
-      with_items:
-        - php7.2-fpm
     - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.phppgadmin

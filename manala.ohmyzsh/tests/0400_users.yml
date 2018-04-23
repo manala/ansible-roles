@@ -10,11 +10,10 @@
         template: users/php.dev.j2
   pre_tasks:
     - apt:
-        name:  "{{ item }}"
+        name:
+          - git
+          - zsh
         install_recommends: false
-      with_items:
-        - git
-        - zsh
   roles:
     - manala.ohmyzsh
   post_tasks:

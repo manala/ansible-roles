@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Replace deprecated uses of "include"
 - Use native config template default values type when possible
 - Allow S3 configuration for MySQL and PGSQL
+- Pass apt module packages list directly to the `name` option
 
 ## [1.0.1] - 2017-12-06
 ### Added

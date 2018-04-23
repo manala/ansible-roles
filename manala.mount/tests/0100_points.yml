@@ -11,10 +11,9 @@
         opts: bind
   pre_tasks:
     - apt:
-        name:  "{{ item }}"
+        name:
+          - bindfs
         install_recommends: false
-      with_items:
-        - bindfs
   roles:
     - manala.mount
   post_tasks:

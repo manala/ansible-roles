@@ -27,10 +27,9 @@
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php7.1-fpm
         install_recommends: false
-      with_items:
-        - php7.1-fpm
     - copy:
         dest:    /etc/php/7.1/fpm/pool.d/bar.conf
         content: |

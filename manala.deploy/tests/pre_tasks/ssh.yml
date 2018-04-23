@@ -1,7 +1,6 @@
 ---
 
 - apt:
-    package: "{{ item }}"
+    name:
+      - ssh
     install_recommends: false
-  with_items:
-    - ssh
