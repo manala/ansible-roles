@@ -31,3 +31,7 @@
     validate_certs: "{{ item.validate_certs|default(manala_proxmox_instances_defaults.validate_certs|default(omit)) }}"
     vmid:           "{{ item.vmid|default(omit) }}"
   with_items: "{{ manala_proxmox_instances }}"
+  register: __manala_proxmox_instances_result
+  until: __manala_proxmox_instances_result.msg.find('Vmid could not be fetched') == -1
+  retries: 12
+  delay: 1
