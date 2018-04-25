@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Replace link_file "touch" step by a combination of an unforced empty copy and a classic file module. This offers the same behaviour to the linked file, but don't report it as changed each time the role is played
+
 ### Changed
 - Replace deprecated uses of "include"
 
