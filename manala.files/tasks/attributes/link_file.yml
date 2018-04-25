@@ -5,6 +5,16 @@
     - manala_files
   block:
 
+    - name: attributes/link_file > Create "{{ item.src }}"
+      copy:
+        dest:    "{{ item.src }}"
+        content: ""
+        force:   false
+        follow:  "{{ item.follow|default(omit) }}"
+        owner:   "{{ item.user|default(omit) }}"
+        group:   "{{ item.group|default(omit) }}"
+        mode:    "{{ item.mode|default(omit) }}"
+
     - name: attributes/link_file > File "{{ item.src }}"
       file:
         path:    "{{ item.src }}"
@@ -14,7 +24,7 @@
         owner:   "{{ item.user|default(omit) }}"
         group:   "{{ item.group|default(omit) }}"
         mode:    "{{ item.mode|default(omit) }}"
-        state:   touch
+        state:   file
 
     - name: attributes/link_file > Link "{{ item.path }}"
       file:
