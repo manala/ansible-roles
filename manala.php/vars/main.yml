@@ -359,6 +359,7 @@ manala_php_applications_patterns:
   phpunit:
     source:         https://phar.phpunit.de/phpunit.phar
     source_version: https://phar.phpunit.de/phpunit-{version}.phar
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   php-cs-fixer:
     source: http://get.sensiolabs.org/php-cs-fixer.phar
   couscous:
