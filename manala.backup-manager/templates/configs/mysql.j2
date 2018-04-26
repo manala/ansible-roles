@@ -446,21 +446,21 @@ export BM_PIPE_COMPRESS
 # account. See http://aws.amazon.com
 
 # The bucket to upload to. This bucket must be dedicated to backup-manager
-export BM_UPLOAD_S3_DESTINATION=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_DESTINATION', '') }}
 
 # the S3 access key provided to you
-export BM_UPLOAD_S3_ACCESS_KEY=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_ACCESS_KEY', '') }}
 
 # the S3 secret key provided to you
-export BM_UPLOAD_S3_SECRET_KEY=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_SECRET_KEY', '') }}
 
 # purge archives on remote hosts before uploading?
-export BM_UPLOAD_S3_PURGE="false"
+{{ macros.config_row(config, 'BM_UPLOAD_S3_PURGE', false) }}
 
 # You can specify a time to live for archives uploaded to S3
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-export BM_UPLOAD_S3_TTL=""
+{{ macros.config_row(config, 'BM_UPLOAD_S3_TTL', '') }}
 
 ##############################################################
 # The RSYNC method
