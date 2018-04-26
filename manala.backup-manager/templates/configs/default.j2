@@ -126,11 +126,11 @@
 # BM_REPOSITORY_ROOT but will be built by the remote host).
 # Thus, BM_TARBALL_DIRECTORIES will be used to backup remote directories.
 # Those archive will be prefixed with the remote host name.
-{{ macros.config_row(config, 'BM_TARBALL_OVER_SSH', 'false') }}
+{{ macros.config_row(config, 'BM_TARBALL_OVER_SSH', false) }}
 
 # Do you want to dereference the files pointed by symlinks ?
 # enter true or false (true can lead to huge archives, be careful).
-{{ macros.config_row(config, 'BM_TARBALL_DUMPSYMLINKS', 'false') }}
+{{ macros.config_row(config, 'BM_TARBALL_DUMPSYMLINKS', false) }}
 
 # Targets to backup
 
@@ -176,7 +176,7 @@
 
 # Number of the day, in the BM_TARBALLINC_MASTERDATETYPE frequency
 # when master tarballs should be made
-{{ macros.config_row(config, 'BM_TARBALLINC_MASTERDATEVALUE', '1') }}
+{{ macros.config_row(config, 'BM_TARBALLINC_MASTERDATEVALUE', 1) }}
 
 # Examples: you want to make master tarballs every friday:
 # BM_TARBALLINC_MASTERDATETYPE="weekly"
@@ -376,7 +376,7 @@ export BM_PIPE_COMPRESS
 {{ macros.config_row(config, 'BM_UPLOAD_SSH_DESTINATION', '') }}
 
 # purge archives on remote hosts before uploading?
-{{ macros.config_row(config, 'BM_UPLOAD_SSH_PURGE', 'true') }}
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_PURGE', true) }}
 
 # If you set BM_UPLOAD_SSH_PURGE, you can specify a time to live
 # for archives uploaded with SSH.
@@ -402,21 +402,21 @@ export BM_PIPE_COMPRESS
 # Use FTP secured transfers (FTP over TLS)
 # User, password and data will be uploaded encrypted with SSL.
 # Passive mode will be automaticaly activated
-{{ macros.config_row(config, 'BM_UPLOAD_FTP_SECURE', 'false') }}
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_SECURE', false) }}
 
 # Do you want to use FTP passive mode?
 # This is mandatory for NATed/firewalled environments
-{{ macros.config_row(config, 'BM_UPLOAD_FTP_PASSIVE', 'true') }}
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_PASSIVE', true) }}
 
 # Timeout (in seconds) for FTP transfer
 # This setting only has effect when using FTP transfer with
 # secure mode disabled (BM_UPLOAD_FTP_SECURE to "false")
-{{ macros.config_row(config, 'BM_UPLOAD_FTP_TIMEOUT', '120') }}
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_TIMEOUT', 120) }}
 
 # Test the FTP connection before starting archives upload.
 # This will enable BM to try sending a 2MB test file before
 # sending any archive
-{{ macros.config_row(config, 'BM_UPLOAD_FTP_TEST', 'false') }}
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_TEST', false) }}
 
 # the user to use for the FTP connections/transfers
 {{ macros.config_row(config, 'BM_UPLOAD_FTP_USER', '') }}
@@ -428,7 +428,7 @@ export BM_PIPE_COMPRESS
 {{ macros.config_row(config, 'BM_UPLOAD_FTP_HOSTS', '') }}
 
 # purge archives on remote hosts before uploading?
-{{ macros.config_row(config, 'BM_UPLOAD_FTP_PURGE', 'true') }}
+{{ macros.config_row(config, 'BM_UPLOAD_FTP_PURGE', true) }}
 
 # You can specify a time to live for archives uploaded with FTP
 # This can let you use different ttl's locally and remotely
@@ -456,7 +456,7 @@ export BM_PIPE_COMPRESS
 {{ macros.config_row(config, 'BM_UPLOAD_S3_SECRET_KEY', '') }}
 
 # purge archives on remote hosts before uploading?
-{{ macros.config_row(config, 'BM_UPLOAD_S3_PURGE', 'false') }}
+{{ macros.config_row(config, 'BM_UPLOAD_S3_PURGE', false) }}
 
 # You can specify a time to live for archives uploaded to S3
 # This can let you use different ttl's locally and remotely
@@ -481,7 +481,7 @@ export BM_PIPE_COMPRESS
 
 # Do you want to dereference the files pointed by symlinks?
 # enter true or false (true can lead to huge archives, be careful).
-{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_DUMPSYMLINKS', 'false') }}
+{{ macros.config_row(config, 'BM_UPLOAD_RSYNC_DUMPSYMLINKS', false) }}
 
 # Files/folders to exclude when rsyncing. Warning: rsync will interpret
 # it as a mask, so will exclude any file/folder corresponding to it
@@ -525,7 +525,7 @@ export BM_PIPE_COMPRESS
 
 # When the CD is burnt, it is possible to check every file's
 # MD5 checksum to see if the CD is not corrupted.
-{{ macros.config_row(config, 'BM_BURNING_CHKMD5', 'false') }}
+{{ macros.config_row(config, 'BM_BURNING_CHKMD5', false) }}
 
 # The device to use for mounting the cdrom
 {{ macros.config_row(config, 'BM_BURNING_DEVICE', '/dev/cdrom') }}
@@ -544,7 +544,7 @@ export BM_PIPE_COMPRESS
 
 # enter here the max size of your media
 # (usal sizes are 4200 for DVD media and 700 or 800 for CDR media)
-{{ macros.config_row(config, 'BM_BURNING_MAXSIZE', '650') }}
+{{ macros.config_row(config, 'BM_BURNING_MAXSIZE', 650) }}
 
 
 ##############################################################
@@ -553,7 +553,7 @@ export BM_PIPE_COMPRESS
 
 # Every output made can be sent to syslog
 # set this to "true" or "false"
-{{ macros.config_row(config, 'BM_LOGGER', 'true') }}
+{{ macros.config_row(config, 'BM_LOGGER', true) }}
 
 # Which level of messages do you want to log to syslog?
 # possible values are : debug,info,warning,error
