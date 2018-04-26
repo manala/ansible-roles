@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Replace deprecated jinja tests used as filters
 
+### Fixed
+- Give opportunity to specify certificates validation on application download
+
 ## [1.0.8] - 2018-03-28
 ### Changed
 - Provide "cli" and "fpm" as default sapis

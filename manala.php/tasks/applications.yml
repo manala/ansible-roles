@@ -5,6 +5,7 @@
     url:  "{{ item.source }}"
     dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
     mode: 0755
+    validate_certs: "{{ item.validate_certs|default(omit) }}"
   with_manala_php_applications:
     - "{{ manala_php_applications }}"
     - "{{ manala_php_applications_patterns }}"
