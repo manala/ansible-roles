@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle dependency packages to install
 
+### Fixed
+- Shorewall is not restarting when configuration is modified.
+
 ### Changed
 - Replace deprecated uses of "include"
 
