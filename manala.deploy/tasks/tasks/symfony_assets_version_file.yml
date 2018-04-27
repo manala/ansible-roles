@@ -1,17 +1,22 @@
 ---
 
-- name: tasks/symfony_assets_version_file > Set assets version
-  set_fact:
-    __manala_deploy_symfony_assets_version: "{{
-      manala_deploy_strategy_git_head
-        if (item.options == 'git_head' and manala_deploy_strategy_git_head) else
-      deploy_helper.new_release
-    }}"
+- name: tasks/symfony_assets_version_file
+  tags:
+    - manala_deploy
+  block:
 
-- name: tasks/symfony_assets_version_file > Generate assets_version.yml
-  copy:
-    dest: "{{ item.dir }}/app/config/assets_version.yml"
-    force: yes
-    content: |
-      parameters:
-        assets_version: {{ __manala_deploy_symfony_assets_version }}
+    - name: tasks/symfony_assets_version_file > Set assets version
+      set_fact:
+        __manala_deploy_symfony_assets_version: "{{
+          manala_deploy_strategy_git_head
+            if (item.options == 'git_head' and manala_deploy_strategy_git_head) else
+          deploy_helper.new_release
+        }}"
+
+    - name: tasks/symfony_assets_version_file > Generate assets_version.yml
+      copy:
+        dest: "{{ item.dir }}/app/config/assets_version.yml"
+        force: yes
+        content: |
+          parameters:
+            assets_version: {{ __manala_deploy_symfony_assets_version }}

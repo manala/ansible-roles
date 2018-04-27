@@ -22,8 +22,8 @@
       - dir/dir_shared
       - dir/dir/dir_shared
   pre_tasks:
-    - include: pre_tasks/ssh.yml
-    - include: pre_tasks/rsync.yml
+    - import_tasks: pre_tasks/ssh.yml
+    - import_tasks: pre_tasks/rsync.yml
     - file:
         path: /tmp/app/{{ item }}
         state: directory

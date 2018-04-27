@@ -1,6 +1,11 @@
 ---
 
-- name: tasks/service_reload > "{{ item.options }}"
-  service:
-    name:  "{{ item.options }}"
-    state: reloaded
+- name: tasks/service_reload
+  tags:
+    - manala_deploy
+  block:
+
+    - name: tasks/service_reload > "{{ item.options }}"
+      service:
+        name:  "{{ item.options }}"
+        state: reloaded

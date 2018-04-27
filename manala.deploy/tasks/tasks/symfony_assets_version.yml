@@ -1,16 +1,21 @@
 ---
 
-- name: tasks/symfony_assets_version > Set assets version
-  set_fact:
-    __manala_deploy_symfony_assets_version: "{{
-      manala_deploy_strategy_git_head
-        if (item.options == 'git_head' and manala_deploy_strategy_git_head) else
-      deploy_helper.new_release
-    }}"
+- name: tasks/symfony_assets_version
+  tags:
+    - manala_deploy
+  block:
 
-- name: tasks/symfony_assets_version > Replace assets_version in parameters.yml
-  lineinfile:
-    dest: "{{ item.dir }}/app/config/parameters.yml"
-    regexp: "^(\\s*)assets_version:"
-    line: "\\1assets_version: {{ __manala_deploy_symfony_assets_version }}"
-    backrefs: yes
+    - name: tasks/symfony_assets_version > Set assets version
+      set_fact:
+        __manala_deploy_symfony_assets_version: "{{
+          manala_deploy_strategy_git_head
+            if (item.options == 'git_head' and manala_deploy_strategy_git_head) else
+          deploy_helper.new_release
+        }}"
+
+    - name: tasks/symfony_assets_version > Replace assets_version in parameters.yml
+      lineinfile:
+        dest: "{{ item.dir }}/app/config/parameters.yml"
+        regexp: "^(\\s*)assets_version:"
+        line: "\\1assets_version: {{ __manala_deploy_symfony_assets_version }}"
+        backrefs: yes

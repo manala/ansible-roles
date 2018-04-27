@@ -1,6 +1,11 @@
 ---
 
-- name: tasks/service_restart > "{{ item.options }}"
-  service:
-    name:  "{{ item.options }}"
-    state: restarted
+- name: tasks/service_restart
+  tags:
+    - manala_deploy
+  block:
+
+    - name: tasks/service_restart > "{{ item.options }}"
+      service:
+        name:  "{{ item.options }}"
+        state: restarted
