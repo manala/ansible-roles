@@ -1,7 +1,6 @@
 ---
 
 - apt:
-    package: "{{ item }}"
+    name:
+      - rsync
     install_recommends: false
-  with_items:
-    - rsync

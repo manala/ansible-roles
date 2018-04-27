@@ -2,8 +2,6 @@
 
 - name: RedHat > install > Packages
   yum:
-    name:  "{{ item }}"
-    state: present
+    name:
+      - glibc-common # Provides "localedef" and "locale" binary
     update_cache: true
-  with_items:
-    - glibc-common # Provides "localedef" and "locale" binary

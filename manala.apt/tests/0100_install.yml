@@ -5,12 +5,11 @@
   become: true
   pre_tasks:
     - apt:
-        name:  "{{ item }}"
+        name:
+          - apt-transport-https
+          - openssl
+          - ca-certificates
         state: absent
-      with_items:
-        - apt-transport-https
-        - openssl
-        - ca-certificates
   roles:
     - manala.apt
   post_tasks:

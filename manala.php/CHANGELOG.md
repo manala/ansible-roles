@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - Replace deprecated jinja tests used as filters
+- Pass apt module packages list directly to the `name` option
 
 ### Fixed
 - Give opportunity to specify certificates validation on application download

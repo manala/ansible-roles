@@ -2,14 +2,12 @@
 
 - name: blackfire > Install packages
   apt:
-    name:  "{{ item }}"
-    state: present
+    name:
+      - blackfire-agent
+      - blackfire-php
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
-  with_items:
-    - blackfire-agent
-    - blackfire-php
   notify:
     - php fpm restart
 

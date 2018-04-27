@@ -31,9 +31,8 @@
     - manala.bind
   post_tasks:
     - apt:
-        name:  "{{ item }}"
+        name:
+          - bind9-host
         install_recommends: false
-      with_items:
-        - bind9-host
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

@@ -27,12 +27,11 @@
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php7.2-cli  # Sapi
+          - php7.2-tidy # Native extension
+          - php-apcu    # Pecl extension
         install_recommends: false
-      with_items:
-        - php7.2-cli  # Sapi
-        - php7.2-tidy # Native extension
-        - php-apcu    # Pecl extension
     - command: phpdismod apcu
   roles:
     - manala.php

@@ -27,10 +27,9 @@
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php5.6-fpm
         install_recommends: false
-      with_items:
-        - php5.6-fpm
     - copy:
         dest:    /etc/php/5.6/fpm/pool.d/bar.conf
         content: |

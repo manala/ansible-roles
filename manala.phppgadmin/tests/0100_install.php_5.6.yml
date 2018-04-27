@@ -9,10 +9,9 @@
     - import_tasks: pre_tasks/sury_php.yml
       when: ansible_distribution_release != 'wheezy'
     - apt:
-        package: "{{ item }}"
+        name:
+          - "{{ (ansible_distribution_release == 'wheezy')|ternary('php5-fpm','php5.6-fpm') }}"
         install_recommends: false
-      with_items:
-        - "{{ (ansible_distribution_release == 'wheezy')|ternary('php5-fpm','php5.6-fpm') }}"
     - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.phppgadmin

@@ -30,11 +30,10 @@
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php7.0-cli
+          - php7.0-fpm
         install_recommends: false
-      with_items:
-        - php7.0-cli
-        - php7.0-fpm
     - copy:
         dest:    /etc/php/7.0/cli/conf.d/baz.ini
         content: |

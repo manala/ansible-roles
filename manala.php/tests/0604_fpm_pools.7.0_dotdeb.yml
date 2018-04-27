@@ -27,10 +27,9 @@
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php7.0-fpm
         install_recommends: false
-      with_items:
-        - php7.0-fpm
     - copy:
         dest:    /etc/php/7.0/fpm/pool.d/bar.conf
         content: |

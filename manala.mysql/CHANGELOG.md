@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Replace deprecated uses of "include"
+- Pass apt module packages list directly to the `name` option
 
 ## [1.0.3] - 2018-03-28
 ### Changed

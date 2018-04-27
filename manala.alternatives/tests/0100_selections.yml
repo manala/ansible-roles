@@ -9,11 +9,10 @@
         path:      /bin/ed
   pre_tasks:
     - apt:
-        name:  "{{ item }}"
+        name:
+          - nano
+          - ed
         install_recommends: false
-      with_items:
-        - nano
-        - ed
     - alternatives:
         name: editor
         path: /bin/nano

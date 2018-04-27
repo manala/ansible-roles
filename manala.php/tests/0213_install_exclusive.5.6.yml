@@ -23,12 +23,11 @@
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php5.6-cgi  # Sapi
+          - php5.6-tidy # Native extension
+          - php-apcu    # Pecl extension
         install_recommends: false
-      with_items:
-        - php5.6-cgi  # Sapi
-        - php5.6-tidy # Native extension
-        - php-apcu    # Pecl extension
   roles:
     - manala.php
   post_tasks:

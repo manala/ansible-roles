@@ -28,12 +28,11 @@
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb.yml
     - apt:
-        package: "{{ item }}"
+        name:
+          - php7.0-cli  # Sapi
+          - php7.0-tidy # Native extension
+          - php7.0-apcu # Pecl extension
         install_recommends: false
-      with_items:
-        - php7.0-cli  # Sapi
-        - php7.0-tidy # Native extension
-        - php7.0-apcu # Pecl extension
     - command: phpdismod apcu
   roles:
     - manala.php
