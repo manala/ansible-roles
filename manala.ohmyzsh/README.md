@@ -39,9 +39,9 @@ None
 | Name                            | Default                    | Type      |Description                                                      |
 |-------------------------------- |--------------------------- |---------- |---------------------------------------------------------------- |
 | `manala_ohmyzsh_dir`            | /usr/local/share/oh-my-zsh | String    | ohMyZsh installation directory                                  |
-| `manala_ohmyzsh_update`         | false                      | Boolean   | Whether or not we should auto retrieve new revision of ohMyZsh  |
 | `manala_ohmyzsh_users_template` | users/default.j2           | String    | User config template                                            |
 | `manala_ohmyzsh_users`          | []                         | Array     | Collection of users with ohMyZsh custom configurations.         |
+| `manala_ohmyzsh.update`         | false                      | Boolean   | Whether or not we should auto retrieve new revision of ohMyZsh  |
 
 ### Oh My Zsh configuration
 
@@ -52,26 +52,14 @@ The `manala_ohmyzsh_users_template` key will allow you to use differents main co
 - empty ("Let me handle this" template, no default configuration inside.)
 - prod (For production purpose.)
 
-#### Example
-
 ```yaml
 manala_ohmyzsh_users_template: users/default.j2
 ```
 
 The `manala_ohmyzsh_dir` key is used to specify the path where to checkout oh-my-zsh
 
-#### Example
-
 ```yaml
 manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
-```
-
-The `manala_ohmyzsh_update` option will allow Oh My Zsh to retrieve new revisions from the repository.
-
-#### Example
-
-```yaml
-manala_ohmyzsh_update: false
 ```
 
 ### User configuration
@@ -89,7 +77,7 @@ This part allow you, with the key `manala_ohmyzsh_users`, to configure each user
 ```yaml
 ---
 
-env:        prod
+env: prod
 
 manala_ohmyzsh_users:
   - user:     root
@@ -103,6 +91,18 @@ manala_ohmyzsh_users:
     config:
       - ZSH_THEME: default.prod
       - plugins: (git debian common-aliases history history-substring-search)
+```
+
+### Flags
+
+Allow Oh My Zsh to retrieve new revisions from the repository
+```yaml
+manala_ohmyzsh:
+  update: true
+
+# Can also be set across manala roles
+manala:
+  update: true
 ```
 
 ## Example playbook

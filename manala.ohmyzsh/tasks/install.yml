@@ -5,4 +5,4 @@
     repo:    https://github.com/robbyrussell/oh-my-zsh.git
     version: master
     dest:    "{{ manala_ohmyzsh_dir }}"
-    update:  "{{ manala_ohmyzsh_update|bool }}"
+    update:  "{{ __manala_ohmyzsh['update'] }}"

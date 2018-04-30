@@ -1,0 +1,11 @@
+---
+
+# Flags
+__manala_npm: "{{
+  {
+    'update': False
+  }|combine(
+    manala|default({}),
+    manala_npm
+  )
+}}"

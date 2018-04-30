@@ -18,6 +18,5 @@ manala_docker_config_daemon_file:     /etc/docker/daemon.json
 manala_docker_config_daemon_template: ~
 manala_docker_config_daemon:          []
 
-# Manala
-manala_docker:
-  update: "{{ (manala|default({'update':false}))['update'] }}"
+# Flags
+manala_docker: {}

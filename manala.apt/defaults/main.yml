@@ -37,6 +37,5 @@ manala_apt_packages: []
 # Cache
 manala_apt_cache_valid_time: 3600
 
-# Manala
-manala_apt:
-  update: "{{ (manala|default({'update':false}))['update'] }}"
+# Flags
+manala_apt: {}

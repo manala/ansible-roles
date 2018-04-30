@@ -7,7 +7,7 @@
 
 # Update
 - import_tasks: update.yml
-  when: manala_npm['update']|default(false)
+  when: __manala_npm['update']
   tags:
     - manala_npm
     - manala_npm.update
