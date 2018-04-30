@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Handle role inclusion
+
 ### Changed
 - Pass apt module packages list directly to the `name` option
 - Replace deprecated uses of "include"
