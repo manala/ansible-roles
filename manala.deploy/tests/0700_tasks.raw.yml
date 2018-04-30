@@ -10,8 +10,8 @@
     manala_deploy_tasks:
       - raw: touch /tmp/manala_deploy_tasks.txt
   pre_tasks:
-    - include: pre_tasks/ssh.yml
-    - include: pre_tasks/rsync.yml
+    - import_tasks: pre_tasks/ssh.yml
+    - import_tasks: pre_tasks/rsync.yml
   roles:
     - manala.deploy
   post_tasks:

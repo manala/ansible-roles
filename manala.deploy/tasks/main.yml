@@ -1,67 +1,63 @@
 ---
 
 # Setup
-- include: setup.yml
+- import_tasks: setup.yml
   tags:
     - manala_deploy
     - manala_deploy.setup
 
 # Strategy
-- include: strategy.yml
+- import_tasks: strategy.yml
   tags:
     - manala_deploy
 
 # Unfinished
-- include: unfinished.yml
+- import_tasks: unfinished.yml
   tags:
     - manala_deploy
 
 # Shared
-- include: shared.yml
+- import_tasks: shared.yml
   tags:
     - manala_deploy
 
 # Copied
-- include: copied.yml
+- import_tasks: copied.yml
   tags:
     - manala_deploy
 
 # Writable - Dirs
-- block:
-  - include: writable/dirs.yml
-    with_manala_deploy_writable_dirs:
-      - "{{ manala_deploy_writable_dirs }}"
-      - "{{ manala_deploy_writable_dirs_default }}"
+- import_tasks: writable/dirs.yml
   tags:
     - manala_deploy
 
 # Tasks
-- include: tasks/{{ item.task }}.yml
-  with_manala_deploy_tasks: "{{ manala_deploy_tasks }}"
-  when: item.when
+- import_tasks: tasks.yml
+  vars:
+    __manala_deploy_tasks: "{{ manala_deploy_tasks }}"
   tags:
     - manala_deploy
     - manala_deploy.tasks
 
 # Removed
-- include: removed.yml
+- import_tasks: removed.yml
   tags:
     - manala_deploy
 
 # Finalize
-- include: finalize.yml
+- import_tasks: finalize.yml
   tags:
     - manala_deploy
 
 # Clean
-- include: clean.yml
+- import_tasks: clean.yml
   tags:
     - manala_deploy
 
 # Post tasks
-- include: tasks/{{ item.task }}.yml
-  with_manala_deploy_tasks: "{{ manala_deploy_post_tasks }}"
-  when: item.when
+- import_tasks: tasks.yml
+  vars:
+    __manala_deploy_tasks: "{{ manala_deploy_post_tasks }}"
   tags:
     - manala_deploy
     - manala_deploy.tasks

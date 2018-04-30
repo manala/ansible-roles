@@ -1,6 +1,11 @@
 ---
 
-- name: tasks/command > "{{ item.options }}" in "{{ item.dir }}"
-  command: "{{ item.options }}"
-  args:
-    chdir: "{{ item.dir }}"
+- name: tasks/command
+  tags:
+    - manala_deploy
+  block:
+
+    - name: tasks/command > "{{ item.options }}" in "{{ item.dir }}"
+      command: "{{ item.options }}"
+      args:
+        chdir: "{{ item.dir }}"

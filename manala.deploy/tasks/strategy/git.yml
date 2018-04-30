@@ -1,24 +1,29 @@
 ---
 
-- name: strategy/git > Cached repository
-  git:
-    repo:           "{{ manala_deploy_strategy_git_repo }}"
-    dest:           "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
-    version:        "{{ manala_deploy_strategy_git_version }}"
-    accept_hostkey: true
-    update:         true
+- name: strategy/git
+  tags:
+    - manala_deploy
+  block:
 
-- name: strategy/git > Get head
-  command: git rev-parse --short HEAD
-  args:
-    chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
-  register: __manala_deploy_strategy_git_head_result
+    - name: strategy/git > Cached repository
+      git:
+        repo:           "{{ manala_deploy_strategy_git_repo }}"
+        dest:           "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
+        version:        "{{ manala_deploy_strategy_git_version }}"
+        accept_hostkey: true
+        update:         true
 
-- name: strategy/git > Set head
-  set_fact:
-    manala_deploy_strategy_git_head: "{{ __manala_deploy_strategy_git_head_result.stdout }}"
+    - name: strategy/git > Get head
+      command: git rev-parse --short HEAD
+      args:
+        chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
+      register: __manala_deploy_strategy_git_head_result
 
-- name: strategy/git > Export repository
-  command: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"
-  args:
-    chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
+    - name: strategy/git > Set head
+      set_fact:
+        manala_deploy_strategy_git_head: "{{ __manala_deploy_strategy_git_head_result.stdout }}"
+
+    - name: strategy/git > Export repository
+      command: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"
+      args:
+        chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"

@@ -1,4 +1,9 @@
 ---
 
-- name: tasks/include > "{{ item.options }}"
-  include: "{{ item.options }}"
+- name: tasks/include
+  tags:
+    - manala_deploy
+  block:
+
+    - name: tasks/include > "{{ item.options }}"
+      include_tasks: "{{ item.options }}"
