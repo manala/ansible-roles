@@ -1,0 +1,5 @@
+---
+
+- name: tasks/include_role > "{{ item.options }}"
+  include_role:
+    name: "{{ item.options }}"
