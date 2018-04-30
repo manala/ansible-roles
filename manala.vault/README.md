@@ -54,7 +54,7 @@ Using ansible galaxy requirements file:
 ## Configuration example
 
 ```yaml
-manala_vault_config_template: "{{ playbook_dir }}/templates/vault/vault/config.hcl.j2"
+manala_vault_config_template: vault/vault/config.hcl.j2
 ```
 
 ## Example playbook

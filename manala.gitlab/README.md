@@ -53,9 +53,9 @@ manala_gitlab_version: 8.1.*
 manala_gitlab_configs_exclusive: true
 manala_gitlab_configs:
   - file:     gitlab-secrets.json
-    template: "{{ playbook_dir }}/templates/gitlab-secrets.json.j2"
+    template: gitlab-secrets.json.j2
   - file:     gitlab.rb
-    template: "{{ playbook_dir }}/templates/gitlab.rb.j2"
+    template: gitlab.rb.j2
 ```
 
 ## Example playbook

@@ -51,7 +51,7 @@ Using ansible galaxy requirements file:
 
 ```yaml
 # use a default custom template
-manala_mysql_configs_template: "{{ playbook_dir ~ '/templates/mysql/custom_template.j2' }}"
+manala_mysql_configs_template: mysql/custom_template.j2
 
 # clean configs directory
 manala_mysql_configs_exclusive: true

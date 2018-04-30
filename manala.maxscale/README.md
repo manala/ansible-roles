@@ -59,7 +59,7 @@ Using ansible galaxy requirements file:
 
 ```yaml
 # Using a custom template
-manala_maxscale_config_template: "{{ playbook_dir ~ '/templates/maxscale/custom_template.j2' }}"
+manala_maxscale_config_template: maxscale/custom_template.j2
 
 manala_maxscale_config:
   - maxscale:

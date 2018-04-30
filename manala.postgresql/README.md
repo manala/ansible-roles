@@ -57,7 +57,7 @@ manala_postgresql_version: 9.4
 manala_postgresql_config_template: config/default.dev.j2
 manala_postgresql_config:
   - max_connections: 123
-manala_postgresql_config_hba_template: "{{ playbook_dir ~ '/templates/pg_hba.j2' }}"
+manala_postgresql_config_hba_template: config/hba/default.dev.j2
 manala_postgresql_config_hba:
   - local   all             postgres                                peer
   - local   all             all                                     peer
