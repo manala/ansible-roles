@@ -71,7 +71,7 @@ manala_telegraf_configs:
     template: configs/input_cpu.conf.j2
 
   - file:     input_custom.conf
-    template: "{{ playbook_dir }}/templates/telegraf/input_custom.conf.j2"
+    template: telegraf/input_custom.conf.j2
 ```
 
 ## Example playbook

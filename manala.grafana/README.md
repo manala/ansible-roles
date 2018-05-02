@@ -85,7 +85,7 @@ manala_grafana_datasources:
 
 manala_grafana_dashboards_exclusive: true
 manala_grafana_dashboards:
-    - template: "{{ playbook_dir }}/templates/grafana/dashboards/system.json"
+    - template: grafana/dashboards/system.json
       inputs:
         - name:     "DS_TELEGRAF"
           pluginId: "influxdb"

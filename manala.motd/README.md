@@ -36,10 +36,10 @@ None
 
 ## Role Variables
 
-|Name|Default|Type|Description|
-|----|----|-----------|-------|
-`manala_motd_template`|template/manala.j2|String (path)|Path to custom motd.
-`manala_motd_message`|California 1993|String|A custom message
+| Name                   | Default           | Type   | Description   |
+| ---------------------- | ----------------- | ------ | ------------- |
+| `manala_motd_template` | template/empty.j2 | String | Template path |
+| `manala_motd_message`  | ~                 | String | Message       |
 
 ### Configuration example
 
@@ -49,7 +49,7 @@ Use predefined type (manala|cow|turkey|stegosaurus) with custom message:
 ---
 
 manala_motd_template: template/turkey.j2
-manala_motd_message:  "My awesome message"
+manala_motd_message:  My awesome message
 ```
 
 Use custom template:
@@ -57,7 +57,7 @@ Use custom template:
 ```yaml
 ---
 
-manala_motd_template:  "{{ playbook_dir ~ '/templates/motd.j2' }}"
+manala_motd_template: motd/motd.j2
 ```
 
 ## Example playbook

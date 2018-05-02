@@ -55,7 +55,7 @@ manala_haproxy_errorfiles:
   - name: 400.http
     template: errorfiles/400.http.j2
   - name: maintenance.http
-    template: "{{ playbook_dir ~ '/templates/haproxy/errorfiles/maintenance.http.j2' }}"
+    template: errorfiles/maintenance.http.j2
 ```
 
 Use default config template, and set/add custom parameters
@@ -87,7 +87,7 @@ manala_haproxy_config:
 Use custom config template
 
 ```yaml
-manala_haproxy_config_template: "{{ playbook_dir ~ '/templates/haproxy/haproxy.cfg.j2' }}"
+manala_haproxy_config_template: haproxy/haproxy.cfg.j2
 ```
 
 ## Example playbook

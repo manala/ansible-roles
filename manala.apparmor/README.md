@@ -53,7 +53,7 @@ Using ansible galaxy requirements file:
   vars:
     manala_apparmor_configs:
       - file:     lxc/lxc-profile-a
-        template: "{{ playbook_dir }}/templates/lxc-default.j2"
+        template: lxc-default.j2
       - file:     lxc/lxc-old-profile
         state:    absent
 
