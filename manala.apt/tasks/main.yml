@@ -27,7 +27,7 @@
 
 # Update
 - import_tasks: update.yml
-  when: manala_apt['update']|default(false)
+  when: __manala_apt['update']
   tags:
     - manala_apt
     - manala_apt.update

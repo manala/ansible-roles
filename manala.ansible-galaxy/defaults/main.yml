@@ -8,8 +8,7 @@ manala_ansible_galaxy_roles:      []
 manala_ansible_galaxy_roles_path: ~
 
 # Force
-manala_ansible_galaxy_force: "{{ manala_ansible_galaxy['update']|default(false) }}"
+manala_ansible_galaxy_force: "{{ __manala_ansible_galaxy['update'] }}"
 
-# Manala
-manala_ansible_galaxy:
-  update: "{{ (manala|default({'update':false}))['update'] }}"
+# Flags
+manala_ansible_galaxy: {}

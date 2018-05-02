@@ -32,9 +32,11 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                  | Default | Type  | Description       |
-| --------------------- | ------- | ----  | ----------------- |
-| `manala_npm_packages` | [ ]     | Array | Npm packages list |
+| Name                  | Default | Type    | Description                |
+| --------------------- | ------- | ------- | -------------------------- |
+| `manala_npm_packages` | []      | Array   | Global npm packages list   |
+| `manala_npm.update`   | false   | Boolean | Update global npm packages |
+
 
 ### Configuration example
 
@@ -47,6 +49,17 @@ manala_npm_packages:
     state: absent
 ```
 
+### Flags
+
+Update global packages
+```yaml
+manala_npm:
+  update: true
+
+# Can also be set across manala roles
+manala:
+  update: true
+```
 
 ## Example playbook
 

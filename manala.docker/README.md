@@ -84,6 +84,18 @@ manala_docker_containers:
     restart_policy: unless-stopped
 ```
 
+### Flags
+
+Update images
+```yaml
+manala_docker:
+  update: true
+
+# Can also be set across manala roles
+manala:
+  update: true
+```
+
 ## Example playbook
 
 ```yaml

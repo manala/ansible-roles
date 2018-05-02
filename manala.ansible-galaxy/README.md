@@ -32,10 +32,11 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                         | Default| Type    | Description  |
-|----------------------------- |------- |-------- |------------- |
-| manala_ansible_galaxy_roles  | []     | Array   | Roles        |
-| manala_ansible_galaxy_force  | false  | Boolean | Force        |
+| Name                           | Default                        | Type    | Description  |
+| ------------------------------ | ------------------------------ | ------- | ------------ |
+| `manala_ansible_galaxy_roles`  | []                             | Array   | Roles        |
+| `manala_ansible_galaxy_force`  | `manala_ansible_galaxy.update` | Boolean | Force        |
+| `manala_ansible_galaxy.update` | false                          | Boolean | Update roles |
 
 ### Roles
 
@@ -44,6 +45,18 @@ Using ansible galaxy requirements file:
 ```yaml
 manala_ansible_galaxy_roles:
   - manala.skeleton
+```
+
+### Flags
+
+Update roles
+```yaml
+manala_ansible_galaxy:
+  update: true
+
+# Can also be set across manala roles
+manala:
+  update: true
 ```
 
 ## Example playbook

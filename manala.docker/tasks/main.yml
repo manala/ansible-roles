@@ -29,7 +29,7 @@
 
 # Update
 - import_tasks: update.yml
-  when: manala_docker['update']|default(false)
+  when: __manala_docker['update']
   tags:
     - manala_docker
     - manala_docker.update

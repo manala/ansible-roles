@@ -52,6 +52,7 @@ None
 | `manala_apt_preferences`              | []                                                    | Array   | Collection of preferences              |
 | `manala_apt_packages`                 | []                                                    | Array   | Collection of packages                 |
 | `manala_apt_cache_valid_time`         | 3600                                                  | Integer | Permitted age of apt cache, in seconds |
+| `manala_apt.update`                   | false                                                 | Boolean | Update packages                        |
 
 ### Example
 
@@ -234,6 +235,18 @@ manala_apt_packages:
   - package:  bzip2  # Name of package, required
     state: absent # State of package, optionnal, default 'present'
     force: true   # Force installation, optionnal
+```
+
+### Flags
+
+Update packages
+```yaml
+manala_apt:
+  update: true
+
+# Can also be set across manala roles
+manala:
+  update: true
 ```
 
 # Licence

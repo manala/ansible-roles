@@ -3,9 +3,9 @@
 # Dir
 manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 
-# Update
-manala_ohmyzsh_update: false
-
 # Users
 manala_ohmyzsh_users_template: ~
 manala_ohmyzsh_users:          []
+
+# Flags
+manala_ohmyzsh: {}

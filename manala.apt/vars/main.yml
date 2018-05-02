@@ -1,5 +1,15 @@
 ---
 
+# Flags
+__manala_apt: "{{
+  {
+    'update': False
+  }|combine(
+    manala|default({}),
+    manala_apt
+  )
+}}"
+
 # Repositories
 manala_apt_repositories_patterns:
   security: "{{
