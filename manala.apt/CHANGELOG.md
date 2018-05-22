@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Handle dependency packages to install
 - Elasticsearch 6 support
 
+### Fixed
+- Fix wrong Sensu APT source distribution ID
+
 ### Changed
 - Update aptly key
 - Replace deprecated jinja tests used as filters
