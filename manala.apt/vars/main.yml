@@ -185,7 +185,7 @@ manala_apt_repositories_patterns:
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key: jenkins
   sensu:
-    source: deb http://repositories.sensuapp.org/apt sensu main
+    source: deb http://repositories.sensuapp.org/apt {{ ansible_distribution_release }} main
     key: sensu
   rabbitmq:
     source: deb http://www.rabbitmq.com/debian/ testing main
