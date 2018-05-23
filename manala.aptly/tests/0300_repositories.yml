@@ -16,6 +16,13 @@
         origin:       Bar
         label:        Bar
   pre_tasks:
+    # See: https://www.aptly.info/doc/feature/pgp-providers/
+    - apt:
+        name:
+          - gnupg1
+          - gpgv1
+        install_recommends: false
+      when: ansible_distribution_release == 'stretch'
     - import_tasks: pre_tasks/aptly.yml
     - copy:
         dest: /etc/apt/preferences.d/aptly
