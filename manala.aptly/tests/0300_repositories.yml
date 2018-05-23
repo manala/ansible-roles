@@ -23,9 +23,23 @@
           Package:      aptly*
           Pin:          origin repo.aptly.info
           Pin-Priority: 900
-    - command: gpg --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
-      args:
-        creates: ~/.gnupg/trustdb.gpg
+    # See: https://www.aptly.info/doc/feature/pgp-providers/
+    - block:
+        - apt:
+            name:
+              - gnupg1
+              - gpgv1
+            install_recommends: false
+          when: ansible_distribution_release == 'stretch'
+        - command: gpg1 --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
+          args:
+            creates: ~/.gnupg/trustdb.gpg
+      when: ansible_distribution_release == 'stretch'
+    - block:
+        - command: gpg --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
+          args:
+            creates: ~/.gnupg/trustdb.gpg
+      when: ansible_distribution_release != 'stretch'
   roles:
     - manala.aptly
   post_tasks:
