@@ -81,3 +81,17 @@
 | [vim](https://github.com/manala/ansible-role-vim) | This role will deal with the setup and configuration of Vim. | [![Build Status](https://travis-ci.org/manala/ansible-role-vim.svg?branch=master)](https://travis-ci.org/manala/ansible-role-vim) | [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-vim.svg)](https://img.shields.io/github/release/manala/ansible-role-vim.svg) |
 | [yarn](https://github.com/manala/ansible-role-yarn) | This role will deal with the setup of [Yarn](https://yarnpkg.com/). | [![Build Status](https://travis-ci.org/manala/ansible-role-yarn.svg?branch=master)](https://travis-ci.org/manala/ansible-role-yarn) | [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-yarn.svg)](https://img.shields.io/github/release/manala/ansible-role-yarn.svg) |
 | [zsh](https://github.com/manala/ansible-role-zsh) | This role will deal with the setup of Zsh. | [![Build Status](https://travis-ci.org/manala/ansible-role-zsh.svg?branch=master)](https://travis-ci.org/manala/ansible-role-zsh) | [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-zsh.svg)](https://img.shields.io/github/release/manala/ansible-role-zsh.svg) |
+
+## Release
+
+```
+make release
+```
+
+### Set Chandler github api token
+
+```
+export CHANDLER_GITHUB_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+travis login
+travis repos --owner manala --active --no-interactive --match "manala/ansible-role-*" | xargs -n1 travis env set CHANDLER_GITHUB_API_TOKEN $CHANDLER_GITHUB_API_TOKEN --private --repo
+```
