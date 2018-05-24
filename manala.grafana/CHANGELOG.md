@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Handle dependency packages to install
+- Loop over api calls until its ready
 
 ### Changed
 - Fix missings ansible 2.1 deprecation "Supplying headers via HEADER_* is deprecated"

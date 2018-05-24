@@ -9,6 +9,9 @@
     password:         "{{ manala_grafana_api_password }}"
     return_content:   true
   register: _manala_grafana_datasources_output
+  until: not _manala_grafana_datasources_output.failed
+  retries: 12
+  delay: 1
 
 # Update existing datasources
 - name: datasources > Update datasources

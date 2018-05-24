@@ -13,6 +13,9 @@
     headers:
       Content-Type: application/json
   when: manala_grafana_dashboards_exclusive
+  until: not _manala_grafana_dashboards_list_output.failed
+  retries: 12
+  delay: 1
 
 # Delete dashboards
 - name: dashboards > Delete dashboards
@@ -44,3 +47,6 @@
     headers:
       Content-Type: application/json
   with_items: "{{ manala_grafana_dashboards }}"
+  until: not _manala_grafana_dashboards_import_output.failed
+  retries: 12
+  delay: 1
