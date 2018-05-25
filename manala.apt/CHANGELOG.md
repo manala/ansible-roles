@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fix wrong Sensu APT source distribution ID
+- Fix wrong maxscale keyserver
 
 ### Changed
 - Update aptly key
