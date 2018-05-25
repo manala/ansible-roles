@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Handle dependency packages to install
+- Test version 2.2.6
 
 ### Changed
 - Replace deprecated uses of "include"
