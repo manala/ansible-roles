@@ -1,0 +1,24 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_maxscale_config:
+      - maxscale:
+        - threads: auto #Dedicated container
+      - Splitter Service:
+        - type:    service
+        - router:  readwritesplit
+        - servers: mariadb-1, mariadb-2, mariadb-3
+        - user:    maxscale
+        - passwd:  XXXXXXXXXXXX
+  pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
+      when: ansible_distribution_release == 'jessie'
+    - import_tasks: pre_tasks/maxscale_2.2.6.yml
+  roles:
+    - manala.maxscale
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

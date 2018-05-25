@@ -1,0 +1,8 @@
+---
+
+file:
+  /var/lib/maxscale/passwd.backup:
+    exists:   true
+    filetype: file
+    contains:
+      - "elao:$1$MXS$nJC9UIcP/IWkgAGEhQSh1/"
