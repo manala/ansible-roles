@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Replace deprecated uses of "include"
 - Pass apt module packages list directly to the `name` option
 
+### Removed
+- Environment opiniated default config template
+
 ## [1.0.1] - 2017-12-06
 ### Added
 - Debian stretch support
