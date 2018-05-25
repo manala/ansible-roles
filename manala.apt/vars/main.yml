@@ -317,7 +317,7 @@ manala_apt_keys_patterns:
     url: https://downloads.mariadb.com/MaxScale/MariaDB-MaxScale-GPG-KEY
     id: 8167EE24
   maxscale:
-    url: hkp://keyserver.ubuntu.com:80
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: 28C12247
   postgresql:
     keyserver: hkp://keyserver.ubuntu.com:80
