@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Percona repository pattern
 - Handle dependency packages to install
 - Elasticsearch 6 support
+- MaxScale 2.2.6 repository pattern
 
 ### Fixed
 - Fix wrong Sensu APT source distribution ID
