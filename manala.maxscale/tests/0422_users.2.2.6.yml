@@ -5,11 +5,10 @@
   become: true
   vars:
     manala_maxscale_network_users:
-      # Generating with maxpasswd command
-      - name:     elao
-        password: $1$MXS$nJC9UIcP/IWkgAGEhQSh1/
-      - name:     maxscale-admin
-        password: $1$MXS$aTODkN/QXQSexlaH1dRdA0
+      - name:     foo
+        password: $1$MXS$ilOCSZPnjmHjTz6B96SiJ1 # "foo"
+      - name:     bar
+        password: $1$MXS$M.YZOr2pNTgW87l7KQWLU/ # "bar"
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
       when: ansible_distribution_release == 'jessie'

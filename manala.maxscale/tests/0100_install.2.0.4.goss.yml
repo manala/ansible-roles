@@ -8,4 +8,4 @@ command:
   maxscale --version:
     exit-status: 0
     stdout:
-      - MaxScale
+      - MaxScale 2.0.4

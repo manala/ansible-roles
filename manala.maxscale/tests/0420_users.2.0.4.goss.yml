@@ -1,0 +1,16 @@
+---
+
+file:
+  /var/lib/maxscale/passwd:
+    exists:   true
+    filetype: file
+    contains:
+      - foo:$1$MXS$ilOCSZPnjmHjTz6B96SiJ1
+      - bar:$1$MXS$M.YZOr2pNTgW87l7KQWLU/
+
+command:
+  sudo maxadmin show users:
+    exit-status: 0
+    stdout:
+      - "/^Enabled Linux accounts \\(secure\\)    : $/"
+      - "/^Created network accounts \\(insecure\\): foo, bar$/"

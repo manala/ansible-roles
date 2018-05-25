@@ -1,0 +1,15 @@
+---
+
+file:
+  /var/lib/maxscale/passwd:
+    exists:   true
+    filetype: file
+    contains:
+      - '[{"account": "admin", "password": "$1$MXS$ilOCSZPnjmHjTz6B96SiJ1", "name": "foo"},{"account": "admin", "password": "$1$MXS$M.YZOr2pNTgW87l7KQWLU/", "name": "bar"}]'
+
+command:
+  sudo maxadmin show users:
+    exit-status: 0
+    stdout:
+      - "/^Enabled Linux accounts \\(secure\\)    : root$/"
+      - "/^Created network accounts \\(insecure\\): bar, foo$/"
