@@ -1,0 +1,48 @@
+---
+
+- name: configs > Directory
+  file:
+    path: "{{ manala_maxscale_configs_dir }}"
+    state: directory
+  when: manala_maxscale_configs|length
+
+- name: configs > Exclusive
+  find:
+    path: "{{ manala_maxscale_configs_dir }}"
+    patterns: "*.cnf"
+  changed_when: false
+  register: __manala_maxscale_configs_exclusive_find
+  when: manala_maxscale_configs_exclusive
+
+- name: configs > Templates presents
+  template:
+    src:  "{{ item.template|default(manala_maxscale_configs_template|ternary(manala_maxscale_configs_template, 'configs/empty.j2')) }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_maxscale_configs',
+      manala_maxscale_configs,
+      __manala_maxscale_configs_exclusive_find.files|default([]),
+      manala_maxscale_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  notify:
+    - maxscale restart
+
+# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
+- name: configs > Files absents
+  file:
+    path:  "{{ item.file }}"
+    state: absent
+  with_items: "{{ lookup(
+      'manala_maxscale_configs',
+      manala_maxscale_configs,
+      __manala_maxscale_configs_exclusive_find.files|default([]),
+      manala_maxscale_configs_dir,
+      wantlist=True,
+      wantstate='absent'
+    )
+  }}"
+  notify:
+    - maxscale restart

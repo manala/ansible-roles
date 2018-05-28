@@ -10,6 +10,12 @@ manala_maxscale_config_file:     /etc/maxscale.cnf
 manala_maxscale_config_template: ~
 manala_maxscale_config:          []
 
+# Configs
+manala_maxscale_configs_exclusive: false
+manala_maxscale_configs_dir:       "{{ manala_maxscale_config_file }}.d"
+manala_maxscale_configs_template:  ~
+manala_maxscale_configs:           []
+
 # Users
 manala_maxscale_users_file:     /var/lib/maxscale/passwd
 manala_maxscale_users_template: ~
