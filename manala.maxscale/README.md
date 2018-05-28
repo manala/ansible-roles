@@ -44,16 +44,20 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default                    | Type   | Description                            |
-| ------------------------------------------ | -------------------------- | ------ | -------------------------------------- |
-| `manala_maxscale_install_packages`         | ~                          | Array  | Dependency packages to install         |
-| `manala_maxscale_install_packages_default` | ['maxscale']               | Array  | Default dependency packages to install |
-| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'        | String | Configuration file path                |
-| `manala_maxscale_config_template`          | 'config/empty.j2'          | String | Default configuration template path    |
-| `manala_maxscale_config`                   | []                         | Array  | Configuration                          |
-| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd' | String | Users file path                        |
-| `manala_maxscale_users_template`           | 'users/default.j2'         | String | Default users template path            |
-| `manala_maxscale_network_users`            | []                         | Array  | Network users                          |
+| Name                                       | Default                               | Type   | Description                            |
+| ------------------------------------------ | ------------------------------------- | ------ | -------------------------------------- |
+| `manala_maxscale_install_packages`         | ~                                     | Array  | Dependency packages to install         |
+| `manala_maxscale_install_packages_default` | ['maxscale']                          | Array  | Default dependency packages to install |
+| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'                   | String | Configuration file path                |
+| `manala_maxscale_config_template`          | 'config/empty.j2'                     | String | Default configuration template path    |
+| `manala_maxscale_config`                   | []                                    | Array  | Configuration                          |
+| `manala_maxscale_configs_exclusive`        | false                                 | Boolean | Configurations exclusivity            |
+| `manala_maxscale_configs_dir`              | '{{ manala_maxscale_config_file }}.d' | String  | Configurations dir path               |
+| `manala_maxscale_configs_template`         | 'configs/empty.j2'                    | String  | Default configurations template path  |
+| `manala_maxscale_configs`                  | []                                    | Array   | Configurations                        |
+| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd'            | String | Users file path                        |
+| `manala_maxscale_users_template`           | 'users/default.j2'                    | String | Default users template path            |
+| `manala_maxscale_network_users`            | []                                    | Array  | Network users                          |
 
 ### Configuration example (Galera cluster configuration)
 
@@ -107,6 +111,24 @@ manala_maxscale_config:
     - protocol: maxscaled
     - address:  localhost
     - port:     6603
+
+# Starting from MaxScale 2.1
+manala_maxscale_configs_exclusive: true
+manala_maxscale_configs:
+  - file: foo.cnf
+    config:
+      - foo-1:
+        - type: server
+        - address: foo-1
+        - port: 3306
+        - protocol: MariaDBBackend
+      - foo-1:
+        - type: server
+        - address: foo-1
+        - port: 3306
+        - protocol: MariaDBBackend
+  - file: bar.cnf
+    state: absent
 
 maxscale_network_users:
   # Generating with maxpasswd command

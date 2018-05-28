@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Handle dependency packages to install
 - Test version 2.2.6
 - Handle config boolean parameters
+- Handle configs (starting from MaxScale 2.1)
 
 ### Changed
 - Replace deprecated uses of "include"

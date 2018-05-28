@@ -10,6 +10,11 @@
   tags:
     - manala_maxscale
 
+# Configs
+- import_tasks: configs.yml
+  tags:
+    - manala_maxscale
+
 # Users
 - import_tasks: users.yml
   tags:
