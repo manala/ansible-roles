@@ -50,7 +50,7 @@ None
 | `manala_ansible_config_template`          | 'hosts/empty.j2'          | String  | Default configuration template path    |
 | `manala_ansible_config`                   | []                        | Array   | Configuration                          |
 | `manala_ansible_host_vars_exclusive`      | false                     | Boolean | Host vars exclusivity                  |
-| `manala_ansible_host_vars_dir`            | ''/etc/ansible/host_vars' | String  | Host vars dir path                     |
+| `manala_ansible_host_vars_dir`            | '/etc/ansible/host_vars'  | String  | Host vars dir path                     |
 | `manala_ansible_host_vars_template`       | 'host_vars/empty.j2'      | String  | Default host vars template path        |
 | `manala_ansible_host_vars`                | []                        | Array   | Host vars                              |
 | `manala_ansible_group_vars_exclusive`     | false                     | Boolean | Group vars exclusivity                 |
