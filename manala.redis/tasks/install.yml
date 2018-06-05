@@ -7,16 +7,14 @@
     update_cache:       true
     cache_valid_time:   3600
 
-- name: install > Version
-  shell: redis-server -v | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'
-  register: __manala_redis_version
-  when: not manala_redis_version
+- block:
+    - name: install > Version
+      shell: redis-server -v | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'
+      register: __manala_redis_version
+      changed_when: false
+    - name: install > Version
+      set_fact:
+        manala_redis_version: "{{ (__manala_redis_version.stdout == '')|ternary('3.0', __manala_redis_version.stdout) }}"
+      changed_when: false
+  when: manala_redis_version is none
   check_mode: false
-  changed_when: false
-
-- name: install > Version
-  set_fact:
-    manala_redis_version: "{{ (__manala_redis_version.stdout == '')|ternary('3.0', __manala_redis_version.stdout) }}"
-  when: not manala_redis_version
-  check_mode: false
-  changed_when: false

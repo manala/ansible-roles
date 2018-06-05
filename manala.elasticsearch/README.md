@@ -42,7 +42,7 @@ Using ansible galaxy requirements file:
 
 | Name                                            | Default                                | Type   | Description                            |
 | ----------------------------------------------- | -------------------------------------- | ------ | -------------------------------------- |
-| `manala_elasticsearch_version`                  | ~                                      | String | Version                                |
+| `manala_elasticsearch_version`                  | ~                                      | String | Version (autodetect if null)           |
 | `manala_elasticsearch_install_packages`         | ~                                      | Array  | Dependency packages to install         |
 | `manala_elasticsearch_install_packages_default` | ['elasticsearch']                      | Array  | Default dependency packages to install |
 | `manala_elasticsearch_config_file`              | '/etc/elasticsearch/elasticsearch.yml' | String | Configuration file path                |
