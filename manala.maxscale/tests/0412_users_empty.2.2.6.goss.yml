@@ -2,7 +2,8 @@
 
 file:
   /var/lib/maxscale/passwd:
-    exists:   true
+    exists: true
     filetype: file
+    size: 2
     contains:
-      - "elao:$1$MXS$nJC9UIcP/IWkgAGEhQSh1/"
+      - '[]'

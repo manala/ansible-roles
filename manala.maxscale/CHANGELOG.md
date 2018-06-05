@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Test version 2.2.6
 - Handle config boolean parameters
 - Handle configs (starting from MaxScale 2.1)
+- Handle network users file as json (MaxScale 2.2+)
 
 ### Changed
 - Replace deprecated uses of "include"

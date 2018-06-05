@@ -1,5 +1,8 @@
 ---
 
+# MaxScale version. Available values are '~' (autodetect), '2.0', '2.1', '2.2'
+manala_maxscale_version: ~
+
 # Install
 manala_maxscale_install_packages: ~
 manala_maxscale_install_packages_default:
@@ -19,4 +22,4 @@ manala_maxscale_configs:           []
 # Users
 manala_maxscale_users_file:     /var/lib/maxscale/passwd
 manala_maxscale_users_template: ~
-manala_maxscale_network_users:  []
+manala_maxscale_network_users:  ~

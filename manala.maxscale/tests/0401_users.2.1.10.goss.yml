@@ -1,8 +1,0 @@
----
-
-file:
-  /var/lib/maxscale/passwd:
-    exists:   true
-    filetype: file
-    contains:
-      - "elao:$1$MXS$nJC9UIcP/IWkgAGEhQSh1/"
