@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.9] - 2018-06-05
 ### Changed
 - Replace deprecated jinja tests used as filters
 - Pass apt module packages list directly to the `name` option
