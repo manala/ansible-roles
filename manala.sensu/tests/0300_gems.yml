@@ -8,7 +8,7 @@
       EMBEDDED_RUBY: true
     manala_sensu_gems:
       - name: sensu-plugins-slack
-        version: 1.0.0
+        version: 3.1.1
   pre_tasks:
     - import_tasks: pre_tasks/sensu.yml
   roles:

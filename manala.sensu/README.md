@@ -35,9 +35,9 @@ Using ansible galaxy requirements file:
 | Name                   | Type    | Description                |
 | ---------------------- | ------- | -------------------------- |
 | `sensu restart`        | Service | Restart all sensu services |
+| `sensu-api restart`    | Service | Restart sensu api          |
+| `sensu-client restart` | Service | Restart sensu client       |
 | `sensu-server restart` | Service | Restart sensu server       |
-| `sensu-client restart` | Service | Restart sensu client       |
-| `sensu-client restart` | Service | Restart sensu client       |
 
 ## Role Variables
 
@@ -51,9 +51,9 @@ Using ansible galaxy requirements file:
 | `manala_sensu_configs_template`         | 'configs/default.j2' | String | Additional configurations base template path                               |
 | `manala_sensu_configs`                  | []                   | Array  | Additional configurations directives                                       |
 | `manala_sensu_configs_exclusive`        | false                | Array  | Additional configurations exclusivity                                      |
-| `manala_sensu_configs_user              | 'root'               | String | Name of the user that should own config files                              |
+| `manala_sensu_configs_user              | 'sensu'               | String | Name of the user that should own config files                              |
 | `manala_sensu_configs_group             | 'sensu'              | String | Name of the group that should own config files                             |
-| `manala_sensu_configs_mode              | 0640                 | Octal  | Additional configurations files mode                                       |
+| `manala_sensu_configs_mode              | 0644                 | Octal  | Additional configurations files mode                                       |
 | `manala_sensu_checks`                   | []                   | Array  | Checks directives                                                          |
 | `manala_sensu_services`                 | []                   | Array  | Enable and start sensu services (sensu-server, sensu-client, sensu-server) |
 
