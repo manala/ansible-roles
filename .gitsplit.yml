@@ -149,6 +149,8 @@ splits:
     target: git@github.com:manala/ansible-role-systemd.git
   - prefix: manala.telegraf
     target: git@github.com:manala/ansible-role-telegraf.git
+  - prefix: manala.thumbor
+    target: git@github.com:manala/ansible-role-thumbor.git
   - prefix: manala.timezone
     target: git@github.com:manala/ansible-role-timezone.git
   - prefix: manala.varnish

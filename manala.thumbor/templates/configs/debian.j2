@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+
+{{ macros.config_row(config, 'FILE_STORAGE_ROOT_PATH', '/var/cache/thumbor/storage') }}
+{{ macros.config(config, [
+  'FILE_STORAGE_ROOT_PATH'
+]) -}}

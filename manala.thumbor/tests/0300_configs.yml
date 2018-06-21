@@ -1,0 +1,49 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian:!debian.wheezy
+  become: true
+  vars:
+    # See: https://github.com/manala/ansible-roles/issues/115
+    manala_thumbor:
+      services: false
+    manala_thumbor_configs_dir: "/etc/thumbor.d.test"
+    manala_thumbor_configs:
+      - file: foo.conf
+        config:
+          - THUMBOR_LOG_CONFIG: ~
+          - MAX_WIDTH: 100
+          - PILLOW_RESAMPLING_FILTER: LANCZOS
+      - file: bar.conf
+        state: present
+      - file: baz.conf
+        state: absent
+  pre_tasks:
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'jessie'
+    - import_tasks: pre_tasks/manala.yml
+  roles:
+    - manala.thumbor
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian:!debian.wheezy
+  become: true
+  vars:
+    # See: https://github.com/manala/ansible-roles/issues/115
+    manala_thumbor:
+      services: false
+    manala_thumbor_configs_dir: "/etc/thumbor.d.test"
+    manala_thumbor_configs:
+      - file: foo.conf
+      - file: bar.conf
+        state: absent
+      - file: baz.conf
+        state: present
+  roles:
+    - manala.thumbor
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

@@ -1,0 +1,25 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_thumbor
+
+# Key
+- import_tasks: key.yml
+  when: manala_thumbor_key is not none
+  tags:
+    - manala_thumbor
+
+# Configs
+- import_tasks: configs.yml
+  tags:
+    - manala_thumbor
+
+# Services
+- import_tasks: services.yml
+  when: __manala_thumbor['services']
+  tags:
+    - manala_thumbor
+    - manala_thumbor.services
+    - manala.services

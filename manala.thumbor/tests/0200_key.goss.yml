@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/thumbor.key.test:
+    exists: true
+    contains:
+      - foo

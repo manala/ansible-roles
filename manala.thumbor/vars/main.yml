@@ -1,0 +1,11 @@
+---
+
+# Flags
+__manala_thumbor: "{{
+  {
+    'services': True
+  }|combine(
+    manala|default({}),
+    manala_thumbor
+  )
+}}"

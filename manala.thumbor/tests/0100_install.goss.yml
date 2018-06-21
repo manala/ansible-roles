@@ -1,0 +1,11 @@
+---
+
+package:
+  thumbor:
+    installed: true
+
+command:
+  thumbor --version:
+    exit-status: 0
+    stderr:
+      - Thumbor v
