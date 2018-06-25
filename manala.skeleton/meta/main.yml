@@ -131,10 +131,6 @@ dependencies:
   - role: manala.phantomjs
     when: manala_skeleton_options.phantomjs
 
-  # Heka
-  - role: manala.heka
-    when: manala_skeleton_options.heka
-
   # Ngrok
   - role: manala.ngrok
     when: manala_skeleton_options.ngrok

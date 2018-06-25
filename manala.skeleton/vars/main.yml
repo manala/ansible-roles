@@ -414,11 +414,6 @@ manala_skeleton_patterns:
     }}"
     # PhantomJS
     phantomjs_config_template: config/default.{{ manala_skeleton_env }}.j2
-    # Heka
-    heka_config_template: config/default.{{ manala_skeleton_env }}.j2
-    heka_configs:
-      - file:     input_app.toml
-        template: configs/input_app.j2
 
   # Manala - Dev
 
@@ -742,7 +737,6 @@ manala_skeletons:
         mongo_express:     true
         opcache_dashboard: true
         phantomjs:         true
-        heka:              true
         # App
         app:
           env: dev
@@ -805,7 +799,6 @@ manala_skeletons:
         mongo_express:     true
         opcache_dashboard: true
         phantomjs:         true
-        heka:              true
         # App
         app:
           env: dev
