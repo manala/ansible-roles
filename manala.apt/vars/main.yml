@@ -449,3 +449,4 @@ manala_apt_preferences_patterns:
   linux:              linux-base linux-image-* linux-headers-*
   httpie:             httpie*
   certbot:            certbot python-certbot python-acme python3-certbot python3-acme python-cryptography python-openssl python-setuptools python-pyasn1 python-pkg-resources
+  thumbor:            thumbor python-libthumbor

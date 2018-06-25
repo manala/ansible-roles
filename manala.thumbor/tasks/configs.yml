@@ -1,0 +1,48 @@
+---
+
+- name: configs > Directory
+  file:
+    path: "{{ manala_thumbor_configs_dir }}"
+    state: directory
+  when: manala_thumbor_configs|length
+
+- name: configs > Exclusive
+  find:
+    path: "{{ manala_thumbor_configs_dir }}"
+    patterns: "*.conf"
+  changed_when: false
+  register: __manala_thumbor_configs_exclusive_find
+  when: manala_thumbor_configs_exclusive
+
+- name: configs > Templates presents
+  template:
+    src:  "{{ item.template|default(manala_thumbor_configs_template|ternary(manala_thumbor_configs_template, 'configs/empty.j2')) }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_thumbor_configs',
+      manala_thumbor_configs,
+      __manala_thumbor_configs_exclusive_find.files|default([]),
+      manala_thumbor_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  notify:
+    - thumbor restart
+
+# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
+- name: configs > Files absents
+  file:
+    path:  "{{ item.file }}"
+    state: absent
+  with_items: "{{ lookup(
+      'manala_thumbor_configs',
+      manala_thumbor_configs,
+      __manala_thumbor_configs_exclusive_find.files|default([]),
+      manala_thumbor_configs_dir,
+      wantlist=True,
+      wantstate='absent'
+    )
+  }}"
+  notify:
+    - thumbor restart

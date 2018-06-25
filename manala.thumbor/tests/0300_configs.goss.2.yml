@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/thumbor.d.test/foo.conf:
+    exists: true
+  /etc/thumbor.d.test/bar.conf:
+    exists: false
+  /etc/thumbor.d.test/baz.conf:
+    exists: true
