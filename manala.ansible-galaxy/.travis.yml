@@ -9,11 +9,11 @@ services:
 
 env:
   matrix:
-    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.5.3
-    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.5.3
-    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.5.3
-    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.5.3
-    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.5.3
+    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.5.5
+    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.5.5
+    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.5.5
+    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.5.5
+    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.5.5
 
 script:
   - make lint
