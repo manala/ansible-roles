@@ -20,8 +20,8 @@ MANALA_VERBOSE := $(if $(VERBOSE),$(VERBOSE),$(MANALA_VERBOSE))
 # Roles #
 #########
 
-ROLES_ALL  := $(sort $(patsubst %/,%,$(wildcard */)))
-ROLES_DIFF := $(filter-out .manala,$(sort $(shell git diff --name-only $(TRAVIS_COMMIT_RANGE)| grep "/" | cut -d/ -f1)))
+ROLES_ALL  = $(filter-out $(ROLES_DEPRECATED),$(sort $(patsubst %/,%,$(wildcard */))))
+ROLES_DIFF = $(filter-out $(ROLES_DEPRECATED) .manala,$(sort $(shell git diff --name-only $(TRAVIS_COMMIT_RANGE)| grep "/" | cut -d/ -f1)))
 
 #############
 # Partition #
