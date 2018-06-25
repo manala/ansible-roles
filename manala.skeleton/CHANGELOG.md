@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Removed
 - Rtail support (deprecated)
+- Heka support (deprecated)
 
 ## [1.0.14] - 2018-06-05
 ### Added

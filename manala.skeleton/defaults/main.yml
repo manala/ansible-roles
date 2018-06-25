@@ -36,7 +36,6 @@ manala_skeleton_options:
   nginx:                 false
   supervisor:            false
   phantomjs:             false
-  heka:                  false
   ngrok:                 false
   ntp:                   false
   java:                  false
