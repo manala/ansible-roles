@@ -37,7 +37,6 @@ manala_skeleton_options:
   supervisor:            false
   phantomjs:             false
   heka:                  false
-  rtail:                 false
   ngrok:                 false
   ntp:                   false
   java:                  false

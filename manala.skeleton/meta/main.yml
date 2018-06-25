@@ -135,10 +135,6 @@ dependencies:
   - role: manala.heka
     when: manala_skeleton_options.heka
 
-  # RTail
-  - role: manala.rtail
-    when: manala_skeleton_options.rtail and manala_skeleton_options.nodejs
-
   # Ngrok
   - role: manala.ngrok
     when: manala_skeleton_options.ngrok
