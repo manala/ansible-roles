@@ -13,7 +13,7 @@ Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to 
 
 ```yaml
 manala_apt_preferences:
- - maxscale@maxscale_2_0_4
+ - maxscale@maxscale_2_2_6
 ```
 
 ## Dependencies
