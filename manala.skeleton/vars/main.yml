@@ -419,10 +419,6 @@ manala_skeleton_patterns:
     heka_configs:
       - file:     input_app.toml
         template: configs/input_app.j2
-      - file:     output_app_rtail.toml
-        template: configs/output_app_rtail.j2
-    # RTail
-    rtail_config_template: config/default.{{ manala_skeleton_env }}.j2
 
   # Manala - Dev
 
@@ -747,7 +743,6 @@ manala_skeletons:
         opcache_dashboard: true
         phantomjs:         true
         heka:              true
-        rtail:             true
         # App
         app:
           env: dev
@@ -811,7 +806,6 @@ manala_skeletons:
         opcache_dashboard: true
         phantomjs:         true
         heka:              true
-        rtail:             true
         # App
         app:
           env: dev

@@ -129,8 +129,9 @@ splits:
     target: git@github.com:manala/ansible-role-redis.git
   - prefix: manala.rsyslog
     target: git@github.com:manala/ansible-role-rsyslog.git
-  - prefix: manala.rtail
-    target: git@github.com:manala/ansible-role-rtail.git
+  # Deprecated
+  #- prefix: manala.rtail
+  #  target: git@github.com:manala/ansible-role-rtail.git
   - prefix: manala.sensu
     target: git@github.com:manala/ansible-role-sensu.git
   - prefix: manala.shorewall
