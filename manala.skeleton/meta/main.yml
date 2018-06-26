@@ -187,6 +187,10 @@ dependencies:
   - role: manala.sqlite
     when: manala_skeleton_options.sqlite
 
+  # Thumbor
+  - role: manala.thumbor
+    when: manala_skeleton_options.thumbor
+
   # # Dnsmasq
   # - role: manala.dnsmasq
   #   when: manala_skeleton_options.dnsmasq
