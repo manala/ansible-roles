@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Elasticsearch < 2.0.0 support on debian stretch
 
+### Changed
+- Cleanup distribution handling (blacklist old stables instead of whitelist current stable)
+
 ## [1.0.18] - 2018-06-05
 ### Added
 - Percona repository pattern
