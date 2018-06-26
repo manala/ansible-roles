@@ -1,7 +1,9 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts:
+    - debian.wheezy
+    - debian.jessie
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/elasticsearch_1.7.yml

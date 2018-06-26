@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Certbot preferences pattern missing dependencies
 - Thumbor preferences pattern
 
+### Removed
+- Elasticsearch < 2.0.0 support on debian stretch
+
 ## [1.0.18] - 2018-06-05
 ### Added
 - Percona repository pattern
