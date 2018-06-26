@@ -156,10 +156,10 @@ manala_apt_repositories_patterns:
     key: mariadb_legacy
   mariadb_10_1:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release == 'stretch')|ternary('mariadb','mariadb_legacy') }}"
+    key: "{{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('mariadb','mariadb_legacy') }}"
   mariadb_10_2:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release == 'stretch')|ternary('mariadb','mariadb_legacy') }}"
+    key: "{{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('mariadb','mariadb_legacy') }}"
   maxscale_2_0_4:
     source: deb https://downloads.mariadb.com/MaxScale/2.0.4/debian {{ ansible_distribution_release }} main
     key: maxscale_legacy
@@ -203,13 +203,13 @@ manala_apt_repositories_patterns:
     source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
     key: logentries
   galera_3:
-    source: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_5_6:
-    source: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_5_7:
-    source: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
     source: deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main
@@ -312,7 +312,6 @@ manala_apt_keys_patterns:
   mariadb_legacy:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 1BB943DB
-  # Stretch
   mariadb:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: C74CD1D8
