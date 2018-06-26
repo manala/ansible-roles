@@ -102,6 +102,17 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.mongodb)|ternary(['mongodb@mongodb' ~ {'3.0': '_3_0', '3.2': '_3_2'}[manala_skeleton_options.mongodb_version|string]],[])
       + (manala_skeleton_options.elasticsearch)|ternary(['elasticsearch@elasticsearch' ~ {'1.5': '_1_5', '1.6': '_1_6', '1.7': '_1_7', '2': '_2', '5': '_5', '6': '_6'}[manala_skeleton_options.elasticsearch_version|string]],[])
       + (manala_skeleton_options.influxdb)|ternary(['influxdb@influxdata'],[])
+      + (manala_skeleton_options.thumbor)|ternary(
+        ['thumbor@manala'] + {
+          'wheezy': [],
+          'jessie': [
+            'python-tornado@backports',
+            'python-pil@backports'
+          ],
+          'stretch': []
+        }[ansible_distribution_release],
+        []
+        )
     }}"
     apt_update_holds: "{{
       (ansible_connection == 'local')|ternary(['ansible'],[])
@@ -414,6 +425,11 @@ manala_skeleton_patterns:
     }}"
     # PhantomJS
     phantomjs_config_template: config/default.{{ manala_skeleton_env }}.j2
+    # Thumbor
+    thumbor_configs_exclusive: true
+    thumbor_configs:
+      - file: debian.conf
+        template: configs/debian.j2
 
   # Manala - Dev
 

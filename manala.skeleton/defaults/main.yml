@@ -59,6 +59,7 @@ manala_skeleton_options:
   influxdb:              false
   dnsmasq:               false
   sqlite:                false
+  thumbor:               false
 
   # App
   app:
