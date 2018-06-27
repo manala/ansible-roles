@@ -7,6 +7,7 @@ galaxy_info:
   description:         Handle skeleton
   license:             MIT
   min_ansible_version: 2.0.0
+  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:

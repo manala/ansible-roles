@@ -13,7 +13,7 @@ galaxy_info:
         - wheezy
         - jessie
         - stretch
-  categories:
+  galaxy_tags:
     - development
     - web
     - webperf
