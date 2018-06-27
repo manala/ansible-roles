@@ -44,9 +44,12 @@ None.
 
 | Name                                  | Default                    | Type    | Description                                            |
 | ------------------------------------- | -------------------------- | ------- | ------------------------------------------------------ |
-| `manala_proxmox_templates_exclusive`  | false                      | Boolean | Exclusion of existings files                           |
-| `manala_proxmox_templates_dir`        | /var/lib/vz/template/cache | String  | Path to the template directory                         |
+| `manala_proxmox_templates_exclusive`  | false                      | Boolean | Exclusion of existings templates                       |
+| `manala_proxmox_templates_dir`        | /var/lib/vz/template/cache | String  | Path to the templates directory                        |
 | `manala_proxmox_templates`            | []                         | Array   | Collection of templates                                |
+| `manala_proxmox_isos_exclusive`       | false                      | Boolean | Exclusion of existings isos                            |
+| `manala_proxmox_isos_dir`             | /var/lib/vz/template/iso   | String  | Path to the isos directory                             |
+| `manala_proxmox_isos`                 | []                         | Array   | Collection of isos                                     |
 | `manala_proxmox_storages`             | []                         | Array   | Collection of storage points                           |
 | `manala_proxmox_instances`            | []                         | Array   | Proxmove instances to manage                           |
 | `manala_proxmox_instances_defaults`   | {}                         | Array   | Defaults parameters used by `manala_proxmox_instances` |
@@ -57,11 +60,24 @@ None.
 
 ```
 manala_proxmox_templates_exclusive: true
-manala_proxmox_templates_dir: /var/lib/vz/template/cache
-
 manala_proxmox_templates:
-  - url: http://download.manala.io/proxmox/templates/debian-7.0-manala_2.0.0_amd64.tar.gz
+  - http://download.manala.io/proxmox/templates/debian-7.0-manala_2.0.0_amd64.tar.gz
   - url: http://download.manala.io/proxmox/templates/debian-8.0-manala_2.0.0_amd64.tar.gz
+    file: debian-8.0.tar.gz
+  - url: http://download.manala.io/proxmox/templates/debian-9.0-manala_2.0.0_amd64.tar.gz
+    state: absent
+```
+
+#### Proxmox isos
+
+```
+manala_proxmox_isos_exclusive: true
+manala_proxmox_isos:
+  - https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.4.0-amd64-netinst.iso
+  - url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.4.0-amd64-netinst.iso
+    file: debian-9.4.tar.gz
+  - url: https://cdimage.debian.org/debian-cd/9.4.0/arm64/iso-cd/debian-9.4.0-arm64-netinst.iso
+    state: absent
 ```
 
 #### Proxmox storages

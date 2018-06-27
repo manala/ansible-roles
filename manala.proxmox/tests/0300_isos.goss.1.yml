@@ -1,0 +1,9 @@
+---
+
+file:
+  /var/lib/vz/template/iso.test/foo.iso:
+    exists: true
+  /var/lib/vz/template/iso.test/bar.iso:
+    exists: true
+  /var/lib/vz/template/iso.test/baz.iso:
+    exists: false

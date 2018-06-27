@@ -5,6 +5,11 @@ manala_proxmox_templates_exclusive: false
 manala_proxmox_templates_dir:       /var/lib/vz/template/cache
 manala_proxmox_templates:           []
 
+# Isos
+manala_proxmox_isos_exclusive: false
+manala_proxmox_isos_dir:       /var/lib/vz/template/iso
+manala_proxmox_isos:           []
+
 # Storages
 manala_proxmox_storages: []
 
