@@ -1,0 +1,38 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_proxmox_templates_dir: /var/lib/vz/template/cache.test
+    manala_proxmox_templates:
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: foo.tar.gz
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: bar.tar.gz
+      - file: baz.tar.gz
+        state: absent
+  roles:
+    - manala.proxmox
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_proxmox_templates_dir: /var/lib/vz/template/cache.test
+    manala_proxmox_templates:
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: foo.tar.gz
+      - file: bar.tar.gz
+        state: absent
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: baz.tar.gz
+        state: present
+  roles:
+    - manala.proxmox
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

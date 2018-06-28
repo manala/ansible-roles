@@ -10,6 +10,11 @@
   tags:
     - manala_proxmox
 
+# Isos
+- import_tasks: isos.yml
+  tags:
+    - manala_proxmox
+
 # Storages
 - import_tasks: storages.yml
   tags:

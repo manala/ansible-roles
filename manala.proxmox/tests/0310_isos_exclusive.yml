@@ -1,0 +1,31 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_proxmox_isos_dir: /var/lib/vz/template/iso.test
+    manala_proxmox_isos:
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: foo.iso
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: bar.iso
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: baz.iso
+  roles:
+    - manala.proxmox
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_proxmox_isos_dir: /var/lib/vz/template/iso.test
+    manala_proxmox_isos_exclusive: true
+    manala_proxmox_isos:
+      - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+        file: bar.iso
+  roles:
+    - manala.proxmox
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

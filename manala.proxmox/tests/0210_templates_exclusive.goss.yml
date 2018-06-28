@@ -1,0 +1,9 @@
+---
+
+file:
+  /var/lib/vz/template/cache.test/foo.tar.gz:
+    exists: false
+  /var/lib/vz/template/cache.test/bar.tar.gz:
+    exists: true
+  /var/lib/vz/template/cache.test/baz.tar.gz:
+    exists: false

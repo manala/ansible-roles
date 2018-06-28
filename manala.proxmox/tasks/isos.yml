@@ -1,0 +1,44 @@
+---
+
+- name: isos > Directory
+  file:
+    path: "{{ manala_proxmox_isos_dir }}"
+    state: directory
+  when: manala_proxmox_isos|length
+
+- name: isos > Exclusive
+  find:
+    path: "{{ manala_proxmox_isos_dir }}"
+    patterns: "*.iso"
+  changed_when: false
+  register: __manala_proxmox_isos_exclusive_find
+  when: manala_proxmox_isos_exclusive
+
+- name: isos > Download
+  get_url:
+    url:  "{{ item.url }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_proxmox_files',
+      manala_proxmox_isos,
+      __manala_proxmox_isos_exclusive_find.files|default([]),
+      manala_proxmox_isos_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+
+# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
+- name: isos > Files absents
+  file:
+    path:  "{{ item.file }}"
+    state: absent
+  with_items: "{{ lookup(
+      'manala_proxmox_files',
+      manala_proxmox_isos,
+      __manala_proxmox_isos_exclusive_find.files|default([]),
+      manala_proxmox_isos_dir,
+      wantlist=True,
+      wantstate='absent'
+    )
+  }}"
