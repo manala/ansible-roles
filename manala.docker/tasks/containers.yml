@@ -14,4 +14,6 @@
     ports:              "{{ item.ports|default(omit) }}"
     links:              "{{ item.links|default(omit) }}"
     env:                "{{ item.env|default(omit) }}"
+    entrypoint:         "{{ item.entrypoint|default(omit) }}"
+    command:            "{{ item.command|default(omit) }}"
   with_items: "{{ manala_docker_containers }}"
