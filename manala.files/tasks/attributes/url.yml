@@ -14,3 +14,11 @@
         owner:          "{{ item.user|default(omit) }}"
         group:          "{{ item.group|default(omit) }}"
         mode:           "{{ item.mode|default(omit) }}"
+
+    - name: attributes/url > Unarchive "{{ item.path }}"
+      unarchive:
+        src:        "{{ item.path }}"
+        dest:       "{{ item.path|dirname }}"
+        creates:    "{{ item.creates|default(omit) }}"
+        remote_src: true
+      when: item.unarchive|default(False)

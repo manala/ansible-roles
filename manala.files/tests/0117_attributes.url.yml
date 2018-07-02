@@ -7,6 +7,10 @@
     manala_files_attributes:
       - path: /tmp/file
         url:  http://humanstxt.org/humans.txt
+      - path: /tmp/alt-galaxy.tar.xz
+        url:  https://github.com/gantsign/alt-galaxy/releases/download/1.4.0/alt-galaxy_linux_amd64.tar.xz
+        unarchive: true
+        creates:   /tmp/alt-galaxy
   roles:
     - manala.files
   post_tasks:

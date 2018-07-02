@@ -8,3 +8,9 @@ file:
       - TEAM
       - THANKS
       - SITE
+  /tmp/alt-galaxy.tar.xz:
+    exists:   true
+    filetype: file
+  /tmp/alt-galaxy:
+    exists:   true
+    filetype: file
