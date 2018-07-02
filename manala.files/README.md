@@ -41,10 +41,24 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_files_attributes:
-  - path: /var/log/symfony
+  - path: /var/log/app
     state: directory
-  - path: /var/cache/symfony
-    state: directory
+```
+
+Get url:
+```yaml
+manala_files_attributes:
+  - path: /tmp/bar
+    url:  http://example.com/foo
+```
+
+Get url and unarchive:
+```yaml
+manala_files_attributes:
+  - path: /tmp/bar.tar.gz
+    url:  http://example.com/foo.tar.gz
+    unarchive: true
+    creates:   /tmp/baz
 ```
 
 ## Example playbook
