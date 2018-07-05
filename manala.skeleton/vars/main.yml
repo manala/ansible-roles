@@ -443,7 +443,9 @@ manala_skeleton_patterns:
         'htop',
         'less',
         'ssl-cert',
-        'gitsplit'
+        'gitsplit',
+        {'package': 'heka', 'state': 'absent'},
+        {'package': 'rtail', 'state': 'absent’}
       ]
       + {
         'wheezy': [
