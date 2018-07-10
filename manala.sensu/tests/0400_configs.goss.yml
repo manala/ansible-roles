@@ -5,7 +5,7 @@ file:
     exists: true
     owner: root
     group: sensu
-    mode:  '0640'
+    mode:  '0644'
     contains:
       - redis
   /etc/sensu/conf.d/redis.json:
