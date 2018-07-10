@@ -188,7 +188,7 @@ manala_apt_repositories_patterns:
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key: jenkins
   sensu:
-    source: deb http://repositories.sensuapp.org/apt {{ ansible_distribution_release }} main
+    source: deb https://sensu.global.ssl.fastly.net/apt {{ ansible_distribution_release }} main
     key: sensu
   rabbitmq:
     source: deb http://www.rabbitmq.com/debian/ testing main
@@ -340,7 +340,7 @@ manala_apt_keys_patterns:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
     id: D50582E6
   sensu:
-    url: http://repositories.sensuapp.org/apt/pubkey.gpg
+    url: https://sensu.global.ssl.fastly.net/apt/pubkey.gpg
     id: EB9C94BB
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
