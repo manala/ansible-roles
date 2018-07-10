@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.3] - 2018-07-10
 ### Changed
 - Default config files user:group and permission are now set to `sensu:sensu` 0644
 
