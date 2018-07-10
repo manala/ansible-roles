@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- RekeyLimit parameter as default on debian jessie/stretch client config template
 
 ## [1.0.3] - 2018-06-05
 ### Added

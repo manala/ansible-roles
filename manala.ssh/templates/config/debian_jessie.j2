@@ -60,7 +60,7 @@ Host *
 {{ macros.config_row(config_host_wildcard, 'PermitLocalCommand', '#   PermitLocalCommand no', 0, true) }}
 {{ macros.config_row(config_host_wildcard, 'VisualHostKey', '#   VisualHostKey no', 0, true) }}
 {{ macros.config_row(config_host_wildcard, 'ProxyCommand', '#   ProxyCommand ssh -q -W %h:%p gateway.example.com', 0, true) }}
-{{ macros.config_row(config_host_wildcard, 'RekeyLimit 1G 1h', 0, true) }}
+{{ macros.config_row(config_host_wildcard, 'RekeyLimit', '#   RekeyLimit 1G 1h', 0, true) }}
 {{ macros.config_row(config_host_wildcard, 'SendEnv', 'LANG LC_*', 4) }}
 {{ macros.config_row(config_host_wildcard, 'HashKnownHosts', true, 4) }}
 {{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', true, 4) }}
