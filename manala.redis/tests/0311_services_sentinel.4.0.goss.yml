@@ -1,0 +1,10 @@
+---
+
+service:
+  redis-server:
+    enabled: true
+    running: true
+
+  redis-sentinel:
+    enabled: true
+    running: true
