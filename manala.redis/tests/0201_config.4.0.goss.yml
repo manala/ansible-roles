@@ -1,0 +1,7 @@
+---
+
+file:
+   /etc/redis/redis.conf:
+    exists: true
+    contains:
+      - port 1234
