@@ -146,7 +146,7 @@ manala_apt_repositories_patterns:
     source: deb https://deb.nodesource.com/node_9.x {{ ansible_distribution_release }} main
     key: nodesource
   nodesource_10:
-    source: deb https://deb.nodesource.com/setup_10.x {{ ansible_distribution_release }} main
+    source: deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
     key: nodesource
   mysql_5_6:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
