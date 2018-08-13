@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Nodejs 10 support
+- Nodejs 10 support (became default on debian jessie/stretch)
 
 ## [1.0.16] - 2018-07-05
 ### Fixed
