@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- A surreptitiously intruded backquote
 
 ## [1.0.17] - 2018-08-13
 ### Added
