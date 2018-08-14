@@ -19,6 +19,7 @@
 {% set config_opentsdb = [] -%}
 {% set config_udp = [] -%}
 {% set config_continuous_queries = [] -%}
+{% set config_tls = [] -%}
 
 {%- for configs in config -%}
     {%- for config_name, config_parameters in configs.iteritems() -%}
@@ -54,6 +55,8 @@
             {%- if config_udp.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'continuous_queries' -%}
             {%- if config_continuous_queries.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'tls' -%}
+            {%- if config_tls.extend(config_parameters) -%}{%- endif -%}
         {%- endif -%}
     {%- endfor -%}
 {%- endfor -%}
@@ -131,7 +134,7 @@
   # CacheMaxMemorySize is the maximum size a shard's cache can
   # reach before it starts rejecting writes.
   # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
-  # Vaues without a size suffix are in bytes.
+  # Values without a size suffix are in bytes.
   {{ macros.config_row(config_data, 'cache-max-memory-size', '# cache-max-memory-size = "1g"', 0, true) }}
 
   # CacheSnapshotMemorySize is the size at which the engine will
@@ -156,6 +159,15 @@
   # to cache snapshotting.
   {{ macros.config_row(config_data, 'max-concurrent-compactions', '# max-concurrent-compactions = 0', 0, true) }}
 
+  # The threshold, in bytes, when an index write-ahead log file will compact
+  # into an index file. Lower sizes will cause log files to be compacted more
+  # quickly and result in lower heap usage at the expense of write throughput.
+  # Higher sizes will be compacted less frequently, store more series in-memory,
+  # and provide higher write throughput.
+  # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
+  # Values without a size suffix are in bytes.
+  {{ macros.config_row(config_data, 'max-index-log-file-size', '# max-index-log-file-size = "1m"', 0, true) }}
+
   # The maximum series allowed per database before writes are dropped.  This limit can prevent
   # high cardinality issues at the database level.  This limit can be disabled by setting it to
   # 0.
@@ -165,6 +177,11 @@
   # can prevent high cardinality tag values from being written to a measurement.  This limit can be
   # disabled by setting it to 0.
   {{ macros.config_row(config_data, 'max-values-per-tag', '# max-values-per-tag = 100000', 0, true) }}
+
+  # If true, then the mmap advise value MADV_WILLNEED will be provided to the kernel with respect to
+  # TSM files. This setting has been found to be problematic on some kernels, and defaults to off.
+  # It might help users who have slow disks in some cases.
+  {{ macros.config_row(config_data, 'tsm-use-madv-willneed', '# tsm-use-madv-willneed = false', 0, true) }}
 
 ###
 ### [coordinator]
@@ -276,6 +293,9 @@
   # Determines whether HTTP request logging is enabled.
   {{ macros.config_row(config_http, 'log-enabled', '# log-enabled = true', 0, true) }}
 
+  # Determines whether the HTTP write request logs should be suppressed when the log is enabled.
+  {{ macros.config_row(config_http, 'suppress-write-log', '# suppress-write-log = false', 0, true) }}
+
   # When HTTP request logging is enabled, this option specifies the path where
   # log entries should be written. If unspecified, the default is to write to stderr, which
   # intermingles HTTP logs with internal InfluxDB logging.
@@ -290,6 +310,10 @@
   # Determines whether the pprof endpoint is enabled.  This endpoint is used for
   # troubleshooting and monitoring.
   {{ macros.config_row(config_http, 'pprof-enabled', '# pprof-enabled = true', 0, true) }}
+
+  # Enables a pprof endpoint that binds to localhost:6060 immediately on startup.
+  # This is only needed to debug startup issues.
+  {{ macros.config_row(config_http, 'debug-pprof-enabled', '# debug-pprof-enabled = false', 0, true) }}
 
   # Determines whether HTTPS is enabled.
   {{ macros.config_row(config_http, 'https-enabled', '# https-enabled = false', 0, true) }}
@@ -318,6 +342,18 @@
 
   # The maximum size of a client request body, in bytes. Setting this value to 0 disables the limit.
   {{ macros.config_row(config_http, 'max-body-size', '# max-body-size = 25000000', 0, true) }}
+
+  # The maximum number of writes processed concurrently.
+  # Setting this to 0 disables the limit.
+  {{ macros.config_row(config_http, 'max-concurrent-write-limit', '# max-concurrent-write-limit = 0', 0, true) }}
+
+  # The maximum number of writes queued for processing.
+  # Setting this to 0 disables the limit.
+  {{ macros.config_row(config_http, 'max-enqueued-write-limit', '# max-enqueued-write-limit = 0', 0, true) }}
+
+  # The maximum duration for a write to wait in the queue to be processed.
+  # Setting this to 0 or setting max-concurrent-write-limit to 0 disables the limit.
+  {{ macros.config_row(config_http, 'enqueued-write-timeout', '# enqueued-write-timeout = 0', 0, true) }}
 
 
 ###
@@ -519,6 +555,9 @@
   {{ macros.config_row(config_udp, 'database', '# database = "udp"', 0, true) }}
   {{ macros.config_row(config_udp, 'retention-policy', '# retention-policy = ""', 0, true) }}
 
+  # InfluxDB precision for timestamps on received points ("" or "n", "u", "ms", "s", "m", "h")
+  {{ macros.config_row(config_udp, 'precision', '# precision = ""', 0, true) }}
+
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
@@ -553,3 +592,27 @@
 
   # interval for how often continuous queries will be checked if they need to run
   {{ macros.config_row(config_continuous_queries, 'run-interval', '# run-interval = "1s"', 0, true) }}
+
+###
+### [tls]
+###
+### Global configuration settings for TLS in InfluxDB.
+###
+
+[tls]
+  # Determines the available set of cipher suites. See https://golang.org/pkg/crypto/tls/#pkg-constants
+  # for a list of available ciphers, which depends on the version of Go (use the query
+  # SHOW DIAGNOSTICS to see the version of Go used to build InfluxDB). If not specified, uses
+  # the default settings from Go's crypto/tls package.
+  {{ macros.config_row(config_tls, 'ciphers', '# ciphers = [
+  #   "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+  #   "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+  # ]', 0, true) }}
+
+  # Minimum version of the tls protocol that will be negotiated. If not specified, uses the
+  # default settings from Go's crypto/tls package.
+  {{ macros.config_row(config_tls, 'min-version', '# min-version = "tls1.2"', 0, true) }}
+
+  # Maximum version of the tls protocol that will be negotiated. If not specified, uses the
+  # default settings from Go's crypto/tls package.
+  {{ macros.config_row(config_tls, 'max-version', '# max-version = "tls1.2"', 0, true) }}
