@@ -67,7 +67,8 @@ manala_skeleton_patterns:
           '5.6': ['dotdeb:100', 'php@dotdeb_php56'],
           '7.0': ['dotdeb:100', 'php@dotdeb'],
           '7.1': ['php@sury_php'],
-          '7.2': ['php@sury_php']
+          '7.2': ['php@sury_php'],
+          '7.3': ['php@sury_php']
         }[manala_skeleton_options.php_version|string],
         []
       )
@@ -159,7 +160,7 @@ manala_skeleton_patterns:
       }[ansible_distribution_release]
     }}"
     # Php
-    php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1, '7.2': 7.2})[manala_skeleton_options.php_version|string] }}"
+    php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1, '7.2': 7.2, '7.3': 7.3})[manala_skeleton_options.php_version|string] }}"
     php_sapis_exclusive: true
     php_fpm_pools_exclusive: true
     php_fpm_pools: "{{
@@ -200,7 +201,8 @@ manala_skeleton_patterns:
         '5.6': ['readline'],
         '7.0': ['opcache', 'readline', 'json'],
         '7.1': ['opcache', 'readline', 'json'],
-        '7.2': ['opcache', 'readline', 'json']
+        '7.2': ['opcache', 'readline', 'json'],
+        '7.3': ['opcache', 'readline', 'json']
       }[manala_skeleton_options.php_version|string]
       + [{
         'extension': 'xdebug',
@@ -216,7 +218,8 @@ manala_skeleton_patterns:
           '5.6': ['mysqlnd'],
           '7.0': ['mysql'],
           '7.1': ['mysql'],
-          '7.2': ['mysql']
+          '7.2': ['mysql'],
+          '7.3': ['mysql']
         }[manala_skeleton_options.php_version|string],
         []
       )
@@ -227,7 +230,8 @@ manala_skeleton_patterns:
           '5.6': ['mysqlnd'],
           '7.0': ['mysql', 'mbstring', 'zip', 'bz2'],
           '7.1': ['mysql', 'mbstring', 'zip', 'bz2'],
-          '7.2': ['mysql', 'mbstring', 'zip', 'bz2']
+          '7.2': ['mysql', 'mbstring', 'zip', 'bz2'],
+          '7.3': ['mysql', 'mbstring', 'zip', 'bz2']
         }[manala_skeleton_options.php_version|string],
         []
       )
@@ -238,7 +242,8 @@ manala_skeleton_patterns:
           '5.6': ['sqlite'],
           '7.0': ['sqlite3'],
           '7.1': ['sqlite3'],
-          '7.2': ['sqlite3']
+          '7.2': ['sqlite3'],
+          '7.3': ['sqlite3']
         }[manala_skeleton_options.php_version|string],
         []
       )
