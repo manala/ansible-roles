@@ -1,0 +1,11 @@
+---
+
+package:
+  phpmyadmin:
+    installed: true
+
+command:
+  dpkg -s phpmyadmin:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
