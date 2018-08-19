@@ -308,6 +308,65 @@ manala_php_versions:
       #- opcache
       #- json
       #- readline
+  '7.3':
+    release:
+      - jessie
+      - stretch
+    enmod_bin:   /usr/sbin/phpenmod
+    dismod_bin:  /usr/sbin/phpdismod
+    fpm_bin:     /usr/sbin/php-fpm7.3
+    fpm_service: php7.3-fpm
+    config_dir:  /etc/php/7.3
+    log_dir:     /var/log/php7.3
+    sapis:
+      #############
+      # Available #
+      #############
+      - cli
+      - fpm
+      - cgi
+      - phpdbg
+    extensions:
+      ############
+      # Embedded #
+      ############
+      - date
+      - filter
+      - hash
+      - libxml
+      - openssl
+      - pcntl
+      - pcre
+      - reflection
+      - session
+      - sodium
+      - spl
+      - zlib
+      ##########
+      # Common #
+      ##########
+      - calendar
+      - ctype
+      - exif
+      - fileinfo
+      - ftp
+      - gettext
+      - iconv
+      - pdo
+      - phar
+      - posix
+      - shmop
+      - sockets
+      - sysvmsg
+      - sysvsem
+      - sysvshm
+      - tokenizer
+      #########
+      # Sapis #
+      #########
+      #- opcache
+      #- json
+      #- readline
 
 # Pecl
 manala_php_extensions_pecl:
