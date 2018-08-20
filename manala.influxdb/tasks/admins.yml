@@ -1,0 +1,11 @@
+---
+
+- name: users > Create Influx admins
+  command: >
+    {{ manala_influxdb_influx_bin }}
+    -username '{{ item.value.name }}'
+    -password '{{ item.value.password }}'
+    -database '{{ item.key }}'
+    -execute "CREATE USER {{ item.value.name }} WITH PASSWORD '{{ item.value.password }}' WITH ALL PRIVILEGES"
+  with_dict: "{{ manala_influxdb_admins }}"
+  changed_when: false

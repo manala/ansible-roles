@@ -9,6 +9,7 @@ manala_influxdb_install_packages_default:
 manala_influxdb_databases:  []
 
 # Users
+manala_influxdb_admins: {}
 manala_influxdb_users: []
 
 # Privileges

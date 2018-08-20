@@ -17,6 +17,11 @@
     - manala_influxdb.services
     - manala.services
 
+# Admins
+- import_tasks: admins.yml
+  tags:
+    - manala_influxdb
+
 # Databases
 - import_tasks: databases.yml
   tags:

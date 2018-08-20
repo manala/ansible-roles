@@ -1,6 +1,12 @@
 ---
 
 - name: databases > Create Influx databases
-  command: "{{ manala_influxdb_influx_bin }} -execute 'CREATE DATABASE \"{{ item }}\"'"
+  command: >
+    {{ manala_influxdb_influx_bin }}
+    {% if item in manala_influxdb_admins %}
+      -username '{{ manala_influxdb_admins[item].name }}'
+      -password '{{ manala_influxdb_admins[item].password }}'
+    {% endif %}
+    -execute 'CREATE DATABASE "{{ item }}"'
   with_items: "{{ manala_influxdb_databases }}"
   changed_when: false
