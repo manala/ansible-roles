@@ -1,15 +1,17 @@
 ---
 
 file:
-  /etc/supervisor/conf.d/foo.conf:
+  /etc/supervisor/conf.d.test/foo.conf:
     exists: true
     contains:
       - "[program:foo]"
       - "command=cat ; the program (relative uses PATH, can take args)"
       - 'environment=BAR="12",FOO="bar"'
-  /etc/supervisor/conf.d/bar.conf:
+  /etc/supervisor/conf.d.test/bar.conf:
     exists: true
     contains:
       - "[program:bar]"
       - "command=cat ; the program (relative uses PATH, can take args)"
       - 'environment=BAR="12",FOO="bar"'
+  /etc/supervisor/conf.d.test/baz.conf:
+    exists: false
