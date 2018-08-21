@@ -430,6 +430,8 @@ manala_skeleton_patterns:
     thumbor_configs:
       - file: debian.conf
         template: configs/debian.j2
+      - file: thumbor.conf
+        template: configs/default.{{ manala_skeleton_env }}.j2
 
   # Manala - Dev
 
