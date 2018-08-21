@@ -7,45 +7,25 @@
     manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
     manala_supervisor_configs:
       - file: foo.conf
-        template: configs/program.dev.j2
-        config:
-          - foo:
-            - command: cat
-            - environment:
-                FOO: bar
-                BAR: 12
       - file: bar.conf
-        template: configs/program.dev.j2
-        state: present
-        config:
-          - bar:
-            - command: cat
-            - environment: BAR="12",FOO="bar"
       - file: baz.conf
-        state: absent
   pre_tasks:
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'wheezy'
     - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.supervisor
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
 
 - name: "{{ test }}.2"
   hosts: debian
   become: true
   vars:
     manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
+    manala_supervisor_configs_exclusive: true
     manala_supervisor_configs:
-      - file: foo.conf
       - file: bar.conf
-        state: absent
-      - file: baz.conf
-        state: present
   roles:
     - manala.supervisor
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+      command: goss --gossfile {{ test }}.goss.yml validate

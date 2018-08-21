@@ -76,6 +76,11 @@ manala_supervisor_configs:
     config:
       - foo:
         - command: bar
+        - environment:
+            FOO: bar
+            BAR: 12
+  - file:  bar.conf
+    state: absent
 ```
 
 ## Example playbook
