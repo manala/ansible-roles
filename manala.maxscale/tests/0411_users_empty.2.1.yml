@@ -3,10 +3,12 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
+  vars:
+    manala_maxscale_network_users: []
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
       when: ansible_distribution_release == 'jessie'
-    - import_tasks: pre_tasks/maxscale_2.2.6.yml
+    - import_tasks: pre_tasks/maxscale_2.1.yml
   roles:
     - manala.maxscale
   post_tasks:
