@@ -62,9 +62,14 @@ Using ansible galaxy requirements file:
 manala_thumbor_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 manala_thumbor_configs:
+  - file: debian.conf
+    template: configs/debian.j2
+  - file: thumbor.conf
+    template: configs/default.prod.j2
   - file: app.conf
     config:
-      - ALLOW_UNSAFE_URL: false
+      - MAX_WIDTH: 100
+      - UPLOAD_MAX_SIZE: 1024
 ```
 
 ## Example playbook
