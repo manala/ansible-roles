@@ -172,14 +172,14 @@ manala_apt_repositories_patterns:
     key: maxscale_legacy
   maxscale_2_1:
     source: deb https://downloads.mariadb.com/MaxScale/2.1/debian {{ ansible_distribution_release }} main
-    key: maxscale_legacy
+    key: maxscale
   # Deprecated - Use `maxscale_2_1`
   maxscale_2_1_10:
     source: deb https://downloads.mariadb.com/MaxScale/2.1.10/debian {{ ansible_distribution_release }} main
     key: maxscale
   maxscale_2_2:
     source: deb https://downloads.mariadb.com/MaxScale/2.2/debian {{ ansible_distribution_release }} main
-    key: maxscale_legacy
+    key: maxscale
 # Deprecated - Use `maxscale_2_2`
   maxscale_2_2_6:
     source: deb https://downloads.mariadb.com/MaxScale/2.2.6/debian {{ ansible_distribution_release }} main
