@@ -8,4 +8,4 @@ command:
   maxscale --version:
     exit-status: 0
     stdout:
-      - MaxScale 2.0.4
+      - "/^MaxScale 2.2.\\d+$/"
