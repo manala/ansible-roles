@@ -163,12 +163,24 @@ manala_apt_repositories_patterns:
   mariadb_10_2:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
     key: "{{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('mariadb','mariadb_legacy') }}"
+  maxscale_2_0:
+    source: deb https://downloads.mariadb.com/MaxScale/2.0/debian {{ ansible_distribution_release }} main
+    key: maxscale_legacy
+  # Deprecated - Use `maxscale_2_0`
   maxscale_2_0_4:
     source: deb https://downloads.mariadb.com/MaxScale/2.0.4/debian {{ ansible_distribution_release }} main
     key: maxscale_legacy
+  maxscale_2_1:
+    source: deb https://downloads.mariadb.com/MaxScale/2.1/debian {{ ansible_distribution_release }} main
+    key: maxscale_legacy
+  # Deprecated - Use `maxscale_2_1`
   maxscale_2_1_10:
     source: deb https://downloads.mariadb.com/MaxScale/2.1.10/debian {{ ansible_distribution_release }} main
     key: maxscale
+  maxscale_2_2:
+    source: deb https://downloads.mariadb.com/MaxScale/2.2/debian {{ ansible_distribution_release }} main
+    key: maxscale_legacy
+# Deprecated - Use `maxscale_2_2`
   maxscale_2_2_6:
     source: deb https://downloads.mariadb.com/MaxScale/2.2.6/debian {{ ansible_distribution_release }} main
     key: maxscale
