@@ -13,8 +13,10 @@ class LookupModule(LookupBase):
                 raise AnsibleError('Expected a dict for key "env" in manala_php_fpm_pools config ')
             for envKey in sorted(value):
                 envValue = value.get(envKey)
-                if not isinstance(envValue, (basestring, int, float)) or isinstance(envValue, bool):
-                    raise AnsibleError("Expected a string, an integer or a float for key \"%s\" in manala_php_fpm_pools config env" % envKey)
+                # Empty values generate errors
+                # See: https://github.com/php/php-src/blob/PHP-7.2.9/sapi/fpm/fpm/fpm_conf.c#L1447
+                if not isinstance(envValue, (basestring, int, float)) or isinstance(envValue, bool) or envValue == "":
+                    raise AnsibleError("Expected a non-empty string, an integer or a float for key \"%s\" in manala_php_fpm_pools config env" % envKey)
                 result += "env[%s] = \"%s\"\n" % (envKey, envValue)
 
         return result
