@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Empty environment variables (`""`) raise errors as well as null ones (See: https://github.com/php/php-src/blob/PHP-7.2.9/sapi/fpm/fpm/fpm_conf.c#L1447)
 
 ## [1.0.9] - 2018-06-05
 ### Changed
