@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - New template to handle default security headers configuration
+- New Drupal 8 default template
 
 ## [1.0.3] - 2018-06-05
 ### Added
