@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.20] - 2018-10-12
 ### Added
 - Introduce "env_vars" app options. Such environment variables will be both
   available in zsh and php fpm
