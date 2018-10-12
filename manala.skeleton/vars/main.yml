@@ -32,6 +32,7 @@ manala_skeleton_patterns:
     # Environment
     environment_files:
       - zsh
+    environment_variables: "{{ manala_skeleton_options.app.env_vars }}"
     # Apt
     apt_components:
       - main
@@ -220,6 +221,7 @@ manala_skeleton_patterns:
           {'app': [
             {'user':                       manala_skeleton_options.app.user},
             {'group':                      manala_skeleton_options.app.group},
+            {'env':                        manala_skeleton_options.app.env_vars},
             {'php_admin_value[error_log]': manala_skeleton_options.app.log_dir ~ '/php.error.log'}
           ]}
         ]

@@ -64,6 +64,7 @@ manala_skeleton_options:
   # App
   app:
     env:          dev
+    env_vars:     {}
     user:         app
     group:        app
     host:         "{{ ansible_fqdn }}"
