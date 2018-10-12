@@ -51,8 +51,11 @@ Using ansible galaxy requirements file:
 manala_cron_files:
   - file: app
     user: foo
+    env:
+      FOO: foo
+    # Deprecated
     environment:
-      - FOO: bar
+      - BAR: bar
     jobs:
       # Do foo bar
       - name:   foo-bar

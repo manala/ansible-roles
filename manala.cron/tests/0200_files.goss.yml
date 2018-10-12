@@ -1,13 +1,34 @@
 ---
 
 file:
-  /etc/cron.d/app:
+  /etc/cron.d/foo:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
     contains:
-      - 'FOO="bar"'
-      - '#Ansible: foo-bar'
-      - '0 7 * * * foo php /srv/app/bin/console app:foo:bar'
+      - 'FOO=foo'
+      - 'BAR=bar'
+      - '#Ansible: foo-foo'
+      - '0 7 * * * foo cd /srv/app && bin/console app:foo:foo'
+  /etc/cron.d/bar:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - '#Ansible: bar-bar'
+      - '0 7 * * * root cd /srv/app && bin/console app:bar:bar'
+  /etc/cron.d/baz:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - 'BAR=bar'
+      - 'QUX=qux'
+      - '#Ansible: baz-baz'
+      - '0 7 * * * root cd /srv/app && bin/console app:baz:baz'
