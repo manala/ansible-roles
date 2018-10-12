@@ -19,15 +19,28 @@
     - cron restart
 
 - name: files > Env variables
-  cron:
-    cron_file:  "{{ item.0.file }}"
-    env:        true
-    name:       "{{ item.1.keys()[0] }}"
-    value:      "{{ item.1.values()[0] }}"
-    user:       "{{ item.0.user|default('root') }}"
-    state:      present
+  cronvar:
+    cron_file: "{{ item.file }}"
+    name:      "{{ item.name }}"
+    value:     "{{ item.value }}"
+    user:      "{{ item.user|default(omit) }}"
+    state:     present
+  with_manala_cron_files_env:
+    - "{{ manala_cron_files }}"
+  notify:
+    - cron restart
+
+# Deprecated
+- name: files > Environment variables (deprecated)
+  cronvar:
+    cron_file: "{{ item.0.file }}"
+    name:      "{{ item.1.keys()[0] }}"
+    value:     "{{ item.1.values()[0] }}"
+    user:      "{{ item.0.user|default(omit) }}"
+    state:     present
   with_subelements:
-    - "{{ manala_cron_files | selectattr('environment', 'defined') | list }}"
+    - "{{ manala_cron_files }}"
     - environment
+    - skip_missing: true
   notify:
     - cron restart
