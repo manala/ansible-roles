@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -18,7 +19,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Dir as a single line
-            if isinstance(dir, basestring):
+            if isinstance(dir, string_types):
                 item = default.copy()
                 item.update({
                     'dir': dir
@@ -31,7 +32,7 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not dir.has_key('dir'):
+                if 'dir' not in dir:
                     raise AnsibleError('Expect "dir" key')
 
                 item = default.copy()

@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -13,13 +14,13 @@ class LookupModule(LookupBase):
         for term in self._flatten(terms):
 
             # Normalize term as dict
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 term = {
                     'package': term
                 }
 
             # Check index key
-            if not term.has_key('package'):
+            if 'package' not in term:
                 raise AnsibleError('Expect "package" key')
 
             # Merge by index key

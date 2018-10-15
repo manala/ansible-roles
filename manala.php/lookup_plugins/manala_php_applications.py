@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -24,11 +25,11 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 item = itemDefault.copy()
 
                 # Pattern
-                if not patterns.has_key(term.split('@')[0]):
+                if term.split('@')[0] not in patterns:
                     print(term.split('@')[0])
                     raise AnsibleError('Unknown pattern')
 
@@ -48,13 +49,13 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not term.has_key('application'):
+                if 'application' not in term:
                     raise AnsibleError('Expect "application" key')
 
                 item = itemDefault.copy()
 
                 # Pattern
-                if patterns.has_key(term.get('application')):
+                if term.get('application') in patterns:
                     item.update(patterns.get(term.get('application')))
 
                 item.update(term)

@@ -2,8 +2,8 @@
 
 - name: requirements > Version
   fail:
-     msg: You must set "manala_php_version" to either {{ manala_php_versions.keys()|join(', ') }}
-  when: manala_php_version|string not in manala_php_versions.keys()
+     msg: You must set "manala_php_version" to either {{ manala_php_versions.keys()|list|join(', ') }}
+  when: manala_php_version|string not in manala_php_versions.keys()|list
   check_mode: false
 
 - name: requirements > Version release

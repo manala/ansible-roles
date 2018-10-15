@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types, iteritems
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -14,16 +15,16 @@ class LookupModule(LookupBase):
 
         for file in files:
 
-            if file.has_key('env'):
+            if 'env' in file:
                 env = file.get('env')
 
                 # Env must be a dict
                 if not isinstance(env, dict):
                     raise AnsibleError('Expected a dict')
 
-                for name,value in env.iteritems():
+                for name,value in iteritems(env):
 
-                    if not isinstance(value, (basestring, int, float)) or isinstance(value, bool):
+                    if not isinstance(value, (string_types, int, float)) or isinstance(value, bool):
                         raise AnsibleError("Expected a string, an integer or a float for key \"%s\" in manala_cron_files env" % name)
 
                     item = {
@@ -32,7 +33,7 @@ class LookupModule(LookupBase):
                         'value': value
                     }
 
-                    if file.has_key('user'):
+                    if 'user' in file:
                         item['user'] = file.get('user')
 
                     results.append(item)

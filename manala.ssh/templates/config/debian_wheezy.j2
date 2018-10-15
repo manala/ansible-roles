@@ -5,7 +5,7 @@
 {% set config_host_wildcard = [] -%}
 
 {%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.iteritems() -%}
+    {%- for config_name, config_parameters in configs.items() -%}
         {%- if config_name == 'Host *' -%}
             {%- if config_host_wildcard.extend(config_parameters) -%}{%- endif -%}
         {%- endif -%}

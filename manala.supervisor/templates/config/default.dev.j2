@@ -8,7 +8,7 @@
 {% set config_include = [] -%}
 
 {%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.iteritems() -%}
+    {%- for config_name, config_parameters in configs.items() -%}
         {%- if config_name == 'unix_http_server' -%}
             {%- if config_unix_http_server.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'supervisord' -%}

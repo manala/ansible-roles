@@ -3,7 +3,7 @@
         {%- if parameter is string or parameter is number -%}
             {{ parameter }}{{ '\n' }}
         {%- elif parameter is mapping -%}
-            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+            {%- for parameter_key, parameter_value in parameter.items() -%}
                 {%- if parameter_key not in exclusions -%}
                     {{ _config_parameter(parameter_key, parameter_value) }}{{ '\n' }}
                 {%- endif -%}
@@ -16,7 +16,7 @@
     {%- set vars = {'values': []} -%}
     {%- for parameter in parameters -%}
         {%- if parameter is mapping -%}
-            {%- for parameter_key, parameter_value in parameter.iteritems() -%}
+            {%- for parameter_key, parameter_value in parameter.items() -%}
                 {%- if parameter_key == key -%}
                     {%- if vars.update({'values': vars['values'] + [parameter_value]}) -%}{%- endif -%}
                 {%- endif -%}

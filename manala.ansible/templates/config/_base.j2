@@ -14,7 +14,7 @@
 {% set config_diff = [] -%}
 
 {%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.iteritems() -%}
+    {%- for config_name, config_parameters in configs.items() -%}
         {%- if config_name == 'defaults' -%}
             {%- if config_defaults.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'inventory' -%}
@@ -538,8 +538,8 @@
 # only be disabled if your sftp version has problems with batch mode
 {{ macros.config_row(config_ssh_connection, 'sftp_batch_mode', '#sftp_batch_mode = False', 0, true) }}
 
-# The -tt argument is passed to ssh when pipelining is not enabled because sudo 
-# requires a tty by default. 
+# The -tt argument is passed to ssh when pipelining is not enabled because sudo
+# requires a tty by default.
 {{ macros.config_row(config_ssh_connection, 'use_tty', '#use_tty = True', 0, true) }}
 
 {{ macros.config(config_ssh_connection, [

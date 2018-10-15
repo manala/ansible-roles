@@ -17,12 +17,12 @@ docker run
 {%- if item.interactive %}${INTERACTIVE}{% endif -%}
 {%- if item.tty %} --tty{% endif -%}
 {%- if item.volumes %}
-  {%- for source, destination in item.volumes.iteritems() -%}
+  {%- for source, destination in item.volumes.items() -%}
       {{ ' ' }}--volume {{ source }}:{{ destination }}
   {%- endfor -%}
 {% endif -%}
 {%- if item.environment %}
-  {%- for source, destination in item.environment.iteritems() -%}
+  {%- for source, destination in item.environment.items() -%}
       {{ ' ' }}--env {{ source }}={{ destination }}
   {%- endfor -%}
 {% endif -%}

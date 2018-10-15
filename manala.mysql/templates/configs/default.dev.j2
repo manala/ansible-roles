@@ -5,7 +5,7 @@
 {% set config_mysqld = [] -%}
 
 {%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.iteritems() -%}
+    {%- for config_name, config_parameters in configs.items() -%}
         {%- if config_name == 'mysqld' -%}
             {%- if config_mysqld.extend(config_parameters) -%}{%- endif -%}
         {%- endif -%}

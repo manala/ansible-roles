@@ -3,6 +3,6 @@
 - name: routing_tables > File
   lineinfile:
     path:   "{{ manala_network_routing_tables_file }}"
-    regexp: "^{{ item.keys()[0] }}\\s+"
-    line:   "{{ item.keys()[0] }}	{{ item.values()[0] }}"
+    regexp: "^{{ (item.keys()|list)[0] }}\\s+"
+    line:   "{{ (item.keys()|list)[0] }}	{{ (item.values()|list)[0] }}"
   with_items: "{{ manala_network_routing_tables }}"

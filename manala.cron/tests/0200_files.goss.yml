@@ -8,8 +8,8 @@ file:
     group: root
     filetype: file
     contains:
-      - 'FOO=foo'
-      - 'BAR=bar'
+      - 'FOO="foo"'
+      - 'BAR="bar"'
       - '#Ansible: foo-foo'
       - '0 7 * * * foo cd /srv/app && bin/console app:foo:foo'
   /etc/cron.d/bar:
@@ -28,7 +28,7 @@ file:
     group: root
     filetype: file
     contains:
-      - 'BAR=bar'
-      - 'QUX=qux'
+      - 'BAR="bar"'
+      - 'QUX="qux"'
       - '#Ansible: baz-baz'
       - '0 7 * * * root cd /srv/app && bin/console app:baz:baz'
