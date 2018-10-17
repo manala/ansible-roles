@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -17,7 +18,7 @@ class LookupModule(LookupBase):
         repositoryPosition = 0
         for repository in repositories:
 
-            if repository.has_key('key'):
+            if 'key' in repository:
                 terms[0].insert(repositoryPosition, repository.get('key'))
                 repositoryPosition += 1
 
@@ -26,7 +27,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 items.append(
                     keys_patterns.get(term)
                 )
@@ -36,7 +37,7 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not term.has_key('id'):
+                if 'id' not in term:
                     raise AnsibleError('Expect "id" key')
 
                 items.append(term)

@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -23,7 +24,7 @@ class LookupModule(LookupBase):
         if isinstance(terms[0], dict):
             for name in sorted(terms[0]):
                 value = terms[0].get(name)
-                if not isinstance(value, (basestring, int, float)) or isinstance(value, bool):
+                if not isinstance(value, (string_types, int, float)) or isinstance(value, bool):
                     raise AnsibleError("Expected a string, an integer or a float for key \"%s\" in manala_environment_variables" % name)
                 results.append({
                     'name':  name,
@@ -39,7 +40,7 @@ class LookupModule(LookupBase):
 
                 items = []
 
-                if term.has_key('name') and term.has_key('value'):
+                if 'name' in term and 'value' in term:
                     # Expanded syntax
                     items.append({
                         'name':  term.get('name'),
@@ -48,8 +49,8 @@ class LookupModule(LookupBase):
                 else:
                     # Short syntax
                     items.append({
-                        'name':  term.keys()[0],
-                        'value': self.legacy_format_value(term.values()[0])
+                        'name':  list(term.keys())[0],
+                        'value': self.legacy_format_value(list(term.values())[0])
                     })
 
                 # Merge by index key

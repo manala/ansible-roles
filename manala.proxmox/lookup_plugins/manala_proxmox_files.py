@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 import os
@@ -36,7 +37,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(file, basestring):
+            if isinstance(file, string_types):
                 item = itemDefault.copy()
                 item.update({
                     'url': file
@@ -46,16 +47,16 @@ class LookupModule(LookupBase):
                 if not isinstance(file, dict):
                     raise AnsibleError('Expect a dict')
 
-                if (not file.has_key('file')) and (not file.has_key('url')):
+                if ('file' not in file) and ('url' not in file):
                     raise AnsibleError('Expect "url" or "file" key')
 
-                if (file.get('state') == 'present') and (not file.has_key('url')):
+                if (file.get('state') == 'present') and ('url' not in file):
                     raise AnsibleError('Expect "url" key for present state')
 
                 item = itemDefault.copy()
                 item.update(file)
 
-            if item.has_key('url') and not item.has_key('file'):
+            if 'url' in item and 'file' not in item:
                 item.update({
                     'file': os.path.basename(item['url'])
                 })

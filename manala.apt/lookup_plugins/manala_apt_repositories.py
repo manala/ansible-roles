@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -17,7 +18,7 @@ class LookupModule(LookupBase):
         preferencePosition = 0
         for preference in preferences:
 
-            if isinstance(preference, basestring):
+            if isinstance(preference, string_types):
                 term = ((preference.split('@')[1])
                     if len(preference.split('@')) > 1 else
                 (preference)).split(':')[0]
@@ -29,7 +30,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 items.append(
                     repositories_patterns.get(term)
                 )
@@ -39,13 +40,13 @@ class LookupModule(LookupBase):
                 if not isinstance(term, dict):
                     raise AnsibleError('Expect a dict')
 
-                if term.has_key('pattern'):
+                if 'pattern' in term:
                     item = repositories_patterns.get(term.get('pattern'))
                     item.update(term)
                     items.append(item)
                 else:
                     # Check index key
-                    if not term.has_key('source'):
+                    if 'source' not in term:
                         raise AnsibleError('Expect "source" key')
 
                     items.append(term)

@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -17,7 +18,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 item = patterns.get(term)
             else:
 
@@ -26,13 +27,13 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not term.has_key('host'):
+                if 'host' not in term:
                     raise AnsibleError('Expect "host" key')
 
                 item = term.copy()
 
             # File
-            if item.has_key('file'):
+            if 'file' in item:
                 item.pop('key', None)
                 # Relative
                 if not item.get('file').startswith('/'):

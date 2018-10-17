@@ -3,7 +3,7 @@
 file:
   /tmp/manala_ansible_galaxy_roles.yml:
     exists: false
-  /etc/ansible/roles/carlosbuenosvinos.ansistrano-deploy:
+  /etc/ansible/roles/ansistrano.deploy:
     exists:   true
     filetype: directory
   /etc/ansible/roles/jdauphant.nginx:

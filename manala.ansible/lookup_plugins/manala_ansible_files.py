@@ -40,7 +40,7 @@ class LookupModule(LookupBase):
                 raise AnsibleError('Expect a dict')
 
             # Check index key
-            if not file.has_key('file'):
+            if 'file' not in file:
                 raise AnsibleError('Expect "file" key')
 
             item = itemDefault.copy()

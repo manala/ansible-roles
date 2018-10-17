@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -24,7 +25,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 item = itemDefault.copy()
                 item.update({
                     'package': term
@@ -36,7 +37,7 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not term.has_key('package'):
+                if 'package' not in term:
                     raise AnsibleError('Expect "package" key')
 
                 item = itemDefault.copy()

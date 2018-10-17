@@ -19,11 +19,12 @@
     - cron restart
 
 - name: files > Env variables
-  cronvar:
+  cron:
     cron_file: "{{ item.file }}"
+    env:       true
     name:      "{{ item.name }}"
     value:     "{{ item.value }}"
-    user:      "{{ item.user|default(omit) }}"
+    user:      "{{ item.user|default('root') }}"
     state:     present
   with_manala_cron_files_env:
     - "{{ manala_cron_files }}"
@@ -32,11 +33,12 @@
 
 # Deprecated
 - name: files > Environment variables (deprecated)
-  cronvar:
+  cron:
     cron_file: "{{ item.0.file }}"
-    name:      "{{ item.1.keys()[0] }}"
-    value:     "{{ item.1.values()[0] }}"
-    user:      "{{ item.0.user|default(omit) }}"
+    env:       true
+    name:      "{{ (item.1.keys()|list)[0] }}"
+    value:     "{{ (item.1.values()|list)[0] }}"
+    user:      "{{ item.0.user|default('root') }}"
     state:     present
   with_subelements:
     - "{{ manala_cron_files }}"

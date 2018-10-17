@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 # As seen on native locale_gen module
@@ -54,7 +55,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(code, basestring):
+            if isinstance(code, string_types):
                 item = itemDefault.copy()
                 item.update({
                     'code': code
@@ -66,7 +67,7 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not code.has_key('code'):
+                if 'code' not in code:
                     raise AnsibleError('Expect "code" key')
 
                 item = itemDefault.copy()

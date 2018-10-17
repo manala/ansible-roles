@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -29,7 +30,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Short syntax
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 item = itemDefault.copy()
 
                 item.update({
@@ -40,7 +41,7 @@ class LookupModule(LookupBase):
                 })
 
                 # Pattern
-                if patterns.has_key(term.split(':')[0]):
+                if term.split(':')[0] in patterns:
                     item.update(patterns.get(term.split(':')[0]))
 
                 # Tag
@@ -55,10 +56,10 @@ class LookupModule(LookupBase):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if not term.has_key('application'):
+                if 'application' not in term:
                     raise AnsibleError('Expect "application" key')
 
-                if not term.has_key('image'):
+                if 'image' not in term:
                     raise AnsibleError('Expect "image" key')
 
                 item = itemDefault.copy()

@@ -19,7 +19,7 @@ class LookupModule(LookupBase):
                 raise AnsibleError('Expect a dict')
 
             # Check index key
-            if not term.has_key('file'):
+            if 'file' not in term:
                 raise AnsibleError('Expect "file" key')
 
             items.append(term)

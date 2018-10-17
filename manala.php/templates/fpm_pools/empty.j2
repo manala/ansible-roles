@@ -2,7 +2,7 @@
 
 {%- for configs in item.config|default(['www']) -%}
 
-    {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
+    {%- for config_name, config in ({configs: []} if (configs is string) else configs).items() -%}
 
 [{{ config_name }}]
 

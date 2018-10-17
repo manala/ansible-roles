@@ -2,7 +2,7 @@
 
 {%- for configs in item.config|default([]) -%}
 
-    {%- for config_name, config in configs.iteritems() -%}
+    {%- for config_name, config in configs.items() -%}
 
 [program:{{ config_name }}]
 

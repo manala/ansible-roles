@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -17,9 +18,9 @@ class LookupModule(LookupBase):
 
             items = []
 
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 # Pattern
-                if not patterns.has_key(term):
+                if term not in patterns:
                     raise AnsibleError('"%s" is not a valid pattern' % (term))
                 items.append({
                     'file':   patterns.get(term).get('file'),

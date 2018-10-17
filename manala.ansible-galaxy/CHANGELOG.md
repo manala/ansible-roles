@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Python 3 compatibility
+
+### Changed
+- Ignore SSL certificate validation errors on debian wheezy when using
+  official ansible galaxy bin (incompatible default python version)
 
 ## [1.0.3] - 2018-06-05
 ### Changed

@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -15,11 +16,11 @@ class LookupModule(LookupBase):
             'when':    True,
             'dir':
                 (variables['deploy_helper']['new_release_path'])
-                    if variables.has_key('deploy_helper') else
+                    if 'deploy_helper' in variables else
                 (variables['manala_deploy_dir'] + '/' +  variables['manala_deploy_current_dir']),
             'shared_dir':
                 (variables['deploy_helper']['shared_path'])
-                    if variables.has_key('deploy_helper') else
+                    if 'deploy_helper' in variables else
                 (variables['manala_deploy_dir'] + '/' +  variables['manala_deploy_shared_dir'])
         }
 
@@ -28,7 +29,7 @@ class LookupModule(LookupBase):
             items = []
 
             # Task as a single line
-            if isinstance(term, basestring):
+            if isinstance(term, string_types):
                 item = itemDefault.copy()
                 item.update({
                     'task': term
@@ -47,7 +48,7 @@ class LookupModule(LookupBase):
                         break
                 if item:
                     item.update({
-                        'when': term.get('when') if term.has_key('when') else True
+                        'when': term.get('when') if 'when' in term else True
                     })
                     items.append(item)
 

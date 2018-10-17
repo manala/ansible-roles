@@ -27,7 +27,7 @@
 {% set config_grafana_net = [] -%}
 
 {%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.iteritems() -%}
+    {%- for config_name, config_parameters in configs.items() -%}
         {%- if config_name == 'paths' -%}
             {%- if config_paths.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'server' -%}

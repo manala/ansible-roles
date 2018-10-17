@@ -1,6 +1,6 @@
 {%- for configs in item.config|default([config_name_default]) -%}
 
-    {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
+    {%- for config_name, config in ({configs: []} if (configs is string) else configs).items() -%}
 
 ; Start a new pool named '{{ config_name }}'.
 ; the variable $pool can be used in any directive and will be replaced by the
@@ -420,9 +420,9 @@
 {{ macros.config_row(config, 'php_admin_flag[log_errors]', ';php_admin_flag[log_errors] = on', true) }}
 {{ macros.config_row(config, 'php_admin_value[memory_limit]', ';php_admin_value[memory_limit] = 32M', true) }}
 
-{% for config_extra_key, config_extra_value in config_extra.iteritems() -%}
+{% for config_extra_key, config_extra_value in config_extra.items() -%}
 {{ macros.config_row(config, config_extra_key, config_extra_value) }}
-{%- endfor %}
+{% endfor %}
 
 {{ macros.config(config, [
   'prefix',
@@ -466,7 +466,7 @@
   'php_admin_value[error_log]',
   'php_admin_flag[log_errors]',
   'php_admin_value[memory_limit]'
-] + config_extra.keys()) -}}
+] + config_extra.keys()|list) -}}
 
     {%- endfor %}
 

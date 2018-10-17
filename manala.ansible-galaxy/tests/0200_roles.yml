@@ -5,7 +5,7 @@
   become: true
   vars:
     manala_ansible_galaxy_roles:
-      - carlosbuenosvinos.ansistrano-deploy
+      - ansistrano.deploy
       - jdauphant.nginx
       - src: jdauphant.nginx
         version: v1.11.4

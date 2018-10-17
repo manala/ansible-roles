@@ -25,14 +25,14 @@ class LookupModule(LookupBase):
         for attribute in attributes:
 
             # Check index key
-            if not attribute.has_key('path'):
+            if 'path' not in attribute:
                 raise AnsibleError('Expect "path" key')
 
             items = []
 
             # State - Link Directory
-            if attribute.has_key('state') and (attribute['state'] == 'link_directory'):
-                if not attribute.has_key('src'):
+            if  'state' in attribute and (attribute['state'] == 'link_directory'):
+                if 'src' not in attribute:
                     raise AnsibleError('Expect "src" key')
                 # Directory (src)
                 item = self._default(defaults, attribute['src'])
@@ -54,7 +54,7 @@ class LookupModule(LookupBase):
                 })
                 items.append(item)
             # State - Link File
-            elif attribute.has_key('state') and (attribute['state'] == 'link_file'):
+            elif 'state' in attribute and (attribute['state'] == 'link_file'):
                 item = self._default(defaults, attribute['path'])
                 item.update(attribute)
                 item.update({
@@ -63,7 +63,7 @@ class LookupModule(LookupBase):
                 items.append(item)
             else:
                 # Template
-                if attribute.has_key('template'):
+                if 'template' in attribute:
                     item = self._default(defaults, attribute['path'])
                     item.update(attribute)
                     item.update({
@@ -71,7 +71,7 @@ class LookupModule(LookupBase):
                     })
                     items.append(item)
                 # Content
-                elif attribute.has_key('content'):
+                elif 'content' in attribute:
                     item = self._default(defaults, attribute['path'])
                     item.update(attribute)
                     item.update({
@@ -79,7 +79,7 @@ class LookupModule(LookupBase):
                     })
                     items.append(item)
                 # Copy
-                elif attribute.has_key('copy'):
+                elif 'copy' in attribute:
                     item = self._default(defaults, attribute['path'])
                     item.update(attribute)
                     item.update({
@@ -87,7 +87,7 @@ class LookupModule(LookupBase):
                     })
                     items.append(item)
                 # Url
-                elif attribute.has_key('url'):
+                elif 'url' in attribute:
                     item = self._default(defaults, attribute['path'])
                     item.update(attribute)
                     item.update({

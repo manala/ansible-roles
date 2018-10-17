@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
+from ansible.module_utils.six import string_types, iteritems
 from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
@@ -15,7 +16,7 @@ class LookupModule(LookupBase):
                 envValue = value.get(envKey)
                 # Empty values generate errors
                 # See: https://github.com/php/php-src/blob/PHP-7.2.9/sapi/fpm/fpm/fpm_conf.c#L1447
-                if not isinstance(envValue, (basestring, int, float)) or isinstance(envValue, bool) or envValue == "":
+                if not isinstance(envValue, (string_types, int, float)) or isinstance(envValue, bool) or envValue == "":
                     raise AnsibleError("Expected a non-empty string, an integer or a float for key \"%s\" in manala_php_fpm_pools config env" % envKey)
                 result += "env[%s] = \"%s\"\n" % (envKey, envValue)
 
@@ -30,7 +31,7 @@ class LookupModule(LookupBase):
         config = self._flatten(terms[0])
 
         for row in config:
-            for key, value in row.iteritems():
+            for key, value in iteritems(row):
                 if key == wantrow:
                     return self.format_row(key, value, wantrowtype)
 
