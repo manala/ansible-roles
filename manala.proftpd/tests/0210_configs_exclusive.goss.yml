@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/proftpd/conf.d.test/foo.conf:
+    exists: false
+  /etc/proftpd/conf.d.test/bar.conf:
+    exists: true
+  /etc/proftpd/conf.d.test/baz.conf:
+    exists: false

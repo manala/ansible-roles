@@ -2,7 +2,7 @@
     {%- for parameter in parameters -%}
         {% set outer_loop = loop %}
         {%- if parameter is string or parameter is number -%}
-            {{ parameter }}{{ '\n' }}
+            {{ parameter|indent(indent, true) }}{{ '\n' }}
         {%- elif parameter is mapping -%}
             {%- for parameter_key, parameter_value in parameter.items() -%}
                 {%- if parameter_key not in exclusions -%}
@@ -40,7 +40,12 @@
 {%- endmacro -%}
 
 {%- macro _config_parameter(key, value, indent = 0) -%}
-    {{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }}
+    {%- if value is sequence and value is not string -%}
+        {%- set directive = key.split(' ') -%}
+        {{ ('<' ~ key ~ '>')|indent(indent, true) }}{{ '\n' }}{{ config(value, [], indent + 4) }}{{ ('</' ~ directive[0] ~ '>')|indent(indent, true) }}
+    {%- else -%}
+        {{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }}
+    {%- endif -%}
 {%- endmacro -%}
 
 {%- macro _config_parameter_key(key) -%}
