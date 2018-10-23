@@ -214,13 +214,14 @@ Verbose
 ```yaml
 manala_apt_preferences:
   - package:  '*'
-    pin: release o=Debian,a=stable
+    pin:      release o=Debian,a=stable
     priority: 600
     file:     dotdeb
   - package:  'php-*'
     pin:      release o=Debian,a=stable
     priority: 900
     file:     php
+    state:    absent
 ```
 
 ### Packages

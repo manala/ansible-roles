@@ -1,26 +1,19 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
-    manala_apt_preferences_exclusive: true
     manala_apt_preferences:
       - git@backports
       - libssl1.0.0@backports
       - php@dotdeb:300
       - dotdeb:100
       - dotdeb:200
-      - package:  foo
-        pin:      bar
-        priority: 100
-        file:     foo_bar
-    manala_apt_repositories_exclusive: true
     manala_apt_repositories:
       - security
       - nginx
       - nginx
-      - gitlab-ce
       - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
       - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
         key: bearstech
@@ -28,15 +21,36 @@
         key:
           url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
           id:  ACCC4CF8
-      - pattern: proxmox_enterprise
-        state:   absent
-  pre_tasks:
-    - copy:
-        dest: /etc/apt/sources.list.d/yarn.list
-        content: |
-          deb https://dl.yarnpkg.com/debian/ stable main
+      - pattern: grafana
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.15/debian {{ ansible_distribution_release }} main
+        key: maxscale
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ ansible_distribution_release }} main
+        key: maxscale
+        state: present
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.17/debian {{ ansible_distribution_release }} main
+        key: maxscale
+        state: absent
   roles:
     - manala.apt
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_repositories:
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.15/debian {{ ansible_distribution_release }} main
+        key: maxscale
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ ansible_distribution_release }} main
+        key: maxscale
+        state: absent
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.17/debian {{ ansible_distribution_release }} main
+        key: maxscale
+        state: present
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

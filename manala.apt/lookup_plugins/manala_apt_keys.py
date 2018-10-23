@@ -11,36 +11,34 @@ class LookupModule(LookupBase):
 
         results = []
 
-        keys_patterns = terms[1]
-        repositories  = terms[2]
+        keys         = self._flatten(terms[0])
+        keysPatterns = terms[1]
+        repositories = terms[2]
 
-        # Repositories
-        repositoryPosition = 0
-        for repository in repositories:
-
+        # Handle repositories defined as reversed preferences
+        for repository in repositories[::-1]:
             if 'key' in repository:
-                terms[0].insert(repositoryPosition, repository.get('key'))
-                repositoryPosition += 1
+                keys.insert(0, repository.get('key'))
 
-        for term in self._flatten(terms[0]):
+        for key in keys:
 
             items = []
 
             # Short syntax
-            if isinstance(term, string_types):
+            if isinstance(key, string_types):
                 items.append(
-                    keys_patterns.get(term)
+                    keysPatterns.get(key)
                 )
             else:
                 # Must be a dict
-                if not isinstance(term, dict):
+                if not isinstance(key, dict):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if 'id' not in term:
+                if 'id' not in key:
                     raise AnsibleError('Expect "id" key')
 
-                items.append(term)
+                items.append(key)
 
             # Merge by index key
             for item in items:
