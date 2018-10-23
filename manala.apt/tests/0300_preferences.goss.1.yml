@@ -1,40 +1,47 @@
 ---
 
 file:
-  /etc/apt/preferences.d/git:
+  /etc/apt/preferences.d.test/git:
     exists:   true
     filetype: file
     contains:
       - "Package:      git git-*"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d/libssl1_0_0:
+  /etc/apt/preferences.d.test/libssl1_0_0:
     exists:   true
     filetype: file
     contains:
       - "Package:      libssl1.0.0"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d/php:
+  /etc/apt/preferences.d.test/php:
     exists:   true
     filetype: file
     contains:
       - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-*"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 300"
-  /etc/apt/preferences.d/dotdeb:
+  /etc/apt/preferences.d.test/dotdeb:
     exists:   true
     filetype: file
     contains:
       - "Package:      *"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 200"
-  /etc/apt/preferences.d/foo_bar:
+  /etc/apt/preferences.d.test/foo_foo:
     exists:   true
     filetype: file
     contains:
       - "Package:      foo"
+      - "Pin:          foo"
+      - "Pin-Priority: 100"
+  /etc/apt/preferences.d.test/bar_bar:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      bar"
       - "Pin:          bar"
       - "Pin-Priority: 100"
-  /etc/apt/preferences.d/bar:
+  /etc/apt/preferences.d.test/baz_baz:
     exists: false

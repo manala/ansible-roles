@@ -1,0 +1,12 @@
+---
+
+file:
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_15_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_16_debian.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_17_debian.list:
+    exists: false

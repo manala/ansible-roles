@@ -1,34 +1,45 @@
 ---
 
-- name: preferences > Templates
-  template:
-    src:  preferences/default.j2
-    dest: "{{ manala_apt_preferences_dir ~ '/' ~ item.file }}"
-  with_manala_apt_preferences:
-    - "{{ manala_apt_preferences }}"
-    - "{{ manala_apt_preferences_patterns }}"
-    # Repositories
-    - "{{ manala_apt_repositories_patterns }}"
-  register: __manala_apt_preferences_results
+- name: preferences > Directory
+  file:
+    path: "{{ manala_apt_preferences_dir }}"
+    state: directory
 
-- name: preferences > Exclusive - find files
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: "{{ manala_apt_preferences_dir }}"
+- name: preferences > Exclusive
+  find:
+    path: "{{ manala_apt_preferences_dir }}"
   changed_when: false
-  register: __manala_apt_preferences_find_output
+  register: __manala_apt_preferences_exclusive_find
   when: manala_apt_preferences_exclusive
 
-- name: preferences > Exclusive - remove files
-  file:
-    path:  "{{ manala_apt_preferences_dir }}/{{ item }}"
-    state: absent
-  when: |
-    manala_apt_preferences_exclusive
-    and (
-      item not in __manala_apt_preferences_results.results
-        |map(attribute='item')
-        |map(attribute='file')
-        |list
+- name: preferences > Templates presents
+  template:
+    src:  preferences/default.j2
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_apt_preferences',
+      manala_apt_preferences,
+      manala_apt_preferences_patterns,
+      manala_apt_repositories_patterns,
+      __manala_apt_preferences_exclusive_find.files|default([]),
+      manala_apt_preferences_dir,
+      wantlist=True,
+      wantstate='present'
     )
-  with_items: "{{ __manala_apt_preferences_find_output.stdout_lines|default([]) }}"
+  }}"
+
+- name: preferences > Files absents
+  file:
+    path:  "{{ item.file }}"
+    state: absent
+  with_items: "{{ lookup(
+      'manala_apt_preferences',
+      manala_apt_preferences,
+      manala_apt_preferences_patterns,
+      manala_apt_repositories_patterns,
+      __manala_apt_preferences_exclusive_find.files|default([]),
+      manala_apt_preferences_dir,
+      wantlist=True,
+      wantstate='absent'
+    )
+  }}"

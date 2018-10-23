@@ -1,0 +1,19 @@
+---
+
+file:
+  /etc/apt/preferences.d.test/foo_foo:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      foo"
+      - "Pin:          foo"
+      - "Pin-Priority: 100"
+  /etc/apt/preferences.d.test/bar_bar:
+    exists: false
+  /etc/apt/preferences.d.test/baz_baz:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      baz"
+      - "Pin:          baz"
+      - "Pin-Priority: 100"

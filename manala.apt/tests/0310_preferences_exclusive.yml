@@ -6,11 +6,6 @@
   vars:
     manala_apt_preferences_dir: /etc/apt/preferences.d.test
     manala_apt_preferences:
-      - git@backports
-      - libssl1.0.0@backports
-      - php@dotdeb:300
-      - dotdeb:100
-      - dotdeb:200
       - package:  foo
         pin:      foo
         priority: 100
@@ -19,40 +14,26 @@
         pin:      bar
         priority: 100
         file:     bar_bar
-        state:    present
       - package:  baz
         pin:      baz
         priority: 100
         file:     baz_baz
-        state:    absent
   roles:
     - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
 
 - name: "{{ test }}.2"
   hosts: debian
   become: true
   vars:
     manala_apt_preferences_dir: /etc/apt/preferences.d.test
+    manala_apt_preferences_exclusive: true
     manala_apt_preferences:
-      - package:  foo
-        pin:      foo
-        priority: 100
-        file:     foo_foo
       - package:  bar
         pin:      bar
         priority: 100
         file:     bar_bar
-        state:    absent
-      - package:  baz
-        pin:      baz
-        priority: 100
-        file:     baz_baz
-        state:    present
   roles:
     - manala.apt
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+      command: goss --gossfile {{ test }}.goss.yml validate

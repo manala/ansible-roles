@@ -1,0 +1,29 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_repositories:
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.15/debian {{ ansible_distribution_release }} main
+        key: maxscale
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ ansible_distribution_release }} main
+        key: maxscale
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.17/debian {{ ansible_distribution_release }} main
+        key: maxscale
+  roles:
+    - manala.apt
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_repositories_exclusive: true
+    manala_apt_repositories:
+      - source: deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ ansible_distribution_release }} main
+        key: maxscale
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

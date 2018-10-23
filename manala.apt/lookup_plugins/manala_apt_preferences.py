@@ -5,6 +5,7 @@ from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
+import os
 import re
 
 class LookupModule(LookupBase):
@@ -13,49 +14,68 @@ class LookupModule(LookupBase):
 
         results = []
 
-        preferences_patterns  = terms[1]
-        repositories_patterns = terms[2]
+        wantstate = kwargs.pop('wantstate', None)
 
-        for term in self._flatten(terms[0]):
+        preferences          = self._flatten(terms[0])
+        preferencesPatterns  = terms[1]
+        repositoriesPatterns = terms[2]
+        preferencesExclusive = self._flatten(terms[3])
+        preferencesDir       = terms[4]
+
+        itemDefault = {
+            'state': 'present'
+        }
+
+        # Mark exclusive preferences as absent
+        for preference in preferencesExclusive:
+            item = itemDefault.copy()
+            item.update({
+                'file':  preference['path'],
+                'state': 'absent'
+            })
+            results.append(item)
+
+        for preference in preferences:
 
             items = []
 
             # Short syntax
-            if isinstance(term, string_types):
-                items.append({
-                    'file': term
+            if isinstance(preference, string_types):
+                item = itemDefault.copy()
+                item.update({
+                    'file': preference
                         .split('@')[0]
                         .split(':')[0]
                         .replace('.', '_'),
-                    'package': preferences_patterns.get(
-                        term.split('@')[0],
-                        (term.split('@')[0])
-                            if len(term.split('@')) > 1 else
+                    'package': preferencesPatterns.get(
+                        preference.split('@')[0],
+                        (preference.split('@')[0])
+                            if len(preference.split('@')) > 1 else
                         ('*')
                     ),
-                    'pin': repositories_patterns[
+                    'pin': repositoriesPatterns[
                         (
-                            (term.split('@')[1])
-                                if len(term.split('@')) > 1 else
-                            (term)
+                            (preference.split('@')[1])
+                                if len(preference.split('@')) > 1 else
+                            (preference)
                         ).split(':')[0]
                     ].get(
                         'pin',
                         'origin ' + re.sub(
                             'deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$',
                             '\\2',
-                            repositories_patterns[
+                            repositoriesPatterns[
                                 (
-                                    (term.split('@')[1])
-                                        if len(term.split('@')) > 1 else
-                                    (term)
+                                    (preference.split('@')[1])
+                                        if len(preference.split('@')) > 1 else
+                                    (preference)
                                 ).split(':')[0]
                             ].get('source')
                         )
                     ),
                     'priority': int(
-                        (term.split(':')[1])
-                            if len(term.split(':')) > 1 else
+                        (preference.split(':')[1])
+                            if len(preference.split(':')) > 1 else
                         (900)
                     )
                 })
@@ -63,14 +83,21 @@ class LookupModule(LookupBase):
             else:
 
                 # Must be a dict
-                if not isinstance(term, dict):
+                if not isinstance(preference, dict):
                     raise AnsibleError('Expect a dict')
 
                 # Check index key
-                if 'file' not in term:
+                if 'file' not in preference:
                     raise AnsibleError('Expect "file" key')
 
-                items.append(term)
+                item = itemDefault.copy()
+                item.update(preference)
+
+            item.update({
+                'file': os.path.join(preferencesDir, item['file'])
+            })
+
+            items.append(item)
 
             # Merge by index key
             for item in items:
@@ -83,5 +110,9 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
+
+        # Filter by state
+        if wantstate:
+            results = [result for result in results if result.get('state') == wantstate]
 
         return results
