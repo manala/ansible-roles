@@ -140,7 +140,7 @@ manala_proftpd_users:
       shell:            "/bin/false"
 ```
 We strongly encourage you to generate SHA2 password hash
-On linux, it can be generated with :
+On linux, it can be generated with:
 `echo -n yourpassword | mkpasswd --method=sha-512 -`
 
 Example playbook
