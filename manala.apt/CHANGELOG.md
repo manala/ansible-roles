@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Handle preferences & repositories states (present|absent)
+- MariaDB 10.3 repository pattern
 
 ## [1.0.24] - 2018-10-17
 ### Fixed
