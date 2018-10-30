@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Fixed
 - Fixed wrong `Feature-Policy` options syntax and set The `Referrer-Policy` header to `strict-origin-when-cross-origin`
+### Added
+- Add new Magento 2 default configuration file
 
 ## [1.0.5] - 2018-10-17
 ### Fixed
