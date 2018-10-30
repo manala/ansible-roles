@@ -1,3 +1,7 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_redis_config -%}
+
 # Redis configuration file example.
 #
 # Note that in order to read the configuration file, Redis must be
@@ -59,14 +63,14 @@
 # internet, binding to all the interfaces is dangerous and will expose the
 # instance to everybody on the internet. So by default we uncomment the
 # following bind directive, that will force Redis to listen only into
-# the IPv4 lookback interface address (this means Redis will be able to
+# the IPv4 loopback interface address (this means Redis will be able to
 # accept connections only from clients running into the same computer it
 # is running).
 #
 # IF YOU ARE SURE YOU WANT YOUR INSTANCE TO LISTEN TO ALL THE INTERFACES
 # JUST COMMENT THE FOLLOWING LINE.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-bind 127.0.0.1 ::1
+{{ macros.config_row(config, 'bind', '127.0.0.1 ::1') }}
 
 # Protected mode is a layer of security protection, in order to avoid that
 # Redis instances left open on the internet are accessed and exploited.
@@ -85,11 +89,11 @@ bind 127.0.0.1 ::1
 # you are sure you want clients from other hosts to connect to Redis
 # even if no authentication is configured, nor a specific set of interfaces
 # are explicitly listed using the "bind" directive.
-protected-mode yes
+{{ macros.config_row(config, 'protected-mode', true) }}
 
 # Accept connections on the specified port, default is 6379 (IANA #815344).
 # If port 0 is specified Redis will not listen on a TCP socket.
-port 6379
+{{ macros.config_row(config, 'port', 6379) }}
 
 # TCP listen() backlog.
 #
@@ -98,7 +102,7 @@ port 6379
 # will silently truncate it to the value of /proc/sys/net/core/somaxconn so
 # make sure to raise both the value of somaxconn and tcp_max_syn_backlog
 # in order to get the desired effect.
-tcp-backlog 511
+{{ macros.config_row(config, 'tcp-backlog', 511) }}
 
 # Unix socket.
 #
@@ -107,10 +111,10 @@ tcp-backlog 511
 # on a unix socket when not specified.
 #
 # unixsocket /var/run/redis/redis-server.sock
-# unixsocketperm 700
+{{ macros.config_row(config, 'unixsocketperm', '# unixsocketperm 700', 0, true) }}
 
 # Close the connection after a client is idle for N seconds (0 to disable)
-timeout 0
+{{ macros.config_row(config, 'timeout', 0) }}
 
 # TCP keepalive.
 #
@@ -127,13 +131,13 @@ timeout 0
 #
 # A reasonable value for this option is 300 seconds, which is the new
 # Redis default starting with Redis 3.2.1.
-tcp-keepalive 300
+{{ macros.config_row(config, 'tcp-keepalive', 300) }}
 
 ################################# GENERAL #####################################
 
 # By default Redis does not run as a daemon. Use 'yes' if you need it.
 # Note that Redis will write a pid file in /var/run/redis.pid when daemonized.
-daemonize yes
+{{ macros.config_row(config, 'daemonize', true) }}
 
 # If you run Redis from upstart or systemd, Redis can interact with your
 # supervision tree. Options:
@@ -144,7 +148,7 @@ daemonize yes
 #                        UPSTART_JOB or NOTIFY_SOCKET environment variables
 # Note: these supervision methods only signal "process is ready."
 #       They do not enable continuous liveness pings back to your supervisor.
-supervised no
+{{ macros.config_row(config, 'supervised', false) }}
 
 # If a pid file is specified, Redis writes it where specified at startup
 # and removes it at exit.
@@ -155,7 +159,7 @@ supervised no
 #
 # Creating a pid file is best effort: if Redis is not able to create it
 # nothing bad happens, the server will start and run normally.
-pidfile /var/run/redis/redis-server.pid
+{{ macros.config_row(config, 'pidfile', '/var/run/redis/redis-server.pid') }}
 
 # Specify the server verbosity level.
 # This can be one of:
@@ -163,27 +167,27 @@ pidfile /var/run/redis/redis-server.pid
 # verbose (many rarely useful info, but not a mess like the debug level)
 # notice (moderately verbose, what you want in production probably)
 # warning (only very important / critical messages are logged)
-loglevel notice
+{{ macros.config_row(config, 'loglevel', 'notice') }}
 
 # Specify the log file name. Also the empty string can be used to force
 # Redis to log on the standard output. Note that if you use standard
 # output for logging but daemonize, logs will be sent to /dev/null
-logfile /var/log/redis/redis-server.log
+{{ macros.config_row(config, 'logfile', '/var/log/redis/redis-server.log') }}
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.
-# syslog-enabled no
+{{ macros.config_row(config, 'syslog-enabled', '# syslog-enabled no', 0, true) }}
 
 # Specify the syslog identity.
-# syslog-ident redis
+{{ macros.config_row(config, 'syslog-ident', '# syslog-ident redis', 0, true) }}
 
 # Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.
-# syslog-facility local0
+{{ macros.config_row(config, 'syslog-facility', '# syslog-facility local0', 0, true) }}
 
 # Set the number of databases. The default database is DB 0, you can select
 # a different one on a per-connection basis using SELECT <dbid> where
 # dbid is a number between 0 and 'databases'-1
-databases 16
+{{ macros.config_row(config, 'databases', 16) }}
 
 # By default Redis shows an ASCII art logo only when started to log to the
 # standard output and if the standard output is a TTY. Basically this means
@@ -191,7 +195,7 @@ databases 16
 #
 # However it is possible to force the pre-4.0 behavior and always show a
 # ASCII art logo in startup logs by setting the following option to yes.
-always-show-logo yes
+{{ macros.config_row(config, 'always-show-logo', true) }}
 
 ################################ SNAPSHOTTING  ################################
 #
@@ -215,9 +219,7 @@ always-show-logo yes
 #
 #   save ""
 
-save 900 1
-save 300 10
-save 60 10000
+{{ macros.config_row(config, 'save', ['900 1', '300 10', '60 10000']) }}
 
 # By default Redis will stop accepting writes if RDB snapshots are enabled
 # (at least one save point) and the latest background save failed.
@@ -232,13 +234,13 @@ save 60 10000
 # and persistence, you may want to disable this feature so that Redis will
 # continue to work as usual even if there are problems with disk,
 # permissions, and so forth.
-stop-writes-on-bgsave-error yes
+{{ macros.config_row(config, 'stop-writes-on-bgsave-error', true) }}
 
 # Compress string objects using LZF when dump .rdb databases?
 # For default that's set to 'yes' as it's almost always a win.
 # If you want to save some CPU in the saving child set it to 'no' but
 # the dataset will likely be bigger if you have compressible values or keys.
-rdbcompression yes
+{{ macros.config_row(config, 'rdbcompression', true) }}
 
 # Since version 5 of RDB a CRC64 checksum is placed at the end of the file.
 # This makes the format more resistant to corruption but there is a performance
@@ -247,10 +249,10 @@ rdbcompression yes
 #
 # RDB files created with checksum disabled have a checksum of zero that will
 # tell the loading code to skip the check.
-rdbchecksum yes
+{{ macros.config_row(config, 'rdbchecksum', true) }}
 
 # The filename where to dump the DB
-dbfilename dump.rdb
+{{ macros.config_row(config, 'dbfilename', 'dump.rdb') }}
 
 # The working directory.
 #
@@ -260,61 +262,68 @@ dbfilename dump.rdb
 # The Append Only File will also be created inside this directory.
 #
 # Note that you must specify a directory here, not a file name.
-dir /var/lib/redis
+{{ macros.config_row(config, 'dir', '/var/lib/redis') }}
 
 ################################# REPLICATION #################################
 
-# Master-Slave replication. Use slaveof to make a Redis instance a copy of
+# Master-Replica replication. Use replicaof to make a Redis instance a copy of
 # another Redis server. A few things to understand ASAP about Redis replication.
+#
+#   +------------------+      +---------------+
+#   |      Master      | ---> |    Replica    |
+#   | (receive writes) |      |  (exact copy) |
+#   +------------------+      +---------------+
 #
 # 1) Redis replication is asynchronous, but you can configure a master to
 #    stop accepting writes if it appears to be not connected with at least
-#    a given number of slaves.
-# 2) Redis slaves are able to perform a partial resynchronization with the
+#    a given number of replicas.
+# 2) Redis replicas are able to perform a partial resynchronization with the
 #    master if the replication link is lost for a relatively small amount of
 #    time. You may want to configure the replication backlog size (see the next
 #    sections of this file) with a sensible value depending on your needs.
 # 3) Replication is automatic and does not need user intervention. After a
-#    network partition slaves automatically try to reconnect to masters
+#    network partition replicas automatically try to reconnect to masters
 #    and resynchronize with them.
 #
-# slaveof <masterip> <masterport>
+{{ macros.config_row(config, 'replicaof', '# replicaof <masterip> <masterport>', 0, true) }}
 
 # If the master is password protected (using the "requirepass" configuration
-# directive below) it is possible to tell the slave to authenticate before
+# directive below) it is possible to tell the replica to authenticate before
 # starting the replication synchronization process, otherwise the master will
-# refuse the slave request.
+# refuse the replica request.
 #
-# masterauth <master-password>
+{{ macros.config_row(config, 'masterauth', '# masterauth <master-password>', 0, true) }}
 
-# When a slave loses its connection with the master, or when the replication
-# is still in progress, the slave can act in two different ways:
+# When a replica loses its connection with the master, or when the replication
+# is still in progress, the replica can act in two different ways:
 #
-# 1) if slave-serve-stale-data is set to 'yes' (the default) the slave will
+# 1) if replica-serve-stale-data is set to 'yes' (the default) the replica will
 #    still reply to client requests, possibly with out of date data, or the
 #    data set may just be empty if this is the first synchronization.
 #
-# 2) if slave-serve-stale-data is set to 'no' the slave will reply with
+# 2) if replica-serve-stale-data is set to 'no' the replica will reply with
 #    an error "SYNC with master in progress" to all the kind of commands
-#    but to INFO and SLAVEOF.
+#    but to INFO, replicaOF, AUTH, PING, SHUTDOWN, REPLCONF, ROLE, CONFIG,
+#    SUBSCRIBE, UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PUBLISH, PUBSUB,
+#    COMMAND, POST, HOST: and LATENCY.
 #
-slave-serve-stale-data yes
+{{ macros.config_row(config, 'replica-serve-stale-data', true) }}
 
-# You can configure a slave instance to accept writes or not. Writing against
-# a slave instance may be useful to store some ephemeral data (because data
-# written on a slave will be easily deleted after resync with the master) but
+# You can configure a replica instance to accept writes or not. Writing against
+# a replica instance may be useful to store some ephemeral data (because data
+# written on a replica will be easily deleted after resync with the master) but
 # may also cause problems if clients are writing to it because of a
 # misconfiguration.
 #
-# Since Redis 2.6 by default slaves are read-only.
+# Since Redis 2.6 by default replicas are read-only.
 #
-# Note: read only slaves are not designed to be exposed to untrusted clients
+# Note: read only replicas are not designed to be exposed to untrusted clients
 # on the internet. It's just a protection layer against misuse of the instance.
-# Still a read only slave exports by default all the administrative commands
+# Still a read only replica exports by default all the administrative commands
 # such as CONFIG, DEBUG, and so forth. To a limited extent you can improve
-# security of read only slaves using 'rename-command' to shadow all the
+# security of read only replicas using 'rename-command' to shadow all the
 # administrative / dangerous commands.
-slave-read-only yes
+{{ macros.config_row(config, 'replica-read-only', true) }}
 
 # Replication SYNC strategy: disk or socket.
 #
@@ -322,167 +331,167 @@ slave-read-only yes
 # WARNING: DISKLESS REPLICATION IS EXPERIMENTAL CURRENTLY
 # -------------------------------------------------------
 #
-# New slaves and reconnecting slaves that are not able to continue the replication
+# New replicas and reconnecting replicas that are not able to continue the replication
 # process just receiving differences, need to do what is called a "full
-# synchronization". An RDB file is transmitted from the master to the slaves.
+# synchronization". An RDB file is transmitted from the master to the replicas.
 # The transmission can happen in two different ways:
 #
 # 1) Disk-backed: The Redis master creates a new process that writes the RDB
 #                 file on disk. Later the file is transferred by the parent
-#                 process to the slaves incrementally.
+#                 process to the replicas incrementally.
 # 2) Diskless: The Redis master creates a new process that directly writes the
-#              RDB file to slave sockets, without touching the disk at all.
+#              RDB file to replica sockets, without touching the disk at all.
 #
-# With disk-backed replication, while the RDB file is generated, more slaves
+# With disk-backed replication, while the RDB file is generated, more replicas
 # can be queued and served with the RDB file as soon as the current child producing
 # the RDB file finishes its work. With diskless replication instead once
-# the transfer starts, new slaves arriving will be queued and a new transfer
+# the transfer starts, new replicas arriving will be queued and a new transfer
 # will start when the current one terminates.
 #
 # When diskless replication is used, the master waits a configurable amount of
-# time (in seconds) before starting the transfer in the hope that multiple slaves
+# time (in seconds) before starting the transfer in the hope that multiple replicas
 # will arrive and the transfer can be parallelized.
 #
 # With slow disks and fast (large bandwidth) networks, diskless replication
 # works better.
-repl-diskless-sync no
+{{ macros.config_row(config, 'repl-diskless-sync', false) }}
 
 # When diskless replication is enabled, it is possible to configure the delay
 # the server waits in order to spawn the child that transfers the RDB via socket
-# to the slaves.
+# to the replicas.
 #
 # This is important since once the transfer starts, it is not possible to serve
-# new slaves arriving, that will be queued for the next RDB transfer, so the server
-# waits a delay in order to let more slaves arrive.
+# new replicas arriving, that will be queued for the next RDB transfer, so the server
+# waits a delay in order to let more replicas arrive.
 #
 # The delay is specified in seconds, and by default is 5 seconds. To disable
 # it entirely just set it to 0 seconds and the transfer will start ASAP.
-repl-diskless-sync-delay 5
+{{ macros.config_row(config, 'repl-diskless-sync-delay', 5) }}
 
-# Slaves send PINGs to server in a predefined interval. It's possible to change
-# this interval with the repl_ping_slave_period option. The default value is 10
+# Replicas send PINGs to server in a predefined interval. It's possible to change
+# this interval with the repl_ping_replica_period option. The default value is 10
 # seconds.
 #
-# repl-ping-slave-period 10
+{{ macros.config_row(config, 'repl-ping-replica-period', '# repl-ping-replica-period 10', 0, true) }}
 
 # The following option sets the replication timeout for:
 #
-# 1) Bulk transfer I/O during SYNC, from the point of view of slave.
-# 2) Master timeout from the point of view of slaves (data, pings).
-# 3) Slave timeout from the point of view of masters (REPLCONF ACK pings).
+# 1) Bulk transfer I/O during SYNC, from the point of view of replica.
+# 2) Master timeout from the point of view of replicas (data, pings).
+# 3) Replica timeout from the point of view of masters (REPLCONF ACK pings).
 #
 # It is important to make sure that this value is greater than the value
-# specified for repl-ping-slave-period otherwise a timeout will be detected
-# every time there is low traffic between the master and the slave.
+# specified for repl-ping-replica-period otherwise a timeout will be detected
+# every time there is low traffic between the master and the replica.
 #
-# repl-timeout 60
+{{ macros.config_row(config, 'repl-timeout', '# repl-timeout 60', 0, true) }}
 
-# Disable TCP_NODELAY on the slave socket after SYNC?
+# Disable TCP_NODELAY on the replica socket after SYNC?
 #
 # If you select "yes" Redis will use a smaller number of TCP packets and
-# less bandwidth to send data to slaves. But this can add a delay for
-# the data to appear on the slave side, up to 40 milliseconds with
+# less bandwidth to send data to replicas. But this can add a delay for
+# the data to appear on the replica side, up to 40 milliseconds with
 # Linux kernels using a default configuration.
 #
-# If you select "no" the delay for data to appear on the slave side will
+# If you select "no" the delay for data to appear on the replica side will
 # be reduced but more bandwidth will be used for replication.
 #
 # By default we optimize for low latency, but in very high traffic conditions
-# or when the master and slaves are many hops away, turning this to "yes" may
+# or when the master and replicas are many hops away, turning this to "yes" may
 # be a good idea.
-repl-disable-tcp-nodelay no
+{{ macros.config_row(config, 'repl-disable-tcp-nodelay', false) }}
 
 # Set the replication backlog size. The backlog is a buffer that accumulates
-# slave data when slaves are disconnected for some time, so that when a slave
+# replica data when replicas are disconnected for some time, so that when a replica
 # wants to reconnect again, often a full resync is not needed, but a partial
-# resync is enough, just passing the portion of data the slave missed while
+# resync is enough, just passing the portion of data the replica missed while
 # disconnected.
 #
-# The bigger the replication backlog, the longer the time the slave can be
+# The bigger the replication backlog, the longer the time the replica can be
 # disconnected and later be able to perform a partial resynchronization.
 #
-# The backlog is only allocated once there is at least a slave connected.
+# The backlog is only allocated once there is at least a replica connected.
 #
-# repl-backlog-size 1mb
+{{ macros.config_row(config, 'repl-backlog-size', '# repl-backlog-size 1mb', 0, true) }}
 
-# After a master has no longer connected slaves for some time, the backlog
+# After a master has no longer connected replicas for some time, the backlog
 # will be freed. The following option configures the amount of seconds that
-# need to elapse, starting from the time the last slave disconnected, for
+# need to elapse, starting from the time the last replica disconnected, for
 # the backlog buffer to be freed.
 #
-# Note that slaves never free the backlog for timeout, since they may be
+# Note that replicas never free the backlog for timeout, since they may be
 # promoted to masters later, and should be able to correctly "partially
-# resynchronize" with the slaves: hence they should always accumulate backlog.
+# resynchronize" with the replicas: hence they should always accumulate backlog.
 #
 # A value of 0 means to never release the backlog.
 #
-# repl-backlog-ttl 3600
+{{ macros.config_row(config, 'repl-backlog-ttl', '# repl-backlog-ttl 3600', 0, true) }}
 
-# The slave priority is an integer number published by Redis in the INFO output.
-# It is used by Redis Sentinel in order to select a slave to promote into a
+# The replica priority is an integer number published by Redis in the INFO output.
+# It is used by Redis Sentinel in order to select a replica to promote into a
 # master if the master is no longer working correctly.
 #
-# A slave with a low priority number is considered better for promotion, so
-# for instance if there are three slaves with priority 10, 100, 25 Sentinel will
+# A replica with a low priority number is considered better for promotion, so
+# for instance if there are three replicas with priority 10, 100, 25 Sentinel will
 # pick the one with priority 10, that is the lowest.
 #
-# However a special priority of 0 marks the slave as not able to perform the
-# role of master, so a slave with priority of 0 will never be selected by
+# However a special priority of 0 marks the replica as not able to perform the
+# role of master, so a replica with priority of 0 will never be selected by
 # Redis Sentinel for promotion.
 #
 # By default the priority is 100.
-slave-priority 100
+{{ macros.config_row(config, 'replica-priority', 100) }}
 
 # It is possible for a master to stop accepting writes if there are less than
-# N slaves connected, having a lag less or equal than M seconds.
+# N replicas connected, having a lag less or equal than M seconds.
 #
-# The N slaves need to be in "online" state.
+# The N replicas need to be in "online" state.
 #
 # The lag in seconds, that must be <= the specified value, is calculated from
-# the last ping received from the slave, that is usually sent every second.
+# the last ping received from the replica, that is usually sent every second.
 #
 # This option does not GUARANTEE that N replicas will accept the write, but
-# will limit the window of exposure for lost writes in case not enough slaves
+# will limit the window of exposure for lost writes in case not enough replicas
 # are available, to the specified number of seconds.
 #
-# For example to require at least 3 slaves with a lag <= 10 seconds use:
+# For example to require at least 3 replicas with a lag <= 10 seconds use:
 #
-# min-slaves-to-write 3
-# min-slaves-max-lag 10
+{{ macros.config_row(config, 'min-replicas-to-write', '# min-replicas-to-write 3', 0, true) }}
+{{ macros.config_row(config, 'min-replicas-max-lag', '# min-replicas-max-lag 10', 0, true) }}
 #
 # Setting one or the other to 0 disables the feature.
 #
-# By default min-slaves-to-write is set to 0 (feature disabled) and
-# min-slaves-max-lag is set to 10.
+# By default min-replicas-to-write is set to 0 (feature disabled) and
+# min-replicas-max-lag is set to 10.
 
 # A Redis master is able to list the address and port of the attached
-# slaves in different ways. For example the "INFO replication" section
+# replicas in different ways. For example the "INFO replication" section
 # offers this information, which is used, among other tools, by
-# Redis Sentinel in order to discover slave instances.
+# Redis Sentinel in order to discover replica instances.
 # Another place where this info is available is in the output of the
 # "ROLE" command of a master.
 #
-# The listed IP and address normally reported by a slave is obtained
+# The listed IP and address normally reported by a replica is obtained
 # in the following way:
 #
 #   IP: The address is auto detected by checking the peer address
-#   of the socket used by the slave to connect with the master.
+#   of the socket used by the replica to connect with the master.
 #
-#   Port: The port is communicated by the slave during the replication
-#   handshake, and is normally the port that the slave is using to
-#   list for connections.
+#   Port: The port is communicated by the replica during the replication
+#   handshake, and is normally the port that the replica is using to
+#   listen for connections.
 #
 # However when port forwarding or Network Address Translation (NAT) is
-# used, the slave may be actually reachable via different IP and port
-# pairs. The following two options can be used by a slave in order to
+# used, the replica may be actually reachable via different IP and port
+# pairs. The following two options can be used by a replica in order to
 # report to its master a specific set of IP and port, so that both INFO
 # and ROLE will report those values.
 #
 # There is no need to use both the options if you need to override just
 # the port or the IP address.
 #
-# slave-announce-ip 5.5.5.5
-# slave-announce-port 1234
+{{ macros.config_row(config, 'replica-announce-ip', '# replica-announce-ip 5.5.5.5', 0, true) }}
+{{ macros.config_row(config, 'replica-announce-port', '# replica-announce-port 1234', 0, true) }}
 
 ################################## SECURITY ###################################
 
@@ -497,7 +506,7 @@ slave-priority 100
 # 150k passwords per second against a good box. This means that you should
 # use a very strong password otherwise it will be very easy to break.
 #
-# requirepass foobared
+{{ macros.config_row(config, 'requirepass', '# requirepass foobared', 0, true) }}
 
 # Command renaming.
 #
@@ -516,7 +525,7 @@ slave-priority 100
 # rename-command CONFIG ""
 #
 # Please note that changing the name of commands that are logged into the
-# AOF file or transmitted to slaves may cause problems.
+# AOF file or transmitted to replicas may cause problems.
 
 ################################### CLIENTS ####################################
 
@@ -529,7 +538,7 @@ slave-priority 100
 # Once the limit is reached Redis will close all the new connections sending
 # an error 'max number of clients reached'.
 #
-# maxclients 10000
+{{ macros.config_row(config, 'maxclients', '# maxclients 10000', 0, true) }}
 
 ############################## MEMORY MANAGEMENT ################################
 
@@ -545,18 +554,18 @@ slave-priority 100
 # This option is usually useful when using Redis as an LRU or LFU cache, or to
 # set a hard memory limit for an instance (using the 'noeviction' policy).
 #
-# WARNING: If you have slaves attached to an instance with maxmemory on,
-# the size of the output buffers needed to feed the slaves are subtracted
+# WARNING: If you have replicas attached to an instance with maxmemory on,
+# the size of the output buffers needed to feed the replicas are subtracted
 # from the used memory count, so that network problems / resyncs will
 # not trigger a loop where keys are evicted, and in turn the output
-# buffer of slaves is full with DELs of keys evicted triggering the deletion
+# buffer of replicas is full with DELs of keys evicted triggering the deletion
 # of more keys, and so forth until the database is completely emptied.
 #
-# In short... if you have slaves attached it is suggested that you set a lower
-# limit for maxmemory so that there is some free RAM on the system for slave
+# In short... if you have replicas attached it is suggested that you set a lower
+# limit for maxmemory so that there is some free RAM on the system for replica
 # output buffers (but this is not needed if the policy is 'noeviction').
 #
-# maxmemory <bytes>
+{{ macros.config_row(config, 'maxmemory', '# maxmemory <bytes>', 0, true) }}
 
 # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
 # is reached. You can select among five behaviors:
@@ -587,7 +596,7 @@ slave-priority 100
 #
 # The default is:
 #
-# maxmemory-policy noeviction
+{{ macros.config_row(config, 'maxmemory-policy', '# maxmemory-policy noeviction', 0, true) }}
 
 # LRU, LFU and minimal TTL algorithms are not precise algorithms but approximated
 # algorithms (in order to save memory), so you can tune it for speed or
@@ -598,7 +607,27 @@ slave-priority 100
 # The default of 5 produces good enough results. 10 Approximates very closely
 # true LRU but costs more CPU. 3 is faster but not very accurate.
 #
-# maxmemory-samples 5
+{{ macros.config_row(config, 'maxmemory-samples', '# maxmemory-samples 5', 0, true) }}
+
+# Starting from Redis 5, by default a replica will ignore its maxmemory setting
+# (unless it is promoted to master after a failover or manually). It means
+# that the eviction of keys will be just handled by the master, sending the
+# DEL commands to the replica as keys evict in the master side.
+#
+# This behavior ensures that masters and replicas stay consistent, and is usually
+# what you want, however if your replica is writable, or you want the replica to have
+# a different memory setting, and you are sure all the writes performed to the
+# replica are idempotent, then you may change this default (but be sure to understand
+# what you are doing).
+#
+# Note that since the replica by default does not evict, it may end using more
+# memory than the one set via maxmemory (there are certain buffers that may
+# be larger on the replica, or data structures may sometimes take more memory and so
+# forth). So make sure you monitor your replicas and make sure they have enough
+# memory to never hit a real out-of-memory condition before the master hits
+# the configured maxmemory setting.
+#
+{{ macros.config_row(config, 'replica-ignore-maxmemory', '# replica-ignore-maxmemory yes', 0, true) }}
 
 ############################# LAZY FREEING ####################################
 
@@ -635,19 +664,19 @@ slave-priority 100
 #    or SORT with STORE option may delete existing keys. The SET command
 #    itself removes any old content of the specified key in order to replace
 #    it with the specified string.
-# 4) During replication, when a slave performs a full resynchronization with
+# 4) During replication, when a replica performs a full resynchronization with
 #    its master, the content of the whole database is removed in order to
-#    load the RDB file just transfered.
+#    load the RDB file just transferred.
 #
 # In all the above cases the default is to delete objects in a blocking way,
 # like if DEL was called. However you can configure each case specifically
 # in order to instead release memory in a non-blocking way like if UNLINK
 # was called, using the following configuration directives:
 
-lazyfree-lazy-eviction no
-lazyfree-lazy-expire no
-lazyfree-lazy-server-del no
-slave-lazy-flush no
+{{ macros.config_row(config, 'lazyfree-lazy-eviction', false) }}
+{{ macros.config_row(config, 'lazyfree-lazy-expire', false) }}
+{{ macros.config_row(config, 'lazyfree-lazy-server-del', false) }}
+{{ macros.config_row(config, 'replica-lazy-flush', false) }}
 
 ############################## APPEND ONLY MODE ###############################
 
@@ -669,11 +698,11 @@ slave-lazy-flush no
 #
 # Please check http://redis.io/topics/persistence for more information.
 
-appendonly no
+{{ macros.config_row(config, 'appendonly', false) }}
 
 # The name of the append only file (default: "appendonly.aof")
 
-appendfilename "appendonly.aof"
+{{ macros.config_row(config, 'appendfilename', '"appendonly.aof"') }}
 
 # The fsync() call tells the Operating System to actually write data on disk
 # instead of waiting for more data in the output buffer. Some OS will really flush
@@ -699,7 +728,7 @@ appendfilename "appendonly.aof"
 # If unsure, use "everysec".
 
 # appendfsync always
-appendfsync everysec
+{{ macros.config_row(config, 'appendfsync', 'everysec') }}
 # appendfsync no
 
 # When the AOF fsync policy is set to always or everysec, and a background
@@ -721,7 +750,7 @@ appendfsync everysec
 # If you have latency problems turn this to "yes". Otherwise leave it as
 # "no" that is the safest pick from the point of view of durability.
 
-no-appendfsync-on-rewrite no
+{{ macros.config_row(config, 'no-appendfsync-on-rewrite', false) }}
 
 # Automatic rewrite of the append only file.
 # Redis is able to automatically rewrite the log file implicitly calling
@@ -740,8 +769,8 @@ no-appendfsync-on-rewrite no
 # Specify a percentage of zero in order to disable the automatic AOF
 # rewrite feature.
 
-auto-aof-rewrite-percentage 100
-auto-aof-rewrite-min-size 64mb
+{{ macros.config_row(config, 'auto-aof-rewrite-percentage', 100) }}
+{{ macros.config_row(config, 'auto-aof-rewrite-min-size', '64mb') }}
 
 # An AOF file may be found to be truncated at the end during the Redis
 # startup process, when the AOF data gets loaded back into memory.
@@ -765,7 +794,7 @@ auto-aof-rewrite-min-size 64mb
 # the server will still exit with an error. This option only applies when
 # Redis will try to read more data from the AOF file but not enough bytes
 # will be found.
-aof-load-truncated yes
+{{ macros.config_row(config, 'aof-load-truncated', true) }}
 
 # When rewriting the AOF file, Redis is able to use an RDB preamble in the
 # AOF file for faster rewrites and recoveries. When this option is turned
@@ -776,10 +805,7 @@ aof-load-truncated yes
 # When loading Redis recognizes that the AOF file starts with the "REDIS"
 # string and loads the prefixed RDB file, and continues loading the AOF
 # tail.
-#
-# This is currently turned off by default in order to avoid the surprise
-# of a format change, but will at some point be used as the default.
-aof-use-rdb-preamble no
+{{ macros.config_row(config, 'aof-use-rdb-preamble', true) }}
 
 ################################ LUA SCRIPTING  ###############################
 
@@ -797,7 +823,7 @@ aof-use-rdb-preamble no
 # termination of the script.
 #
 # Set it to 0 or a negative value for unlimited execution without warnings.
-lua-time-limit 5000
+{{ macros.config_row(config, 'lua-time-limit', 5000) }}
 
 ################################ REDIS CLUSTER  ###############################
 #
@@ -811,7 +837,7 @@ lua-time-limit 5000
 # started as cluster nodes can. In order to start a Redis instance as a
 # cluster node enable the cluster support uncommenting the following:
 #
-# cluster-enabled yes
+{{ macros.config_row(config, 'cluster-enabled', '# cluster-enabled yes', 0, true) }}
 
 # Every cluster node has a cluster configuration file. This file is not
 # intended to be edited by hand. It is created and updated by Redis nodes.
@@ -819,50 +845,50 @@ lua-time-limit 5000
 # Make sure that instances running in the same system do not have
 # overlapping cluster configuration file names.
 #
-# cluster-config-file nodes-6379.conf
+{{ macros.config_row(config, 'cluster-config-file', '# cluster-config-file nodes-6379.conf', 0, true) }}
 
 # Cluster node timeout is the amount of milliseconds a node must be unreachable
 # for it to be considered in failure state.
 # Most other internal time limits are multiple of the node timeout.
 #
-# cluster-node-timeout 15000
+{{ macros.config_row(config, 'cluster-node-timeout', '# cluster-node-timeout 15000', 0, true) }}
 
-# A slave of a failing master will avoid to start a failover if its data
+# A replica of a failing master will avoid to start a failover if its data
 # looks too old.
 #
-# There is no simple way for a slave to actually have an exact measure of
+# There is no simple way for a replica to actually have an exact measure of
 # its "data age", so the following two checks are performed:
 #
-# 1) If there are multiple slaves able to failover, they exchange messages
-#    in order to try to give an advantage to the slave with the best
+# 1) If there are multiple replicas able to failover, they exchange messages
+#    in order to try to give an advantage to the replica with the best
 #    replication offset (more data from the master processed).
-#    Slaves will try to get their rank by offset, and apply to the start
+#    Replicas will try to get their rank by offset, and apply to the start
 #    of the failover a delay proportional to their rank.
 #
-# 2) Every single slave computes the time of the last interaction with
+# 2) Every single replica computes the time of the last interaction with
 #    its master. This can be the last ping or command received (if the master
 #    is still in the "connected" state), or the time that elapsed since the
 #    disconnection with the master (if the replication link is currently down).
-#    If the last interaction is too old, the slave will not try to failover
+#    If the last interaction is too old, the replica will not try to failover
 #    at all.
 #
-# The point "2" can be tuned by user. Specifically a slave will not perform
+# The point "2" can be tuned by user. Specifically a replica will not perform
 # the failover if, since the last interaction with the master, the time
 # elapsed is greater than:
 #
-#   (node-timeout * slave-validity-factor) + repl-ping-slave-period
+#   (node-timeout * replica-validity-factor) + repl-ping-replica-period
 #
-# So for example if node-timeout is 30 seconds, and the slave-validity-factor
-# is 10, and assuming a default repl-ping-slave-period of 10 seconds, the
-# slave will not try to failover if it was not able to talk with the master
+# So for example if node-timeout is 30 seconds, and the replica-validity-factor
+# is 10, and assuming a default repl-ping-replica-period of 10 seconds, the
+# replica will not try to failover if it was not able to talk with the master
 # for longer than 310 seconds.
 #
-# A large slave-validity-factor may allow slaves with too old data to failover
+# A large replica-validity-factor may allow replicas with too old data to failover
 # a master, while a too small value may prevent the cluster from being able to
-# elect a slave at all.
+# elect a replica at all.
 #
-# For maximum availability, it is possible to set the slave-validity-factor
-# to a value of 0, which means, that slaves will always try to failover the
+# For maximum availability, it is possible to set the replica-validity-factor
+# to a value of 0, which means, that replicas will always try to failover the
 # master regardless of the last time they interacted with the master.
 # (However they'll always try to apply a delay proportional to their
 # offset rank).
@@ -870,26 +896,26 @@ lua-time-limit 5000
 # Zero is the only value able to guarantee that when all the partitions heal
 # the cluster will always be able to continue.
 #
-# cluster-slave-validity-factor 10
+{{ macros.config_row(config, 'cluster-replica-validity-factor', '# cluster-replica-validity-factor 10', 0, true) }}
 
-# Cluster slaves are able to migrate to orphaned masters, that are masters
-# that are left without working slaves. This improves the cluster ability
+# Cluster replicas are able to migrate to orphaned masters, that are masters
+# that are left without working replicas. This improves the cluster ability
 # to resist to failures as otherwise an orphaned master can't be failed over
-# in case of failure if it has no working slaves.
+# in case of failure if it has no working replicas.
 #
-# Slaves migrate to orphaned masters only if there are still at least a
-# given number of other working slaves for their old master. This number
-# is the "migration barrier". A migration barrier of 1 means that a slave
-# will migrate only if there is at least 1 other working slave for its master
-# and so forth. It usually reflects the number of slaves you want for every
+# Replicas migrate to orphaned masters only if there are still at least a
+# given number of other working replicas for their old master. This number
+# is the "migration barrier". A migration barrier of 1 means that a replica
+# will migrate only if there is at least 1 other working replica for its master
+# and so forth. It usually reflects the number of replicas you want for every
 # master in your cluster.
 #
-# Default is 1 (slaves migrate only if their masters remain with at least
-# one slave). To disable migration just set it to a very large value.
+# Default is 1 (replicas migrate only if their masters remain with at least
+# one replica). To disable migration just set it to a very large value.
 # A value of 0 can be set but is useful only for debugging and dangerous
 # in production.
 #
-# cluster-migration-barrier 1
+{{ macros.config_row(config, 'cluster-migration-barrier', '# cluster-migration-barrier 1', 0, true) }}
 
 # By default Redis Cluster nodes stop accepting queries if they detect there
 # is at least an hash slot uncovered (no available node is serving it).
@@ -902,9 +928,9 @@ lua-time-limit 5000
 # covered. In order to do so, just set the cluster-require-full-coverage
 # option to no.
 #
-# cluster-require-full-coverage yes
+{{ macros.config_row(config, 'cluster-require-full-coverage', '# cluster-require-full-coverage yes', 0, true) }}
 
-# This option, when set to yes, prevents slaves from trying to failover its
+# This option, when set to yes, prevents replicas from trying to failover its
 # master during master failures. However the master can still perform a
 # manual failover, if forced to do so.
 #
@@ -912,7 +938,7 @@ lua-time-limit 5000
 # data center operations, where we want one side to never be promoted if not
 # in the case of a total DC failure.
 #
-# cluster-slave-no-failover no
+{{ macros.config_row(config, 'cluster-replica-no-failover', '# cluster-replica-no-failover no', 0, true) }}
 
 # In order to setup your cluster make sure to read the documentation
 # available at http://redis.io web site.
@@ -946,9 +972,9 @@ lua-time-limit 5000
 #
 # Example:
 #
-# cluster-announce-ip 10.1.1.5
-# cluster-announce-port 6379
-# cluster-announce-bus-port 6380
+{{ macros.config_row(config, 'cluster-announce-ip', '# cluster-announce-ip 10.1.1.5', 0, true) }}
+{{ macros.config_row(config, 'cluster-announce-port', '# cluster-announce-port 6379', 0, true) }}
+{{ macros.config_row(config, 'cluster-announce-bus-port', '# cluster-announce-bus-port 6380', 0, true) }}
 
 ################################## SLOW LOG ###################################
 
@@ -968,11 +994,11 @@ lua-time-limit 5000
 # The following time is expressed in microseconds, so 1000000 is equivalent
 # to one second. Note that a negative number disables the slow log, while
 # a value of zero forces the logging of every command.
-slowlog-log-slower-than 10000
+{{ macros.config_row(config, 'slowlog-log-slower-than', 10000) }}
 
 # There is no limit to this length. Just be aware that it will consume memory.
 # You can reclaim memory used by the slow log with SLOWLOG RESET.
-slowlog-max-len 128
+{{ macros.config_row(config, 'slowlog-max-len', 128) }}
 
 ################################ LATENCY MONITOR ##############################
 
@@ -993,7 +1019,7 @@ slowlog-max-len 128
 # impact, that while very small, can be measured under big load. Latency
 # monitoring can easily be enabled at runtime using the command
 # "CONFIG SET latency-monitor-threshold <milliseconds>" if needed.
-latency-monitor-threshold 0
+{{ macros.config_row(config, 'latency-monitor-threshold', 0) }}
 
 ############################# EVENT NOTIFICATION ##############################
 
@@ -1039,15 +1065,15 @@ latency-monitor-threshold 0
 #  By default all notifications are disabled because most users don't need
 #  this feature and the feature has some overhead. Note that if you don't
 #  specify at least one of K or E, no events will be delivered.
-notify-keyspace-events ""
+{{ macros.config_row(config, 'notify-keyspace-events', '""') }}
 
 ############################### ADVANCED CONFIG ###############################
 
 # Hashes are encoded using a memory efficient data structure when they have a
 # small number of entries, and the biggest entry does not exceed a given
 # threshold. These thresholds can be configured using the following directives.
-hash-max-ziplist-entries 512
-hash-max-ziplist-value 64
+{{ macros.config_row(config, 'hash-max-ziplist-entries', 512) }}
+{{ macros.config_row(config, 'hash-max-ziplist-value', 64) }}
 
 # Lists are also encoded in a special way to save a lot of space.
 # The number of entries allowed per internal list node can be specified
@@ -1062,7 +1088,7 @@ hash-max-ziplist-value 64
 # per list node.
 # The highest performing option is usually -2 (8 Kb size) or -1 (4 Kb size),
 # but if your use case is unique, adjust the settings as necessary.
-list-max-ziplist-size -2
+{{ macros.config_row(config, 'list-max-ziplist-size', -2) }}
 
 # Lists may also be compressed.
 # Compress depth is the number of quicklist ziplist nodes from *each* side of
@@ -1078,20 +1104,20 @@ list-max-ziplist-size -2
 #    but compress all nodes between them.
 # 3: [head]->[next]->[next]->node->node->...->node->[prev]->[prev]->[tail]
 # etc.
-list-compress-depth 0
+{{ macros.config_row(config, 'list-compress-depth', 0) }}
 
 # Sets have a special encoding in just one case: when a set is composed
 # of just strings that happen to be integers in radix 10 in the range
 # of 64 bit signed integers.
 # The following configuration setting sets the limit in the size of the
 # set in order to use this special memory saving encoding.
-set-max-intset-entries 512
+{{ macros.config_row(config, 'set-max-intset-entries', 512) }}
 
 # Similarly to hashes and lists, sorted sets are also specially encoded in
 # order to save a lot of space. This encoding is only used when the length and
 # elements of a sorted set are below the following limits:
-zset-max-ziplist-entries 128
-zset-max-ziplist-value 64
+{{ macros.config_row(config, 'zset-max-ziplist-entries', 128) }}
+{{ macros.config_row(config, 'zset-max-ziplist-value', 64) }}
 
 # HyperLogLog sparse representation bytes limit. The limit includes the
 # 16 bytes header. When an HyperLogLog using the sparse representation crosses
@@ -1105,7 +1131,18 @@ zset-max-ziplist-value 64
 # which is O(N) with the sparse encoding. The value can be raised to
 # ~ 10000 when CPU is not a concern, but space is, and the data set is
 # composed of many HyperLogLogs with cardinality in the 0 - 15000 range.
-hll-sparse-max-bytes 3000
+{{ macros.config_row(config, 'hll-sparse-max-bytes', 3000) }}
+
+# Streams macro node max size / items. The stream data structure is a radix
+# tree of big nodes that encode multiple items inside. Using this configuration
+# it is possible to configure how big a single node can be in bytes, and the
+# maximum number of items it may contain before switching to a new node when
+# appending new stream entries. If any of the following settings are set to
+# zero, the limit is ignored, so for instance it is possible to set just a
+# max entires limit by setting max-bytes to 0 and max-entries to the desired
+# value.
+{{ macros.config_row(config, 'stream-node-max-bytes', 4096) }}
+{{ macros.config_row(config, 'stream-node-max-entries', 100) }}
 
 # Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in
 # order to help rehashing the main Redis hash table (the one mapping top-level
@@ -1125,7 +1162,7 @@ hll-sparse-max-bytes 3000
 #
 # use "activerehashing yes" if you don't have such hard requirements but
 # want to free memory asap when possible.
-activerehashing yes
+{{ macros.config_row(config, 'activerehashing', true) }}
 
 # The client output buffer limits can be used to force disconnection of clients
 # that are not reading data from the server fast enough for some reason (a
@@ -1135,7 +1172,7 @@ activerehashing yes
 # The limit can be set differently for the three different classes of clients:
 #
 # normal -> normal clients including MONITOR clients
-# slave  -> slave clients
+# replica  -> replica clients
 # pubsub -> clients subscribed to at least one pubsub channel or pattern
 #
 # The syntax of every client-output-buffer-limit directive is the following:
@@ -1156,13 +1193,13 @@ activerehashing yes
 # asynchronous clients may create a scenario where data is requested faster
 # than it can read.
 #
-# Instead there is a default limit for pubsub and slave clients, since
-# subscribers and slaves receive data in a push fashion.
+# Instead there is a default limit for pubsub and replica clients, since
+# subscribers and replicas receive data in a push fashion.
 #
 # Both the hard or the soft limit can be disabled by setting them to zero.
-client-output-buffer-limit normal 0 0 0
-client-output-buffer-limit slave 256mb 64mb 60
-client-output-buffer-limit pubsub 32mb 8mb 60
+{{ macros.config_row(config, 'client-output-buffer-limit', 'normal 0 0 0') }}
+{{ macros.config_row(config, 'client-output-buffer-limit', 'replica 256mb 64mb 60') }}
+{{ macros.config_row(config, 'client-output-buffer-limit', 'pubsub 32mb 8mb 60') }}
 
 # Client query buffers accumulate new commands. They are limited to a fixed
 # amount by default in order to avoid that a protocol desynchronization (for
@@ -1170,13 +1207,13 @@ client-output-buffer-limit pubsub 32mb 8mb 60
 # the query buffer. However you can configure it here if you have very special
 # needs, such us huge multi/exec requests or alike.
 #
-# client-query-buffer-limit 1gb
+{{ macros.config_row(config, 'client-query-buffer-limit', '# client-query-buffer-limit 1gb', 0, true) }}
 
 # In the Redis protocol, bulk requests, that are, elements representing single
 # strings, are normally limited ot 512 mb. However you can change this limit
 # here.
 #
-# proto-max-bulk-len 512mb
+{{ macros.config_row(config, 'proto-max-bulk-len', '# proto-max-bulk-len 512mb', 0, true) }}
 
 # Redis calls an internal function to perform many background tasks, like
 # closing connections of clients in timeout, purging expired keys that are
@@ -1193,13 +1230,35 @@ client-output-buffer-limit pubsub 32mb 8mb 60
 # The range is between 1 and 500, however a value over 100 is usually not
 # a good idea. Most users should use the default of 10 and raise this up to
 # 100 only in environments where very low latency is required.
-hz 10
+{{ macros.config_row(config, 'hz', 10) }}
+
+# Normally it is useful to have an HZ value which is proportional to the
+# number of clients connected. This is useful in order, for instance, to
+# avoid too many clients are processed for each background task invocation
+# in order to avoid latency spikes.
+#
+# Since the default HZ value by default is conservatively set to 10, Redis
+# offers, and enables by default, the ability to use an adaptive HZ value
+# which will temporary raise when there are many connected clients.
+#
+# When dynamic HZ is enabled, the actual configured HZ will be used as
+# as a baseline, but multiples of the configured HZ value will be actually
+# used as needed once more clients are connected. In this way an idle
+# instance will use very little CPU time while a busy instance will be
+# more responsive.
+{{ macros.config_row(config, 'dynamic-hz', true) }}
 
 # When a child rewrites the AOF file, if the following option is enabled
 # the file will be fsync-ed every 32 MB of data generated. This is useful
 # in order to commit the file to the disk more incrementally and avoid
 # big latency spikes.
-aof-rewrite-incremental-fsync yes
+{{ macros.config_row(config, 'aof-rewrite-incremental-fsync', true) }}
+
+# When redis saves RDB file, if the following option is enabled
+# the file will be fsync-ed every 32 MB of data generated. This is useful
+# in order to commit the file to the disk more incrementally and avoid
+# big latency spikes.
+{{ macros.config_row(config, 'rdb-save-incremental-fsync', true) }}
 
 # Redis LFU eviction (see maxmemory setting) can be tuned. However it is a good
 # idea to start with the default settings and only change them after investigating
@@ -1250,8 +1309,8 @@ aof-rewrite-incremental-fsync yes
 # The default value for the lfu-decay-time is 1. A Special value of 0 means to
 # decay the counter every time it happens to be scanned.
 #
-# lfu-log-factor 10
-# lfu-decay-time 1
+{{ macros.config_row(config, 'lfu-log-factor', '# lfu-log-factor 10', 0, true) }}
+{{ macros.config_row(config, 'lfu-decay-time', '# lfu-decay-time 1', 0, true) }}
 
 ########################### ACTIVE DEFRAGMENTATION #######################
 #
@@ -1298,20 +1357,23 @@ aof-rewrite-incremental-fsync yes
 # a good idea to leave the defaults untouched.
 
 # Enabled active defragmentation
-# activedefrag yes
+{{ macros.config_row(config, 'activedefrag', '# activedefrag yes', 0, true) }}
 
 # Minimum amount of fragmentation waste to start active defrag
-# active-defrag-ignore-bytes 100mb
+{{ macros.config_row(config, 'active-defrag-ignore-bytes', '# active-defrag-ignore-bytes 100mb', 0, true) }}
 
 # Minimum percentage of fragmentation to start active defrag
-# active-defrag-threshold-lower 10
+{{ macros.config_row(config, 'active-defrag-threshold-lower', '# active-defrag-threshold-lower 10', 0, true) }}
 
 # Maximum percentage of fragmentation at which we use maximum effort
-# active-defrag-threshold-upper 100
+{{ macros.config_row(config, 'active-defrag-threshold-upper', '# active-defrag-threshold-upper 100', 0, true) }}
 
 # Minimal effort for defrag in CPU percentage
-# active-defrag-cycle-min 25
+{{ macros.config_row(config, 'active-defrag-cycle-min', '# active-defrag-cycle-min 5', 0, true) }}
 
 # Maximal effort for defrag in CPU percentage
-# active-defrag-cycle-max 75
+{{ macros.config_row(config, 'active-defrag-cycle-max', '# active-defrag-cycle-max 75', 0, true) }}
 
+# Maximum number of set/hash/zset/list fields that will be processed from
+# the main dictionary scan
+{{ macros.config_row(config, 'active-defrag-max-scan-fields', '# active-defrag-max-scan-fields 1000', 0, true) }}
