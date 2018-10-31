@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.6] - 2018-10-31
 ### Fixed
 - Fixed wrong `Feature-Policy` options syntax and set The `Referrer-Policy` header to `strict-origin-when-cross-origin`
 
