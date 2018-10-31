@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.jessie
+    - debian.stretch
+  become: true
+  vars:
+    manala_mysql_install_packages:
+      - mariadb-server
+      - mariadb-client
+  pre_tasks:
+    - import_tasks: pre_tasks/mariadb_10.3.yml
+  roles:
+    - manala.mysql
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
