@@ -1,0 +1,29 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+{% set section = 'inputs.cgroup' -%}
+
+# Read specific statistics per cgroup
+[[{{ section }}]]
+  ## Directories in which to look for files, globs are supported.
+  ## Consider restricting paths to the set of cgroups you really
+  ## want to monitor if you have a large number of cgroups, to avoid
+  ## any cardinality issues.
+  {{ macros.config_row(config, 'paths', '# paths = [
+  #   "/cgroup/memory",
+  #   "/cgroup/memory/child1",
+  #   "/cgroup/memory/child2/*",
+  # ]', 0, true) }}
+  ## cgroup stat fields, as file names, globs are supported.
+  ## these file names are appended to each path from above.
+  {{ macros.config_row(config, 'files', '# files = ["memory.*usage*", "memory.limit_in_bytes"]', 0, true) }}
+
+{{ macros.config(config, [
+  'paths',
+  'files',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

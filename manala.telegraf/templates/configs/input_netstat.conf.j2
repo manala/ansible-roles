@@ -1,9 +1,9 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = item.config|default([]) %}
-{% set section = 'inputs.swap' -%}
+{% set config = item.config|default([]) -%}
+{% set section = 'inputs.netstat' -%}
 
-# Read metrics about swap memory usage
+# Read TCP metrics such as established, time wait and sockets counts.
 [[{{ section }}]]
   {%- if not config %}{{ '\n' }}  # no configuration{% endif %}
 

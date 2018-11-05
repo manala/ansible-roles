@@ -1,9 +1,9 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = item.config|default([]) %}
-{% set section = 'inputs.swap' -%}
+{% set config = item.config|default([]) -%}
+{% set section = 'inputs.kernel' -%}
 
-# Read metrics about swap memory usage
+# Get kernel statistics from /proc/stat
 [[{{ section }}]]
   {%- if not config %}{{ '\n' }}  # no configuration{% endif %}
 

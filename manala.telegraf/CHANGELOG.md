@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Telegraf 1.8.3 config(s) templates
+
+### Added
+- Handle configs file state (absent|present)
+- Configs template "input_cgroup"
+- Configs template "input_netstat"
+- Configs template "input_kernel"
+- Configs template "input_kernel_vmstat"
+- Configs template "input_processes"
+- Configs template "input_mysql"
+- Configs template "input_nginx"
+- Configs template "input_phpfpm"
 
 ## [1.0.4] - 2018-10-17
 ### Fixed

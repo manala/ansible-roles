@@ -13,5 +13,5 @@ manala_telegraf_config:          []
 # Configs
 manala_telegraf_configs_exclusive: false
 manala_telegraf_configs_dir:       /etc/telegraf/telegraf.d
-manala_telegraf_configs_template:  configs/empty.conf.j2
+manala_telegraf_configs_template:  ~
 manala_telegraf_configs:           []

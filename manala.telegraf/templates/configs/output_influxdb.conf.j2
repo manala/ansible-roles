@@ -2,36 +2,86 @@
 
 {% set config = item.config|default([]) -%}
 
-# Configuration for influxdb server to send metrics to
+# Configuration for sending metrics to InfluxDB
 [[outputs.influxdb]]
-  # The full HTTP or UDP endpoint URL for your InfluxDB instance.
-  # Multiple urls can be specified but it is assumed that they are part of the same
-  # cluster, this means that only ONE of the urls will be written to each interval.
-  # urls = ["udp://localhost:8089"] # UDP endpoint example
-  {{ macros.config_row(config, 'urls', '["http://localhost:8086"]') }}
-  # The target database for metrics (telegraf will create it if not exists)
-  {{ macros.config_row(config, 'database', 'telegraf') }}
-  # Precision of writes, valid values are n, u, ms, s, m, and h
-  # note: using second precision greatly helps InfluxDB compression
-  {{ macros.config_row(config, 'precision', 's') }}
+  ## The full HTTP or UDP URL for your InfluxDB instance.
+  ##
+  ## Multiple URLs can be specified for a single cluster, only ONE of the
+  ## urls will be written to each interval.
+  # urls = ["unix:///var/run/influxdb.sock"]
+  # urls = ["udp://127.0.0.1:8089"]
+  {{ macros.config_row(config, 'urls', '# urls = ["http://127.0.0.1:8086"]', 0, true) }}
 
-  # Connection timeout (for the connection with InfluxDB), formatted as a string.
-  # If not provided, will default to 0 (no timeout)
+  ## The target database for metrics; will be created as needed.
+  {{ macros.config_row(config, 'database', '# database = "telegraf"', 0, true) }}
+
+  ## If true, no CREATE DATABASE queries will be sent.  Set to true when using
+  ## Telegraf with a user without permissions to create databases or when the
+  ## database already exists.
+  {{ macros.config_row(config, 'skip_database_creation', '# skip_database_creation = false', 0, true) }}
+
+  ## Name of existing retention policy to write to.  Empty string writes to
+  ## the default retention policy.  Only takes effect when using HTTP.
+  {{ macros.config_row(config, 'retention_policy', '# retention_policy = ""', 0, true) }}
+
+  ## Write consistency (clusters only), can be: "any", "one", "quorum", "all".
+  ## Only takes effect when using HTTP.
+  {{ macros.config_row(config, 'write_consistency', '# write_consistency = "any"', 0, true) }}
+
+  ## Timeout for HTTP messages.
   {{ macros.config_row(config, 'timeout', '# timeout = "5s"', 0, true) }}
+
+  ## HTTP Basic Auth
   {{ macros.config_row(config, 'username', '# username = "telegraf"', 0, true) }}
   {{ macros.config_row(config, 'password', '# password = "metricsmetricsmetricsmetrics"', 0, true) }}
-  # Set the user agent for HTTP POSTs (can be useful for log differentiation)
+
+  ## HTTP User-Agent
   {{ macros.config_row(config, 'user_agent', '# user_agent = "telegraf"', 0, true) }}
-  # Set UDP payload size, defaults to InfluxDB UDP Client default (512 bytes)
+
+  ## UDP payload size is the maximum packet size to send.
   {{ macros.config_row(config, 'udp_payload', '# udp_payload = 512', 0, true) }}
+
+  ## Optional TLS Config for use on HTTP connections.
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.pem"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
+
+  ## HTTP Proxy override, if unset values the standard proxy environment
+  ## variables are consulted to determine which proxy, if any, should be used.
+  {{ macros.config_row(config, 'http_proxy', '# http_proxy = "http://corporate.proxy:3128"', 0, true) }}
+
+  ## Additional HTTP headers
+  {{ macros.config_row(config, 'http_headers', '# http_headers = {"X-Special-Header" = "Special-Value"}', 0, true) }}
+
+  ## HTTP Content-Encoding for write request body, can be set to "gzip" to
+  ## compress body or "identity" to apply no encoding.
+  {{ macros.config_row(config, 'content_encoding', '# content_encoding = "identity"', 0, true) }}
+
+  ## When true, Telegraf will output unsigned integers as unsigned values,
+  ## i.e.: "42u".  You will need a version of InfluxDB supporting unsigned
+  ## integer values.  Enabling this option will result in field type errors if
+  ## existing data has been written.
+  {{ macros.config_row(config, 'influx_uint_support', '# influx_uint_support = false', 0, true) }}
 
 {{ macros.config(config, [
   'urls',
   'database',
-  'precision',
+  'skip_database_creation',
+  'retention_policy',
+  'write_consistency',
   'timeout',
   'username',
   'password',
   'user_agent',
-  'udp_payload'
+  'udp_payload',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify',
+  'http_proxy',
+  'http_headers',
+  'content_encoding',
+  'influx_uint_support'
 ], 2) }}

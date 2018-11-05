@@ -1,0 +1,33 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.nginx' -%}
+
+# Read Nginx's basic status information (ngx_http_stub_status_module)
+[[{{ section }}]]
+  ## An array of Nginx stub_status URI to gather stats.
+  {{ macros.config_row(config, 'urls', ['http://localhost/server_status']) }}
+
+  ## Optional TLS Config
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.cer"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.key"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
+
+  # HTTP response timeout (default: 5s)
+  {{ macros.config_row(config, 'response_timeout', '5s') }}
+
+{{ macros.config(config, [
+  'urls',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify',
+  'response_timeout',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

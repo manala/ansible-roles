@@ -1,18 +1,17 @@
 ---
 
 file:
-  /etc/telegraf/telegraf.d/input_cpu.conf:
+  /etc/telegraf/telegraf.d.test/foo.conf:
     exists: true
     contains:
       - percpu = true
       - totalcpu = false
-      - fielddrop = ["cpu_time"]
       - '[inputs.cpu.tags]'
       - tag-1 = "foo"
       - tag-2 = "bar"
       - '[inputs.cpu.tagdrop]'
       - cpu = ["cpu6", "cpu7"]
-  /etc/telegraf/telegraf.d/custom.conf:
+  /etc/telegraf/telegraf.d.test/bar.conf:
     exists: true
     contains:
       - '[[inputs.cpu]]'

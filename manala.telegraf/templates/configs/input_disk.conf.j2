@@ -5,12 +5,16 @@
 
 # Read metrics about disk usage by mount point
 [[{{ section }}]]
-  # By default, telegraf gather stats for all mountpoints.
-  # Setting mountpoints will restrict the stats to the specified mountpoints.
+  ## By default stats will be gathered for all mount points.
+  ## Set mount_points will restrict the stats to only the specified mount points.
   {{ macros.config_row(config, 'mount_points', '# mount_points = ["/"]', 0, true) }}
+
+  ## Ignore mount points by filesystem type.
+  {{ macros.config_row(config, 'ignore_fs', ['tmpfs', 'devtmpfs', 'devfs', 'overlay', 'aufs', 'squashfs']) }}
 
 {{ macros.config(config, [
   'mount_points',
+  'ignore_fs',
   'tags',
   'tagpass',
   'tagdrop'

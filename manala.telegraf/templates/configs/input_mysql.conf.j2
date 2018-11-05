@@ -1,0 +1,118 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.nginx' -%}
+
+# Read metrics from one or many mysql servers
+[[inputs.mysql]]
+  ## specify servers via a url matching:
+  ##  [username[:password]@][protocol[(address)]]/[?tls=[true|false|skip-verify|custom]]
+  ##  see https://github.com/go-sql-driver/mysql#dsn-data-source-name
+  ##  e.g.
+  ##    servers = ["user:passwd@tcp(127.0.0.1:3306)/?tls=false"]
+  ##    servers = ["user@tcp(127.0.0.1:3306)/?tls=false"]
+  #
+  ## If no servers are specified, then localhost is used as the host.
+  {{ macros.config_row(config, 'servers', ['tcp(127.0.0.1:3306)/']) }}
+
+  ## Selects the metric output format.
+  ##
+  ## This option exists to maintain backwards compatibility, if you have
+  ## existing metrics do not set or change this value until you are ready to
+  ## migrate to the new format.
+  ##
+  ## If you do not have existing metrics from this plugin set to the latest
+  ## version.
+  ##
+  ## Telegraf >=1.6: metric_version = 2
+  ##           <1.6: metric_version = 1 (or unset)
+  {{ macros.config_row(config, 'metric_version', 2) }}
+
+  ## the limits for metrics form perf_events_statements
+  {{ macros.config_row(config, 'perf_events_statements_digest_text_limit', 120) }}
+  {{ macros.config_row(config, 'perf_events_statements_limit', 250) }}
+  {{ macros.config_row(config, 'perf_events_statements_time_limit', 86400) }}
+  #
+  ## if the list is empty, then metrics are gathered from all databasee tables
+  {{ macros.config_row(config, 'table_schema_databases', []) }}
+  #
+  ## gather metrics from INFORMATION_SCHEMA.TABLES for databases provided above list
+  {{ macros.config_row(config, 'gather_table_schema', false) }}
+  #
+  ## gather thread state counts from INFORMATION_SCHEMA.PROCESSLIST
+  {{ macros.config_row(config, 'gather_process_list', true) }}
+  #
+  ## gather user statistics from INFORMATION_SCHEMA.USER_STATISTICS
+  {{ macros.config_row(config, 'gather_user_statistics', true) }}
+  #
+  ## gather auto_increment columns and max values from information schema
+  {{ macros.config_row(config, 'gather_info_schema_auto_inc', true) }}
+  #
+  ## gather metrics from INFORMATION_SCHEMA.INNODB_METRICS
+  {{ macros.config_row(config, 'gather_innodb_metrics', true) }}
+  #
+  ## gather metrics from SHOW SLAVE STATUS command output
+  {{ macros.config_row(config, 'gather_slave_status', true) }}
+  #
+  ## gather metrics from SHOW BINARY LOGS command output
+  {{ macros.config_row(config, 'gather_binary_logs', false) }}
+  #
+  ## gather metrics from PERFORMANCE_SCHEMA.TABLE_IO_WAITS_SUMMARY_BY_TABLE
+  {{ macros.config_row(config, 'gather_table_io_waits', false) }}
+  #
+  ## gather metrics from PERFORMANCE_SCHEMA.TABLE_LOCK_WAITS
+  {{ macros.config_row(config, 'gather_table_lock_waits', false) }}
+  #
+  ## gather metrics from PERFORMANCE_SCHEMA.TABLE_IO_WAITS_SUMMARY_BY_INDEX_USAGE
+  {{ macros.config_row(config, 'gather_index_io_waits', false) }}
+  #
+  ## gather metrics from PERFORMANCE_SCHEMA.EVENT_WAITS
+  {{ macros.config_row(config, 'gather_event_waits', false) }}
+  #
+  ## gather metrics from PERFORMANCE_SCHEMA.FILE_SUMMARY_BY_EVENT_NAME
+  {{ macros.config_row(config, 'gather_file_events_stats', false) }}
+  #
+  ## gather metrics from PERFORMANCE_SCHEMA.EVENTS_STATEMENTS_SUMMARY_BY_DIGEST
+  {{ macros.config_row(config, 'gather_perf_events_statements', false) }}
+  #
+  ## Some queries we may want to run less often (such as SHOW GLOBAL VARIABLES)
+  {{ macros.config_row(config, 'interval_slow', '30m') }}
+
+  ## Optional TLS Config (will be used if tls=custom parameter specified in server uri)
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.pem"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
+
+{{ macros.config(config, [
+  'servers',
+  'metric_version',
+  'perf_events_statements_digest_text_limit',
+  'perf_events_statements_limit',
+  'perf_events_statements_time_limit',
+  'table_schema_databases',
+  'gather_table_schema',
+  'gather_process_list',
+  'gather_user_statistics',
+  'gather_info_schema_auto_inc',
+  'gather_innodb_metrics',
+  'gather_slave_status',
+  'gather_binary_logs',
+  'gather_table_io_waits',
+  'gather_table_lock_waits',
+  'gather_index_io_waits',
+  'gather_event_waits',
+  'gather_file_events_stats',
+  'gather_perf_events_statements',
+  'interval_slow',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify',
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

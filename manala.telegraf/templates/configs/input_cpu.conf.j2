@@ -5,17 +5,20 @@
 
 # Read metrics about cpu usage
 [[{{ section }}]]
-  # Whether to report per-cpu stats or not
+  ## Whether to report per-cpu stats or not
   {{ macros.config_row(config, 'percpu', true) }}
-  # Whether to report total system cpu stats or not
+  ## Whether to report total system cpu stats or not
   {{ macros.config_row(config, 'totalcpu', true) }}
-  # Comment this line if you want the raw CPU time metrics
-  {{ macros.config_row(config, 'drop', 'drop = ["time_*"]', 0, true) }}
+  ## If true, collect raw CPU time metrics.
+  {{ macros.config_row(config, 'collect_cpu_time', false) }}
+  ## If true, compute and report the sum of all non-idle CPU states.
+  {{ macros.config_row(config, 'report_active', false) }}
 
 {{ macros.config(config, [
   'percpu',
   'totalcpu',
-  'drop',
+  'collect_cpu_time',
+  'report_active',
   'tags',
   'tagpass',
   'tagdrop'
