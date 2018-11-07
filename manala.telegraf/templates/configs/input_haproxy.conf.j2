@@ -3,18 +3,46 @@
 {% set config = item.config|default([]) %}
 {% set section = 'inputs.haproxy' -%}
 
-# Read metrics about haproxy
+# Read metrics of haproxy, via socket or csv stats page
 [[{{ section }}]]
   ## An array of address to gather stats about. Specify an ip on hostname
   ## with optional port. ie localhost, 10.10.3.33:1936, etc.
-  ## If no servers are specified, then default to 127.0.0.1:1936
-  {{ macros.config_row(config, 'servers', true) }}
-  ## Or you can also use local socket(not work yet)
-  ## servers = ["socket://run/haproxy/admin.sock"]
+  ## Make sure you specify the complete path to the stats endpoint
+  ## including the protocol, ie http://10.10.3.33:1936/haproxy?stats
+
+  ## If no servers are specified, then default to 127.0.0.1:1936/haproxy?stats
+  {{ macros.config_row(config, 'servers', ['http://myhaproxy.com:1936/haproxy?stats']) }}
+
+  ## Credentials for basic HTTP authentication
+  {{ macros.config_row(config, 'username', '# username = "admin"', 0, true) }}
+  {{ macros.config_row(config, 'password', '# password = "admin"', 0, true) }}
+
+  ## You can also use local socket with standard wildcard globbing.
+  ## Server address not starting with 'http' will be treated as a possible
+  ## socket, so both examples below are valid.
+  # servers = ["socket:/run/haproxy/admin.sock", "/run/haproxy/*.sock"]
+
+  ## By default, some of the fields are renamed from what haproxy calls them.
+  ## Setting this option to true results in the plugin keeping the original
+  ## field names.
+  {{ macros.config_row(config, 'keep_field_names', '# keep_field_names = false', 0, true) }}
+
+  ## Optional TLS Config
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.pem"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
 
 {{ macros.config(config, [
   'servers',
-  'drop',
+  'username',
+  'password',
+  'keep_field_names',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify',
   'tags',
   'tagpass',
   'tagdrop'

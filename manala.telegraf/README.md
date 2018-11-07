@@ -38,9 +38,9 @@ Using ansible galaxy requirements file:
 | ------------------------------------------ | -------------------- | ------ | -------------------------------------------- |
 | `manala_telegraf_install_packages`         | ~                    | String | Dependency packages to install               |
 | `manala_telegraf_install_packages_default` | ['telegraf']         | String | Default dependency packages to install       |
-| `manala_telegraf_config_template`          | 'config/empty.j2'    | String | Main configuration base template path        |
+| `manala_telegraf_config_template`          | 'config/default.j2'  | String | Main configuration base template path        |
 | `manala_telegraf_config`                   | []                   | Array  | Main configuration directives                |
-| `manala_telegraf_configs_template`         | 'configs/default.j2' | String | Additional configurations base template path |
+| `manala_telegraf_configs_template`         | 'configs/empty.j2'   | String | Additional configurations base template path |
 | `manala_telegraf_configs`                  | []                   | Array  | Additional configurations directives         |
 | `manala_telegraf_configs_exclusive`        | false                | Array  | Additional configurations exclusivity        |
 
@@ -63,15 +63,13 @@ manala_telegraf_configs:
       - database: telegraf
       - username: telegraf
       - password: password
-
   - file:     input_system.conf
     template: configs/input_system.conf.j2
-
   - file:     input_cpu.conf
     template: configs/input_cpu.conf.j2
-
   - file:     input_custom.conf
     template: telegraf/input_custom.conf.j2
+    state:    absent
 ```
 
 ## Example playbook
