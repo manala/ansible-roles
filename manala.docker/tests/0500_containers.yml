@@ -10,6 +10,9 @@
       - name: hello-world
         image: hello-world
   pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
+    - import_tasks: pre_tasks/service.yml
+      when: ansible_distribution_release == 'stretch'    
     - import_tasks: pre_tasks/docker.yml
   roles:
     - manala.docker

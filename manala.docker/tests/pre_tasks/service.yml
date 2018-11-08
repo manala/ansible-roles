@@ -1,0 +1,7 @@
+---
+
+- name: Pre tasks > Install sysv init script
+  copy:
+    src: pre_tasks/init.d/docker
+    dest: /etc/init.d/docker
+    mode: 0755
