@@ -1,0 +1,8 @@
+---
+
+- stat: path=/bin/systemctl
+  register: systemctl
+
+- name: Pre tasks > Disable systemctl to force sysv init script
+  command: mv /bin/systemctl /bin/systemctl.disabled
+  when: systemctl.stat.exists == True

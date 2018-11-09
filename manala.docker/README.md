@@ -82,6 +82,13 @@ manala_docker_containers:
     image:          memcached:alpine
     state:          started
     restart_policy: unless-stopped
+  - name:           elasticsearch
+    image:          docker.elastic.co/elasticsearch/elasticsearch:5.6.13
+    state:          started
+    restart_policy: unless-stopped
+    memory:         1g
+    ulimits:
+      - memlock:-1:-1 # <type>:<soft>:<hard>    
 ```
 
 ### Flags
