@@ -2,26 +2,26 @@
 
 file:
   /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme:
+    filetype: file
     exists: true
     mode: "0644"
     owner: root
     group: root
-    filetype: file
   /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme:
+    filetype: file
     exists: true
     mode: "0644"
     owner: root
     group: root
-    filetype: file
   /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme:
+    filetype: file
     exists: true
     mode: "0644"
     owner: root
     group: root
-    filetype: file
   /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme:
+    filetype: file
     exists: true
     mode: "0644"
     owner: root
     group: root
-    filetype: file
