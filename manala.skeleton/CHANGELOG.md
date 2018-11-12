@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+# Removed
+- Disable docker.socket service handling via systemd, as it's no more reliable
+  starting from Docker CE 18.09.0 (See: https://github.com/docker/docker-ce-packaging/pull/257)
 
 ## [1.0.20] - 2018-10-12
 ### Added
