@@ -93,12 +93,12 @@
 
 # Uncomment the following line if you want to enable encryption
 # available method: gpg
-{{ macros.config_row(config, 'BM_ENCRYPTION_METHOD', '') }}
+{{ macros.config_row(config, 'BM_ENCRYPTION_METHOD', false) }}
 
 # The encryption will be made using a GPG ID
 # Examples:
-# export BM_ENCRYPTION_RECIPIENT="0x1EE5DD34"
-# export BM_ENCRYPTION_RECIPIENT="Alexis Sukrieh"
+# export BM_ENCRYPTION_RECIPIENT=""
+# export BM_ENCRYPTION_RECIPIENT=""
 {{ macros.config_row(config, 'BM_ENCRYPTION_RECIPIENT', '') }}
 
 
@@ -108,15 +108,15 @@
 #############################################################
 
 # Archive filename format
-#      	long  : host-full-path-to-folder.tar.gz
-#      	short : parentfolder.tar.gz
+# 	long  : host-full-path-to-folder.tar.gz
+# 	short : parentfolder.tar.gz
 {{ macros.config_row(config, 'BM_TARBALL_NAMEFORMAT', 'long') }}
 
 # Type of archives
 # Available types are:
-#     tar, tar.gz, tar.bz2, tar.lz, dar, zip.
+#     tar, tar.gz, tar.bz2, tar.xz, tar.lzma, dar, zip.
 # Make sure to satisfy the appropriate dependencies
-# (bzip2, dar, lzma, ...).
+# (bzip2, dar, xz, lzma, ...).
 {{ macros.config_row(config, 'BM_TARBALL_FILETYPE', 'tar.gz') }}
 
 # You can choose to build archives remotely over SSH.
@@ -145,7 +145,7 @@
 # NOTE: The Debian package will only update BM_TARBALL_DIRECTORIES
 
 # Paths without spaces in their name:
-{{ macros.config_row(config, 'BM_TARBALL_DIRECTORIES', '/etc /boot') }}
+{{ macros.config_row(config, 'BM_TARBALL_DIRECTORIES', '/etc /home') }}
 
 # If one or more of the targets contain a space, use the array:
 # declare -a BM_TARBALL_TARGETS
@@ -155,7 +155,7 @@
 
 # Files to exclude when generating tarballs, you can put absolute
 # or relative paths, Bash wildcards are possible.
-{{ macros.config_row(config, 'BM_TARBALL_BLACKLIST', '/dev /sys /proc /tmp') }}
+{{ macros.config_row(config, 'BM_TARBALL_BLACKLIST', '/var/archives') }}
 
 # With the "dar" filetype, you can choose a maximum slice limit.
 {{ macros.config_row(config, 'BM_TARBALL_SLICESIZE', '1000M') }}
@@ -334,13 +334,13 @@ export BM_PIPE_COMPRESS
 
 # If you don't want to use any upload method (you don't want to
 # upload files to remote hosts) then choose "none"
-{{ macros.config_row(config, 'BM_UPLOAD_METHOD', '') }}
+{{ macros.config_row(config, 'BM_UPLOAD_METHOD', 'scp') }}
 
 # where to upload (global to all methods. Not required to be set for S3)
 {{ macros.config_row(config, 'BM_UPLOAD_HOSTS', '') }}
 
 # Where to put archives on the remote hosts (global)
-{{ macros.config_row(config, 'BM_UPLOAD_DESTINATION', '') }}
+{{ macros.config_row(config, 'BM_UPLOAD_DESTINATION', '/var/archives/uploads') }}
 
 # Uncomment the 'export ...' line below to activate the uploaded archives
 # database.
@@ -361,7 +361,7 @@ export BM_PIPE_COMPRESS
 #############################################################
 
 # the user to use for the SSH connections/transfers
-{{ macros.config_row(config, 'BM_UPLOAD_SSH_USER', '') }}
+{{ macros.config_row(config, 'BM_UPLOAD_SSH_USER', 'bmngr') }}
 
 # The private key to use for opening the connection
 {{ macros.config_row(config, 'BM_UPLOAD_SSH_KEY', '') }}
@@ -521,7 +521,7 @@ export BM_PIPE_COMPRESS
 # Note that if backup-manager is run from interactive prompt you
 # will be asked to insert disc(s) when needed
 
-{{ macros.config_row(config, 'BM_BURNING_METHOD', 'none') }}
+{{ macros.config_row(config, 'BM_BURNING_METHOD', 'CDRW') }}
 
 # When the CD is burnt, it is possible to check every file's
 # MD5 checksum to see if the CD is not corrupted.

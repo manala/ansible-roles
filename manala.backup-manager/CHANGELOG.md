@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Update to Backup Manager 0.7.14 configs templates
 
 ## [1.0.3] - 2018-10-17
 ### Fixed
