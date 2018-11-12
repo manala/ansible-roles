@@ -9,19 +9,6 @@ manala_skeleton_patterns:
   # Manala
 
   manala: &pattern_manala
-    # Accounts
-    accounts_groups: "{{
-      (manala_skeleton_options.docker)|ternary([{
-        'group':  'docker',
-        'system': True
-      }],[])
-    }}"
-    accounts_users_groups_exclusive: false
-    accounts_users:
-      - user:   "{{ manala_skeleton_options.app.user }}"
-        groups: "{{
-          (manala_skeleton_options.docker)|ternary(['docker'],[])
-        }}"
     # Motd
     motd_template: template/manala.j2
     # Timezone
@@ -71,7 +58,6 @@ manala_skeleton_patterns:
           'httpie@manala'
         ]
       }[ansible_distribution_release]
-      + (manala_skeleton_options.docker)|ternary(['docker@docker'],[])
       + (manala_skeleton_options.php)|ternary(
         {
           '5.4': ['dotdeb:100', 'php@dotdeb'],
@@ -154,17 +140,6 @@ manala_skeleton_patterns:
         state: directory
       - path:  "{{ manala_skeleton_options.app.sessions_dir }}"
         state: directory
-    # Systemd
-    systemd_services: "{{
-      (manala_skeleton_options.docker)|ternary(
-        [{
-          'name':    'docker.service',
-          'enabled': False,
-          'state':   'stopped'
-        }],
-        []
-      )
-    }}"
     # MailHog
     mailhog_config_template: config/default.{{ manala_skeleton_env }}.j2
     # Npm
@@ -658,8 +633,6 @@ manala_skeletons:
         ohmyzsh:      true
         vim:          true
         alternatives: true
-        docker:       "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
-        systemd:      "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:      true
         supervisor:   true
         cron:         true
@@ -697,7 +670,6 @@ manala_skeletons:
         make:       true
         git:        true
         zsh:        true
-        docker:     "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:    true
         supervisor: true
         cron:       true
@@ -736,8 +708,6 @@ manala_skeletons:
         vim:               true
         alternatives:      true
         files:             true
-        docker:            "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
-        systemd:           "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -798,8 +768,6 @@ manala_skeletons:
         vim:               true
         alternatives:      true
         files:             true
-        docker:            "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
-        systemd:           "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:           true
         supervisor:        true
         cron:              true
@@ -852,7 +820,6 @@ manala_skeletons:
         git:         true
         zsh:         true
         files:       true
-        docker:      "{{ {'wheezy': False, 'jessie': True, 'stretch': True}[ansible_distribution_release] }}"
         mailhog:     true
         supervisor:  true
         cron:        true
