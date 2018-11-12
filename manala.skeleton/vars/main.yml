@@ -161,10 +161,6 @@ manala_skeleton_patterns:
           'name':    'docker.service',
           'enabled': False,
           'state':   'stopped'
-        },{
-          'name':    'docker.socket',
-          'enabled': True,
-          'state':   'started'
         }],
         []
       )
