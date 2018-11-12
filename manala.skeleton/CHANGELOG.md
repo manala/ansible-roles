@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+# Removed
+- Remove docker support
+- Remove accounts support (Needed only for docker)
+- Remove systemd support (Needed only for docker)
 
 ## [1.0.21] - 2018-11-12
 # Removed
