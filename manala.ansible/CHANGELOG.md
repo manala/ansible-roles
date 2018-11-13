@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Update base config template for ansible 2.6.5
 
 ## [1.0.5] - 2018-10-17
 ### Fixed
