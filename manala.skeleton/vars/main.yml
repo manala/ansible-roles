@@ -414,6 +414,7 @@ manala_skeleton_patterns:
       [
         'debfoster',
         'rsync',
+        'wget',
         'curl',
         'htop',
         'less',
