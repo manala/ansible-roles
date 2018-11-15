@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Switch back problematics keys sources from ubuntu keyserver to direct url,
+  in order to work around strict ring checks introduced by gnupg2 2.1.18-8~deb9u3
+  on debian stretch (see: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=913614)
 
 ## [1.0.25] - 2018-10-31
 ### Added
