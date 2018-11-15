@@ -542,6 +542,11 @@
 # requires a tty by default.
 {{ macros.config_row(config_ssh_connection, 'use_tty', '#use_tty = True', 0, true) }}
 
+# Number of times to retry an SSH connection to a host, in case of UNREACHABLE.
+# For each retry attempt, there is an exponential backoff,
+# so after the first attempt there is 1s wait, then 2s, 4s etc. up to 30s (max).
+{{ macros.config_row(config_ssh_connection, 'retries', '#retries = 3', 0, true) }}
+
 {{ macros.config(config_ssh_connection, [
     'ssh_args',
     'control_path_dir',
@@ -550,7 +555,8 @@
     'scp_if_ssh',
     'transfer_method',
     'sftp_batch_mode',
-    'use_tty'
+    'use_tty',
+    'retries'
 ]) }}
 [persistent_connection]
 
