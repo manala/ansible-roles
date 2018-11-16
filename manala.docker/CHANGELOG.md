@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Keep legacy sysvinit services handling in ansible 2.6+
 
 ## [1.0.14] - 2018-11-12
 ### Added

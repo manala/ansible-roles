@@ -5,5 +5,8 @@
     name:    "{{ item }}"
     state:   started
     enabled: true
+    # Keep legacy sysvinit services handling in ansible 2.6+
+    # See: https://github.com/ansible/ansible/pull/48724
+    use:     "{{ (ansible_service_mgr == 'sysvinit')|ternary('service', omit) }}"
   with_items:
     - grafana-server
