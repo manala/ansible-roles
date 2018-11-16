@@ -49,13 +49,15 @@ manala_skeleton_patterns:
           'exa@manala',
           'httpie@manala',
           'python3-requests@backports',
-          'python3-urllib3@backports'
+          'python3-urllib3@backports',
+          'python-httplib2@manala'
         ],
         'stretch': [
           'git@backports',
           'thefuck@manala',
           'exa@manala',
-          'httpie@manala'
+          'httpie@manala',
+          'python-httplib2@manala'
         ]
       }[ansible_distribution_release]
       + (manala_skeleton_options.php)|ternary(
