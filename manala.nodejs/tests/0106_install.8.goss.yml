@@ -12,4 +12,4 @@ command:
   npm --version:
     exit-status: 0
     stdout:
-      - "/^5.\\d+\\.\\d+$/"
+      - "/^6.\\d+\\.\\d+$/"
