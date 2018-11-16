@@ -5,7 +5,8 @@ file:
     exists:   true
     filetype: file
     contains:
-      - fw all ACCEPT
-      - net all DROP   info
-      - vrack all DROP   info
-      - all all REJECT info
+      - "/^fw all ACCEPT$/"
+      - "/^net all DROP   info$/"
+      - "/^vrack all DROP   info$/"
+      - "/^all all REJECT info$/"
+      - "!/^all DROP$/"
