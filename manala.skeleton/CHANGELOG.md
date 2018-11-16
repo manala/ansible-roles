@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.24] - 2018-11-16
 ### Fixed
 - Use updated `python-httplib2` debian package from manala, to work around
   dependency break inroduced by `libssl1.1` `1.1.1-1`
