@@ -11,7 +11,6 @@
 {% set config_shard_precreation = [] -%}
 {% set config_monitor = [] -%}
 {% set config_http = [] -%}
-{% set config_ifql = [] -%}
 {% set config_logging = [] -%}
 {% set config_subscriber = [] -%}
 {% set config_graphite = [] -%}
@@ -41,8 +40,6 @@
             {%- if config_monitor.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'http' -%}
             {%- if config_http.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'ifql' -%}
-            {%- if config_ifql.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'logging' -%}
             {%- if config_logging.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'subscriber' -%}
@@ -129,6 +126,10 @@
   # log any sensitive data contained within a query.
   {{ macros.config_row(config_data, 'query-log-enabled', '# query-log-enabled = true', 0, true) }}
 
+  # Validates incoming writes to ensure keys only have valid unicode characters.
+  # This setting will incur a small overhead because every key must be checked.
+  {{ macros.config_row(config_data, 'validate-keys', '# validate-keys = false', 0, true) }}
+
   # Settings for the TSM engine
 
   # CacheMaxMemorySize is the maximum size a shard's cache can
@@ -158,6 +159,15 @@
   # than 0 limits compactions to that value.  This setting does not apply
   # to cache snapshotting.
   {{ macros.config_row(config_data, 'max-concurrent-compactions', '# max-concurrent-compactions = 0', 0, true) }}
+
+  # CompactThroughput is the rate limit in bytes per second that we
+  # will allow TSM compactions to write to disk. Note that short bursts are allowed
+  # to happen at a possibly larger value, set by CompactThroughputBurst
+  {{ macros.config_row(config_data, 'compact-throughput', '# compact-throughput = "48m"', 0, true) }}
+
+  # CompactThroughputBurst is the rate limit in bytes per second that we
+  # will allow TSM compactions to write to disk.
+  {{ macros.config_row(config_data, 'compact-throughput-burst', '# compact-throughput-burst = "48m"', 0, true) }}
 
   # The threshold, in bytes, when an index write-ahead log file will compact
   # into an index file. Lower sizes will cause log files to be compacted more
@@ -281,6 +291,9 @@
   # Determines whether HTTP endpoint is enabled.
   {{ macros.config_row(config_http, 'enabled', '# enabled = true', 0, true) }}
 
+  # Determines whether the Flux query endpoint is enabled.
+  {{ macros.config_row(config_http, 'flux-enabled', '# flux-enabled = false', 0, true) }}
+
   # The bind address used by the HTTP service.
   {{ macros.config_row(config_http, 'bind-address', '# bind-address = ":8086"', 0, true) }}
 
@@ -303,6 +316,12 @@
   # If influxd is unable to access the specified path, it will log an error and fall back to writing
   # the request log to stderr.
   {{ macros.config_row(config_http, 'access-log-path', '# access-log-path = ""', 0, true) }}
+
+  # Filters which requests should be logged. Each filter is of the pattern NNN, NNX, or NXX where N is
+  # a number and X is a wildcard for any number. To filter all 5xx responses, use the string 5xx.
+  # If multiple filters are used, then only one has to match. The default is to have no filters which
+  # will cause every request to be printed.
+  {{ macros.config_row(config_http, 'access-log-status-filters', '# access-log-status-filters = []', 0, true) }}
 
   # Determines whether detailed write logging is enabled.
   {{ macros.config_row(config_http, 'write-tracing', '# write-tracing = false', 0, true) }}
@@ -354,24 +373,6 @@
   # The maximum duration for a write to wait in the queue to be processed.
   # Setting this to 0 or setting max-concurrent-write-limit to 0 disables the limit.
   {{ macros.config_row(config_http, 'enqueued-write-timeout', '# enqueued-write-timeout = 0', 0, true) }}
-
-
-###
-### [ifql]
-###
-### Configures the ifql RPC API.
-###
-
-[ifql]
-  # Determines whether the RPC service is enabled.
-  {{ macros.config_row(config_ifql, 'enabled', '# enabled = true', 0, true) }}
-
-  # Determines whether additional logging is enabled.
-  {{ macros.config_row(config_ifql, 'log-enabled ', '# log-enabled = true', 0, true) }}
-
-  # The bind address used by the ifql RPC service.
-  {{ macros.config_row(config_ifql, 'bind-address', '# bind-address = ":8082"', 0, true) }}
-
 
 ###
 ### [logging]
