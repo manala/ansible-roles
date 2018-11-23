@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.25] - 2018-11-23
 ### Changed
 - Simplify `apt_preferences` mapping by using replace filters instead of fixed versions arrays
 - Update default mysql version (5.6 -> 5.7)
