@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - Simplify `apt_preferences` mapping by using replace filters instead of fixed versions arrays
+- Update default mysql version (5.6 -> 5.7)
 
 ## [1.0.24] - 2018-11-16
 ### Fixed
