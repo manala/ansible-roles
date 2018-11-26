@@ -7,6 +7,8 @@
   notify:
     - "php {{ __manala_php_sapi }} restart"
   with_manala_php_configs: "{{ manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'] }}"
+  tags:
+    - manala_php
 
 - name: configs > {{ __manala_php_sapi|capitalize }} - Exclusive - Find files
   # configs files coming with php packages are nothing but symlinks,
@@ -17,6 +19,8 @@
   changed_when: false
   register: __manala_php_configs_exclusive_find_result
   when: manala_php_configs_exclusive
+  tags:
+    - manala_php
 
 - name: configs > {{ __manala_php_sapi|capitalize }} - Exclusive - Remove files
   file:
@@ -26,3 +30,5 @@
   with_items: "{{ __manala_php_configs_exclusive_find_result.stdout_lines|default([]) }}"
   notify:
     - "php {{ __manala_php_sapi }} restart"
+  tags:
+    - manala_php
