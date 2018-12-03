@@ -311,6 +311,9 @@ manala_apt_repositories_patterns:
   percona:
     source: deb http://repo.percona.com/apt {{ ansible_distribution_release }} main
     key: percona
+  matomo:
+    source: deb http://debian.matomo.org/ piwik main
+    key: matomo
 
 # Keys
 manala_apt_keys_patterns:
@@ -425,6 +428,9 @@ manala_apt_keys_patterns:
   percona:
     url: https://github.com/percona/percona-repositories/raw/master/deb/percona-keyring2.gpg
     id: 8507EFA5
+  matomo:
+    url: https://debian.matomo.org/repository.gpg
+    id: 66FED89E
 
 # Preferences
 manala_apt_preferences_patterns:
