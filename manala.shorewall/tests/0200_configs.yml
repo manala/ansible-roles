@@ -7,6 +7,9 @@
     manala_shorewall_configs:
       - file: policy
         config:
+          - fw: all DROP
+      - file: policy
+        config:
           - fw:    all ACCEPT
           - net:   all DROP   info
           - vrack: all DROP   info

@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2018-10-31
+### Removed
+- Remove Debian Wheezy support
+
+### Added
+- Enhanced proftpd configuration through yaml
+
 ## [1.0.3] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

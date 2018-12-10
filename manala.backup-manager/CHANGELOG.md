@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2018-11-12
+### Changed
+- Update to Backup Manager 0.7.14 configs templates
+
 ## [1.0.3] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2018-110-16
+### Fixed
+- Handle configs files unicity
+
 ## [1.0.3] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

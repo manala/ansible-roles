@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.6] - 2018-11-15
+### Changed
+- Update base config template for ansible 2.6.5
+
 ## [1.0.5] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

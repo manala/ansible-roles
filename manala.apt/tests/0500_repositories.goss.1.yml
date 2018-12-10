@@ -7,7 +7,7 @@ file:
     filetype: file
     contains:
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
-  /etc/apt/sources.list.d/packages_dotdeb_org.list:
+  /etc/apt/sources.list.d/dotdeb.list:
     exists:   true
     filetype: file
     contains:

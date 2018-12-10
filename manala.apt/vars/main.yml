@@ -109,12 +109,15 @@ manala_apt_repositories_patterns:
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
     key: dotdeb
+    file: dotdeb.list
   dotdeb_php55:
     source: deb http://packages.dotdeb.org wheezy-php55 all
     key: dotdeb
+    file: dotdeb_php55.list
   dotdeb_php56:
     source: deb http://packages.dotdeb.org wheezy-php56 all
     key: dotdeb
+    file: dotdeb_php56.list
   nginx:
     source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
     key: nginx
@@ -163,6 +166,9 @@ manala_apt_repositories_patterns:
   mariadb_10_2:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
     key: "{{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('mariadb','mariadb_legacy') }}"
+  mariadb_10_3:
+    source: deb http://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
+    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
   maxscale_2_0:
     source: deb https://downloads.mariadb.com/MaxScale/2.0/debian {{ ansible_distribution_release }} main
     key: maxscale_legacy
@@ -305,6 +311,9 @@ manala_apt_repositories_patterns:
   percona:
     source: deb http://repo.percona.com/apt {{ ansible_distribution_release }} main
     key: percona
+  matomo:
+    source: deb http://debian.matomo.org/ piwik main
+    key: matomo
 
 # Keys
 manala_apt_keys_patterns:
@@ -318,26 +327,26 @@ manala_apt_keys_patterns:
     url: http://deb.bearstech.com/bearstech-archive.gpg
     id: 90158EE0
   nodesource:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    url: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
     id: 68576280
   mysql:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    url: https://repo.mysql.com/RPM-GPG-KEY-mysql
     id: 5072E1F5
   # Wheezy, Jessie
   mariadb_legacy:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    url: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
     id: 1BB943DB
   mariadb:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    url: https://raw.githubusercontent.com/MariaDB/mariadb.org-tools/master/release/create_package_tarballs/deb_files/MariaDB-C74CD1D8-public.asc
     id: C74CD1D8
   maxscale_legacy:
-    url: https://downloads.mariadb.com/MaxScale/MariaDB-MaxScale-GPG-KEY
+    url: https://downloads.mariadb.com/MaxScale/old_key.public
     id: 8167EE24
   maxscale:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 28C12247
   postgresql:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     id: ACCC4CF8
   10gen:
     url: https://docs.mongodb.org/10gen-gpg-key.asc
@@ -417,8 +426,11 @@ manala_apt_keys_patterns:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: E5267A6C
   percona:
-    keyserver: hkp://keyserver.ubuntu.com:80
+    url: https://github.com/percona/percona-repositories/raw/master/deb/percona-keyring2.gpg
     id: 8507EFA5
+  matomo:
+    url: https://debian.matomo.org/repository.gpg
+    id: 66FED89E
 
 # Preferences
 manala_apt_preferences_patterns:

@@ -86,3 +86,32 @@
 {{ macros.config_row(config, 'skip_auth_regex', '# skip_auth_regex = [
 #     "/foo"
 # ]', 0, true) }}
+
+{{ macros.config(config, [
+  'http_address',
+  'https_address',
+  'tls_cert_file',
+  'tls_key_file',
+  'redirect_url',
+  'upstreams',
+  'request_logging',
+  'pass_basic_auth',
+  'pass_user_headers',
+  'pass_host_header',
+  'email_domains',
+  'client_id',
+  'client_secret',
+  'pass_access_token',
+  'authenticated_emails_file',
+  'htpasswd_file',
+  'custom_templates_dir',
+  'ssl_insecure_skip_verify',
+  'cookie_name',
+  'cookie_secret',
+  'cookie_domain',
+  'cookie_expire',
+  'cookie_refresh',
+  'cookie_secure',
+  'cookie_httponly',
+  'skip_auth_regex'
+]) -}}

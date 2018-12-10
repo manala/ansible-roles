@@ -8,6 +8,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - PHP 7.3 support
 
+## [1.0.25] - 2018-11-23
+### Changed
+- Simplify `apt_preferences` mapping by using replace filters instead of fixed versions arrays
+- Update default mysql version (5.6 -> 5.7)
+- Update default mariadb version (10.1 -> 10.3)
+
+## [1.0.24] - 2018-11-16
+### Fixed
+- Use updated `python-httplib2` debian package from manala, to work around
+  dependency break inroduced by `libssl1.1` `1.1.1-1`
+
+## [1.0.23] - 2018-11-13
+### Added
+- Wget package
+
+## [1.0.22] - 2018-11-12
+# Removed
+- Remove docker support
+- Remove accounts support (Needed only for docker)
+- Remove systemd support (Needed only for docker)
+
+## [1.0.21] - 2018-11-12
+# Removed
+- Disable docker.socket service handling via systemd, as it's no more reliable
+  starting from Docker CE 18.09.0 (See: https://github.com/docker/docker-ce-packaging/pull/257)
+
 ## [1.0.20] - 2018-10-12
 ### Added
 - Introduce "env_vars" app options. Such environment variables will be both

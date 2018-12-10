@@ -1,0 +1,34 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.test
+    manala_telegraf_configs:
+      - file: minimal_config.conf
+        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
+      - file: foo.conf
+      - file: bar.conf
+      - file: baz.conf
+  pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
+    - import_tasks: pre_tasks/influxdata.yml
+  roles:
+    - manala.telegraf
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.test
+    manala_telegraf_configs_exclusive: true
+    manala_telegraf_configs:
+      - file: minimal_config.conf
+        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
+      - file: bar.conf
+  roles:
+    - manala.telegraf
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

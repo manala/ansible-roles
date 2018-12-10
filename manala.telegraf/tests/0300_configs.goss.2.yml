@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/telegraf/telegraf.d.test/foo.conf:
+    exists: true
+  /etc/telegraf/telegraf.d.test/bar.conf:
+    exists: false
+  /etc/telegraf/telegraf.d.test/baz.conf:
+    exists: true

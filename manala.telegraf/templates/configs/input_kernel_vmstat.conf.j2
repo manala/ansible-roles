@@ -1,0 +1,16 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+{% set section = 'inputs.kernel_vmstat' -%}
+
+# Get kernel statistics from /proc/vmstat
+[[{{ section }}]]
+  {%- if not config %}{{ '\n' }}  # no configuration{% endif %}
+
+{{ macros.config(config, [
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

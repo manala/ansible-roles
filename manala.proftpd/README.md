@@ -71,6 +71,8 @@ The `manala_proftpd_configs` key is made to allow you to define configuration ba
 
 ```yaml
 manala_proftpd_configs:
+  - file:                   foo.conf
+    state: absent
   - file:                   proftpd.conf
     config:
       - ServerName:         "Manala"
@@ -93,6 +95,25 @@ manala_proftpd_configs:
       - TLSVerifyClient:            false
       - TLSRequired:                true
       - RequireValidShell:          "No"
+```
+
+### VirtualHost
+You can also use VirtualHost configuration
+```yaml
+  - file: virtual_host_foo.conf
+    config:
+      - VirtualHost ftp.foo.com:
+        - ServerName: Foo FTP Server
+        - MaxClients: 10
+        - MaxLoginAttempts: 1
+        - Limit LOGIN:
+          - Order: Allow,Deny
+          - AllowUser: foo
+          - Deny: from all
+        - DefaultRoot: "~"
+        - Directory /srv/ftp/docs:
+          - Limit ALL:
+            - DenyAll
 ```
 
 ### Exclusivity
@@ -118,9 +139,9 @@ manala_proftpd_users:
       home:             "/home/toto"
       shell:            "/bin/false"
 ```
-The encrypted password method is MD5.
-On debian, it can be generate with :
-`echo -n yourpassword | makepasswd --crypt-md5 --clearfrom -`
+We strongly encourage you to generate SHA2 password hash
+On linux, it can be generated with:
+`echo -n yourpassword | mkpasswd --method=sha-512 -`
 
 Example playbook
 ----------------

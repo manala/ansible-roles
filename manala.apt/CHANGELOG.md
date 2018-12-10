@@ -6,8 +6,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Handle preferences & repositories states (present|absent)
 - PHP 7.3 support
+
+## [1.0.28] - 2018-12-04
+### Added
+- Matomo repository pattern
+
+## [1.0.27] - 2018-12-03
+### Added
+- Repository file can be specified
+
+## [1.0.26] - 2018-11-15
+### Changed
+- Switch back problematics keys sources from ubuntu keyserver to direct url,
+  in order to work around strict ring checks introduced by gnupg2 2.1.18-8~deb9u3
+  on debian stretch (see: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=913614)
+
+## [1.0.25] - 2018-10-31
+### Added
+- Handle preferences & repositories states (present|absent)
+- MariaDB 10.3 repository pattern
 
 ## [1.0.24] - 2018-10-17
 ### Fixed

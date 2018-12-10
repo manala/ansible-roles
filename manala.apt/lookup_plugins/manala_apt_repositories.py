@@ -72,21 +72,23 @@ class LookupModule(LookupBase):
                     print(repository)
                     raise AnsibleError('Expect "source" key')
 
-            item.update({
-                'file': os.path.join(
-                    repositoriesDir,
-                    re.sub(
-                        '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$',
-                        '\\2',
-                        item['source']
+            # Force file if not present
+            if 'file' not in item:
+                item.update({
+                    'file': os.path.join(
+                        repositoriesDir,
+                        re.sub(
+                            '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$',
+                            '\\2',
+                            item['source']
+                        )
+                            .strip('/ ')
+                            .replace('.', '_')
+                            .replace('/', '_')
+                            .replace('-', '_')
+                            + '.list'
                     )
-                        .strip('/ ')
-                        .replace('.', '_')
-                        .replace('/', '_')
-                        .replace('-', '_')
-                        + '.list'
-                )
-            })
+                })
 
             items.append(item)
 

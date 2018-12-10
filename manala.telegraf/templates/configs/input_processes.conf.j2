@@ -1,0 +1,16 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.processes' -%}
+
+# Get the number of processes and group them by status
+[[{{ section }}]]
+  {%- if not config %}{{ '\n' }}  # no configuration{% endif %}
+
+{{ macros.config(config, [
+  'tags',
+  'tagpass',
+  'tagdrop'
+], 2) }}
+
+{%- include '_tags.j2' %}

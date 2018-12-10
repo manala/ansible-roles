@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.6] - 2018-11-19
+### Changed
+- Update config template for 1.7.1
+
 ## [1.0.5] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

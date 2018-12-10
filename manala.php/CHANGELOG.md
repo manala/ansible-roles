@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Handle PHP 7.3 version
 
+### Fixed
+- Missing tags in configs tasks
+
 ## [1.0.11] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

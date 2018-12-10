@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.15] - 2018-11-16
+### Fixed
+- Keep legacy sysvinit services handling in ansible 2.6+
+
+## [1.0.14] - 2018-11-12
+### Added
+- Handle containers memory & ulimits options
+
 ## [1.0.13] - 2018-10-17
 ### Fixed
 - Python 3 compatibility

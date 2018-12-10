@@ -1,26 +1,47 @@
 ---
 
-- name: configs > Templates
+- name: configs > Directory
+  file:
+    path: "{{ manala_proftpd_configs_dir }}"
+    state: directory
+
+- name: configs > Exclusive
+  find:
+    path: "{{ manala_proftpd_configs_dir }}"
+    patterns: "*.conf"
+  changed_when: false
+  register: __manala_proftpd_configs_exclusive_find
+  when: manala_proftpd_configs_exclusive
+
+- name: configs > Templates presents
   template:
     src:  "{{ item.template|default(manala_proftpd_configs_template|ternary(manala_proftpd_configs_template, 'configs/empty.j2')) }}"
-    dest: "{{ manala_proftpd_configs_dir }}/{{ item.file }}"
-  with_items: "{{ manala_proftpd_configs }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_proftpd_configs',
+      manala_proftpd_configs,
+      __manala_proftpd_configs_exclusive_find.files|default([]),
+      manala_proftpd_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
   notify:
     - proftpd restart
 
-- name: configs > Exclusive - find files
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: "{{ manala_proftpd_configs_dir }}"
-  changed_when: false
-  register: __manala_proftpd_configs_find_output
-  when: manala_proftpd_configs_exclusive
-
-- name: configs > Exclusive - remove files
+# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
+- name: configs > Files absents
   file:
-    path:  "{{ manala_proftpd_configs_dir }}/{{ item }}"
+    path:  "{{ item.file }}"
     state: absent
-  when: manala_proftpd_configs_exclusive and (item not in manala_proftpd_configs|map(attribute='file'))
-  with_items: "{{ __manala_proftpd_configs_find_output.stdout_lines|default([]) }}"
+  with_items: "{{ lookup(
+      'manala_proftpd_configs',
+      manala_proftpd_configs,
+      __manala_proftpd_configs_exclusive_find.files|default([]),
+      manala_proftpd_configs_dir,
+      wantlist=True,
+      wantstate='absent'
+    )
+  }}"
   notify:
     - proftpd restart

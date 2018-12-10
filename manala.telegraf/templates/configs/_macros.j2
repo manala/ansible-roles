@@ -31,9 +31,7 @@
         {%- if placeholder -%}
             {{ default }}
         {%- else -%}
-            {%- for value in (default if (default is sequence and default is not string) else [default]) -%}
-                {{ _config_parameter(key, value, indent) }}{% if not loop.last %}{{ '\n' }}{% endif %}
-            {%- endfor -%}
+            {{ _config_parameter(key, default, indent) }}
         {%- endif -%}
     {%- endif -%}
 {%- endmacro -%}

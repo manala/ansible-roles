@@ -5,7 +5,7 @@
 
 # Read metrics about system load & uptime
 [[{{ section }}]]
-  # no configuration
+  {%- if not config %}{{ '\n' }}  # no configuration{% endif %}
 
 {{ macros.config(config, [
   'tags',

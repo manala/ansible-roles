@@ -6,6 +6,8 @@
     {%- include '2.8/' ~ template_name -%}
 {% elif manala_redis_version|string is version_compare('3.0', '>=') and manala_redis_version|string is version_compare('4.0', '<') %}
     {%- include '3.0/' ~ template_name -%}
-{% else %}
+{% elif manala_redis_version|string is version_compare('4.0', '>=') and manala_redis_version|string is version_compare('5.0', '<') %}
     {%- include '4.0/' ~ template_name -%}
+{% else %}
+    {%- include '5.0/' ~ template_name -%}
 {% endif %}
