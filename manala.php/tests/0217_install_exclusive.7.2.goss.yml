@@ -11,7 +11,7 @@ package:
     installed: true
   php7.2-intl:
     installed: true
-  php-ssh2:
+  php-geoip:
     installed: true
   php7.2-curl:
     installed: true

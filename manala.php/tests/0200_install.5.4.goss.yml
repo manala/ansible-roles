@@ -9,7 +9,7 @@ package:
     installed: false
   php5-intl:
     installed: true
-  php5-ssh2:
+  php5-geoip:
     installed: true
   php5-curl:
     installed: true

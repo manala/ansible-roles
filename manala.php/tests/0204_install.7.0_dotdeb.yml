@@ -16,7 +16,7 @@
       - date     # Embedded extension
       - mbstring # Native extension
       - intl     # Native extension
-      - ssh2     # Pecl extension
+      - geoip    # Pecl extension
       # Native extension
       - extension: curl
         state:     present

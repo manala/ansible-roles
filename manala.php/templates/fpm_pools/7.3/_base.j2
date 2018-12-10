@@ -1,6 +1,6 @@
 {%- for configs in item.config|default([config_name_default]) -%}
 
-    {%- for config_name, config in ({configs: []} if (configs is string) else configs).iteritems() -%}
+    {%- for config_name, config in ({configs: []} if (configs is string) else configs).items() -%}
 
 ; Start a new pool named '{{ config_name }}'.
 ; the variable $pool can be used in any directive and will be replaced by the
@@ -72,6 +72,12 @@
 ;         unless it specified otherwise
 ; Default Value: no set
 {{ macros.config_row(config, 'process.priority', '; process.priority = -19', true) }}
+
+; Set the process dumpable flag (PR_SET_DUMPABLE prctl) even if the process user
+; or group is differrent than the master process user. It allows to create process
+; core dump and ptrace the process for the pool user.
+; Default Value: no
+{{ macros.config_row(config, 'process.dumpable', '; process.dumpable = yes', true) }}
 
 ; Choose how the process manager will control the number of child processes.
 ; Possible Values:
@@ -369,6 +375,13 @@
 ; Default Value: no
 {{ macros.config_row(config, 'catch_workers_output', ';catch_workers_output = yes', true) }}
 
+; Decorate worker output with prefix and suffix containing information about
+; the child that writes to the log and if stdout or stderr is used as well as
+; log level and time. This options is used only if catch_workers_output is yes.
+; Settings to "no" will output data as written to the stdout or stderr.
+; Default value: yes
+{{ macros.config_row(config, 'decorate_workers_output', ';decorate_workers_output = no', true) }}
+
 ; Clear environment in FPM workers
 ; Prevents arbitrary environment variables from reaching FPM worker processes
 ; by clearing the environment in workers before env vars specified in this
@@ -381,7 +394,7 @@
 ; Limits the extensions of the main script FPM will allow to parse. This can
 ; prevent configuration mistakes on the web server side. You should only limit
 ; FPM to .php extensions to prevent malicious users to use other extensions to
-; exectute php code.
+; execute php code.
 ; Note: set an empty value to allow all extensions.
 ; Default Value: .php
 {{ macros.config_row(config, 'security.limit_extensions', ';security.limit_extensions = .php .php3 .php4 .php5 .php7', true) }}
@@ -420,9 +433,9 @@
 {{ macros.config_row(config, 'php_admin_flag[log_errors]', ';php_admin_flag[log_errors] = on', true) }}
 {{ macros.config_row(config, 'php_admin_value[memory_limit]', ';php_admin_value[memory_limit] = 32M', true) }}
 
-{% for config_extra_key, config_extra_value in config_extra.iteritems() -%}
+{% for config_extra_key, config_extra_value in config_extra.items() -%}
 {{ macros.config_row(config, config_extra_key, config_extra_value) }}
-{%- endfor %}
+{% endfor %}
 
 {{ macros.config(config, [
   'prefix',
@@ -437,6 +450,7 @@
   'listen.acl_groups',
   'listen.allowed_clients',
   'process.priority',
+  'process.dumpable',
   'pm',
   'pm.max_children',
   'pm.start_servers',
@@ -458,6 +472,7 @@
   'chroot',
   'chdir',
   'catch_workers_output',
+  'decorate_workers_output',
   'clear_env',
   'security.limit_extensions',
   'env',
@@ -466,7 +481,7 @@
   'php_admin_value[error_log]',
   'php_admin_flag[log_errors]',
   'php_admin_value[memory_limit]'
-] + config_extra.keys()) -}}
+] + config_extra.keys()|list) -}}
 
     {%- endfor %}
 

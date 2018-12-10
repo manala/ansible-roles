@@ -11,7 +11,7 @@
       - date     # Embedded extension
       - mbstring # Embedded extension
       - intl     # Native extension
-      - ssh2     # Pecl extension
+      - geoip    # Pecl extension
       # Native extension
       - extension: gd
         enabled:   true
