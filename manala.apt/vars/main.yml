@@ -314,6 +314,9 @@ manala_apt_repositories_patterns:
   matomo:
     source: deb http://debian.matomo.org/ piwik main
     key: matomo
+  owncloud:
+    source: deb http://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/ /
+    key: owncloud
 
 # Keys
 manala_apt_keys_patterns:
@@ -431,6 +434,9 @@ manala_apt_keys_patterns:
   matomo:
     url: https://debian.matomo.org/repository.gpg
     id: 66FED89E
+  owncloud:
+    url: https://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/Release.key
+    id: 479BC94B
 
 # Preferences
 manala_apt_preferences_patterns:
