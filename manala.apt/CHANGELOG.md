@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.29] - 2018-12-13
 ### Added
 - Owncloud repository pattern
 - PHP 7.3 support
