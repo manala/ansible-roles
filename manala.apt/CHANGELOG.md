@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Owncloud repository pattern
+- PHP 7.3 support
 
 ## [1.0.28] - 2018-12-04
 ### Added

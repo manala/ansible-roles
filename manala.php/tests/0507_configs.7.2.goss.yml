@@ -25,4 +25,3 @@ file:
     exists: false
   /etc/php/7.2/fpm/conf.d/baz.ini:
     exists: false
-    exists: false

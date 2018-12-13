@@ -11,10 +11,10 @@ file:
     exists: true
     filetype:  symlink
     linked-to: /etc/php/7.1/mods-available/intl.ini
-  /etc/php/7.1/cli/conf.d/20-ssh2.ini:
+  /etc/php/7.1/cli/conf.d/20-geoip.ini:
     exists: true
     filetype:  symlink
-    linked-to: /etc/php/7.1/mods-available/ssh2.ini
+    linked-to: /etc/php/7.1/mods-available/geoip.ini
   /etc/php/7.1/cli/conf.d/20-gd.ini:
     exists: true
     filetype:  symlink
