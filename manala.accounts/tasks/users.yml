@@ -12,6 +12,7 @@
     system:     "{{ item.system|default(false)|bool }}"
     uid:        "{{ item.uid|default(omit) }}"
     comment:    "{{ item.comment|default(omit) }}"
+    state:      "{{ item.state|default(omit) }}"
   with_items: "{{ manala_accounts_users }}"
 
 - name: users > Authorized keys

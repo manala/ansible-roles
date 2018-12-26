@@ -76,6 +76,13 @@ manala_accounts_users:
         public: "{{ lookup('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com.pub') }}"
         secret: "{{ lookup('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com') }}"
 ```
+#### Example: Check a user is not present
+
+```yaml
+manala_accounts_users:
+  - user:   bar
+    state:  absent
+```
 
 ### Creating group
 

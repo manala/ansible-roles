@@ -1,0 +1,21 @@
+---
+
+- name: Pre tasks > Ensure group "to_delete" exists
+  group:
+    name: to_delete
+    state: present
+
+- name: Pre tasks > Ensure group "to_preserve" exists
+  group:
+    name: to_preserve
+    state: present
+
+- name: Pre tasks > Add user user_1 to be deleted.
+  user:
+    name: user_1
+    group: to_delete
+
+- name: Pre tasks > Add user user_2 to be preserved.
+  user:
+    name: user_2
+    group: to_preserve

@@ -1,0 +1,15 @@
+---
+
+group:
+  to_preserve:
+    exists: true
+  to_delete:
+    exists: true
+
+user:
+  user_1:
+    exists: false
+    home:   /home/user_1
+  user_2:
+    exists: true
+    home:   /home/user_2
