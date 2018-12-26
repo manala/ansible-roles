@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/users.yml
+  vars:
+    manala_accounts_groups:
+      - group:  empty_group
+        state:  absent
+      - group:  group_1
+  roles:
+    - manala.accounts
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

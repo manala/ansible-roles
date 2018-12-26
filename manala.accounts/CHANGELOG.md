@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - Add state option to handle users accounts
+- Add tests on groups creation/deletion
 
 ## [1.0.3] - 2018-10-17
 ### Fixed

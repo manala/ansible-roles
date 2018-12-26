@@ -1,0 +1,7 @@
+---
+
+group:
+  group_1:
+    exists: true
+  empty_group:
+    exists: false
