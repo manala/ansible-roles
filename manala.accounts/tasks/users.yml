@@ -12,6 +12,7 @@
     system:     "{{ item.system|default(false)|bool }}"
     uid:        "{{ item.uid|default(omit) }}"
     comment:    "{{ item.comment|default(omit) }}"
+    state:      "{{ item.state|default(omit) }}"
   with_items: "{{ manala_accounts_users }}"
 
 - name: users > Authorized keys
@@ -26,7 +27,7 @@
 - name: users > Find primary groups
   command: "id -g -n {{ item.user }}"
   with_items: "{{ manala_accounts_users }}"
-  when: item.group is not defined
+  when: item.group is not defined and item.state|default(omit) is ne 'absent'
   register: __manala_accounts_users
   changed_when: false
   no_log: true

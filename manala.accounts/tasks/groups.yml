@@ -3,7 +3,7 @@
 - name: groups > Groups configuration
   group:
     name:   "{{ (item) if (item is string) else (item.group) }}"
-    system: "{{ item.system|default(false)|bool }}"
-    state:  "{{ item.state|default('present') }}"
+    system: "{{ item.system|default(omit) }}"
+    state:  "{{ item.state|default(omit) }}"
     gid:    "{{ item.gid|default(omit) }}"
   with_items: "{{ manala_accounts_groups }}"
