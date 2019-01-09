@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Fixed
 - Grafana repository & key pattern
+- Repository file is now well prefixed by repositories dir
 
 ## [1.0.29] - 2018-12-13
 ### Added

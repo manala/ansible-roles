@@ -69,7 +69,6 @@ class LookupModule(LookupBase):
 
                 # Check index key
                 if 'source' not in item:
-                    print(repository)
                     raise AnsibleError('Expect "source" key')
 
             # Force file if not present
@@ -87,6 +86,13 @@ class LookupModule(LookupBase):
                             .replace('/', '_')
                             .replace('-', '_')
                             + '.list'
+                    )
+                })
+            else:
+                item.update({
+                    'file': os.path.join(
+                        repositoriesDir,
+                        item['file']
                     )
                 })
 
