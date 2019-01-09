@@ -233,8 +233,8 @@ manala_apt_repositories_patterns:
     source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
-    source: deb https://packagecloud.io/grafana/stable/debian/ {{ ansible_distribution_release }} main
-    key: packagecloud
+    source: deb https://packages.grafana.com/oss/deb stable main
+    key: grafana
   elasticsearch_1_5:
     source: deb https://packages.elastic.co/elasticsearch/1.5/debian stable main
     key: elasticsearch
@@ -437,6 +437,10 @@ manala_apt_keys_patterns:
   owncloud:
     url: https://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/Release.key
     id: 479BC94B
+  grafana:
+    url: https://packages.grafana.com/gpg.key
+    id: 24098CB6
+    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
 
 # Preferences
 manala_apt_preferences_patterns:
