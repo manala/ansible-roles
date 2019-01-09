@@ -33,11 +33,11 @@ file:
     filetype: file
     contains:
       - "deb http://apt.postgresql.org/pub/repos/apt/ {{ .Env.DISTRIBUTION_RELEASE }}-pgdg main"
-  /etc/apt/sources.list.d/packagecloud_io_grafana_stable_debian.list:
+  /etc/apt/sources.list.d/packages_grafana_com_oss_deb.list:
     exists:   true
     filetype: file
     contains:
-      - "deb https://packagecloud.io/grafana/stable/debian/ {{ .Env.DISTRIBUTION_RELEASE }} main"
+      - "deb https://packages.grafana.com/oss/deb stable main"
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_15_debian.list:
     exists:   true
     filetype: file
