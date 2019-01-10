@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.30] - 2019-01-10
 ### Fixed
 - Grafana repository & key pattern
 - Repository file is now well prefixed by repositories dir
