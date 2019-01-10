@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Fix dotdeb php 5.5/5.6 apt preferences
 
 ## [1.0.26] - 2018-12-13
 ### Added
