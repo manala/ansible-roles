@@ -269,7 +269,7 @@ manala_apt_repositories_patterns:
     source: ppa:ansible/ansible
   blackfire:
     source: deb http://packages.blackfire.io/debian any main
-    key: packagecloud
+    key: blackfire
   gitlab-ce:
     source: deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ {{ ansible_distribution_release }} main
     key: gitlab
@@ -444,6 +444,9 @@ manala_apt_keys_patterns:
     url: https://packages.grafana.com/gpg.key
     id: 24098CB6
     validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
+  blackfire:
+    url: https://packages.blackfire.io/gpg.key
+    id: 47312329
 
 # Preferences
 manala_apt_preferences_patterns:

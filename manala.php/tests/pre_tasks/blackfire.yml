@@ -1,9 +1,9 @@
 ---
 
-- name: Pre tasks > Packagecloud apt key
+- name: Pre tasks > Blackfire apt key
   apt_key:
-    file: pre_tasks/apt_keys/packagecloud.pgp
-    id: D59097AB
+    file: pre_tasks/apt_keys/blackfire.pgp
+    id: 47312329
 
 - name: Pre tasks > Blackfire apt repository
   apt_repository:
