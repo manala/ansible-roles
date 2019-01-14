@@ -294,6 +294,9 @@
   # Determines whether the Flux query endpoint is enabled.
   {{ macros.config_row(config_http, 'flux-enabled', '# flux-enabled = false', 0, true) }}
 
+  # Determines whether the Flux query logging is enabled.
+  {{ macros.config_row(config_http, 'flux-log-enabled', '# flux-log-enabled = false', 0, true) }}
+
   # The bind address used by the HTTP service.
   {{ macros.config_row(config_http, 'bind-address', '# bind-address = ":8086"', 0, true) }}
 
