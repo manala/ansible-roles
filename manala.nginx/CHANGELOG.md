@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-Add list of trusted IPs from Cloudflare and Cloudfront
+- Add list of trusted IPs from Cloudflare and Cloudfront
 
 ## [1.0.6] - 2018-10-31
 ### Fixed
