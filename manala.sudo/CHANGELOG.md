@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Better sudoers exclusive handling
 
 ## [1.0.3] - 2018-10-17
 ### Fixed

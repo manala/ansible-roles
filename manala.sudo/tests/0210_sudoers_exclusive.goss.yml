@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/sudoers.d.test/README:
+    exists: true
+  /etc/sudoers.d.test/foo:
+    exists: false
+  /etc/sudoers.d.test/bar:
+    exists: true
+  /etc/sudoers.d.test/baz:
+    exists: false
