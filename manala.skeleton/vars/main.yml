@@ -256,10 +256,6 @@ manala_skeleton_patterns:
     php_configs:
       - file: 50-xdebug.ini
         template: configs/xdebug.{{ manala_skeleton_env }}.j2
-    php_applications:
-      - php-cs-fixer
-      - phpcs
-      - security-checker
     # Nginx
     nginx_config_template: config/http.{{ manala_skeleton_env }}.j2
     nginx_configs_exclusive: true
