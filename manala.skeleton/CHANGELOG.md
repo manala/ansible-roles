@@ -6,8 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 # Removed
-- Remove php-cs-fixer
-- Remove security-checker
+- Remove default php applications (php-cs-fixer / phpcs / security-checker )
 
 ## [1.0.27] - 2019-01-10
 ### Fixed
