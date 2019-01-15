@@ -3,7 +3,6 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  pre_tasks:
   vars:
     manala_sudo_sudoers:
       - file: vagrant
