@@ -9,3 +9,5 @@ package:
     installed: true
   mongodb-org-tools:
     installed: true
+  mongodb-org-mongos:
+    installed: true
