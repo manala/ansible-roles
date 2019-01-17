@@ -4,3 +4,4 @@
   service:
     name:  mongod
     state: restarted
+  when: __manala_mongodb['services']

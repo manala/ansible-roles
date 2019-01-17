@@ -1,10 +1,16 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.wheezy
+  hosts: debian
   become: true
+  vars:
+    # See: https://github.com/manala/ansible-roles/issues/115
+    manala_mongodb:
+      services: false
+    manala_mongodb_config:
+      - port: 12345
   pre_tasks:
-    - import_tasks: pre_tasks/mongodb_3_2.yml
+    - import_tasks: pre_tasks/mongodb_4_0.yml
     - copy:
         dest: /etc/apt/preferences.d/mongodb
         content: |

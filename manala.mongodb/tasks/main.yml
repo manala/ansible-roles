@@ -12,6 +12,7 @@
 
 # Services
 - import_tasks: services.yml
+  when: __manala_mongodb['services']
   tags:
     - manala_mongodb
     - manala_mongodb.services
