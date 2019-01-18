@@ -170,6 +170,28 @@ manala_php_fpm_pools:
         - php_flag[display_errors]: true
 ```
 
+#### Applications:
+
+Installation of specifics php applications
+
+```
+  php_applications:
+    - drush@8.1.18
+```
+
+##### List of available applications:
+
+- phpcs
+- phpcbf
+- openl10n
+- phpunit
+- php-cs-fixer
+- couscous
+- security-checker
+- deptrac
+- wp-cli
+- drush
+
 #### Blackfire
 
 ```yaml
