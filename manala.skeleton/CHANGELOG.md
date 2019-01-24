@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 # Removed
 - Remove default php applications (php-cs-fixer / phpcs / security-checker )
 
+### Changed
+- Re-allow mysql connections from anywhere
+
 ## [1.0.27] - 2019-01-10
 ### Fixed
 - Fix dotdeb php 5.5/5.6 apt preferences
