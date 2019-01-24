@@ -429,3 +429,5 @@ manala_php_applications_patterns:
     source: http://get.sensiolabs.de/deptrac.phar
   wp-cli:
     source: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  drush:
+    source_version: https://github.com/drush-ops/drush/releases/download/{version}/drush.phar
