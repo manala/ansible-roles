@@ -172,7 +172,7 @@ manala_php_fpm_pools:
 
 #### Applications:
 
-Installation of specifics php applications
+Installation of specific php applications
 
 ```
   php_applications:
