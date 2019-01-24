@@ -320,6 +320,9 @@ manala_apt_repositories_patterns:
   owncloud:
     source: deb http://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/ /
     key: owncloud
+  mica:
+    source: deb https://dl.bintray.com/obiba/deb all main
+    key: mica
 
 # Keys
 manala_apt_keys_patterns:
@@ -447,6 +450,9 @@ manala_apt_keys_patterns:
   blackfire:
     url: https://packages.blackfire.io/gpg.key
     id: 47312329
+  mica:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 379CE192D401AB61
 
 # Preferences
 manala_apt_preferences_patterns:
@@ -492,3 +498,4 @@ manala_apt_preferences_patterns:
   httpie:             httpie*
   certbot:            certbot python-certbot python-acme python3-certbot python3-acme python-cryptography python-openssl python-setuptools python-pyasn1 python-pkg-resources
   thumbor:            thumbor python-libthumbor
+  mica:               mica
