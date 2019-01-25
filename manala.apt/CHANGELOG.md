@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.33] - 2019-01-25
 ### Added
 - Add Mica (https://www.obiba.org/pages/products/mica/) support
 
