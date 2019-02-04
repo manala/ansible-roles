@@ -340,6 +340,10 @@ manala_skeleton_patterns:
     mysql_users:
       - name:     "{{ manala_skeleton_options.app.user }}"
         password: ~
+        host:     localhost
+        priv:     "*.*:ALL,GRANT"
+      - name:     "{{ manala_skeleton_options.app.user }}"
+        password: ~
         host:     "%"
         priv:     "*.*:ALL,GRANT"
     mysql_install_packages: "{{
