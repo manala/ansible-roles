@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_composer_version: 1.8.0
+  pre_tasks:
+    - apt:
+        name:
+          - "{{ (ansible_distribution_release == 'stretch')|ternary('php7.0-cli','php5-cli') }}"
+        install_recommends: false
+  roles:
+    - manala.composer
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

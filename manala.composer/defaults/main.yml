@@ -7,6 +7,9 @@ manala_composer_install_packages_default:
   - ca-certificates
   - unzip
 
+# Version
+manala_composer_version: ~
+
 # Bin
 manala_composer_bin: /usr/local/bin/composer
 
