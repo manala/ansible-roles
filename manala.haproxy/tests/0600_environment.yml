@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    # See: https://github.com/manala/ansible-roles/issues/115
+    manala_haproxy:
+      services: false
+    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs:
+      - file: haproxy.cfg
+        template: fixtures/haproxy.cfg.j2
+    manala_haproxy_environment:
+      - CONFIG: /etc/haproxy/conf.d.test
+  roles:
+    - manala.haproxy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

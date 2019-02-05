@@ -15,6 +15,16 @@
   tags:
     - manala_haproxy
 
+# Configs
+- import_tasks: configs.yml
+  tags:
+    - manala_haproxy
+
+# Environment
+- import_tasks: environment.yml
+  tags:
+    - manala_haproxy
+
 # Services
 - import_tasks: services.yml
   tags:

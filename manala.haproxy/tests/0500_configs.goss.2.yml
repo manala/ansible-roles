@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/haproxy/conf.d.test/foo.cfg:
+    exists: true
+  /etc/haproxy/conf.d.test/bar.cfg:
+    exists: false
+  /etc/haproxy/conf.d.test/baz.cfg:
+    exists: true
