@@ -1,0 +1,37 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs:
+      - file: haproxy.cfg
+        template: fixtures/haproxy.cfg.j2
+      - file: bar.cfg
+        state: absent
+      - file: foo.cfg
+        state: present
+  roles:
+    - manala.haproxy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs:
+      - file: foo.cfg
+      - file: bar.cfg
+        state: absent
+      - file: baz.cfg
+        state: present
+  roles:
+    - manala.haproxy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/haproxy/conf.d.test/haproxy.cfg:
+    exists: true
+    contains:
+      - global
+  /etc/haproxy/conf.d.test/foo.cfg:
+    exists: true
+  /etc/haproxy/conf.d.test/bar.cfg:
+    exists: false

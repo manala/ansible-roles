@@ -1,0 +1,9 @@
+---
+
+- name: environment > Template
+  template:
+    src:  "{{ manala_haproxy_environment_template|ternary(manala_haproxy_environment_template, 'environment/default.j2') }}"
+    dest: "{{ manala_haproxy_environment_file }}"
+  when: (manala_haproxy_environment_template is not none) or (manala_haproxy_environment|length)
+  notify:
+    - haproxy reload

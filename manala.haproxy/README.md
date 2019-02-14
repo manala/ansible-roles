@@ -37,14 +37,21 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default                      | Type   | Description                            |
-| ----------------------------------------- | ---------------------------- | ------ | -------------------------------------- |
-| `manala_haproxy_install_packages`         | ~                            | Array  | Dependency packages to install         |
-| `manala_haproxy_install_packages_default` | []                           | Array  | Default dependency packages to install |
-| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String | Errorfiles directory path              |
-| `manala_haproxy_errorfiles`               | []                           | Array  | Errorfiles                             |
-| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String | Configuration file path                |
-| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String | Configuration template                 |
+| Name                                      | Default                      | Type    | Description                            |
+| ----------------------------------------- | ---------------------------- | ------- | -------------------------------------- |
+| `manala_haproxy_install_packages`         | ~                            | Array   | Dependency packages to install         |
+| `manala_haproxy_install_packages_default` | []                           | Array   | Default dependency packages to install |
+| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String  | Errorfiles directory path              |
+| `manala_haproxy_errorfiles`               | []                           | Array   | Errorfiles                             |
+| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String  | Configuration file path                |
+| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String  | Configuration template                 |
+| `manala_haproxy_configs_exclusive`        | false                        | Boolean | Configurations exclusivity             |
+| `manala_haproxy_configs_dir`              | /etc/haproxy/conf.d          | String  | Configurations dir path                |
+| `manala_haproxy_configs_template`         | ~                            | String  | Configuration template                 |
+| `manala_haproxy_configs`                  | []                           | Array   | Configurations                         |
+| `manala_haproxy_environment_file`         | /etc/default/haproxy         | String  | Environment file path                  |
+| `manala_haproxy_environment_template`     | ~                            | String  | Environment base template              |
+| `manala_haproxy_environment`              | []                           | Array   | Environment directives                 |
 
 ### Configuration example
 
@@ -88,6 +95,35 @@ Use custom config template
 
 ```yaml
 manala_haproxy_config_template: haproxy/haproxy.cfg.j2
+```
+
+### Split configuration files
+
+As mentioned in the documentation it's possible to split configuration files as haproxy will load all files found in a specific folder when this one is provided to the `-f` option at service startup.
+On Debian this configuration path is handle by the `/etc/default/haproxy` file and the `CONFIG` environment variable.
+
+**Be carefull:** *Files are added in lexical order (using LC_COLLATE=C) to the list of configuration files to be loaded*
+
+#### Defining configuration files
+
+```yaml
+  manala_haproxy_environment:
+    - CONFIG: "{{ manala_haproxy_configs_dir }}" # /etc/haproxy/conf.d
+
+  manala_haproxy_configs_exclusive: true
+
+  manala_haproxy_configs:
+    - file: 010-global.cfg
+      template: all/haproxy/010-global.j2
+    - file: 020-defaults.cfg
+      template: all/haproxy/020-defaults.j2
+    - file: 030-stats.cfg
+      template: all/haproxy/030-stats.j2
+    - file: 040-frontend.cfg
+      template: specific/040-frontend.j2
+    - file: 050-backend.cfg
+      template: specific/050-backend.j2
+    ...
 ```
 
 ## Example playbook
