@@ -169,14 +169,12 @@
   # will allow TSM compactions to write to disk.
   {{ macros.config_row(config_data, 'compact-throughput-burst', '# compact-throughput-burst = "48m"', 0, true) }}
 
-  # The threshold, in bytes, when an index write-ahead log file will compact
-  # into an index file. Lower sizes will cause log files to be compacted more
-  # quickly and result in lower heap usage at the expense of write throughput.
-  # Higher sizes will be compacted less frequently, store more series in-memory,
-  # and provide higher write throughput.
-  # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
-  # Values without a size suffix are in bytes.
-  {{ macros.config_row(config_data, 'max-index-log-file-size', '# max-index-log-file-size = "1m"', 0, true) }}
+  # If true, then the mmap advise value MADV_WILLNEED will be provided to the kernel with respect to
+  # TSM files. This setting has been found to be problematic on some kernels, and defaults to off.
+  # It might help users who have slow disks in some cases.
+  {{ macros.config_row(config_data, 'tsm-use-madv-willneed', '# tsm-use-madv-willneed = false', 0, true) }}
+
+  # Settings for the inmem index
 
   # The maximum series allowed per database before writes are dropped.  This limit can prevent
   # high cardinality issues at the database level.  This limit can be disabled by setting it to
@@ -188,10 +186,26 @@
   # disabled by setting it to 0.
   {{ macros.config_row(config_data, 'max-values-per-tag', '# max-values-per-tag = 100000', 0, true) }}
 
-  # If true, then the mmap advise value MADV_WILLNEED will be provided to the kernel with respect to
-  # TSM files. This setting has been found to be problematic on some kernels, and defaults to off.
-  # It might help users who have slow disks in some cases.
-  {{ macros.config_row(config_data, 'tsm-use-madv-willneed', '# tsm-use-madv-willneed = false', 0, true) }}
+  # Settings for the tsi1 index
+
+  # The threshold, in bytes, when an index write-ahead log file will compact
+  # into an index file. Lower sizes will cause log files to be compacted more
+  # quickly and result in lower heap usage at the expense of write throughput.
+  # Higher sizes will be compacted less frequently, store more series in-memory,
+  # and provide higher write throughput.
+  # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
+  # Values without a size suffix are in bytes.
+  {{ macros.config_row(config_data, 'max-index-log-file-size', '# max-index-log-file-size = "1m"', 0, true) }}
+
+  # The size of the internal cache used in the TSI index to store previously 
+  # calculated series results. Cached results will be returned quickly from the cache rather
+  # than needing to be recalculated when a subsequent query with a matching tag key/value 
+  # predicate is executed. Setting this value to 0 will disable the cache, which may
+  # lead to query performance issues.
+  # This value should only be increased if it is known that the set of regularly used 
+  # tag key/value predicates across all measurements for a database is larger than 100. An
+  # increase in cache size may lead to an increase in heap usage.
+  {{ macros.config_row(config_data, 'series-id-set-cache-size', 100) }}
 
 ###
 ### [coordinator]
@@ -553,7 +567,7 @@
 ### Controls the listeners for InfluxDB line protocol data via UDP.
 ###
 
-{% if not config_udp|length %}# {% endif %}[[udp]]
+[[udp]]
   {{ macros.config_row(config_udp, 'enabled', '# enabled = false', 0, true) }}
   {{ macros.config_row(config_udp, 'bind-address', '# bind-address = ":8089"', 0, true) }}
   {{ macros.config_row(config_udp, 'database', '# database = "udp"', 0, true) }}
