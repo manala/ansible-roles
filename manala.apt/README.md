@@ -53,6 +53,10 @@ None
 | `manala_apt_packages`                 | []                                                    | Array   | Collection of packages                 |
 | `manala_apt_cache_valid_time`         | 3600                                                  | Integer | Permitted age of apt cache, in seconds |
 | `manala_apt.update`                   | false                                                 | Boolean | Update packages                        |
+| `manala_apt_debian_archive_mirror`    | http://deb.debian.org/debian                          | String  | Debian archive repository mirror       |
+| `manala_apt_debian_security_mirror`   | http://security.debian.org                            | String  | Debian security repository mirror      |
+| `manala_apt_ubuntu_archive_mirror`    | http://archive.ubuntu.com/ubuntu                      | String  | Ubuntu archive repository mirror       |
+| `manala_apt_ubuntu_security_mirror`   | http://security.ubuntu.com/ubuntu                     | String  | Ubuntu security repository mirror      |
 
 ### Example
 
