@@ -2,5 +2,5 @@
 
 {% set config = manala_apt_sources_list -%}
 
-deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+deb {{ manala_apt_ubuntu_archive_mirror }} {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
 {{ macros.config(config) }}

@@ -10,6 +10,12 @@ manala_apt_install_packages_default:
 # Components
 manala_apt_components: ['main']
 
+# Mirrors
+manala_apt_debian_archive_mirror:  http://deb.debian.org/debian
+manala_apt_debian_security_mirror: http://security.debian.org
+manala_apt_ubuntu_archive_mirror:  http://archive.ubuntu.com/ubuntu
+manala_apt_ubuntu_security_mirror: http://security.ubuntu.com/ubuntu
+
 # Sources list
 manala_apt_sources_list_file:     /etc/apt/sources.list
 manala_apt_sources_list_template: ~

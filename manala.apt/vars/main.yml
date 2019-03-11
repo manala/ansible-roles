@@ -15,17 +15,17 @@ manala_apt_repositories_patterns:
   security: "{{
     {
       'debian': {
-        'source': 'deb http://security.debian.org ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb ' ~ manala_apt_debian_security_mirror ~ ' ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': {
-        'source': 'deb http://security.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
+        'source': 'deb ' ~ manala_apt_ubuntu_security_mirror ~ ' ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
       }
     }[ansible_distribution|lower]
   }}"
   security_src: "{{
     {
       'debian': {
-        'source': 'deb-src http://security.debian.org ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb-src ' ~ manala_apt_debian_security_mirror ~ ' ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': None
     }[ansible_distribution|lower]
@@ -33,17 +33,17 @@ manala_apt_repositories_patterns:
   updates: "{{
     {
       'debian': {
-        'source': 'deb http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb ' ~ manala_apt_debian_archive_mirror ~ ' ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': {
-        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb ' ~ manala_apt_ubuntu_archive_mirror ~ ' ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
       }
     }[ansible_distribution|lower]
   }}"
   updates_src: "{{
     {
       'debian': {
-        'source': 'deb-src http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb-src ' ~ manala_apt_debian_archive_mirror ~ ' ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': None
     }[ansible_distribution|lower]
@@ -59,11 +59,11 @@ manala_apt_repositories_patterns:
   backports: "{{
     {
       'debian': {
-        'source': 'deb http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'source': 'deb ' ~ manala_apt_debian_archive_mirror ~ ' ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
         'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
       },
       'ubuntu': {
-        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'source': 'deb ' ~ manala_apt_ubuntu_archive_mirror ~ ' ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
         'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
       }
     }[ansible_distribution|lower]
@@ -71,7 +71,7 @@ manala_apt_repositories_patterns:
   backports_sloppy: "{{
     {
       'debian': {
-        'source': 'deb http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-backports-sloppy ' ~ manala_apt_components|join(' '),
+        'source': 'deb ' ~ manala_apt_debian_archive_mirror ~ ' ' ~ ansible_distribution_release ~ '-backports-sloppy ' ~ manala_apt_components|join(' '),
         'pin':    'release a=' ~ ansible_distribution_release ~ '-backports-sloppy'
       },
       'ubuntu': None
@@ -79,32 +79,32 @@ manala_apt_repositories_patterns:
   }}"
   # Deprecated
   debian_security:
-    source: deb http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb {{ manala_apt_debian_security_mirror }} {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_security_src:
-    source: deb-src http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb-src {{ manala_apt_debian_security_mirror }} {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_updates:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb {{ manala_apt_debian_archive_mirror }} {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_updates_src:
-    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb-src {{ manala_apt_debian_archive_mirror }} {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_backports:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    source: deb {{ manala_apt_debian_archive_mirror }} {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   # Deprecated
   ubuntu_security:
-    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
+    source: deb {{ manala_apt_ubuntu_security_mirror }} {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
   # Deprecated
   ubuntu_updates:
-    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb {{ manala_apt_ubuntu_archive_mirror }} {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   ubuntu_partner:
     source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
   # Deprecated
   ubuntu_backports:
-    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    source: deb {{ manala_apt_ubuntu_archive_mirror }} {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
