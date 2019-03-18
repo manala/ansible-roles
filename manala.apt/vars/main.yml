@@ -427,8 +427,7 @@ manala_apt_keys_patterns:
     }[ansible_distribution|lower]
   }}"
   # Deprecated
-  
-  _php_debian:
+  sury_php_debian:
     url: https://packages.sury.org/php/apt.gpg
     id: F4FCBB07
   # Deprecated
