@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Handle pull option
+- Handle privileged option
 
 ## [1.0.15] - 2018-11-16
 ### Fixed
