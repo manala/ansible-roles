@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Update sury php key (see: https://www.patreon.com/posts/dpa-new-signing-25451165)
 
 ## [1.0.33] - 2019-01-25
 ### Added

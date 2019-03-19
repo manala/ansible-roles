@@ -418,7 +418,7 @@ manala_apt_keys_patterns:
     {
       'debian': {
         'url': 'https://packages.sury.org/php/apt.gpg',
-        'id':  '4A7A714D'
+        'id':  '95BD4743'
       },
       'ubuntu': {
         'keyserver': 'hkp://keyserver.ubuntu.com:80',
@@ -429,7 +429,7 @@ manala_apt_keys_patterns:
   # Deprecated
   sury_php_debian:
     url: https://packages.sury.org/php/apt.gpg
-    id: 4A7A714D
+    id: 95BD4743
   # Deprecated
   sury_php_ubuntu:
     keyserver: hkp://keyserver.ubuntu.com:80
