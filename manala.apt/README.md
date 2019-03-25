@@ -147,6 +147,7 @@ manala_apt_repositories:
   - mongodb_3_0
   - mongodb_3_1
   - mongodb_3_6
+  - mongodb_4_0
   - varnish_4_0
   - jenkins
   - sensu
