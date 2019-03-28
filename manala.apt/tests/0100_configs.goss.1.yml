@@ -1,0 +1,35 @@
+---
+
+file:
+  /etc/apt/apt.conf.d.test/foo:
+    exists: true
+    contains:
+      - "Acquire::Check-Valid-Until \"true\";"
+      - "APT {"
+      - "  Get {"
+      - "    Assume-Yes \"true\";"
+      - "    Fix-Broken \"false\";"
+      - "    Proxy \"ftp://proxy:2121/\";"
+      - "    SuggestsImportant \"42\";"
+      - "  };"
+      - "  NeverAutoRemove {"
+      - "    \"^firmware-linux.*\";"
+      - "    \"^linux-firmware$\";"
+      - "  };"
+      - "};"
+  /etc/apt/apt.conf.d.test/foo_template:
+    exists: true
+    contains:
+      - Acquire::Check-Valid-Until "false";
+  /etc/apt/apt.conf.d.test/foo_content:
+    exists: true
+    contains:
+      - APT::Install-Recommends "false";
+  /etc/apt/apt.conf.d.test/foo_template_content:
+    exists: true
+    contains:
+      - APT::Install-Suggests "false";
+  /etc/apt/apt.conf.d.test/bar:
+    exists: true
+  /etc/apt/apt.conf.d.test/baz:
+    exists: false

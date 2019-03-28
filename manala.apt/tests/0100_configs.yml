@@ -1,0 +1,55 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_configs_dir: /etc/apt/apt.conf.d.test
+    manala_apt_configs:
+      - file: foo
+        config:
+          - Acquire::Check-Valid-Until: true
+          - APT:
+            - Get:
+              - Assume-Yes: true
+              - Fix-Broken: false
+              - Proxy: ftp://proxy:2121/
+              - SuggestsImportant: 42
+            - NeverAutoRemove:
+              - ^firmware-linux.*
+              - ^linux-firmware$
+      - file: foo_template
+        template: configs/check_valid_until_false.j2
+      - file: foo_content
+        content: |
+          APT::Install-Recommends "false";
+      - file: foo_template_content
+        template: configs/check_valid_until_false.j2
+        content: |
+          APT::Install-Suggests "false";
+      - file: bar
+        state: present
+      - file: baz
+        state: absent
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+# - name: "{{ test }}.2"
+#   hosts: debian
+#   become: true
+#   vars:
+#     manala_apt_configs_dir: /etc/apt/apt.conf.d.test
+#     manala_apt_configs:
+#       - file: foo
+#       - file: bar
+#         state: absent
+#       - file: baz
+#         state: present
+#   roles:
+#     - manala.apt
+#   post_tasks:
+#     - name: Goss
+#       command: goss --gossfile {{ test }}.goss.2.yml validate

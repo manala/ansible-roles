@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/apt/apt.conf.d.test/foo:
+    exists: false
+  /etc/apt/apt.conf.d.test/bar:
+    exists: true
+  /etc/apt/apt.conf.d.test/baz:
+    exists: false

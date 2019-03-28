@@ -1,5 +1,11 @@
 ---
 
+# Configs
+manala_apt_configs_exclusive: false
+manala_apt_configs_dir:       /etc/apt/apt.conf.d
+manala_apt_configs_template:  ~
+manala_apt_configs:           []
+
 # Install
 manala_apt_install_packages: ~
 manala_apt_install_packages_default:

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Mongodb 4.0 repository pattern
+- Handle configs
 
 ### Changed
 - Introduce new Mongodb key pattern and rename legacy one
