@@ -15,7 +15,7 @@ manala_apt_repositories_patterns:
   security: "{{
     {
       'debian': {
-        'source': 'deb http://security.debian.org ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb http://security.debian.org/debian-security ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': {
         'source': 'deb http://security.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
@@ -25,7 +25,7 @@ manala_apt_repositories_patterns:
   security_src: "{{
     {
       'debian': {
-        'source': 'deb-src http://security.debian.org ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
+        'source': 'deb-src http://security.debian.org/debian-security ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
       },
       'ubuntu': None
     }[ansible_distribution|lower]
@@ -59,7 +59,7 @@ manala_apt_repositories_patterns:
   backports: "{{
     {
       'debian': {
-        'source': 'deb http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
+        'source': 'deb http://' ~ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') ~ '.debian.org/debian ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
         'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
       },
       'ubuntu': {
@@ -71,7 +71,7 @@ manala_apt_repositories_patterns:
   backports_sloppy: "{{
     {
       'debian': {
-        'source': 'deb http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-backports-sloppy ' ~ manala_apt_components|join(' '),
+        'source': 'deb http://' ~ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') ~ '.debian.org/debian ' ~ ansible_distribution_release ~ '-backports-sloppy ' ~ manala_apt_components|join(' '),
         'pin':    'release a=' ~ ansible_distribution_release ~ '-backports-sloppy'
       },
       'ubuntu': None
@@ -79,10 +79,10 @@ manala_apt_repositories_patterns:
   }}"
   # Deprecated
   debian_security:
-    source: deb http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_security_src:
-    source: deb-src http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_updates:
     source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
@@ -91,7 +91,7 @@ manala_apt_repositories_patterns:
     source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_backports:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    source: deb http://{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   # Deprecated
   ubuntu_security:
@@ -214,6 +214,9 @@ manala_apt_repositories_patterns:
   sensu:
     source: deb https://sensu.global.ssl.fastly.net/apt {{ ansible_distribution_release }} main
     key: sensu
+  sensu-go:
+    source: deb https://packagecloud.io/sensu/stable/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    key: sensu-go
   rabbitmq:
     source: deb http://www.rabbitmq.com/debian/ testing main
     key: rabbitmq
@@ -375,6 +378,9 @@ manala_apt_keys_patterns:
   sensu:
     url: https://sensu.global.ssl.fastly.net/apt/pubkey.gpg
     id: EB9C94BB
+  sensu-go:
+    url: https://packagecloud.io/sensu/stable/gpgkey
+    id: 0A3F7426    
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     id: 6026DFCA
@@ -499,3 +505,4 @@ manala_apt_preferences_patterns:
   certbot:            certbot python-certbot python-acme python3-certbot python3-acme python-cryptography python-openssl python-setuptools python-pyasn1 python-pkg-resources
   thumbor:            thumbor python-libthumbor
   mica:               mica
+  sensu-go:           sensu-go-*

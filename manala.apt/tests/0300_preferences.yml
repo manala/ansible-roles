@@ -25,6 +25,14 @@
         priority: 100
         file:     baz_baz
         state:    absent
+  pre_tasks:
+    # Jessie repositories have been archived, meaning that some of them
+    # (backports, for instance) will remain invalid forever.
+    - copy:
+        dest: /etc/apt/apt.conf.d/archive
+        content: |
+          Acquire::Check-Valid-Until "false";
+      when: ansible_distribution_release in ['jessie']
   roles:
     - manala.apt
   post_tasks:

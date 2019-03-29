@@ -2,7 +2,9 @@
 
 {% set config = manala_apt_sources_list -%}
 
-deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
-deb http://security.debian.org {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+deb http://{{ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+{% if ansible_distribution_release not in ['wheezy', 'jessie'] -%}
 deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+{% endif %}
+deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
 {{ macros.config(config) }}

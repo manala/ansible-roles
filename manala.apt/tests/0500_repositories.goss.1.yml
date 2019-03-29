@@ -2,22 +2,25 @@
 
 file:
   # From preferences
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "wheezy|jessie" }}
+  /etc/apt/sources.list.d/archive_debian_org_debian.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb http://archive.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
+{{ else }}
   /etc/apt/sources.list.d/deb_debian_org_debian.list:
     exists:   true
     filetype: file
     contains:
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
+{{ end }}
   /etc/apt/sources.list.d/dotdeb.list:
     exists:   true
     filetype: file
     contains:
       - "deb http://packages.dotdeb.org {{ .Env.DISTRIBUTION_RELEASE }} all"
   # From repositories
-  /etc/apt/sources.list.d/security_debian_org.list:
-    exists:   true
-    filetype: file
-    contains:
-      - "deb http://security.debian.org {{ .Env.DISTRIBUTION_RELEASE }}/updates main"
   /etc/apt/sources.list.d/nginx_org_packages_debian.list:
     exists:   true
     filetype: file

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Use debian wheezy/jessie archive repositories
 
 ## [1.0.34] - 2019-03-19
 ### Changed
