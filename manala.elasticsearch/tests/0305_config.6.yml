@@ -10,13 +10,6 @@
     - import_tasks: pre_tasks/elasticsearch_6.yml
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
-    - copy:
-        dest: /etc/apt/preferences.d/openjdk
-        content: |
-          Package:      openjdk-* ca-certificates-java
-          Pin:          release a={{ ansible_distribution_release }}-backports
-          Pin-Priority: 900
-      when: ansible_distribution_release == 'jessie'
     - apt:
         name:  "{{ item }}"
         install_recommends: false

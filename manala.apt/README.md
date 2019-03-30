@@ -87,8 +87,8 @@ Define manually each sources
 
 ```yaml
 manala_apt_sources_list:
-  - deb: http://deb.debian.org/debian wheezy main
-  - deb http://deb.debian.org/debian wheezy contrib
+  - deb: http://deb.debian.org/debian stretch main
+  - deb http://deb.debian.org/debian stretch contrib
 ```
 
 Or use predefined templates
@@ -102,8 +102,8 @@ Or combine both
 ```yaml
 manala_apt_sources_list_template: sources_list/default_src.j2
 manala_apt_sources_list:
-  - deb-src: http://deb.debian.org/debian wheezy main
-  - deb-src http://deb.debian.org/debian wheezy contrib
+  - deb-src: http://deb.debian.org/debian stretch main
+  - deb-src http://deb.debian.org/debian stretch contrib
 ```
 
 ### Repositories
