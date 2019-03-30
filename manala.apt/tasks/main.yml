@@ -1,5 +1,10 @@
 ---
 
+# Configs
+- import_tasks: configs.yml
+  tags:
+    - manala_apt
+
 # Install
 - import_tasks: install.yml
   tags:
