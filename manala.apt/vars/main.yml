@@ -386,7 +386,7 @@ manala_apt_keys_patterns:
     id: EB9C94BB
   sensu-go:
     url: https://packagecloud.io/sensu/stable/gpgkey
-    id: 0A3F7426    
+    id: 0A3F7426
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     id: 6026DFCA
