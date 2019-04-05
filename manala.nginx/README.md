@@ -78,13 +78,15 @@ The `manala_nginx_config` key is made to allow you to alter main Nginx configura
 ```yaml
 manala_nginx_config:
   - user: nginx
+  - load_module: modules/ngx_http_geoip_module.so
+  - load_module: modules/ngx_stream_geoip_module.so
   - events:
     - worker_connections: 1024
 ```
 
 ### Exclusivity
 
-`manala_nginx_configs_exclusive` allow you to clean up existing nginx configuration files into directory defined by the `manala_nginx_configs_dir` key. Made to be sure no old or manualy created files will alter current configuration.
+`manala_nginx_configs_exclusive` allow you to clean up existing nginx configuration files into directory defined by the `manala_nginx_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
 
 ```yaml
 manala_nginx_configs_exclusive: true
