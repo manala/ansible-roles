@@ -83,7 +83,7 @@ manala_varnish_config:
 
 ### Exclusivity
 
-`manala_varnish_configs_exclusive` allow you to clean up existing varnish VCL configuration files into directory defined by the `manala_varnish_configs_dir` key. Made to be sure no old or manualy created files will alter current configuration.
+`manala_varnish_configs_exclusive` allow you to clean up existing varnish VCL configuration files into directory defined by the `manala_varnish_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
 
 ```yaml
 manala_varnish_configs_exclusive: true
