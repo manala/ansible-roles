@@ -1,7 +1,7 @@
 ---
 
 file:
-  /etc/nginx/nginx.conf:
+  /etc/nginx/nginx.conf.test:
     exists: true
     mode: "0644"
     owner: root
@@ -9,4 +9,6 @@ file:
     filetype: file
     contains:
       - worker_processes 3;
+      - load_module foo;
+      - load_module bar;
       - worker_connections 1234;

@@ -21,6 +21,8 @@
 {{ macros.config_row(config, 'error_log', manala_nginx_log_dir ~ '/error.log warn') }}
 {{ macros.config_row(config, 'pid', '/var/run/nginx.pid') }}
 
+{{ macros.config_row(config, 'load_module', []) }}
+
 events {
 {{ macros.config_row(config_events, 'worker_connections', 1024, 4) }}
 {{ macros.config(config_events, ['worker_connections'], 4) -}}
@@ -56,4 +58,12 @@ http {
 ], 4) -}}
 }
 
-{{ macros.config(config, ['user', 'worker_processes', 'error_log', 'pid', 'events', 'http']) }}
+{{ macros.config(config, [
+    'user',
+    'worker_processes',
+    'error_log',
+    'pid',
+    'load_module',
+    'events',
+    'http'
+]) }}
