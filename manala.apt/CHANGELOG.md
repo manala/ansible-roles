@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.35] - 2019-04-01
+### Fixed
+- Use debian wheezy/jessie archive repositories
+
+### Added
+- Mongodb 4.0 repository pattern
+- Handle configs
+
+### Changed
+- Introduce new Mongodb key pattern and rename legacy one
+
 ## [1.0.34] - 2019-03-19
 ### Changed
 - Update sury php key (see: https://www.patreon.com/posts/dpa-new-signing-25451165)

@@ -21,6 +21,10 @@ manala_skeleton_patterns:
       - zsh
     environment_variables: "{{ manala_skeleton_options.app.env_vars }}"
     # Apt
+    apt_configs:
+      - file: archive
+        template: configs/check_valid_until_false.j2
+        state: "{{ (ansible_distribution_release in ['jessie'])|ternary('present', 'absent') }}"
     apt_components:
       - main
     apt_sources_list_template: sources_list/security_updates.j2
@@ -36,12 +40,14 @@ manala_skeleton_patterns:
         'wheezy': [
           'git@backports',
           'vim@backports',
+          'supervisor@manala',
           'openssh@backports',
           'python-six@backports'
         ],
         'jessie': [
           'openjdk@backports',
           'git@backports',
+          'supervisor@manala',
           'htop@backports',
           'python-pathlib2@backports',
           'python-pkg-resources@backports',
@@ -54,6 +60,7 @@ manala_skeleton_patterns:
         ],
         'stretch': [
           'git@backports',
+          'supervisor@backports',
           'thefuck@manala',
           'exa@manala',
           'httpie@manala',

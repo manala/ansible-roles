@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.31] - 2019-04-02
+### Changed
+- Use manala (on wheezy/jessie) or backports (on stretch) supervisor apt preference
+
+## [1.0.30] - 2019-04-01
+### Fixed
+- Handle jessie archive repo
+
 ## [1.0.29] - 2019-02-04
 ### Changed
 - Both allow app passwordless mysql connections from localhost and anywhere

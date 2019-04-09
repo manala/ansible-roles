@@ -11,7 +11,6 @@
       - dotdeb:100
       - dotdeb:200
     manala_apt_repositories:
-      - security
       - nginx
       - nginx
       - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
@@ -30,6 +29,14 @@
       - source: deb https://downloads.mariadb.com/MaxScale/2.1.17/debian {{ ansible_distribution_release }} main
         key: maxscale
         state: absent
+  pre_tasks:
+    # Jessie repositories have been archived, meaning that some of them
+    # (backports, for instance) will remain invalid forever.
+    - copy:
+        dest: /etc/apt/apt.conf.d/archive
+        content: |
+          Acquire::Check-Valid-Until "false";
+      when: ansible_distribution_release in ['jessie']
   roles:
     - manala.apt
   post_tasks:

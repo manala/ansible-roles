@@ -44,6 +44,10 @@ None
 
 | Name                                  | Default                                               | Type    | Description                            |
 | ------------------------------------- | ----------------------------------------------------- | ------- | -------------------------------------- |
+| `manala_apt_configs_exclusive`        | false                                                 | Boolean | Configurations exclusivity             |
+| `manala_apt_configs_dir`              | '/etc/apt/apt.conf.d'                                 | String  | Configurations dir path                |
+| `manala_apt_configs_template`         | 'configs/empty.j2'                                    | String  | Default configurations template path   |
+| `manala_apt_configs`                  | []                                                    | Array   | Configurations                         |
 | `manala_apt_install_packages`         | ~                                                     | Array   | Dependency packages to install         |
 | `manala_apt_install_packages_default` | ['apt-transport-https', 'openssl', 'ca-certificates'] | Array   | Default dependency packages to install |
 | `manala_apt_components`               | ['main']                                              | Array   | Collection of components               |
@@ -72,6 +76,43 @@ None
   roles:
     - role: manala.apt
 ```
+### Exclusivity
+
+`manala_apt_configs_exclusive` allow you to clean up existing apt configuration files into directory defined by the `manala_apt_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_apt_configs_exclusive: true
+```
+
+### Configs
+
+`manala_apt_configs` allows you to define apt configuration files using template, content and config.
+
+Template
+
+```yaml
+manala_apt_configs:
+      - file: foo_template
+        template: configs/check_valid_until_false.j2
+```
+Content
+
+```yaml
+manala_apt_configs:
+      - file: foo_content
+        content: |
+          APT::Install-Recommends "false";
+        state: absent
+```
+
+Config
+
+```yaml
+manala_apt_configs:
+      - file: foo
+        config:
+          - Acquire::Check-Valid-Until: true
+```
 
 ### Components
 
@@ -87,8 +128,8 @@ Define manually each sources
 
 ```yaml
 manala_apt_sources_list:
-  - deb: http://deb.debian.org/debian wheezy main
-  - deb http://deb.debian.org/debian wheezy contrib
+  - deb: http://deb.debian.org/debian stretch main
+  - deb http://deb.debian.org/debian stretch contrib
 ```
 
 Or use predefined templates
@@ -102,8 +143,8 @@ Or combine both
 ```yaml
 manala_apt_sources_list_template: sources_list/default_src.j2
 manala_apt_sources_list:
-  - deb-src: http://deb.debian.org/debian wheezy main
-  - deb-src http://deb.debian.org/debian wheezy contrib
+  - deb-src: http://deb.debian.org/debian stretch main
+  - deb-src http://deb.debian.org/debian stretch contrib
 ```
 
 ### Repositories
@@ -147,6 +188,7 @@ manala_apt_repositories:
   - mongodb_3_0
   - mongodb_3_1
   - mongodb_3_6
+  - mongodb_4_0
   - varnish_4_0
   - jenkins
   - sensu

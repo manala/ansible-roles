@@ -11,7 +11,6 @@
     manala_thumbor_key: foo
   pre_tasks:
     - import_tasks: pre_tasks/backports.yml
-      when: ansible_distribution_release == 'jessie'
     - import_tasks: pre_tasks/manala.yml
   roles:
     - manala.thumbor
