@@ -42,7 +42,7 @@ Using ansible galaxy requirements file:
 
 Include strategy allows to use custom strategy to deliver the code to the server.
 
-Example to pull and extract S3 archive :
+Example that extracts an archive from AWS S3:
 
 ```yaml
 manala_deploy_strategy: include
