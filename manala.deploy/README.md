@@ -63,7 +63,7 @@ manala_deploy_strategy_include_options:
 
     - name: strategy/s3 > Get S3 archive
       aws_s3:
-        bucket: geolid-releases
+        bucket: releases
         object: "{{ manala_deploy_strategy_include_options.s3_object }}"
         dest: "{{ deploy_tmp.path }}/archive.tar.gz"
         mode: get
