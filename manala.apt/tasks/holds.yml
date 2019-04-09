@@ -1,0 +1,20 @@
+---
+
+- name: holds > Get selections
+  command: dpkg --get-selections
+  when: manala_apt_holds_exclusive
+  register: __manala_apt_holds_exclusive_find
+  changed_when: false
+  check_mode: false
+
+- name: holds > Set selections
+  dpkg_selections:
+    name: "{{ item.package }}"
+    selection: "{{ item.hold|ternary('hold', 'install') }}"
+  with_items: "{{ lookup(
+      'manala_apt_holds',
+      manala_apt_holds,
+      __manala_apt_holds_exclusive_find.stdout_lines|default([]),
+      wantlist=True
+    )
+  }}"

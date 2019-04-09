@@ -54,6 +54,8 @@ None
 | `manala_apt_sources_list`             | []                                                    | Array   | Collection of sources                  |
 | `manala_apt_repositories`             | []                                                    | Array   | Collection of repositories             |
 | `manala_apt_preferences`              | []                                                    | Array   | Collection of preferences              |
+| `manala_apt_holds_exclusive`          | false                                                 | Array   | Holds exclusivity                      |
+| `manala_apt_holds`                    | []                                                    | Array   | Collection of holds                    |
 | `manala_apt_packages`                 | []                                                    | Array   | Collection of packages                 |
 | `manala_apt_cache_valid_time`         | 3600                                                  | Integer | Permitted age of apt cache, in seconds |
 | `manala_apt.update`                   | false                                                 | Boolean | Update packages                        |
@@ -264,6 +266,25 @@ manala_apt_preferences:
     priority: 900
     file:     php
     state:    absent
+```
+
+### Holds
+
+Handle your holded packages (the ones you don't want to upgrade) using:
+
+```yaml
+manala_apt_holds:
+  - foo # Ensure "foo" package won't be upgraded
+  - package: bar # The same with "bar" package, using verbose syntax
+    hold: true
+  - package: baz # Ensure "baz" package *will* be upgraded
+    hold: false
+```
+
+An exclusivity mode is also provided, to ensure *ALL* packages but the ones you set will be upgradable.
+
+```yaml
+manala_apt_holds_exclusive: true
 ```
 
 ### Packages

@@ -33,6 +33,10 @@ manala_apt_preferences:           []
 # Keys
 manala_apt_keys: []
 
+# Holds
+manala_apt_holds_exclusive: false
+manala_apt_holds: []
+
 # Update
 manala_apt_update_holds: []
 

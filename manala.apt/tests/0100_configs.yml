@@ -37,19 +37,19 @@
     - name: Goss
       command: goss --gossfile {{ test }}.goss.1.yml validate
 
-# - name: "{{ test }}.2"
-#   hosts: debian
-#   become: true
-#   vars:
-#     manala_apt_configs_dir: /etc/apt/apt.conf.d.test
-#     manala_apt_configs:
-#       - file: foo
-#       - file: bar
-#         state: absent
-#       - file: baz
-#         state: present
-#   roles:
-#     - manala.apt
-#   post_tasks:
-#     - name: Goss
-#       command: goss --gossfile {{ test }}.goss.2.yml validate
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_configs_dir: /etc/apt/apt.conf.d.test
+    manala_apt_configs:
+      - file: foo
+      - file: bar
+        state: absent
+      - file: baz
+        state: present
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate
