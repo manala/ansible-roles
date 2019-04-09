@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_deploy_dir: /tmp/app
+    manala_deploy_strategy: include
+    manala_deploy_strategy_include_name: "{{ playbook_dir ~ '/fixtures/strategy/include.yml' }}"
+    manala_deploy_strategy_include_options:
+      filename: strategy_include.txt
+  roles:
+    - manala.deploy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
