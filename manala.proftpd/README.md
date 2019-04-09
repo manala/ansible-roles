@@ -118,7 +118,7 @@ You can also use VirtualHost configuration
 
 ### Exclusivity
 
-`manala_proftpd_configs_exclusive` allow you to clean up existing proFTPd configuration files into directory defined by the `manala_proftpd_configs_dir` key. Made to be sure no old or manualy created files will alter current configuration.
+`manala_proftpd_configs_exclusive` allow you to clean up existing proFTPd configuration files into directory defined by the `manala_proftpd_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
 
 ```yaml
 manala_proftpd_configs_exclusive: true
@@ -126,7 +126,7 @@ manala_proftpd_configs_exclusive: true
 
 ### User account configuration
 
-The `manala_proftpd_users_template` key is made to define users allow to acces to FTP storage.
+Use the `manala_proftpd_users_template` key to define users allowed to access FTP storage.
 
 ```yaml
 manala_proftpd_users:

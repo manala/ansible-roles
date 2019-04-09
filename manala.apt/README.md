@@ -78,7 +78,7 @@ None
 ```
 ### Exclusivity
 
-`manala_apt_configs_exclusive` allow you to clean up existing apt configuration files into directory defined by the `manala_apt_configs_dir` key. Made to be sure no old or manualy created files will alter current configuration.
+`manala_apt_configs_exclusive` allow you to clean up existing apt configuration files into directory defined by the `manala_apt_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
 
 ```yaml
 manala_apt_configs_exclusive: true
