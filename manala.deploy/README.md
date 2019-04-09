@@ -40,7 +40,7 @@ Using ansible galaxy requirements file:
 
 #### Include strategy
 
-Include strategy allows to use custom strategy to deliver the code to the server.
+The `include` strategy allows to use a custom strategy to deliver the code to the server.
 
 Example that extracts an archive from AWS S3:
 
