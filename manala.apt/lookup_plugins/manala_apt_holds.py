@@ -68,7 +68,7 @@ class LookupModule(LookupBase):
         
         # Filter by applicables
         results = [result for result in results if (
-            (not result.has_key('state'))
+            ('state' not in result)
             or (result.get('hold') and result.get('state') != 'hold')
             or (not result.get('hold') and result.get('state') == 'hold')
         )]
