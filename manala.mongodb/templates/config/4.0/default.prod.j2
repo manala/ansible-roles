@@ -1,0 +1,27 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_mongodb_config -%}
+{% set config_storage = [] -%}
+
+# mongod.conf
+
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
+
+{%- for configs in config -%}
+    {%- for config_name, config_parameters in configs.items() -%}
+        {%- if config_name == 'storage' -%}
+            {%- if config_storage.extend(config_parameters) -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+
+# Where to store the data.
+storage:
+  {{ macros.config_row(config_storage, 'dbPath', '/var/lib/mongodb') -}}
+  journal:
+    enabled: true
+{%- for configs in config_storage -%}
+    {%- endfor -%}
+{%- endfor -%}
+  {{ macros.config_row(config, 'apc.enable_cli', true) }}

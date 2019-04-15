@@ -7,8 +7,11 @@
     # See: https://github.com/manala/ansible-roles/issues/115
     manala_mongodb:
       services: false
+    manala_mongodb_version: 4.0
+    manala_mongodb_config_template: config/default.prod.j2
     manala_mongodb_config:
-      - port: 12345
+      - security:
+        - authorization: enabled
   pre_tasks:
     - import_tasks: pre_tasks/mongodb_4_0.yml
     - copy:

@@ -1,5 +1,8 @@
 ---
 
+# Version
+manala_mongodb_version: ~
+
 # Install
 manala_mongodb_install_packages: ~
 manala_mongodb_install_packages_default:
