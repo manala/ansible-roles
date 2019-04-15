@@ -36,6 +36,50 @@ Using ansible galaxy requirements file:
 |----------------------------- |------- |------ |------------- |
 |                              |        |       |              |
 
+### Strategies
+
+#### Include strategy
+
+The `include` strategy allows to use a custom strategy to deliver the code to the server.
+
+Example that extracts an archive from AWS S3:
+
+```yaml
+manala_deploy_strategy: include
+manala_deploy_strategy_include_name: "{{ playbook_dir }}/tasks/deploy-s3-archive.yml"
+manala_deploy_strategy_include_options:
+  s3_object: "/app/{{ app_version | default('master') }}/latest.tar.gz"
+```
+
+> tasks/deploy-s3-archive.yml
+```yaml
+- name: strategy/s3
+  block:
+    - name: strategy/s3 > Create tmp dir
+      tempfile:
+        state: directory
+        suffix: manala_deploy
+      register: deploy_tmp
+
+    - name: strategy/s3 > Get S3 archive
+      aws_s3:
+        bucket: releases
+        object: "{{ manala_deploy_strategy_include_options.s3_object }}"
+        dest: "{{ deploy_tmp.path }}/archive.tar.gz"
+        mode: get
+
+    - name: strategy/s3 > Create release dir
+      file:
+        path: "{{ deploy_helper.new_release_path }}/"
+        state: directory
+
+    - name: strategy/s3 > Unarchive
+      unarchive:
+        src: "{{ deploy_tmp.path }}/archive.tar.gz"
+        dest: "{{ deploy_helper.new_release_path }}"
+        remote_src: yes
+```
+
 ### Tasks
 
 Without options

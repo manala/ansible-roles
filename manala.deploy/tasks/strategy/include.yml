@@ -1,0 +1,9 @@
+---
+
+- name: strategy/include
+  tags:
+    - manala_deploy
+  block:
+
+    - name: strategy/include > "{{ manala_deploy_strategy_include_name }}"
+      include_tasks: "{{ manala_deploy_strategy_include_name }}"
