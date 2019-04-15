@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Handle holded packages
+- Debian multimedia/multimedia_backports repository support
 
 ## [1.0.35] - 2019-04-01
 ### Fixed
