@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Switch wheezy debian security repository to archive
 
+### Added
+- Handle holded packages
+
 ## [1.0.35] - 2019-04-01
 ### Fixed
 - Use debian wheezy/jessie archive repositories

@@ -30,6 +30,11 @@
   tags:
     - manala_apt
 
+# Holds
+- import_tasks: holds.yml
+  tags:
+    - manala_apt
+
 # Update
 - import_tasks: update.yml
   when: __manala_apt['update']

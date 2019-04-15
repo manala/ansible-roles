@@ -1,0 +1,33 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_holds:
+      - apt
+      - package: dpkg
+        hold: true
+      - package: python
+        hold: false
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_apt_holds:
+      - apt
+      - package: dpkg
+        hold: false
+      - package: python
+        hold: true
+  roles:
+    - manala.apt
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate
