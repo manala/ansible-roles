@@ -1,0 +1,58 @@
+# http://doc.prestashop.com/display/PS16/System+Administrator+Guide
+
+# You need to specify your admin directory as: set $admin_dir /adminXXXXX;
+
+#index index.php index.html; # Letting nginx know which files to try when requesting a folder
+
+location = /favicon.ico {
+    log_not_found off;      # PrestaShop by default does not provide a favicon.ico
+    access_log off;         # Disable logging to prevent excessive log sizes
+}
+
+location = /robots.txt {
+    auth_basic off;        # Whatever happens, always let bots know about your policy
+    allow all;
+    log_not_found off;     # Prevent excessive log size
+    access_log off;
+}
+
+# Deny all attempts to access hidden files such as .htaccess, .htpasswd, .DS_Store (Mac).
+location ~ /\. {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+
+location / {
+    index index.php index.html;
+    try_files $uri $uri/ /index.php?$args;
+
+    rewrite ^/api/?(.*)$ /webservice/dispatcher.php?url=$1 last;
+    rewrite ^/([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$1$2.jpg last;
+    rewrite ^/([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$1$2$3.jpg last;
+    rewrite ^/([0-9])([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$3/$1$2$3$4.jpg last;
+    rewrite ^/([0-9])([0-9])([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$3/$4/$1$2$3$4$5.jpg last;
+    rewrite ^/([0-9])([0-9])([0-9])([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$3/$4/$5/$1$2$3$4$5$6.jpg last;
+    rewrite ^/([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$3/$4/$5/$6/$1$2$3$4$5$6$7.jpg last;
+    rewrite ^/([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$3/$4/$5/$6/$7/$1$2$3$4$5$6$7$8.jpg last;
+    rewrite ^/([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ /img/p/$1/$2/$3/$4/$5/$6/$7/$8/$1$2$3$4$5$6$7$8$9.jpg last;
+    rewrite ^/c/([0-9]+)(-[_a-zA-Z0-9-]*)(-[0-9]+)?/.+\.jpg$ /img/c/$1$2.jpg last;
+    rewrite ^/c/([a-zA-Z-]+)(-[0-9]+)?/.+\.jpg$ /img/c/$1.jpg last;
+    rewrite ^/([0-9]+)(-[_a-zA-Z0-9-]*)(-[0-9]+)?/.+\.jpg$ /img/c/$1$2.jpg last;
+}
+
+# Symfony controllers Specific for 1.7
+location ~ /(_profiler|improve|sell|api|supplier|attribute|configure|international|module|product|stock|combination|specific-price)/(.*)$ {
+    try_files $uri $uri/ /index.php?q=$uri&$args $admin_dir/index.php$is_args$args;
+}
+
+location ~ \.php$ {
+    #fastcgi_split_path_info ^(.+.php)(/.*)$;
+    try_files $uri =404;
+    fastcgi_keep_conn on;
+    fastcgi_index  index.php;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    # PHP Manala socket location
+    fastcgi_pass unix:/run/php-fpm.app.sock;
+}
