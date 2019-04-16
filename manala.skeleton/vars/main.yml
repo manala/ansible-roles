@@ -24,7 +24,7 @@ manala_skeleton_patterns:
     apt_configs:
       - file: archive
         template: configs/check_valid_until_false.j2
-        state: "{{ (ansible_distribution_release in ['jessie'])|ternary('present', 'absent') }}"
+        state: "{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('present', 'absent') }}"
     apt_components:
       - main
     apt_sources_list_template: sources_list/security_updates.j2
