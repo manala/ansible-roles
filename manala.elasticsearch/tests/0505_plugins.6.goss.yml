@@ -1,0 +1,11 @@
+---
+
+command:
+  /usr/share/elasticsearch/bin/elasticsearch-plugin list:
+    exit-status: 0
+    stdout:
+      - "analysis-icu"
+  "curl -X PUT -H \"Content-Type: application/json\" -d '{\"settings\":{\"analysis\":{\"analyzer\":{\"bar\":{\"tokenizer\":\"icu_tokenizer\"}}}}}' http://localhost:9200/foo":
+    exit-status: 0
+    stdout:
+      - "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"foo\"}"
