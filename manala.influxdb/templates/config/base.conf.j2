@@ -239,7 +239,7 @@
   # count unlimited.
   {{ macros.config_row(config_coordinator, 'max-select-series', '# max-select-series = 0', 0, true) }}
 
-  # The maxium number of group by time bucket a SELECT can create.  A value of zero will max the maximum
+  # The maximum number of group by time bucket a SELECT can create.  A value of zero will max the maximum
   # number of buckets unlimited.
   {{ macros.config_row(config_coordinator, 'max-select-buckets', '# max-select-buckets = 0', 0, true) }}
 
@@ -528,7 +528,7 @@
   # Multi-value plugins can be handled two ways.
   # "split" will parse and store the multi-value plugin data into separate measurements
   # "join" will parse and store the multi-value plugin as a single multi-value measurement.
-  # "split" is the default behavior for backward compatability with previous versions of influxdb.
+  # "split" is the default behavior for backward compatibility with previous versions of influxdb.
   {{ macros.config_row(config_collectd, 'parse-multivalue-plugin', '# parse-multivalue-plugin = "split"', 0, true) }}
 ###
 ### [opentsdb]
