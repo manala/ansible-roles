@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Glusterfs repository & key pattern
 
 ## [1.0.36] - 2019-04-16
 ### Fixed
