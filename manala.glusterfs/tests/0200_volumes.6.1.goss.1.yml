@@ -1,0 +1,24 @@
+---
+
+command:
+  gluster volume info volume_absent:
+    exit-status: 0
+    stderr:
+      - "Volume volume_absent does not exist"
+
+command:
+  gluster volume info:
+    exit-status: 0
+    stdout:
+      - "Volume Name: volume_present"
+      - "Status: Started"
+      - "Bricks:"
+      - "Brick1: manala.glusterfs.debian.stretch.test:/home/present"
+
+      - "Volume Name: volume_test"
+      - "Status: Started"
+      - "Bricks:"
+      - "Brick1: manala.glusterfs.debian.stretch.test:/home/vol"
+      - "storage.owner-uid: 1337"
+      - "storage.owner-gid: 1337"
+      - "nfs.disable: off"

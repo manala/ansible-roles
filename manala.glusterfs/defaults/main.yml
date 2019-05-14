@@ -1,0 +1,9 @@
+---
+
+# Install
+manala_glusterfs_install_packages: ~
+manala_glusterfs_install_packages_default:
+  - glusterfs-server
+
+# Volumes
+manala_glusterfs_volumes: []

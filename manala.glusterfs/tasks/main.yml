@@ -1,0 +1,17 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_glusterfs
+
+# Services
+- import_tasks: services.yml
+  tags:
+    - manala_glusterfs
+
+# Volumes
+- import_tasks: volumes.yml
+  tags:
+    - manala_glusterfs
+
