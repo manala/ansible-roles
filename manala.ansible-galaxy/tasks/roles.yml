@@ -17,6 +17,7 @@
       {% endif %}
       {% endfor %}
   when: manala_ansible_galaxy_roles|length
+  changed_when: false
 
 - name: roles > Install
   command: >
