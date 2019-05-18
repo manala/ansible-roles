@@ -334,7 +334,7 @@ export BM_PIPE_COMPRESS
 
 # If you don't want to use any upload method (you don't want to
 # upload files to remote hosts) then choose "none"
-{{ macros.config_row(config, 'BM_UPLOAD_METHOD', 'scp') }}
+{{ macros.config_row(config, 'BM_UPLOAD_METHOD', none) }}
 
 # where to upload (global to all methods. Not required to be set for S3)
 {{ macros.config_row(config, 'BM_UPLOAD_HOSTS', '') }}
@@ -521,7 +521,7 @@ export BM_PIPE_COMPRESS
 # Note that if backup-manager is run from interactive prompt you
 # will be asked to insert disc(s) when needed
 
-{{ macros.config_row(config, 'BM_BURNING_METHOD', 'CDRW') }}
+{{ macros.config_row(config, 'BM_BURNING_METHOD', none) }}
 
 # When the CD is burnt, it is possible to check every file's
 # MD5 checksum to see if the CD is not corrupted.

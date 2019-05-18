@@ -49,6 +49,7 @@
 
 {%- macro _config_parameter_value(value) -%}
     {%- if value is sameas none -%}
+        none
     {%- elif value is sameas true -%}
         true
     {%- elif value is sameas false -%}
