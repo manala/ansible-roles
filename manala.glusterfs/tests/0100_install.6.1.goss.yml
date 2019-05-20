@@ -1,0 +1,5 @@
+---
+
+package:
+  glusterfs-server:
+    installed: true

@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Glusterfs apt key
+  apt_key:
+    file: pre_tasks/apt_keys/glusterfs_6.pgp
+    id: C2F8238C
+
+- name: Pre tasks > Glusterfs apt repository
+  apt_repository:
+    repo: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{ {'x86_64':'amd64','armv6l':'arm64'}[ansible_architecture] }}/apt {{ ansible_distribution_release }} main
