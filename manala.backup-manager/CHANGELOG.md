@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Turn off scp upload & cdrw burning methods by default
+- Configs templates are now inherited from a base one
 
 ## [1.0.4] - 2018-11-12
 ### Changed
