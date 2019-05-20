@@ -4,7 +4,6 @@
   file:
     path: "{{ manala_logentries_config_file|dirname }}"
     state: directory
-    recurse: yes
     owner: root
     group: root
     mode: 0755
@@ -13,5 +12,8 @@
   template:
     src:  "{{ manala_logentries_config_template }}"
     dest: "{{ manala_logentries_config_file }}"
+    owner: root
+    group: root
+    mode: 0640
   notify:
     - logentries restart
