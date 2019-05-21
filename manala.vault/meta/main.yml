@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           vault
   author:              Manala
   company:             Manala
   description:         Install and configure hashicorp vault server

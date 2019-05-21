@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           accounts
   author:              Manala
   company:             Manala
   description:         Handle accounts users and groups

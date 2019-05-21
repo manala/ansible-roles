@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           kernel
   author:              Manala
   company:             Manala
   description:         Handle kernel modules and parameters

@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           oauth2-proxy
   author:              Manala
   company:             Manala
   description:         Handle oauth2-proxy

@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           telegraf
   author:              Elao
   company:             Elao
   description:         Setup and configure influxdata/telegraf

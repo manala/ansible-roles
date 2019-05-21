@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           fail2ban
   author:              Manala
   company:             Manala
   description:         Handle fail2ban

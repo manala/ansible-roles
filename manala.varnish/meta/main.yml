@@ -1,12 +1,16 @@
 ---
+
+dependencies: []
+
 galaxy_info:
-  author:               Manala
-  description: >
-    Setup and config for Varnish
-  company:              Elao
-  issue_tracker_url:    https://github.com/manala/ansible-role-varnish/issues
-  license:              MIT
-  min_ansible_version:  2.4.0
+  
+  role_name:           varnish
+  author:              Manala
+  company:             Manala
+  description:         Setup and config for Varnish
+  license:             MIT
+  min_ansible_version: 2.4.0
+  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:
@@ -17,4 +21,3 @@ galaxy_info:
     - development
     - web
     - webperf
-dependencies: []

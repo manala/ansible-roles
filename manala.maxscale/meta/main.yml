@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           maxscale
   author:              Manala
   company:             Manala
   description:         Installation and configuration of Maxscale (MySQL/MariaDB Proxy)

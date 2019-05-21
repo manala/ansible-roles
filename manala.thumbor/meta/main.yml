@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           thumbor
   author:              Manala
   company:             Manala
   description:         Installation and configuration of Thumbor

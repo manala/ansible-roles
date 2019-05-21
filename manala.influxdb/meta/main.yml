@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           influxdb
   author:              Manala
   company:             Manala
   description:         Install and configure InfluxDB

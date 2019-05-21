@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           nginx
   author:              Manala
   company:             Manala
   description:         Handle nginx

@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           gitlab
   author:              Manala
   company:             Manala
   description:         Handle gitlab

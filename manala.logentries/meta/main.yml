@@ -4,9 +4,10 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           logentries
   author:              Manala
   company:             Manala
-  description:         Handle locales
+  description:         Handle logentries
   license:             MIT
   min_ansible_version: 2.4.0
   issue_tracker_url:   https://github.com/manala/ansible-roles/issues

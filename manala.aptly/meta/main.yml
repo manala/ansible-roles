@@ -4,6 +4,7 @@ dependencies: []
 
 galaxy_info:
 
+  role_name:           aptly
   author:              Manala
   company:             Manala
   description:         Handle aptly

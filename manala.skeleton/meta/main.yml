@@ -2,6 +2,7 @@
 
 galaxy_info:
 
+  role_name:           skeleton
   author:              Manala
   company:             Manala
   description:         Handle skeleton
