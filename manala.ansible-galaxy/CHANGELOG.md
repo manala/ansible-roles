@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.5] - 2019-05-21
 ### Fixed
 - Alt galaxy bin variable handling when requirement check is unsuccessful
 - Disable changed status when writing temporary roles requirements file in check mode

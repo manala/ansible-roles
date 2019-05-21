@@ -1,8 +1,8 @@
-# Ansible Role: glusterfs [![Build Status](https://travis-ci.org/manala/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.org/manala/ansible-role-glusterfs)
+# Ansible Role: GlusterFS [![Build Status](https://travis-ci.org/manala/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.org/manala/ansible-role-glusterfs)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
-This role will deal with the configuration of [glusterfs](https://docs.gluster.org/en/latest/).
+This role will deal with the configuration of [GlusterFS](https://www.gluster.org/).
 
 It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
 
