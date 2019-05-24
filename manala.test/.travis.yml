@@ -1,0 +1,31 @@
+language: generic
+
+branches:
+  only:
+    - master
+
+services:
+  - docker
+
+env:
+  global:
+    - VERBOSE=1
+  matrix:
+    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5
+
+jobs:
+  include:
+    - stage: diff
+      script:
+        - make lint.diff
+        - make test.diff
+    - stage: release
+      script:
+        - gem install chandler -v 0.9.0
+        - chandler push `perl -lne '/^## \[(?!Unreleased)([\w.-]+)\] - [\w-]+$/ && print $1;' CHANGELOG.md | head -1`
+      if: branch = master AND \
+          commit_message = Release
+
+notifications:
+  slack:
+    secure: eLmB7407GORDp/9w55mwWm6slUHDdd6zamFOvfUBzu0EE2D3hnMnL6rebjQy+TXy5J0MAHokpMoldHCgfrOnr9Nj8orntGVDV8waIyMekEV55dbPFspW/skDE9Hq2d+NL1U5sDg57P4QzrKJ12msvFyed4wih+YFvhAUX419VKYzjQsj+XMqnsem0oOktpNoKENrOQM6GmNZSGG+Kjgg1XfybRNvEUN6mkBnbJH+SZCM0h/rNnluJItLjXiGG4ExZoKRdSOgb9ugjSSkTOu/x2tgdroKbtZhlYAbEuYCRugPfK/wCWmn6RfLfGjwDvbII7HHbjQ05vYe6BpbIERJhv5uSIg9YCJrunasEBHDG0C3wNWoEdeTwEE8YdFFbX2PiI21TT8FBD3ketLntgPOycya+Il2jBc51I1dQ7aA11E433YtCQyQVpV0Mywhy3Ra6t5nnOjyfG0DGwIrl5YqUgwah44dh96go9X2k75nLguD5q4bXE36th36x6VXp/4SBQg/15EWJhV1cRA+ypuIXV5Tiyvi9cxHmkdW8APSBUWo1ow3O3Q35gF4OYJvwc0ndqf81OfmWEAjeazIJTdO8xqxr+0dtP4WZ/lv+a+T9xwVqhAje+c4AYS8l5Yr887RjCzZtpW1NJGzH35Zu6BtB4Yh4gdoBJiGrN/gC/tK/Wg=
