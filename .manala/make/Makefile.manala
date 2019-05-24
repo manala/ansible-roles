@@ -211,9 +211,11 @@ endef
 ###########
 
 define confirm
-	printf "\n$(MANALA_COLOR_INFO) ༼ つ ◕_◕ ༽つ $(MANALA_COLOR_WARNING)$(1) (y/N)$(MANALA_COLOR_RESET): "; \
-	read CONFIRM ; if [ "$$CONFIRM" != "y" ]; then printf "\n"; exit 1; fi; \
-	printf "\n"
+	$(if $(CONFIRM),, \
+		printf "\n$(MANALA_COLOR_INFO) ༼ つ ◕_◕ ༽つ $(MANALA_COLOR_WARNING)$(1) (y/N)$(MANALA_COLOR_RESET): "; \
+		read CONFIRM ; if [ "$$CONFIRM" != "y" ]; then printf "\n"; exit 1; fi; \
+		printf "\n" \
+	)
 endef
 
 ######

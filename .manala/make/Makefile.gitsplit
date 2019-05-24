@@ -15,10 +15,9 @@ else
 define gitsplit
 	docker run \
 		--rm \
+		--env GITSPLIT_GITHUB_API_TOKEN \
 		--tty --interactive \
 		--volume $(MANALA_CURRENT_DIR):/srv \
-		--volume $(SSH_AUTH_SOCK):/ssh-agent \
-		--env SSH_AUTH_SOCK=/ssh-agent \
 		jderusse/gitsplit
 endef
 endif
