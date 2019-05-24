@@ -13,6 +13,7 @@ env:
   matrix:
     - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5
 
+
 jobs:
   include:
     - stage: diff
