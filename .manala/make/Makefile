@@ -1,4 +1,4 @@
-.PHONY: lint test release sync
+.PHONY: lint test split sync
 
 ##########
 # Manala #
@@ -77,24 +77,23 @@ TEST_HELP += $(call help,test.diff,Test roles - Diff)
 test.diff: ROLES = $(ROLES_DIFF)
 test.diff: test
 
-###########
-# Release #
-###########
+#########
+# Split #
+#########
 
-MANALA_HELP += $(RELEASE_HELP)\n
+MANALA_HELP += $(SPLIT_HELP)\n
 
-RELEASE_HELP = \
-	$(call help_section,Release) \
-	$(call help,release,Release ansible roles)
+SPLIT_HELP = \
+	$(call help_section,Split) \
+	$(call help,split,Split ansible roles)
 
-release:
-	$(call confirm,Please confirm release of *ALL* ansible roles)
+split:
+	$(call confirm,Please confirm split of *ALL* ansible roles)
 	$(call gitsplit)
 
 ########
 # Sync #
 ########
-
 MANALA_HELP += $(SYNC_HELP)
 
 SYNC_HELP = \
@@ -109,4 +108,4 @@ sync:
 		cp $$FROM/.gitignore $$ROLE; \
 		cp $$FROM/.travis.yml $$ROLE; \
 		cp -r $$FROM/.manala $$ROLE; \
-	done
+done
