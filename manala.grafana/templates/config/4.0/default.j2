@@ -8,6 +8,7 @@
 {% set config_session = [] -%}
 {% set config_analytics = [] -%}
 {% set config_security = [] -%}
+{% set config_snapshots = [] -%}
 {% set config_users = [] -%}
 {% set config_auth = [] -%}
 {% set config_auth_anonymous = [] -%}
@@ -48,6 +49,8 @@
             {%- if config_analytics.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'security' -%}
             {%- if config_security.extend(config_parameters) -%}{%- endif -%}
+        {%- elif config_name == 'snapshots' -%}
+            {%- if config_snapshots.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'users' -%}
             {%- if config_users.extend(config_parameters) -%}{%- endif -%}
         {%- elif config_name == 'auth.anonymous' -%}
@@ -250,15 +253,15 @@
 
 [snapshots]
 # snapshot sharing options
-{{ macros.config_row(config_security, 'external_enabled', ';external_enabled = true', 0, true) }}
-{{ macros.config_row(config_security, 'external_snapshot_url', ';external_snapshot_url = https://snapshots-origin.raintank.io', 0, true) }}
-{{ macros.config_row(config_security, 'external_snapshot_name', ';external_snapshot_name = Publish to snapshot.raintank.io', 0, true) }}
+{{ macros.config_row(config_snapshots, 'external_enabled', ';external_enabled = true', 0, true) }}
+{{ macros.config_row(config_snapshots, 'external_snapshot_url', ';external_snapshot_url = https://snapshots-origin.raintank.io', 0, true) }}
+{{ macros.config_row(config_snapshots, 'external_snapshot_name', ';external_snapshot_name = Publish to snapshot.raintank.io', 0, true) }}
 
 # remove expired snapshot
-{{ macros.config_row(config_security, 'snapshot_remove_expired', ';snapshot_remove_expired = true', 0, true) }}
+{{ macros.config_row(config_snapshots, 'snapshot_remove_expired', ';snapshot_remove_expired = true', 0, true) }}
 
 # remove snapshots after 90 days
-{{ macros.config_row(config_security, 'snapshot_TTL_days', ';snapshot_TTL_days = 90', 0, true) }}
+{{ macros.config_row(config_snapshots, 'snapshot_TTL_days', ';snapshot_TTL_days = 90', 0, true) }}
 
 #################################### Users ####################################
 [users]
