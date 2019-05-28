@@ -36,7 +36,7 @@ jobs:
     - stage: Gitsplit
       script:
         - make split CONFIRM=1
-      if: branch = master AND type = push
+      if: branch = master AND type != pull_request
 
 notifications:
   slack:
