@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Fixed
 - Config snapshots handling
+- Missing version 2.0 config template handling
 
 ## [1.0.4] - 2018-11-16
 ### Fixed

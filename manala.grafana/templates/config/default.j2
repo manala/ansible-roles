@@ -1,4 +1,6 @@
-{% if manala_grafana_version is version_compare('2.1', '>=') and manala_grafana_version is version_compare('2.2', '<') %}
+{% if manala_grafana_version is version_compare('2.0', '>=') and manala_grafana_version is version_compare('2.1', '<') %}
+    {%- include '2.0/default.j2' -%}
+{% elif manala_grafana_version is version_compare('2.1', '>=') and manala_grafana_version is version_compare('2.2', '<') %}
     {%- include '2.1/default.j2' -%}
 {% elif manala_grafana_version is version_compare('2.5', '>=') and manala_grafana_version is version_compare('2.6', '<') %}
     {%- include '2.5/default.j2' -%}
