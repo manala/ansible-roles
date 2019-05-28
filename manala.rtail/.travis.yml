@@ -1,36 +1,13 @@
 language: generic
 
-branches:
-  only:
-    - master
-
 services:
   - docker
 
-env:
-  matrix:
-    - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5
-    - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5
-    - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5
-    - DISTRIBUTIONS=centos.7       ANSIBLE_VERSION=2.6.5
-    - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.6.5
-
 script:
-  - make lint
-  - make test
-
-jobs:
-  include:
-    - stage: release
-      script:
-        - gem install chandler -v 0.9.0
-        - chandler push `perl -lne '/^## \[(?!Unreleased)([\w.-]+)\] - [\w-]+$/ && print $1;' CHANGELOG.md | head -1`
+  - gem install chandler -v 0.9.0
+  - chandler push `perl -lne '/^## \[(?!Unreleased)([\w.-]+)\] - [\w-]+$/ && print $1;' CHANGELOG.md | head -1`
 
 notifications:
   webhooks:
     urls:
       - https://galaxy.ansible.com/api/v1/notifications/
-      - https://webhooks.gitter.im/e/430e0a92ad6370b7b805
-    on_success: change
-    on_failure: always
-    on_start: never
