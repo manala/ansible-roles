@@ -16,7 +16,7 @@
       set_fact:
         manala_elasticsearch_version: "{{
           __manala_elasticsearch_version.stdout.split('.')[0] ~ '.' ~ __manala_elasticsearch_version.stdout.split('.')[1]
-            if (__manala_elasticsearch_version.stdout is version_compare('2.0.0', '<')) else
+            if (__manala_elasticsearch_version.stdout is version('2.0.0', '<')) else
           __manala_elasticsearch_version.stdout.split('.')[0]
         }}"
       changed_when: false
