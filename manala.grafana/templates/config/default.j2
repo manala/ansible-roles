@@ -8,6 +8,8 @@
     {%- include '3.1/default.j2' -%}
 {% elif manala_grafana_version is version_compare('4.0', '>=') and manala_grafana_version is version_compare('4.1', '<') %}
     {%- include '4.0/default.j2' -%}
-{% else %}
+{% elif manala_grafana_version is version_compare('4.1', '>=') and manala_grafana_version is version_compare('4.2', '<') %}
     {%- include '4.1/default.j2' -%}
+{% else %}
+    {%- include '6.2/default.j2' -%}
 {% endif %}

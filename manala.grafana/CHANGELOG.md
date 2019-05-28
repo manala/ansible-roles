@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Config snapshots handling
 - Missing version 2.0 config template handling
 
+### Added
+- Config template for 6.2
+
 ## [1.0.4] - 2018-11-16
 ### Fixed
 - Keep legacy sysvinit services handling in ansible 2.6+
