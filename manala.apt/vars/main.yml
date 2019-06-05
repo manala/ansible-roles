@@ -299,6 +299,9 @@ manala_apt_repositories_patterns:
   newrelic:
     source: deb http://apt.newrelic.com/debian/ newrelic non-free
     key: newrelic
+  newrelic-infra:
+    source: deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main
+    key: newrelic-infra
   influxdata:
     source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
     key: influxdata
@@ -437,6 +440,9 @@ manala_apt_keys_patterns:
   newrelic:
     url: https://download.newrelic.com/548C16BF.gpg
     id: 548C16BF
+  newrelic-infra:
+    url: https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg
+    id: 8ECCE87C
   influxdata:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 2582E0C5
@@ -540,3 +546,4 @@ manala_apt_preferences_patterns:
     }[ansible_distribution_release]
   }}"
   glusterfs:          glusterfs-*
+  newrelic-infra:     newrelic-infra
