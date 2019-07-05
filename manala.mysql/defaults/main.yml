@@ -6,6 +6,12 @@ manala_mysql_install_packages_default:
   - mysql-server
   - mysql-client
 
+# Config
+manala_mysql_config_file:        /etc/mysql/my.cnf
+manala_mysql_config_alternative: ~
+manala_mysql_config_template:    ~
+manala_mysql_config:             []
+
 # Configs
 manala_mysql_configs_exclusive: false
 manala_mysql_configs_dir:       /etc/mysql/conf.d
