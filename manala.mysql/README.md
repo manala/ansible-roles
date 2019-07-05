@@ -46,8 +46,15 @@ Using ansible galaxy requirements file:
 | `manala_mysql_configs_template`         | 'configs/empty.j2'               | String  | Default configuration template path                    |
 | `manala_mysql_configs_exclusive`        | false                            | Boolean | Whether to remove all other non-specified config files |
 | `manala_mysql_configs`                  | []                               | Array   | Configurations files                                   |
+| `manala_mysql_config_file`              | /etc/mysql/my.cnf                | String  | Configuration file path                                |
+| `manala_mysql_config_alternative`       | ~                                | String  | Setup an alternative link on configuration file        |
+| `manala_mysql_config_template`          | 'config/empty.j2'                | String  | Default configuration template path                    |
+| `manala_mysql_config`                   | []                               | Array   | Configuration directives                               |
 
-### Configuration example
+
+## Configuration example
+
+### Configure `/etc/mysql/conf.d` example
 
 ```yaml
 # use a default custom template
@@ -82,7 +89,17 @@ manala_mysql_configs:
     config:
       - mysqld_safe:
         - syslog: true
+```
 
+### Configure `my.cnf` example
+
+```
+# Create an alternative link for debian MySQL official packages
+manala_mysql_config_alternative: /etc/mysql/my.manala.cnf
+
+manala_mysql_config:
+  - '!includedir /etc/mysql/mysql.conf.d/'
+  - '!includedir /etc/mysql/conf.d/'
 ```
 
 ## Example playbook
