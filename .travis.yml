@@ -14,97 +14,97 @@ env:
 jobs:
   include:
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=1/3
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=2/3
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=3/3
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=1/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=2/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=3/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=4/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=5/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=6/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=7/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=1/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=2/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=3/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=4/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=5/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=6/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=7/7
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=centos.7  ANSIBLE_VERSION=2.6.5 PART=1/1
       if: type = pull_request
     - stage: lint & test
-      script: make lint && make test
+      script: make lint.diff && make test.diff
       env:
         - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.6.5 PART=1/1
       if: type = pull_request
