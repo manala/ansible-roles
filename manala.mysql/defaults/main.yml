@@ -22,6 +22,7 @@ manala_mysql_configs:           []
 manala_mysql_data_dir: ~
 manala_mysql_data_dir_user: mysql
 manala_mysql_data_dir_group: mysql
+manala_mysql_data_dir_mode: '0750'
 
 # Users
 manala_mysql_users: []

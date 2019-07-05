@@ -50,7 +50,10 @@ Using ansible galaxy requirements file:
 | `manala_mysql_config_alternative`       | ~                                | String  | Setup an alternative link on configuration file        |
 | `manala_mysql_config_template`          | 'config/empty.j2'                | String  | Default configuration template path                    |
 | `manala_mysql_config`                   | []                               | Array   | Configuration directives                               |
-
+| `manala_mysql_data_dir`                 | ~                                | String  | Data directory path to create                          |
+| `manala_mysql_data_dir_user`            | mysql                            | String  | Data directory owner                                   |
+| `manala_mysql_data_dir_group`           | mysql                            | String  | Data directory group                                   |
+| `manala_mysql_data_dir_mode`            | 0750                             | String  | Data directory mode                                    |
 
 ## Configuration example
 
@@ -100,6 +103,20 @@ manala_mysql_config_alternative: /etc/mysql/my.manala.cnf
 manala_mysql_config:
   - '!includedir /etc/mysql/mysql.conf.d/'
   - '!includedir /etc/mysql/conf.d/'
+```
+
+### Change default data directory
+
+Be aware it will not clean your previous data directory nor migrate it.
+
+```
+manala_mysql_data_dir: /mnt/data
+
+manala_mysql_configs:
+  - file: mysqld.cnf
+    config:
+      - mysqld:
+        - datadir: /mnt/data
 ```
 
 ## Example playbook

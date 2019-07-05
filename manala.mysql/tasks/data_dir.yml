@@ -6,7 +6,7 @@
     state: directory
     owner: "{{ manala_mysql_data_dir_user }}"
     group: "{{ manala_mysql_data_dir_group }}"
-    mode: '0755'
+    mode: "{{ manala_mysql_data_dir_mode }}"
   register: data_dir_create_output
   when: manala_mysql_data_dir is not none
 
@@ -15,3 +15,5 @@
     name:  mysql
     state: restarted
   when: data_dir_create_output.changed
+  tags:
+    - skip_ansible_lint # Ignore "Tasks that run when changed should likely be handlers" rule

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Supports `/etc/my.cnf` configuration with `manala_mysql_config`
+- Create mysql data directory
 
 ## [1.0.6] - 2018-10-31
 ### Added
