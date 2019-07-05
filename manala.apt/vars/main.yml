@@ -165,6 +165,9 @@ manala_apt_repositories_patterns:
   mysql_5_7:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
     key: mysql
+  mysql_8_0:
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-8.0
+    key: mysql
   mariadb_10_0:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian {{ ansible_distribution_release }} main
     key: mariadb_legacy

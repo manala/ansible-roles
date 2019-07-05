@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Newrelic-infra repository & key pattern
+- MySQL 8 repository pattern
 
 ## [1.0.37] - 2019-05-21
 ### Added
