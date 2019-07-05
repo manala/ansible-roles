@@ -1,0 +1,17 @@
+---
+
+- name: data_dir > Create data directory
+  file:
+    path: "{{ manala_mysql_data_dir }}"
+    state: directory
+    owner: "{{ manala_mysql_data_dir_user }}"
+    group: "{{ manala_mysql_data_dir_group }}"
+    mode: '0755'
+  register: data_dir_create_output
+  when: manala_mysql_data_dir is not none
+
+- name: data_dir > Restart mysql
+  service:
+    name:  mysql
+    state: restarted
+  when: data_dir_create_output.changed
