@@ -19,5 +19,6 @@ define gitsplit
 		--tty --interactive \
 		--volume $(MANALA_CURRENT_DIR):/srv \
 		jderusse/gitsplit
+		--ref "${TRAVIS_BRANCH}"
 endef
 endif
