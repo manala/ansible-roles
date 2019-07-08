@@ -109,7 +109,11 @@ jobs:
         - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.6.5 PART=1/1
       if: type = pull_request
     - stage: gitsplit
-      script: make split CONFIRM=1
+      script:
+        - git config remote.origin.fetch "+refs/*:refs/*"
+        - git config remote.origin.mirror true
+        - git fetch --prune --unshallow || git fetch --prune
+        - make split CONFIRM=1
       if: branch = master AND type = push
 
 notifications:
