@@ -166,7 +166,7 @@ splits:
   - prefix: manala.yarn
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-yarn.git
   - prefix: manala.zsh
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com//manala/ansible-role-zsh.git
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-zsh.git
 
 # List of references to split (defined as regexp)
 origins:
