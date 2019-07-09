@@ -39,4 +39,3 @@ service:
   proftpd:
     enabled: true
     running: true
-

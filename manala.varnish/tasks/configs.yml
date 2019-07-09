@@ -2,7 +2,7 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(manala_varnish_configs_template|ternary(manala_varnish_configs_template, 'configs/default.j2') )}}"
+    src:  "{{ item.template|default(manala_varnish_configs_template|ternary(manala_varnish_configs_template, 'configs/default.j2')) }}"
     dest: "{{ manala_varnish_configs_dir }}/{{ item.file }}"
   with_items: "{{ manala_varnish_configs }}"
   notify:
