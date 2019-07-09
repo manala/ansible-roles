@@ -14,7 +14,7 @@
           Pin:          origin debian.manala.io
           Pin-Priority: 900
   roles:
-    - manala.mongo-express
+    - manala.mongo_express
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

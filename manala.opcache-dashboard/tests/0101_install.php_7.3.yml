@@ -11,7 +11,7 @@
         install_recommends: false
     - import_tasks: pre_tasks/manala.yml
   roles:
-    - manala.opcache-dashboard
+    - manala.opcache_dashboard
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

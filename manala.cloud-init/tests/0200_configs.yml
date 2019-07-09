@@ -13,7 +13,7 @@
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'wheezy'
   roles:
-    - manala.cloud-init
+    - manala.cloud_init
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

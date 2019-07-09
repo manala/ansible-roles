@@ -10,7 +10,7 @@
       - src: jdauphant.nginx
         version: v1.11.4
   roles:
-    - manala.ansible-galaxy
+    - manala.ansible_galaxy
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

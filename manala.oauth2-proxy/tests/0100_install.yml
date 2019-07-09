@@ -14,7 +14,7 @@
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
   roles:
-    - manala.oauth2-proxy
+    - manala.oauth2_proxy
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

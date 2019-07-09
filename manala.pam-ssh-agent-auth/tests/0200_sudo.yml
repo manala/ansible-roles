@@ -12,7 +12,7 @@
           Pin:          origin debian.manala.io
           Pin-Priority: 900
   roles:
-    - manala.pam-ssh-agent-auth
+    - manala.pam_ssh_agent_auth
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
