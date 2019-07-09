@@ -4,7 +4,7 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           backup-manager
+  role_name:           backup_manager
   author:              Manala
   company:             Manala
   description:         Handle backup manager

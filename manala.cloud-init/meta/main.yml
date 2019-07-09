@@ -4,7 +4,7 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           cloud-init
+  role_name:           cloud_init
   author:              Manala
   company:             Manala
   description:         Configure cloud-init
@@ -19,4 +19,3 @@ galaxy_info:
         - stretch
   galaxy_tags:
     - system
-    - cloud-init

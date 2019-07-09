@@ -4,7 +4,7 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           pam-ssh-agent-auth
+  role_name:           pam_ssh_agent_auth
   author:              Manala
   company:             Manala
   description:         Handle pam ssh agent auth

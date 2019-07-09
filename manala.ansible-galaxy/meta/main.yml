@@ -4,7 +4,7 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           ansible-galaxy
+  role_name:           ansible_galaxy
   author:              Manala
   company:             Manala
   description:         Handle ansible galaxy

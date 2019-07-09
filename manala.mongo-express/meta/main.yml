@@ -4,7 +4,7 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           mongo-express
+  role_name:           mongo_express
   author:              Manala
   company:             Manala
   description:         Handle mongo express
@@ -22,4 +22,3 @@ galaxy_info:
     - web
     - mongo
     - mongodb
-    - mongo express
