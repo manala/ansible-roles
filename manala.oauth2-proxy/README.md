@@ -1,4 +1,4 @@
-# Ansible Role: OAuth2 Proxy [![Build Status](https://travis-ci.org/manala/ansible-role-oauth2-proxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-oauth2-proxy)
+# Ansible Role: OAuth2 Proxy [![Build Status](https://travis-ci.org/manala/ansible-role-oauth2_proxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-oauth2_proxy)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -26,13 +26,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.oauth2-proxy
+ansible-galaxy install manala.oauth2_proxy
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.oauth2-proxy
+- src: manala.oauth2_proxy
 ```
 
 ## Role Handlers
@@ -79,7 +79,7 @@ manala_oauth2_proxy_config:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.oauth2-proxy }
+    - { role: manala.oauth2_proxy }
 ```
 
 # Licence

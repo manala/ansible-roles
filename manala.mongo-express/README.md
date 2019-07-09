@@ -1,4 +1,4 @@
-# Ansible Role: Mongo Express [![Build Status](https://travis-ci.org/manala/ansible-role-mongo-express.svg?branch=master)](https://travis-ci.org/manala/ansible-role-mongo-express)
+# Ansible Role: Mongo Express [![Build Status](https://travis-ci.org/manala/ansible-role-mongo_express.svg?branch=master)](https://travis-ci.org/manala/ansible-role-mongo_express)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -26,13 +26,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.mongo-express
+ansible-galaxy install manala.mongo_express
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.mongo-express
+- src: manala.mongo_express
 ```
 
 ## Role Variables
@@ -51,7 +51,7 @@ Using ansible galaxy requirements file:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.mongo-express }
+    - { role: manala.mongo_express }
 ```
 
 # Licence

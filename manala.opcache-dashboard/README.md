@@ -1,4 +1,4 @@
-# Ansible Role: OPcache Dashboard [![Build Status](https://travis-ci.org/manala/ansible-role-opcache-dashboard.svg?branch=master)](https://travis-ci.org/manala/ansible-role-opcache-dashboard)
+# Ansible Role: OPcache Dashboard [![Build Status](https://travis-ci.org/manala/ansible-role-opcache_dashboard.svg?branch=master)](https://travis-ci.org/manala/ansible-role-opcache_dashboard)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -26,13 +26,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.opcache-dashboard
+ansible-galaxy install manala.opcache_dashboard
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.opcache-dashboard
+- src: manala.opcache_dashboard
 ```
 
 ## Role Variables
@@ -52,7 +52,7 @@ Using ansible galaxy requirements file:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.opcache-dashboard }
+    - { role: manala.opcache_dashboard }
 ```
 
 # Licence

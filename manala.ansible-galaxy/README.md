@@ -1,4 +1,4 @@
-# Ansible Role: Ansible Galaxy [![Build Status](https://travis-ci.org/manala/ansible-role-ansible-galaxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ansible-galaxy)
+# Ansible Role: Ansible Galaxy [![Build Status](https://travis-ci.org/manala/ansible-role-ansible_galaxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ansible_galaxy)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -21,13 +21,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.ansible-galaxy
+ansible-galaxy install manala.ansible_galaxy
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.ansible-galaxy
+- src: manala.ansible_galaxy
 ```
 
 ## Role Variables
@@ -64,7 +64,7 @@ manala:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.ansible-galaxy }
+    - { role: manala.ansible_galaxy }
 ```
 
 # Licence

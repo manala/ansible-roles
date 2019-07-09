@@ -1,4 +1,4 @@
-# Ansible Role: Cloud-init [![Build Status](https://travis-ci.org/manala/ansible-role-cloud-init.svg?branch=master)](https://travis-ci.org/manala/ansible-role-cloud-init)
+# Ansible Role: Cloud_init [![Build Status](https://travis-ci.org/manala/ansible-role-cloud_init.svg?branch=master)](https://travis-ci.org/manala/ansible-role-cloud_init)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -21,13 +21,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.cloud-init
+ansible-galaxy install manala.cloud_init
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.cloud-init
+- src: manala.cloud_init
 ```
 
 ## Role Variables
@@ -56,7 +56,7 @@ manala_cloud_init_configs:
 ```yaml
 - hosts: all
   roles:
-    - { role: manala.cloud-init }
+    - { role: manala.cloud_init }
 ```
 
 # Licence

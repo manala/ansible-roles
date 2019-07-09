@@ -1,4 +1,4 @@
-# Ansible Role: Backup Manager [![Build Status](https://travis-ci.org/manala/ansible-role-backup-manager.svg?branch=master)](https://travis-ci.org/manala/ansible-role-backup-manager)
+# Ansible Role: Backup Manager [![Build Status](https://travis-ci.org/manala/ansible-role-backup_manager.svg?branch=master)](https://travis-ci.org/manala/ansible-role-backup_manager)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -26,13 +26,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.backup-manager
+ansible-galaxy install manala.backup_manager
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.backup-manager
+- src: manala.backup_manager
 ```
 
 ## Role Variables
@@ -166,7 +166,7 @@ manala_backup_manager_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.backup-manager }
+    - { role: manala.backup_manager }
 ```
 
 ## CRON

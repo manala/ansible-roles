@@ -1,4 +1,4 @@
-# Ansible Role: Pam ssh agent auth [![Build Status](https://travis-ci.org/manala/ansible-role-pam-ssh-agent-auth.svg?branch=master)](https://travis-ci.org/manala/ansible-role-pam-ssh-agent-auth)
+# Ansible Role: Pam ssh agent auth [![Build Status](https://travis-ci.org/manala/ansible-role-pam_ssh_agent_auth.svg?branch=master)](https://travis-ci.org/manala/ansible-role-pam_ssh_agent_auth)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
@@ -26,13 +26,13 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.pam-ssh-agent-auth
+ansible-galaxy install manala.pam_ssh_agent_auth
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.pam-ssh-agent-auth
+- src: manala.pam_ssh_agent_auth
 ```
 
 ## Role Variables
@@ -49,7 +49,7 @@ Using ansible galaxy requirements file:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.pam-ssh-agent-auth }
+    - { role: manala.pam_ssh_agent_auth }
 ```
 
 # Licence
