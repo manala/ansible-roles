@@ -10,5 +10,5 @@ include .manala/make/Makefile
 # Role #
 ########
 
-ROLE               = manala.mongo-express
+ROLE               = manala.mongo_express
 ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch
