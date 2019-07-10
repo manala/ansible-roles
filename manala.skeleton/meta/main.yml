@@ -138,7 +138,7 @@ dependencies:
     when: manala_skeleton_options.cron
 
   # OPcache Dashboard
-  - role: manala.opcache-dashboard
+  - role: manala.opcache_dashboard
     when: manala_skeleton_options.opcache_dashboard and manala_skeleton_options.php and manala_skeleton_options.nginx
 
   # MySql
@@ -162,7 +162,7 @@ dependencies:
   # MongoDB
   - role: manala.mongodb
     when: manala_skeleton_options.mongodb
-  - role: manala.mongo-express
+  - role: manala.mongo_express
     when: manala_skeleton_options.mongo_express and manala_skeleton_options.mongodb and manala_skeleton_options.nodejs
 
   # Elasticsearch

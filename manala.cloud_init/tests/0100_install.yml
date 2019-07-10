@@ -1,0 +1,13 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'wheezy'
+  roles:
+    - manala.cloud_init
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

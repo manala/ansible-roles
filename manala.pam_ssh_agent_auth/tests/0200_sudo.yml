@@ -1,0 +1,18 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/pam-ssh-agent-auth
+        content: |
+          Package:      libpam-ssh-agent-auth*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.pam_ssh_agent_auth
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

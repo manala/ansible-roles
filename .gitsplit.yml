@@ -9,22 +9,22 @@ splits:
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-alternatives.git
   - prefix: manala.ansible
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-ansible.git
-  - prefix: manala.ansible-galaxy
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-ansible-galaxy.git
+  - prefix: manala.ansible_galaxy
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-ansible_galaxy.git
   - prefix: manala.apparmor
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-apparmor.git
   - prefix: manala.apt
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-apt.git
   - prefix: manala.aptly
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-aptly.git
-  - prefix: manala.backup-manager
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-backup-manager.git
+  - prefix: manala.backup_manager
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-backup_manager.git
   - prefix: manala.beanstalkd
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-beanstalkd.git
   - prefix: manala.bind
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-bind.git
-  - prefix: manala.cloud-init
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-cloud-init.git
+  - prefix: manala.cloud_init
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-cloud_init.git
   - prefix: manala.composer
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-composer.git
   - prefix: manala.cron
@@ -82,8 +82,8 @@ splits:
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-maxscale.git
   - prefix: manala.merge
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-merge.git
-  - prefix: manala.mongo-express
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-mongo-express.git
+  - prefix: manala.mongo_express
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-mongo_express.git
   - prefix: manala.mongodb
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-mongodb.git
   - prefix: manala.motd
@@ -104,14 +104,14 @@ splits:
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-npm.git
   - prefix: manala.ntp
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-ntp.git
-  - prefix: manala.oauth2-proxy
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-oauth2-proxy.git
+  - prefix: manala.oauth2_proxy
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-oauth2_proxy.git
   - prefix: manala.ohmyzsh
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-ohmyzsh.git
-  - prefix: manala.opcache-dashboard
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-opcache-dashboard.git
-  - prefix: manala.pam-ssh-agent-auth
-    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-pam-ssh-agent-auth.git
+  - prefix: manala.opcache_dashboard
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-opcache_dashboard.git
+  - prefix: manala.pam_ssh_agent_auth
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-pam_ssh_agent_auth.git
   - prefix: manala.phantomjs
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-phantomjs.git
   - prefix: manala.php

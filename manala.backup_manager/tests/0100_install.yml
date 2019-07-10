@@ -1,0 +1,12 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/manala.yml
+  roles:
+    - manala.backup_manager
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_ansible_galaxy_roles:
+      - ansistrano.deploy
+      - jdauphant.nginx
+      - src: jdauphant.nginx
+        version: v1.11.4
+  roles:
+    - manala.ansible_galaxy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

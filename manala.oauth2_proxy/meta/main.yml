@@ -1,0 +1,22 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name:           oauth2_proxy
+  author:              Manala
+  company:             Manala
+  description:         Handle oauth2-proxy
+  license:             MIT
+  min_ansible_version: 2.4.0
+  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+        - stretch
+  galaxy_tags:
+    - web
+    - oauth2

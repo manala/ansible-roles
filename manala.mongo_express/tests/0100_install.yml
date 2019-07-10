@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'wheezy'
+    - import_tasks: pre_tasks/manala.yml
+    - copy:
+        dest: /etc/apt/preferences.d/mongo-express
+        content: |
+          Package:      mongo-express*
+          Pin:          origin debian.manala.io
+          Pin-Priority: 900
+  roles:
+    - manala.mongo_express
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
