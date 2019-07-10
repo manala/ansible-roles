@@ -54,6 +54,7 @@ Using ansible galaxy requirements file:
 | `manala_mysql_data_dir_user`            | mysql                            | String  | Data directory owner                                   |
 | `manala_mysql_data_dir_group`           | mysql                            | String  | Data directory group                                   |
 | `manala_mysql_data_dir_mode`            | 0750                             | String  | Data directory mode                                    |
+| `manala_mysql_data_dir_initialize`      | false                            | Boolean | Initialize data directory with `mysqld_install_db`     |
 
 ## Configuration example
 
@@ -111,6 +112,9 @@ Be aware it will not clean your previous data directory nor migrate it.
 
 ```
 manala_mysql_data_dir: /mnt/data
+
+# Required on mariadb
+manala_mysql_data_dir_initialize: true
 
 manala_mysql_configs:
   - file: mysqld.cnf
