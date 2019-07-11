@@ -18,6 +18,13 @@ manala_mysql_configs_dir:       /etc/mysql/conf.d
 manala_mysql_configs_template:  ~
 manala_mysql_configs:           []
 
+# Data dir
+manala_mysql_data_dir: ~
+manala_mysql_data_dir_user: mysql
+manala_mysql_data_dir_group: mysql
+manala_mysql_data_dir_mode: '0750'
+manala_mysql_data_dir_initialize: false
+
 # Users
 manala_mysql_users: []
 

@@ -15,6 +15,11 @@
   tags:
     - manala_mysql
 
+# Data dir
+- import_tasks: data_dir.yml
+  tags:
+    - manala_mysql
+
 # Services
 - import_tasks: services.yml
   tags:
