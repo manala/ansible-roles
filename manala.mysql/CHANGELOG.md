@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.7] - 2019-07-11
 ### Added
 - Supports `/etc/my.cnf` configuration with `manala_mysql_config`
 - Create mysql data directory
