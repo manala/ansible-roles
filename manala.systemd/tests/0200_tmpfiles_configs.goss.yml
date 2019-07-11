@@ -1,11 +1,11 @@
 ---
 
 file:
-  /etc/tmpfiles.d/mysql.conf:
+  /etc/tmpfiles.d.test/mysql.conf:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
     contains:
-      - d /var/run/mysqld 0755 mysql mysql -
+      - d=/var/run/mysqld 0755 mysql mysql -
