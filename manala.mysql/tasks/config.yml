@@ -5,10 +5,14 @@
     src:  "{{ manala_mysql_config_template|ternary(manala_mysql_config_template, 'config/empty.j2') }}"
     dest: "{{ manala_mysql_config_alternative|ternary(manala_mysql_config_alternative, manala_mysql_config_file) }}"
   when: (manala_mysql_config_template is not none) or (manala_mysql_config|length)
+  notify:
+    - mysql restart
 
 - name: config > Add config alternative
   alternatives:
     name: my.cnf
     link: "{{ manala_mysql_config_file }}"
     path: "{{ manala_mysql_config_alternative }}"
-  when: manala_mysql_config_alternative is not none
+  when: manala_mysql_config_alternative|default(false)
+  notify:
+    - mysql restart
