@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 - tmpfiles_configs exclusive
 
+### Changed
+- Tasks order (services is now after system_configs and tmpfiles_configs)
+
 ## [1.0.4] - 2018-10-17
 ### Fixed
 - Python 3 compatibility
