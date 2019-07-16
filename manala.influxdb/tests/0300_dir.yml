@@ -1,0 +1,24 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_influxdb_meta_dir: /srv/db/influxdb/meta
+    manala_influxdb_data_dir: /srv/db/influxdb/data
+    manala_influxdb_wal_dir:  /srv/db/influxdb/wal
+    manala_influxdb_config:
+      - reporting-disabled: true
+      - meta:
+        - dir: /srv/db/influxdb/meta
+      - data:
+        - dir: /srv/db/influxdb/data
+        - wal-dir: /srv/db/influxdb/wal
+  pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
+    - import_tasks: pre_tasks/influxdata.yml
+  roles:
+    - manala.influxdb
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

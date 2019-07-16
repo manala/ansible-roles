@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Update config template for 1.7.6
 
+### Added
+- Handle directory change
+
 ## [1.0.8] - 2019-03-19
 ### Changed
 - Update config template for 1.7.4

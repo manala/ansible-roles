@@ -7,7 +7,7 @@
     - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/influxdata.yml
   roles:
-    - manala.influxdb
+    - role: manala.influxdb
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate
