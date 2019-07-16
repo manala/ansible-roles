@@ -1,28 +1,11 @@
 ---
 
-- name: data_dir > Create data directory
+- name: dir > Create directory
   file:
-    path: "{{ manala_influxdb_data_dir }}"
+    path: "{{ item }}"
     state: directory
-    owner: "{{ manala_influxdb_data_dir_user }}"
-    group: "{{ manala_influxdb_data_dir_group }}"
-    mode: "{{ manala_influxdb_data_dir_mode }}"
-  when: manala_influxdb_data_dir|default(false)
-
-- name: meta_dir > Create meta directory
-  file:
-    path: "{{ manala_influxdb_meta_dir|default(omit) }}"
-    state: directory
-    owner: "{{ manala_influxdb_data_dir_user|default(omit) }}"
-    group: "{{ manala_influxdb_data_dir_group|default(omit) }}"
-    mode: "{{ manala_influxdb_data_dir_mode|default(omit) }}"
-  when: manala_influxdb_meta_dir|default(false)
-
-- name: wal_dir > Create wal directory
-  file:
-    path: "{{ manala_influxdb_wal_dir|default(omit) }}"
-    state: directory
-    owner: "{{ manala_influxdb_data_dir_user|default(omit) }}"
-    group: "{{ manala_influxdb_data_dir_group|default(omit) }}"
-    mode: "{{ manala_influxdb_data_dir_mode|default(omit) }}"
-  when: manala_influxdb_wal_dir|default(false)
+    owner: "{{ manala_influxdb_dir_user }}"
+    group: "{{ manala_influxdb_dir_group }}"
+    mode: "{{ manala_influxdb_dir_mode }}"
+  with_items: "{{ manala_influxdb_dir}}"
+  when: manala_influxdb_dir|default(false)

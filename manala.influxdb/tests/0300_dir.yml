@@ -4,9 +4,10 @@
   hosts: debian
   become: true
   vars:
-    manala_influxdb_meta_dir: /srv/db/influxdb/meta
-    manala_influxdb_data_dir: /srv/db/influxdb/data
-    manala_influxdb_wal_dir:  /srv/db/influxdb/wal
+    manala_influxdb_dir:
+      - /srv/db/influxdb/meta
+      - /srv/db/influxdb/data
+      - /srv/db/influxdb/wal
     manala_influxdb_config:
       - reporting-disabled: true
       - meta:

@@ -6,12 +6,10 @@ manala_influxdb_install_packages_default:
   - influxdb
 
 # Dir
-manala_influxdb_meta_dir: ~
-manala_influxdb_data_dir: ~
-manala_influxdb_wal_dir: ~
-manala_influxdb_data_dir_user: influxdb
-manala_influxdb_data_dir_group: influxdb
-manala_influxdb_data_dir_mode: '0750'
+manala_influxdb_dir: []
+manala_influxdb_dir_user: influxdb
+manala_influxdb_dir_group: influxdb
+manala_influxdb_dir_mode: '0750'
 
 # Databases
 manala_influxdb_databases:  []
