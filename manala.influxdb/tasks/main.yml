@@ -5,6 +5,11 @@
   tags:
     - manala_influxdb
 
+# Dir
+- import_tasks: dir.yml
+  tags:
+    - manala_influxdb
+
 # Config
 - import_tasks: config.yml
   tags:

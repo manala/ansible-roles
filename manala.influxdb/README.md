@@ -51,6 +51,7 @@ Using ansible galaxy requirements file:
 | ------------------------------------------ | ----------------------------- | ------ | ---------------------------------------------- |
 | `manala_influxdb_install_packages`         | ~                             | Array  | Dependency packages to install                 |
 | `manala_influxdb_install_packages_default` | ['influxdb']                  | Array  | Default dependency packages to install         |
+| `manala_influxdb_dir`:                     | []                            | Array  | Directories used by Influxdb                   |
 | `manala_influxdb_databases`                | []                            | Array  | Databases                                      |
 | `manala_influxdb_users`                    | []                            | Array  | Users                                          |
 | `manala_influxdb_privileges`               | []                            | Array  | Privileges                                     |
@@ -78,8 +79,18 @@ manala_influxdb_privileges:
     user:     my_user
     grant:    ALL
 
+manala_influxdb_dir:
+  - /foo/bar/influxdb/meta
+  - /foo/bar/influxdb/data
+  - /foo/bar/influxdb/wal
+
 manala_influxdb_config:
   - reporting-disabled: true
+  - meta:
+    - dir: /foo/bar/influxdb/meta
+  - data:
+    - dir: /foo/bar/influxdb/data
+    - wal-dir: /foo/bar/influxdb/wal
   # see: https://docs.influxdata.com/influxdb/v0.13/write_protocols/udp
   - udp:
     - enabled: true

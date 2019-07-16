@@ -1,0 +1,10 @@
+---
+
+- name: dir > Create directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ manala_influxdb_dir_user }}"
+    group: "{{ manala_influxdb_dir_group }}"
+    mode: "{{ manala_influxdb_dir_mode }}"
+  with_items: "{{ manala_influxdb_dir }}"
