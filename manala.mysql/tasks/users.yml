@@ -2,9 +2,10 @@
 
 - name: users > Create mysql users
   mysql_user:
-    name:     "{{ item.name }}"
-    password: "{{ item.password|default(omit) }}"
-    host:     "{{ item.host|default('localhost') }}"
-    priv:     "{{ item.priv }}"
-    state:    "{{ item.state|default(omit) }}"
+    name:         "{{ item.name }}"
+    password:     "{{ item.password|default(omit) }}"
+    host:         "{{ item.host|default('localhost') }}"
+    priv:         "{{ item.priv }}"
+    append_privs: "{{ item.append_privs|default(omit) }}"
+    state:        "{{ item.state|default(omit) }}"
   with_items: "{{ manala_mysql_users }}"

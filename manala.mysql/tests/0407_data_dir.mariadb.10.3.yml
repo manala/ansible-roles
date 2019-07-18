@@ -7,9 +7,12 @@
     manala_mysql_install_packages:
       - mariadb-server
       - mariadb-client
-    manala_mysql_config:
-      - mysqld:
-        - datadir: /tmp/datadir
+
+    manala_mysql_configs:
+      - file: datadir.cnf
+        config:
+          - datadir: /tmp/datadir
+
     manala_mysql_data_dir: /tmp/datadir
     manala_mysql_data_dir_user: mysql
     manala_mysql_data_dir_group: mysql
