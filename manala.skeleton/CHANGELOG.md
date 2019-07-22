@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Debian buster support
+- Nodejs 12 support (became default on debian jessie/stretch/buster)
 
 ## [1.0.34] - 2019-09-20
 ### Added

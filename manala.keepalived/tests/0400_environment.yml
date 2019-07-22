@@ -10,6 +10,7 @@
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/manala.yml
+      when: ansible_distribution_release in ['jessie']
   roles:
     - manala.keepalived
   post_tasks:

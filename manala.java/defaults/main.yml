@@ -1,6 +1,6 @@
 ---
 
-# Java version. Available values are '~' (autodetect), '7', '8'
+# Java version. Available values are '~' (autodetect), '7', '8', '11'
 manala_java_version: ~
 
 # Install

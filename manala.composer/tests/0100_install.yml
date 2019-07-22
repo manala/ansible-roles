@@ -6,7 +6,7 @@
   pre_tasks:
     - apt:
         name:
-          - "{{ (ansible_distribution_release == 'stretch')|ternary('php7.0-cli','php5-cli') }}"
+          - "{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('php5-cli','php-cli') }}"
         install_recommends: false
   roles:
     - manala.composer

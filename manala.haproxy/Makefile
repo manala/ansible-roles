@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.haproxy
-ROLE_DISTRIBUTIONS = debian.jessie debian.stretch
+ROLE_DISTRIBUTIONS = debian.jessie debian.stretch debian.buster

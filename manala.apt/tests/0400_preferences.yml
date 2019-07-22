@@ -8,9 +8,9 @@
     manala_apt_preferences:
       - git@backports
       - libssl1.0.0@backports
-      - php@dotdeb:300
-      - dotdeb:100
-      - dotdeb:200
+      - "{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('php@dotdeb:300','php@sury_php:300') }}"
+      - "{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('dotdeb:100','sury_php:100') }}"
+      - "{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('dotdeb:200','sury_php:200') }}"
       - package:  foo
         pin:      foo
         priority: 100

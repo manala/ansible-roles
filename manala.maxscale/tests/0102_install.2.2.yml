@@ -1,7 +1,9 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml

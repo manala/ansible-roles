@@ -6,3 +6,15 @@
     install_recommends: false
     update_cache:       true
     cache_valid_time:   3600
+
+- block:
+    - name: install > Version
+      shell: varnishd -V 2>&1 | grep -P '(?<=varnish-)[0-9.]+' -o
+      register: __manala_varnish_version
+      changed_when: false
+    - name: install > Version
+      set_fact:
+        manala_varnish_version: "{{ __manala_varnish_version.stdout }}"
+      changed_when: false
+  when: manala_varnish_version is none
+  check_mode: false

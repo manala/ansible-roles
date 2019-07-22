@@ -1,0 +1,15 @@
+---
+
+file:
+  /etc/maxscale.cnf.d.test/foo.cnf:
+    exists: true
+    contains:
+      - "[foo-1]"
+      - "type = server"
+      - "address = foo-1"
+      - "port = 3306"
+      - "protocol = MariaDBBackend"
+  /etc/maxscale.cnf.d.test/bar.cnf:
+    exists: true
+  /etc/maxscale.cnf.d.test/baz.cnf:
+    exists: false

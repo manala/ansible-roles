@@ -65,7 +65,9 @@ manala_skeleton_patterns:
           'exa@manala',
           'httpie@manala',
           'python-httplib2@manala'
-        ]
+        ],
+        'buster': [
+        ],
       }[ansible_distribution_release]
       + (manala_skeleton_options.php)|ternary(
         {
@@ -98,7 +100,8 @@ manala_skeleton_patterns:
             'python-tornado@backports',
             'python-pil@backports'
           ],
-          'stretch': []
+          'stretch': [],
+          'buster': [],
         }[ansible_distribution_release],
         []
         )
@@ -158,12 +161,13 @@ manala_skeleton_patterns:
     ngrok_configs:
       - file:     config.yml
         template: configs/default.{{ manala_skeleton_env }}.j2
-    # Ngrok
+    # Java
     java_version: "{{
       {
         'wheezy': '7',
         'jessie': '8',
-        'stretch': '8'
+        'stretch': '8',
+        'buster': '11',
       }[ansible_distribution_release]
     }}"
     # Php
@@ -442,7 +446,9 @@ manala_skeleton_patterns:
           'thefuck',
           'exa',
           'httpie'
-        ]
+        ],
+        'buster': [
+        ],
       }[ansible_distribution_release]
     }}"
     # Supervisor

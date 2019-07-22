@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.wheezy
+    - debian.jessie
+    - debian.stretch
+  become: true
+  vars:
+    manala_varnish_configs:
+      - file: foo.vcl
+      - file: bar.vcl
+        template: fixtures/foo.vcl.j2
+  pre_tasks:
+    - import_tasks: pre_tasks/varnish_4_0.yml
+  roles:
+    - manala.varnish
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

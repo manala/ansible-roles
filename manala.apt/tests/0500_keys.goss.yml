@@ -4,9 +4,13 @@ command:
   "apt-key adv --list-public-keys --with-colons | grep '^pub' | cut -d':' -f 5 | egrep -o '.{8}$'":
     exit-status: 0
     stdout:
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
       - 89DF5277 # Dotdeb
+{{ else }}
+      - 95BD4743 # Sury_php
+{{ end }}
       - 7BD9BF62 # Nginx
-      - 90158EE0 # Bearstech
+      - 86E50310 # Yarn
       - ACCC4CF8 # PostgreSQL
       - EB9C94BB # Sensu
       - 7F0CEB10 # 10gen

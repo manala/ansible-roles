@@ -1,0 +1,7 @@
+{%- set template_name = (template_env == '')|ternary('default.j2','default.' ~ template_env ~ '.j2') -%}
+
+{% if manala_varnish_version|string is version_compare('4.0', '>=') and manala_varnish_version|string is version_compare('4.1', '<') %}
+    {%- include '4.0/' ~ template_name -%}
+{% else %}
+    {%- include '6.1/' ~ template_name -%}
+{% endif %}

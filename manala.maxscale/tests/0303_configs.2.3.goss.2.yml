@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/maxscale.cnf.d.test/foo.cnf:
+    exists: true
+  /etc/maxscale.cnf.d.test/bar.cnf:
+    exists: false
+  /etc/maxscale.cnf.d.test/baz.cnf:
+    exists: true

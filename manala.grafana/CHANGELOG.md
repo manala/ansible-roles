@@ -5,12 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Debian buster support
+- Config template for 6.2
+
 ### Fixed
 - Config snapshots handling
 - Missing version 2.0 config template handling
-
-### Added
-- Config template for 6.2
 
 ## [1.0.4] - 2018-11-16
 ### Fixed

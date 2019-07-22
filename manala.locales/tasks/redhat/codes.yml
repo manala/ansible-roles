@@ -9,11 +9,16 @@
 - name: RedHat > codes > Handle
   command: "{{
     (
-      'localedef --force --inputfile ' ~ item.code.split('.')[0] ~ (' --charmap ' ~ item.code.split('.')[1] ~ ' ' if (item.code.split('.')|length > 1) else ' ') ~ item.code
+      'localedef --force --inputfile '
+          ~ item.code.split('.')[0]
+          ~ (' --charmap ' ~ item.code.split('.')[1] ~ ' ' if (item.code.split('.')|length > 1) else ' ')
+          ~ item.code
         if (item.state == 'present') else
       'localedef --delete-from-archive ' ~ item.code_denormalized|default(item.code)
-    ) if (item.state != item.state_current and not ansible_check_mode) else 'true'
-    }}"
+    )
+      if (item.state != item.state_current and not ansible_check_mode) else
+    'true'
+  }}"
   register: __manala_locales_codes_localedef_output
   failed_when: __manala_locales_codes_localedef_output.rc > 1
   changed_when: item.state != item.state_current

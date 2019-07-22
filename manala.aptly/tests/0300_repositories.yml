@@ -22,7 +22,7 @@
           - gnupg1
           - gpgv1
         install_recommends: false
-      when: ansible_distribution_release == 'stretch'
+      when: ansible_distribution_release in ['stretch','buster']
     - import_tasks: pre_tasks/aptly.yml
     - copy:
         dest: /etc/apt/preferences.d/aptly
@@ -37,16 +37,16 @@
               - gnupg1
               - gpgv1
             install_recommends: false
-          when: ansible_distribution_release == 'stretch'
+          when: ansible_distribution_release in ['stretch','buster']
         - command: gpg1 --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
           args:
             creates: ~/.gnupg/trustdb.gpg
-      when: ansible_distribution_release == 'stretch'
+      when: ansible_distribution_release in ['stretch','buster']
     - block:
         - command: gpg --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
           args:
             creates: ~/.gnupg/trustdb.gpg
-      when: ansible_distribution_release != 'stretch'
+      when: ansible_distribution_release not in ['stretch','buster']
   roles:
     - manala.aptly
   post_tasks:

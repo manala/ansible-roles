@@ -8,7 +8,11 @@ command:
   dpkg -s hugo:
     exit-status: 0
     stdout:
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
       - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+{{ else }}
+      - "/^Version: \\d+/"
+{{ end }}
   hugo version:
     exit-status: 0
     stdout:

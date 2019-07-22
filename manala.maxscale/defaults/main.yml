@@ -1,6 +1,6 @@
 ---
 
-# MaxScale version. Available values are '~' (autodetect), '2.0', '2.1', '2.2'
+# MaxScale version. Available values are '~' (autodetect), '2.0', '2.1', '2.2', '2.3'
 manala_maxscale_version: ~
 
 # Install

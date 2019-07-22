@@ -159,6 +159,9 @@ manala_apt_repositories_patterns:
   nodesource_10:
     source: deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
     key: nodesource
+  nodesource_12:
+    source: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+    key: nodesource
   mysql_5_6:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
     key: mysql
@@ -219,6 +222,9 @@ manala_apt_repositories_patterns:
   varnish_4_0:
     source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
     key: varnish_4_0
+  varnish_6_1:
+    source: deb https://packagecloud.io/varnishcache/varnish61/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    key: varnish_6_1
   jenkins:
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key: jenkins
@@ -401,6 +407,9 @@ manala_apt_keys_patterns:
   varnish_4_0:
     url: https://packagecloud.io/varnishcache/varnish40/gpgkey
     id: DE3FFEA4
+  varnish_6_1:
+    url: https://packagecloud.io/varnishcache/varnish61/gpgkey
+    id: 742D76CC
   jenkins:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
     id: D50582E6
@@ -545,7 +554,8 @@ manala_apt_preferences_patterns:
     {
       'wheezy': 'libavcodec54 libavdevice54 libavfilter3 libavformat54 libpostproc52 libswresample0 libswscale2',
       'jessie': 'libavcodec56 libva1 libavdevice56 libavfilter5 libavformat56 libavresample2 libavutil54 libpostproc53 libswresample1 libswscale3',
-      'stretch': 'libavcodec57 libavdevice57 libavfilter6 libavformat57 libavresample3 libavutil55 libpostproc54 libswresample2 libswscale4'
+      'stretch': 'libavcodec57 libavdevice57 libavfilter6 libavformat57 libavresample3 libavutil55 libpostproc54 libswresample2 libswscale4',
+      'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5'
     }[ansible_distribution_release]
   }}"
   glusterfs:          glusterfs-*

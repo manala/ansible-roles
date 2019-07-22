@@ -18,11 +18,12 @@
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/manala.yml
+      when: ansible_distribution_release in ['jessie']
   roles:
     - manala.keepalived
   post_tasks:
     - pause:
         prompt: Make sure transition to MASTER STATE finish
-        seconds: 2
+        seconds: 3
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

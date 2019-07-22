@@ -9,8 +9,6 @@
   with_items:
     - postgresql
   when: __manala_postgresql_config_result is changed or __manala_postgresql_config_hba_result is changed
-  tags:
-    - skip_ansible_lint
 
 - name: services > Ensure postgresql is running
   service:

@@ -12,3 +12,12 @@
 - name: Pre tasks > Backports apt repository
   apt_repository:
     repo: deb http://{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports main
+
+- name: Pre tasks > Manala supervisor apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/supervisor
+    content: |
+      Package:      supervisor*
+      Pin:          release a={{ ansible_distribution_release }}-backports
+      Pin-Priority: 900
+  when: ansible_distribution_release in ['stretch']

@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Debian buster support
+- MaxScale 2.3 support for Debian jessie, stretch and buster
 
 ## [1.0.4] - 2018-11-16
 ### Fixed

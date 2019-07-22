@@ -89,6 +89,10 @@ SH_HELP += $(call if_in,debian.stretch,$(ROLE_DISTRIBUTIONS),$(call help,sh.debi
 sh.debian.stretch: DISTRIBUTION = debian.stretch
 sh.debian.stretch: sh
 
+SH_HELP += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,sh.debian.buster, Open shell on test host - Debian Buster))
+sh.debian.buster: DISTRIBUTION = debian.buster
+sh.debian.buster: sh
+
 SH_HELP += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,sh.centos.7,      Open shell on test host - CentOS 7))
 sh.centos.7: DISTRIBUTION = centos.7
 sh.centos.7: sh
@@ -127,6 +131,10 @@ update.debian.jessie: update
 UPDATE_HELP += $(call if_in,debian.stretch,$(ROLE_DISTRIBUTIONS),$(call help,update.debian.stretch,Update test host - Debian Stretch))
 update.debian.stretch: DISTRIBUTIONS = debian.stretch
 update.debian.stretch: update
+
+UPDATE_HELP += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,update.debian.buster, Update test host - Debian Buster))
+update.debian.buster: DISTRIBUTIONS = debian.buster
+update.debian.buster: update
 
 UPDATE_HELP += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,update.centos.7,      Update test host - CentOS 7))
 update.centos.7: DISTRIBUTIONS = centos.7
@@ -173,6 +181,10 @@ lint.debian.jessie: lint@local
 LINT_HELP_LOCAL += $(call if_in,debian.stretch,$(ROLE_DISTRIBUTIONS),$(call help,lint.debian.stretch,Lint role - Debian Stretch))
 lint.debian.stretch: DISTRIBUTIONS = debian.stretch
 lint.debian.stretch: lint@local
+
+LINT_HELP_LOCAL += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,lint.debian.buster, Lint role - Debian Buster))
+lint.debian.buster: DISTRIBUTIONS = debian.buster
+lint.debian.buster: lint@local
 
 LINT_HELP_LOCAL += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,lint.centos.7,      Lint role - CentOS 7))
 lint.centos.7: DISTRIBUTIONS = centos.7
@@ -241,6 +253,10 @@ test.debian.jessie: test@local
 TEST_HELP_LOCAL += $(call if_in,debian.stretch,$(ROLE_DISTRIBUTIONS),$(call help,test.debian.stretch,Test role - Debian Stretch))
 test.debian.stretch: DISTRIBUTIONS = debian.stretch
 test.debian.stretch: test@local
+
+TEST_HELP_LOCAL += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,test.debian.buster, Test role - Debian Buster))
+test.debian.buster: DISTRIBUTIONS = debian.buster
+test.debian.buster: test@local
 
 TEST_HELP_LOCAL += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,test.centos.7,      Test role - CentOS 7))
 test.centos.7: DISTRIBUTIONS = centos.7

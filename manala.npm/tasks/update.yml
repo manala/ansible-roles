@@ -3,6 +3,4 @@
 - name: update > Packages
   npm:
     global: true
-    state:  latest
-  tags:
-    - skip_ansible_lint # [ANSIBLE0010] Package installs should not use latest
+    state:  latest # noqa 403

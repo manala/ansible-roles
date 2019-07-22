@@ -1,0 +1,9 @@
+---
+
+file:
+  /var/lib/maxscale/passwd:
+    exists: true
+    filetype: file
+    size: 2
+    contains:
+      - '[]'

@@ -1,0 +1,6 @@
+---
+
+service:
+  varnish:
+    enabled: true
+    running: true
