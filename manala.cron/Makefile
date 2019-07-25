@@ -11,4 +11,5 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.cron
-ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch
+ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch debian.buster
+
