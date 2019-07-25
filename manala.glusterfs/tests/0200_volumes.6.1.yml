@@ -11,13 +11,13 @@
       - name: volume_present
         bricks: /home/present
         cluster:
-          - manala.glusterfs.debian.stretch.test
+          - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
         force: true
 
       - name: volume_test
         bricks:  /home/vol
         cluster:
-          - manala.glusterfs.debian.stretch.test
+          - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
         options:
           storage.owner-gid: '1337'
           storage.owner-uid: '1337'
@@ -53,7 +53,7 @@
       - name: volume_test
         bricks:  /home/vol2,/home/vol3
         cluster:
-          - manala.glusterfs.debian.stretch.test
+          - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
         force: true
 
   pre_tasks:
