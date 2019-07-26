@@ -4,4 +4,4 @@ command:
   java -version:
     exit-status: 0
     stderr:
-      - "/^(java|openjdk) version/"
+      - "/^openjdk version \"11\\..*\".*$/"
