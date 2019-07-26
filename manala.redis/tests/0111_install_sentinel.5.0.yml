@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.stretch
+  hosts: debian:!debian.wheezy:!debian.jessie
   become: true
   vars:
     manala_redis_config:
