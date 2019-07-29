@@ -11,10 +11,15 @@
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - apt:
-        name:  "{{ item }}"
+        name:
+          - "{{
+            {
+              'jessie': 'openjdk-8-jre-headless',
+              'stretch': 'openjdk-8-jre-headless',
+              'buster': 'openjdk-11-jre-headless',
+            }[ansible_distribution_release]
+          }}"
         install_recommends: false
-      with_items:
-        - openjdk-8-jre-headless
   roles:
     - manala.elasticsearch
   post_tasks:

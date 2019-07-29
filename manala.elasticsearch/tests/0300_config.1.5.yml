@@ -14,7 +14,12 @@
       when: ansible_distribution_release == 'jessie'
     - apt:
         name:
-          - "{{ 'openjdk-7-jre-headless' if (ansible_distribution_release == 'wheezy') else 'openjdk-8-jre-headless' }}"
+          - "{{
+            {
+              'wheezy': 'openjdk-7-jre-headless',
+              'jessie': 'openjdk-8-jre-headless',
+            }[ansible_distribution_release]
+          }}"
         install_recommends: false
   roles:
     - manala.elasticsearch
