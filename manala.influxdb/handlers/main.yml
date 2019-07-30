@@ -3,4 +3,14 @@
 - name: influxdb restart
   service:
     name:  influxdb
-    state: restarted
+    state: stopped
+  notify: influxdb start
+
+- name: influxdb start
+  service:
+    name:  influxdb
+    state: started
+  register: _manala_influxdb_services_output
+  until: _manala_influxdb_services_output is not failed
+  retries: 12
+  delay: 1
