@@ -1,6 +1,4 @@
 ---
 
 - name: systemd reload
-  command: systemctl daemon-reload
-  tags:
-  - skip_ansible_lint # [ANSIBLE0006] systemctl used in place of systemd module
+  command: systemctl daemon-reload # noqa 303
