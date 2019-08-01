@@ -1,0 +1,15 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.jessie
+    - debian.stretch
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/mongodb_4_0.yml
+    - import_tasks: pre_tasks/service.yml
+  roles:
+    - manala.mongodb
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

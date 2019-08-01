@@ -1,16 +1,14 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian.wheezy
+  hosts:
+    - debian.wheezy
+    - debian.jessie
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/mongodb_3_2.yml
-    - copy:
-        dest: /etc/apt/preferences.d/mongodb
-        content: |
-          Package:      mongodb*
-          Pin:          origin docs.mongodb.org
-          Pin-Priority: 900
+    - import_tasks: pre_tasks/service.yml
+      when: ansible_distribution_release != 'wheezy'
   roles:
     - manala.mongodb
   post_tasks:

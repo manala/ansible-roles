@@ -1,0 +1,6 @@
+---
+
+service:
+  mongod:
+    enabled: true
+    running: true
