@@ -1,6 +1,6 @@
 ---
 
-- name: Pre tasks > Manala apt key
+- name: Pre tasks > Gitlab apt key
   apt_key:
     file: pre_tasks/apt_keys/gitlab.pgp
     id: E15E78F4
