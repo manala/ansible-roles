@@ -1,14 +1,12 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.jessie
-    - debian.stretch
+  hosts: debian:!debian.wheezy
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
       when: ansible_distribution_release == 'jessie'
-    - import_tasks: pre_tasks/maxscale_2.2.yml
+    - import_tasks: pre_tasks/maxscale_2.3.yml
   roles:
     - manala.maxscale
   post_tasks:

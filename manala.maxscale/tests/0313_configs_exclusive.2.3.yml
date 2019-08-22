@@ -1,10 +1,7 @@
 ---
 
 - name: "{{ test }}.1"
-  hosts:
-    - debian.wheezy
-    - debian.jessie
-    - debian.stretch
+  hosts: debian:!debian.wheezy
   become: true
   vars:
     manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d.test"
@@ -15,15 +12,12 @@
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
       when: ansible_distribution_release == 'jessie'
-    - import_tasks: pre_tasks/maxscale_2.1.yml
+    - import_tasks: pre_tasks/maxscale_2.3.yml
   roles:
     - manala.maxscale
 
 - name: "{{ test }}.2"
-  hosts:
-    - debian.wheezy
-    - debian.jessie
-    - debian.stretch
+  hosts: debian:!debian.wheezy
   become: true
   vars:
     manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d.test"

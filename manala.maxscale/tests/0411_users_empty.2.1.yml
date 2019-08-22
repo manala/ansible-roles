@@ -1,7 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts:
+    - debian.wheezy
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_maxscale_network_users: []
