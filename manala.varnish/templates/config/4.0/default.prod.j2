@@ -1,0 +1,76 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_varnish_config -%}
+
+# Configuration file for Varnish Cache.
+#
+# /etc/init.d/varnish expects the variables $DAEMON_OPTS, $NFILES and $MEMLOCK
+# to be set from this shell script fragment.
+#
+# Note: If systemd is installed, this file is obsolete and ignored.  You will
+# need to copy /lib/systemd/system/varnish.service to /etc/systemd/system/ and
+# edit that file.
+
+# Should we start varnishd at boot?  Set to "no" to disable.
+{{ macros.config_row(config, 'START', true) }}
+
+# Set WARMUP_TIME to force a delay in reload-vcl between vcl.load and vcl.use
+# This is useful when backend probe definitions need some time before declaring
+# configured backends healthy, to avoid routing traffic to a non-healthy backend.
+{{ macros.config_row(config, 'WARMUP_TIME', '#WARMUP_TIME=0', 0, true) }}
+
+# Maximum number of open files (for ulimit -n)
+{{ macros.config_row(config, 'NFILES', 131072) }}
+
+# Maximum locked memory size (for ulimit -l)
+# Used for locking the shared memory log in memory.  If you increase log size,
+# you need to increase this number as well
+{{ macros.config_row(config, 'MEMLOCK', 82000) }}
+
+# Main configuration file. You probably want to change it :)
+{{ macros.config_row(config, 'VARNISH_VCL_CONF', '/etc/varnish/default.vcl') }}
+
+# Default address and port to bind to
+# Blank address means all IPv4 and IPv6 interfaces, otherwise specify
+# a host name, an IPv4 dotted quad, or an IPv6 address in brackets.
+{{ macros.config_row(config, 'VARNISH_LISTEN_ADDRESS', '') }}
+{{ macros.config_row(config, 'VARNISH_LISTEN_PORT', 6081) }}
+
+# Telnet admin interface listen address and port
+{{ macros.config_row(config, 'VARNISH_ADMIN_LISTEN_ADDRESS', '127.0.0.1') }}
+{{ macros.config_row(config, 'VARNISH_ADMIN_LISTEN_PORT', 6082) }}
+
+# Default TTL used when the backend does not specify one
+{{ macros.config_row(config, 'VARNISH_TTL', 120) }}
+
+# File containing administration secret
+{{ macros.config_row(config, 'VARNISH_SECRET_FILE', '/etc/varnish/secret') }}
+
+# Storage
+{{ macros.config_row(config, 'VARNISH_STORAGE', 'malloc,256m') }}
+
+{{ macros.config_row(config, 'DAEMON_OPTS', '"-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
+-f ${VARNISH_VCL_CONF} \
+-T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
+-t ${VARNISH_TTL} \
+-S ${VARNISH_SECRET_FILE} \
+-s ${VARNISH_STORAGE}"') }}
+
+{{ macros.config(config, [
+    'START',
+    'WARMUP_TIME',
+    'NFILES',
+    'MEMLOCK',
+    'VARNISH_MIN_THREADS',
+    'VARNISH_MAX_THREADS',
+    'VARNISH_THREAD_TIMEOUT',
+    'VARNISH_VCL_CONF',
+    'VARNISH_LISTEN_ADDRESS',
+    'VARNISH_LISTEN_PORT',
+    'VARNISH_ADMIN_LISTEN_ADDRESS',
+    'VARNISH_ADMIN_LISTEN_PORT',
+    'VARNISH_TTL',
+    'VARNISH_SECRET_FILE',
+    'VARNISH_STORAGE',
+    'DAEMON_OPTS'
+]) }}

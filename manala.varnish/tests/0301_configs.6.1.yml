@@ -1,20 +1,16 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts: debian:!debian.wheezy:!debian.jessie
   become: true
   vars:
     manala_varnish_configs:
       - file: foo.vcl
+      - file: bar.vcl
         template: fixtures/foo.vcl.j2
   pre_tasks:
-    - import_tasks: pre_tasks/varnish_4_0.yml
-    - copy:
-        dest: /etc/apt/preferences.d/varnish
-        content: |
-          Package:      varnish*
-          Pin:          origin docs.mongodb.org
-          Pin-Priority: 900
+    - import_tasks: pre_tasks/varnish_6_1.yml
+      when: ansible_distribution_release not in ['buster'] # 2019-10-24 Varnish buster packages are still not available...
   roles:
     - manala.varnish
   post_tasks:

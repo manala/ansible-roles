@@ -3,5 +3,7 @@
 file:
   /etc/varnish/foo.vcl:
     exists: true
+  /etc/varnish/bar.vcl:
+    exists: true
     contains:
       - ""# Foo bar"

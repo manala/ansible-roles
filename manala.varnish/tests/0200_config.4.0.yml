@@ -1,16 +1,17 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts:
+    - debian.wheezy
+    - debian.jessie
+    - debian.stretch
   become: true
+  vars:
+    manala_varnish_config:
+      - NFILES: 1310723
+      - MEMLOCK: 82001
   pre_tasks:
     - import_tasks: pre_tasks/varnish_4_0.yml
-    - copy:
-        dest: /etc/apt/preferences.d/varnish
-        content: |
-          Package:      varnish*
-          Pin:          origin docs.mongodb.org
-          Pin-Priority: 900
   roles:
     - manala.varnish
   post_tasks:

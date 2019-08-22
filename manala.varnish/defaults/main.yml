@@ -1,5 +1,8 @@
 ---
 
+# Redis version. Available values are '~' (autodetect), '4.0', '6.1'
+manala_varnish_version: ~
+
 # Install
 manala_varnish_install_packages: ~
 manala_varnish_install_packages_default:
