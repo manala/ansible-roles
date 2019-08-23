@@ -6,13 +6,13 @@
   vars:
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
-      - dotdeb:100
+      - "{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('dotdeb:100', 'sury_php:100') }}"
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
       - security
       - nginx
-      - source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
-        key: bearstech
+      - source: deb https://dl.yarnpkg.com/debian/ stable main
+        key: yarn
       - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
         key:
           url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
