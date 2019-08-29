@@ -1,0 +1,18 @@
+---
+
+file:
+  /tmp/file:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!
+  /tmp/foo:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!
+  /tmp/bar:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!

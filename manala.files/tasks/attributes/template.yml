@@ -13,3 +13,10 @@
         owner:   "{{ item.user|default(omit) }}"
         group:   "{{ item.group|default(omit) }}"
         mode:   "{{ item.mode|default(omit) }}"
+      when: item.state|default('present') == 'present'
+
+    - name: attributes/template > Delete "{{ item.path }}"
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      when: item.state|default('present') == 'absent'

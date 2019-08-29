@@ -1,15 +1,37 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
     manala_files_attributes:
-      - path:    /tmp/file
+      - path: /tmp/file
         content: |
           Hello world!
+      - path: /tmp/foo
+        content: |
+          Hello Foo!
+      - path: /tmp/bar
+        content: |
+          Hello Bar!
+        state: present
   roles:
     - manala.files
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_files_attributes:
+      - path: /tmp/bar
+        content: |
+          Hello Bar!
+        state: absent
+  roles:
+    - manala.files
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate
