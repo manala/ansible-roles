@@ -1,8 +1,9 @@
 ---
 
 - name: extensions > Enabled
-  command: |
-    {{ manala_php_versions[manala_php_version|string]['enmod_bin'] }} {{
+  command: >
+    {{ manala_php_versions[manala_php_version|string]['enmod_bin'] }}
+    {{
       lookup(
         'manala_php_extensions',
         manala_php_extensions,
@@ -23,8 +24,9 @@
     )|length
 
 - name: extensions > Disabled
-  command: |
-    {{ manala_php_versions[manala_php_version|string]['dismod_bin'] }} {{
+  command: >
+    {{ manala_php_versions[manala_php_version|string]['dismod_bin'] }}
+    {{
       lookup(
         'manala_php_extensions',
         manala_php_extensions,

@@ -77,6 +77,7 @@ manala_php_versions:
     release:
       - jessie
       - stretch
+      - buster
     enmod_bin:   /usr/sbin/phpenmod
     dismod_bin:  /usr/sbin/phpdismod
     fpm_bin:     /usr/sbin/php-fpm5.6
@@ -137,6 +138,7 @@ manala_php_versions:
     release:
       - jessie
       - stretch
+      - buster
     enmod_bin:   /usr/sbin/phpenmod
     dismod_bin:  /usr/sbin/phpdismod
     fpm_bin:     /usr/sbin/php-fpm7.0
@@ -195,6 +197,7 @@ manala_php_versions:
     release:
       - jessie
       - stretch
+      - buster
     enmod_bin:   /usr/sbin/phpenmod
     dismod_bin:  /usr/sbin/phpdismod
     fpm_bin:     /usr/sbin/php-fpm7.1
@@ -253,6 +256,7 @@ manala_php_versions:
     release:
       - jessie
       - stretch
+      - buster
     enmod_bin:   /usr/sbin/phpenmod
     dismod_bin:  /usr/sbin/phpdismod
     fpm_bin:     /usr/sbin/php-fpm7.2
@@ -312,6 +316,7 @@ manala_php_versions:
     release:
       - jessie
       - stretch
+      - buster
     enmod_bin:   /usr/sbin/phpenmod
     dismod_bin:  /usr/sbin/phpdismod
     fpm_bin:     /usr/sbin/php-fpm7.3
