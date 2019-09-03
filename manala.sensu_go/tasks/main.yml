@@ -1,0 +1,23 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_sensu_go
+
+# Backend Config
+- import_tasks: backend_config.yml
+  tags:
+    - manala_sensu_go
+
+# Agent Config
+- import_tasks: agent_config.yml
+  tags:
+    - manala_sensu_go
+
+# Services
+- import_tasks: services.yml
+  tags:
+    - manala_sensu_go
+    - manala_sensu_go.services
+    - manala.services

@@ -137,6 +137,8 @@ splits:
   #  target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-rtail.git
   - prefix: manala.sensu
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-sensu.git
+  - prefix: manala.sensu
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-sensu_go.git
   - prefix: manala.shorewall
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-shorewall.git
   - prefix: manala.skeleton

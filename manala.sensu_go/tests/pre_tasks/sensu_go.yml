@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Sensu Go apt key
+  apt_key:
+    file: pre_tasks/apt_keys/sensu_go.gpg
+    id: 0A3F7426
+
+- name: Pre tasks > Sensu Go apt repository
+  apt_repository:
+    repo: deb https://packagecloud.io/sensu/stable/debian/ {{ ansible_distribution_release }} main

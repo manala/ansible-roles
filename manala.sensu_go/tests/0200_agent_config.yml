@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy
+  become: true
+  vars:
+    manala_sensu_go_agent_config:
+      backend-url: [
+        'ws://127.0.0.1:8081'
+      ]
+  pre_tasks:
+    - import_tasks: pre_tasks/sensu_go.yml
+  roles:
+    - manala.sensu_go
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

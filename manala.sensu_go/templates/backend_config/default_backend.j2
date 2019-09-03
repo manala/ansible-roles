@@ -1,0 +1,8 @@
+---
+# Sensu backend configuration
+
+{{
+	{
+	"state-dir": "/var/lib/sensu/sensu-backend",
+	} | combine(manala_sensu_go_backend_config) | to_nice_yaml
+}}

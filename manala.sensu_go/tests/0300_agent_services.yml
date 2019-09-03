@@ -1,0 +1,12 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/sensu_go.yml
+  roles:
+    - manala.sensu_go
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
