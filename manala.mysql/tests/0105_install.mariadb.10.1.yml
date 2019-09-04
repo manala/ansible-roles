@@ -3,16 +3,15 @@
 - name: "{{ test }}"
   hosts:
     - debian.wheezy
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_mysql_install_packages:
-      - galera-3
-      - galera-arbitrator-3
-      - mysql-wsrep-server-5.7
-      - mysql-wsrep-client-5.7
+      - mariadb-server
+      - mariadb-client
   pre_tasks:
-    - import_tasks: pre_tasks/galera_3.yml
-    - import_tasks: pre_tasks/mysql_wsrep_5.7.yml
+    - import_tasks: pre_tasks/mariadb_10.1.yml
   roles:
     - manala.mysql
   post_tasks:

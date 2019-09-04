@@ -7,10 +7,13 @@
   become: true
   vars:
     manala_mysql_install_packages:
-      - mariadb-server
-      - mariadb-client
+      - galera-3
+      - galera-arbitrator-3
+      - mysql-wsrep-server-5.7
+      - mysql-wsrep-client-5.7
   pre_tasks:
-    - import_tasks: pre_tasks/mariadb_10.3.yml
+    - import_tasks: pre_tasks/galera_3.yml
+    - import_tasks: pre_tasks/mysql_wsrep_5.7.yml
   roles:
     - manala.mysql
   post_tasks:

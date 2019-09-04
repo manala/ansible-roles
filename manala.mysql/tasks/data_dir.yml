@@ -12,14 +12,10 @@
 
 - name: data_dir > Initialize data dir
   command: mysql_install_db --user={{ manala_mysql_data_dir_user }} --datadir={{ manala_mysql_data_dir }}
-  when: manala_mysql_data_dir_initialize and __manala_mysql_data_dir_create_output.changed
-  tags:
-    - skip_ansible_lint # Ignore "Tasks that run when changed should likely be handlers" rule
+  when: manala_mysql_data_dir_initialize and __manala_mysql_data_dir_create_output.changed  # noqa 503
 
 - name: data_dir > Restart mysql
   service:
     name:  mysql
     state: restarted
-  when: __manala_mysql_data_dir_create_output.changed
-  tags:
-    - skip_ansible_lint # Ignore "Tasks that run when changed should likely be handlers" rule
+  when: __manala_mysql_data_dir_create_output.changed  # noqa 503
