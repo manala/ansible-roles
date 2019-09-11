@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Allow to configure interfaces with multiples config files (/etc/network/interfaces.d)
+- Allow to configure interfaces with multiple config files (/etc/network/interfaces.d)
 
 ## [1.0.5] - 2018-10-17
 ### Fixed

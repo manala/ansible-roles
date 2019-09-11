@@ -90,7 +90,7 @@ manala_network_routing_tables:
 
 #### Interfaces configurations
 
-`manala_network_interfaces_configs_exclusive` allow you to clean up existing interfaces configuration files into directory defined by the `manala_network_interfaces_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+`manala_network_interfaces_configs_exclusive` allows you to clean up existing interfaces configuration files into directory defined by the `manala_network_interfaces_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
 
 ```yaml
 manala_network_interfaces_configs_exclusive: true
