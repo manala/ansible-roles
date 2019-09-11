@@ -4,5 +4,5 @@
   lineinfile:
     path:   "{{ manala_network_routing_tables_file }}"
     regexp: "^{{ (item.keys()|list)[0] }}\\s+"
-    line:   "{{ (item.keys()|list)[0] }}	{{ (item.values()|list)[0] }}"
+    line:   "{{ (item.keys()|list)[0] }}	{{ (item.values()|list)[0] }}" # noqa 203
   with_items: "{{ manala_network_routing_tables }}"

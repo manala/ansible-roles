@@ -14,6 +14,12 @@ manala_network_interfaces_file:     /etc/network/interfaces
 manala_network_interfaces_template: ~
 manala_network_interfaces_config:   []
 
+# Interfaces configs
+manala_network_interfaces_configs_exclusive: false
+manala_network_interfaces_configs_dir:       /etc/network/interfaces.d
+manala_network_interfaces_configs_template:  ~
+manala_network_interfaces_configs:           []
+
 # Routing Tables
 manala_network_routing_tables_file: /etc/iproute2/rt_tables
 manala_network_routing_tables: []

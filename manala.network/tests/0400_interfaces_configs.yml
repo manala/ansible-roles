@@ -1,0 +1,33 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_network_interfaces_configs_exclusive: true
+    manala_network_interfaces_configs:
+      - file: alias
+        config:
+          - auto eth0:0
+          - iface eth0:0 inet static:
+            - address: 0.0.0.0
+            - netmask: 255.255.255.255
+  pre_tasks:
+    - file:
+        path: /etc/network/interfaces.d
+        state: directory
+        mode: '0755'
+    - file:
+        path: /etc/network/interfaces.d/exclusive_test
+        state: touch
+    - copy:
+        dest: /etc/init.d/networking
+        mode: '0755'
+        content: |
+          #! /bin/sh
+          exit 0
+  roles:
+    - manala.network
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

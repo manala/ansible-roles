@@ -10,8 +10,13 @@
   tags:
     - manala_network
 
-# Inerfaces
+# Interfaces
 - import_tasks: interfaces.yml
+  tags:
+    - manala_network
+
+# Interfaces configs
+- import_tasks: interfaces_configs.yml
   tags:
     - manala_network
 
