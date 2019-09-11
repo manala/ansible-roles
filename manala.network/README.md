@@ -40,20 +40,24 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-| Name                                 | Default                   | Type   | Description              |
-| ------------------------------------ | ------------------------- | ------ | ------------------------ |
-| `manala_network_hosts_file`          | '/etc/hosts'              | String | Host file path           |
-| `manala_network_hosts`               | []                        | Array  | Hosts                    |
-| `manala_network_resolver_file`       | '/etc/resolv.conf'        | String | Resolver file path       |
-| `manala_network_resolver_template`   | ~                         | String | Resolver file template   |
-| `manala_network_resolver_config`     | []                        | Array  | Resolver configuration   |
-| `manala_network_interfaces_file`     | '/etc/network/interfaces' | String | Interfaces file path     |
-| `manala_network_interfaces_template` | ~                         | String | Interfaces file template |
-| `manala_network_interfaces_config`   | []                        | Array  | Interfaces configuration |
-| `manala_network_routing_tables_file` | '/etc/iproute2/rt_tables' | String | Routing tables file path |
-| `manala_network_routing_tables`      | []                        | Array  | Routing tables           |
+| Name                                           | Default                       | Type   | Description                              |
+| ---------------------------------------------- | ----------------------------- | ------ | ---------------------------------------- |
+| `manala_network_hosts_file`                    | '/etc/hosts'                  | String | Host file path                           |
+| `manala_network_hosts`                         | []                            | Array  | Hosts                                    |
+| `manala_network_resolver_file`                 | '/etc/resolv.conf'            | String | Resolver file path                       |
+| `manala_network_resolver_template`             | ~                             | String | Resolver file template                   |
+| `manala_network_resolver_config`               | []                            | Array  | Resolver configuration                   |
+| `manala_network_interfaces_file`               | '/etc/network/interfaces'     | String | Interfaces file path                     |
+| `manala_network_interfaces_template`           | ~                             | String | Interfaces file template                 |
+| `manala_network_interfaces_config`             | []                            | Array  | Interfaces configuration                 |
+| `manala_network_interfaces_configs`            | []                            | Array  | Interfaces configurations                |
+| `manala_network_interfaces_configs_template`   | 'interfaces_configs/empty.j2' | String | Interfaces configurations template path  |
+| `manala_network_interfaces_configs_exclusive`  | false                         | Boolean| Exclusion of existings files             |
+| `manala_network_interfaces_configs_dir`        | '/etc/network/interfaces.d'   | String | Interfaces configurations directory path |
+| `manala_network_routing_tables_file`           | '/etc/iproute2/rt_tables'     | String | Routing tables file path                 |
+| `manala_network_routing_tables`                | []                            | Array  | Routing tables                           |
 
-### Configuration example
+### Configuration examples
 
 ```yaml
 manala_network_hosts:
@@ -66,7 +70,7 @@ manala_network_resolver_config:
 
 manala_network_interfaces_config:
   # Loopback
-  - auto: lo
+  - auto lo
   - iface lo inet loopback
   # Eth0
   - auto eth0
@@ -83,6 +87,28 @@ manala_network_interfaces_config:
 manala_network_routing_tables:
   - 1: public
 ```
+
+#### Interfaces configurations
+
+`manala_network_interfaces_configs_exclusive` allow you to clean up existing interfaces configuration files into directory defined by the `manala_network_interfaces_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_network_interfaces_configs_exclusive: true
+
+manala_network_interfaces_config:
+  - source-directory /etc/network/interfaces.d
+  - auto lo
+  - iface lo inet loopback
+
+manala_network_interfaces_configs:
+  - file: alias
+    config:
+      - auto eth0:0
+      - iface eth0:0 inet static:
+        - address: 0.0.0.0
+        - netmask: 255.255.255.255
+```
+
 ## Example playbook
 
 ```yaml
