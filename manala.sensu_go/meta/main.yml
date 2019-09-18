@@ -1,0 +1,25 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name:           sensu_go
+  author:              Manala
+  company:             Manala
+  description:         Install and configure sensu
+  license:             MIT
+  min_ansible_version: 2.4.0
+  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+        - buster
+  galaxy_tags:
+    - alerting
+    - monitoring
+    - system
+    - sensugo
+    - sensu
