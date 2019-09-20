@@ -1,0 +1,22 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy
+  become: true
+  vars:
+    manala_elasticsearch_plugins:
+      - analysis-icu
+  pre_tasks:
+    - import_tasks: pre_tasks/elasticsearch_7.yml
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'jessie'
+    - apt:
+        name:
+          - openjdk-8-jre-headless
+        install_recommends: false
+  roles:
+    - manala.elasticsearch
+  post_tasks:
+    - import_tasks: post_tasks/pretty_response.yml
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

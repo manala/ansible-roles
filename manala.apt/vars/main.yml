@@ -270,6 +270,9 @@ manala_apt_repositories_patterns:
   elasticsearch_6:
     source: deb https://artifacts.elastic.co/packages/6.x/apt stable main
     key: elasticsearch
+  elasticsearch_7:
+    source: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+    key: elasticsearch
   ansible: "{{
     {
       'debian': None,
