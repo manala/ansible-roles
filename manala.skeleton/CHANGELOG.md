@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.34] - 2019-09-18
-### Fixed
-- Update dependency roles names
+## [1.0.34] - 2019-09-20
+### Added
+- Elasticsearch version 7 support
 
 ## [1.0.33] - 2019-07-10
 ### Fixed

@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.39] - 2019-09-18
+## [1.0.39] - 2019-09-20
 ### Added
 - Elasticsearch 7 support
 
