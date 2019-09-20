@@ -399,7 +399,8 @@ manala_skeleton_patterns:
         '1.7': ['mobz/elasticsearch-head'],
         '2': ['mobz/elasticsearch-head'],
         '5': [],
-        '6': []
+        '6': [],
+        '7': []
       }[manala_skeleton_options.elasticsearch_version|string]
     }}"
     # PhantomJS

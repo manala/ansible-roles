@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Elasticsearch apt key
+  apt_key:
+    file: pre_tasks/apt_keys/elasticsearch.pgp
+    id: D88E42B4
+
+- name: Pre tasks > Elasticsearch 7 apt repository
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
