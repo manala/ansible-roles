@@ -25,12 +25,12 @@
 {{ macros.config_row(config, 'redirect_stderr', ';redirect_stderr=true', 0, true) }} ; redirect proc stderr to stdout (default false)
 {{ macros.config_row(config, 'stdout_logfile', ';stdout_logfile=/a/path', 0, true) }} ; stdout log path, NONE for none; default AUTO
 {{ macros.config_row(config, 'stdout_logfile_maxbytes', ';stdout_logfile_maxbytes=1MB', 0, true) }} ; max # logfile bytes b4 rotation (default 50MB)
-{{ macros.config_row(config, 'stdout_logfile_backups', ';stdout_logfile_backups=10', 0, true) }} ; # of stdout logfile backups (default 10)
+{{ macros.config_row(config, 'stdout_logfile_backups', ';stdout_logfile_backups=10', 0, true) }} ; # of stdout logfile backups (0 means none, default 10)
 {{ macros.config_row(config, 'stdout_capture_maxbytes', ';stdout_capture_maxbytes=1MB', 0, true) }} ; number of bytes in 'capturemode' (default 0)
 {{ macros.config_row(config, 'stdout_events_enabled', ';stdout_events_enabled=false', 0, true) }} ; emit events on stdout writes (default false)
 {{ macros.config_row(config, 'stderr_logfile', ';stderr_logfile=/a/path', 0, true) }} ; stderr log path, NONE for none; default AUTO
 {{ macros.config_row(config, 'stderr_logfile_maxbytes', ';stderr_logfile_maxbytes=1MB', 0, true) }} ; max # logfile bytes b4 rotation (default 50MB)
-{{ macros.config_row(config, 'stderr_logfile_backups', ';stderr_logfile_backups=10', 0, true) }} ; # of stderr logfile backups (default 10)
+{{ macros.config_row(config, 'stderr_logfile_backups', ';stderr_logfile_backups=10', 0, true) }} ; # of stderr logfile backups (0 means none, default 10)
 {{ macros.config_row(config, 'stderr_capture_maxbytes', ';stderr_capture_maxbytes=1MB', 0, true) }} ; number of bytes in 'capturemode' (default 0)
 {{ macros.config_row(config, 'stderr_events_enabled', ';stderr_events_enabled=false', 0, true) }} ; emit events on stderr writes (default false)
 {{ lookup('manala_supervisor_config', config, wantrow='environment', wantrowtype='env', wantrowdefault=';environment=A="1",B="2"', wantlist=True) }} ; process environment additions (def no adds)
