@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/logrotate.d.test/foo:
+    exists: true
+  /etc/logrotate.d.test/bar:
+    exists: false
+  /etc/logrotate.d.test/baz:
+    exists: true

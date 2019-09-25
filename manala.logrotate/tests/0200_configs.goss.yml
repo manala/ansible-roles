@@ -1,8 +1,0 @@
----
-
-file:
-  /etc/logrotate.d/foo:
-    exists:   true
-    filetype: file
-    contains:
-      - /var/log/foo/*.log {
