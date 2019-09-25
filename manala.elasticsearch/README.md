@@ -49,12 +49,17 @@ Using ansible galaxy requirements file:
 | `manala_elasticsearch_config_template`          | ~                                      | String | Configuration file template path       |
 | `manala_elasticsearch_config`                   | []                                     | Array  | Configuration                          |
 | `manala_elasticsearch_plugins`                  | []                                     | Array  | Plugins                                |
+| `manala_elasticsearch_environment_file`         | '/etc/default/elasticsearch'           | String | Environment file path                  |
+| `manala_elasticsearch_environment_template`     | ~                                      | String | Environment file template path         |
+| `manala_elasticsearch_environment`              | []                                     | Array  | Environment                            |
 
 ### Example
 
 ```yaml
 - hosts: all
   vars:
+    manala_elasticsearch_environment:
+      - ES_JAVA_OPTS: -Xms1g -Xmx1g # Limit JVM heap size to 1go
     manala_elasticsearch_plugins:
       - name:       head
         repository: mobz/elasticsearch-head

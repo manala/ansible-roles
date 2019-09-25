@@ -1,0 +1,70 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = manala_elasticsearch_environment -%}
+
+################################
+# Elasticsearch
+################################
+
+# Elasticsearch home directory
+{{ macros.config_row(config, 'ES_HOME', '#ES_HOME=/usr/share/elasticsearch', 0, true) }}
+
+# Elasticsearch Java path
+{{ macros.config_row(config, 'JAVA_HOME', '#JAVA_HOME=', 0, true) }}
+
+# Elasticsearch configuration directory
+{{ macros.config_row(config, 'ES_PATH_CONF', '/etc/elasticsearch', 0) }}
+
+# Elasticsearch PID directory
+{{ macros.config_row(config, 'PID_DIR', '#PID_DIR=/var/run/elasticsearch', 0, true) }}
+
+# Additional Java OPTS
+{{ macros.config_row(config, 'ES_JAVA_OPTS', '#ES_JAVA_OPTS=', 0, true) }}
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+{{ macros.config_row(config, 'RESTART_ON_UPGRADE', '#RESTART_ON_UPGRADE=true', 0, true) }}
+
+################################
+# Elasticsearch service
+################################
+
+# SysV init.d
+#
+# The number of seconds to wait before checking if Elasticsearch started successfully as a daemon process
+{{ macros.config_row(config, 'ES_STARTUP_SLEEP_TIME', 5, 0) }}
+
+################################
+# System properties
+################################
+
+# Specifies the maximum file descriptor number that can be opened by this process
+# When using Systemd, this setting is ignored and the LimitNOFILE defined in
+# /usr/lib/systemd/system/elasticsearch.service takes precedence
+{{ macros.config_row(config, 'MAX_OPEN_FILES', '#MAX_OPEN_FILES=65535', 0, true) }}
+
+# The maximum number of bytes of memory that may be locked into RAM
+# Set to "unlimited" if you use the 'bootstrap.memory_lock: true' option
+# in elasticsearch.yml.
+# When using systemd, LimitMEMLOCK must be set in a unit file such as
+# /etc/systemd/system/elasticsearch.service.d/override.conf.
+{{ macros.config_row(config, 'MAX_LOCKED_MEMORY', '#MAX_LOCKED_MEMORY=unlimited', 0, true) }}
+
+# Maximum number of VMA (Virtual Memory Areas) a process can own
+# When using Systemd, this setting is ignored and the 'vm.max_map_count'
+# property is set at boot time in /usr/lib/sysctl.d/elasticsearch.conf
+{{ macros.config_row(config, 'MAX_MAP_COUNT', '#MAX_MAP_COUNT=262144', 0, true) }}
+
+{{ macros.config(config, [
+  'ES_HOME',
+  'JAVA_HOME',
+  'ES_PATH_CONF',
+  'PID_DIR',
+  'ES_JAVA_OPTS',
+  'RESTART_ON_UPGRADE',
+  'ES_USER',
+  'ES_GROUP',
+  'ES_STARTUP_SLEEP_TIME',
+  'MAX_OPEN_FILES',
+  'MAX_LOCKED_MEMORY',
+  'MAX_MAP_COUNT'
+]) -}}
