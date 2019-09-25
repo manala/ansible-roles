@@ -1,17 +1,39 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
+    manala_logrotate_configs_dir: /etc/logrotate.d.test
     manala_logrotate_configs:
       - file: foo
         config:
           - /var/log/foo/*.log:
             - rotate: 17
             - weekly
+      - file: bar
+        state: present
+      - file: baz
+        state: absent
   roles:
     - manala.logrotate
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_logrotate_configs_dir: /etc/logrotate.d.test
+    manala_logrotate_configs:
+      - file: foo
+      - file: bar
+        state: absent
+      - file: baz
+        state: present
+  roles:
+    - manala.logrotate
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

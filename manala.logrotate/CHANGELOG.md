@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Handle configs state (present|absent)
 
-## [1.0.4 - 2019-02-04
+## [1.0.4] - 2019-02-04
 ### Removed
 - Remove too specific "app" configs templates
 
