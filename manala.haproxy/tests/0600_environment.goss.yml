@@ -1,7 +1,0 @@
----
-
-file:
-  /etc/default/haproxy:
-    exists: true
-    contains:
-      - CONFIG="/etc/haproxy/conf.d.test"

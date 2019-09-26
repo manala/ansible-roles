@@ -1,7 +1,7 @@
 ---
 
 file:
-  /etc/default/keepalived:
+  /etc/default/keepalived.test:
     exists: true
     contains:
-      - DAEMON_ARGS="--log-console --log-detail"
+      - "/^DAEMON_ARGS=\"--log-console --log-detail\"$/"

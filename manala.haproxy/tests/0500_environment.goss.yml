@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/default/haproxy.test:
+    exists: true
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
