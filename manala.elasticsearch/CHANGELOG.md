@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- Version 7 base config template
+
 ## [1.0.8] - 2019-09-20
 ### Added
 - Support version 7
