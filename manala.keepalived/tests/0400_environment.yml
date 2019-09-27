@@ -4,6 +4,7 @@
   hosts: debian
   become: true
   vars:
+    manala_keepalived_environment_file: /etc/default/keepalived.test
     manala_keepalived_environment:
       - DAEMON_ARGS: --log-console --log-detail
   pre_tasks:
