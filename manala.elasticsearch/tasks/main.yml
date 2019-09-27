@@ -15,6 +15,11 @@
   tags:
     - manala_elasticsearch
 
+# Environment
+- include: environment.yml
+  tags:
+    - manala_elasticsearch
+
 # Services
 - import_tasks: services.yml
   tags:

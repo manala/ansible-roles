@@ -1,0 +1,23 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy
+  become: true
+  vars:
+    manala_elasticsearch_environment_file: /etc/default/elasticsearch.test
+    manala_elasticsearch_environment:
+      - ES_JAVA_OPTS: -Xms1g -Xmx1g  
+  pre_tasks:
+    - import_tasks: pre_tasks/elasticsearch_6.yml
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release == 'jessie'
+    - apt:
+        name:
+          - openjdk-8-jre-headless
+        install_recommends: false
+  roles:
+    - manala.elasticsearch
+  post_tasks:
+    - import_tasks: post_tasks/pretty_response.yml
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

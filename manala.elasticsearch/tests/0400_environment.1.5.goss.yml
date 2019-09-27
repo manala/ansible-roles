@@ -1,0 +1,7 @@
+---
+
+file:
+  /etc/default/elasticsearch.test:
+    exists: true
+    contains:
+      - "/^ES_JAVA_OPTS=\"-Xms1g -Xmx1g\"$/"
