@@ -3,7 +3,17 @@
 file:
   /etc/logrotate.d.test/foo:
     exists:   true
-    filetype: file
+    contains:
+      - /var/log/foo/*.log {
+  /etc/logrotate.d.test/foo_template:
+    exists: true
+    size: 1
+  /etc/logrotate.d.test/foo_content:
+    exists: true
+    contains:
+      - /var/log/foo/*.log {
+  /etc/logrotate.d.test/foo_template_content:
+    exists: true
     contains:
       - /var/log/foo/*.log {
   /etc/logrotate.d.test/bar:

@@ -11,6 +11,21 @@
           - /var/log/foo/*.log:
             - rotate: 17
             - weekly
+      - file: foo_template
+        template: configs/empty.j2
+      - file: foo_content
+        content: |
+          /var/log/foo/*.log {
+            rotate 17
+            weekly
+          }
+      - file: foo_template_content
+        template: configs/empty.j2
+        content: |
+          /var/log/foo/*.log {
+            rotate 17
+            weekly
+          }
       - file: bar
         state: present
       - file: baz

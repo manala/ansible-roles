@@ -11,7 +11,16 @@
     src:  "{{ item.template|default(manala_logrotate_configs_template|ternary(manala_logrotate_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_logrotate_configs_dir }}/{{ item.file }}"
   with_items: "{{ manala_logrotate_configs }}"
-  when: item.state|default('present') == 'present'
+  when: (item.state|default('present') == 'present')
+        and (item.content is not defined)
+
+- name: configs > Contents
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ manala_logrotate_configs_dir }}/{{ item.file }}"
+  with_items: "{{ manala_logrotate_configs }}"
+  when: (item.state|default('present') == 'present')
+        and (item.content is defined)
 
 - name: configs > Files absents
   file:
