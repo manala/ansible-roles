@@ -1,0 +1,3 @@
+/.cache/
+.env
+*.pyc

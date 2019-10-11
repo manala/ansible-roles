@@ -53,6 +53,8 @@ splits:
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-glusterfs.git
   - prefix: manala.grafana
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-grafana.git
+  - prefix: manala.graylog_sidecar
+    target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-graylog_sidecar.git
   - prefix: manala.haproxy
     target: https://${GITSPLIT_GITHUB_API_TOKEN}@github.com/manala/ansible-role-haproxy.git
   # Deprecated

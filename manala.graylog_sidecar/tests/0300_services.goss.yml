@@ -1,0 +1,6 @@
+---
+
+service:
+  graylog-sidecar:
+    enabled: true
+    running: true

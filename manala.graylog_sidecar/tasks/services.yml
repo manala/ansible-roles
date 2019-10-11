@@ -1,0 +1,16 @@
+---
+
+- name: services > Facts
+  service_facts:
+
+- name: services > Install
+  command: graylog-sidecar -service install
+  when: ("graylog-sidecar" not in ansible_facts.services)
+
+- name: services > Services
+  service:
+    name:    "{{ item }}"
+    state:   started
+    enabled: true
+  with_items:
+    - graylog-sidecar

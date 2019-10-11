@@ -1,0 +1,5 @@
+---
+
+package:
+  graylog-sidecar:
+    installed: true
