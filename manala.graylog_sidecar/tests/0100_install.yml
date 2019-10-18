@@ -1,0 +1,14 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_graylog_sidecar_version: 1.0.2
+    manala_graylog_sidecar_config:
+      server_api_token: foo-bar-baz-bar-foo
+  roles:
+    - manala.graylog_sidecar
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

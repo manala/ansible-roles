@@ -1,0 +1,8 @@
+---
+
+- name: requirements > Version
+  fail:
+     msg: "manala_graylog_sidecar_version is not defined"
+  when:
+    - manala_graylog_sidecar_version == None
+  check_mode: false

@@ -1,0 +1,17 @@
+language: generic
+
+branches:
+  only:
+    - master
+
+services:
+  - docker
+
+script:
+  - gem install chandler -v 0.9.0
+  - chandler push `perl -lne '/^## \[(?!Unreleased)([\w.-]+)\] - [\w-]+$/ && print $1;' CHANGELOG.md | head -1`
+
+notifications:
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications/

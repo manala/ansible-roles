@@ -1,0 +1,8 @@
+---
+
+- name: config > Template
+  template:
+    src:  'default.j2'
+    dest: "{{ manala_graylog_sidecar_config_file }}"
+  notify:
+    - graylog-sidecar restart

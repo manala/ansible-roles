@@ -1,0 +1,6 @@
+---
+
+- name: install > Deb
+  apt:
+    deb: "{{ item }}"
+  with_items: "{{ manala_graylog_sidecar_install_packages }}"
