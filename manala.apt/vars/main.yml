@@ -550,3 +550,4 @@ manala_apt_preferences_patterns:
   }}"
   glusterfs:          glusterfs-*
   newrelic-infra:     newrelic-infra
+  filebeat:           filebeat*
