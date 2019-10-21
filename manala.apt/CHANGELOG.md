@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.40] - 2019-10-21
+### Added
+- Graylog_sidecat key pattern
+
 ## [1.0.39] - 2019-09-20
 ### Added
 - Elasticsearch 7 support
