@@ -1,0 +1,167 @@
+---
+
+- name: Verify
+  hosts: all
+  vars:
+    test_groups:
+      - name: group_1
+      - name: group_2
+      - name: user_5
+      - name: user_6
+      - name: user_7
+      - name: user_8
+    test_users:
+      - name: user_1
+        home: /home/user_1
+        groups: ['group_1']
+      - name: user_2
+        home: /home/user_2
+        groups: ['group_2', 'group_1']
+      - name: user_3
+        home: /home/user_3
+        groups: ['users']
+      - name: user_4
+        home: /home/user_4
+        groups: ['users']
+      - name: user_5
+        home: /home/user_5
+        groups: ['user_5']
+      - name: user_6
+        home: /home/user_6
+        groups: ['user_6']
+      - name: user_7
+        home: /home/user_7
+        groups: ['user_7']
+      - name: user_8
+        home: /home/user_8
+        groups: ['user_8']
+    test_files:
+      - name: /home/user_1/.ssh/authorized_keys
+        state: present
+        user: user_1
+        group: group_1
+        mode: "0600"
+        content:
+          - line: "{{ lookup('file', 'fixtures/keys/user_1.pub') }}"
+            state: present
+          - line: "{{ lookup('file', 'fixtures/keys/user_2.pub') }}"
+            state: absent
+          - line: "{{ lookup('file', 'fixtures/keys/user_3.pub') }}"
+            state: absent
+      - name: /home/user_2/.ssh/authorized_keys
+        state: present
+        user: user_2
+        group: group_2
+        mode: "0600"
+        content:
+          - line: "{{ lookup('file', 'fixtures/keys/user_1.pub') }}"
+            state: present
+          - line: "{{ lookup('file', 'fixtures/keys/user_2.pub') }}"
+            state: present
+          - line: "{{ lookup('file', 'fixtures/keys/user_3.pub') }}"
+            state: absent
+      - name: /home/user_3/.ssh/authorized_keys
+        state: absent
+      - name: /home/user_3/.ssh/authorized_keys2
+        state: present
+        user: user_3
+        group: users
+        mode: "0600"
+        content:
+          - line: "{{ lookup('file', 'fixtures/keys/user_1.pub') }}"
+            state: absent
+          - line: "{{ lookup('file', 'fixtures/keys/user_2.pub') }}"
+            state: present
+          - line: "{{ lookup('file', 'fixtures/keys/user_3.pub') }}"
+            state: present
+      - name: /home/user_4/.ssh/authorized_keys
+        state: absent
+      - name: /home/user_4/.ssh/authorized_keys3
+        state: present
+        user: user_4
+        group: users
+        mode: "0600"
+        content:
+          - line: "{{ lookup('file', 'fixtures/keys/user_1.pub') }}"
+            state: absent
+          - line: "{{ lookup('file', 'fixtures/keys/user_2.pub') }}"
+            state: present
+          - line: "{{ lookup('file', 'fixtures/keys/user_3.pub') }}"
+            state: present
+      - name: /home/user_5/.ssh/authorized_keys
+        state: absent
+      - name: /home/user_6/.ssh/authorized_keys
+        state: present
+        user: user_6
+        group: user_6
+        mode: "0600"
+        content:
+          - line: "{{ lookup('file', 'fixtures/keys/user_1.pub') }}"
+            state: present
+      - name: /home/user_7/.ssh/authorized_keys
+        state: present
+        user: user_7
+        group: user_7
+        mode: "0600"
+        content:
+          - line: "{{ lookup('file', 'fixtures/keys/user_1.pub') }}"
+            state: present
+  tasks:
+
+    - name: Test groups
+      group:
+        name: "{{ item.name }}"
+      check_mode: true
+      loop: "{{ test_groups }}"
+      register: __group
+      failed_when: >
+        __group.state != 'present'
+
+    - name: Test users
+      user:
+        name: "{{ item.name }}"
+      check_mode: true
+      loop: "{{ test_users }}"
+      register: __user
+      failed_when: >
+        (__user.state != 'present') or
+        (__user.home != item.home)
+
+    - name: Test users groups
+      shell: id --groups --name {{ item.name  }} | tr " " "\n"
+      loop: "{{ test_users }}"
+      register: __shell
+      failed_when: >
+        __shell.stdout_lines != item.groups
+
+    - name: Test files
+      stat:
+        path: "{{ item.name }}"
+      loop: "{{ test_files }}"
+      register: __stat
+      failed_when: >
+        (
+          (
+            (not __stat.stat.exists) or
+            (not __stat.stat.isreg) or
+            (__stat.stat.pw_name != item.user) or
+            (__stat.stat.gr_name != item.group) or
+            (__stat.stat.mode != item.mode)
+          ) and (item.state == 'present')
+        ) or (
+          (__stat.stat.exists) and (item.state == 'absent')
+        )
+
+    - name: Test files content
+      lineinfile:
+        path: "{{ item.0.name }}"
+        line: "{{ item.1.line }}"
+      check_mode: true
+      loop: "{{ test_files|subelements('content', skip_missing=True) }}"
+      register: __lineinfile
+      failed_when: >
+        (
+          (__lineinfile is changed) and (item.1.state == 'present')
+        ) or (
+          (__lineinfile is not changed) and (item.1.state == 'absent')
+        )
