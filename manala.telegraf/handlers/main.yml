@@ -1,12 +1,6 @@
 ---
 
 - name: telegraf restart
-  command: "telegraf -config {{ manala_telegraf_config_file }} -config-directory {{ manala_telegraf_configs_dir }} -test"
-  changed_when: true
-  notify:
-    - do telegraf restart
-
-- name: do telegraf restart
   service:
     name:  telegraf
     state: restarted
