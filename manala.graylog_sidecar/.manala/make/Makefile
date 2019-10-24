@@ -44,7 +44,7 @@ MANALA_DOCKER_RUN_OPTIONS = --privileged
 MANALA_DOCKER_VOLUMES     = \
 	$(ROLE_DIR):/etc/ansible/roles/$(ROLE) \
 	$(if $(CACHE_DIR), \
-		$(call if_in,$(DISTRIBUTION_ID),debian ubuntu, \
+		$(call if_in,$(DISTRIBUTION_ID),debian, \
 			$(CACHE_DIR)/$(DISTRIBUTION_ID)/$(DISTRIBUTION_RELEASE)/apt/archives:/var/cache/apt/archives \
 			$(CACHE_DIR)/$(DISTRIBUTION_ID)/$(DISTRIBUTION_RELEASE)/apt/lists:/var/lib/apt/lists \
 		) \
@@ -77,10 +77,6 @@ sh: .fail_if_host_not(local)
 		$(call log_warning,Shell on \"$(DISTRIBUTION)\" is not supported) \
 	)
 
-SH_HELP += $(call if_in,debian.wheezy,$(ROLE_DISTRIBUTIONS),$(call help,sh.debian.wheezy, Open shell on test host - Debian Wheezy))
-sh.debian.wheezy: DISTRIBUTION = debian.wheezy
-sh.debian.wheezy: sh
-
 SH_HELP += $(call if_in,debian.jessie,$(ROLE_DISTRIBUTIONS),$(call help,sh.debian.jessie, Open shell on test host - Debian Jessie))
 sh.debian.jessie: DISTRIBUTION = debian.jessie
 sh.debian.jessie: sh
@@ -92,14 +88,6 @@ sh.debian.stretch: sh
 SH_HELP += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,sh.debian.buster, Open shell on test host - Debian Buster))
 sh.debian.buster: DISTRIBUTION = debian.buster
 sh.debian.buster: sh
-
-SH_HELP += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,sh.centos.7,      Open shell on test host - CentOS 7))
-sh.centos.7: DISTRIBUTION = centos.7
-sh.centos.7: sh
-
-SH_HELP += $(call if_in,ubuntu.xenial,$(ROLE_DISTRIBUTIONS),$(call help,sh.ubuntu.xenial, Open shell on test host - Ubuntu Xenial))
-sh.ubuntu.xenial: DISTRIBUTION = ubuntu.xenial
-sh.ubuntu.xenial: sh
 
 ##########
 # Update #
@@ -120,10 +108,6 @@ update: .fail_if_host_not(local)
 		) \
 	)
 
-UPDATE_HELP += $(call if_in,debian.wheezy,$(ROLE_DISTRIBUTIONS),$(call help,update.debian.wheezy, Update test host - Debian Wheezy))
-update.debian.wheezy: DISTRIBUTIONS = debian.wheezy
-update.debian.wheezy: update
-
 UPDATE_HELP += $(call if_in,debian.jessie,$(ROLE_DISTRIBUTIONS),$(call help,update.debian.jessie, Update test host - Debian Jessie))
 update.debian.jessie: DISTRIBUTIONS = debian.jessie
 update.debian.jessie: update
@@ -135,14 +119,6 @@ update.debian.stretch: update
 UPDATE_HELP += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,update.debian.buster, Update test host - Debian Buster))
 update.debian.buster: DISTRIBUTIONS = debian.buster
 update.debian.buster: update
-
-UPDATE_HELP += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,update.centos.7,      Update test host - CentOS 7))
-update.centos.7: DISTRIBUTIONS = centos.7
-update.centos.7: update
-
-UPDATE_HELP += $(call if_in,ubuntu.xenial,$(ROLE_DISTRIBUTIONS),$(call help,update.ubuntu.xenial, Update test host - Ubuntu Xenial))
-update.ubuntu.xenial: DISTRIBUTIONS = ubuntu.xenial
-update.ubuntu.xenial: update
 
 ########
 # Lint #
@@ -170,10 +146,6 @@ lint@local: .fail_if_host_not(local)
 lint@test: .fail_if_host_not(test)
 	ansible-lint --force-color -v $(ROLE_DIR)
 
-LINT_HELP_LOCAL += $(call if_in,debian.wheezy,$(ROLE_DISTRIBUTIONS),$(call help,lint.debian.wheezy, Lint role - Debian Wheezy))
-lint.debian.wheezy: DISTRIBUTIONS = debian.wheezy
-lint.debian.wheezy: lint@local
-
 LINT_HELP_LOCAL += $(call if_in,debian.jessie,$(ROLE_DISTRIBUTIONS),$(call help,lint.debian.jessie, Lint role - Debian Jessie))
 lint.debian.jessie: DISTRIBUTIONS = debian.jessie
 lint.debian.jessie: lint@local
@@ -185,14 +157,6 @@ lint.debian.stretch: lint@local
 LINT_HELP_LOCAL += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,lint.debian.buster, Lint role - Debian Buster))
 lint.debian.buster: DISTRIBUTIONS = debian.buster
 lint.debian.buster: lint@local
-
-LINT_HELP_LOCAL += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,lint.centos.7,      Lint role - CentOS 7))
-lint.centos.7: DISTRIBUTIONS = centos.7
-lint.centos.7: lint@local
-
-LINT_HELP_LOCAL += $(call if_in,ubuntu.xenial,$(ROLE_DISTRIBUTIONS),$(call help,lint.ubuntu.xenial, Lint role - Ubuntu Xenial))
-lint.ubuntu.xenial: DISTRIBUTIONS = ubuntu.xenial
-lint.ubuntu.xenial: lint@local
 
 ########
 # Test #
@@ -242,10 +206,6 @@ test@test: .fail_if_host_not(test)
 		$$(MAKE) $$(TEST) \
 	)
 
-TEST_HELP_LOCAL += $(call if_in,debian.wheezy,$(ROLE_DISTRIBUTIONS),$(call help,test.debian.wheezy, Test role - Debian Wheezy))
-test.debian.wheezy: DISTRIBUTIONS = debian.wheezy
-test.debian.wheezy: test@local
-
 TEST_HELP_LOCAL += $(call if_in,debian.jessie,$(ROLE_DISTRIBUTIONS),$(call help,test.debian.jessie, Test role - Debian Jessie))
 test.debian.jessie: DISTRIBUTIONS = debian.jessie
 test.debian.jessie: test@local
@@ -257,11 +217,3 @@ test.debian.stretch: test@local
 TEST_HELP_LOCAL += $(call if_in,debian.buster,$(ROLE_DISTRIBUTIONS),$(call help,test.debian.buster, Test role - Debian Buster))
 test.debian.buster: DISTRIBUTIONS = debian.buster
 test.debian.buster: test@local
-
-TEST_HELP_LOCAL += $(call if_in,centos.7,$(ROLE_DISTRIBUTIONS),$(call help,test.centos.7,      Test role - CentOS 7))
-test.centos.7: DISTRIBUTIONS = centos.7
-test.centos.7: test@local
-
-TEST_HELP_LOCAL += $(call if_in,ubuntu.xenial,$(ROLE_DISTRIBUTIONS),$(call help,test.ubuntu.xenial, Test role - Ubuntu Xenial))
-test.ubuntu.xenial: DISTRIBUTIONS = ubuntu.xenial
-test.ubuntu.xenial: test@local
