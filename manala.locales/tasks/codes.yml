@@ -1,6 +1,6 @@
 ---
 
-- name: Debian > codes > Handle
+- name: codes > Handle
   locale_gen:
     name:  "{{ item.code }}"
     state: "{{ item.state }}"

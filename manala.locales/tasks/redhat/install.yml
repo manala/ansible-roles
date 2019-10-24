@@ -1,7 +1,0 @@
----
-
-- name: RedHat > install > Packages
-  yum:
-    name:
-      - glibc-common # Provides "localedef" and "locale" binary
-    update_cache: true

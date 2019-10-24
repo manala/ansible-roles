@@ -14,16 +14,9 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - wheezy
         - jessie
         - stretch
         - buster
-    - name: EL
-      versions:
-        - 7
-    - name: Ubuntu
-      versions:
-        - xenial
   galaxy_tags:
     - system
     - locales

@@ -1,20 +1,12 @@
 ---
 
 - name: "{{ test }}"
-  hosts: all
+  hosts: debian
   become: true
   vars:
     manala_locales_codes:
       - fr_FR.UTF-8
     manala_locales_codes_default: fr_FR.UTF-8
-  pre_tasks:
-    # RedHat family needs "initscripts" package,
-    # which provides "/etc/profile.d/lang.sh",
-    # to handle properly locale settings
-    - yum:
-        name:
-          - initscripts
-      when: ansible_os_family|lower == 'redhat'
   roles:
     - manala.locales
   post_tasks:
