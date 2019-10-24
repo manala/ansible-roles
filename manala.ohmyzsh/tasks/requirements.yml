@@ -1,13 +1,11 @@
 ---
 
 - name: requirements > Git check
-  command: "git --version"
+  command: "git --version" # noqa 303
   check_mode: false
   failed_when: false
   changed_when: false
   register: __manala_git_check_output
-  tags:
-    - skip_ansible_lint # [ANSIBLE0006] git used in place of git module
 
 - name: requirements > Git check fail
   fail:

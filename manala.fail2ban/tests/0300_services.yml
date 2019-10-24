@@ -6,12 +6,12 @@
   vars:
     manala_fail2ban_config: "{{
       (
-        ansible_distribution_release == 'stretch'
+        ansible_distribution_release in ['wheezy','jessie']
       )|ternary([{
+        'ssh': [{'enabled': false}]
+      }], [{
         'ssh': [{'enabled': false}],
         'sshd': [{'enabled': false}]
-      }], [{
-        'ssh': [{'enabled': false}]
       }])
     }}"
   roles:

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.6] - 2019-10-24
+### Added
+- Debian buster support
+- Nodejs 12 support
+
 ## [1.0.5] - 2018-08-13
 ### Added
 - Nodejs 10 support

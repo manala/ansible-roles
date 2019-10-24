@@ -1,0 +1,7 @@
+---
+
+- name: Pre tasks > Install sysv init script
+  copy:
+    src: pre_tasks/init.d/mongod
+    dest: /etc/init.d/mongod
+    mode: 0755

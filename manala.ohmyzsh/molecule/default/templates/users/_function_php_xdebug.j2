@@ -1,0 +1,31 @@
+manala_php_xdebug () {
+    if [[ $1 == on ]]; then
+        if [ -f /usr/sbin/php5enmod ]; then
+            sudo php5enmod xdebug;
+            sudo service php5-fpm restart;
+        else
+            PHP_VERSION=`php -v | head -n 1 | cut -d ' ' -f 2 | cut -c 1-3`
+            sudo phpenmod -v ${PHP_VERSION} -s ALL xdebug;
+            sudo service php${PHP_VERSION}-fpm restart;
+        fi
+    elif [[ $1 == off ]]; then
+        if [ -f /usr/sbin/php5dismod ]; then
+            sudo php5dismod xdebug;
+            sudo service php5-fpm restart;
+        else
+            PHP_VERSION=`php -v | head -n 1 | cut -d ' ' -f 2 | cut -c 1-3`
+            sudo phpdismod -v ${PHP_VERSION} -s ALL xdebug;
+            sudo service php${PHP_VERSION}-fpm restart;
+        fi
+    else
+        if [[ $(/usr/bin/php -v 2>/dev/null) != *Xdebug* ]]; then
+            echo off
+        else
+            echo on
+        fi
+    fi
+}
+
+echo -e " \e[36m‣\e[0m \e[36mENABLE/DISABLE PHP XDEBUG\e[0m
+    manala_php_xdebug [on|off]
+"

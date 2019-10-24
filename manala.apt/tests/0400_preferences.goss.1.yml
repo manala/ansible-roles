@@ -1,6 +1,37 @@
 ---
 
 file:
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
+  /etc/apt/preferences.d.test/dotdeb:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      *"
+      - "Pin:          origin packages.dotdeb.org"
+      - "Pin-Priority: 200"
+  /etc/apt/preferences.d.test/php:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-*"
+      - "Pin:          origin packages.dotdeb.org"
+      - "Pin-Priority: 300"
+{{ else }}
+  /etc/apt/preferences.d.test/sury_php:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      *"
+      - "Pin:          origin packages.sury.org"
+      - "Pin-Priority: 200"
+  /etc/apt/preferences.d.test/php:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-*"
+      - "Pin:          origin packages.sury.org"
+      - "Pin-Priority: 300"
+{{ end }}
   /etc/apt/preferences.d.test/git:
     exists:   true
     filetype: file
@@ -15,20 +46,6 @@ file:
       - "Package:      libssl1.0.0"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/php:
-    exists:   true
-    filetype: file
-    contains:
-      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-*"
-      - "Pin:          origin packages.dotdeb.org"
-      - "Pin-Priority: 300"
-  /etc/apt/preferences.d.test/dotdeb:
-    exists:   true
-    filetype: file
-    contains:
-      - "Package:      *"
-      - "Pin:          origin packages.dotdeb.org"
-      - "Pin-Priority: 200"
   /etc/apt/preferences.d.test/foo_foo:
     exists:   true
     filetype: file

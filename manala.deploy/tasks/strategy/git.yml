@@ -14,7 +14,7 @@
         update:         true
 
     - name: strategy/git > Get head
-      command: git rev-parse --short HEAD
+      command: git rev-parse --short HEAD # noqa 303
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
       register: __manala_deploy_strategy_git_head_result
@@ -24,6 +24,6 @@
         manala_deploy_strategy_git_head: "{{ __manala_deploy_strategy_git_head_result.stdout }}"
 
     - name: strategy/git > Export repository
-      command: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"
+      command: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"  # noqa 303
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"

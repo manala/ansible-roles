@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.41] - 2019-10-24
+### Added
+- Debian buster support
+- Nodejs 12 support
+- Varnish 6.1 support
+
 ## [1.0.40] - 2019-10-21
 ### Added
 - Graylog_sidecat key pattern

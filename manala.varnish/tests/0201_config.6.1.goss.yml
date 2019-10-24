@@ -1,0 +1,8 @@
+---
+
+file:
+  /etc/default/varnish:
+    exists: true
+    contains:
+      - NFILES=1310723
+      - MEMLOCK=82001

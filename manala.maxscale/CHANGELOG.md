@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.5] - 2019-10-24
+### Added
+- Debian buster support
+- MaxScale 2.3 support for Debian jessie, stretch and buster
+
 ## [1.0.4] - 2018-11-16
 ### Fixed
 - Keep legacy sysvinit services handling in ansible 2.6+

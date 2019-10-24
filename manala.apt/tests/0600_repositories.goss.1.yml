@@ -2,7 +2,7 @@
 
 file:
   # From preferences
-{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "wheezy|jessie" }}
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" }}
   /etc/apt/sources.list.d/archive_debian_org_debian.list:
     exists:   true
     filetype: file
@@ -10,46 +10,70 @@ file:
       - "deb http://archive.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
 {{ else }}
   /etc/apt/sources.list.d/deb_debian_org_debian.list:
-    exists:   true
+    exists: true
     filetype: file
     contains:
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
 {{ end }}
+
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
+
   /etc/apt/sources.list.d/dotdeb.list:
     exists:   true
     filetype: file
     contains:
       - "deb http://packages.dotdeb.org {{ .Env.DISTRIBUTION_RELEASE }} all"
-  # From repositories
-  /etc/apt/sources.list.d/nginx_org_packages_debian.list:
-    exists:   true
-    filetype: file
-    contains:
-      - "deb http://nginx.org/packages/debian/ {{ .Env.DISTRIBUTION_RELEASE }} nginx"
-  /etc/apt/sources.list.d/deb_bearstech_com_debian.list:
-    exists:   true
-    filetype: file
-    contains:
-      - "deb http://deb.bearstech.com/debian {{ .Env.DISTRIBUTION_RELEASE }}-bearstech main"
-  /etc/apt/sources.list.d/apt_postgresql_org_pub_repos_apt.list:
-    exists:   true
-    filetype: file
-    contains:
-      - "deb http://apt.postgresql.org/pub/repos/apt/ {{ .Env.DISTRIBUTION_RELEASE }}-pgdg main"
-  /etc/apt/sources.list.d/packages_grafana_com_oss_deb.list:
-    exists:   true
-    filetype: file
-    contains:
-      - "deb https://packages.grafana.com/oss/deb stable main"
+
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_15_debian.list:
     exists:   true
     filetype: file
     contains:
       - "deb https://downloads.mariadb.com/MaxScale/2.1.15/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_16_debian.list:
     exists:   true
     filetype: file
     contains:
       - "deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+{{ else }}
+
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_3_debian.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.3/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_3_10_debian.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.3.10/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+
+{{ end }}
+
+  /etc/apt/sources.list.d/nginx_org_packages_debian.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb http://nginx.org/packages/debian/ {{ .Env.DISTRIBUTION_RELEASE }} nginx"
+
+  /etc/apt/sources.list.d/dl_yarnpkg_com_debian.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb https://dl.yarnpkg.com/debian/ stable main"
+
+  /etc/apt/sources.list.d/apt_postgresql_org_pub_repos_apt.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb http://apt.postgresql.org/pub/repos/apt/ {{ .Env.DISTRIBUTION_RELEASE }}-pgdg main"
+
+  /etc/apt/sources.list.d/packages_grafana_com_oss_deb.list:
+    exists:   true
+    filetype: file
+    contains:
+      - "deb https://packages.grafana.com/oss/deb stable main"
+
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_17_debian.list:
     exists: false

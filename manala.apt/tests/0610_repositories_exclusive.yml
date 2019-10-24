@@ -5,11 +5,11 @@
   become: true
   vars:
     manala_apt_repositories:
-      - source: deb https://downloads.mariadb.com/MaxScale/2.1.15/debian {{ ansible_distribution_release }} main
+      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('2.1.15', '2.3') }}/debian {{ ansible_distribution_release }} main
         key: maxscale
-      - source: deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ ansible_distribution_release }} main
+      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('2.1.16', '2.3.10') }}/debian {{ ansible_distribution_release }} main
         key: maxscale
-      - source: deb https://downloads.mariadb.com/MaxScale/2.1.17/debian {{ ansible_distribution_release }} main
+      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('2.1.17', '2.3.11') }}/debian {{ ansible_distribution_release }} main
         key: maxscale
   roles:
     - manala.apt
@@ -20,7 +20,7 @@
   vars:
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
-      - source: deb https://downloads.mariadb.com/MaxScale/2.1.16/debian {{ ansible_distribution_release }} main
+      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('2.1.16', '2.3.10') }}/debian {{ ansible_distribution_release }} main
         key: maxscale
   roles:
     - manala.apt

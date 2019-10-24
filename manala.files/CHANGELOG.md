@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.7] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.6] - 2019-08-29
 ### Added
 - Handle states for `copy`, `content` and `template`

@@ -1,7 +1,0 @@
----
-
-file:
-  /etc/varnish/foo.vcl:
-    exists: true
-    contains:
-      - ""# Foo bar"

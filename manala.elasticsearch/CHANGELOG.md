@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.10] - 2019-10-24
+### Added
+- Debian buster support
+- Support version 7
+
 ## [1.0.9] - 2019-09-27
 ### Added
 - Handle environment file

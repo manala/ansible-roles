@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2019-10-24
+### Added
+- Debian buster support
+- Remove requirements task
+
 ## [1.0.3] - 2018-06-05
 ### Added
 - Handle dependency packages to install

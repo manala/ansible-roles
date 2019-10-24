@@ -1,0 +1,9 @@
+---
+
+- name: Prepare
+  hosts: all
+  vars:
+    manala_apt_preferences:
+      - grafana@grafana
+  roles:
+    - manala.apt

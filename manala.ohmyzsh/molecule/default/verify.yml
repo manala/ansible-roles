@@ -1,0 +1,51 @@
+---
+
+- name: Verify
+  hosts: all
+  vars:
+    themes:
+      - /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme
+      - /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme
+      - /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme
+      - /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme
+  tasks:
+    - name: Gather install infos
+      stat:
+        path: /usr/local/share/oh-my-zsh
+      register: __stat
+
+    - name: Verify install
+      assert:
+        that:
+          - __stat.stat.exists
+          - __stat.stat.isdir
+          - >
+            __stat.stat.gr_name == (ansible_distribution_release in
+              ['jessie', 'stretch'])|ternary('staff', 'root')
+          - >
+            __stat.stat.mode == (ansible_distribution_release in
+              ['jessie', 'stretch'])|ternary('2755', '0755')
+
+    - name: Gather themes infos
+      stat:
+        path: "{{ item }}"
+      register: __stat
+      loop: "{{ themes }}"
+      #   - /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme
+      #   - /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme
+      #   - /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme
+      #   - /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme
+
+    # - debug:
+    #     var: __stat
+    - name: Verify themes
+      assert:
+        that:
+          - item.stat.isreg
+          - item.stat.pw_name == "root"
+          - item.stat.gr_name == "root"
+          - item.stat.mode == "0644"
+        quiet: true
+        success_msg: all assertions succeded
+      loop: "{{ __stat.results }}"
+

@@ -1,7 +1,9 @@
 ---
 
 - name: "{{ test }}.1"
-  hosts: debian:!debian.wheezy
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d.test"
@@ -28,7 +30,9 @@
       command: goss --gossfile {{ test }}.goss.1.yml validate
 
 - name: "{{ test }}.2"
-  hosts: debian:!debian.wheezy
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d.test"

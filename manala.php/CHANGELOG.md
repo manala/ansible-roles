@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.14] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.13] - 2019-01-25
 ### Added
 - Add Drush support as PHP application

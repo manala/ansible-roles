@@ -1,0 +1,11 @@
+---
+
+- name: Prepare
+  hosts: all
+  pre_tasks:
+    - apt:
+        name:
+          - git
+          - zsh
+        install_recommends: false
+        update_cache: true

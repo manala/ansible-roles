@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.5] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.4] - 2019-03-19
 ### Added
 - Allow to split configuration files

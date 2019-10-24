@@ -13,101 +13,90 @@ env:
 
 jobs:
   include:
-    - stage: lint & test
+    - &lint-test
+      stage: lint & test
       script: make lint.diff && make test.diff
       env:
-        - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=1/3
+        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=1/4
       if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=2/3
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=2/4
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=3/3
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=3/4
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=1/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=4/4
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=2/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=1/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=3/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=2/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=4/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=3/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=5/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=4/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=6/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=5/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=7/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=6/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=1/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=7/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=2/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=1/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=3/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=2/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=4/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=3/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=5/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=4/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=6/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=5/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=7/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=6/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=centos.7  ANSIBLE_VERSION=2.6.5 PART=1/1
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
+        - DISTRIBUTIONS=debian.stretch ANSIBLE_VERSION=2.6.5 PART=7/7
+    - <<: *lint-test
       env:
-        - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.6.5 PART=1/1
-      if: type = pull_request
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=1/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=2/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=3/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=4/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=5/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=6/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=7/7
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=centos.7 ANSIBLE_VERSION=2.6.5 PART=1/1
+    - <<: *lint-test
+      env:
+        - DISTRIBUTIONS=ubuntu.xenial ANSIBLE_VERSION=2.6.5 PART=1/1
     - stage: gitsplit
       script:
         - git config remote.origin.fetch "+refs/*:refs/*"
@@ -119,4 +108,3 @@ jobs:
 notifications:
   slack:
     secure: eLmB7407GORDp/9w55mwWm6slUHDdd6zamFOvfUBzu0EE2D3hnMnL6rebjQy+TXy5J0MAHokpMoldHCgfrOnr9Nj8orntGVDV8waIyMekEV55dbPFspW/skDE9Hq2d+NL1U5sDg57P4QzrKJ12msvFyed4wih+YFvhAUX419VKYzjQsj+XMqnsem0oOktpNoKENrOQM6GmNZSGG+Kjgg1XfybRNvEUN6mkBnbJH+SZCM0h/rNnluJItLjXiGG4ExZoKRdSOgb9ugjSSkTOu/x2tgdroKbtZhlYAbEuYCRugPfK/wCWmn6RfLfGjwDvbII7HHbjQ05vYe6BpbIERJhv5uSIg9YCJrunasEBHDG0C3wNWoEdeTwEE8YdFFbX2PiI21TT8FBD3ketLntgPOycya+Il2jBc51I1dQ7aA11E433YtCQyQVpV0Mywhy3Ra6t5nnOjyfG0DGwIrl5YqUgwah44dh96go9X2k75nLguD5q4bXE36th36x6VXp/4SBQg/15EWJhV1cRA+ypuIXV5Tiyvi9cxHmkdW8APSBUWo1ow3O3Q35gF4OYJvwc0ndqf81OfmWEAjeazIJTdO8xqxr+0dtP4WZ/lv+a+T9xwVqhAje+c4AYS8l5Yr887RjCzZtpW1NJGzH35Zu6BtB4Yh4gdoBJiGrN/gC/tK/Wg=
-

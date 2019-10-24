@@ -15,6 +15,7 @@ galaxy_info:
         - wheezy
         - jessie
         - stretch
+        - buster
   galaxy_tags:
     - skeleton
 
@@ -73,7 +74,9 @@ dependencies:
 
   # Oh my zsh
   - role: manala.ohmyzsh
-    when: manala_skeleton_options.ohmyzsh and manala_skeleton_options.zsh and manala_skeleton_options.git
+    when: manala_skeleton_options.ohmyzsh
+          and manala_skeleton_options.zsh
+          and manala_skeleton_options.git
 
   # Vim
   - role: manala.vim
@@ -99,15 +102,18 @@ dependencies:
   - role: manala.nodejs
     when: manala_skeleton_options.nodejs
   - role: manala.npm
-    when: manala_skeleton_options.npm and manala_skeleton_options.nodejs
+    when: manala_skeleton_options.npm
+          and manala_skeleton_options.nodejs
   - role: manala.yarn
-    when: manala_skeleton_options.yarn and manala_skeleton_options.nodejs
+    when: manala_skeleton_options.yarn
+          and manala_skeleton_options.nodejs
 
   # Php
   - role: manala.php
     when: manala_skeleton_options.php
   - role: manala.composer
-    when: manala_skeleton_options.composer and manala_skeleton_options.php
+    when: manala_skeleton_options.composer
+          and manala_skeleton_options.php
 
   # Nginx
   - role: manala.nginx
@@ -131,7 +137,8 @@ dependencies:
 
   # Java
   - role: manala.java
-    when: manala_skeleton_options.java or manala_skeleton_options.elasticsearch
+    when: manala_skeleton_options.java
+          or manala_skeleton_options.elasticsearch
 
   # Cron
   - role: manala.cron
@@ -139,31 +146,45 @@ dependencies:
 
   # OPcache Dashboard
   - role: manala.opcache_dashboard
-    when: manala_skeleton_options.opcache_dashboard and manala_skeleton_options.php and manala_skeleton_options.nginx
+    when: manala_skeleton_options.opcache_dashboard
+          and manala_skeleton_options.php
+          and manala_skeleton_options.nginx
 
   # MySql
   - role: manala.mysql
-    when: (manala_skeleton_options.mysql or manala_skeleton_options.mariadb)
+    when: (manala_skeleton_options.mysql
+          or manala_skeleton_options.mariadb)
   - role: manala.phpmyadmin
-    when: manala_skeleton_options.phpmyadmin and (manala_skeleton_options.mysql or manala_skeleton_options.mariadb) and manala_skeleton_options.php and manala_skeleton_options.nginx
+    when: manala_skeleton_options.phpmyadmin
+          and (manala_skeleton_options.mysql or manala_skeleton_options.mariadb)
+          and manala_skeleton_options.php
+          and manala_skeleton_options.nginx
 
   # PostgreSQL
   - role: manala.postgresql
     when: manala_skeleton_options.postgresql
   - role: manala.phppgadmin
-    when: manala_skeleton_options.phppgadmin and manala_skeleton_options.postgresql and manala_skeleton_options.php and manala_skeleton_options.nginx
+    when: manala_skeleton_options.phppgadmin
+          and manala_skeleton_options.postgresql
+          and manala_skeleton_options.php
+          and manala_skeleton_options.nginx
 
   # Redis
   - role: manala.redis
     when: manala_skeleton_options.redis
   - role: manala.phpredisadmin
-    when: manala_skeleton_options.phpredisadmin and manala_skeleton_options.redis and manala_skeleton_options.php and manala_skeleton_options.nginx
+    when: manala_skeleton_options.phpredisadmin
+          and manala_skeleton_options.redis
+          and manala_skeleton_options.php
+          and manala_skeleton_options.nginx
 
   # MongoDB
   - role: manala.mongodb
     when: manala_skeleton_options.mongodb
   - role: manala.mongo_express
-    when: manala_skeleton_options.mongo_express and manala_skeleton_options.mongodb and manala_skeleton_options.nodejs
+    when: manala_skeleton_options.mongo_express
+          and manala_skeleton_options.mongodb
+          and manala_skeleton_options.nodejs
 
   # Elasticsearch
   - role: manala.elasticsearch

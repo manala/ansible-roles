@@ -1,0 +1,35 @@
+---
+
+- name: Prepare
+  hosts: all
+  pre_tasks:
+    - file:
+        path:  /home/foo
+        state: directory
+    - file:
+        path:  /home/vol
+        state: directory
+    - file:
+        path:  /home/vol2
+        state: directory
+    - file:
+        path:  /home/vol3
+        state: directory
+  vars:
+    manala_apt_preferences:
+      - glusterfs@glusterfs_6_1
+    manala_glusterfs_volumes:
+      - name: foo
+        state: present
+        bricks: /home/foo
+        cluster:
+          - "{{ ansible_fqdn }}"
+        force: true
+      - name: volume_test
+        cluster:
+          - "{{ ansible_fqdn }}"
+        bricks: /home/vol
+        force: true
+  roles:
+    - manala.apt
+    - manala.glusterfs

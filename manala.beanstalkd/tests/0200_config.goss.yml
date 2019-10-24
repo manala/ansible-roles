@@ -1,7 +1,7 @@
 ---
 
 file:
-  /etc/default/beanstalkd:
+  /etc/default/beanstalkd.test:
     exists: true
     contains:
       - BEANSTALKD_LISTEN_PORT=12345

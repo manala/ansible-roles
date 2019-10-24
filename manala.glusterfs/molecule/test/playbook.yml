@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_glusterfs_volumes:
+      - name: foo
+        state: absent
+
+      - name: volume_test
+        bricks:  /home/vol2,/home/vol3
+        cluster:
+          - "{{ ansible_fqdn }}"
+        force: true
+  roles:
+    - manala.glusterfs

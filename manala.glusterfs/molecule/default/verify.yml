@@ -1,0 +1,27 @@
+---
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Volume foo must be absent
+      command: gluster volume info foo
+      changed_when: false
+      register: __command
+      failed_when: "'Volume foo does not exist' not in __command.stderr"
+
+    - name: Register volume_test info
+      command: gluster volume info
+      changed_when: false
+      register: __command
+
+    - name: Verify volume_test info
+      assert:
+        that:
+            - "'Volume Name: volume_test' in __command.stdout"
+            - "'Status: Started' in __command.stdout"
+            - "'Bricks:' in __command.stdout"
+            - "'Brick1: {{ ansible_fqdn }}:/home/vol' in __command.stdout"
+            - "'storage.owner-uid: 1337' in __command.stdout"
+            - "'storage.owner-gid: 1337' in __command.stdout"
+            - "'nfs.disable: off' in __command.stdout"
+        quiet: true

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.10] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.9] - 2019-07-16
 ### Changed
 - Update config template for 1.7.6

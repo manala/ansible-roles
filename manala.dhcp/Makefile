@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.dhcp
-ROLE_DISTRIBUTIONS = debian.stretch
+ROLE_DISTRIBUTIONS = debian.stretch debian.buster

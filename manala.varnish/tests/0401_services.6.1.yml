@@ -1,0 +1,13 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy:!debian.jessie
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/varnish_6_1.yml
+      when: ansible_distribution_release not in ['buster'] # 2019-10-24 Varnish buster packages are still not available...
+  roles:
+    - manala.varnish
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

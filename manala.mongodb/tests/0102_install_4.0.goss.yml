@@ -1,0 +1,11 @@
+---
+
+package:
+  mongodb-org:
+    installed: true
+  mongodb-org-server:
+    installed: true
+  mongodb-org-shell:
+    installed: true
+  mongodb-org-tools:
+    installed: true

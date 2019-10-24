@@ -1,0 +1,9 @@
+manala_nginx_timeout () {
+    if [[ $1 == off ]]; then sudo sed -ri 's/fastcgi_read_timeout (.*);$/fastcgi_read_timeout 999s;#origin\1/' /etc/nginx/conf.d/app_php_fpm
+    else sudo sed -ri 's/^fastcgi_read_timeout 999s;#origin(.*)/fastcgi_read_timeout \1;/' /etc/nginx/conf.d/app_php_fpm; fi
+    sudo /etc/init.d/nginx restart
+}
+
+echo -e " \e[36m‣\e[0m \e[36mENABLE/DISABLE NGINX TIMEOUT\e[0m
+    manala_nginx_timeout [on|off]
+"

@@ -7,7 +7,10 @@
   with_items: "{{ manala_deploy_copied }}"
 
 - name: copied > Copy
-  command: "cp -R {{ deploy_helper.previous_release_path ~ '/' ~ item.1 ~ (__manala_deploy_copied_stats_output.results[item.0].stat.isdir|ternary('/', '')) }} {{ deploy_helper.new_release_path ~ '/' ~ item.1 }}"
+  command: >
+    cp -R
+    {{ deploy_helper.previous_release_path ~ '/' ~ item.1 ~ (__manala_deploy_copied_stats_output.results[item.0].stat.isdir|ternary('/', '')) }}
+    {{ deploy_helper.new_release_path ~ '/' ~ item.1 }}
   delegate_to: "{{ inventory_hostname }}"
   with_indexed_items: "{{ manala_deploy_copied }}"
   when: __manala_deploy_copied_stats_output.results[item.0].stat.exists

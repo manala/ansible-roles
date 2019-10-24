@@ -1,0 +1,24 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.wheezy
+  become: true
+  vars:
+    manala_mysql_install_packages:
+      - mariadb-server
+      - mariadb-client
+    manala_mysql_config:
+      - mysqld:
+        - datadir: /tmp/datadir
+    manala_mysql_data_dir: /tmp/datadir
+    manala_mysql_data_dir_user: mysql
+    manala_mysql_data_dir_group: mysql
+    manala_mysql_data_dir_mode: '0750'
+    manala_mysql_data_dir_initialize: true
+  pre_tasks:
+    - import_tasks: pre_tasks/mariadb_10.3.yml
+  roles:
+    - manala.mysql
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

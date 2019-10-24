@@ -1,0 +1,15 @@
+---
+
+file:
+  /etc/maxscale.cnf:
+    exists:   true
+    filetype: file
+    contains:
+      - "[maxscale]"
+      - threads = auto
+      - "[Splitter Service]"
+      - type = service
+      - router = readwritesplit
+      - servers = mariadb-1, mariadb-2, mariadb-3
+      - user = maxscale
+      - passwd = XXXXXXXXXXXX

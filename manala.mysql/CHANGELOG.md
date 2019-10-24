@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.8] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.7] - 2019-07-11
 ### Added
 - Supports `/etc/my.cnf` configuration with `manala_mysql_config`

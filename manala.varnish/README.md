@@ -43,6 +43,7 @@ Role Variables
 
 | Name                                      | Default                | Type    | Description                                  |
 | ----------------------------------------- | ---------------------- | ------- | -------------------------------------------- |
+| `manala_varnish_version`                  | ~                      | String  | Version (autodetect if null)                 |
 | `manala_varnish_install_packages`         | ~                      | String  | Dependency packages to install               |
 | `manala_varnish_install_packages_default` | ['varnish']            | String  | Default dependency packages to install       |
 | `manala_varnish_config_file`              | '/etc/default/varnish' | String  | Main configuration file path                 |

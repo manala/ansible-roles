@@ -27,7 +27,7 @@
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: tasks/install_composer > Self update
-      shell: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
+      command: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
       when: __manala_deploy_composer_bin_stat_result.stat.exists
       register: __manala_deploy_composer_self_update_result
       changed_when: __manala_deploy_composer_self_update_result.stderr | search('Updating')

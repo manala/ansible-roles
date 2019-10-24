@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.8] - 2019-10-24
+### Added
+- Debian buster support
+
+## [1.0.7] - 2019-10-23
+### Changed
+- Remove check config before service restart
+
 ## [1.0.6] - 2019-06-18
 ### Fixed
 - Telegraf 1.11 config template

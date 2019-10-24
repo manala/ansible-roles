@@ -1,0 +1,15 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.wheezy
+    - debian.jessie
+    - debian.stretch
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/varnish_4_0.yml
+  roles:
+    - manala.varnish
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

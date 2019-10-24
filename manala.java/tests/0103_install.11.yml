@@ -1,0 +1,12 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian.buster
+  become: true
+  vars:
+    manala_java_version: 11
+  roles:
+    - manala.java
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

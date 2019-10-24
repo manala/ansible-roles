@@ -14,7 +14,7 @@
       changed_when: false
     - name: install > Version
       set_fact:
-        manala_redis_version: "{{ (__manala_redis_version.stdout == '')|ternary('3.0', __manala_redis_version.stdout) }}"
+        manala_redis_version: "{{ (not __manala_redis_version.stdout)|ternary('3.0', __manala_redis_version.stdout) }}"
       changed_when: false
   when: manala_redis_version is none
   check_mode: false

@@ -2,7 +2,12 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_beanstalkd_config_template|ternary(manala_beanstalkd_config_template, 'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
+    src: "{{
+      manala_beanstalkd_config_template|ternary(
+        manala_beanstalkd_config_template,
+        'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
+      )
+    }}"
     dest: "{{ manala_beanstalkd_config_file }}"
   when: (manala_beanstalkd_config_template is not none) or (manala_beanstalkd_config|length)
   notify:

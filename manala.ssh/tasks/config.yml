@@ -2,13 +2,23 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_ssh_config_template|ternary(manala_ssh_config_template, 'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
+    src: "{{
+      manala_ssh_config_template|ternary(
+        manala_ssh_config_template,
+        'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
+      )
+    }}"
     dest: "{{ manala_ssh_config_file }}"
   when: (manala_ssh_config_template is not none) or (manala_ssh_config|length)
 
 - name: config > Template sshd
   template:
-    src:  "{{ manala_ssh_config_sshd_template|ternary(manala_ssh_config_sshd_template, 'config/sshd/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2') }}"
+    src: "{{
+      manala_ssh_config_sshd_template|ternary(
+        manala_ssh_config_sshd_template,
+        'config/sshd/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
+      )
+    }}"
     dest: "{{ manala_ssh_config_sshd_file }}"
   when: (manala_ssh_config_sshd_template is not none) or (manala_ssh_config_sshd|length)
   notify:

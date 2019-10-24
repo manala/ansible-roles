@@ -8,3 +8,11 @@
 - name: Pre tasks > Varnish 4.0 apt repository
   apt_repository:
     repo: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+
+- name: Pre tasks > Varnish 4.0 apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/varnish
+    content: |
+      Package:      varnish*
+      Pin:          origin packagecloud.io
+      Pin-Priority: 900

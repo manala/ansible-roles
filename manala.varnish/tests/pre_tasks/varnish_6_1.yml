@@ -1,0 +1,18 @@
+---
+
+- name: Pre tasks > Varnish 6.1 apt key
+  apt_key:
+    file: pre_tasks/apt_keys/varnish_6_1.pgp
+    id: 742D76CC
+
+- name: Pre tasks > Varnish 6.1 apt repository
+  apt_repository:
+    repo: deb https://packagecloud.io/varnishcache/varnish61/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+
+- name: Pre tasks > Varnish 6.1 apt preferences
+  copy:
+    dest: /etc/apt/preferences.d/varnish
+    content: |
+      Package:      varnish*
+      Pin:          origin packagecloud.io
+      Pin-Priority: 900

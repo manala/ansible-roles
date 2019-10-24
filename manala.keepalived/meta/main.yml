@@ -14,9 +14,9 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - wheezy
         - jessie
         - stretch
+        - buster
   galaxy_tags:
     - system
     - network

@@ -8,6 +8,9 @@ command:
   dpkg -s supervisor:
     exit-status: 0
     stdout:
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" }}
       - "/^Version: [\\d\\.-]+manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
-  supervisord --version:
-    exit-status: 0
+{{ else }}
+      - "Version:"
+{{ end }}
+

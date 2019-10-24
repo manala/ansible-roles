@@ -1,7 +1,9 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
   vars:
     manala_java_version: 8

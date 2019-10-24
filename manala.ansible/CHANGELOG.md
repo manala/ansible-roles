@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.7] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.6] - 2018-11-15
 ### Changed
 - Update base config template for ansible 2.6.5

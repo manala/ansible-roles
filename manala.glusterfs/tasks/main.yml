@@ -14,4 +14,3 @@
 - import_tasks: volumes.yml
   tags:
     - manala_glusterfs
-

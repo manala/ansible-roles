@@ -1,0 +1,47 @@
+---
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Verify package installation
+      command: dpkg -s grafana
+      changed_when: false
+      register: __command
+      failed_when: __command.rc != 0
+
+    - name: Verify role configuration
+      lineinfile:
+        path: /etc/grafana/grafana.ini
+        line: "{{ item }}"
+      check_mode: true
+      register: __lineinfile
+      failed_when: __lineinfile.changed
+      with_items:
+            - "http_port = 3002"
+
+    - name: Verify service
+      service_facts:
+      changed_when: false
+      failed_when: "'grafana-server.service' not in ansible_facts.services"
+
+    - name: Verify datasource
+      uri:
+        url:  http://admin:admin@127.0.0.1:3002/api/datasources
+        method: GET
+        force_basic_auth: true
+        return_content: true
+      register: __uri
+      failed_when:
+        - ( 'datasource_test' not in __uri.content )
+        - ( __uri.status != 200 )
+
+    - name: Verify dashboards
+      uri:
+        url:  http://admin:admin@127.0.0.1:3002/api/search
+        method: GET
+        force_basic_auth: true
+        return_content: true
+      register: __uri
+      failed_when:
+        - ( 'dashboard_test' not in __uri.content )
+        - ( __uri.status != 200 )

@@ -1,0 +1,38 @@
+---
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Verify package installation
+      command: dpkg -s graylog-sidecar
+      changed_when: false
+      register: __command
+      failed_when: __command.rc != 0
+
+    - name: Verify role configuration
+      lineinfile:
+        path: /etc/graylog/sidecar/sidecar.yml
+        line: "{{ item }}"
+      check_mode: true
+      register: __lineinfile
+      failed_when: __lineinfile.changed
+      with_items:
+            - "node_name: foo.bar.baz.hostname"
+            - "server_url: http://foo.bar:9000/api"
+            - "server_api_token: foo-bar-baz-bar-foo"
+
+    - name: Verify service
+      service_facts:
+      changed_when: false
+      failed_when: "'graylog-sidecar.service' not in ansible_facts.services"
+
+
+
+#####################################################################################
+### Not possible in ansible 2.8 (previous and next seems to work)                 ###
+### https://github.com/ansible/ansible/issues/56921                               ###
+###                                                                               ###
+###    # - name: Verify package installation                                      ###
+###    #   package_facts:                                                         ###
+###    #   failed_when: "'graylog-sidecar.service' not in ansible_facts.packages" ###
+#####################################################################################

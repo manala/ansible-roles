@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.7] - 2019-10-24
+### Added
+- Debian buster support
+
 ## [1.0.6] - 2019-09-11
 ### Added
 - Allow to configure interfaces with multiple config files (/etc/network/interfaces.d)

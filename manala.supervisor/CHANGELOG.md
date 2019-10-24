@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.7] - 2019-10-24
+### Added
+- Debian buster support
+
+### Changed
+- Debian Stretch now using debian-backports instead of Manala package
+
 ## [1.0.6] - 2019-09-25
 ### Changed
 - Update configs templates based on version 3.3.5 (mainly comments)
