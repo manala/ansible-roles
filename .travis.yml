@@ -16,19 +16,7 @@ jobs:
     - &lint-test
       stage: lint & test
       script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=1/4
       if: type = pull_request
-    - <<: *lint-test
-      env:
-        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=2/4
-    - <<: *lint-test
-      env:
-        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=3/4
-    - <<: *lint-test
-      env:
-        - DISTRIBUTIONS=debian.wheezy ANSIBLE_VERSION=2.6.5 PART=4/4
-    - <<: *lint-test
       env:
         - DISTRIBUTIONS=debian.jessie ANSIBLE_VERSION=2.6.5 PART=1/7
     - <<: *lint-test
@@ -91,12 +79,6 @@ jobs:
     - <<: *lint-test
       env:
         - DISTRIBUTIONS=debian.buster ANSIBLE_VERSION=2.6.5 PART=7/7
-    - <<: *lint-test
-      env:
-        - DISTRIBUTIONS=centos.7 ANSIBLE_VERSION=2.6.5 PART=1/1
-    - <<: *lint-test
-      env:
-        - DISTRIBUTIONS=ubuntu.xenial ANSIBLE_VERSION=2.6.5 PART=1/1
     - stage: gitsplit
       script:
         - git config remote.origin.fetch "+refs/*:refs/*"
