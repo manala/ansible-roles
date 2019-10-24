@@ -1,0 +1,13 @@
+---
+
+- name: Prepare
+  hosts: all
+  vars:
+    manala_apt_preferences:
+      - glusterfs@glusterfs_6_1
+  roles:
+    - manala.apt
+  tasks:
+    - file:
+        path:  /home/vol
+        state: directory
