@@ -1,120 +1,133 @@
-language: generic
-
+---
+sudo: required
+language: python
 services:
   - docker
+before_install:
+  - sudo apt-get -qq update
+install:
+  - pip install molecule
+  # - pip install required driver (e.g. docker, shade, boto, apache-libcloud)
+script:
+  - molecule test
 
-branches:
-  only:
-    - master
+# language: generic
 
-env:
-  global:
-    - VERBOSE=1
+# services:
+#   - docker
 
-jobs:
-  include:
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=1/3
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=2/3
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=3/3
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=1/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=2/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=3/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=4/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=5/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=6/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=7/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=1/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=2/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=3/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=4/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=5/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=6/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=7/7
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=centos.7  ANSIBLE_VERSION=2.6.5 PART=1/1
-      if: type = pull_request
-    - stage: lint & test
-      script: make lint.diff && make test.diff
-      env:
-        - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.6.5 PART=1/1
-      if: type = pull_request
-    - stage: gitsplit
-      script:
-        - git config remote.origin.fetch "+refs/*:refs/*"
-        - git config remote.origin.mirror true
-        - git fetch --prune --unshallow || git fetch --prune
-        - make split CONFIRM=1
-      if: branch = master AND type = push
+# branches:
+#   only:
+#     - master
+
+# env:
+#   global:
+#     - VERBOSE=1
+
+# jobs:
+#   include:
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=1/3
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=2/3
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.wheezy  ANSIBLE_VERSION=2.6.5 PART=3/3
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=1/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=2/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=3/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=4/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=5/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=6/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.jessie  ANSIBLE_VERSION=2.6.5 PART=7/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=1/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=2/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=3/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=4/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=5/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=6/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=debian.stretch  ANSIBLE_VERSION=2.6.5 PART=7/7
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=centos.7  ANSIBLE_VERSION=2.6.5 PART=1/1
+#       if: type = pull_request
+#     - stage: lint & test
+#       script: make lint.diff && make test.diff
+#       env:
+#         - DISTRIBUTIONS=ubuntu.xenial  ANSIBLE_VERSION=2.6.5 PART=1/1
+#       if: type = pull_request
+#     - stage: gitsplit
+#       script:
+#         - git config remote.origin.fetch "+refs/*:refs/*"
+#         - git config remote.origin.mirror true
+#         - git fetch --prune --unshallow || git fetch --prune
+#         - make split CONFIRM=1
+#       if: branch = master AND type = push
 
 notifications:
   slack:
