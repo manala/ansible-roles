@@ -19,4 +19,4 @@ galaxy_info:
         - buster
   galaxy_tags:
     - system
-    - graylog_sidecar
+    - graylog
