@@ -6,7 +6,7 @@
   vars:
     manala_fail2ban_config: "{{
       (
-        ansible_distribution_release in ['wheezy','jessie']
+        ansible_distribution_release in ['jessie']
       )|ternary([{
         'ssh': [{'enabled': false}]
       }], [{
