@@ -19,7 +19,7 @@
   when: not __manala_composer_bin_stat_result.stat.exists
 
 - name: install > Install
-  command: "php /tmp/installer --install-dir=\"{{ manala_composer_bin|dirname }}\" --filename=\"{{ manala_composer_bin|basename }}\""
+  command: "php /tmp/installer --install-dir=\"{{ manala_composer_bin|dirname }}\" --filename=\"{{ manala_composer_bin|basename }}\"{{ (manala_composer_version is none)|ternary('', ' --version=' + manala_composer_version|default('', true)) }}"
   when: not __manala_composer_bin_stat_result.stat.exists
 
 - name: install > Remove installer

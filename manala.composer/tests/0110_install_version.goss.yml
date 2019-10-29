@@ -1,0 +1,14 @@
+---
+
+file:
+  /usr/local/bin/composer:
+    exists:   true
+    mode:     "0755"
+    owner:    root
+    filetype: file
+
+command:
+  composer --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1.8.0

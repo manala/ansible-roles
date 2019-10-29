@@ -42,6 +42,7 @@ None.
 | ------------------------------------------ | ------------------------------ | ------ | -------------------------------------- |
 | `manala_composer_install_packages`         | ~                              | Array  | Dependency packages to install         |
 | `manala_composer_install_packages_default` | ['openssl', 'ca-certificates'] | Array  | Default dependency packages to install |
+| `manala_composer_version`                  | ~                              | String | Version to install, latest by default  |
 | `manala_composer_bin`                      | '/usr/local/bin/composer'      | String | Binary path                            |
 | `manala_composer_users_auth_template`      | ~                              | String | User auth template path                |
 | `manala_composer_users_auth`               | []                             | Array  | User auth config                       |
