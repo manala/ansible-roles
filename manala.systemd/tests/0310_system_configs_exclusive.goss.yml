@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/systemd/system.test/foo:
+    exists: false
+  /etc/systemd/system.test/bar:
+    exists: true
+  /etc/systemd/system.test/baz:
+    exists: false

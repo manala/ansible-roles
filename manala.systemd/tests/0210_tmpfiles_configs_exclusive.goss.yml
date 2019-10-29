@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/tmpfiles.d.test/foo:
+    exists: false
+  /etc/tmpfiles.d.test/bar:
+    exists: true
+  /etc/tmpfiles.d.test/baz:
+    exists: false

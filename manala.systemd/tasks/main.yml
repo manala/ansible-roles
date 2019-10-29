@@ -1,11 +1,5 @@
 ---
 
-# Services
-- import_tasks: services.yml
-  tags:
-    - manala_systemd
-    - manala_systemd.services
-    - manala.services
 
 # Configs - Tmpfiles
 - import_tasks: tmpfiles_configs.yml
@@ -16,3 +10,10 @@
 - import_tasks: system_configs.yml
   tags:
     - manala_systemd
+
+# Services
+- import_tasks: services.yml
+  tags:
+    - manala_systemd
+    - manala_systemd.services
+    - manala.services

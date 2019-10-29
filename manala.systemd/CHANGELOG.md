@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- handle system_configs exclusive
+- system_configs tests
+
+### Updated
+- tmpfiles_configs exclusive
+
+### Changed
+- Tasks order (services is now after system_configs and tmpfiles_configs)
 
 ## [1.0.5] - 2019-10-24
 ### Added

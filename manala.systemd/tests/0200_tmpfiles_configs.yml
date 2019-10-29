@@ -4,6 +4,7 @@
   hosts: debian
   become: true
   vars:
+    manala_systemd_tmpfiles_configs_dir: /etc/tmpfiles.d.test
     manala_systemd_tmpfiles_configs:
       - file: mysql.conf
         config:
