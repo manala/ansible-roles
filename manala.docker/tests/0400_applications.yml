@@ -14,8 +14,6 @@
         tag:         alpine
   pre_tasks:
     - import_tasks: pre_tasks/docker.yml
-    - import_tasks: pre_tasks/backports.yml
-      when: ansible_distribution_release == 'wheezy'
   roles:
     - manala.docker
   post_tasks:
