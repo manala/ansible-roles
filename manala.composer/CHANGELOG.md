@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.6] - 2019-10-29
 ### Added
-- Allow Allow to specify version to install 
+- Allow to specify version to install
 
 ## [1.0.5] - 2019-10-24
 ### Added
