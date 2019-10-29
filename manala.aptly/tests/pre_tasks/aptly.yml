@@ -8,3 +8,11 @@
 - name: Pre tasks > Aptly apt repository
   apt_repository:
     repo: deb http://repo.aptly.info/ squeeze main
+
+- name: Pre tasks > Aptly preferences
+  copy:
+    dest: /etc/apt/preferences.d/aptly
+    content: |
+      Package:      aptly*
+      Pin:          origin repo.aptly.info
+      Pin-Priority: 900
