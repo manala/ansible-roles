@@ -1,7 +1,7 @@
 ---
 
 file:
-{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_15_debian.list:
     exists: false
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_16_debian.list:

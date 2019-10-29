@@ -6,7 +6,7 @@
   vars:
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
-      - "{{ (ansible_distribution_release in ['wheezy', 'jessie', 'stretch'])|ternary('dotdeb:100', 'sury_php:100') }}"
+      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100', 'sury_php:100') }}"
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
       - security
@@ -19,7 +19,7 @@
           id:  ACCC4CF8
     manala_apt_keys:
       - sensu
-      - 10gen
+      - multimedia
       - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
         id:  056E8E56
       - keyserver: keyserver.ubuntu.com

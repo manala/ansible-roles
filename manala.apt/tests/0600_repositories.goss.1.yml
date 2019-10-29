@@ -2,7 +2,7 @@
 
 file:
   # From preferences
-{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" }}
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" }}
   /etc/apt/sources.list.d/archive_debian_org_debian.list:
     exists:   true
     filetype: file
@@ -16,7 +16,7 @@ file:
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
 {{ end }}
 
-{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
 
   /etc/apt/sources.list.d/dotdeb.list:
     exists:   true

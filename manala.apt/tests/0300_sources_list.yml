@@ -11,11 +11,11 @@
     - copy:
         dest: /etc/apt/sources.list
         content: |
-          deb http://{{ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }} main
-          {% if ansible_distribution_release not in ['wheezy', 'jessie'] -%}
+          deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
+          {% if ansible_distribution_release not in ['jessie'] -%}
           deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
           {% endif %}
-          deb http://{{ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'security') }}.debian.org/debian-security {{ ansible_distribution_release }}/updates main
+          deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
   roles:
     - manala.apt
   post_tasks:

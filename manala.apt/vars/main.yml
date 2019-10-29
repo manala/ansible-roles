@@ -12,85 +12,34 @@ __manala_apt: "{{
 
 # Repositories
 manala_apt_repositories_patterns:
-  security: "{{
-    {
-      'debian': {
-        'source': 'deb http://' ~ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'security') ~ '.debian.org/debian-security ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
-      },
-      'ubuntu': {
-        'source': 'deb http://security.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-security ' ~ manala_apt_components|join(' ')
-      }
-    }[ansible_distribution|lower]
-  }}"
-  security_src: "{{
-    {
-      'debian': {
-        'source': 'deb-src http://' ~ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'security') ~ '.debian.org/debian-security ' ~ ansible_distribution_release ~ '/updates ' ~ manala_apt_components|join(' ')
-      },
-      'ubuntu': None
-    }[ansible_distribution|lower]
-  }}"
-  updates: "{{
-    {
-      'debian': {
-        'source': 'deb http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
-      },
-      'ubuntu': {
-        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
-      }
-    }[ansible_distribution|lower]
-  }}"
-  updates_src: "{{
-    {
-      'debian': {
-        'source': 'deb-src http://deb.debian.org/debian ' ~ ansible_distribution_release ~ '-updates ' ~ manala_apt_components|join(' ')
-      },
-      'ubuntu': None
-    }[ansible_distribution|lower]
-  }}"
-  partner: "{{
-    {
-      'debian': None,
-      'ubuntu': {
-        'source': 'deb http://archive.canonical.com/ubuntu ' ~ ansible_distribution_release ~ ' partner'
-      }
-    }[ansible_distribution|lower]
-  }}"
-  backports: "{{
-    {
-      'debian': {
-        'source': 'deb http://' ~ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') ~ '.debian.org/debian ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
-        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
-      },
-      'ubuntu': {
-        'source': 'deb http://archive.ubuntu.com/ubuntu ' ~ ansible_distribution_release ~ '-backports ' ~ manala_apt_components|join(' '),
-        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports'
-      }
-    }[ansible_distribution|lower]
-  }}"
-  backports_sloppy: "{{
-    {
-      'debian': {
-        'source': 'deb http://' ~ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') ~ '.debian.org/debian ' ~ ansible_distribution_release ~ '-backports-sloppy ' ~ manala_apt_components|join(' '),
-        'pin':    'release a=' ~ ansible_distribution_release ~ '-backports-sloppy'
-      },
-      'ubuntu': None
-    }[ansible_distribution|lower]
-  }}"
+  security:
+    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+  security_src:
+    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+  updates:
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  updates_src:
+    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+  backports:
+    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    pin: release a={{ ansible_distribution_release }}-backports'
+  backports_sloppy:
+    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports-sloppy {{ manala_apt_components|join(' ') }}
+    pin: release a={{ ansible_distribution_release }}-backports-sloppy
   multimedia:
-    source: deb http://{{ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'www') }}.deb-multimedia.org {{ ansible_distribution_release }} main
+    source: deb http://www.deb-multimedia.org {{ ansible_distribution_release }} main
     key: multimedia
     file: multimedia.list
   multimedia_backports:
-    source: deb http://{{ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'www') }}.deb-multimedia.org {{ ansible_distribution_release }}-backports main
+    source: deb http://www.deb-multimedia.org {{ ansible_distribution_release }}-backports main
     key: multimedia
     file: multimedia_backports.list
   # Deprecated
   debian_security:
-    source: deb http://' ~ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'security') ~ '.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_security_src:
-    source: deb-src http://' ~ (ansible_distribution_release in ['wheezy'])|ternary('archive', 'security') ~ '.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_updates:
     source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
@@ -99,33 +48,12 @@ manala_apt_repositories_patterns:
     source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   # Deprecated
   debian_backports:
-    source: deb http://{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
-    pin: release a={{ ansible_distribution_release }}-backports
-  # Deprecated
-  ubuntu_security:
-    source: deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ manala_apt_components|join(' ') }}
-  # Deprecated
-  ubuntu_updates:
-    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
-  # Deprecated
-  ubuntu_partner:
-    source: deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
-  # Deprecated
-  ubuntu_backports:
-    source: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
     key: dotdeb
     file: dotdeb.list
-  dotdeb_php55:
-    source: deb http://packages.dotdeb.org wheezy-php55 all
-    key: dotdeb
-    file: dotdeb_php55.list
-  dotdeb_php56:
-    source: deb http://packages.dotdeb.org wheezy-php56 all
-    key: dotdeb
-    file: dotdeb_php56.list
   nginx:
     source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
     key: nginx
@@ -176,10 +104,10 @@ manala_apt_repositories_patterns:
     key: mariadb_legacy
   mariadb_10_1:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('mariadb','mariadb_legacy') }}"
+    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
   mariadb_10_2:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('mariadb','mariadb_legacy') }}"
+    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
   mariadb_10_3:
     source: deb http://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
     key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
@@ -210,9 +138,6 @@ manala_apt_repositories_patterns:
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key: postgresql
-  mongodb_3_0:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} wheezy/mongodb-org/3.0 main
-    key: 10gen
   mongodb_3_2:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.2 main
     key: mongodb_legacy
@@ -250,13 +175,13 @@ manala_apt_repositories_patterns:
     source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
     key: logentries
   galera_3:
-    source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_5_6:
-    source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_5_7:
-    source: deb {{ (ansible_distribution_release not in ['wheezy', 'jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
     source: deb https://packages.grafana.com/oss/deb stable main
@@ -312,26 +237,13 @@ manala_apt_repositories_patterns:
   yarn:
     source: deb https://dl.yarnpkg.com/debian/ stable main
     key: yarn
-  sury_php: "{{
-    {
-      'debian': {
-        'source': 'deb https://packages.sury.org/php/ ' ~ ansible_distribution_release ~ ' main',
-        'key':    'sury_php'
-      },
-      'ubuntu': {
-        'source': 'ppa:ondrej/php',
-        'key':    'sury_php'
-      }
-    }[ansible_distribution|lower]
-  }}"
+  sury_php:
+    source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
+    key: sury_php
   # Deprecated
   sury_php_debian:
     source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
     key: sury_php_debian
-  # Deprecated
-  sury_php_ubuntu:
-    source: ppa:ondrej/php
-    key: sury_php_ubuntu
   percona:
     source: deb http://repo.percona.com/apt {{ ansible_distribution_release }} main
     key: percona
@@ -371,7 +283,7 @@ manala_apt_keys_patterns:
   mysql:
     url: https://repo.mysql.com/RPM-GPG-KEY-mysql
     id: 5072E1F5
-  # Wheezy, Jessie
+  # Jessie
   mariadb_legacy:
     url: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
     id: 1BB943DB
@@ -387,12 +299,6 @@ manala_apt_keys_patterns:
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     id: ACCC4CF8
-  10gen:
-    url: https://docs.mongodb.org/10gen-gpg-key.asc
-    id: 7F0CEB10
-    # Uses SNI, that causes issues with python < 2.7.9 (aka. Debian Wheezy)
-    # Instead of hacking things on python or system, simply don't validate certs...
-    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   mongodb_legacy:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: EA312927
@@ -456,26 +362,13 @@ manala_apt_keys_patterns:
   yarn:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
     id: 86E50310
-  sury_php: "{{
-    {
-      'debian': {
-        'url': 'https://packages.sury.org/php/apt.gpg',
-        'id':  '95BD4743'
-      },
-      'ubuntu': {
-        'keyserver': 'hkp://keyserver.ubuntu.com:80',
-        'id':        'E5267A6C'
-      }
-    }[ansible_distribution|lower]
-  }}"
+  sury_php:
+    url: https://packages.sury.org/php/apt.gpg
+    id: 95BD4743
   # Deprecated
   sury_php_debian:
     url: https://packages.sury.org/php/apt.gpg
     id: 95BD4743
-  # Deprecated
-  sury_php_ubuntu:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: E5267A6C
   percona:
     url: https://github.com/percona/percona-repositories/raw/master/deb/percona-keyring2.gpg
     id: 8507EFA5
@@ -488,7 +381,6 @@ manala_apt_keys_patterns:
   grafana:
     url: https://packages.grafana.com/gpg.key
     id: 24098CB6
-    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   blackfire:
     url: https://packages.blackfire.io/gpg.key
     id: 47312329
@@ -549,7 +441,6 @@ manala_apt_preferences_patterns:
   sensu-go:           sensu-go-*
   ffmpeg:             "ffmpeg {{
     {
-      'wheezy': 'libavcodec54 libavdevice54 libavfilter3 libavformat54 libpostproc52 libswresample0 libswscale2',
       'jessie': 'libavcodec56 libva1 libavdevice56 libavfilter5 libavformat56 libavresample2 libavutil54 libpostproc53 libswresample1 libswscale3',
       'stretch': 'libavcodec57 libavdevice57 libavfilter6 libavformat57 libavresample3 libavutil55 libpostproc54 libswresample2 libswscale4',
       'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5'
