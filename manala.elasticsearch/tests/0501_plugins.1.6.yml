@@ -2,12 +2,11 @@
 
 - name: "{{ test }}"
   hosts:
-    - debian.wheezy
     - debian.jessie
   become: true
   vars:
-    manala_elasticsearch_config:
-      - node.name: Foo Bar
+    manala_elasticsearch_plugins:
+      - mobz/elasticsearch-head
   pre_tasks:
     - import_tasks: pre_tasks/elasticsearch_1.6.yml
     - import_tasks: pre_tasks/backports.yml
@@ -16,7 +15,6 @@
         name:
           - "{{
             {
-              'wheezy': 'openjdk-7-jre-headless',
               'jessie': 'openjdk-8-jre-headless',
             }[ansible_distribution_release]
           }}"

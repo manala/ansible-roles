@@ -1,10 +1,5 @@
 ---
 
-# Requirements
-- import_tasks: requirements.yml
-  tags:
-    - manala_elasticsearch
-
 # Install
 - import_tasks: install.yml
   tags:

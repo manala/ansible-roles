@@ -1,14 +1,13 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   vars:
-    manala_elasticsearch_environment_file: /etc/default/elasticsearch.test
-    manala_elasticsearch_environment:
-      - ES_JAVA_OPTS: -Xms1g -Xmx1g
+    manala_elasticsearch_plugins:
+      - analysis-icu
   pre_tasks:
-    - import_tasks: pre_tasks/elasticsearch_6.yml
+    - import_tasks: pre_tasks/elasticsearch_5.yml
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - apt:

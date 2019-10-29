@@ -1,10 +1,15 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts:
+    - debian.jessie
+    - debian.stretch
   become: true
+  vars:
+    manala_elasticsearch_config:
+      - node.name: Foo Bar
   pre_tasks:
-    - import_tasks: pre_tasks/elasticsearch_7.yml
+    - import_tasks: pre_tasks/elasticsearch_2.yml
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - apt:
@@ -13,7 +18,6 @@
             {
               'jessie': 'openjdk-8-jre-headless',
               'stretch': 'openjdk-8-jre-headless',
-              'buster': 'openjdk-11-jre-headless',
             }[ansible_distribution_release]
           }}"
         install_recommends: false

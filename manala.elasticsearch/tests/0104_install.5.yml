@@ -1,26 +1,19 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.wheezy
-    - debian.jessie
-    - debian.stretch
+  hosts: debian
   become: true
-  vars:
-    manala_elasticsearch_environment_file: /etc/default/elasticsearch.test
-    manala_elasticsearch_environment:
-      - ES_JAVA_OPTS: -Xms1g -Xmx1g
   pre_tasks:
-    - import_tasks: pre_tasks/elasticsearch_2.yml
+    - import_tasks: pre_tasks/elasticsearch_5.yml
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - apt:
         name:
           - "{{
             {
-              'wheezy':  'openjdk-7-jre-headless',
               'jessie': 'openjdk-8-jre-headless',
               'stretch': 'openjdk-8-jre-headless',
+              'buster': 'openjdk-11-jre-headless',
             }[ansible_distribution_release]
           }}"
         install_recommends: false

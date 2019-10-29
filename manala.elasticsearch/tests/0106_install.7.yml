@@ -1,10 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   pre_tasks:
-    - import_tasks: pre_tasks/elasticsearch_5.yml
+    - import_tasks: pre_tasks/elasticsearch_7.yml
     - import_tasks: pre_tasks/backports.yml
       when: ansible_distribution_release == 'jessie'
     - apt:
