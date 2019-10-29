@@ -95,6 +95,22 @@ manala_mysql_configs:
         - syslog: true
 ```
 
+### Create mysql users
+
+```
+manala_mysql_users:
+
+  # Creates database user 'bob' and password '12345' with all database privileges and 'WITH GRANT OPTION'
+  - name: bob
+    password: 12345
+    priv: '*.*:ALL,GRANT'
+
+  # Modify user Bob to require SSL connections. Note that REQUIRESSL is a special privilege that should only apply to *.* by itself.
+  - name: bob
+    append_privs: true
+    priv: '*.*:REQUIRESSL'
+```
+
 ### Configure `my.cnf` example
 
 ```
