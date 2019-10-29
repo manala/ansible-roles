@@ -15,10 +15,6 @@
 - name: requirements > Version
   fail:
      msg: Your "manala_elasticsearch_version" is not compatible with your release
-  when:
-    - manala_elasticsearch_version != None
-    - manala_elasticsearch_version is version_compare('5.0.0', '>=')
-      and ansible_distribution_release == 'wheezy'
-    - manala_elasticsearch_version is version_compare('2.0.0', '<')
-      and ansible_distribution_release == 'stretch'
+  when: (manala_elasticsearch_version|default(0, true) is version('5.0.0', '>=') and ansible_distribution_release == 'wheezy')
+        or (manala_elasticsearch_version|default(0, true) is version('2.0.0', '<') and ansible_distribution_release == 'stretch')
   check_mode: false

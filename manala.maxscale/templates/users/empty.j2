@@ -1,4 +1,4 @@
-{%- if manala_maxscale_version|string is version_compare('2.2', '<') -%}
+{%- if manala_maxscale_version|default(0, true) is version('2.2', '<') -%}
 {%- for user in manala_maxscale_network_users -%}
   {{ user.name }}:{{ user.password }}
 {% endfor -%}

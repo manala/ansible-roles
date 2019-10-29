@@ -1,14 +1,14 @@
-{% if manala_grafana_version is version_compare('2.0', '>=') and manala_grafana_version is version_compare('2.1', '<') %}
+{% if manala_grafana_version|default(0, true) is version('2.0', '>=') and manala_grafana_version|default(0, true) is version('2.1', '<') %}
     {%- include '2.0/default.j2' -%}
-{% elif manala_grafana_version is version_compare('2.1', '>=') and manala_grafana_version is version_compare('2.2', '<') %}
+{% elif manala_grafana_version|default(0, true) is version('2.1', '>=') and manala_grafana_version|default(0, true) is version('2.2', '<') %}
     {%- include '2.1/default.j2' -%}
-{% elif manala_grafana_version is version_compare('2.5', '>=') and manala_grafana_version is version_compare('2.6', '<') %}
+{% elif manala_grafana_version|default(0, true) is version('2.5', '>=') and manala_grafana_version|default(0, true) is version('2.6', '<') %}
     {%- include '2.5/default.j2' -%}
-{% elif manala_grafana_version is version_compare('3.0', '>=') and manala_grafana_version is version_compare('3.2', '<') %}
+{% elif manala_grafana_version|default(0, true) is version('3.0', '>=') and manala_grafana_version|default(0, true) is version('3.2', '<') %}
     {%- include '3.1/default.j2' -%}
-{% elif manala_grafana_version is version_compare('4.0', '>=') and manala_grafana_version is version_compare('4.1', '<') %}
+{% elif manala_grafana_version|default(0, true) is version('4.0', '>=') and manala_grafana_version|default(0, true) is version('4.1', '<') %}
     {%- include '4.0/default.j2' -%}
-{% elif manala_grafana_version is version_compare('4.1', '>=') and manala_grafana_version is version_compare('4.2', '<') %}
+{% elif manala_grafana_version|default(0, true) is version('4.1', '>=') and manala_grafana_version|default(0, true) is version('4.2', '<') %}
     {%- include '4.1/default.j2' -%}
 {% else %}
     {%- include '6.2/default.j2' -%}
