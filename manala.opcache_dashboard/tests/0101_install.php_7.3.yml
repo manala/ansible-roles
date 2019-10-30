@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
