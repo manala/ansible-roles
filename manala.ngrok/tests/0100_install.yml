@@ -5,12 +5,6 @@
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/ngrok
-        content: |
-          Package:      ngrok*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.ngrok
   post_tasks:
