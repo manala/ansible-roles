@@ -8,12 +8,6 @@
       - smtp-bind-addr: 1.2.3.4:2525
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/mailhog
-        content: |
-          Package:      mailhog*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.mailhog
   post_tasks:

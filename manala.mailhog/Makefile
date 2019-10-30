@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.mailhog
-ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch
+ROLE_DISTRIBUTIONS = debian.jessie debian.stretch
