@@ -16,7 +16,7 @@
 
 - name: tmpfiles_configs > Templates
   template:
-    src: "{{ item.template|default(manala_systemd_tmpfiles_configs_template|ternary(manala_systemd_tmpfiles_configs_template, 'system_configs/empty.j2')) }}"
+    src: "{{ item.template|default(manala_systemd_tmpfiles_configs_template|ternary(manala_systemd_tmpfiles_configs_template, 'tmpfiles_configs/empty.j2')) }}"
     dest: "{{ item.file }}"
     owner: root
     group: root

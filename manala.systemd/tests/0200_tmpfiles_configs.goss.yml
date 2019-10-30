@@ -8,4 +8,4 @@ file:
     group: root
     filetype: file
     contains:
-      - d=/var/run/mysqld 0755 mysql mysql -
+      - d /var/run/mysqld 0755 mysql mysql -
