@@ -7,15 +7,7 @@
     manala_rtail_config:
       - web-host: 127.0.0.1
   pre_tasks:
-    - import_tasks: pre_tasks/backports.yml
-      when:    ansible_distribution_release == 'wheezy'
     - import_tasks: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/rtail
-        content: |
-          Package:      rtail*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
     - apt:
         name:
           - nodejs
