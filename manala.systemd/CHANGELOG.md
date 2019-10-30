@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.7] - 2019-10-30
+### Fixed
+- tmpfiles_configs (task, template and test)
+
 ## [1.0.6] - 2019-10-29
 ### Added
 - handle system_configs exclusive
