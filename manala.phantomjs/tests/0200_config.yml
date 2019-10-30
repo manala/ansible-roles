@@ -8,12 +8,6 @@
       - webdriver: 1234
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/phantomjs
-        content: |
-          Package:      phantomjs*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.phantomjs
   post_tasks:
