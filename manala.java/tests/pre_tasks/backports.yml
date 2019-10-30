@@ -11,7 +11,7 @@
 
 - name: Pre tasks > Backports apt repository
   apt_repository:
-    repo: deb http://{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports main
+    repo: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports main
 
 - name: Pre tasks > Backports OpenJDK apt preferences
   copy:
