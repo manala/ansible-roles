@@ -11,4 +11,4 @@ include .manala/make/Makefile
 ########
 
 ROLE               = manala.oauth2_proxy
-ROLE_DISTRIBUTIONS = debian.wheezy debian.jessie debian.stretch
+ROLE_DISTRIBUTIONS = debian.jessie debian.stretch
