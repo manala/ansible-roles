@@ -2,17 +2,10 @@
 
 - name: "{{ test }}"
   hosts:
-    - debian.wheezy
     - debian.jessie
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/nodesource_0_12.yml
-    - copy:
-        dest: /etc/apt/preferences.d/nodejs
-        content: |
-          Package:      nodejs*
-          Pin:          origin deb.nodesource.com
-          Pin-Priority: 900
   roles:
     - manala.nodejs
   post_tasks:
