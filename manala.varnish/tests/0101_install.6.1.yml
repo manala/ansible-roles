@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy:!debian.jessie
+  hosts: debian:!debian.jessie
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/varnish_6_1.yml
