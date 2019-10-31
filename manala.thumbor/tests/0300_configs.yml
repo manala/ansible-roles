@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}.1"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   vars:
     # See: https://github.com/manala/ansible-roles/issues/115
@@ -28,7 +28,7 @@
       command: goss --gossfile {{ test }}.goss.1.yml validate
 
 - name: "{{ test }}.2"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   vars:
     # See: https://github.com/manala/ansible-roles/issues/115

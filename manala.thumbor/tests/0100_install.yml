@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   vars:
     # See: https://github.com/manala/ansible-roles/issues/115
