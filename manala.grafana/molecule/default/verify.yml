@@ -2,46 +2,28 @@
 
 - name: Verify
   hosts: all
+  become: true
   tasks:
-    - name: Verify package installation
-      command: dpkg -s grafana
+    - name: Copy Goss tests to remote
+      copy:
+        src: verify.goss.yml
+        dest: /tmp
       changed_when: false
-      register: __command
-      failed_when: __command.rc != 0
 
-    - name: Verify role configuration
-      lineinfile:
-        path: /etc/grafana/grafana.ini
-        line: "{{ item }}"
-      check_mode: true
-      register: __lineinfile
-      failed_when: __lineinfile.changed
-      with_items:
-            - "http_port = 3002"
-
-    - name: Verify service
-      service_facts:
+    - name: Execute Goss tests
+      command: >
+        /usr/local/bin/goss
+        --gossfile /tmp/verify.goss.yml
+        validate
+        --format documentation
+      register: test_result
+      failed_when: false
       changed_when: false
-      failed_when: "'grafana-server.service' not in ansible_facts.services"
+      environment:
+        DISTRIBUTION_RELEASE: "{{ ansible_distribution_release }}"
+        DISTRIBUTION: "{{ ansible_distribution_release|lower }}"
 
-    - name: Verify datasource
-      uri:
-        url:  http://admin:admin@127.0.0.1:3002/api/datasources
-        method: GET
-        force_basic_auth: true
-        return_content: true
-      register: __uri
-      failed_when:
-        - ( 'datasource_test' not in __uri.content )
-        - ( __uri.status != 200 )
-
-    - name: Verify dashboards
-      uri:
-        url:  http://admin:admin@127.0.0.1:3002/api/search
-        method: GET
-        force_basic_auth: true
-        return_content: true
-      register: __uri
-      failed_when:
-        - ( 'dashboard_test' not in __uri.content )
-        - ( __uri.status != 200 )
+    - name: Display Goss Errors
+      debug:
+        msg: "{{ (test_result.rc != 0)|ternary(test_result.stdout_lines, 'All tests passed') }}"
+      failed_when: test_result.rc != 0

@@ -1,0 +1,37 @@
+---
+
+package:
+  grafana:
+    installed: true
+
+file:
+  /etc/grafana/grafana.ini:
+    exists: true
+    contains:
+      - http_port = 3002
+
+service:
+  grafana-server:
+    enabled: true
+    running: true
+
+process:
+  grafana-server:
+    running: true
+
+port:
+  tcp6:3002:
+    listening: true
+    ip:
+      - '::'
+
+http:
+  http://admin:admin@127.0.0.1:3002/api/datasources:
+    status: 200
+    timeout: 1000
+    body: ["datasource_test"]
+
+  http://admin:admin@127.0.0.1:3002/api/search:
+    status: 200
+    timeout: 1000
+    body: ["dashboard_test"]
