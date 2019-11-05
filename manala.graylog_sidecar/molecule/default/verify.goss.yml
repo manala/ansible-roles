@@ -1,0 +1,20 @@
+---
+
+package:
+  graylog-sidecar:
+    installed: true
+
+file:
+  /etc/graylog/sidecar/sidecar.yml:
+    exists: true
+    owner: root
+    group: root
+    contains:
+      - "http://foo.bar:9000/api"
+      - "foo-bar-baz-bar-foo"
+      - "foo.bar.baz.hostname"
+
+service:
+  graylog-sidecar:
+    enabled: true
+    running: true

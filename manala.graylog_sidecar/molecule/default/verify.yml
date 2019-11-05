@@ -2,37 +2,28 @@
 
 - name: Verify
   hosts: all
+  become: true
   tasks:
-    - name: Verify package installation
-      command: dpkg -s graylog-sidecar
+    - name: Copy Goss tests to remote
+      copy:
+        src: verify.goss.yml
+        dest: /tmp
       changed_when: false
-      register: __command
-      failed_when: __command.rc != 0
 
-    - name: Verify role configuration
-      lineinfile:
-        path: /etc/graylog/sidecar/sidecar.yml
-        line: "{{ item }}"
-      check_mode: true
-      register: __lineinfile
-      failed_when: __lineinfile.changed
-      with_items:
-            - "node_name: foo.bar.baz.hostname"
-            - "server_url: http://foo.bar:9000/api"
-            - "server_api_token: foo-bar-baz-bar-foo"
-
-    - name: Verify service
-      service_facts:
+    - name: Execute Goss tests
+      command: >
+        /usr/local/bin/goss
+        --gossfile /tmp/verify.goss.yml
+        validate
+        --format documentation
+      register: test_result
+      failed_when: false
       changed_when: false
-      failed_when: "'graylog-sidecar.service' not in ansible_facts.services"
+      environment:
+        DISTRIBUTION_RELEASE: "{{ ansible_distribution_release }}"
+        DISTRIBUTION: "{{ ansible_distribution_release|lower }}"
 
-
-
-#####################################################################################
-### Not possible in ansible 2.8 (previous and next seems to work)                 ###
-### https://github.com/ansible/ansible/issues/56921                               ###
-###                                                                               ###
-###    # - name: Verify package installation                                      ###
-###    #   package_facts:                                                         ###
-###    #   failed_when: "'graylog-sidecar.service' not in ansible_facts.packages" ###
-#####################################################################################
+    - name: Display Goss Errors
+      debug:
+        msg: "{{ (test_result.rc != 0)|ternary(test_result.stdout_lines, 'All tests passed') }}"
+      failed_when: test_result.rc != 0
