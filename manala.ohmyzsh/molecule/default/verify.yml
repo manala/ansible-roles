@@ -2,50 +2,28 @@
 
 - name: Verify
   hosts: all
-  vars:
-    themes:
-      - /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme
-      - /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme
-      - /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme
-      - /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme
+  become: true
   tasks:
-    - name: Gather install infos
-      stat:
-        path: /usr/local/share/oh-my-zsh
-      register: __stat
+    - name: Copy Goss tests to remote
+      copy:
+        src: verify.goss.yml
+        dest: /tmp
+      changed_when: false
 
-    - name: Verify install
-      assert:
-        that:
-          - __stat.stat.exists
-          - __stat.stat.isdir
-          - >
-            __stat.stat.gr_name == (ansible_distribution_release in
-              ['jessie', 'stretch'])|ternary('staff', 'root')
-          - >
-            __stat.stat.mode == (ansible_distribution_release in
-              ['jessie', 'stretch'])|ternary('2755', '0755')
+    - name: Execute Goss tests
+      command: >
+        /usr/local/bin/goss
+        --gossfile /tmp/verify.goss.yml
+        validate
+        --format documentation
+      register: test_result
+      failed_when: false
+      changed_when: false
+      environment:
+        DISTRIBUTION_RELEASE: "{{ ansible_distribution_release }}"
+        DISTRIBUTION: "{{ ansible_distribution_release|lower }}"
 
-    - name: Gather themes infos
-      stat:
-        path: "{{ item }}"
-      register: __stat
-      loop: "{{ themes }}"
-      #   - /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme
-      #   - /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme
-      #   - /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme
-      #   - /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme
-
-    # - debug:
-    #     var: __stat
-    - name: Verify themes
-      assert:
-        that:
-          - item.stat.isreg
-          - item.stat.pw_name == "root"
-          - item.stat.gr_name == "root"
-          - item.stat.mode == "0644"
-        quiet: true
-        success_msg: all assertions succeded
-      loop: "{{ __stat.results }}"
-
+    - name: Display Goss Errors
+      debug:
+        msg: "{{ (test_result.rc != 0)|ternary(test_result.stdout_lines, 'All tests passed') }}"
+      failed_when: test_result.rc != 0
