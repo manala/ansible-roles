@@ -2,26 +2,29 @@
 
 - name: Verify
   hosts: all
+  become: true
   tasks:
-    - name: Volume foo must be absent
-      command: gluster volume info foo
+    - name: Copy Goss tests to remote
+      copy:
+        src: verify.goss.yml
+        dest: /tmp
       changed_when: false
-      register: __command
-      failed_when: "'Volume foo does not exist' not in __command.stderr"
 
-    - name: Register volume_test info
-      command: gluster volume info
+    - name: Execute Goss tests
+      command: >
+        /usr/local/bin/goss
+        --gossfile /tmp/verify.goss.yml
+        validate
+        --format documentation
+      register: test_result
+      failed_when: false
       changed_when: false
-      register: __command
+      environment:
+        DISTRIBUTION_RELEASE: "{{ ansible_distribution_release }}"
+        DISTRIBUTION: "{{ ansible_distribution_release|lower }}"
+        FQDN: "{{ ansible_fqdn }}"
 
-    - name: Verify volume_test info
-      assert:
-        that:
-            - "'Volume Name: volume_test' in __command.stdout"
-            - "'Status: Started' in __command.stdout"
-            - "'Bricks:' in __command.stdout"
-            - "'Brick1: {{ ansible_fqdn }}:/home/vol' in __command.stdout"
-            - "'storage.owner-uid: 1337' in __command.stdout"
-            - "'storage.owner-gid: 1337' in __command.stdout"
-            - "'nfs.disable: off' in __command.stdout"
-        quiet: true
+    - name: Display Goss Errors
+      debug:
+        msg: "{{ (test_result.rc != 0)|ternary(test_result.stdout_lines, 'All tests passed') }}"
+      failed_when: test_result.rc != 0

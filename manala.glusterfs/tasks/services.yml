@@ -6,4 +6,4 @@
     state:   started
     enabled: true
   with_items:
-    - glusterd
+    - glusterfs-server
