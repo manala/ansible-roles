@@ -1,0 +1,28 @@
+---
+
+- name: Prepare
+  hosts: all
+  vars:
+    manala_apt_preferences:
+      - ansible@ansible
+  tasks:
+    - file:
+        path: /etc/ansible/host_vars.test
+        state: directory
+    - file:
+        path: /etc/ansible/host_vars.test/bar.yml
+        state: touch
+    - file:
+        path: /etc/ansible/host_vars.test/exclusive.yml
+        state: touch
+    - file:
+        path: /etc/ansible/group_vars.test
+        state: directory
+    - file:
+        path: /etc/ansible/group_vars.test/bar.yml
+        state: touch
+    - file:
+        path: /etc/ansible/group_vars.test/exclusive.yml
+        state: touch
+  roles:
+    - manala.apt

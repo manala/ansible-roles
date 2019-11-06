@@ -1,0 +1,68 @@
+---
+
+package:
+  ansible:
+    installed: true
+
+command:
+  dpkg -s ansible:
+    exit-status: 0
+    stdout:
+      - "/^Version: \\d+/"
+  ansible --version:
+    exit-status: 0
+    stdout:
+      - "/^ansible \\d\\.\\d\\.\\d$/"
+
+file:
+  /etc/ansible/hosts.test:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "foo bar=baz"
+      - "bar"
+      - "[foo_var]"
+      - "foo"
+      - "bar"
+      - "[foo_var:vars]"
+      - "foo=bar"
+      - "bar=baz"
+      - "[bar:children]"
+      - "foo"
+
+  /etc/ansible/ansible.cfg.test:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "inventory = foo"
+      - "forks = 123"
+      - "ask_sudo_pass = False"
+      - "module_set_locale = True"
+      - "foo = bar"
+      - "[foo]"
+      - "bar = baz"
+
+  /etc/ansible/host_vars.test/foo.yml:
+    exists: true
+  /etc/ansible/host_vars.test/bar.yml:
+    exists: false
+  /etc/ansible/host_vars.test/baz.yml:
+    exists: true
+  /etc/ansible/host_vars.test/exclusive.yml:
+    exists: false
+
+  /etc/ansible/group_vars.test/foo.yml:
+    exists: true
+  /etc/ansible/group_vars.test/bar.yml:
+    exists: false
+  /etc/ansible/group_vars.test/baz.yml:
+    exists: true
+  /etc/ansible/host_vars.test/exclusive.yml:
+    exists: false
+
