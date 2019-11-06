@@ -283,7 +283,7 @@ manala_apt_repositories_patterns:
     source: deb https://artifacts.elastic.co/packages/7.x/apt stable main
     key: elasticsearch
   ansible:
-    source: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ { 'jessie':'wily','stretch':'xenial','buster':'bionic'}[ansible_distribution_release] }} main
+    source: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ { 'jessie':'trusty','stretch':'xenial','buster':'bionic'}[ansible_distribution_release] }} main
     key: ansible
   blackfire:
     source: deb http://packages.blackfire.io/debian any main
