@@ -1,0 +1,28 @@
+---
+
+- name: Prepare
+  hosts: all
+  pre_tasks:
+    - apt:
+        name:
+          - bind9-host
+        install_recommends: false
+        update_cache: true
+    - file:
+        path: /etc/bind
+        state: directory
+    - copy:
+        dest: /etc/bind/named.conf.baz
+        content: |
+          // Baz
+    - file:
+        path: /var/cache/bind
+        state: directory
+    - copy:
+        dest: /var/cache/bind/db.baz.com
+        content: |
+          // Baz
+    - copy:
+        dest: /var/cache/bind/db.corge.com
+        content: |
+          // Corge
