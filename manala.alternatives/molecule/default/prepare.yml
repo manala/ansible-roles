@@ -1,0 +1,14 @@
+---
+
+- name: Prepare
+  hosts: all
+  pre_tasks:
+    - apt:
+        name:
+          - nano
+          - ed
+        install_recommends: false
+        update_cache: true
+    - alternatives:
+        name: editor
+        path: /bin/nano

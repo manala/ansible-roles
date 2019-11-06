@@ -1,0 +1,11 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_alternatives_selections:
+      - selection: editor
+        path:      /bin/ed
+
+  roles:
+    - manala.alternatives
