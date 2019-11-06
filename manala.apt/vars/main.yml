@@ -282,17 +282,9 @@ manala_apt_repositories_patterns:
   elasticsearch_7:
     source: deb https://artifacts.elastic.co/packages/7.x/apt stable main
     key: elasticsearch
-  ansible: "{{
-    {
-      'debian': None,
-      'ubuntu': {
-        'source': 'ppa:ansible/ansible'
-      }
-    }[ansible_distribution|lower]
-  }}"
-  # Deprecated
-  ppa_ansible:
-    source: ppa:ansible/ansible
+  ansible:
+    source: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ { 'jessie':'wily','stretch':'xenial','buster':'bionic'}[ansible_distribution_release] }} main
+    key: ansible
   blackfire:
     source: deb http://packages.blackfire.io/debian any main
     key: blackfire
@@ -506,7 +498,9 @@ manala_apt_keys_patterns:
   glusterfs_6:
     url: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
     id: C2F8238C
-
+  ansible:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125e2a8c77f2818fb7bd15b93c4a3fd7bb9c367
+    id: 7BB9C367
 # Preferences
 manala_apt_preferences_patterns:
   vim:                vim*
