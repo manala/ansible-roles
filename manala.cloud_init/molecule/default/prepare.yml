@@ -1,0 +1,10 @@
+---
+
+- name: Prepare
+  hosts: all
+  vars:
+    manala_apt_preferences:
+      - cloud-init@backports
+  roles:
+    - role: manala.apt
+      when: ansible_distribution_release in ['jessie']
