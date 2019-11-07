@@ -499,7 +499,7 @@ manala_apt_keys_patterns:
     url: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
     id: C2F8238C
   ansible:
-    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125e2a8c77f2818fb7bd15b93c4a3fd7bb9c367
+    keyserver: hkp://keyserver.ubuntu.com:80
     id: 7BB9C367
 # Preferences
 manala_apt_preferences_patterns:

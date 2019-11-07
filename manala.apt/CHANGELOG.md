@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Ansible repository & key pattern (again)
 
 ## [1.0.44] - 2019-11-06
 ### Fixed
