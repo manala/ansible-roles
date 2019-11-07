@@ -1,0 +1,16 @@
+---
+
+- name: Prepare
+  hosts: all
+  vars:
+    manala_apt_preferences:
+      - ansible@ansible
+    manala_apt_packages:
+      - ansible
+  # tasks:
+  #   - file:
+  #       path: /etc/ansible/roles
+  #       state: directory
+  #       mode: '0755'
+  roles:
+    - manala.apt

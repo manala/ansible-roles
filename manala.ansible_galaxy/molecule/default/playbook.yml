@@ -1,0 +1,12 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_ansible_galaxy_roles:
+      - ansistrano.deploy
+      - jdauphant.nginx
+      - src: jdauphant.nginx
+        version: v1.11.4
+  roles:
+    - manala.ansible_galaxy
