@@ -1,0 +1,10 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_beanstalkd_config_file: /etc/default/beanstalkd.test
+    manala_beanstalkd_config:
+      - BEANSTALKD_LISTEN_PORT: 12345
+  roles:
+    - manala.beanstalkd

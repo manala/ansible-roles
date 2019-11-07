@@ -1,0 +1,16 @@
+---
+
+package:
+  beanstalkd:
+    installed: true
+
+file:
+  /etc/default/beanstalkd.test:
+    exists: true
+    contains:
+      - BEANSTALKD_LISTEN_PORT=12345
+
+service:
+  beanstalkd:
+    enabled: true
+    running: true
