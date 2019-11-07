@@ -1,0 +1,27 @@
+---
+
+package:
+  backup-manager:
+    installed: true
+
+command:
+  dpkg -s backup-manager:
+    exit-status: 0
+    stdout:
+{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
+      - "/^Version: .+-\\dmanala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+{{ else }}
+      - "/^Version: \\d+/"
+{{ end }}
+  backup-manager --version:
+    exit-status: 0
+    stdout:
+      - Backup Manager
+
+file:
+  /etc/backup-manager.d/mysql.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - export BM_REPOSITORY_ROOT=
+      - /srv/backup/mysql
