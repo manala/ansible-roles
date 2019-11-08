@@ -1,11 +1,12 @@
 {%- macro config(parameters, exclusions = [], indent = 0) -%}
     {%- for parameter in parameters -%}
+        {%- set outer_loop = loop -%}
         {%- if parameter is string or parameter is number -%}
             {{ parameter }}{{ '\n' }}
         {%- elif parameter is mapping -%}
             {%- for parameter_key, parameter_value in parameter.items() -%}
                 {%- if parameter_key not in exclusions -%}
-                    {{ _config_parameter(parameter_key, parameter_value, indent) }}{{ '\n' }}
+                    {{ _config_parameter(parameter_key, parameter_value, indent) }}{% if not outer_loop.last %},{% endif %}{{ '\n' }}
                 {%- endif -%}
             {%- endfor -%}
         {%- endif -%}
