@@ -1,0 +1,10 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    - apt:
+        name:
+          - "{{ (ansible_distribution_release in ['jessie'])|ternary('php5-cli','php-cli') }}"
+        install_recommends: false
+        update_cache: true
