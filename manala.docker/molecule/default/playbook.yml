@@ -1,0 +1,21 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_docker_config_daemon:
+      - storage-driver: vfs
+      - experimental: false
+    manala_docker_applications:
+      - hello-world
+      - application: npm
+        image:       node
+        command:     npm
+        tag:         alpine
+    manala_docker_containers:
+      - name:  hello-world
+        image: hello-world
+    manala_docker:
+      update: true
+  roles:
+    - manala.docker
