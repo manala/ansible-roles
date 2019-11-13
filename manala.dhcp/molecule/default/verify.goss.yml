@@ -1,0 +1,29 @@
+---
+
+package:
+  isc-dhcp-server:
+    installed: true
+
+file:
+  /etc/default/isc-dhcp-server:
+    exists: true
+    filetype: file
+    contains:
+      - INTERFACESv4="eth0"
+
+  /etc/dhcp/dhcpd.conf:
+    exists: true
+    filetype: file
+    contains:
+      - "# Foo"
+
+command:
+  ps aux:
+    exit-status: 0
+    stdout:
+      - /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf eth0
+
+service:
+  isc-dhcp-server:
+    enabled: true
+    running: true

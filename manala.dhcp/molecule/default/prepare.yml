@@ -1,0 +1,10 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    - apt:
+        name:
+          - iproute
+        install_recommends: false
+        update_cache: true
