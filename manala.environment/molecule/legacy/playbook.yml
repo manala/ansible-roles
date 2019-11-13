@@ -1,0 +1,20 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_environment_files:
+      - pam
+      - zsh
+      - file:   /etc/profile.d/test.sh
+        export: true
+    manala_environment_variables:
+      - _FOO: bar
+      - _BAR: 123
+      - _BAZ: 1.2
+      - _QUX: foo=bar
+      - _FOO_NULL:  null
+      - _FOO_TRUE:  true
+      - _FOO_FALSE: false
+  roles:
+    - manala.environment
