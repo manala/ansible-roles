@@ -1,0 +1,20 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    - apt:
+        name:
+          - ssh
+          - rsync
+        install_recommends: false
+        update_cache: true
+
+    - file:
+        path: /tmp/app/releases/20170520092302/vendor
+        state: directory
+
+    - file:
+        path: /tmp/app/current
+        state: link
+        src: /tmp/app/releases/20170520092302

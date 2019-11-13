@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_deploy_dir: /tmp/app
+    manala_deploy_strategy: synchronize
+    manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
+    manala_deploy_writable_dirs_default:
+      mode:    ugo=rwx
+      follow:  true
+      recurse: true
+    manala_deploy_writable_dirs:
+      - dir
+  roles:
+    - manala.deploy

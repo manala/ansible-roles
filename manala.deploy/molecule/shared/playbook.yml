@@ -1,0 +1,24 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_deploy_dir: /tmp/app
+    manala_deploy_strategy: synchronize
+    manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
+    manala_deploy_shared_files:
+      - file_shared
+      - file_shared_existing
+      - file_shared_existing_link
+      - dir/file_shared
+      - dir/file_shared_existing
+      - dir/file_shared_existing_link
+      - dir/dir/file_shared
+      - dir/dir/file_shared_existing
+      - dir/dir/file_shared_existing_link
+    manala_deploy_shared_dirs:
+      - dir_shared
+      - dir/dir_shared
+      - dir/dir/dir_shared
+  roles:
+    - manala.deploy

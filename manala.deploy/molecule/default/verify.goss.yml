@@ -1,0 +1,58 @@
+---
+
+file:
+  /tmp/app:
+    exists: true
+    filetype: directory
+  /tmp/app/releases:
+    exists: true
+    filetype: directory
+  /tmp/app/shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/file:
+    exists: true
+    filetype: file
+  /tmp/app/current/file_shared:
+    exists: true
+    filetype: file
+  /tmp/app/current/dir:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/dir:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir/file:
+    exists: true
+    filetype: file
+  /tmp/app/current/dir/file_shared:
+    exists: true
+    filetype: file
+  /tmp/app/current/dir_shared:
+    exists: true
+    filetype: directory
+  /tmp/app/current/dir_shared/file:
+    exists: true
+    filetype: file
+  /tmp/app/current:
+    exists: true
+    filetype: symlink
+  /tmp/manala_deploy_post_tasks.txt:
+    exists: true
+    filetype: file
+  /tmp/manala_deploy_tasks.txt:
+    exists: true
+    filetype: file
+  /tmp/manala_deploy_post_tasks.txt:
+    exists: true
+    filetype: file
+
+
+command:
+  find /tmp/app/releases -mindepth 1 -maxdepth 1 -type d | wc -l:
+    exit-status: 0
+    stdout:
+      - 3

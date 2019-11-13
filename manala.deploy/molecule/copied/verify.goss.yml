@@ -1,0 +1,6 @@
+---
+
+file:
+  /tmp/app/current/vendor:
+    exists: true
+    filetype: directory

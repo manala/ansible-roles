@@ -1,0 +1,33 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    - apt:
+        name:
+          - ssh
+          - rsync
+        install_recommends: false
+        update_cache: true
+    - file:
+        path: /tmp/app/{{ item }}
+        state: directory
+      with_items:
+        - shared
+        - shared/dir
+        - shared/dir/dir
+    - file:
+        path: /tmp/app/{{ item }}
+        state: touch
+      with_items:
+        - shared/file_shared_existing
+        - shared/dir/file_shared_existing
+        - shared/dir/dir/file_shared_existing
+    - file:
+        path: /tmp/app/{{ item }}_link
+        src: /tmp/app/{{ item }}
+        state: link
+      with_items:
+        - shared/file_shared_existing
+        - shared/dir/file_shared_existing
+        - shared/dir/dir/file_shared_existing
