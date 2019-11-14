@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_git_config:
+      - core:
+        - preloadindex: true
+    manala_git_repositories:
+      - repo: https://github.com/manala/ansible-role-git.git
+        dest: /tmp/ansible-role-git
+      - repo: https://github.com/manala/ansible-role-git.git
+        dest: /tmp/ansible-role-git-user
+        user: manala
+  roles:
+    - manala.git

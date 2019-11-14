@@ -1,0 +1,15 @@
+---
+
+- name: Prepare
+  hosts: all
+  pre_tasks:
+    - apt:
+        name: git
+        state: absent
+        update_cache: true
+  vars:
+    manala_apt_repositories:
+      - backports
+  roles:
+    - role: manala.apt
+      when: ansible_distribution_release in ['jessie']
