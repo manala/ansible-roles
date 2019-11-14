@@ -1,0 +1,14 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: update cache
+      apt:
+        update_cache: true
+  vars:
+    manala_apt_preferences:
+      - hugo@manala
+  roles:
+    - role: manala.apt
+      when: ansible_distribution_release in ['jessie', 'stretch']
