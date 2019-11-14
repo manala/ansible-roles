@@ -1,0 +1,35 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_haproxy_errorfiles:
+      - file: 400.http
+        template: fixtures/400.http.j2
+    manala_haproxy_config_template: fixtures/haproxy.cfg.j2
+    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs:
+      - file: haproxy.cfg
+        template: fixtures/haproxy.cfg.j2
+      - file: foo.cfg
+        state: present
+      - file: bar.cfg
+        state: absent
+      - file: baz.cfg
+        state: present
+    manala_haproxy_environment_file: /etc/default/haproxy.test
+    manala_haproxy_environment:
+      - CONFIG: /etc/haproxy/conf.d.test
+  roles:
+    - manala.haproxy
+
+- name: "{{ test }}.2"
+  hosts: all
+  become: true
+  vars:
+    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs:
+      - file: baz.cfg
+        state: absent
+  roles:
+    - manala.haproxy
