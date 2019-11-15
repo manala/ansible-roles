@@ -1,0 +1,9 @@
+---
+
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
+command:
+  java -version:
+    exit-status: 0
+    stderr:
+      - "/^openjdk version \"1\\.8\\..*\"$/"
+{{ end }}

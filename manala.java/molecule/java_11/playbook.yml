@@ -1,0 +1,9 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    manala_java_version: 11
+  roles:
+    - role: manala.java
+      when: ansible_distribution_release in ['buster']
