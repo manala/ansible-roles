@@ -5,12 +5,12 @@
     name:  "{{ item }}"
     state: started
   with_items:
-    - "{{ manala_php_versions[manala_php_version|string]['fpm_service'] }}"
+    - php{{ manala_php_version|string }}-fpm
   when: |
     'fpm' in lookup(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
-      manala_php_versions[manala_php_version|string],
+      manala_php_sapis_available,
       wantstate='present',
       wantmap=true,
       wantlist=true

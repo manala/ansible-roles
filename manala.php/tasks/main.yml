@@ -1,10 +1,5 @@
 ---
 
-# Requirements
-- import_tasks: requirements.yml
-  tags:
-    - manala_php
-
 # Install
 - import_tasks: install.yml
   tags:
@@ -15,20 +10,13 @@
   tags:
     - manala_php
 
-# Configs - Global
-- import_tasks: configs_global.yml
-  when: manala_php_configs_global
-  tags:
-    - manala_php
-
 # Configs
 - include: configs.yml
-  when: not manala_php_configs_global
   with_items: "{{
     lookup(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
-      manala_php_versions[manala_php_version|string],
+      manala_php_sapis_available,
       wantstate='present',
       wantmap=true,
       wantlist=true
@@ -45,7 +33,7 @@
     'fpm' in lookup(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
-      manala_php_versions[manala_php_version|string],
+      manala_php_sapis_available,
       wantstate='present',
       wantmap=true,
       wantlist=true
