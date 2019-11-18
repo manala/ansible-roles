@@ -24,7 +24,7 @@ manala_skeleton_patterns:
     apt_configs:
       - file: archive
         template: configs/check_valid_until_false.j2
-        state: "{{ (ansible_distribution_release in ['wheezy', 'jessie'])|ternary('present', 'absent') }}"
+        state: "{{ (ansible_distribution_release in ['jessie'])|ternary('present', 'absent') }}"
     apt_components:
       - main
     apt_sources_list_template: sources_list/security_updates.j2
@@ -37,13 +37,6 @@ manala_skeleton_patterns:
         'phantomjs@manala'
       ]
       + {
-        'wheezy': [
-          'git@backports',
-          'vim@backports',
-          'supervisor@manala',
-          'openssh@backports',
-          'python-six@backports'
-        ],
         'jessie': [
           'openjdk@backports',
           'git@backports',
@@ -69,18 +62,7 @@ manala_skeleton_patterns:
         'buster': [
         ],
       }[ansible_distribution_release]
-      + (manala_skeleton_options.php)|ternary(
-        {
-          '5.4': ['dotdeb:100', 'php@dotdeb'],
-          '5.5': ['dotdeb_php55:100', 'php@dotdeb_php55'],
-          '5.6': ['dotdeb_php56:100', 'php@dotdeb_php56'],
-          '7.0': ['dotdeb:100', 'php@dotdeb'],
-          '7.1': ['php@sury_php'],
-          '7.2': ['php@sury_php'],
-          '7.3': ['php@sury_php']
-        }[manala_skeleton_options.php_version|string],
-        []
-      )
+      + (manala_skeleton_options.php)|ternary(['php@sury_php'],[])
       + (manala_skeleton_options.nginx)|ternary(['nginx@nginx'],[])
       + (manala_skeleton_options.nodejs)|ternary(['nodejs@nodesource_' ~ manala_skeleton_options.nodejs_version|string|replace('.', '_')],[])
       + (manala_skeleton_options.yarn)|ternary(['yarn@yarn'],[])
@@ -95,7 +77,6 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.influxdb)|ternary(['influxdb@influxdata'],[])
       + (manala_skeleton_options.thumbor)|ternary(
         ['thumbor@manala'] + {
-          'wheezy': [],
           'jessie': [
             'python-tornado@backports',
             'python-pil@backports'
@@ -164,14 +145,13 @@ manala_skeleton_patterns:
     # Java
     java_version: "{{
       {
-        'wheezy': '7',
         'jessie': '8',
         'stretch': '8',
         'buster': '11',
       }[ansible_distribution_release]
     }}"
     # Php
-    php_version: "{{ ({'5.4': 5, '5.5': 5, '5.6': 5, '7.0': 7.0, '7.1': 7.1, '7.2': 7.2, '7.3': 7.3})[manala_skeleton_options.php_version|string] }}"
+    php_version: "{{ manala_skeleton_options.php_version|string }}"
     php_sapis_exclusive: true
     php_fpm_pools_exclusive: true
     php_fpm_pools: "{{
@@ -207,9 +187,7 @@ manala_skeleton_patterns:
     php_extensions_exclusive: true
     php_extensions: "{{
       {
-        '5.4': ['zendopcache', 'readline'],
-        '5.5': ['readline'],
-        '5.6': ['readline'],
+        '5.6': ['opcache', 'readline', 'json'],
         '7.0': ['opcache', 'readline', 'json'],
         '7.1': ['opcache', 'readline', 'json'],
         '7.2': ['opcache', 'readline', 'json'],
@@ -224,8 +202,6 @@ manala_skeleton_patterns:
         or manala_skeleton_options.mariadb
       )|ternary(
         {
-          '5.4': ['mysqlnd'],
-          '5.5': ['mysqlnd'],
           '5.6': ['mysqlnd'],
           '7.0': ['mysql'],
           '7.1': ['mysql'],
@@ -236,8 +212,6 @@ manala_skeleton_patterns:
       )
       + (manala_skeleton_options.phpmyadmin)|ternary(
         {
-          '5.4': ['mysqlnd'],
-          '5.5': ['mysqlnd'],
           '5.6': ['mysqlnd'],
           '7.0': ['mysql', 'mbstring', 'zip', 'bz2'],
           '7.1': ['mysql', 'mbstring', 'zip', 'bz2'],
@@ -248,8 +222,6 @@ manala_skeleton_patterns:
       )
       + (manala_skeleton_options.sqlite)|ternary(
         {
-          '5.4': ['sqlite'],
-          '5.5': ['sqlite'],
           '5.6': ['sqlite'],
           '7.0': ['sqlite3'],
           '7.1': ['sqlite3'],
@@ -263,7 +235,6 @@ manala_skeleton_patterns:
       + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
     }}"
     php_configs_exclusive: true
-    php_configs_global: "{{ manala_skeleton_options.php_version|string == '5.4' }}"
     php_configs:
       - file: 50-xdebug.ini
         template: configs/xdebug.{{ manala_skeleton_env }}.j2
@@ -435,8 +406,6 @@ manala_skeleton_patterns:
         {'package': 'rtail', 'state': 'absent'}
       ]
       + {
-        'wheezy': [
-        ],
         'jessie': [
           'thefuck',
           'exa',

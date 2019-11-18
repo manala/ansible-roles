@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Debian wheezy support
+- Php 5.4/5.5 support
+- Php dotdeb support
 
 ## [1.0.35] - 2019-10-24
 ### Added
