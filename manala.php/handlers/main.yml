@@ -1,12 +1,13 @@
 ---
 
 - name: php fpm restart
-  command: "{{ manala_php_versions[manala_php_version|string]['fpm_bin'] }} -t"
+  command: >
+    /usr/sbin/php-fpm{{ manala_php_version|string }} -t
   when: |
     'fpm' in lookup(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
-      manala_php_versions[manala_php_version|string],
+      manala_php_sapis_available,
       wantstate='present',
       wantmap=true,
       wantlist=true
@@ -18,13 +19,13 @@
 
 - name: do php fpm restart
   service:
-    name:  "{{ manala_php_versions[manala_php_version|string]['fpm_service'] }}"
+    name: php{{ manala_php_version|string }}-fpm
     state: restarted
   when: |
     'fpm' in lookup(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
-      manala_php_versions[manala_php_version|string],
+      manala_php_sapis_available,
       wantstate='present',
       wantmap=true,
       wantlist=true

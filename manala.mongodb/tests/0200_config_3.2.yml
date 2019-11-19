@@ -2,7 +2,6 @@
 
 - name: "{{ test }}"
   hosts:
-    - debian.wheezy
     - debian.jessie
   become: true
   vars:
@@ -11,7 +10,6 @@
   pre_tasks:
     - import_tasks: pre_tasks/mongodb_3_2.yml
     - import_tasks: pre_tasks/service.yml
-      when: ansible_distribution_release != 'wheezy'
   roles:
     - manala.mongodb
   post_tasks:

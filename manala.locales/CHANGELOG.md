@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Handle dependency packages to install
+
+### Removed
+- Debian wheezy support
+- Unbuntu xenial support
+- CentOS 7 support
 
 ## [1.0.5] - 2019-10-24
 ### Added

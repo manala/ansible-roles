@@ -8,7 +8,7 @@ command:
   dpkg -s ansible:
     exit-status: 0
     stdout:
-{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" }}
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" }}
       - "/^Version: .+-\\dmanala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
 {{ else }}
       - "/^Version: \\d+/"

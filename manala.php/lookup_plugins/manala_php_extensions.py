@@ -11,8 +11,11 @@ class LookupModule(LookupBase):
 
         results = []
 
-        # Version parameters
-        version = terms[1]
+        # Extensions - Available
+        extensionsAvailable = terms[1]
+
+        # Sapis - Available
+        sapisAvailable = terms[2]
 
         wantstate   = kwargs.pop('wantstate', None)
         wantenabled = kwargs.pop('wantenabled', None)
@@ -51,11 +54,11 @@ class LookupModule(LookupBase):
                 item.update(term)
 
             # Known as a sapi ?
-            if item.get('extension') in version['sapis']:
+            if item.get('extension') in sapisAvailable:
                 raise AnsibleError('Extension "' + item.get('extension') + '" is known as a sapi')
 
             # Already embedded extension ?
-            if item.get('extension') in version['extensions']:
+            if item.get('extension') in extensionsAvailable:
                 continue
 
             items.append(item)

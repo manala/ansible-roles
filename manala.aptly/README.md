@@ -59,16 +59,16 @@ None.
       - architectures:
         - amd64
     manala_aptly_repositories:
-      - name:         wheezy
-        comment:      Wheezy
+      - name:         stretch
+        comment:      Stretch
         component:    main
-        distribution: wheezy
+        distribution: stretch
         origin:       Foo
         label:        Bar
-      - name:         jessie
-        comment:      Jessie
+      - name:         buster
+        comment:      Buster
         component:    main
-        distribution: jessie
+        distribution: buster
         origin:       Foo
         label:        Bar
   roles:

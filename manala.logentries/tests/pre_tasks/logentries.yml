@@ -8,3 +8,11 @@
 - name: Pre tasks > Logentries apt repository
   apt_repository:
     repo: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+
+- name: Pre tasks > Logentries preferences
+  copy:
+    dest: /etc/apt/preferences.d/logentries
+    content: |
+      Package:      logentries*
+      Pin:          origin rep.logentries.com
+      Pin-Priority: 900

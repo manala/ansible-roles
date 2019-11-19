@@ -5,7 +5,7 @@
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
-      when: ansible_distribution_release in ['wheezy', 'jessie', 'stretch']
+      when: ansible_distribution_release in ['jessie', 'stretch']
   roles:
     - manala.backup_manager
   post_tasks:

@@ -5,12 +5,6 @@
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
-    - copy:
-        dest: /etc/apt/preferences.d/mailhog
-        content: |
-          Package:      mailhog*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
   roles:
     - manala.mailhog
   post_tasks:

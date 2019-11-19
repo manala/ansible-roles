@@ -8,3 +8,11 @@
 - name: Pre tasks > Nodesource apt repository
   apt_repository:
     repo: deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
+
+- name: Pre tasks > Nodesource preferences
+  copy:
+    dest: /etc/apt/preferences.d/nodejs
+    content: |
+      Package:      nodejs*
+      Pin:          origin deb.nodesource.com
+      Pin-Priority: 900

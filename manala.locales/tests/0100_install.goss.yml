@@ -3,19 +3,9 @@
 command:
   locale --version:
     exit-status: 0
-{{ if eq .Env.DISTRIBUTION_ID "debian" "ubuntu" }}
   which locale-gen:
     exit-status: 0
-{{ else if eq .Env.DISTRIBUTION_ID "centos" }}
-  localedef --version:
-    exit-status: 0
-{{ end }}
 
 file:
-{{ if eq .Env.DISTRIBUTION_ID "debian" "ubuntu" }}
   /etc/default/locale:
     exists: true
-{{ else if eq .Env.DISTRIBUTION_ID "centos" }}
-  /etc/locale.conf:
-    exists: true
-{{ end }}

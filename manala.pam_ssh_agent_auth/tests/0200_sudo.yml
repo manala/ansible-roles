@@ -5,14 +5,7 @@
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
-      when: ansible_distribution_release in ['wheezy', 'jessie', 'stretch']
-    - copy:
-        dest: /etc/apt/preferences.d/pam-ssh-agent-auth
-        content: |
-          Package:      libpam-ssh-agent-auth*
-          Pin:          origin debian.manala.io
-          Pin-Priority: 900
-      when: ansible_distribution_release in ['wheezy', 'jessie', 'stretch']
+      when: ansible_distribution_release in ['jessie', 'stretch']
   roles:
     - manala.pam_ssh_agent_auth
   post_tasks:

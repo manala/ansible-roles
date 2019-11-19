@@ -3,7 +3,7 @@
 - name: fpm_pools > Templates
   template:
     src:  "{{ item.template|default(manala_php_fpm_pools_template|ternary(manala_php_fpm_pools_template, 'fpm_pools/empty.j2')) }}"
-    dest: "{{ manala_php_versions[manala_php_version|string]['config_dir'] }}/fpm/pool.d/{{ item.file }}"
+    dest: /etc/php/{{ manala_php_version|string }}/fpm/pool.d/{{ item.file }}
   notify:
     - php fpm restart
   with_manala_php_fpm_pools: "{{ manala_php_fpm_pools }}"
@@ -11,14 +11,14 @@
 - name: fpm_pools > Exclusive - Find files
   command: "find -type f -printf '%P\n'"
   args:
-    chdir: "{{ manala_php_versions[manala_php_version|string]['config_dir'] }}/fpm/pool.d"
+    chdir: /etc/php/{{ manala_php_version|string }}/fpm/pool.d
   changed_when: false
   register: __manala_php_fpm_pools_exclusive_find_result
   when: manala_php_fpm_pools_exclusive
 
 - name: fpm_pools > Exclusive - Remove files
   file:
-    path:  "{{ manala_php_versions[manala_php_version|string]['config_dir'] }}/fpm/pool.d/{{ item }}"
+    path: /etc/php/{{ manala_php_version|string }}/fpm/pool.d/{{ item }}
     state: absent
   when: manala_php_fpm_pools_exclusive and (item not in manala_php_fpm_pools|map(attribute='file'))
   with_items: "{{ __manala_php_fpm_pools_exclusive_find_result.stdout_lines|default([]) }}"

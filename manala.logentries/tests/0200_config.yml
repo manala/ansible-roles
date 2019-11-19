@@ -10,12 +10,6 @@
         - user-key: e720a1e8-a7d5-4f8b-8879-854e51c9290d
   pre_tasks:
     - import_tasks: pre_tasks/logentries.yml
-    - copy:
-        dest: /etc/apt/preferences.d/logentries
-        content: |
-          Package:      logentries*
-          Pin:          origin rep.logentries.com
-          Pin-Priority: 900
   roles:
     - manala.logentries
   post_tasks:

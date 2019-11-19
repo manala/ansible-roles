@@ -1,5 +1,12 @@
 ---
 
+# Install
+manala_locales_install_packages: ~
+manala_locales_install_packages_default:
+  - locales # Provides "locale-gen" binary for module "locale_gen".
+            # Note that "locales" package has a dependency on
+            # "libc-bin" package, providing "locale" binary
+
 # Codes
 manala_locales_codes:         []
 manala_locales_codes_default: ~

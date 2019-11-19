@@ -1,380 +1,59 @@
 ---
 
-# Versions
-manala_php_versions:
-  '5':
-    release:
-      - wheezy
-    enmod_bin:   /usr/sbin/php5enmod
-    dismod_bin:  /usr/sbin/php5dismod
-    fpm_bin:     /usr/sbin/php5-fpm
-    fpm_service: php5-fpm
-    config_dir:  /etc/php5
-    log_dir:     /var/log/php5
-    sapis:
-      #############
-      # Available #
-      #############
-      - cli
-      - fpm
-      - cgi
-      #- phpdbg # 5.6
-    extensions:
-      ############
-      # Embedded #
-      ############
-      - bcmath
-      - bz2
-      - calendar
-      - ctype
-      - date
-      - dba
-      #- dom # See xml
-      - ereg # Deprecated
-      - exif
-      - fileinfo
-      - filter
-      - ftp
-      - gettext
-      - hash
-      - iconv
-      - json
-      #- libxml # See xml
-      - mbstring
-      - mhash # Deprecated
-      - openssl
-      - pcntl
-      - pcre
-      - phar
-      - posix
-      - reflection
-      - session
-      - shmop
-      #- simplexml # See xml
-      - soap
-      - sockets
-      - spl
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tokenizer
-      #- wddx # See xml
-      - xml
-      #- xmlreader # See xml
-      #- xmlwriter # See xml
-      - zip
-      - zlib
-      ##########
-      # Common #
-      ##########
-      - pdo
-      #- opcache # 5.5/5.6
-      #########
-      # Sapis #
-      #########
-      #- readline # 5.5/5.6
-  '5.6':
-    release:
-      - jessie
-      - stretch
-      - buster
-    enmod_bin:   /usr/sbin/phpenmod
-    dismod_bin:  /usr/sbin/phpdismod
-    fpm_bin:     /usr/sbin/php-fpm5.6
-    fpm_service: php5.6-fpm
-    config_dir:  /etc/php/5.6
-    log_dir:     /var/log/php5.6
-    sapis:
-      #############
-      # Available #
-      #############
-      - cli
-      - fpm
-      - cgi
-      - phpdbg
-    extensions:
-      ############
-      # Embedded #
-      ############
-      - date
-      - ereg # Deprecated
-      - filter
-      - hash
-      - libxml
-      - mhash # Deprecated
-      - openssl
-      - pcntl
-      - pcre
-      - reflection
-      - session
-      - spl
-      - zlib
-      ##########
-      # Common #
-      ##########
-      - calendar
-      - ctype
-      - exif
-      - fileinfo
-      - ftp
-      - gettext
-      - iconv
-      - pdo
-      - phar
-      - posix
-      - shmop
-      - sockets
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tokenizer
-      #########
-      # Sapis #
-      #########
-      #- opcache
-      #- json
-      #- readline
-  '7.0':
-    release:
-      - jessie
-      - stretch
-      - buster
-    enmod_bin:   /usr/sbin/phpenmod
-    dismod_bin:  /usr/sbin/phpdismod
-    fpm_bin:     /usr/sbin/php-fpm7.0
-    fpm_service: php7.0-fpm
-    config_dir:  /etc/php/7.0
-    log_dir:     /var/log/php7.0
-    sapis:
-      #############
-      # Available #
-      #############
-      - cli
-      - fpm
-      - cgi
-      - phpdbg
-    extensions:
-      ############
-      # Embedded #
-      ############
-      - date
-      - filter
-      - hash
-      - libxml
-      - openssl
-      - pcntl
-      - pcre
-      - reflection
-      - session
-      - spl
-      - zlib
-      ##########
-      # Common #
-      ##########
-      - calendar
-      - ctype
-      - exif
-      - fileinfo
-      - ftp
-      - gettext
-      - iconv
-      - pdo
-      - phar
-      - posix
-      - shmop
-      - sockets
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tokenizer
-      #########
-      # Sapis #
-      #########
-      #- opcache
-      #- json
-      #- readline
-  '7.1':
-    release:
-      - jessie
-      - stretch
-      - buster
-    enmod_bin:   /usr/sbin/phpenmod
-    dismod_bin:  /usr/sbin/phpdismod
-    fpm_bin:     /usr/sbin/php-fpm7.1
-    fpm_service: php7.1-fpm
-    config_dir:  /etc/php/7.1
-    log_dir:     /var/log/php7.1
-    sapis:
-      #############
-      # Available #
-      #############
-      - cli
-      - fpm
-      - cgi
-      - phpdbg
-    extensions:
-      ############
-      # Embedded #
-      ############
-      - date
-      - filter
-      - hash
-      - libxml
-      - openssl
-      - pcntl
-      - pcre
-      - reflection
-      - session
-      - spl
-      - zlib
-      ##########
-      # Common #
-      ##########
-      - calendar
-      - ctype
-      - exif
-      - fileinfo
-      - ftp
-      - gettext
-      - iconv
-      - pdo
-      - phar
-      - posix
-      - shmop
-      - sockets
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tokenizer
-      #########
-      # Sapis #
-      #########
-      #- opcache
-      #- json
-      #- readline
-  '7.2':
-    release:
-      - jessie
-      - stretch
-      - buster
-    enmod_bin:   /usr/sbin/phpenmod
-    dismod_bin:  /usr/sbin/phpdismod
-    fpm_bin:     /usr/sbin/php-fpm7.2
-    fpm_service: php7.2-fpm
-    config_dir:  /etc/php/7.2
-    log_dir:     /var/log/php7.2
-    sapis:
-      #############
-      # Available #
-      #############
-      - cli
-      - fpm
-      - cgi
-      - phpdbg
-    extensions:
-      ############
-      # Embedded #
-      ############
-      - date
-      - filter
-      - hash
-      - libxml
-      - openssl
-      - pcntl
-      - pcre
-      - reflection
-      - session
-      - sodium
-      - spl
-      - zlib
-      ##########
-      # Common #
-      ##########
-      - calendar
-      - ctype
-      - exif
-      - fileinfo
-      - ftp
-      - gettext
-      - iconv
-      - pdo
-      - phar
-      - posix
-      - shmop
-      - sockets
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tokenizer
-      #########
-      # Sapis #
-      #########
-      #- opcache
-      #- json
-      #- readline
-  '7.3':
-    release:
-      - jessie
-      - stretch
-      - buster
-    enmod_bin:   /usr/sbin/phpenmod
-    dismod_bin:  /usr/sbin/phpdismod
-    fpm_bin:     /usr/sbin/php-fpm7.3
-    fpm_service: php7.3-fpm
-    config_dir:  /etc/php/7.3
-    log_dir:     /var/log/php7.3
-    sapis:
-      #############
-      # Available #
-      #############
-      - cli
-      - fpm
-      - cgi
-      - phpdbg
-    extensions:
-      ############
-      # Embedded #
-      ############
-      - date
-      - filter
-      - hash
-      - libxml
-      - openssl
-      - pcntl
-      - pcre
-      - reflection
-      - session
-      - sodium
-      - spl
-      - zlib
-      ##########
-      # Common #
-      ##########
-      - calendar
-      - ctype
-      - exif
-      - fileinfo
-      - ftp
-      - gettext
-      - iconv
-      - pdo
-      - phar
-      - posix
-      - shmop
-      - sockets
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tokenizer
-      #########
-      # Sapis #
-      #########
-      #- opcache
-      #- json
-      #- readline
+# Sapis
+manala_php_sapis_available:
+  - cli
+  - fpm
+  - cgi
+  - phpdbg
 
-# Pecl
-manala_php_extensions_pecl:
+# Extensions
+manala_php_extensions_available:
+  ############
+  # Embedded #
+  ############
+  - date
+  - ereg # 5.6 only (deprecated)
+  - filter
+  - hash
+  - libxml
+  - mhash # 5.6 only (deprecated)
+  - openssl
+  - pcntl
+  - pcre
+  - reflection
+  - session
+  - sodium # Starting from 7.2
+  - spl
+  - zlib
+  ##########
+  # Common #
+  ##########
+  - calendar
+  - ctype
+  - exif
+  - fileinfo
+  - ftp
+  - gettext
+  - iconv
+  - pdo
+  - phar
+  - posix
+  - shmop
+  - sockets
+  - sysvmsg
+  - sysvsem
+  - sysvshm
+  - tokenizer
+  #########
+  # Sapis #
+  #########
+  #- opcache
+  #- json
+  #- readline
+
+# Extensions - Pecl
+manala_php_extensions_pecl_available:
     - amqp
     - apcu
     - apcu-bc
@@ -423,7 +102,6 @@ manala_php_applications_patterns:
   phpunit:
     source:         https://phar.phpunit.de/phpunit.phar
     source_version: https://phar.phpunit.de/phpunit-{version}.phar
-    validate_certs: "{{ (ansible_distribution_release == 'wheezy')|ternary(false, true) }}"
   php-cs-fixer:
     source: http://get.sensiolabs.org/php-cs-fixer.phar
   couscous:

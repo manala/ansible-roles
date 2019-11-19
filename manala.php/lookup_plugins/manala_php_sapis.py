@@ -11,8 +11,8 @@ class LookupModule(LookupBase):
 
         results = []
 
-        # Version parameters
-        version = terms[1]
+        # Sapis - Available
+        sapisAvailable = terms[1]
 
         wantstate = kwargs.pop('wantstate', None)
         wantmap   = kwargs.pop('wantmap', False)
@@ -49,7 +49,7 @@ class LookupModule(LookupBase):
                 item.update(term)
 
             # Known sapi ?
-            if item.get('sapi') not in version['sapis']:
+            if item.get('sapi') not in sapisAvailable:
                 raise AnsibleError('Unknown sapi "' + item.get('sapi') + '"')
 
             items.append(item)

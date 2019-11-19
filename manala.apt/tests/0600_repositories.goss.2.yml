@@ -1,7 +1,7 @@
 ---
 
 file:
-{{ if eq .Env.DISTRIBUTION_RELEASE "wheezy" "jessie" "stretch" }}
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
   /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_15_debian.list:
     exists:   true
     filetype: file
@@ -28,4 +28,3 @@ file:
     contains:
       - "deb https://downloads.mariadb.com/MaxScale/2.3.11/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
 {{ end }}
-

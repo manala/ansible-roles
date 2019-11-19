@@ -2,12 +2,13 @@
 
 - name: extensions > Enabled
   command: >
-    {{ manala_php_versions[manala_php_version|string]['enmod_bin'] }}
+    /usr/sbin/phpenmod
     {{
       lookup(
         'manala_php_extensions',
         manala_php_extensions,
-        manala_php_versions[manala_php_version|string],
+        manala_php_extensions_available,
+        manala_php_sapis_available,
         wantenabled=true,
         wantmap=true,
         wantlist=true
@@ -17,7 +18,8 @@
     lookup(
       'manala_php_extensions',
       manala_php_extensions,
-      manala_php_versions[manala_php_version|string],
+      manala_php_extensions_available,
+      manala_php_sapis_available,
       wantenabled=true,
       wantmap=true,
       wantlist=true
@@ -25,12 +27,13 @@
 
 - name: extensions > Disabled
   command: >
-    {{ manala_php_versions[manala_php_version|string]['dismod_bin'] }}
+    /usr/sbin/phpdismod
     {{
       lookup(
         'manala_php_extensions',
         manala_php_extensions,
-        manala_php_versions[manala_php_version|string],
+        manala_php_extensions_available,
+        manala_php_sapis_available,
         wantenabled=false,
         wantmap=true,
         wantlist=true
@@ -40,7 +43,8 @@
     lookup(
       'manala_php_extensions',
       manala_php_extensions,
-      manala_php_versions[manala_php_version|string],
+      manala_php_extensions_available,
+      manala_php_sapis_available,
       wantenabled=false,
       wantmap=true,
       wantlist=true

@@ -4,7 +4,7 @@ file:
   /usr/local/share/oh-my-zsh:
     exists: true
     owner: root
-{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "wheezy|jessie|stretch" }}
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
     mode: "2755"
     group: staff
 {{ else }}

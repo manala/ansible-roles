@@ -1,0 +1,41 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_php_version: 5.6
+    manala_php_fpm_pools_exclusive: true
+    manala_php_fpm_pools:
+      - file:     www.conf
+        template: fpm_pools/default.j2
+        config:
+          - www:
+            - pm.max_children: 12
+      - file:     foo.conf
+        template: fpm_pools/default.j2
+        config:
+          - foo:
+            - listen: /run/php-fpm.foo.sock
+            - env[_FOO]: bar
+            - env[_BAR]: 123
+            - env:
+                FOO: bar
+                BAR: 123
+                BAZ: 1.2
+                QUX: foo=bar
+  pre_tasks:
+    - import_tasks: pre_tasks/sury_php.yml
+    - apt:
+        name:
+          - php5.6-fpm
+        install_recommends: false
+    - copy:
+        dest:    /etc/php/5.6/fpm/pool.d/bar.conf
+        content: |
+          ; Foo
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

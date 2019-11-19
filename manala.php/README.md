@@ -47,7 +47,6 @@ Using ansible galaxy requirements file:
 | `manala_php_sapis_default`                    | ['cli', 'fpm']                | Array                | Default list of PHP SAPIs                               |
 | `manala_php_extensions_exclusive`             | false                         | Boolean              | Should the extensions list be exclusive ?               |
 | `manala_php_extensions`                       | []                            | Array                | A list of PHP extensions                                |
-| `manala_php_configs_global`                   | false                         | Boolean              | Should configs be global for all SAPIs ? (php 5.4 only) |
 | `manala_php_configs_template`                 | 'configs/empty.j2'            | String               | Configs base template path                              |
 | `manala_php_configs_exclusive:`               | false                         | Boolean              | Should configs files be exclusive ?                     |
 | `manala_php_configs`                          | []                            | Array                | Configs files                                           |
@@ -74,20 +73,22 @@ Using ansible galaxy requirements file:
 
 | Version | Distribution | Repository | *manala_apt_preferences* | *manala_php_version* | *manala_php_extensions_pecl_versioned* |
 | :---    | :---:        | :---:      | ---:                     | ---:                 | ---:                                   |
-| **5.4** | Wheezy       | Dotdeb     | `php@dotdeb`             | `5`                  | `true` (default)                       |
-| **5.5** | Wheezy       | Dotdeb     | `php@dotdeb_php55`       | `5`                  | `true` (default)                       |
-| **5.6** | Wheezy       | Dotdeb     | `php@dotdeb_php56`       | `5`                  | `true` (default)                       |
 | **5.6** | Jessie       | Sury       | `php@sury_php`           | `5.6`                |                                        |
 | **5.6** | Stretch      | Sury       | `php@sury_php`           | `5.6`                |                                        |
-| **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                | `true` (default)                       |
-| **7.0** | Jessie       | Sury       | `php@sury_php`           | `7.0`                | `false`                                |
-| **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                | `false`                                |
+| **5.6** | Buster       | Sury       | `php@sury_php`           | `5.6`                |                                        |
+| **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                | `true`                                 |
+| **7.0** | Jessie       | Sury       | `php@sury_php`           | `7.0`                |                                        |
+| **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                |                                        |
+| **7.0** | Buster       | Sury       | `php@sury_php`           | `7.0`                |                                        |
 | **7.1** | Jessie       | Sury       | `php@sury_php`           | `7.1`                |                                        |
 | **7.1** | Stretch      | Sury       | `php@sury_php`           | `7.1`                |                                        |
+| **7.1** | Buster       | Sury       | `php@sury_php`           | `7.1`                |                                        |
 | **7.2** | Jessie       | Sury       | `php@sury_php`           | `7.2`                |                                        |
 | **7.2** | Stretch      | Sury       | `php@sury_php`           | `7.2`                |                                        |
+| **7.2** | Buster       | Sury       | `php@sury_php`           | `7.2`                |                                        |
 | **7.3** | Jessie       | Sury       | `php@sury_php`           | `7.3`                |                                        |
 | **7.3** | Stretch      | Sury       | `php@sury_php`           | `7.3`                |                                        |
+| **7.3** | Buster       | Sury       | `php@sury_php`           | `7.3`                |                                        |
 
 #### Sapis
 
@@ -114,11 +115,6 @@ manala_php_extensions:
 ```
 
 #### Configs
-
-Php 5.4 only
-```yaml
-manala_php_configs_global: true
-```
 
 All sapis
 ```yaml

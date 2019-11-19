@@ -9,7 +9,7 @@
           lookup(
             'manala_php_sapis',
             manala_php_sapis|default(manala_php_sapis_default, True),
-            manala_php_versions[manala_php_version|string],
+            manala_php_sapis_available,
             wantstate='present',
             wantmap=true,
             wantlist=true
@@ -17,14 +17,15 @@
           + lookup(
             'manala_php_extensions',
             manala_php_extensions,
-            manala_php_versions[manala_php_version|string],
+            manala_php_extensions_available,
+            manala_php_sapis_available,
             wantstate='present',
             wantmap=true,
             wantlist=true
           )
         ),
         manala_php_version|string,
-        manala_php_extensions_pecl,
+        manala_php_extensions_pecl_available,
         manala_php_extensions_pecl_versioned,
         wantlist=true
       )
@@ -42,7 +43,7 @@
           lookup(
             'manala_php_sapis',
             manala_php_sapis|default(manala_php_sapis_default, True),
-            manala_php_versions[manala_php_version|string],
+            manala_php_sapis_available,
             wantstate='absent',
             wantmap=true,
             wantlist=true
@@ -50,14 +51,15 @@
           + lookup(
             'manala_php_extensions',
             manala_php_extensions,
-            manala_php_versions[manala_php_version|string],
+            manala_php_extensions_available,
+            manala_php_sapis_available,
             wantstate='absent',
             wantmap=true,
             wantlist=true
           )
         ),
         manala_php_version|string,
-        manala_php_extensions_pecl,
+        manala_php_extensions_pecl_available,
         manala_php_extensions_pecl_versioned,
         wantlist=true
       )
@@ -94,7 +96,7 @@
           lookup(
             'manala_php_sapis',
             manala_php_sapis|default(manala_php_sapis_default, True),
-            manala_php_versions[manala_php_version|string],
+            manala_php_sapis_available,
             wantstate='present',
             wantmap=true,
             wantlist=true
@@ -102,14 +104,15 @@
           + lookup(
             'manala_php_extensions',
             manala_php_extensions,
-            manala_php_versions[manala_php_version|string],
+            manala_php_extensions_available,
+            manala_php_sapis_available,
             wantstate='present',
             wantmap=true,
             wantlist=true
           )
         ),
         manala_php_version|string,
-        manala_php_extensions_pecl,
+        manala_php_extensions_pecl_available,
         manala_php_extensions_pecl_versioned,
         wantlist=true
       )|join(' ')
@@ -133,7 +136,7 @@
             lookup(
               'manala_php_sapis',
               manala_php_sapis|default(manala_php_sapis_default, True),
-              manala_php_versions[manala_php_version|string],
+              manala_php_sapis_available,
               wantstate='present',
               wantmap=true,
               wantlist=true
@@ -141,22 +144,23 @@
             + lookup(
               'manala_php_extensions',
               manala_php_extensions,
-              manala_php_versions[manala_php_version|string],
+              manala_php_extensions_available,
+              manala_php_sapis_available,
               wantstate='present',
               wantmap=true,
               wantlist=true
             )
           ),
           manala_php_version|string,
-          manala_php_extensions_pecl,
+          manala_php_extensions_pecl_available,
           manala_php_extensions_pecl_versioned,
           wantlist=true
         ),
         lookup(
           'manala_php_packages',
-          manala_php_versions[manala_php_version|string]['sapis'],
+          manala_php_sapis_available,
           manala_php_version|string,
-          manala_php_extensions_pecl,
+          manala_php_extensions_pecl_available,
           manala_php_extensions_pecl_versioned,
           wantlist=true
         ),

@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian:!debian.wheezy
+  hosts: debian
   become: true
   vars:
     manala_phppgadmin_configs:

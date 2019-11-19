@@ -1,0 +1,13 @@
+---
+
+- name: codes > Handle
+  locale_gen:
+    name:  "{{ item.code }}"
+    state: "{{ item.state }}"
+  with_items: "{{ lookup(
+      'manala_locales_codes',
+      manala_locales_codes,
+      [],
+      wantlist=True
+    )
+  }}"

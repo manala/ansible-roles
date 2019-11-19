@@ -1,4 +1,0 @@
----
-
-# Codes
-manala_locales_codes_default_file: /etc/locale.conf # Used to be /etc/sysconfig/i18n in versions < 7

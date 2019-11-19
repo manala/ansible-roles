@@ -5,16 +5,8 @@ file:
     exists:   true
     filetype: file
     contains:
-      {{ if .Env.DISTRIBUTION_RELEASE | regexMatch "wheezy" }}
-      - "deb http://archive.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
-      {{ else }}
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
-      {{ end }}
-      {{ if not (.Env.DISTRIBUTION_RELEASE | regexMatch "wheezy|jessie") }}
+      {{ if not (.Env.DISTRIBUTION_RELEASE | regexMatch "jessie") }}
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-updates main"
       {{ end }}
-      {{ if .Env.DISTRIBUTION_RELEASE | regexMatch "wheezy" }}
-      - "deb http://archive.debian.org/debian-security {{ .Env.DISTRIBUTION_RELEASE }}/updates main"
-      {{ else }}
       - "deb http://security.debian.org/debian-security {{ .Env.DISTRIBUTION_RELEASE }}/updates main"
-      {{ end }}

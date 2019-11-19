@@ -165,10 +165,6 @@ manala_apt_repositories:
   - debian_updates # Deprecated, use 'updates'
   - debian_updates_src # Deprecated, use 'updates_src'
   - debian_backports # Deprecated, use 'backports'
-  - ubuntu_security # Deprecated, use 'security'
-  - ubuntu_updates # Deprecated, use 'updates'
-  - ubuntu_partner # Deprecated, use 'partner'
-  - ubuntu_backports # Deprecated, use 'backports'
   - dotdeb
   - dotdeb_php54
   - dotdeb_php55
@@ -207,7 +203,6 @@ manala_apt_repositories:
   - blackfire
   - sury_php # Distribution auto-detection
   - sury_php_debian # Deprecated, use 'sury_php'
-  - sury_php_ubuntu # Deprecated, use 'sury_php'
 ```
 
 Verbose, pattern based
@@ -246,11 +241,11 @@ Note that referenced repositories will automatically be include as present using
 
 ```yaml
 manala_apt_preferences:
-  - git@backports         # "git*"" from debian|ubuntu backports repository, high priority
+  - git@backports         # "git*"" from debian backports repository, high priority
   - dotdeb:100            # "*" from dotdeb repository, low priority
   - php@dotdeb            # "php*" from dotdeb repository, high priority
   - redis@dotdeb          # "redis*" from dotdeb repository, high priority
-  - libssl1.0.0@backports # "libssl1.0.0" from debian|ubuntu backports repository, high priority (in this case "libssl1.0.0" is not a pre-defined preference pattern; as a matter of consequence the package is directly used)
+  - libssl1.0.0@backports # "libssl1.0.0" from debian backports repository, high priority (in this case "libssl1.0.0" is not a pre-defined preference pattern; as a matter of consequence the package is directly used)
 ```
 
 Verbose

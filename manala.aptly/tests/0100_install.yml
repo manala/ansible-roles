@@ -5,12 +5,6 @@
   become: true
   pre_tasks:
     - import_tasks: pre_tasks/aptly.yml
-    - copy:
-        dest: /etc/apt/preferences.d/aptly
-        content: |
-          Package:      aptly*
-          Pin:          origin repo.aptly.info
-          Pin-Priority: 900
   roles:
     - manala.aptly
   post_tasks:
