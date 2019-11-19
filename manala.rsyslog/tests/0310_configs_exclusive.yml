@@ -1,0 +1,27 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_rsyslog_configs_dir: /etc/rsyslog.d.test
+    manala_rsyslog_configs:
+      - file: foo.conf
+      - file: bar.conf
+      - file: baz.conf
+  roles:
+    - manala.rsyslog
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_rsyslog_configs_dir: /etc/rsyslog.d.test
+    manala_rsyslog_configs_exclusive: true
+    manala_rsyslog_configs:
+      - file: bar.conf
+  roles:
+    - manala.rsyslog
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -71,7 +71,7 @@ Program
 
 ```yaml
 manala_supervisor_configs:
-  - file:     foo.conf
+  - file: foo.conf
     template: configs/program.dev.j2
     config:
       - foo:
@@ -79,9 +79,27 @@ manala_supervisor_configs:
         - environment:
             FOO: bar
             BAR: 12
-  - file:  bar.conf
+  - file: bar.conf
     state: absent
 ```
+
+Raw content
+
+```yaml
+manala_supervisor_configs:
+  - file: bar.conf
+    content: |
+      [program:example]
+      command=/usr/bin/example --loglevel=%(ENV_LOGLEVEL)s
+```
+
+`manala_supervisor_configs_exclusive` allow you to clean up existing supervisor configuration files into directory defined by the `manala_supervisor_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_supervisor_configs_exclusive: true
+```
+
+A state (present|absent) can be provided.
 
 ## Example playbook
 

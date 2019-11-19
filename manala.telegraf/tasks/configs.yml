@@ -14,7 +14,7 @@
   register: __manala_telegraf_configs_exclusive_find
   when: manala_telegraf_configs_exclusive
 
-- name: configs > Templates presents
+- name: configs > Templates present
   template:
     src:  "{{ item.template|default(manala_telegraf_configs_template|ternary(manala_telegraf_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
@@ -31,7 +31,7 @@
     - telegraf restart
 
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
-- name: configs > Files absents
+- name: configs > Files absent
   file:
     path:  "{{ item.file }}"
     state: absent

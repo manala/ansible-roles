@@ -7,20 +7,29 @@
     manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
     manala_supervisor_configs:
       - file: foo.conf
-        template: configs/program.dev.j2
         config:
           - foo:
             - command: cat
             - environment:
                 FOO: bar
                 BAR: 12
-      - file: bar.conf
+      - file: foo_template.conf
         template: configs/program.dev.j2
-        state: present
         config:
           - bar:
             - command: cat
             - environment: BAR="12",FOO="bar"
+      - file: foo_content.conf
+        content: |
+          [program:foo]
+          command=/usr/bin/foo
+      - file: foo_template_content.conf
+        template: configs/program.dev.j2
+        content: |
+          [program:foo]
+          command=/usr/bin/foo
+      - file: bar.conf
+        state: present
       - file: baz.conf
         state: absent
   pre_tasks:

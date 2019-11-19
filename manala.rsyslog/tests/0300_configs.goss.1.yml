@@ -1,0 +1,28 @@
+---
+
+file:
+  /etc/rsyslog.d.test/foo.conf:
+    exists: true
+    contains:
+      - user.*                    -/var/log/user.log
+      - daemon.*                  -/var/log/daemon.log
+      - '*.*;auth,authpriv.none   -/var/log/syslog'
+  /etc/rsyslog.d.test/foo_template.conf:
+    exists: true
+    contains:
+      - "# First some standard log files.  Log by facility."
+      - auth,authpriv.*         /var/log/auth.log
+  /etc/rsyslog.d.test/foo_content.conf:
+    exists: true
+    contains:
+      - foo.* -/var/log/foo.log
+      - bar.*  -/var/log/bar.log
+  /etc/rsyslog.d.test/foo_template_content.conf:
+    exists: true
+    contains:
+      - foo.* -/var/log/foo.log
+      - bar.*  -/var/log/bar.log
+  /etc/rsyslog.d.test/bar.conf:
+    exists: true
+  /etc/rsyslog.d.test/baz.conf:
+    exists: false

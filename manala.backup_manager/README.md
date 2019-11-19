@@ -119,24 +119,45 @@ Execute hooks before and after backup
 | `BM_PRE_BACKUP_COMMAND`  |                                             | String | Command to execute before backup |
 | `BM_POST_BACKUP_COMMAND` |                                             | String | Command to execute after backup  |
 
-### MySQL backup example
+### Configs
+
+`manala_backup_manager_configs` allows you to define backup manager configuration files using template and config, or raw content.
+
+A state (present|absent) can be provided.
 
 ```yaml
 manala_backup_manager_configs:
-  - file:     mysql.conf
+  # Template based
+  - file: foo_template.conf
+    template: configs/pgsql.j2
+  # Config based, default template by default
+  - file: foo.conf
     template: configs/mysql.j2
     config:
       - BM_REPOSITORY_CHMOD: 775
       - BM_ARCHIVE_CHMOD:    664
-
       - BM_REPOSITORY_ROOT:  /srv/backup/mysql
       - BM_ARCHIVE_TTL:      5
       - BM_ARCHIVE_PREFIX:   backup
-
       - BM_MYSQL_ADMINLOGIN: root
       - BM_MYSQL_ADMINPASS:  ~
       - BM_MYSQL_HOST:       localhost
       - BM_MYSQL_DBEXCLUDE:  information_schema mysql performance_schema
+  # Raw content based
+  - file: foo_content.conf
+    content: |
+      # Where to store the archives
+      export BM_REPOSITORY_ROOT="/var/archives"
+      # Where to place temporary files
+      export BM_TEMP_DIR="/tmp"
+      ...
+    state: absent
+```
+
+`manala_backup_manager_configs_exclusive` allow you to clean up existing backup manager configuration files into directory defined by the `manala_backup_manager_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_backup_manager_configs_exclusive: true
 ```
 
 ### Files backup example

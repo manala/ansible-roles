@@ -6,9 +6,6 @@
   vars:
     manala_sudo_sudoers_dir: /etc/sudoers.d.test
     manala_sudo_sudoers:
-      - file: vagrant
-        config:
-          - vagrant: ALL=NOPASSWD:ALL
       - file: foo
       - file: bar
       - file: baz
@@ -26,9 +23,6 @@
     manala_sudo_sudoers_dir: /etc/sudoers.d.test
     manala_sudo_sudoers_exclusive: true
     manala_sudo_sudoers:
-      - file: vagrant
-        config:
-          - vagrant: ALL=NOPASSWD:ALL
       - file: bar
   roles:
     - manala.sudo

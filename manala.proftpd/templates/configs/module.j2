@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = item.config -%}
+{% set config = item.config|default([]) -%}
 
 <IfModule {{ item.name }}>
 {{ macros.config(config, [

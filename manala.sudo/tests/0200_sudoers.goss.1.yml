@@ -1,0 +1,24 @@
+---
+
+file:
+  /etc/sudoers.d.test/foo:
+    exists: true
+    filetype: file
+    contains:
+      - vagrant ALL=NOPASSWD:ALL
+  /etc/sudoers.d.test/foo_template:
+    exists: true
+    contains:
+      - foo ALL=(ALL) ALL
+  /etc/sudoers.d.test/foo_content:
+    exists: true
+    contains:
+      - bar ALL=(ALL) ALL
+  /etc/sudoers.d.test/foo_template_content:
+    exists: true
+    contains:
+      - bar ALL=(ALL) ALL
+  /etc/sudoers.d.test/bar:
+    exists: true
+  /etc/sudoers.d.test/baz:
+    exists: false

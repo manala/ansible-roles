@@ -54,9 +54,18 @@ Using ansible galaxy requirements file:
 - hosts: all
   vars:
     manala_sudo_sudoers:
-      - file: vagrant
+      # Template based
+      - file: foo_template
+        template: sudo/app.j2
+      # Config based, empty template by default
+      - file: foo
         config:
           - vagrant: ALL=NOPASSWD:ALL
+      # Raw content based
+      - file: foo_content
+        content: |
+          user ALL=NOPASSWD:ALL
+        state: absent
   roles:
     - role: manala.sudo
 

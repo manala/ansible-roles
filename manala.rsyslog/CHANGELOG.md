@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Debian wheezy support
 
+### Added
+- Handle configs states (present|absent) & raw content
+
 ## [1.0.4] - 2019-10-24
 ### Added
 - Debian buster support

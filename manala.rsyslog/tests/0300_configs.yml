@@ -1,11 +1,12 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
+    manala_rsyslog_configs_dir: /etc/rsyslog.d.test
     manala_rsyslog_configs:
-      - file: rules.conf
+      - file: foo.conf
         config:
           - auth,authpriv.*           /var/log/auth.log
           - '*.*;auth,authpriv.none   -/var/log/syslog'
@@ -13,8 +14,40 @@
           - kern.*                    -/var/log/kern.log
           - mail.*                    -/var/log/mail.log
           - user.*                    -/var/log/user.log
+      - file: foo_template.conf
+        template: configs/rules.prod.j2
+      - file: foo_content.conf
+        content: |
+          foo.* -/var/log/foo.log
+          bar.*  -/var/log/bar.log
+      - file: foo_template_content.conf
+        template: configs/rules.prod.j2
+        content: |
+          foo.* -/var/log/foo.log
+          bar.*  -/var/log/bar.log
+      - file: bar.conf
+        state: present
+      - file: baz.conf
+        state: absent
   roles:
     - manala.rsyslog
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_rsyslog_configs_dir: /etc/rsyslog.d.test
+    manala_rsyslog_configs:
+      - file: foo.conf
+      - file: bar.conf
+        state: absent
+      - file: baz.conf
+        state: present
+  roles:
+    - manala.rsyslog
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

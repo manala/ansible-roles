@@ -13,7 +13,7 @@
   register: __manala_proftpd_configs_exclusive_find
   when: manala_proftpd_configs_exclusive
 
-- name: configs > Templates presents
+- name: configs > Templates present
   template:
     src:  "{{ item.template|default(manala_proftpd_configs_template|ternary(manala_proftpd_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
@@ -26,11 +26,28 @@
       wantstate='present'
     )
   }}"
+  when: item.content is not defined
   notify:
     - proftpd restart
 
-# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
-- name: configs > Files absents
+- name: configs > Contents present
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_proftpd_configs',
+      manala_proftpd_configs,
+      __manala_proftpd_configs_exclusive_find.files|default([]),
+      manala_proftpd_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is defined
+  notify:
+    - proftpd restart
+
+- name: configs > Files absent
   file:
     path:  "{{ item.file }}"
     state: absent

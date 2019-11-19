@@ -1,26 +1,65 @@
 ---
 
-- name: configs > Templates
+- name: configs > Directory
+  file:
+    path: "{{ manala_rsyslog_configs_dir }}"
+    state: directory
+  when: manala_rsyslog_configs|length
+
+- name: configs > Exclusive
+  find:
+    path: "{{ manala_rsyslog_configs_dir }}"
+    patterns: "*"
+  changed_when: false
+  register: __manala_rsyslog_configs_exclusive_find
+  when: manala_rsyslog_configs_exclusive
+
+- name: configs > Templates present
   template:
-    src:  "{{ item.template|default(manala_rsyslog_configs_template|ternary(manala_rsyslog_configs_template, 'configs/empty.j2')) }}"
-    dest: "{{ manala_rsyslog_configs_dir }}/{{ item.file }}"
-  with_items: "{{ manala_rsyslog_configs }}"
+    src: "{{ item.template|default(manala_rsyslog_configs_template|ternary(manala_rsyslog_configs_template, 'configs/empty.j2')) }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_rsyslog_configs',
+      manala_rsyslog_configs,
+      __manala_rsyslog_configs_exclusive_find.files|default([]),
+      manala_rsyslog_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is not defined
   notify:
     - rsyslog restart
 
-- name: configs > Exclusive - find files
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: "{{ manala_rsyslog_configs_dir }}"
-  changed_when: false
-  register: __manala_rsyslog_configs_find_output
-  when: manala_rsyslog_configs_exclusive
+- name: configs > Contents present
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_rsyslog_configs',
+      manala_rsyslog_configs,
+      __manala_rsyslog_configs_exclusive_find.files|default([]),
+      manala_rsyslog_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is defined
+  notify:
+    - rsyslog restart
 
-- name: configs > Exclusive - remove files
+- name: configs > Files absent
   file:
-    path:  "{{ manala_rsyslog_configs_dir }}/{{ item }}"
+    path: "{{ item.file }}"
     state: absent
-  when: manala_rsyslog_configs_exclusive and (item not in manala_rsyslog_configs|map(attribute='file'))
-  with_items: "{{ __manala_rsyslog_configs_find_output.stdout_lines|default([]) }}"
+  with_items: "{{ lookup(
+      'manala_rsyslog_configs',
+      manala_rsyslog_configs,
+      __manala_rsyslog_configs_exclusive_find.files|default([]),
+      manala_rsyslog_configs_dir,
+      wantlist=True,
+      wantstate='absent'
+    )
+  }}"
   notify:
     - rsyslog restart

@@ -1,13 +1,15 @@
 ---
 
-# services
+# Services
 manala_systemd_services:                  []
 
-# system_configs
+# System configs
 manala_systemd_system_configs_exclusive:    false
 manala_systemd_system_configs_dir:          /etc/systemd/system
 manala_systemd_system_configs_template:     ~
 manala_systemd_system_configs:              []
+
+# Tmpfiles configs
 manala_systemd_tmpfiles_configs_exclusive:  false
 manala_systemd_tmpfiles_configs_dir:        /etc/tmpfiles.d
 manala_systemd_tmpfiles_configs_template:   ~

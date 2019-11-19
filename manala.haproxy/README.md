@@ -106,6 +106,8 @@ On Debian this configuration path is handle by the `/etc/default/haproxy` file a
 
 #### Defining configuration files
 
+A state (present|absent) can be provided.
+
 ```yaml
   manala_haproxy_environment:
     - CONFIG: "{{ manala_haproxy_configs_dir }}" # /etc/haproxy/conf.d
@@ -113,16 +115,17 @@ On Debian this configuration path is handle by the `/etc/default/haproxy` file a
   manala_haproxy_configs_exclusive: true
 
   manala_haproxy_configs:
+    # Template based
     - file: 010-global.cfg
       template: all/haproxy/010-global.j2
+      # Raw content based
     - file: 020-defaults.cfg
-      template: all/haproxy/020-defaults.j2
-    - file: 030-stats.cfg
-      template: all/haproxy/030-stats.j2
-    - file: 040-frontend.cfg
-      template: specific/040-frontend.j2
-    - file: 050-backend.cfg
-      template: specific/050-backend.j2
+      content: |
+        defaults
+            log     global
+            option  dontlognull
+            option  abortonclose
+      state: absent
     ...
 ```
 

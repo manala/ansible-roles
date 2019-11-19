@@ -1,10 +1,10 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
-    manala_nginx_configs_exclusive: true
+    manala_nginx_configs_dir: /etc/nginx/conf.d.test
     manala_nginx_configs:
       - file: foo.conf
         config:
@@ -12,10 +12,46 @@
             - listen: 8080
             - location /:
               - root:  /srv/foo
+      - file: foo_template.conf
+        template: configs/app_magento_2_defaults.j2
+      - file: foo_content.conf
+        content: |
+          server {
+              listen 80 default_server;
+              root /var/foo;
+          }
+      - file: foo_template_content.conf
+        template: configs/app_magento_2_defaults.j2
+        content: |
+          server {
+              listen 80 default_server;
+              root /var/foo;
+          }
+      - file: bar.conf
+        state: present
+      - file: baz.conf
+        state: absent
   pre_tasks:
     - import_tasks: pre_tasks/nginx.yml
   roles:
     - manala.nginx
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_nginx_configs_dir: /etc/nginx/conf.d.test
+    manala_nginx_configs:
+      - file: foo.conf
+      - file: bar.conf
+        state: absent
+      - file: baz.conf
+        state: present
+  roles:
+    - manala.nginx
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

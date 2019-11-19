@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Update Magento 2 default configuration
 
+### Added
+- Handle configs states (present|absent) & raw content
+
 ## [1.0.9] - 2019-10-24
 ### Added
 - Debian buster support

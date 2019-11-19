@@ -1,12 +1,12 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
-    manala_proftpd_configs_dir:       /etc/proftpd/conf.d.test
+    manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
     manala_proftpd_configs:
-      - file: proftpd.conf
+      - file: foo.conf
         config:
           - ServerName:        Manala ProFTPD Server
           - DefaultRoot:       "~"
@@ -14,36 +14,43 @@
           - AuthUserFile:      /etc/ftpd.passwd
           - RequireValidShell: false
           - PassivePorts:      10000 10030
-      - file: tls.conf
+      - file: foo_template.conf
         template: configs/module.j2
-        name:     mod_tls.c
-        config:
-          - TLSEngine:                true
-          - TLSLog:                   /var/log/proftpd/tls.log
-          - TLSProtocol:              TLSv1
-          - TLSCipherSuite:           AES256+EECDH:AES256+EDH
-          - TLSOptions:               NoCertRequest AllowClientRenegotiations
-          - TLSRSACertificateFile:    /etc/ssl/private/www.foo.com.cert
-          - TLSRSACertificateKeyFile: /etc/ssl/private/www.foo.com.key
-          - TLSCertificateChainFile:  /etc/ssl/private/www.foo.com.pem
-          - TLSRequired:              true
-          - RequireValidShell:        false
-      - file: virtual_host_foo.conf
-        config:
-          - VirtualHost ftp.foo.com:
-            - ServerName: Foo FTP Server
-            - MaxClients: 10
-            - MaxLoginAttempts: 1
-            - Limit LOGIN:
-              - Order: Allow,Deny
-              - AllowUser: foo
-              - Deny: from all
-            - DefaultRoot: "~"
-            - Directory /srv/ftp/docs:
-              - Limit ALL:
-                - DenyAll
+        name: foo
+      - file: foo_content.conf
+        content: |
+          <Anonymous ~ftp>
+            User foo
+          </Anonymous>
+      - file: foo_template_content.conf
+        template: configs/module.j2
+        content: |
+          <Anonymous ~ftp>
+            User foo
+          </Anonymous>
+      - file: bar.conf
+        state: present
+      - file: baz.conf
+        state: absent
   roles:
     - manala.proftpd
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
+    manala_proftpd_configs:
+      - file: foo.conf
+      - file: bar.conf
+        state: absent
+      - file: baz.conf
+        state: present
+  roles:
+    - manala.proftpd
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

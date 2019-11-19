@@ -61,12 +61,21 @@ manala_rsyslog_config:
         auth,authpriv.none;\
         cron,daemon.none;\
         mail,news.none    -/var/log/messages
+```
 
-manala_rsyslog_configs_exclusive: true
+### Configs
+
+`manala_rsyslog_configs` allows you to define rsyslog configuration files using template and config, or raw content.
+
+A state (present|absent) can be provided.
+
+```yaml
 manala_rsyslog_configs:
-  - file: rules.conf
+  # Template based
+  - file: foo_template.conf
     template: configs/rules.prod.j2
-  - file: extra_rules.conf
+  # Config based, empty template by default
+  - file: foo.conf
     config:
       - auth,authpriv.*           /var/log/auth.log
       - '*.*;auth,authpriv.none   -/var/log/syslog'
@@ -74,6 +83,17 @@ manala_rsyslog_configs:
       - kern.*                    -/var/log/kern.log
       - mail.*                    -/var/log/mail.log
       - user.*                    -/var/log/user.log
+  # Raw content based
+  - file: foo_content.conf
+    content: |
+      APT::Install-Recommends "false";
+    state: absent
+```
+
+`manala_rsyslog_configs_exclusive` allow you to clean up existing rsyslog configuration files into directory defined by the `manala_rsyslog_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_rsyslog_configs_exclusive: true
 ```
 
 ## Example playbook
