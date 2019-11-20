@@ -92,11 +92,6 @@ manala_skeleton_patterns:
     }}" # Hold ansible package update when ansible itself runs in local
     # Ssh
     ssh_config_sshd_template: config/sshd/default.{{ manala_skeleton_env }}.j2
-    ssh_config_sshd:
-      - HostKey: /etc/ssh/ssh_host_rsa_key
-      - HostKey: /etc/ssh/ssh_host_dsa_key
-      - HostKey: /etc/ssh/ssh_host_ecdsa_key
-      - HostKey: /etc/ssh/ssh_host_ed25519_key
     ssh_config_template: config/default.{{ manala_skeleton_env }}.j2
     ssh_known_hosts:
       - github.com
