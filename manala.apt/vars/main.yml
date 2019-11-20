@@ -22,7 +22,7 @@ manala_apt_repositories_patterns:
     source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
   backports:
     source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
-    pin: release a={{ ansible_distribution_release }}-backports'
+    pin: release a={{ ansible_distribution_release }}-backports
   backports_sloppy:
     source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports-sloppy {{ manala_apt_components|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports-sloppy
