@@ -186,50 +186,11 @@ manala_skeleton_patterns:
     }}"
     php_extensions_exclusive: true
     php_extensions: "{{
-      {
-        '5.6': ['opcache', 'readline', 'json'],
-        '7.0': ['opcache', 'readline', 'json'],
-        '7.1': ['opcache', 'readline', 'json'],
-        '7.2': ['opcache', 'readline', 'json'],
-        '7.3': ['opcache', 'readline', 'json']
-      }[manala_skeleton_options.php_version|string]
-      + [{
-        'extension': 'xdebug',
-        'enabled':   false
-      }]
-      + (
-        manala_skeleton_options.mysql
-        or manala_skeleton_options.mariadb
-      )|ternary(
-        {
-          '5.6': ['mysqlnd'],
-          '7.0': ['mysql'],
-          '7.1': ['mysql'],
-          '7.2': ['mysql'],
-          '7.3': ['mysql']
-        }[manala_skeleton_options.php_version|string],
-        []
-      )
-      + (manala_skeleton_options.phpmyadmin)|ternary(
-        {
-          '5.6': ['mysqlnd'],
-          '7.0': ['mysql', 'mbstring', 'zip', 'bz2'],
-          '7.1': ['mysql', 'mbstring', 'zip', 'bz2'],
-          '7.2': ['mysql', 'mbstring', 'zip', 'bz2'],
-          '7.3': ['mysql', 'mbstring', 'zip', 'bz2']
-        }[manala_skeleton_options.php_version|string],
-        []
-      )
-      + (manala_skeleton_options.sqlite)|ternary(
-        {
-          '5.6': ['sqlite'],
-          '7.0': ['sqlite3'],
-          '7.1': ['sqlite3'],
-          '7.2': ['sqlite3'],
-          '7.3': ['sqlite3']
-        }[manala_skeleton_options.php_version|string],
-        []
-      )
+      ['opcache', 'readline', 'json']
+      + [{'extension': 'xdebug', 'enabled': false}]
+      + (manala_skeleton_options.mysql or manala_skeleton_options.mariadb)|ternary(['mysql'],[])
+      + (manala_skeleton_options.phpmyadmin)|ternary(['mysql', 'mbstring', 'zip', 'bz2'],[])
+      + (manala_skeleton_options.sqlite)|ternary(['sqlite3'],[])
       + (manala_skeleton_options.postgresql)|ternary(['pgsql'],[])
       + (manala_skeleton_options.redis)|ternary(['redis'],[])
       + (manala_skeleton_options.mongodb)|ternary(['mongodb'],[])
