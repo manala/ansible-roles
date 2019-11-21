@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Removed
 - Debian wheezy support
+
 ### Changed
 - Update Magento 2 default configuration
 
