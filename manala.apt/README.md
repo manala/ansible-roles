@@ -78,42 +78,33 @@ None
   roles:
     - role: manala.apt
 ```
-### Exclusivity
+
+### Configs
+
+`manala_apt_configs` allows you to define apt configuration files using template and config, or raw content.
+
+A state (present|absent) can be provided.
+
+```yaml
+manala_apt_configs:
+  # Template based
+  - file: foo_template
+    template: configs/check_valid_until_false.j2
+  # Config based, empty template by default
+  - file: foo
+    config:
+      - Acquire::Check-Valid-Until: true
+  # Raw content based
+  - file: foo_content
+    content: |
+      APT::Install-Recommends "false";
+    state: absent
+```
 
 `manala_apt_configs_exclusive` allow you to clean up existing apt configuration files into directory defined by the `manala_apt_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
 
 ```yaml
 manala_apt_configs_exclusive: true
-```
-
-### Configs
-
-`manala_apt_configs` allows you to define apt configuration files using template, content and config.
-
-Template
-
-```yaml
-manala_apt_configs:
-      - file: foo_template
-        template: configs/check_valid_until_false.j2
-```
-Content
-
-```yaml
-manala_apt_configs:
-      - file: foo_content
-        content: |
-          APT::Install-Recommends "false";
-        state: absent
-```
-
-Config
-
-```yaml
-manala_apt_configs:
-      - file: foo
-        config:
-          - Acquire::Check-Valid-Until: true
 ```
 
 ### Components
@@ -210,7 +201,7 @@ Verbose, pattern based
 ```yaml
 manala_apt_repositories:
   - pattern: backports
-    state:   absent
+    state: absent
 ```
 
 Verbose
@@ -222,7 +213,7 @@ manala_apt_repositories:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id:  D50582E6
   - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
-    state:  absent
+    state: absent
 ```
 
 Exclusivity (all repositories non defined by role will be deleted)

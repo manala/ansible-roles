@@ -1,9 +1,0 @@
----
-
-file:
-  /etc/rsyslog.d/rules.conf:
-    exists: true
-    contains:
-      - user.*                    -/var/log/user.log
-      - daemon.*                  -/var/log/daemon.log
-      - '*.*;auth,authpriv.none   -/var/log/syslog'

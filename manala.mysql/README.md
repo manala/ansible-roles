@@ -60,15 +60,18 @@ Using ansible galaxy requirements file:
 
 ### Configure `/etc/mysql/conf.d` example
 
+A state (present|absent) can be provided.
+
 ```yaml
-# use a default custom template
+# Use a default custom template
 manala_mysql_configs_template: mysql/custom_template.j2
 
-# clean configs directory
+# Keep configs directory clean
 manala_mysql_configs_exclusive: true
 
 manala_mysql_configs:
-  - file: my.cnf
+  # Template based
+  - file: foo_template.cnf
     template: configs/default.dev.j2
     config:
       - client:
@@ -89,10 +92,17 @@ manala_mysql_configs:
         - slow_query_log:         true
         - slow_query_log_file:    /var/log/mysql/mysql-slow.log
         - long_query_time:        2
-  - file: mysqld_safe_syslog.cnf
+  # Config based, empty template by default
+  - file: foo.cnf
     config:
       - mysqld_safe:
         - syslog: true
+  # Raw content based
+  - file: foo_content.cnf
+    content: |
+      [mysqld_safe]
+      syslog
+    state: absent
 ```
 
 ### Create mysql users

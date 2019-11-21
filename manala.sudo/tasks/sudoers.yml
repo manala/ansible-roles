@@ -14,7 +14,7 @@
   register: __manala_sudo_sudoers_exclusive_find
   when: manala_sudo_sudoers_exclusive
 
-- name: sudoers > Templates presents
+- name: sudoers > Templates present
   template:
     src:  "{{ item.template|default(manala_sudo_sudoers_template|ternary(manala_sudo_sudoers_template, 'sudoers/empty.j2')) }}"
     dest: "{{ item.file }}"
@@ -28,11 +28,29 @@
       wantstate='present'
     )
   }}"
+  when: item.content is not defined
+  notify:
+    - sudo restart
+
+- name: sudoers > Contents present
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_sudo_sudoers',
+      manala_sudo_sudoers,
+      __manala_sudo_sudoers_exclusive_find.files|default([]),
+      manala_sudo_sudoers_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is defined
   notify:
     - sudo restart
 
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
-- name: sudoers > Files absents
+- name: sudoers > Files absent
   file:
     path:  "{{ item.file }}"
     state: absent

@@ -14,9 +14,9 @@
   register: __manala_apt_configs_exclusive_find
   when: manala_apt_configs_exclusive
 
-- name: configs > Templates
+- name: configs > Templates present
   template:
-    src:  "{{ item.template|default(manala_apt_configs_template|ternary(manala_apt_configs_template, 'configs/empty.j2')) }}"
+    src: "{{ item.template|default(manala_apt_configs_template|ternary(manala_apt_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
   with_items: "{{ lookup(
       'manala_apt_configs',
@@ -29,7 +29,7 @@
   }}"
   when: item.content is not defined
 
-- name: configs > Contents
+- name: configs > Contents present
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
@@ -44,9 +44,9 @@
   }}"
   when: item.content is defined
 
-- name: configs > Files absents
+- name: configs > Files absent
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   with_items: "{{ lookup(
       'manala_apt_configs',

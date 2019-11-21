@@ -14,7 +14,7 @@
   register: __manala_supervisor_configs_exclusive_find
   when: manala_supervisor_configs_exclusive
 
-- name: configs > Templates presents
+- name: configs > Templates present
   template:
     src:  "{{ item.template|default(manala_supervisor_configs_template|ternary(manala_supervisor_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
@@ -30,8 +30,24 @@
   notify:
     - supervisor restart
 
-# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
-- name: configs > Files absents
+- name: configs > Contents present
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.file }}"
+  with_items: "{{ lookup(
+      'manala_supervisor_configs',
+      manala_supervisor_configs,
+      __manala_supervisor_configs_exclusive_find.files|default([]),
+      manala_supervisor_configs_dir,
+      wantlist=True,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is defined
+  notify:
+    - supervisor restart
+
+- name: configs > Files absent
   file:
     path:  "{{ item.file }}"
     state: absent

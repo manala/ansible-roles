@@ -61,40 +61,55 @@ The `manala_proftpd_configs_template` key will allow you to use differents main 
 - module (This configuration is used to handle modules definition (mod_ssl.c, mod_rewrite.c ...))
 
 #### Example:
+
 ```yaml
 manala_proftpd_configs_template: configs/module.j2
 ```
 
 The `manala_proftpd_configs` key is made to allow you to define configuration based on choosen template format.
 
-#### Example:
+`manala_proftpd_configs_exclusive` allow you to clean up existing proFTPd configuration files into directory defined by the `manala_proftpd_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_proftpd_configs_exclusive: true
+```
+
+A state (present|absent) can be provided.
 
 ```yaml
 manala_proftpd_configs:
-  - file:                   foo.conf
+  # Template based
+  - file: foo_template.conf
+    template: configs/module.j2
+    name: mod_tls.c
+    config:
+      - TLSEngine:                true
+      - TLSLog:                   /var/log/proftpd/tls.log
+      - TLSProtocol:              TLSv1
+      - TLSCipherSuite:           AES256+EECDH:AES256+EDH
+      - TLSOptions:               NoCertRequest AllowClientRenegotiations
+      - TLSRSACertificateFile:    /etc/ssl/private/certificates/*.elao.com.pem
+      - TLSRSACertificateKeyFile: /etc/ssl/private/certificates/*.elao.com.pem
+      - TLSVerifyClient:          false
+      - TLSRequired:              true
+      - RequireValidShell:        "No"
+  # Config based, empty template by default
+  - file: foo.conf
+    config:
+      - ServerName:        Manala
+      - PassivePorts:      10000 10030
+      - DefaultRoot:       "~"
+      - AuthOrder:         mod_auth_file.c
+      - AuthUserFile:      /etc/ftpd.passwd
+      - RequireValidShell: false
+  # Raw content based
+  - file: foo_content.conf
+    content: |
+      <Anonymous ~ftp>
+        User  ftp
+        Group nogroup
+      </Anonymous>
     state: absent
-  - file:                   proftpd.conf
-    config:
-      - ServerName:         "Manala"
-      - PassivePorts:       10000 10030
-      - DefaultRoot:        "~"
-      - AuthOrder:          mod_auth_file.c
-      - AuthUserFile:       "/etc/ftpd.passwd"
-      - RequireValidShell:  false
-  - file:                   tls.conf
-    template:               configs/module.j2
-    name:                   mod_tls.c
-    config:
-      - TLSEngine:                  true
-      - TLSLog:                     /var/log/proftpd/tls.log
-      - TLSProtocol:                TLSv1
-      - TLSCipherSuite:             AES256+EECDH:AES256+EDH
-      - TLSOptions:                 NoCertRequest AllowClientRenegotiations
-      - TLSRSACertificateFile:      /etc/ssl/private/certificates/*.elao.com.pem
-      - TLSRSACertificateKeyFile:   /etc/ssl/private/certificates/*.elao.com.pem
-      - TLSVerifyClient:            false
-      - TLSRequired:                true
-      - RequireValidShell:          "No"
 ```
 
 ### VirtualHost
@@ -114,14 +129,6 @@ You can also use VirtualHost configuration
         - Directory /srv/ftp/docs:
           - Limit ALL:
             - DenyAll
-```
-
-### Exclusivity
-
-`manala_proftpd_configs_exclusive` allow you to clean up existing proFTPd configuration files into directory defined by the `manala_proftpd_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
-
-```yaml
-manala_proftpd_configs_exclusive: true
 ```
 
 ### User account configuration
@@ -151,14 +158,6 @@ Example playbook
   roles:
     - { role: manala.proftpd }
 ```
-
-Tests
------
-
-Test suite require the following tools:
-
-- Docker
-- Manala test suite [**(Docker image)**](https://github.com/manala/docker-image-ansible-debian)
 
 Licence
 -------

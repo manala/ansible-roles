@@ -1,11 +1,22 @@
 ---
 
 file:
-  /etc/haproxy/conf.d.test/haproxy.cfg:
+  /etc/haproxy/conf.d.test/foo_template.cfg:
     exists: true
     contains:
       - global
-  /etc/haproxy/conf.d.test/foo.cfg:
+      - chroot /var/lib/haproxy
+  /etc/haproxy/conf.d.test/foo_content.cfg:
     exists: true
+    contains:
+      - global
+      - chroot /var/lib/test
+  /etc/haproxy/conf.d.test/foo_template_content.cfg:
+    exists: true
+    contains:
+      - global
+      - chroot /var/lib/test
   /etc/haproxy/conf.d.test/bar.cfg:
+    exists: true
+  /etc/haproxy/conf.d.test/baz.cfg:
     exists: false

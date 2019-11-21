@@ -1,14 +1,27 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
+    manala_backup_manager_configs_dir: /etc/backup-manager.d.test
     manala_backup_manager_configs:
-      - file:     mysql.conf
-        template: configs/mysql.j2
+      - file: foo.conf
         config:
           - BM_REPOSITORY_ROOT: /srv/backup/mysql
+      - file: foo_template.conf
+        template: configs/pgsql.j2
+      - file: foo_content.conf
+        content: |
+          BM_REPOSITORY_ROOT="/var/test"
+      - file: foo_template_content.conf
+        template: configs/pgsql.j2
+        content: |
+          BM_REPOSITORY_ROOT="/var/test"
+      - file: bar.conf
+        state: present
+      - file: baz.conf
+        state: absent
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
       when: ansible_distribution_release in ['jessie', 'stretch']
@@ -16,4 +29,21 @@
     - manala.backup_manager
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_backup_manager_configs_dir: /etc/backup-manager.d.test
+    manala_backup_manager_configs:
+      - file: foo.conf
+      - file: bar.conf
+        state: absent
+      - file: baz.conf
+        state: present
+  roles:
+    - manala.backup_manager
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

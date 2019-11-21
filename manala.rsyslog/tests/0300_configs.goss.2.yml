@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/rsyslog.d.test/foo.conf:
+    exists: true
+  /etc/rsyslog.d.test/bar.conf:
+    exists: false
+  /etc/rsyslog.d.test/baz.conf:
+    exists: true

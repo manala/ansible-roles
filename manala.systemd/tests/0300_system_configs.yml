@@ -15,7 +15,7 @@
         content: |
           - Description=OpenBSD Secure Shell session cleanup
       - file: foo_template_content
-        template: configs/check_valid_until_false.j2
+        template: system_configs/ssh-session-cleanup.service.j2
         content: |
           Description=OpenBSD Secure Shell session cleanup
       - file: bar

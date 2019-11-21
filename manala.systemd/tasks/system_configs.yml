@@ -6,7 +6,7 @@
     state: directory
   when: manala_systemd_system_configs|length
 
-- name: configs > Exclusive
+- name: system_configs > Exclusive
   find:
     path: "{{ manala_systemd_system_configs_dir }}"
     patterns: "*"
@@ -14,7 +14,7 @@
   register: __manala_systemd_system_configs_exclusive_find
   when: manala_systemd_system_configs_exclusive
 
-- name: system_configs > Templates
+- name: system_configs > Templates present
   template:
     src: "{{ item.template|default(manala_systemd_system_configs_template|ternary(manala_systemd_system_configs_template, 'system_configs/empty.j2')) }}"
     dest: "{{ item.file }}"
@@ -34,7 +34,7 @@
   notify:
     - systemd reload
 
-- name: system_configs > Contents
+- name: system_configs > Contents present
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
@@ -51,7 +51,7 @@
   notify:
     - systemd reload
 
-- name: system_configs > Files absents
+- name: system_configs > Files absent
   file:
     path:  "{{ item.file }}"
     state: absent

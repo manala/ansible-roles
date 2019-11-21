@@ -4,26 +4,34 @@
   hosts: debian
   become: true
   vars:
-    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs_dir: //etc/haproxy/conf.d.test
     manala_haproxy_configs:
-      - file: haproxy.cfg
+      - file: foo_template.cfg
         template: fixtures/haproxy.cfg.j2
+      - file: foo_content.cfg
+        content: |
+          global
+          	chroot /var/lib/test
+      - file: foo_template_content.cfg
+        template: fixtures/haproxy.cfg.j2
+        content: |
+          global
+          	chroot /var/lib/test
       - file: bar.cfg
-        state: absent
-      - file: foo.cfg
         state: present
+      - file: baz.cfg
+        state: absent
   roles:
     - manala.haproxy
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.1.yml validate
 
-
 - name: "{{ test }}.2"
   hosts: debian
   become: true
   vars:
-    manala_haproxy_configs_dir: "/etc/haproxy/conf.d.test"
+    manala_haproxy_configs_dir: /etc/haproxy/conf.d.test
     manala_haproxy_configs:
       - file: foo.cfg
       - file: bar.cfg

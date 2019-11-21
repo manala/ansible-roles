@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/backup-manager.d.test/foo.conf:
+    exists: true
+  /etc/backup-manager.d.test/bar.conf:
+    exists: false
+  /etc/backup-manager.d.test/baz.conf:
+    exists: true

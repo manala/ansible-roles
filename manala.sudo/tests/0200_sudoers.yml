@@ -1,15 +1,46 @@
 ---
 
-- name: "{{ test }}"
+- name: "{{ test }}.1"
   hosts: debian
   become: true
   vars:
+    manala_sudo_sudoers_dir: /etc/sudoers.d.test
     manala_sudo_sudoers:
-      - file: vagrant
+      - file: foo
         config:
           - vagrant: ALL=NOPASSWD:ALL
+      - file: foo_template
+        template: fixtures/sudo.j2
+      - file: foo_content
+        content: |
+          bar ALL=(ALL) ALL
+      - file: foo_template_content
+        template: fixtures/sudo.j2
+        content: |
+          bar ALL=(ALL) ALL
+      - file: bar
+        state: present
+      - file: baz
+        state: absent
   roles:
     - manala.sudo
   post_tasks:
     - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_sudo_sudoers_dir: /etc/sudoers.d.test
+    manala_sudo_sudoers:
+      - file: foo
+      - file: bar
+        state: absent
+      - file: baz
+        state: present
+  roles:
+    - manala.sudo
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

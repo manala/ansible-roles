@@ -6,7 +6,7 @@
     state: directory
   when: manala_systemd_tmpfiles_configs|length
 
-- name: configs > Exclusive
+- name: tmpfiles_configs > Exclusive
   find:
     path: "{{ manala_systemd_tmpfiles_configs_dir }}"
     patterns: "*"
@@ -14,7 +14,7 @@
   register: __manala_systemd_tmpfiles_configs_exclusive_find
   when: manala_systemd_tmpfiles_configs_exclusive
 
-- name: tmpfiles_configs > Templates
+- name: tmpfiles_configs > Templates present
   template:
     src: "{{ item.template|default(manala_systemd_tmpfiles_configs_template|ternary(manala_systemd_tmpfiles_configs_template, 'tmpfiles_configs/empty.j2')) }}"
     dest: "{{ item.file }}"
@@ -32,7 +32,7 @@
   }}"
   when: item.content is not defined
 
-- name: tmpfiles_configs > Contents
+- name: tmpfiles_configs > Contents present
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
@@ -47,7 +47,7 @@
   }}"
   when: item.content is defined
 
-- name: tmpfiles_configs > Files absents
+- name: tmpfiles_configs > Files absent
   file:
     path:  "{{ item.file }}"
     state: absent

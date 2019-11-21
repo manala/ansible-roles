@@ -1,9 +1,0 @@
----
-
-file:
-  /etc/backup-manager.d/mysql.conf:
-    exists:   true
-    filetype: file
-    contains:
-      - export BM_REPOSITORY_ROOT=
-      - /srv/backup/mysql

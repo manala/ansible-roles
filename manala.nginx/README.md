@@ -96,18 +96,32 @@ manala_nginx_configs_exclusive: true
 
 The `manala_nginx_configs` key is made to define Nginx host configuration.
 
+A state (present|absent) can be provided.
+
 ```yaml
-manala_nginx_config:
-  - user: nginx
-  - events:
-    - worker_connections: 1024
 manala_nginx_configs:
+  # Template based
+  - file: foo_template.conf
+    template: configs/app_magento_2_defaults.j2
+  # Config based, empty template by default
   - file: foo.conf
     config:
       - server:
         - listen: 8080
         - location /:
           - root:  /srv/foo
+  # Raw content based
+  - file: foo_content.conf
+    content: |
+      server {
+          listen         80 default_server;
+          listen         [::]:80 default_server;
+          server_name    example.com www.example.com;
+          root           /var/www/example.com;
+          index          index.html;
+          try_files $uri /index.html;
+      }
+    state: absent
   - file: symfony2.conf
     config:
       - server:

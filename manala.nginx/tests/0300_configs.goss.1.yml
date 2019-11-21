@@ -1,0 +1,30 @@
+---
+
+file:
+  /etc/nginx/conf.d.test/foo.conf:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - server {
+      - listen 8080;
+      - location / {
+      - root /srv/foo;
+  /etc/nginx/conf.d.test/foo_template.conf:
+    exists: true
+    contains:
+      - root $MAGE_ROOT;
+  /etc/nginx/conf.d.test/foo_content.conf:
+    exists: true
+    contains:
+      - root /var/foo;
+  /etc/nginx/conf.d.test/foo_template_content.conf:
+    exists: true
+    contains:
+      - root /var/foo;
+  /etc/nginx/conf.d.test/bar.conf:
+    exists: true
+  /etc/nginx/conf.d.test/baz.conf:
+    exists: false

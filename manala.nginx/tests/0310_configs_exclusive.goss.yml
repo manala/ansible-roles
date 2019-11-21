@@ -1,0 +1,9 @@
+---
+
+file:
+  /etc/nginx/conf.d.test/foo.conf:
+    exists: false
+  /etc/nginx/conf.d.test/bar.conf:
+    exists: true
+  /etc/nginx/conf.d.test/baz.conf:
+    exists: false
