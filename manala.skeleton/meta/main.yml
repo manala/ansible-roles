@@ -51,6 +51,10 @@ dependencies:
   - role: manala.locales
     when: manala_skeleton_options.locales
 
+  # Zsh
+  - role: manala.zsh
+    when: manala_skeleton_options.zsh
+
   # Environment
   - role: manala.environment
     when: manala_skeleton_options.environment
@@ -66,10 +70,6 @@ dependencies:
   # Git
   - role: manala.git
     when: manala_skeleton_options.git
-
-  # Zsh
-  - role: manala.zsh
-    when: manala_skeleton_options.zsh
 
   # Oh my zsh
   - role: manala.ohmyzsh
