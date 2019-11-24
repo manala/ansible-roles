@@ -1,6 +1,6 @@
 # Ansible Role: Thumbor [![Build Status](https://travis-ci.org/manala/ansible-role-thumbor.svg?branch=master)](https://travis-ci.org/manala/ansible-role-thumbor)
 
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+:exclamation: **This role is deprecated** :exclamation:
 
 This role will deal with the setup and configuration of [Thumbor](http://thumbor.org/).
 
