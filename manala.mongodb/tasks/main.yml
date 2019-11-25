@@ -1,7 +1,7 @@
 ---
 
 # Setup For Debian
-- include_tasks: setup-debian.yml
+- include_tasks: setup-debian.yaml
   when: ansible_distribution == 'Debian'
 
 # Install
