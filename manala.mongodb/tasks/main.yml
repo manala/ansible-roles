@@ -1,8 +1,8 @@
 ---
 
 # Setup For Debian
-- include_tasks: setup-debian.yml
-  when: ansible_os_family == 'Debian'
+- include_tasks: setup-debian.yaml
+  when: ansible_distribution == 'Debian'
 
 # Install
 - import_tasks: install.yml
