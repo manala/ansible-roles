@@ -1,4 +1,10 @@
 ---
+- name: install > Add deb for debian
+  apt_repository:
+    repo: "deb http://repo.mongodb.org/apt/{{ ansible_facts['distribution'] }} {{ ansible_distribution_release }}/mongodb-org/{{ manala_mongodb_install_versrion }} main"
+    state: present
+  when:
+    - ansible_facts['distribution'] == debian
 
 - name: install > Packages
   apt:
