@@ -1,6 +1,6 @@
 ---
 # Version
-manala_mongodb_install_versrion: 4.2
+manala_mongodb_install_version: 4.2
 # Install
 manala_mongodb_install_packages: ~
 manala_mongodb_install_packages_default:

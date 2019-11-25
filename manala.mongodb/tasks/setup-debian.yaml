@@ -2,15 +2,15 @@
 
 - name: install > Add apt key for debian
   apt_key:
-    url: "https://www.mongodb.org/static/pgp/server-{{ manala_mongodb_install_versrion }}.asc"
+    url: "https://www.mongodb.org/static/pgp/server-{{ manala_mongodb_install_version }}.asc"
     state: present
   when:
     - ansible_facts['distribution'] == "Debian"
 
 - name: install > Add deb for debian
   apt_repository:
-    repo: "deb http://repo.mongodb.org/apt/{{ ansible_facts['distribution'] | lower }} {{ ansible_distribution_release }}/mongodb-org/{{ manala_mongodb_install_versrion }} main"
-    filename: "mongodb-org-{{ manala_mongodb_install_versrion }}.list"
+    repo: "deb http://repo.mongodb.org/apt/{{ ansible_facts['distribution'] | lower }} {{ ansible_distribution_release }}/mongodb-org/{{ manala_mongodb_install_version }} main"
+    filename: "mongodb-org-{{ manala_mongodb_install_version }}.list"
     state: present
   when:
     - ansible_facts['distribution'] == "Debian"
