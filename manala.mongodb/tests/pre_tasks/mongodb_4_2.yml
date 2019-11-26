@@ -2,12 +2,12 @@
 
 - name: Pre tasks > Mongodb apt key
   apt_key:
-    file: pre_tasks/apt_keys/mongodb_3_2.pgp
-    id: EA312927
+    file: pre_tasks/apt_keys/mongodb_4_2.pgp
+    id: 058F8B6B
 
-- name: Pre tasks > Mongodb 3.2 apt repository
+- name: Pre tasks > Mongodb 4.2 apt repository
   apt_repository:
-    repo: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.2 main
+    repo: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.2 main
 
 - name: Pre tasks > Mongodb preferences
   copy:
