@@ -140,13 +140,19 @@ manala_apt_repositories_patterns:
     key: postgresql
   mongodb_3_2:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.2 main
-    key: mongodb_legacy
+    key: mongodb_3_2
+  mongodb_3_4:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.4 main
+    key: mongodb_3_4
   mongodb_3_6:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.6 main
-    key: mongodb_legacy
+    key: mongodb_3_6
   mongodb_4_0:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.0 main
-    key: mongodb
+    key: mongodb_4_0
+  mongodb_4_2:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.2 main
+    key: mongodb_4_2
   varnish_4_0:
     source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
     key: varnish_4_0
@@ -299,12 +305,21 @@ manala_apt_keys_patterns:
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     id: ACCC4CF8
-  mongodb_legacy:
-    keyserver: hkp://keyserver.ubuntu.com:80
+  mongodb_3_2:
+    url: https://www.mongodb.org/static/pgp/server-3.2.asc
     id: EA312927
-  mongodb:
-    keyserver: hkp://keyserver.ubuntu.com:80
+  mongodb_3_4:
+    url: https://www.mongodb.org/static/pgp/server-3.4.asc
+    id: A15703C6
+  mongodb_3_6:
+    url: https://www.mongodb.org/static/pgp/server-3.6.asc
+    id: 91FA4AD5
+  mongodb_4_0:
+    url: https://www.mongodb.org/static/pgp/server-4.0.asc
     id: E52529D4
+  mongodb_4_2:
+    url: https://www.mongodb.org/static/pgp/server-4.2.asc
+    id: 058F8B6B
   varnish_4_0:
     url: https://packagecloud.io/varnishcache/varnish40/gpgkey
     id: DE3FFEA4

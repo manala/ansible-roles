@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Mongodb 3.0/3.4/4.2 repository patterns
+
+### Fixed
+- Mongodb key patterns
 
 ## [2.0.0] - 2019-11-21
 ### Removed
