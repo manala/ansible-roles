@@ -8,7 +8,13 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-None.
+This role does *NOT* handle responsibility to configure mongodb apt repository !
+For this purpose, one can make usage of our shiny [manala.apt](https://github.com/manala/ansible-role-apt) role:
+
+```yaml
+manala_apt_preferences:
+ - mongodb@mongodb_4_2
+```
 
 ## Dependencies
 
