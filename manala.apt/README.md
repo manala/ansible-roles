@@ -146,20 +146,12 @@ Concise, pattern based
 
 ```yaml
 manala_apt_repositories:
-  - security # Distribution auto-detection
-  - updates # Distribution auto-detection
-  - partner # Distribution auto-detection
-  - backports # Distribution auto-detection
-  - backports_sloppy # Distribution auto-detection
-  - debian_security # Deprecated, use 'security'
-  - debian_security_src # Deprecated, use 'security_src'
-  - debian_updates # Deprecated, use 'updates'
-  - debian_updates_src # Deprecated, use 'updates_src'
-  - debian_backports # Deprecated, use 'backports'
+  - security
+  - updates
+  - partner
+  - backports
+  - backports_sloppy
   - dotdeb
-  - dotdeb_php54
-  - dotdeb_php55
-  - dotdeb_php56
   - nginx
   - bearstech
   - nodesource_0_10
@@ -170,14 +162,17 @@ manala_apt_repositories:
   - nodesource_7
   - nodesource_8
   - nodesource_10
+  - nodesource_12
   - postgresql
   - maxscale_2_0
   - maxscale_2_1
   - maxscale_2_2
   - mongodb_3_0
-  - mongodb_3_1
+  - mongodb_3_2
+  - mongodb_3_4
   - mongodb_3_6
   - mongodb_4_0
+  - mongodb_4_2
   - varnish_4_0
   - jenkins
   - sensu
@@ -190,10 +185,13 @@ manala_apt_repositories:
   - elasticsearch_1_5
   - elasticsearch_1_6
   - elasticsearch_1_7
+  - elasticsearch_2
+  - elasticsearch_5
+  - elasticsearch_6
+  - elasticsearch_7
   - ppa_ansible
   - blackfire
-  - sury_php # Distribution auto-detection
-  - sury_php_debian # Deprecated, use 'sury_php'
+  - sury_php
 ```
 
 Verbose, pattern based
