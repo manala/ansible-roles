@@ -9,7 +9,9 @@ MANALA_MAKE_DIR := $(abspath $(patsubst %/Makefile,%,$(lastword $(MAKEFILE_LIST)
 include \
 	$(MANALA_MAKE_DIR)/Makefile.manala \
 	$(MANALA_MAKE_DIR)/Makefile.travis \
-	$(MANALA_MAKE_DIR)/Makefile.gitsplit
+	$(MANALA_MAKE_DIR)/Makefile.gitsplit \
+	$(MANALA_MAKE_DIR)/Makefile.molecule
+
 
 -include \
 	$(MANALA_CURRENT_DIR)/.env
@@ -20,8 +22,8 @@ MANALA_VERBOSE := $(if $(VERBOSE),$(VERBOSE),$(MANALA_VERBOSE))
 # Roles #
 #########
 
-ROLES_ALL  = $(filter-out $(ROLES_DEPRECATED),$(sort $(patsubst %/,%,$(wildcard */))))
-ROLES_DIFF = $(filter-out $(ROLES_DEPRECATED) .manala,$(sort $(shell git diff --name-only $(TRAVIS_COMMIT_RANGE)| grep "/" | cut -d/ -f1)))
+ROLES_ALL  = $(filter-out $(ROLES_DEPRECATED),$(sort $(patsubst roles/%/,%,$(wildcard roles/*/))))
+ROLES_DIFF = $(filter-out $(ROLES_DEPRECATED),$(sort $(shell git diff --name-only $(TRAVIS_COMMIT_RANGE)| grep "^roles/" | cut -d/ -f2)))
 
 #############
 # Partition #
@@ -45,7 +47,7 @@ LINT_HELP = \
 lint:
 	$(call list_loop,ROLE,$(call list_partition,$(PARTITION_PART),$(PARTITION_PARTS),$(if $(ROLES),$(ROLES),$(ROLES_ALL))), \
 		$$(call if_in,$$(ROLE),$$(ROLES_ALL), \
-			$$(MAKE) --silent --directory=$$(ROLE) lint, \
+			$$(MAKE) --silent --directory=roles/$$(ROLE) lint, \
 			$$(call log_error,Role \"$$(ROLE)\" is not available) ; exit 1 \
 		), \
 		TRAVIS_FOLD \
@@ -68,7 +70,7 @@ TEST_HELP = \
 test:
 	$(call list_loop,ROLE,$(call list_partition,$(PARTITION_PART),$(PARTITION_PARTS),$(if $(ROLES),$(ROLES),$(ROLES_ALL))), \
 		$$(call if_in,$$(ROLE),$$(ROLES_ALL), \
-			$$(MAKE) --silent --directory=$$(ROLE) test, \
+			$$(MAKE) --silent --directory=roles/$$(ROLE) test, \
 			$$(call log_error,Role \"$$(ROLE)\" is not available) ; exit 1 \
 		) \
 	)
@@ -94,6 +96,7 @@ split:
 ########
 # Sync #
 ########
+
 MANALA_HELP += $(SYNC_HELP)
 
 SYNC_HELP = \
@@ -103,9 +106,9 @@ SYNC_HELP = \
 sync:
 	$(call fail_if_not,$(FROM),FROM is empty or not set)
 	$(call confirm,Please confirm sync from \"$(FROM)\" ansible role)
-	for ROLE in */; do \
-		echo $$ROLE; \
-		cp $$FROM/.gitignore $$ROLE; \
-		cp $$FROM/.travis.yml $$ROLE; \
-		cp -r $$FROM/.manala $$ROLE; \
+	for ROLE in roles/*; do \
+		echo $$ROLE | cut -d/ -f2; \
+		cp roles/$$FROM/.gitignore $$ROLE; \
+ 		cp roles/$$FROM/.travis.yml $$ROLE; \
+ 		cp -r roles/$$FROM/.manala $$ROLE; \
 	done

@@ -1,0 +1,12 @@
+
+define docker_molecule
+	docker run \
+		--rm \
+		--tty --interactive \
+		--volume /var/run/docker.sock:/var/run/docker.sock \
+		--volume $(HOME)/.cache/molecule:/root/.cache/molecule \
+		--volume $(PWD):/srv \
+		--workdir /srv \
+		quay.io/ansible/molecule:2.22 \
+		$(1)
+endef
