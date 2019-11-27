@@ -11,5 +11,5 @@ include .manala/make/Makefile
 #########
 
 ROLES_DEPRECATED = \
-	manala.heka \
-	manala.rtail
+	heka \
+	rtail
