@@ -235,6 +235,9 @@ manala_apt_preferences:
   - php@dotdeb            # "php*" from dotdeb repository, high priority
   - redis@dotdeb          # "redis*" from dotdeb repository, high priority
   - libssl1.0.0@backports # "libssl1.0.0" from debian backports repository, high priority (in this case "libssl1.0.0" is not a pre-defined preference pattern; as a matter of consequence the package is directly used)
+  # Pattern syntax
+  - preference: ansible@ansible
+    file: foo
 ```
 
 Verbose
