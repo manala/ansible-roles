@@ -1,4 +1,4 @@
-.PHONY: lint test split sync
+.PHONY: lint test split sync collection
 
 ##########
 # Manala #
@@ -9,7 +9,8 @@ MANALA_MAKE_DIR := $(abspath $(patsubst %/Makefile,%,$(lastword $(MAKEFILE_LIST)
 include \
 	$(MANALA_MAKE_DIR)/Makefile.manala \
 	$(MANALA_MAKE_DIR)/Makefile.travis \
-	$(MANALA_MAKE_DIR)/Makefile.gitsplit
+	$(MANALA_MAKE_DIR)/Makefile.gitsplit \
+	$(MANALA_MAKE_DIR)/Makefile.collection
 
 -include \
 	$(MANALA_CURRENT_DIR)/.env
@@ -110,3 +111,30 @@ sync:
  		cp roles/$$FROM/.travis.yml $$ROLE; \
  		cp -r roles/$$FROM/.manala $$ROLE; \
 	done
+
+##############
+# Collection #
+##############
+
+MANALA_COLLECTION = ./manala-roles-*.tar.gz | cut -d/ -f2
+
+MANALA_HELP += $(COLLECTION_HELP)
+
+COLLECTION_HELP = \
+	$(call help_section,Collection) \
+
+define collection
+	$(call docker_collection, ansible-galaxy collection $(1))
+endef
+
+collection.prepare:
+	./prepare_collection.py
+COLLECTION_HELP +=$(call help,collection.prepare,Prepare collection) \
+
+collection.build:
+	$(call collection,build --force)
+COLLECTION_HELP +=$(call help,collection.build,  Create collection) \
+
+collection.publish:
+	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN)
+COLLECTION_HELP += $(call help,collection.publish,Publish collection)
