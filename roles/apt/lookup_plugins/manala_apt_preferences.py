@@ -39,59 +39,72 @@ class LookupModule(LookupBase):
 
             items = []
 
+            item = itemDefault.copy()
+
             # Short syntax
             if isinstance(preference, string_types):
-                item = itemDefault.copy()
                 item.update({
-                    'file': preference
-                        .split('@')[0]
-                        .split(':')[0]
-                        .replace('.', '_'),
-                    'package': preferencesPatterns.get(
-                        preference.split('@')[0],
-                        (preference.split('@')[0])
-                            if len(preference.split('@')) > 1 else
-                        ('*')
-                    ),
-                    'pin': repositoriesPatterns[
-                        (
-                            (preference.split('@')[1])
-                                if len(preference.split('@')) > 1 else
-                            (preference)
-                        ).split(':')[0]
-                    ].get(
-                        'pin',
-                        'origin ' + re.sub(
-                            'deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$',
-                            '\\2',
-                            repositoriesPatterns[
-                                (
-                                    (preference.split('@')[1])
-                                        if len(preference.split('@')) > 1 else
-                                    (preference)
-                                ).split(':')[0]
-                            ].get('source')
-                        )
-                    ),
-                    'priority': int(
-                        (preference.split(':')[1])
-                            if len(preference.split(':')) > 1 else
-                        (900)
-                    )
+                    'preference': preference
                 })
-
             else:
-
                 # Must be a dict
                 if not isinstance(preference, dict):
                     raise AnsibleError('Expect a dict')
-
-                # Check index key
-                if 'file' not in preference:
-                    raise AnsibleError('Expect "file" key')
-
-                item = itemDefault.copy()
                 item.update(preference)
+
+            if 'preference' in item:
+                pattern = item['preference']
+                if 'file' not in item:
+                    item.update({
+                        'file': pattern
+                            .split('@')[0]
+                            .split(':')[0]
+                            .replace('.', '_')
+                    })
+                if 'package' not in item:
+                    item.update({
+                        'package': preferencesPatterns.get(
+                            pattern.split('@')[0],
+                            (pattern.split('@')[0])
+                                if len(pattern.split('@')) > 1 else
+                            ('*')
+                        )
+                    })
+                if 'pin' not in item:
+                    item.update({
+                        'pin': repositoriesPatterns[
+                            (
+                                (pattern.split('@')[1])
+                                    if len(pattern.split('@')) > 1 else
+                                (pattern)
+                            ).split(':')[0]
+                        ].get(
+                            'pin',
+                            'origin ' + re.sub(
+                                'deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$',
+                                '\\2',
+                                repositoriesPatterns[
+                                    (
+                                        (pattern.split('@')[1])
+                                            if len(pattern.split('@')) > 1 else
+                                        (pattern)
+                                    ).split(':')[0]
+                                ].get('source')
+                            )
+                        )
+                    })
+                if 'priority' not in item:
+                    item.update({
+                        'priority': int(
+                            (pattern.split(':')[1])
+                                if len(pattern.split(':')) > 1 else
+                            (900)
+                        )
+                    })
+
+            # Check index key
+            if 'file' not in item:
+                raise AnsibleError('Expect "file" key')
 
             item.update({
                 'file': os.path.join(preferencesDir, item['file'])

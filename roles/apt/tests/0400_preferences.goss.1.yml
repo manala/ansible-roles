@@ -46,6 +46,41 @@ file:
       - "Package:      libssl1.0.0"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
+  /etc/apt/preferences.d.test/ansible:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 900"
+  /etc/apt/preferences.d.test/ansible_foo:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 900"
+  /etc/apt/preferences.d.test/ansible_bar:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      foo bar"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 900"
+  /etc/apt/preferences.d.test/ansible_baz:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          baz"
+      - "Pin-Priority: 900"
+  /etc/apt/preferences.d.test/ansible_qux:
+    exists:   true
+    filetype: file
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 1234"
   /etc/apt/preferences.d.test/foo_foo:
     exists:   true
     filetype: file
