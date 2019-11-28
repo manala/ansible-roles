@@ -15,7 +15,16 @@
         'manala_apt_repositories',
         manala_apt_repositories,
         manala_apt_repositories_patterns,
-        manala_apt_preferences,
+        lookup(
+            'manala_apt_preferences',
+            manala_apt_preferences,
+            manala_apt_preferences_patterns,
+            manala_apt_repositories_patterns,
+            [],
+            manala_apt_preferences_dir,
+            wantlist=True,
+            wantstate='present'
+        ),
         [],
         wantlist=True,
         wantstate='present'

@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Repositories and keys handlings for preferences pattern syntax
+
+### Added
+- Explicit error message when using unknown repository pattern
+- Default repository pattern
 
 ## [2.0.2] - 2019-11-27
 ### Added

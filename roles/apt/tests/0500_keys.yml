@@ -7,6 +7,7 @@
     manala_apt_preferences_exclusive: true
     manala_apt_preferences:
       - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100', 'sury_php:100') }}"
+      - preference: avidemux@multimedia
     manala_apt_repositories_exclusive: true
     manala_apt_repositories:
       - security
