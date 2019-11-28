@@ -3,31 +3,28 @@
 - name: install > Packages presents
   apt:
     name: "{{
-      lookup(
+      query(
         'manala_php_packages',
         (
-          lookup(
+          query(
             'manala_php_sapis',
             manala_php_sapis|default(manala_php_sapis_default, True),
             manala_php_sapis_available,
             wantstate='present',
-            wantmap=true,
-            wantlist=true
+            wantmap=true
           )
-          + lookup(
+          + query(
             'manala_php_extensions',
             manala_php_extensions,
             manala_php_extensions_available,
             manala_php_sapis_available,
             wantstate='present',
-            wantmap=true,
-            wantlist=true
+            wantmap=true
           )
         ),
         manala_php_version|string,
         manala_php_extensions_pecl_available,
-        manala_php_extensions_pecl_versioned,
-        wantlist=true
+        manala_php_extensions_pecl_versioned
       )
     }}"
     install_recommends: false
@@ -37,31 +34,28 @@
 - name: install > Packages absents
   apt:
     name: "{{
-      lookup(
+      query(
         'manala_php_packages',
         (
-          lookup(
+          query(
             'manala_php_sapis',
             manala_php_sapis|default(manala_php_sapis_default, True),
             manala_php_sapis_available,
             wantstate='absent',
-            wantmap=true,
-            wantlist=true
+            wantmap=true
           )
-          + lookup(
+          + query(
             'manala_php_extensions',
             manala_php_extensions,
             manala_php_extensions_available,
             manala_php_sapis_available,
             wantstate='absent',
-            wantmap=true,
-            wantlist=true
+            wantmap=true
           )
         ),
         manala_php_version|string,
         manala_php_extensions_pecl_available,
-        manala_php_extensions_pecl_versioned,
-        wantlist=true
+        manala_php_extensions_pecl_versioned
       )
     }}"
     state: absent
@@ -90,31 +84,28 @@
 - name: install > Exclusive - Packages dependencies
   shell: |
     for package in {{
-      lookup(
+      query(
         'manala_php_packages',
         (
-          lookup(
+          query(
             'manala_php_sapis',
             manala_php_sapis|default(manala_php_sapis_default, True),
             manala_php_sapis_available,
             wantstate='present',
-            wantmap=true,
-            wantlist=true
+            wantmap=true
           )
-          + lookup(
+          + query(
             'manala_php_extensions',
             manala_php_extensions,
             manala_php_extensions_available,
             manala_php_sapis_available,
             wantstate='present',
-            wantmap=true,
-            wantlist=true
+            wantmap=true
           )
         ),
         manala_php_version|string,
         manala_php_extensions_pecl_available,
-        manala_php_extensions_pecl_versioned,
-        wantlist=true
+        manala_php_extensions_pecl_versioned
       )|join(' ')
     }}
     do
@@ -128,47 +119,42 @@
 - name: install > Exclusive - Packages absents
   apt:
     name: "{{
-      lookup(
+      query(
         'manala_php_install_packages_exclusive',
-        lookup(
+        query(
           'manala_php_packages',
           (
-            lookup(
+            query(
               'manala_php_sapis',
               manala_php_sapis|default(manala_php_sapis_default, True),
               manala_php_sapis_available,
               wantstate='present',
-              wantmap=true,
-              wantlist=true
+              wantmap=true
             )
-            + lookup(
+            + query(
               'manala_php_extensions',
               manala_php_extensions,
               manala_php_extensions_available,
               manala_php_sapis_available,
               wantstate='present',
-              wantmap=true,
-              wantlist=true
+              wantmap=true
             )
           ),
           manala_php_version|string,
           manala_php_extensions_pecl_available,
-          manala_php_extensions_pecl_versioned,
-          wantlist=true
+          manala_php_extensions_pecl_versioned
         ),
-        lookup(
+        query(
           'manala_php_packages',
           manala_php_sapis_available,
           manala_php_version|string,
           manala_php_extensions_pecl_available,
-          manala_php_extensions_pecl_versioned,
-          wantlist=true
+          manala_php_extensions_pecl_versioned
         ),
         __manala_php_install_packages_presents_result.stdout_lines|default([]),
         __manala_php_install_packages_dependencies_result.stdout_lines|default([]),
         manala_php_sapis_exclusive,
-        manala_php_extensions_exclusive,
-        wantlist=true
+        manala_php_extensions_exclusive
       )
     }}"
     state: absent

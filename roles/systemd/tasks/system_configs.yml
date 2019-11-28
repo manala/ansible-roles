@@ -21,12 +21,11 @@
     owner: root
     group: root
     mode: 0644
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_systemd_system_configs',
       manala_systemd_system_configs,
       __manala_systemd_system_configs_exclusive_find.files|default([]),
       manala_systemd_system_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -38,12 +37,11 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_systemd_system_configs',
       manala_systemd_system_configs,
       __manala_systemd_system_configs_exclusive_find.files|default([]),
       manala_systemd_system_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -55,12 +53,11 @@
   file:
     path:  "{{ item.file }}"
     state: absent
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_systemd_system_configs',
       manala_systemd_system_configs,
       __manala_systemd_system_configs_exclusive_find.files|default([]),
       manala_systemd_system_configs_dir,
-      wantlist=True,
       wantstate='absent'
     )
   }}"

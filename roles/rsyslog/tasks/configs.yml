@@ -18,12 +18,11 @@
   template:
     src: "{{ item.template|default(manala_rsyslog_configs_template|ternary(manala_rsyslog_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_rsyslog_configs',
       manala_rsyslog_configs,
       __manala_rsyslog_configs_exclusive_find.files|default([]),
       manala_rsyslog_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -35,12 +34,11 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_rsyslog_configs',
       manala_rsyslog_configs,
       __manala_rsyslog_configs_exclusive_find.files|default([]),
       manala_rsyslog_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -52,12 +50,11 @@
   file:
     path: "{{ item.file }}"
     state: absent
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_rsyslog_configs',
       manala_rsyslog_configs,
       __manala_rsyslog_configs_exclusive_find.files|default([]),
       manala_rsyslog_configs_dir,
-      wantlist=True,
       wantstate='absent'
     )
   }}"

@@ -4,13 +4,12 @@
   command: >
     /usr/sbin/php-fpm{{ manala_php_version|string }} -t
   when: |
-    'fpm' in lookup(
+    'fpm' in query(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
-      wantmap=true,
-      wantlist=true
+      wantmap=true
     )
   changed_when: true
   listen: php restart
@@ -22,13 +21,12 @@
     name: php{{ manala_php_version|string }}-fpm
     state: restarted
   when: |
-    'fpm' in lookup(
+    'fpm' in query(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
-      wantmap=true,
-      wantlist=true
+      wantmap=true
     )
 
 - name: php cli restart

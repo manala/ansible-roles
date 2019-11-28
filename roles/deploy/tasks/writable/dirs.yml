@@ -7,13 +7,19 @@
     follow:  "{{ item.follow|default(omit) }}"
     mode:    "{{ item.mode|default(omit) }}"
     state:   directory
-  with_manala_deploy_writable_dirs:
-    - "{{ manala_deploy_writable_dirs }}"
-    - "{{ manala_deploy_writable_dirs_default }}"
+  loop: "{{ query(
+      'manala_deploy_writable_dirs',
+      manala_deploy_writable_dirs,
+      manala_deploy_writable_dirs_default
+    )
+  }}"
 
 - name: writable/dirs > Raw "{{ item.dir }}"
   raw: "{{ item.raw|format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
   when: item.raw is defined
-  with_manala_deploy_writable_dirs:
-    - "{{ manala_deploy_writable_dirs }}"
-    - "{{ manala_deploy_writable_dirs_default }}"
+  loop: "{{ query(
+      'manala_deploy_writable_dirs',
+      manala_deploy_writable_dirs,
+      manala_deploy_writable_dirs_default
+    )
+  }}"

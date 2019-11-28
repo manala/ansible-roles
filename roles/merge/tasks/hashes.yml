@@ -2,7 +2,7 @@
 
 - name: hashes > Set
   manala_set:
-    hash:   "{{ lookup('manala_merge', item.hashes, wantlist=true) }}"
+    hash:   "{{ query('manala_merge', item.hashes) }}"
     prefix: "{{ item.prefix|default(omit) }}"
     var:    "{{ item.var|default(omit) }}"
   with_items: "{{ manala_merge_hashes }}"
