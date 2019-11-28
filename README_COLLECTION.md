@@ -1,4 +1,4 @@
-# Ansible Roles
+# Ansible Collection
 
 ## Details
 

@@ -9,7 +9,7 @@ namespace: manala
 name: roles
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 0.1.7
+version: 0.1.8
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README_COLLECTION.md
@@ -27,7 +27,7 @@ description: The flexible, robust, and web oriented toolbox for Ansible
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
 license:
-- GPL-2.0-or-later
+- MIT
 
 # The path to the license file for the collection. This path is relative to the root of the collection. This key is
 # mutually exclusive with 'license'

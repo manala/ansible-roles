@@ -116,7 +116,7 @@ sync:
 # Collection #
 ##############
 
-MANALA_COLLECTION = ./manala-roles-*.tar.gz | cut -d/ -f2
+MANALA_COLLECTION = manala-roles-*.tar.gz
 
 MANALA_HELP += $(COLLECTION_HELP)
 
@@ -129,12 +129,16 @@ endef
 
 collection.prepare:
 	./prepare_collection.py
+	rm -rf ./prepare_collection.py
 COLLECTION_HELP +=$(call help,collection.prepare,Prepare collection) \
 
 collection.build:
+	rm -rf $(MANALA_COLLECTION)
 	$(call collection,build --force)
 COLLECTION_HELP +=$(call help,collection.build,  Create collection) \
 
 collection.publish:
-	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN)
+	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN))
 COLLECTION_HELP += $(call help,collection.publish,Publish collection)
+
+
