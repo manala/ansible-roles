@@ -12,14 +12,13 @@
 
 # Configs
 - include: configs.yml
-  with_items: "{{
-    lookup(
+  loop: "{{
+    query(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
-      wantmap=true,
-      wantlist=true
+      wantmap=true
     )
   }}"
   loop_control:
@@ -30,13 +29,12 @@
 # Fpm pools
 - import_tasks: fpm_pools.yml
   when: |
-    'fpm' in lookup(
+    'fpm' in query(
       'manala_php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
-      wantmap=true,
-      wantlist=true
+      wantmap=true
     )
   tags:
     - manala_php

@@ -2,6 +2,9 @@
 
 - name: attributes
   include_tasks: attributes/{{ item['task'] }}.yml
-  with_manala_files_attributes:
-    - "{{ manala_files_attributes }}"
-    - "{{ manala_files_attributes_defaults }}"
+  loop: "{{ query(
+      'manala_files_attributes',
+      manala_files_attributes,
+      manala_files_attributes_defaults
+    )
+  }}"

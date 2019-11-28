@@ -17,12 +17,11 @@
   get_url:
     url:  "{{ item.url }}"
     dest: "{{ item.file }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_proxmox_files',
       manala_proxmox_templates,
       __manala_proxmox_templates_exclusive_find.files|default([]),
       manala_proxmox_templates_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -32,12 +31,11 @@
   file:
     path:  "{{ item.file }}"
     state: absent
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_proxmox_files',
       manala_proxmox_templates,
       __manala_proxmox_templates_exclusive_find.files|default([]),
       manala_proxmox_templates_dir,
-      wantlist=True,
       wantstate='absent'
     )
   }}"

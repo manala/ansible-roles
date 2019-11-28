@@ -4,9 +4,12 @@
   blockinfile:
     dest:  "{{ item.file }}"
     block: |
-      {% for variable in lookup('manala_environment_variables', manala_environment_variables, wantlist=True) %}
+      {% for variable in query('manala_environment_variables', manala_environment_variables) %}
       {{ (item.export)|ternary('export ', '') }}{{ variable.name }}="{{ variable.value }}"
       {% endfor %}
-  with_manala_environment_files:
-    - "{{ manala_environment_files }}"
-    - "{{ manala_environment_files_patterns }}"
+  loop: "{{ query(
+      'manala_environment_files',
+      manala_environment_files,
+      manala_environment_files_patterns
+    )
+  }}"

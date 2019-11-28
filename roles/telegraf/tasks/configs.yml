@@ -18,12 +18,11 @@
   template:
     src:  "{{ item.template|default(manala_telegraf_configs_template|ternary(manala_telegraf_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_telegraf_configs',
       manala_telegraf_configs,
       __manala_telegraf_configs_exclusive_find.files|default([]),
       manala_telegraf_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -35,12 +34,11 @@
   file:
     path:  "{{ item.file }}"
     state: absent
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_telegraf_configs',
       manala_telegraf_configs,
       __manala_telegraf_configs_exclusive_find.files|default([]),
       manala_telegraf_configs_dir,
-      wantlist=True,
       wantstate='absent'
     )
   }}"

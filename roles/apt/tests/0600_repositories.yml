@@ -10,6 +10,7 @@
       - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('php@dotdeb:300','php@sury_php:300') }}"
       - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100','sury_php:100') }}"
       - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:200','sury_php:200') }}"
+      - preference: avidemux@multimedia
     manala_apt_repositories:
       - backports
       - nginx

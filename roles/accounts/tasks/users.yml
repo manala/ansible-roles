@@ -21,7 +21,11 @@
     key:       "{{ item.authorized_keys }}"
     path:      "{{ item.authorized_keys_file|default(omit) }}"
     exclusive: true
-  with_manala_accounts_users_authorized_keys: "{{ manala_accounts_users }}"
+  loop: "{{ query(
+      'manala_accounts_users_authorized_keys',
+      manala_accounts_users
+    )
+  }}"
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
