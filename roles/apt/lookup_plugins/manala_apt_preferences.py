@@ -76,6 +76,8 @@ class LookupModule(LookupBase):
                                 if len(pattern.split('@')) > 1 else
                             (pattern)
                         ).split(':')[0]
+                    if repositoryPattern not in repositoriesPatterns:
+                        raise AnsibleError('unable to find "%s" repository pattern' % repositoryPattern)
                     item.update({
                         'pin': repositoriesPatterns
                             .get(repositoryPattern)
