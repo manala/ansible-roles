@@ -6,7 +6,11 @@
     dest: /etc/php/{{ manala_php_version|string }}/fpm/pool.d/{{ item.file }}
   notify:
     - php fpm restart
-  with_manala_php_fpm_pools: "{{ manala_php_fpm_pools }}"
+  loop: "{{ query(
+      'manala_php_fpm_pools',
+      manala_php_fpm_pools,
+    )
+  }}"
 
 - name: fpm_pools > Exclusive - Find files
   command: "find -type f -printf '%P\n'"

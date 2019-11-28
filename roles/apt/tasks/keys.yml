@@ -7,28 +7,25 @@
     keyserver:      "{{ item.keyserver|default(omit) }}"
     validate_certs: "{{ item.validate_certs|default(omit) }}"
     state:          "{{ item.state|default('present') }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_apt_keys',
       manala_apt_keys,
       manala_apt_keys_patterns,
-      lookup(
+      query(
         'manala_apt_repositories',
         manala_apt_repositories,
         manala_apt_repositories_patterns,
-        lookup(
+        query(
             'manala_apt_preferences',
             manala_apt_preferences,
             manala_apt_preferences_patterns,
             manala_apt_repositories_patterns,
             [],
             manala_apt_preferences_dir,
-            wantlist=True,
             wantstate='present'
         ),
         [],
-        wantlist=True,
         wantstate='present'
       ),
-      wantlist=True
     )
   }}"

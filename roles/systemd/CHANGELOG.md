@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Update 'lookup' to use 'query'
+- Minimum required version of ansible up to 2.5.0
 
 ## [1.0.7] - 2019-10-30
 ### Fixed

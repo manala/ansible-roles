@@ -23,12 +23,11 @@
     owner: root
     group: root
     mode: 0600
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_backup_manager_configs',
       manala_backup_manager_configs,
       __manala_backup_manager_configs_exclusive_find.files|default([]),
       manala_backup_manager_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -41,12 +40,11 @@
     owner: root
     group: root
     mode: 0600
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_backup_manager_configs',
       manala_backup_manager_configs,
       __manala_backup_manager_configs_exclusive_find.files|default([]),
       manala_backup_manager_configs_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -56,12 +54,11 @@
   file:
     path: "{{ item.file }}"
     state: absent
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_backup_manager_configs',
       manala_backup_manager_configs,
       __manala_backup_manager_configs_exclusive_find.files|default([]),
       manala_backup_manager_configs_dir,
-      wantlist=True,
       wantstate='absent'
     )
   }}"

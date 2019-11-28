@@ -4,48 +4,44 @@
   command: >
     /usr/sbin/phpenmod
     {{
-      lookup(
+      query(
         'manala_php_extensions',
         manala_php_extensions,
         manala_php_extensions_available,
         manala_php_sapis_available,
         wantenabled=true,
-        wantmap=true,
-        wantlist=true
+        wantmap=true
       )|join(' ')
     }}
   when: |
-    lookup(
+    query(
       'manala_php_extensions',
       manala_php_extensions,
       manala_php_extensions_available,
       manala_php_sapis_available,
       wantenabled=true,
       wantmap=true,
-      wantlist=true
     )|length
 
 - name: extensions > Disabled
   command: >
     /usr/sbin/phpdismod
     {{
-      lookup(
+      query(
         'manala_php_extensions',
         manala_php_extensions,
         manala_php_extensions_available,
         manala_php_sapis_available,
         wantenabled=false,
-        wantmap=true,
-        wantlist=true
+        wantmap=true
       )|join(' ')
     }}
   when: |
-    lookup(
+    query(
       'manala_php_extensions',
       manala_php_extensions,
       manala_php_extensions_available,
       manala_php_sapis_available,
       wantenabled=false,
       wantmap=true,
-      wantlist=true
     )|length
