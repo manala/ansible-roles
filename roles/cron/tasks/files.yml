@@ -29,8 +29,10 @@
   loop: "{{ query(
       'manala_cron_files_env',
       manala_cron_files
-      )
-    }}"
+    )
+  }}"
+  notify:
+    - cron restart
 
 # Deprecated
 - name: files > Environment variables (deprecated)
