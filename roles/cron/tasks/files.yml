@@ -26,10 +26,11 @@
     value:     "{{ item.value }}"
     user:      "{{ item.user|default('root') }}"
     state:     present
-  with_manala_cron_files_env:
-    - "{{ manala_cron_files }}"
-  notify:
-    - cron restart
+  loop: "{{ query(
+      'manala_cron_files_env',
+      manala_cron_files
+      )
+    }}"
 
 # Deprecated
 - name: files > Environment variables (deprecated)

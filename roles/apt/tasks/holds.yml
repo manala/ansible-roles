@@ -11,10 +11,9 @@
   dpkg_selections:
     name: "{{ item.package }}"
     selection: "{{ item.hold|ternary('hold', 'install') }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_apt_holds',
       manala_apt_holds,
       __manala_apt_holds_exclusive_find.stdout_lines|default([]),
-      wantlist=True
     )
   }}"

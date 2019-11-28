@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Update 'lookup' to use 'query'
+- Minimum required version of ansible up to 2.5.0
+
 ## [2.0.0] - 2019-11-21
 ### Removed
 - Debian wheezy support

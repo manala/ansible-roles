@@ -19,12 +19,11 @@
     src:  "{{ item.template|default(manala_sudo_sudoers_template|ternary(manala_sudo_sudoers_template, 'sudoers/empty.j2')) }}"
     dest: "{{ item.file }}"
     mode: 0440
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_sudo_sudoers',
       manala_sudo_sudoers,
       __manala_sudo_sudoers_exclusive_find.files|default([]),
       manala_sudo_sudoers_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -36,12 +35,11 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_sudo_sudoers',
       manala_sudo_sudoers,
       __manala_sudo_sudoers_exclusive_find.files|default([]),
       manala_sudo_sudoers_dir,
-      wantlist=True,
       wantstate='present'
     )
   }}"
@@ -54,12 +52,11 @@
   file:
     path:  "{{ item.file }}"
     state: absent
-  with_items: "{{ lookup(
+  loop: "{{ query(
       'manala_sudo_sudoers',
       manala_sudo_sudoers,
       __manala_sudo_sudoers_exclusive_find.files|default([]),
       manala_sudo_sudoers_dir,
-      wantlist=True,
       wantstate='absent'
     )
   }}"

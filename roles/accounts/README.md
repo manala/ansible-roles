@@ -65,16 +65,16 @@ manala_accounts_users:
     groups: ['sudo']
     authorized_keys_file: authorized_keys2 # authorized_keys by default
     authorized_keys:
-      - "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}"
+      - "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
+      - "no-port-forwarding,from=\"10.0.1.*\" {{ query('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}"
     keys:
       - name:    id_rsa
-        public:  "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-        private: "{{ lookup('file', playbook_dir ~ '/files/users/keys/foo@example.com') }}"
+        public:  "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
+        private: "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com') }}"
     gpg_keys:
       - key:    FOOOBAAR
-        public: "{{ lookup('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com.pub') }}"
-        secret: "{{ lookup('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com') }}"
+        public: "{{ query('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com.pub') }}"
+        secret: "{{ query('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com') }}"
 ```
 #### Example: Ensure a user is not present
 

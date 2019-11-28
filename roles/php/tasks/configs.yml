@@ -6,7 +6,11 @@
     dest: /etc/php/{{ manala_php_version|string }}/{{ __manala_php_sapi }}/conf.d/{{ item.file }}
   notify:
     - "php {{ __manala_php_sapi }} restart"
-  with_manala_php_configs: "{{ manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'] }}"
+  loop: "{{ query(
+      'manala_php_configs',
+      manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'],
+    )
+  }}"
   tags:
     - manala_php
 

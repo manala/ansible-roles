@@ -6,9 +6,12 @@
     dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
     mode: 0755
     validate_certs: "{{ item.validate_certs|default(omit) }}"
-  with_manala_php_applications:
-    - "{{ manala_php_applications }}"
-    - "{{ manala_php_applications_patterns }}"
+  loop: "{{ query(
+      'manala_php_applications',
+      manala_php_applications,
+      manala_php_applications_patterns
+    )
+  }}"
 
 - name: applications > Link versions
   file:
@@ -17,6 +20,9 @@
     src:   "{{ item.application ~ '_' ~ item.version }}"
     dest:  "{{ manala_php_applications_dir }}/{{ item.application }}"
   when: item.version
-  with_manala_php_applications:
-    - "{{ manala_php_applications }}"
-    - "{{ manala_php_applications_patterns }}"
+  loop: "{{ query(
+      'manala_php_applications',
+      manala_php_applications,
+      manala_php_applications_patterns
+    )
+  }}"
