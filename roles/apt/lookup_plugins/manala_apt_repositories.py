@@ -37,11 +37,8 @@ class LookupModule(LookupBase):
 
         # Handle repositories defined as reversed preferences
         for preference in preferences[::-1]:
-            if isinstance(preference, string_types):
-                repository = ((preference.split('@')[1])
-                    if len(preference.split('@')) > 1 else
-                (preference)).split(':')[0]
-                repositories.insert(0, repository)
+            if 'repository' in preference:
+                repositories.insert(0, preference['repository'])
 
         for repository in repositories:
 

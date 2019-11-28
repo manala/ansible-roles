@@ -9,6 +9,7 @@ command:
 {{ else }}
       - 95BD4743 # Sury_php
 {{ end }}
+      - 65558117 # Multimedia
       - 7BD9BF62 # Nginx
       - 86E50310 # Yarn
       - ACCC4CF8 # PostgreSQL

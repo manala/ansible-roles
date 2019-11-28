@@ -54,44 +54,42 @@ class LookupModule(LookupBase):
 
             if 'preference' in item:
                 pattern = item['preference']
+                preferencePattern = pattern.split('@')[0]
                 if 'file' not in item:
                     item.update({
-                        'file': pattern
-                            .split('@')[0]
+                        'file': preferencePattern
                             .split(':')[0]
                             .replace('.', '_')
                     })
                 if 'package' not in item:
                     item.update({
                         'package': preferencesPatterns.get(
-                            pattern.split('@')[0],
-                            (pattern.split('@')[0])
+                            preferencePattern,
+                            (preferencePattern)
                                 if len(pattern.split('@')) > 1 else
                             ('*')
                         )
                     })
                 if 'pin' not in item:
+                    repositoryPattern = (
+                            (pattern.split('@')[1])
+                                if len(pattern.split('@')) > 1 else
+                            (pattern)
+                        ).split(':')[0]
                     item.update({
-                        'pin': repositoriesPatterns[
-                            (
-                                (pattern.split('@')[1])
-                                    if len(pattern.split('@')) > 1 else
-                                (pattern)
-                            ).split(':')[0]
-                        ].get(
-                            'pin',
-                            'origin ' + re.sub(
-                                'deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$',
-                                '\\2',
-                                repositoriesPatterns[
-                                    (
-                                        (pattern.split('@')[1])
-                                            if len(pattern.split('@')) > 1 else
-                                        (pattern)
-                                    ).split(':')[0]
-                                ].get('source')
-                            )
-                        )
+                        'pin': repositoriesPatterns
+                            .get(repositoryPattern)
+                            .get(
+                                'pin',
+                                'origin ' + re.sub(
+                                    'deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$',
+                                    '\\2',
+                                    repositoriesPatterns
+                                        .get(repositoryPattern)
+                                        .get('source')
+                                )
+                            ),
+                        'repository': repositoryPattern
                     })
                 if 'priority' not in item:
                     item.update({
