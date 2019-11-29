@@ -1,0 +1,10 @@
+define docker_collection
+	docker run \
+		--rm \
+		--env COLLECTION_API_TOKEN \
+		--tty --interactive \
+		--volume $(PWD):/srv/ \
+		--workdir /srv/ \
+		manala/ansible:2.9.1 \
+		$(1)
+endef
