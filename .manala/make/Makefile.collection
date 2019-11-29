@@ -5,6 +5,6 @@ define docker_collection
 		--tty --interactive \
 		--volume $(PWD):/srv/ \
 		--workdir /srv/ \
-		manala/ansible:2.9.1 \
+		manala/ansible:edge \
 		$(1)
 endef
