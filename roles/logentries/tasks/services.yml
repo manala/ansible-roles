@@ -6,4 +6,3 @@
     state: started
   with_items:
     - logentries
-

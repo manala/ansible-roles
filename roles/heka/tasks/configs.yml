@@ -7,4 +7,3 @@
   with_items: "{{ manala_heka_configs }}"
   notify:
     - heka restart
-
