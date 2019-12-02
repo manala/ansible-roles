@@ -1,0 +1,60 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.proftpd
+      vars:
+        manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
+        manala_proftpd_configs:
+          - file: foo.conf
+            config:
+              - ServerName:        Manala ProFTPD Server
+              - DefaultRoot:       "~"
+              - AuthOrder:         mod_auth_file.c
+              - AuthUserFile:      /etc/ftpd.passwd
+              - RequireValidShell: false
+              - PassivePorts:      10000 10030
+          - file: foo_template.conf
+            template: configs/module.j2
+            name: foo
+          - file: foo_content.conf
+            content: |
+              <Anonymous ~ftp>
+                User foo
+              </Anonymous>
+          - file: foo_template_content.conf
+            template: configs/module.j2
+            content: |
+              <Anonymous ~ftp>
+                User foo
+              </Anonymous>
+          - file: bar.conf
+            state: present
+          - file: baz.conf
+            state: absent
+        manala_proftpd_users:
+          - name:     user-1
+            password: $1$Z4eVi1jp$IQJdkHh28GGFbq9oSQR/b0 # mkpasswd --method=md5 --salt=Z4eVi1jp testpasswordproftpd
+            home:     /tmp
+            shell:    /bin/false
+          - name:     user-2
+            password: $1$Z4eVi1jp$o4qLQc670sqyO2CKWzYBm1 # mkpasswd --method=md5 --salt=Z4eVi1jp proftpdtestpassword
+            home:     /tmp
+            shell:    /bin/false
+
+    - include_role:
+        name: manala.proftpd
+      vars:
+        manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
+        manala_proftpd_configs:
+          - file: bar.conf
+            state: absent
+          - file: baz.conf
+            state: present

@@ -1,0 +1,12 @@
+---
+
+- name: Converge
+  hosts: all
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.apparmor

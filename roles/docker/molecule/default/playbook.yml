@@ -1,0 +1,38 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - docker@docker
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.docker
+      vars:
+        manala_docker_config_daemon:
+          - storage-driver: vfs
+          - experimental: false
+        manala_docker_applications:
+          - hello-world
+          - application: npm
+            image:       node
+            command:     npm
+            tag:         alpine
+        manala_docker_containers:
+          - name:  hello-world
+            image: hello-world
+        manala_docker:
+          update: true

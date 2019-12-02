@@ -1,0 +1,24 @@
+---
+
+package:
+  phantomjs:
+    installed: true
+
+command:
+  dpkg -s phantomjs:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+  phantomjs --version:
+    exit-status: 0
+
+file:
+  /etc/phantomjs/config.json:
+    exists: true
+    contains:
+      - '"webdriver": 1234'
+
+service:
+  phantomjs:
+    enabled: true
+    running: true

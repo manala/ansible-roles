@@ -1,0 +1,57 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - elasticsearch@elasticsearch_5
+          - "openjdk@{{ {
+            'jessie': 'backports',
+            'stretch': 'default',
+            'buster': 'default'
+          }[ansible_distribution_release] }}"
+
+        manala_apt_packages:
+          - "openjdk-{{ {
+            'jessie': '8-jre-headless',
+            'stretch': '8-jre-headless',
+            'buster': '11-jre-headless'
+          }[ansible_distribution_release] }}"
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.elasticsearch
+      vars:
+        manala_elasticsearch_config:
+          - node.name: Foo Bar
+        manala_elasticsearch_environment_file: /etc/default/elasticsearch.test
+        manala_elasticsearch_environment:
+          - ES_JAVA_OPTS: -Xms1g -Xmx1g
+        manala_elasticsearch_plugins:
+          - analysis-icu
+
+##############
+# Post_tasks #
+##############
+
+
+  post_tasks:
+    - name: Post tasks > Wait for pretty response
+      uri:
+        url: http://localhost:9200/?pretty
+      register: result
+      until: result.status == 200
+      retries: 60
+      delay: 1

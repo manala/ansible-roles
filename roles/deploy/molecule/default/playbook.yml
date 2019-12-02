@@ -1,0 +1,50 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - apt:
+        name:
+          - ssh
+          - rsync
+        install_recommends: false
+        update_cache: true
+    - file:
+        path: /tmp/app/releases/20170520092302
+        state: directory
+    - file:
+        path: /tmp/app/releases/20170520092413
+        state: directory
+    - file:
+        path: /tmp/app/releases/20170520092714
+        state: directory
+    - file:
+        path: /tmp/app/releases/20170520092738
+        state: directory
+    - file:
+        path: /tmp/app/releases/20170520093012
+        state: directory
+    - file:
+        path: /tmp/app/releases/20170520093234
+        state: directory
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.deploy
+      vars:
+        manala_deploy_dir: /tmp/app
+        manala_deploy_strategy: synchronize
+        manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
+        manala_deploy_releases: 2
+        manala_deploy_tasks:
+          - raw: touch /tmp/manala_deploy_tasks.txt
+          - raw: touch /tmp/manala_deploy_post_tasks.txt

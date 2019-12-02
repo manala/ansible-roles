@@ -1,0 +1,28 @@
+---
+
+package:
+  mongodb-org:
+    installed: true
+  mongodb-org-server:
+    installed: true
+  mongodb-org-shell:
+    installed: true
+  mongodb-org-tools:
+    installed: true
+
+command:
+  mongo --version:
+    exit-status: 0
+    stdout:
+      - "/^MongoDB shell version v3.6.\\d+$/"
+
+file:
+  /etc/mongod.conf:
+    exists: true
+    contains:
+      - "port = 12345"
+
+service:
+  mongod:
+    enabled: true
+    running: true

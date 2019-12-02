@@ -1,0 +1,23 @@
+---
+
+package:
+  varnish:
+    installed: true
+
+file:
+  /etc/default/varnish:
+    exists: true
+    contains:
+      - NFILES=1310723
+      - MEMLOCK=82001
+  /etc/varnish/foo.vcl:
+    exists: true
+  /etc/varnish/bar.vcl:
+    exists: true
+    contains:
+      - ""# Foo bar"
+
+service:
+  varnish:
+    enabled: true
+    running: true

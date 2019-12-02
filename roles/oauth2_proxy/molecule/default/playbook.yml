@@ -1,0 +1,32 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - oauth2_proxy@manala
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.oauth2_proxy
+      vars:
+        manala_oauth2_proxy_config:
+          - upstreams:
+            - http://127.0.0.1:8080/
+          - email_domains: "*"
+          - client_id:     foo
+          - client_secret: bar
+          - cookie_secret: bar
+          - http_address: 127.0.0.1:1234

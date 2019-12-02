@@ -26,8 +26,8 @@
       wantstate='present'
     )
   }}"
-  notify:
-    - telegraf restart
+  # notify:
+  #   - telegraf restart
 
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: configs > Files absent
@@ -42,5 +42,5 @@
       wantstate='absent'
     )
   }}"
-  notify:
-    - telegraf restart
+  # notify:
+  #   - telegraf restart

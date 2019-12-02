@@ -1,0 +1,21 @@
+---
+
+package:
+  php7.2-cli:
+    installed: true
+  php7.2-fpm:
+    installed: true
+  php7.2-cgi:
+    installed: false
+  php7.2-mbstring:
+    installed: true
+  php7.2-intl:
+    installed: true
+  php-geoip:
+    installed: true
+  php7.2-curl:
+    installed: true
+  php7.2-tidy:
+    installed: false
+  php-apcu:
+    installed: false

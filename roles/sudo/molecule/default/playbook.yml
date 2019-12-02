@@ -1,0 +1,61 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.sudo
+      vars:
+        manala_sudo_sudoers_dir: /etc/sudoers.d.test
+        manala_sudo_sudoers:
+          - file: foo
+            config:
+              - vagrant: ALL=NOPASSWD:ALL
+          - file: foo_template
+            template: fixtures/sudo.j2
+          - file: foo_content
+            content: |
+              bar ALL=(ALL) ALL
+          - file: foo_template_content
+            template: fixtures/sudo.j2
+            content: |
+              bar ALL=(ALL) ALL
+          - file: bar
+            state: present
+          - file: baz
+            state: absent
+
+    - include_role:
+        name: manala.sudo
+      vars:
+        manala_sudo_sudoers_dir: /etc/sudoers.d.test
+        manala_sudo_sudoers:
+          - file: bar
+            state: absent
+          - file: baz
+            state: present
+
+    - include_role:
+        name: manala.sudo
+      vars:
+        manala_sudo_sudoers_dir: /etc/sudoers.d.exclusive
+        manala_sudo_sudoers:
+          - file: foo
+          - file: bar
+          - file: baz
+    - copy:
+        dest: /etc/sudoers.d.exclusive/README
+        content: Read The Firkin Manual
+
+    - include_role:
+        name: manala.sudo
+      vars:
+        manala_sudo_sudoers_dir: /etc/sudoers.d.exclusive
+        manala_sudo_sudoers_exclusive: true
+        manala_sudo_sudoers:
+          - file: bar

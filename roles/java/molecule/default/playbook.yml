@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['jessie']
+      vars:
+        manala_apt_preferences:
+          - openjdk@backports
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.java
+      vars:
+        manala_java_version: "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('8', '11') }}"

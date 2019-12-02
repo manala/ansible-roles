@@ -1,0 +1,43 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.proxmox
+      vars:
+        manala_proxmox_templates_dir: /var/lib/vz/template/cache.test
+        manala_proxmox_templates:
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: foo.tar.gz
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: bar.tar.gz
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: baz.tar.gz
+        manala_proxmox_isos_dir: /var/lib/vz/template/iso.test
+        manala_proxmox_isos:
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: foo.iso
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: bar.iso
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: baz.iso
+
+    - include_role:
+        name: manala.proxmox
+      vars:
+        manala_proxmox_templates_dir: /var/lib/vz/template/cache.test
+        manala_proxmox_templates_exclusive: true
+        manala_proxmox_templates:
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: bar.tar.gz
+        manala_proxmox_isos_dir: /var/lib/vz/template/iso.test
+        manala_proxmox_isos_exclusive: true
+        manala_proxmox_isos:
+          - url: http://ipv4.download.thinkbroadband.com/5MB.zip
+            file: bar.iso

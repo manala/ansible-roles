@@ -1,0 +1,43 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.
+      vars:
+        manala_apt_preferences:
+          - mysql@mysql_5_6
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.mysql
+      vars:
+        manala_mysql_config:
+          - mysqld:
+            - pid-file: /var/run/mysqld/mysqld.pid
+            - socket: /var/run/mysqld/mysqld.sock
+            - log-error: /var/log/mysql/error.log
+            - datadir: /tmp/datadir
+
+        manala_mysql_data_dir: /tmp/datadir
+        manala_mysql_data_dir_user: mysql
+        manala_mysql_data_dir_group: root
+        manala_mysql_data_dir_mode: '0700'
+        manala_mysql_users:
+          - name:     admin
+            password: "bTxKGlBi"
+            host:     "localhost"
+            priv:     "*.*:ALL,GRANT"
+        manala_mysql_databases:
+          - name: manala_test_1
+          - name: manala_test_2

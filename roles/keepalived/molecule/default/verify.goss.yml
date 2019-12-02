@@ -1,0 +1,31 @@
+---
+
+package:
+  keepalived:
+    installed: true
+
+command:
+  keepalived --version:
+    exit-status: 0
+    stderr:
+      - Keepalived v
+
+file:
+  /etc/keepalived/keepalived.conf.test:
+    exists: true
+    contains:
+      - global_defs {
+      - '    router_id LVS_DEVEL'
+      - virtual_ipaddress {
+      - '        192.168.200.11/24 dev eth0'
+      - '        192.168.200.12/24 dev eth0'
+
+process:
+  keepalived:
+    running: true
+
+file:
+  /etc/default/keepalived.test:
+    exists: true
+    contains:
+      - "/^DAEMON_ARGS=\"--log-console --log-detail\"$/"

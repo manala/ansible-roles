@@ -1,0 +1,12 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - import_role:
+        name: manala.sqlite

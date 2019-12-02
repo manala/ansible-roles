@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.proftpd
+      vars:
+        manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
+        manala_proftpd_configs:
+          - file: foo.conf
+          - file: bar.conf
+          - file: baz.conf
+
+    - include_role:
+        name: manala.proftpd
+      vars:
+        manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
+        manala_proftpd_configs_exclusive: true
+        manala_proftpd_configs:
+          - file: bar.conf

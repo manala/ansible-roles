@@ -1,0 +1,75 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - telegraf@influxdata
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.telegraf
+      vars:
+        manala_telegraf_config:
+          - agent:
+            - hostname: test.manala.dev
+            - quiet: true
+        manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.test
+        manala_telegraf_configs:
+          - file: minimal_config.conf
+            template: fixtures/minimal_config.j2
+          - file: foo.conf
+            template: configs/input_cpu.conf.j2
+            config:
+              - percpu: true
+              - totalcpu: false
+              - tags:
+                - tag-1: foo
+                - tag-2: bar
+              - tagdrop:
+                - cpu: [cpu6, cpu7]
+          - file: foo_template.conf
+            template: fixtures/custom.j2
+          - file: bar.conf
+            state: present
+          - file: baz.conf
+            state: absent
+
+    - include_role:
+        name: manala.telegraf
+      vars:
+        manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.test
+        manala_telegraf_configs:
+          - file: bar.conf
+            state: absent
+          - file: baz.conf
+            state: present
+
+    - include_role:
+        name: manala.telegraf
+      vars:
+        manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.exclusive
+        manala_telegraf_configs:
+          - file: foo.conf
+          - file: bar.conf
+          - file: baz.conf
+
+    - include_role:
+        name: manala.telegraf
+      vars:
+        manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.exclusive
+        manala_telegraf_configs_exclusive: true
+        manala_telegraf_configs:
+          - file: bar.conf

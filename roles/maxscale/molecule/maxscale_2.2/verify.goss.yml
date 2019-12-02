@@ -1,0 +1,64 @@
+---
+
+package:
+  maxscale:
+    installed: true
+
+command:
+  maxscale --version:
+    exit-status: 0
+    stdout:
+      - "/^MaxScale 2.2.\\d+$/"
+  sudo maxadmin show users:
+    exit-status: 0
+    stdout:
+      - "/^Enabled Linux accounts \\(secure\\)\\s*: root$/"
+      - "/^Created network accounts \\(insecure\\): bar, foo$/"
+
+file:
+  /etc/maxscale.cnf.test:
+    exists:   true
+    filetype: file
+    contains:
+      - "[maxscale]"
+      - threads = auto
+      - "[Splitter Service]"
+      - type = service
+      - router = readwritesplit
+      - servers = mariadb-1, mariadb-2, mariadb-3
+      - user = maxscale
+      - passwd = XXXXXXXXXXXX
+  /etc/maxscale.cnf.d.test/foo.cnf:
+    exists: true
+    contains:
+      - "[foo-1]"
+      - "type = server"
+      - "address = foo-1"
+      - "port = 3306"
+      - "protocol = MariaDBBackend"
+  /etc/maxscale.cnf.d.test/bar.cnf:
+    exists: false
+  /etc/maxscale.cnf.d.test/baz.cnf:
+    exists: true
+  /etc/maxscale.cnf.d.exclusive/foo.cnf:
+    exists: false
+  /etc/maxscale.cnf.d.exclusive/bar.cnf:
+    exists: true
+  /etc/maxscale.cnf.d.exclusive/baz.cnf:
+    exists: false
+  /var/lib/maxscale/passwd:
+    exists:   true
+    filetype: file
+    contains:
+      - "/\"account\": \"admin\", \"name\": \"foo\", \"password\": \"\\$1\\$MXS\\$ilOCSZPnjmHjTz6B96SiJ1\"/"
+      - "/\"account\": \"admin\", \"name\": \"bar\", \"password\": \"\\$1\\$MXS\\$M.YZOr2pNTgW87l7KQWLU/\"/"
+  /var/lib/maxscale/passwd.test:
+    exists: true
+    filetype: file
+    # contains:
+    #   - "[]"
+
+service:
+  maxscale:
+    enabled: true
+    running: true

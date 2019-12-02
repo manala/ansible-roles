@@ -1,0 +1,74 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.systemd
+      vars:
+        manala_systemd_tmpfiles_configs_dir: /etc/tmpfiles.d.test
+        manala_systemd_tmpfiles_configs:
+          - file: mysql.conf
+            config:
+              - d: /var/run/mysqld 0755 mysql mysql -
+
+    - include_role:
+        name: manala.systemd
+      vars:
+        manala_systemd_tmpfiles_configs_dir: /etc/tmpfiles.d.exclusive
+        manala_systemd_tmpfiles_configs:
+          - file: foo
+          - file: bar
+          - file: baz
+
+    - include_role:
+        name: manala.systemd
+      vars:
+        manala_systemd_tmpfiles_configs_dir: /etc/tmpfiles.d.exclusive
+        manala_systemd_tmpfiles_configs_exclusive: true
+        manala_systemd_tmpfiles_configs:
+          - file: bar
+
+    - include_role:
+        name: manala.systemd
+      vars:
+        manala_systemd_system_configs_dir: /etc/systemd/system.test
+        manala_systemd_system_configs:
+          - file: foo
+            config:
+              - Description=OpenBSD Secure Shell session cleanup
+          - file: foo_template
+            template: system_configs/ssh-session-cleanup.service.j2
+          - file: foo_content
+            content: |
+              - Description=OpenBSD Secure Shell session cleanup
+          - file: foo_template_content
+            template: system_configs/ssh-session-cleanup.service.j2
+            content: |
+              Description=OpenBSD Secure Shell session cleanup
+          - file: bar
+            state: present
+          - file: baz
+            state: absent
+
+    - include_role:
+        name: manala.systemd
+      vars:
+        manala_systemd_system_configs_dir: /etc/systemd/system.exclusive
+        manala_systemd_system_configs:
+          - file: foo
+          - file: bar
+          - file: baz
+
+    - include_role:
+        name: manala.systemd
+      vars:
+        manala_systemd_system_configs_dir: /etc/systemd/system.exclusive
+        manala_systemd_system_configs_exclusive: true
+        manala_systemd_system_configs:
+          - file: bar

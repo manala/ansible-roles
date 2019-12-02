@@ -1,0 +1,36 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - nginx@nginx
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.nginx
+      vars:
+        manala_nginx_configs_dir: /etc/nginx/conf.d.test
+        manala_nginx_configs:
+          - file: foo.conf
+          - file: foo.conf
+          - file: foo.conf
+    - include_role:
+        name: manala.nginx
+      vars:
+        manala_nginx_configs_dir: /etc/nginx/conf.d.test
+        manala_nginx_configs_exclusive: true
+        manala_nginx_configs:
+          - file: bar.conf

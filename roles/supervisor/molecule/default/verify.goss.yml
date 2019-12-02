@@ -1,0 +1,57 @@
+---
+
+package:
+  supervisor:
+    installed: true
+
+command:
+  dpkg -s supervisor:
+    exit-status: 0
+    stdout:
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" }}
+      - "/^Version: [\\d\\.-]+manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+{{ else }}
+      - "Version:"
+{{ end }}
+
+file:
+  /etc/supervisor/supervisord.conf:
+    exists: true
+    contains:
+      - file=/tmp/supervisor.sock   ; (the path to the socket file)
+  /etc/supervisor/conf.d.test/foo.conf:
+    exists: true
+    contains:
+      - "[foo]"
+      - command=cat
+  /etc/supervisor/conf.d.test/foo_template.conf:
+    exists: true
+    contains:
+      - "[program:bar]"
+      - "command=cat ; the program (relative uses PATH, can take args)"
+      - 'environment=BAR="12",FOO="bar"'
+  /etc/supervisor/conf.d.test/foo_content.conf:
+    exists: true
+    contains:
+      - "[program:foo]"
+      - command=/usr/bin/foo
+  /etc/supervisor/conf.d.test/foo_template_content.conf:
+    exists: true
+    contains:
+      - "[program:foo]"
+      - command=/usr/bin/foo
+  /etc/supervisor/conf.d.test/bar.conf:
+    exists: false
+  /etc/supervisor/conf.d.test/baz.conf:
+    exists: true
+  /etc/supervisor/conf.d.exclusive/foo.conf:
+    exists: false
+  /etc/supervisor/conf.d.exclusive/bar.conf:
+    exists: true
+  /etc/supervisor/conf.d.exclusive/baz.conf:
+    exists: false
+
+service:
+  supervisor:
+    enabled: true
+    running: true

@@ -1,0 +1,41 @@
+---
+
+- name: Converge
+  hosts: all
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.cron
+      vars:
+        manala_cron_files:
+          - file: foo
+            user: foo
+            # Deprecated
+            environment:
+              - FOO: foo
+            env:
+              BAR: bar
+            jobs:
+              - name:   foo-foo
+                job:    "cd /srv/app && bin/console app:foo:foo"
+                minute: 0
+                hour:   7
+          - file: bar
+            jobs:
+              - name:   bar-bar
+                job:    "cd /srv/app && bin/console app:bar:bar"
+                minute: 0
+                hour:   7
+          - file: baz
+            env:
+              BAR: bar
+              QUX: qux
+            jobs:
+              - name:   baz-baz
+                job:    "cd /srv/app && bin/console app:baz:baz"
+                minute: 0
+                hour:   7

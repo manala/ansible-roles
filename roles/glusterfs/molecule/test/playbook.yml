@@ -1,0 +1,60 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - file:
+        path:  /home/foo
+        state: directory
+    - file:
+        path:  /home/vol
+        state: directory
+    - file:
+        path:  /home/vol2
+        state: directory
+    - file:
+        path:  /home/vol3
+        state: directory
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - glusterfs@glusterfs_6_1
+    - include_role:
+        name: manala.glusterfs
+      vars:
+        manala_glusterfs_volumes:
+          - name: foo
+            state: present
+            bricks: /home/foo
+            cluster:
+              - "{{ ansible_fqdn }}"
+            force: true
+          - name: volume_test
+            cluster:
+              - "{{ ansible_fqdn }}"
+            bricks: /home/vol
+            force: true
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.glusterfs
+      vars:
+        manala_glusterfs_volumes:
+          - name: foo
+            state: absent
+
+          - name: volume_test
+            bricks:  /home/vol2,/home/vol3
+            cluster:
+              - "{{ ansible_fqdn }}"
+            force: true

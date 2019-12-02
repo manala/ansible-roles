@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.kernel
+      vars:
+        manala_kernel_parameters:
+          - parameter: net.ipv4.ip_nonlocal_bind
+            value: 3

@@ -1,0 +1,18 @@
+---
+
+package:
+  libpam-ssh-agent-auth:
+    installed: true
+
+file:
+  /etc/sudoers:
+    exists: true
+    filetype: file
+    contains:
+      - "Defaults env_keep += SSH_AUTH_SOCK"
+
+  /etc/pam.d/sudo:
+    exists: true
+    filetype: file
+    contains:
+      - "auth sufficient pam_ssh_agent_auth.so file=%h/.ssh/authorized_keys"

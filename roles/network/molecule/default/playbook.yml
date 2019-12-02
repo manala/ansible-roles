@@ -1,0 +1,55 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - copy:
+        dest: /tmp/hosts
+        content: |
+          1.1.1.111 bar.com
+          1.1.1.222 bar.com
+    - file:
+        path: /etc/network/interfaces.d
+        state: directory
+        mode: '0755'
+    - file:
+        path: /etc/network/interfaces.d/exclusive_test
+        state: touch
+    - copy:
+        dest: /tmp/rt_tables
+        content: |
+          255 local
+          254 main
+          253 foo
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.network
+      vars:
+        manala_network_hosts_file: /tmp/hosts
+        manala_network_hosts:
+          - 1.1.1.111: foo.com
+          - 1.1.1.2: baz.com
+          - 1.1.1.333: qux.com
+        manala_network_interfaces_configs_exclusive: true
+        manala_network_interfaces_configs:
+          - file: alias
+            config:
+              - auto eth0:0
+              - iface eth0:0 inet static:
+                - address: 0.0.0.0
+                - netmask: 255.255.255.255
+        manala_network_routing_tables_file: /tmp/rt_tables
+        manala_network_routing_tables:
+          - 253: default
+          - 25: foo
+          - 123: bar

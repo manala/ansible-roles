@@ -1,0 +1,21 @@
+---
+
+package:
+  vault:
+    installed: true
+
+command:
+  dpkg -s vault:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+  vault --version:
+    exit-status: 0
+    stdout:
+      - Vault v
+
+file:
+  /etc/vault/config.hcl:
+    exists: true
+    contains:
+      - 'address = "127.0.0.1:1234"'

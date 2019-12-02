@@ -1,0 +1,44 @@
+---
+
+package:
+  telegraf:
+    installed: true
+
+file:
+  /etc/telegraf/telegraf.conf:
+    exists: true
+    contains:
+      - hostname = "test.manala.dev"
+      - quiet = true
+  /etc/telegraf/telegraf.d.test/foo.conf:
+    exists: true
+    contains:
+      - percpu = true
+      - totalcpu = false
+      - '[inputs.cpu.tags]'
+      - tag-1 = "foo"
+      - tag-2 = "bar"
+      - '[inputs.cpu.tagdrop]'
+      - cpu = ["cpu6", "cpu7"]
+  /etc/telegraf/telegraf.d.test/bar.conf:
+    exists: true
+    contains:
+      - '[[inputs.cpu]]'
+      - percpu = false
+  /etc/telegraf/telegraf.d.test/foo.conf:
+    exists: true
+  /etc/telegraf/telegraf.d.test/bar.conf:
+    exists: false
+  /etc/telegraf/telegraf.d.test/baz.conf:
+    exists: true
+  /etc/telegraf/telegraf.d.exclusive/foo.conf:
+    exists: false
+  /etc/telegraf/telegraf.d.exclusive/bar.conf:
+    exists: true
+  /etc/telegraf/telegraf.d.exclusive/baz.conf:
+    exists: false
+
+service:
+  telegraf:
+    enabled: true
+    running: true

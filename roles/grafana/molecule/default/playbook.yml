@@ -1,0 +1,45 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - grafana@grafana
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.grafana
+      vars:
+        manala_grafana_version: 6.4
+        manala_grafana_config:
+          - server:
+            - http_port: 3002
+        manala_grafana_api_url: http://127.0.0.1:3002
+        manala_grafana_api_user: admin
+        manala_grafana_api_password: admin
+        manala_grafana_datasources_exclusive: true
+        manala_grafana_datasources:
+          - name:      datasource_test
+            type:      influxdb
+            isDefault: true
+            access:    proxy
+            basicAuth: false
+            url:       http://localhost:8086
+            database:  telegraf
+            username:  ''
+            password:  ''
+        manala_grafana_dashboards:
+          - template: templates/dashboard_test.json
+            overwrite: true

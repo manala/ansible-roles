@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - phantomjs@manala
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.phantomjs
+      vars:
+        manala_phantomjs_config:
+          - webdriver: 1234

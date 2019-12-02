@@ -1,0 +1,10 @@
+---
+
+package:
+  heka:
+    installed: true
+
+service:
+  heka:
+    enabled: true
+    running: true

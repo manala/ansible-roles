@@ -1,0 +1,61 @@
+---
+
+package:
+  influxdb:
+    installed: true
+
+file:
+  /etc/influxdb/influxdb.conf:
+    exists: true
+    contains:
+      - reporting-disabled = true
+
+  /etc/influxdb/influxdb.conf:
+    exists: true
+    contains:
+      - reporting-disabled = true
+      - dir = "/srv/db/influxdb/meta"
+      - dir = "/srv/db/influxdb/data"
+      - wal-dir = "/srv/db/influxdb/wal"
+
+  /srv/db/influxdb/data:
+    exists: true
+    filetype: directory
+    owner: influxdb
+    group: influxdb
+    mode: "0750"
+
+  /srv/db/influxdb/meta:
+    exists: true
+    filetype: directory
+    owner: influxdb
+    group: influxdb
+    mode: "0750"
+
+  /srv/db/influxdb/wal:
+    exists: true
+    filetype: directory
+    owner: influxdb
+    group: influxdb
+    mode: "0750"
+
+service:
+  influxdb:
+    enabled: true
+    running: true
+
+command:
+  influx -execute 'show databases':
+    exit-status: 0
+    stdout:
+      - my_db
+
+  influx -execute 'show users':
+    exit-status: 0
+    stdout:
+      - my_user
+
+  influx -database my_db -execute 'show grants for my_user':
+    exit-status: 0
+    stdout:
+      - my_db    ALL PRIVILEGES

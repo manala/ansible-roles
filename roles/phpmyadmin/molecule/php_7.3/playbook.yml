@@ -1,0 +1,36 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - php@sury_php
+          - phpmyadmin@manala
+        manala_apt_packages:
+          - php7.3-fpm
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.phpmyadmin
+      vars:
+        manala_phpmyadmin_configs:
+          - file:     config.inc.php
+            template: configs/default.dev.j2
+            config:
+              - blowfish_secret: "WU9VIEdPVCBSSUNLIFJPTExFRA=="
+            servers:
+              - id: 1
+                config:
+                  - host: mysql

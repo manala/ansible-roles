@@ -1,0 +1,24 @@
+---
+
+package:
+  mongo-express:
+    installed: true
+
+command:
+  dpkg -s mongo-express:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+
+file:
+  /etc/mongo-express/config.js:
+    exists: true
+    contains:
+      - "admin: true"
+      - "host:             process.env.VCAP_APP_HOST                 || '0.0.0.0'"
+      - "useBasicAuth: false"
+
+service:
+  mongo-express:
+    enabled: true
+    running: true

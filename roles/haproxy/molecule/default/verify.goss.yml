@@ -1,0 +1,45 @@
+---
+
+package:
+  haproxy:
+    installed: true
+
+file:
+  /etc/haproxy/errors/400.http:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - Foo bar
+
+  /etc/haproxy/haproxy.cfg:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "# Foo bar"
+
+  /etc/haproxy/conf.d.test/haproxy.cfg:
+    exists: true
+    contains:
+      - global
+  /etc/haproxy/conf.d.test/foo.cfg:
+    exists: true
+  /etc/haproxy/conf.d.test/bar.cfg:
+    exists: false
+  /etc/haproxy/conf.d.test/baz.cfg:
+    exists: false
+
+  /etc/default/haproxy.test:
+    exists: true
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
+
+service:
+  haproxy:
+    enabled: true
+    running: true

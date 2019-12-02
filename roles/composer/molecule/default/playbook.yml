@@ -1,0 +1,33 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - apt:
+        name:
+          - "{{ (ansible_distribution_release in ['jessie'])|ternary('php5-cli','php-cli') }}"
+        install_recommends: false
+        update_cache: true
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.composer
+      vars:
+        manala_composer_users_auth:
+          - user: root
+            config:
+              - github-oauth:
+                - github.com: 9927d2878ffa105fc5236c762f2fd7zfd28b841d
+              - http-basic:
+                - repo.example1.org:
+                  - username: my-username1
+                  - password: my-secret-password1

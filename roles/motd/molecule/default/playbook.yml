@@ -1,0 +1,15 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.motd
+      vars:
+        manala_motd_template: template/manala.j2
+        manala_motd_message:  One of these days, I'm going to cut you into little pieces

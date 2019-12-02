@@ -1,0 +1,68 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - thumbor@manala
+          - python-tornado@backports
+          - python-pil@backports
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.thumbor
+      vars:
+        manala_thumbor:
+          services: false
+        manala_thumbor_key_file: /etc/thumbor.key.test
+        manala_thumbor_key: foo
+        manala_thumbor_configs_dir: "/etc/thumbor.d.test"
+        manala_thumbor_configs:
+          - file: foo.conf
+            config:
+              - THUMBOR_LOG_CONFIG: ~
+              - MAX_WIDTH: 100
+              - PILLOW_RESAMPLING_FILTER: LANCZOS
+          - file: bar.conf
+            state: present
+          - file: baz.conf
+            state: absent
+
+    - include_role:
+        name: manala.thumbor
+      vars:
+        manala_thumbor_configs_dir: "/etc/thumbor.d.test"
+        manala_thumbor_configs:
+          - file: bar.conf
+            state: absent
+          - file: baz.conf
+            state: present
+
+    - include_role:
+        name: manala.thumbor
+      vars:
+        manala_thumbor_configs_dir: "/etc/thumbor.d.exclusive"
+        manala_thumbor_configs:
+          - file: foo.conf
+          - file: bar.conf
+          - file: baz.conf
+
+    - include_role:
+        name: manala.thumbor
+      vars:
+        manala_thumbor_configs_dir: "/etc/thumbor.d.exclusive"
+        manala_thumbor_configs_exclusive: true
+        manala_thumbor_configs:
+          - file: bar.conf

@@ -1,0 +1,32 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - apt:
+        name:
+          - bindfs
+        install_recommends: false
+        update_cache: true
+    - copy:
+        dest: /srv
+        src: fixtures
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.mount
+      vars:
+        manala_mount_points:
+          - path: /tmp/foo
+            src: /srv/fixtures
+            fstype: none
+            opts: bind

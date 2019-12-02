@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - mailhog@manala
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.mailhog
+      vars:
+        manala_mailhog_config:
+          - smtp-bind-addr: 1.2.3.4:2525

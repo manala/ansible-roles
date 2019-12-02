@@ -1,0 +1,39 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - glusterfs@glusterfs_6_1
+    - file:
+        path:  /home/vol
+        state: directory
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.glusterfs
+      vars:
+        manala_glusterfs_volumes:
+          - name: foo
+            state: absent
+          - name: volume_test
+            bricks: /home/vol
+            cluster:
+              - "{{ ansible_fqdn }}"
+            options:
+              storage.owner-gid: '1337'
+              storage.owner-uid: '1337'
+              nfs.disable: 'off'
+            force: true

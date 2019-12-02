@@ -1,0 +1,46 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - postgresql@postgresql
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.postgresql
+      vars:
+        manala_postgresql_version: 9.4
+        manala_postgresql_config_template: config/default.dev.j2
+        manala_postgresql_config:
+          - max_connections: 123
+        manala_postgresql_config_hba_template: config/hba/default.dev.j2
+        manala_postgresql_config_hba:
+          - local   all             postgres                                peer
+          - local   all             all                                     peer
+          - host    all             all             127.0.0.1/32            md5
+          - host    all             all             ::1/128                 md5
+          - local   foo             bar                                     peer
+        manala_postgresql_roles:
+          - role:       foo
+            password:   bar
+            attributes: ['SUPERUSER']
+        manala_postgresql_databases:
+          - database: bar
+        manala_postgresql_privileges:
+          - role: foo
+            database: bar
+            privileges:
+              - ALL

@@ -1,0 +1,54 @@
+---
+
+dependency:
+  name: galaxy
+  options:
+    force: true
+    role-file: molecule/requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: molecule/.yamllint
+platforms:
+  - name: debian.jessie
+    image: manala/debian-test:edge-jessie
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+  - name: debian.stretch_7_exclu
+    image: manala/debian-test:edge-stretch
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+  - name: debian.buster
+    image: manala/debian-test:edge-buster
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      x: ["502,301"]
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  test_sequence:
+    - lint
+    - dependency
+    - destroy
+    - create
+    - converge
+    - verify
+    - destroy

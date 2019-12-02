@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.vim
+      vars:
+        manala_vim_config:
+          - encoding:  utf8
+          - expandtab: true

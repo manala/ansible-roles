@@ -1,0 +1,29 @@
+---
+
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Copy Goss tests to remote
+      copy:
+        src: verify.goss.yml
+        dest: /tmp
+      changed_when: false
+
+    - name: Execute Goss tests
+      command: >
+        /usr/local/bin/goss
+        --gossfile /tmp/verify.goss.yml
+        validate
+        --format documentation
+      register: test_result
+      failed_when: false
+      changed_when: false
+      environment:
+        DISTRIBUTION_RELEASE: "{{ ansible_distribution_release }}"
+        DISTRIBUTION: "{{ ansible_distribution_release|lower }}"
+
+    - name: Display Goss Errors
+      debug:
+        msg: "{{ (test_result.rc != 0)|ternary(test_result.stdout_lines, 'All tests passed') }}"
+      failed_when: test_result.rc != 0

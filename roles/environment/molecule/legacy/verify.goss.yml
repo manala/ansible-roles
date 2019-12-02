@@ -1,0 +1,38 @@
+---
+
+file:
+  /etc/environment:
+    exists: true
+    filetype: file
+    contains:
+      - '_FOO="bar"'
+      - '_BAR="123"'
+      - '_BAZ="1.2"'
+      - '_QUX="foo=bar"'
+      - '_FOO_NULL="null"'
+      - '_FOO_TRUE="true"'
+      - '_FOO_FALSE="false"'
+  /etc/zsh/zshenv:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/zsh/zshenv'
+      - 'export _FOO="bar"'
+      - 'export _BAR="123"'
+      - 'export _BAZ="1.2"'
+      - 'export _QUX="foo=bar"'
+      - 'export _FOO_NULL="null"'
+      - 'export _FOO_TRUE="true"'
+      - 'export _FOO_FALSE="false"'
+  /etc/profile.d/test.sh:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/profile.d/test.sh'
+      - 'export _FOO="bar"'
+      - 'export _BAR="123"'
+      - 'export _BAZ="1.2"'
+      - 'export _QUX="foo=bar"'
+      - 'export _FOO_NULL="null"'
+      - 'export _FOO_TRUE="true"'
+      - 'export _FOO_FALSE="false"'

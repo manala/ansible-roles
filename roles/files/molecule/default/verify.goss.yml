@@ -1,0 +1,110 @@
+---
+
+file:
+  # Attribute file
+  /tmp/file:
+    exists:  true
+    filetype: file
+  # Attribute link to file
+  /tmp/link_to_file:
+    exists:  true
+    filetype:  symlink
+    linked-to: /tmp/file
+  # Attribute link to link to file
+  /tmp/link_to_link_to_file:
+    exists:  true
+    filetype:  symlink
+    linked-to: /tmp/link_to_file
+  # Attribute content
+  /tmp/content/file:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!
+  /tmp/content/foo:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello Foo!
+  # Attribute content absent
+  /tmp/content/bar:
+    exists:  false
+  # Attribute copy
+  /tmp/copy/file:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!
+  /tmp/copy/foo:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!
+  # Attribute copy absent
+  /tmp/copy/bar:
+    exists:  false
+  # Attribute default
+  /tmp/root/file:
+    exists:   true
+    filetype: file
+    owner:    root
+    group:    root
+  /tmp/nobody/file:
+    exists:   true
+    filetype: file
+    owner:    nobody
+    group:    nogroup
+  /tmp/mail/file:
+    exists:   true
+    filetype: file
+    owner:    mail
+    group:    mail
+  # Attribute directory
+  /tmp/directory:
+    exists:   true
+    filetype: directory
+  # Attribute link to directory
+  /tmp/link_directory:
+    exists:    true
+    filetype:  symlink
+    linked-to: /tmp/directory
+  # Attribute link to link to directory
+  /tmp/link_to_link_to_directory:
+    exists:    true
+    filetype:  symlink
+    linked-to: /tmp/link_directory
+  # Attribute Overide
+  /tmp/template/overide:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello world!
+  # Attribute template
+  /tmp/template/foo:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello bar!
+  /tmp/template/bar:
+    exists:  true
+    filetype: file
+    contains:
+      - Hello bar!
+  # Attribute template absent
+  /tmp/template/baz:
+    exists:  false
+  # Attribute Url
+  /tmp/file_url:
+    exists:   true
+    filetype: file
+    contains:
+      - TEAM
+      - THANKS
+      - SITE
+  /tmp/alt-galaxy.tar.xz:
+    exists:   true
+    filetype: file
+  /tmp/alt-galaxy:
+    exists:   true
+    filetype: file
+

@@ -1,0 +1,35 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.shorewall
+      vars:
+        manala_shorewall_configs:
+          - file: policy
+            config:
+              - fw: all DROP
+          - file: policy
+            config:
+              - fw:    all ACCEPT
+              - net:   all DROP   info
+              - all:   all REJECT info
+          - file: zones
+            config:
+              - net: ipv4
+              - dmz: ipv4
+              - fw:  firewall
+          - file: interfaces
+            config:
+              - net: ipv4
+              - dmz: ipv6
+        manala_shorewall_config:
+          - LOG_MARTIANS:  "No"
+          - IP_FORWARDING: "On"
+          - MULTICAST:     "Yes"

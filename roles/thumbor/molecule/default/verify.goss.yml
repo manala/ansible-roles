@@ -1,0 +1,35 @@
+---
+
+package:
+  thumbor:
+    installed: true
+
+command:
+  thumbor --version:
+    exit-status: 0
+    stderr:
+      - Thumbor v
+
+file:
+  /etc/thumbor.key.test:
+    exists: true
+    contains:
+      - foo
+  /etc/thumbor.d.test/foo.conf:
+    exists: true
+    contains:
+      - "THUMBOR_LOG_CONFIG = None"
+      - "MAX_WIDTH = 100"
+      - "PILLOW_RESAMPLING_FILTER = 'LANCZOS'"
+  /etc/thumbor.d.test/foo.conf:
+    exists: true
+  /etc/thumbor.d.test/bar.conf:
+    exists: false
+  /etc/thumbor.d.test/baz.conf:
+    exists: true
+  /etc/thumbor.d.exclusive/foo.conf:
+    exists: false
+  /etc/thumbor.d.exclusive/bar.conf:
+    exists: true
+  /etc/thumbor.d.exclusive/baz.conf:
+    exists: false

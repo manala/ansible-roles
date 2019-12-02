@@ -1,0 +1,39 @@
+---
+
+package:
+  ifupdown:
+    installed: true
+
+file:
+  /tmp/hosts:
+    exists: true
+    filetype: file
+    contains:
+      - 1.1.1.111 foo.com
+      - 1.1.1.222 bar.com
+      - 1.1.1.2 baz.com
+      - 1.1.1.333 qux.com
+  /etc/network/interfaces.d/alias:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    sha256: 7dbf780b42d381b5a571bd1d4db31aa0897ad660418a8c52b5de122f072c03b3
+    contains:
+      - auto eth0:0
+      - iface eth0:0 inet static
+      - address 0.0.0.0
+      - netmask 255.255.255.255
+  /etc/network/interfaces.d/exclusive_test:
+    exists: false
+  /tmp/rt_tables:
+    exists: true
+    filetype: file
+    contains:
+      - 255 local
+      - 254 main
+      - "/253\\s*default/"
+      - "/25\\s*foo/"
+      - "/123\\s*bar/"
+

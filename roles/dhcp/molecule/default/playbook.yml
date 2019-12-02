@@ -1,0 +1,30 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - apt:
+        name:
+          - iproute
+        install_recommends: false
+        update_cache: true
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.dhcp
+      vars:
+        manala_dhcp_interfaces:
+          - "{{ ansible_default_ipv4.interface }}"
+        manala_dhcp_config_content: |
+          subnet {{ ansible_default_ipv4.network }} netmask {{ ansible_default_ipv4.netmask }} {
+          }
+          # Foo

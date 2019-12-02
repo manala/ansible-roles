@@ -1,0 +1,15 @@
+---
+
+package:
+  nodejs:
+    installed: true
+
+command:
+  node --version:
+    exit-status: 0
+    stdout:
+      - "/^v8.\\d+\\.\\d+$/"
+  npm --version:
+    exit-status: 0
+    stdout:
+      - "/^6.\\d+\\.\\d+$/"

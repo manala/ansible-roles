@@ -1,0 +1,45 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - influxdb@influxdata
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.influxdb
+      vars:
+        manala_influxdb_dir:
+          - /srv/db/influxdb/meta
+          - /srv/db/influxdb/data
+          - /srv/db/influxdb/wal
+        manala_influxdb_config:
+          - reporting-disabled: true
+          - meta:
+            - dir: /srv/db/influxdb/meta
+          - data:
+            - dir: /srv/db/influxdb/data
+            - wal-dir: /srv/db/influxdb/wal
+        manala_influxdb_databases:
+          - my_db
+        manala_influxdb_users:
+          - database: my_db
+            name:     my_user
+            password: my_password
+        manala_influxdb_privileges:
+          - database: my_db
+            user:     my_user
+            grant:    ALL

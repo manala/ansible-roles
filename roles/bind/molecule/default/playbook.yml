@@ -1,0 +1,98 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - apt:
+        name:
+          - bind9-host
+        install_recommends: false
+        update_cache: true
+    - file:
+        path: /etc/bind
+        state: directory
+    - copy:
+        dest: /etc/bind/named.conf.baz
+        content: |
+          // Baz
+    - file:
+        path: /var/cache/bind
+        state: directory
+    - copy:
+        dest: /var/cache/bind/db.baz.com
+        content: |
+          // Baz
+    - copy:
+        dest: /var/cache/bind/db.corge.com
+        content: |
+          // Corge
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.bind
+      vars:
+        manala_bind_options:
+          - -u {{ manala_bind_user }}
+          - -4 # IPv4 only
+        manala_bind_configs:
+          - file: named.conf.foo
+            template: fixtures/configs/named.conf.foo.j2
+          - file: named.conf.bar
+            content: |
+              // Bar
+          - file: named.conf.baz
+            state: absent
+          - file: named.conf.qux
+            content: |
+              // Qux
+            omit: true
+          - file: named.conf.local
+            content: |
+              zone "foo.local" {
+                  type master;
+                  file "{{ 'foo.local'|manala_bind_zone_file }}";
+                  allow-update { localhost; };
+              };
+        manala_bind_zones:
+          - zone: foo.com
+            template: fixtures/zones/db.foo.com.j2
+          - zone: bar.com
+            content: |
+              // Bar
+          - zone: baz.com
+            state: absent
+          - zone: qux.com
+            content: |
+              // Qux
+            omit: true
+          - zone: quux.com
+            content: |
+              // Quux
+            dynamic: true
+          - zone: corge.com
+            content: |
+              // Grault
+            dynamic: true
+          - zone: foo.local
+            dynamic: true
+            content: |
+              @  IN SOA ns.foo.local. contact.foo.local. (
+                          1       ; serial
+                          604800  ; refresh (1 week)
+                          86400   ; retry (1 day)
+                          2419200 ; expire (4 weeks)
+                          86400   ; minimum (1 day)
+                          )
+              @  IN NS  ns.foo.local.
+              ns IN A   172.16.1.1
+            records:
+              - { record: bar, value: 172.16.1.123 }

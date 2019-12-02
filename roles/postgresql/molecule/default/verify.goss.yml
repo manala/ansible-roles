@@ -1,0 +1,44 @@
+---
+
+package:
+  postgresql-9.4:
+    installed: true
+  postgresql-contrib-9.4:
+    installed: true
+
+command:
+  psql --version:
+    exit-status: 0
+    stdout:
+      - psql (PostgreSQL) 9.4
+  psql --host=127.0.0.1 --username=postgres --command="\du":
+    exit-status: 0
+    stdout:
+      - foo       | Superuser                                      | {}
+  psql --host=127.0.0.1 --username=postgres --command="\l":
+    exit-status: 0
+    stdout:
+      - bar       | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
+  psql --host=127.0.0.1 --username=postgres --command="\l":
+    exit-status: 0
+    stdout:
+      - "bar       | postgres | UTF8     | C.UTF-8 | C.UTF-8 | =Tc/postgres         +"
+      - "          |          |          |         |         | postgres=CTc/postgres+"
+      - "          |          |          |         |         | foo=CTc/postgres"
+
+file:
+  /etc/postgresql/9.4/main/postgresql.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - max_connections = 123
+  /etc/postgresql/9.4/main/pg_hba.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - "/local\\s*foo\\s*bar\\s*peer/"
+
+service:
+  postgresql:
+    enabled: true
+    running: true

@@ -1,0 +1,31 @@
+---
+
+package:
+  sensu-go-agent:
+    installed: true
+  sensu-go-backend:
+    installed: true
+
+file:
+  /etc/sensu/agent.yml:
+    exists: true
+    owner: root
+    group: root
+    contains:
+      - "backend-url:"
+      - "ws://127.0.0.1:8081"
+  /etc/sensu/backend.yml:
+    exists: true
+    owner: root
+    group: root
+    contains:
+      - "state-dir: /tmp"
+
+service:
+  sensu-agent:
+    enabled: true
+    running: true
+  sensu-backend:
+    enabled: true
+    running: true
+

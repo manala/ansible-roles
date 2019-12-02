@@ -1,0 +1,30 @@
+---
+
+package:
+  docker-ce:
+    installed: true
+
+command:
+  docker --version:
+    exit-status: 0
+    stdout:
+      - Docker version
+  hello-world:
+    exit-status: 0
+    timeout: 60000
+    stdout:
+      - Hello from Docker!
+  npm --version:
+    exit-status: 0
+    timeout: 60000
+
+file:
+  /etc/docker/daemon.json:
+    exists: true
+    contains:
+      - "    \"experimental\": false"
+
+service:
+  docker:
+    enabled: true
+    running: true

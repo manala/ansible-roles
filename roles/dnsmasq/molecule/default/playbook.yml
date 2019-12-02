@@ -1,0 +1,17 @@
+---
+
+- name: Converge
+  hosts: all
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.dnsmasq
+      vars:
+        manala_dnsmasq_configs:
+          - file: foo
+            config:
+              - alias: 11.22.33.44,55.66.77.88

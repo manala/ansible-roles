@@ -1,0 +1,26 @@
+---
+
+package:
+  redis-server:
+    installed: true
+  redis-sentinel:
+    installed: true
+
+file:
+   /etc/redis/redis.conf:
+    exists: true
+    contains:
+      - port 1234
+   /etc/redis/sentinel.conf:
+    exists: true
+    contains:
+      - sentinel monitor mymaster 127.0.0.1 6379 2
+      - sentinel down-after-milliseconds mymaster 5000
+
+service:
+  redis-server:
+    enabled: true
+    running: true
+  redis-sentinel:
+    enabled: true
+    running: true

@@ -1,0 +1,40 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - sensu@sensu
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.sensu
+      vars:
+        manala_sensu_config:
+          EMBEDDED_RUBY: true
+          LOG_LEVEL: warn
+        manala_sensu_gems:
+          - name: sensu-plugins-slack
+            version: 3.1.1
+        manala_sensu_configs:
+          - file: transport.json
+            user: root
+            config:
+              transport:
+                name: redis
+          - file: redis.json
+            mode: '0600'
+            config:
+              redis:
+                host: localhost

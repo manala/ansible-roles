@@ -1,0 +1,5 @@
+---
+
+kernel-param:
+  net.ipv4.ip_nonlocal_bind:
+    value: "3"
