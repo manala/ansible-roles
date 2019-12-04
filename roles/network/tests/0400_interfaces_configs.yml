@@ -20,12 +20,6 @@
     - file:
         path: /etc/network/interfaces.d/exclusive_test
         state: touch
-    - copy:
-        dest: /etc/init.d/networking
-        mode: '0755'
-        content: |
-          #! /bin/sh
-          exit 0
   roles:
     - manala.network
   post_tasks:
