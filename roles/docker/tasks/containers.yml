@@ -23,4 +23,5 @@
     memory_swappiness:  "{{ item.memory_swappiness|default(omit) }}"
     ulimits:            "{{ item.ulimits|default(omit) }}"
     privileged:         "{{ item.privileged|default(omit) }}"
+    capabilities:       "{{ item.capabilities|default(omit) }}"
   with_items: "{{ manala_docker_containers }}"
