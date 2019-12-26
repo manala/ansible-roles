@@ -1,5 +1,10 @@
 ---
 
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_network
+
 # Hosts
 - import_tasks: hosts.yml
   tags:

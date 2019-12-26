@@ -1,5 +1,10 @@
 ---
 
+# Install
+manala_network_install_packages: ~
+manala_network_install_packages_default:
+  - ifupdown
+
 # Hosts
 manala_network_hosts_file: /etc/hosts
 manala_network_hosts: []
