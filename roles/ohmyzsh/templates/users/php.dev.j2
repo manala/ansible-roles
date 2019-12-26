@@ -18,7 +18,7 @@ fi
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 {{ macros.config_row(config, 'ZSH_THEME', 'default.dev') }}
 
 # Set list of themes to pick from when loading at random
@@ -37,8 +37,14 @@ fi
 # Uncomment the following line to disable bi-weekly auto-update checks.
 {{ macros.config_row(config, 'DISABLE_AUTO_UPDATE', '# DISABLE_AUTO_UPDATE="true"', true) }}
 
+# Uncomment the following line to automatically update without prompting.
+{{ macros.config_row(config, 'DISABLE_UPDATE_PROMPT', '# DISABLE_UPDATE_PROMPT="true"', true) }}
+
 # Uncomment the following line to change how often to auto-update (in days).
 {{ macros.config_row(config, 'UPDATE_ZSH_DAYS', '# export UPDATE_ZSH_DAYS=13', true) }}
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+{{ macros.config_row(config, 'DISABLE_MAGIC_FUNCTIONS', '# DISABLE_MAGIC_FUNCTIONS="true"', true) }}
 
 # Uncomment the following line to disable colors in ls.
 {{ macros.config_row(config, 'DISABLE_LS_COLORS', '# DISABLE_LS_COLORS="true"', true) }}
@@ -94,9 +100,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 {{ macros.config_row(config, 'export ARCHFLAGS', '# export ARCHFLAGS="-arch x86_64"', true) }}
 
-# ssh
-{{ macros.config_row(config, 'export SSH_KEY_PATH', '# export SSH_KEY_PATH="~/.ssh/rsa_id"', true) }}
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -122,7 +125,9 @@ echo
     'CASE_SENSITIVE',
     'HYPHEN_INSENSITIVE',
     'DISABLE_AUTO_UPDATE',
+    'DISABLE_UPDATE_PROMPT',
     'UPDATE ZSH_DAYS',
+    'DISABLE_MAGIC_FUNCTIONS',
     'DISABLE_LS_COLORS',
     'DISABLE_AUTO_TITLE',
     'ENABLE_CORRECTION',
@@ -134,6 +139,5 @@ echo
     'export MANPATH',
     'export LANG',
     'export ARCHFLAGS',
-    'export SSH_KEY_PATH',
-    'alias'
+     'alias'
 ]) }}
