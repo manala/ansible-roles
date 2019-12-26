@@ -343,6 +343,14 @@
 ; Default Value: 0
 {{ macros.config_row(config, 'request_terminate_timeout', ';request_terminate_timeout = 0', true) }}
 
+; The timeout set by 'request_terminate_timeout' ini option is not engaged after
+; application calls 'fastcgi_finish_request' or when application has finished and
+; shutdown functions are being called (registered via register_shutdown_function).
+; This option will enable timeout limit to be applied unconditionally
+; even in such cases.
+; Default Value: no
+{{ macros.config_row(config, 'request_terminate_timeout_track_finished', ';request_terminate_timeout_track_finished = no', true) }}
+
 ; Set open file descriptor rlimit.
 ; Default Value: system defined value
 {{ macros.config_row(config, 'rlimit_files', ';rlimit_files = 1024', true) }}
@@ -467,6 +475,7 @@
   'request_slowlog_timeout',
   'request_slowlog_trace_depth',
   'request_terminate_timeout',
+  'request_terminate_timeout_track_finished',
   'rlimit_files',
   'rlimit_core',
   'chroot',
