@@ -7,7 +7,7 @@
 
 - name: Pre tasks > Logentries apt repository
   apt_repository:
-    repo: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+    repo: deb http://rep.logentries.com/ {{ {'jessie':'jessie', 'stretch':'stretch', 'buster':'bionic'}[ansible_distribution_release] }} main
 
 - name: Pre tasks > Logentries preferences
   copy:
