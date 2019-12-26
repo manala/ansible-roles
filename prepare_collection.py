@@ -40,7 +40,7 @@ for paths in ['./roles/*/*_plugins/',
 			shutil.rmtree(path)
 
 files = [f for f in glob.glob('./roles/*/tasks/*.yml', recursive=True)]
-regex = re.compile(r'(lookup\(\s*\')manala_', re.DOTALL)
+regex = re.compile(r'(query\(\s*\')manala_', re.DOTALL)
 
 for file_path in files:
 	with open(file_path, 'r+') as file:
