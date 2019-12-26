@@ -1,0 +1,10 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  roles:
+    - manala.network
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

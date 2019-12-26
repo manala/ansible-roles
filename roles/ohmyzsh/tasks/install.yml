@@ -2,7 +2,7 @@
 
 - name: install > Git repository
   git:
-    repo:    https://github.com/robbyrussell/oh-my-zsh.git
+    repo:    https://github.com/ohmyzsh/ohmyzsh.git
     version: master
     dest:    "{{ manala_ohmyzsh_dir }}"
     update:  "{{ __manala_ohmyzsh['update'] }}"

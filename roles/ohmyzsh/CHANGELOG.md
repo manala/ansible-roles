@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.1] - 2019-12-26
+### Changed
+- Update templates
+- Update repo after migration
+
 ## [2.0.0] - 2019-11-21
 ### Removed
 - Debian wheezy support
@@ -44,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.3] - 2017-10-24
 ### Fixed
-- Default user template ssh key path (See: https://github.com/robbyrussell/oh-my-zsh/pull/5603)
+- Default user template ssh key path (See: https://github.com/ohmyzsh/ohmyzsh/pull/5603)
 
 ## [1.0.2] - 2017-10-20
 ### Fixed

@@ -181,7 +181,7 @@ manala_apt_repositories_patterns:
     source: deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise
     key: proxmox
   logentries:
-    source: deb http://rep.logentries.com/ {{ ansible_distribution_release }} main
+    source: deb http://rep.logentries.com/ {{ {'jessie':'jessie', 'stretch':'stretch', 'buster':'bionic'}[ansible_distribution_release] }} main
     key: logentries
   galera_3:
     source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
@@ -217,7 +217,7 @@ manala_apt_repositories_patterns:
     source: deb https://artifacts.elastic.co/packages/7.x/apt stable main
     key: elasticsearch
   ansible:
-    source: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ { 'jessie':'trusty','stretch':'xenial','buster':'bionic'}[ansible_distribution_release] }} main
+    source: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ {'jessie':'trusty', 'stretch':'xenial', 'buster':'bionic'}[ansible_distribution_release] }} main
     key: ansible
   blackfire:
     source: deb http://packages.blackfire.io/debian any main
