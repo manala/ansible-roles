@@ -24,4 +24,5 @@
     ulimits:            "{{ item.ulimits|default(omit) }}"
     privileged:         "{{ item.privileged|default(omit) }}"
     capabilities:       "{{ item.capabilities|default(omit) }}"
+    network_mode:       "{{ item.network_mode|default(omit) }}"
   with_items: "{{ manala_docker_containers }}"

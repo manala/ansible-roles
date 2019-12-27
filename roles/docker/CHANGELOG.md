@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.2] - 2019-12-27
+### Added
+- Handle network_mode option
+
 ## [2.0.1] - 2019-11-21
 ### Added
 - Handle capabilities option
