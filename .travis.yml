@@ -92,7 +92,7 @@ jobs:
         - make collection.prepare
         - make collection.build
         - make collection.publish
-      if: branch = master AND type = push
+      if: branch = master AND type = push AND commit_message = Release
 
 notifications:
   slack:
