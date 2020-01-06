@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Update Logentries repository patterns
 
 ### Added
-- PHP 7.3 support
+- PHP 7.4 support
 
 ## [2.0.4] - 2019-11-29
 ### Changed
