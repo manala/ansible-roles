@@ -4,24 +4,24 @@
   hosts: debian
   become: true
   vars:
-    manala_phpmyadmin_configs:
+    manala_phppgadmin_configs:
       - file:     config.inc.php
         template: configs/default.dev.j2
         config:
-          - blowfish_secret: "WU9VIEdPVCBSSUNLIFJPTExFRA=="
+          - owned_only: true
         servers:
-          - id: 1
+          - id: 0
             config:
-              - host: mysql
+              - host: postgresql
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
         name:
-          - php7.3-fpm
+          - php7.4-fpm
         install_recommends: false
     - import_tasks: pre_tasks/manala.yml
   roles:
-    - manala.phpmyadmin
+    - manala.phppgadmin
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

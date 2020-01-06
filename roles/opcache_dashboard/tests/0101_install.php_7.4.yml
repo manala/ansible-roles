@@ -7,11 +7,11 @@
     - import_tasks: pre_tasks/sury_php.yml
     - apt:
         name:
-          - php7.3-fpm
+          - php7.4-fpm
         install_recommends: false
     - import_tasks: pre_tasks/manala.yml
   roles:
-    - manala.phpredisadmin
+    - manala.opcache_dashboard
   post_tasks:
     - name: Goss
       command: goss --gossfile {{ test }}.goss.yml validate

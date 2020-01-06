@@ -415,7 +415,7 @@ manala_apt_keys_patterns:
 manala_apt_preferences_patterns:
   vim:                vim*
   git:                git git-*
-  php:                php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-*
+  php:                php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-* php7.4-*
   mysql:              mysql* libmysql*
   nginx:              nginx*
   ruby:               ruby*

@@ -13,7 +13,7 @@ file:
     exists:   true
     filetype: file
     contains:
-      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-*"
+      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-* php7.4-*"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 300"
 {{ else }}
@@ -28,7 +28,7 @@ file:
     exists:   true
     filetype: file
     contains:
-      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-*"
+      - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-* php7.4-*"
       - "Pin:          origin packages.sury.org"
       - "Pin-Priority: 300"
 {{ end }}
