@@ -5,5 +5,3 @@ package:
     installed: true
   sensu-go-agent:
     installed: true
-  sensu-go-cli:
-    installed: true
