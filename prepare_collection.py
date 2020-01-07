@@ -58,7 +58,6 @@ files = [f for f in glob.glob('./roles/*/tasks/*.yml', recursive=True)]
 regex = re.compile(r'(query\(\s*\')manala_', re.DOTALL)
 
 for file_path in files:
-    with open(file_path, 'r+') as file:
         file_data = file.read()
         if len(re.findall(regex, file_data)):
             file.seek(0)
