@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.4] - 2020-01-10
+### Added
+- Fix typo in template "input_docker"
+
+## [2.0.3] - 2020-01-09
+### Added
+- Fix typo in template "input_docker"
+
+## [2.0.2] - 2020-01-09
 ### Added
 - Configs template "input_docker"
 

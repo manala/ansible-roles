@@ -7,7 +7,7 @@
   ## Docker Endpoint
   ##   To use TCP, set endpoint = "tcp://[ip]:[port]"
   ##   To use environment variables (ie, docker-machine), set endpoint = "ENV"
-  {{ macros.config_row(config, 'endpoint', 'endpoint = "unix:///var/run/docker.sock', 0, true) }}
+  {{ macros.config_row(config, 'endpoint', 'endpoint = "unix:///var/run/docker.sock"', 0, true) }}
 
   ## Set to true to collect Swarm metrics(desired_replicas, running_replicas)
   ## Note: configure this in one of the manager nodes in a Swarm cluster.
@@ -17,7 +17,6 @@
   ## Only collect metrics for these containers. Values will be appended to
   ## container_name_include.
   ## Deprecated (1.4.0), use container_name_include
-  container_names = []
   {{ macros.config_row(config, 'container_names', 'container_names = []', 0, true) }}
 
   ## Set the source tag for the metrics to the container ID hostname, eg first 12 chars
