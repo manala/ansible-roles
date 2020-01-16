@@ -13,40 +13,45 @@ class LookupModule(LookupBase):
 
         results = []
 
-        for term in self._flatten(terms):
+        wantstate = kwargs.pop('wantstate', None)
+
+        users = self._flatten(terms)
+
+        for user in users:
 
             # Must be a dict
-            if not isinstance(term, dict):
+            if not isinstance(user, dict):
                 raise AnsibleError('Expect a dict')
 
             # Check index key
-            if 'user' not in term:
+            if 'user' not in user:
                 raise AnsibleError('Expect "user" key')
 
             items = []
 
-            if 'authorized_keys' in term:
+            if 'authorized_keys' in user:
                 item = {
-                    'user':            term.get('user'),
-                    'authorized_keys': '\n'.join(term.get('authorized_keys'))
+                    'user':            user.get('user'),
+                    'authorized_keys': '\n'.join(user.get('authorized_keys')),
+                    'state':           user.get('state', 'present'),
                 }
 
                 # File
-                if 'authorized_keys_file' in term and term.get('authorized_keys_file'):
+                if 'authorized_keys_file' in user and user.get('authorized_keys_file'):
                     # Omit
-                    if term.get('authorized_keys_file') == variables['omit']:
+                    if user.get('authorized_keys_file') == variables['omit']:
                         pass
                     # Path
-                    elif isinstance(term.get('authorized_keys_file'), string_types):
+                    elif isinstance(user.get('authorized_keys_file'), string_types):
                         # Absolute
-                        if term.get('authorized_keys_file').startswith('/'):
+                        if user.get('authorized_keys_file').startswith('/'):
                             item.update({
-                                'authorized_keys_file': term.get('authorized_keys_file')
+                                'authorized_keys_file': user.get('authorized_keys_file')
                             })
                         # Relative
                         else:
                             item.update({
-                                'authorized_keys_file': os.path.expanduser('~' + term.get('user') + '/.ssh/' + term.get('authorized_keys_file'))
+                                'authorized_keys_file': os.path.expanduser('~' + user.get('user') + '/.ssh/' + user.get('authorized_keys_file'))
                             })
 
                 items.append(item)
@@ -62,5 +67,9 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
+
+        # Filter by state
+        if wantstate:
+            results = [result for result in results if result.get('state') == wantstate]
 
         return results

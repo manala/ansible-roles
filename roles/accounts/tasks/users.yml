@@ -23,9 +23,11 @@
     exclusive: true
   loop: "{{ query(
       'manala_accounts_users_authorized_keys',
-      manala_accounts_users
+      manala_accounts_users,
+      wantstate='present'
     )
   }}"
+
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
