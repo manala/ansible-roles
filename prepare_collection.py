@@ -34,6 +34,9 @@ for filename in glob.glob('./plugins/filter/*.py'):
 for files in glob.glob('./roles/*/library/*.py'):
 	shutil.move(files, './plugins/modules')
 
+for files in glob.glob('./roles/*/library/*.py'):
+	shutil.move(files, './plugins/modules')
+
 for paths in ['./roles/*/*_plugins/',
 			'./roles/*/library/',
 			'./roles/*/.manala/',
