@@ -28,8 +28,6 @@
     )
   }}"
   when: item.content is not defined
-  notify:
-    - sudo restart
 
 - name: sudoers > Contents present
   copy:
@@ -44,8 +42,6 @@
     )
   }}"
   when: item.content is defined
-  notify:
-    - sudo restart
 
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: sudoers > Files absent
@@ -60,5 +56,3 @@
       wantstate='absent'
     )
   }}"
-  notify:
-    - sudo restart
