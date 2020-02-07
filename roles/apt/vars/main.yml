@@ -271,6 +271,9 @@ manala_apt_repositories_patterns:
   glusterfs_6_1:
     source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{ {'x86_64':'amd64','armv6l':'arm64'}[ansible_architecture] }}/apt {{ ansible_distribution_release }} main
     key: glusterfs_6
+  haproxy_2_0:
+    source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.0 main
+    key: haproxy
 
 # Keys
 manala_apt_keys_patterns:
@@ -411,6 +414,10 @@ manala_apt_keys_patterns:
   ansible:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 7BB9C367
+  haproxy:
+    url: https://haproxy.debian.net/bernat.debian.org.gpg
+    id: 353525F9
+
 # Preferences
 manala_apt_preferences_patterns:
   vim:                vim*
