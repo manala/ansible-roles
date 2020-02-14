@@ -4,6 +4,7 @@
 - import_tasks: requirements.yml
   tags:
     - manala_npm
+    - manala_npm.requirements
 
 # Update
 - import_tasks: update.yml
@@ -17,3 +18,4 @@
 - import_tasks: packages.yml
   tags:
     - manala_npm
+    - manala_npm.packages

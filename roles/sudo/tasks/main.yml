@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_sudo
+    - manala_sudo.install
 
 # Sudoers
 - import_tasks: sudoers.yml
   tags:
     - manala_sudo
+    - manala_sudo.sudoers

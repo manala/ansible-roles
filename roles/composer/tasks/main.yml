@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_composer
+    - manala_composer.install
 
 # Users Auth
 - import_tasks: users_auth.yml
   tags:
     - manala_composer
+    - manala_composer.users_auth

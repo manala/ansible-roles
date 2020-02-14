@@ -4,3 +4,4 @@
 - import_tasks: points.yml
   tags:
     - manala_mount
+    - manala_mount.points

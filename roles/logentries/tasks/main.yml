@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_logentries
+    - manala_logentries.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_logentries
+    - manala_logentries.config
 
 # Services
 - import_tasks: services.yml

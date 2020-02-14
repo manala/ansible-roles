@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_rtail
+    - manala_rtail.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_rtail
+    - manala_rtail.config
 
 # Services
 - import_tasks: services.yml

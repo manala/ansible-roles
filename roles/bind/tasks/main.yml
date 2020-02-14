@@ -4,26 +4,31 @@
 - import_tasks: install.yml
   tags:
     - manala_bind
+    - manala_bind.install
 
 # Options
 - import_tasks: options.yml
   tags:
     - manala_bind
+    - manala_bind.options
 
 # Logs
 - import_tasks: logs.yml
   tags:
     - manala_bind
+    - manala_bind.logs
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_bind
+    - manala_bind.configs
 
 # Zones
 - import_tasks: zones.yml
   tags:
     - manala_bind
+    - manala_bind.zones
 
 # Services
 - import_tasks: services.yml
@@ -36,3 +41,4 @@
 - import_tasks: zones_records.yml
   tags:
     - manala_bind
+    - manala_bind.zones_records

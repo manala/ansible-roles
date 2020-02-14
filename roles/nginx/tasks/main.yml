@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_nginx
+    - manala_nginx.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_nginx
+    - manala_nginx.config
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_nginx
+    - manala_nginx.configs
 
 # Services
 - import_tasks: services.yml

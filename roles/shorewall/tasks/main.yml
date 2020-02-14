@@ -4,13 +4,14 @@
 - import_tasks: install.yml
   tags:
     - manala_shorewall
-
+    - manala_shorewall.install
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_shorewall
-
+    - manala_shorewall.configs
 # Config
 - import_tasks: config.yml
   tags:
     - manala_shorewall
+    - manala_shorewall.config

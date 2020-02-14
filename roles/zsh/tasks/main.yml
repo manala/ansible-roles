@@ -4,3 +4,4 @@
 - import_tasks: install.yml
   tags:
     - manala_zsh
+    - manala_zsh.install

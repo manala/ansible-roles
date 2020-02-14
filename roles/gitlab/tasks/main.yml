@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_gitlab
+    - manala_gitlab.install
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_gitlab
+    - manala_gitlab.configs

@@ -4,13 +4,16 @@
 - import_tasks: install.yml
   tags:
     - manala_git
+    - manala_git.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_git
+    - manala_git.config
 
 # Repositories
 - import_tasks: repositories.yml
   tags:
     - manala_git
+    - manala_git.repositories

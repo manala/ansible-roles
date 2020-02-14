@@ -4,8 +4,10 @@
 - import_tasks: modules.yml
   tags:
     - manala_kernel
+    - manala_kernel.modules
 
 # Parameters
 - import_tasks: parameters.yml
   tags:
     - manala_kernel
+    - manala_kernel.parameters

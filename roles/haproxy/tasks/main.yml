@@ -4,26 +4,31 @@
 - import_tasks: install.yml
   tags:
     - manala_haproxy
+    - manala_haproxy.install
 
 # Errorfiles
 - import_tasks: errorfiles.yml
   tags:
     - manala_haproxy
+    - manala_haproxy.errorfiles
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_haproxy
+    - manala_haproxy.config
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_haproxy
+    - manala_haproxy.configs
 
 # Environment
 - import_tasks: environment.yml
   tags:
     - manala_haproxy
+    - manala_haproxy.environment
 
 # Services
 - import_tasks: services.yml

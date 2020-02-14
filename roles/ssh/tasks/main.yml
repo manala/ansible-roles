@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_ssh
+    - manala_ssh.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_ssh
+    - manala_ssh.config
 
 # Known Hosts
 - import_tasks: known_hosts.yml
   tags:
     - manala_ssh
+    - manala_ssh.known_hosts
 
 # Services
 - import_tasks: services.yml

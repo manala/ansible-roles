@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_ngrok
+    - manala_ngrok.install
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_ngrok
+    - manala_ngrok.configs

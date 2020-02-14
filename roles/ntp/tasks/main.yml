@@ -4,6 +4,7 @@
 - import_tasks: install.yml
   tags:
      - manala_ntp
+     - manala_ntp.install
 
 # Services
 - import_tasks: services.yml

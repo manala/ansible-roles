@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_vim
+    - manala_vim.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_vim
+    - manala_vim.config

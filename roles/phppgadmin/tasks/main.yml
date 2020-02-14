@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_phppgadmin
+    - manala_phppgadmin.install
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_phppgadmin
+    - manala_phppgadmin.configs

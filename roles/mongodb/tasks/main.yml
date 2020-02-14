@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_mongodb
+    - manala_mongodb.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_mongodb
+    - manala_mongodb.config
 
 # Services
 - import_tasks: services.yml
