@@ -4,18 +4,22 @@
 - import_tasks: requirements.yml
   tags:
     - manala_graylog_sidecar
+    - manala_graylog_sidecar.requirements
 
 # Install
 - import_tasks: install.yml
   tags:
     - manala_graylog_sidecar
+    - manala_graylog_sidecar.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_graylog_sidecar
+    - manala_graylog_sidecar.config
 
 # Services
 - import_tasks: services.yml
   tags:
     - manala_graylog_sidecar
+    - manala_graylog_sidecar.services

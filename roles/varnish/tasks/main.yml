@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_varnish
+    - manala_varnish.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_varnish
+    - manala_varnish.config
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_varnish
+    - manala_varnish.configs
 
 # Services
 - import_tasks: services.yml

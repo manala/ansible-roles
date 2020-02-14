@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_mailhog
+    - manala_mailhog.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_mailhog
+    - manala_mailhog.config
 
 # Services
 - import_tasks: services.yml

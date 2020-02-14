@@ -10,26 +10,31 @@
 - import_tasks: strategy.yml
   tags:
     - manala_deploy
+    - manala_deploy.strategy
 
 # Unfinished
 - import_tasks: unfinished.yml
   tags:
     - manala_deploy
+    - manala_deploy.unfinished
 
 # Shared
 - import_tasks: shared.yml
   tags:
     - manala_deploy
+    - manala_deploy.shared
 
 # Copied
 - import_tasks: copied.yml
   tags:
     - manala_deploy
+    - manala_deploy.copied
 
 # Writable - Dirs
 - import_tasks: writable/dirs.yml
   tags:
     - manala_deploy
+    - manala_deploy.dirs
 
 # Tasks
 - import_tasks: tasks.yml
@@ -43,16 +48,19 @@
 - import_tasks: removed.yml
   tags:
     - manala_deploy
+    - manala_deploy.removed
 
 # Finalize
 - import_tasks: finalize.yml
   tags:
     - manala_deploy
+    - manala_deploy.finalize
 
 # Clean
 - import_tasks: clean.yml
   tags:
     - manala_deploy
+    - manala_deploy.clean
 
 # Post tasks
 - import_tasks: tasks.yml

@@ -4,8 +4,10 @@
 - import_tasks: install.yml
   tags:
     - manala_backup_manager
+    - manala_backup_manager.install
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_backup_manager
+    - manala_backup_manager.configs

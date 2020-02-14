@@ -4,3 +4,4 @@
 - import_tasks: variables.yml
   tags:
     - manala_environment
+    - manala_environment.variables

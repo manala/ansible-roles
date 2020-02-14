@@ -4,16 +4,19 @@
 - import_tasks: requirements.yml
   tags:
     - manala_postgresql
+    - manala_postgresql.requirements
 
 # Install
 - import_tasks: install.yml
   tags:
     - manala_postgresql
+    - manala_postgresql.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_postgresql
+    - manala_postgresql.config
 
 # Services
 - import_tasks: services.yml
@@ -26,13 +29,16 @@
 - import_tasks: roles.yml
   tags:
     - manala_postgresql
+    - manala_postgresql.roles
 
 # Databases
 - import_tasks: databases.yml
   tags:
     - manala_postgresql
+    - manala_postgresql.databases
 
 # Privileges
 - import_tasks: privileges.yml
   tags:
     - manala_postgresql
+    - manala_postgresql.privileges

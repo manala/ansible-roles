@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_heka
+    - manala_heka.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_heka
+    - manala_heka.config
 
 # Config
 - import_tasks: configs.yml
   tags:
     - manala_heka
+    - manala_heka.configs
 
 # Services
 - import_tasks: services.yml

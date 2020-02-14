@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_dnsmasq
+    - manala_dnsmasq.install
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_dnsmasq
+    - manala_dnsmasq.configs
 
 # Services
 - import_tasks: services.yml

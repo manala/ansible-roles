@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_proftpd
+    - manala_proftpd.install
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_proftpd
+    - manala_proftpd.configs
 
 # Users
 - import_tasks: users.yml
   tags:
     - manala_proftpd
+    - manala_proftpd.users
 
 # Services
 - import_tasks: services.yml

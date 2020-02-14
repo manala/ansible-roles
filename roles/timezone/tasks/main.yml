@@ -4,3 +4,4 @@
 - import_tasks: default.yml
   tags:
     - manala_timezone
+    - manala_timezone.default

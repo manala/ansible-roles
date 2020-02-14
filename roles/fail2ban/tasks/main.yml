@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_fail2ban
+    - manala_fail2ban.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_fail2ban
+    - manala_fail2ban.config
 
 # Services
 - import_tasks: services.yml

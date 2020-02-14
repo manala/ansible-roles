@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_dhcp
+    - manala_dhcp.install
 
 # Interfaces
 - import_tasks: interfaces.yml
   tags:
     - manala_dhcp
+    - manala_dhcp.interfaces
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_dhcp
+    - manala_dhcp.config
 
 # Services
 - import_tasks: services.yml

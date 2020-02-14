@@ -4,15 +4,18 @@
 - import_tasks: install.yml
   tags:
     - manala_locales
+    - manala_locales.install
 
 # Codes
 - import_tasks: codes.yml
   when: manala_locales_codes|length
   tags:
     - manala_locales
+    - manala_locales.codes
 
 # Codes Defaults
 - import_tasks: codes_default.yml
   when: manala_locales_codes_default is not none
   tags:
     - manala_locales
+    - manala_locales.codes_default

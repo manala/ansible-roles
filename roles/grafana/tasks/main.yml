@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_grafana
+    - manala_grafana.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_grafana
+    - manala_grafana.config
 
 # Services
 - import_tasks: services.yml
@@ -22,9 +24,11 @@
   when: manala_grafana_datasources|length or manala_grafana_datasources_exclusive
   tags:
     - manala_grafana
+    - manala_grafana.datasources
 
 # Dashboards
 - import_tasks: dashboards.yml
   when: manala_grafana_dashboards|length or manala_grafana_dashboards_exclusive
   tags:
     - manala_grafana
+    - manala_grafana.dashboards

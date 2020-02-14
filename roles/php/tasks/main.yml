@@ -4,11 +4,13 @@
 - import_tasks: install.yml
   tags:
     - manala_php
+    - manala_php.install
 
 # Extensions
 - import_tasks: extensions.yml
   tags:
     - manala_php
+    - manala_php.extensions
 
 # Configs
 - include: configs.yml
@@ -25,6 +27,7 @@
     loop_var: __manala_php_sapi
   tags:
     - manala_php
+    - manala_php.configs
 
 # Fpm pools
 - import_tasks: fpm_pools.yml
@@ -38,12 +41,14 @@
     )
   tags:
     - manala_php
+    - manala_php.fpm_pools
 
 # Blackfire
 - import_tasks: blackfire.yml
   when: manala_php_blackfire
   tags:
     - manala_php
+    - manala_php.blackfire
 
 # Services
 - import_tasks: services.yml
@@ -56,3 +61,4 @@
 - import_tasks: applications.yml
   tags:
     - manala_php
+    - manala_php.applications

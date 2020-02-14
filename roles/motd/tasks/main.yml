@@ -4,3 +4,4 @@
 - import_tasks: template.yml
   tags:
     - manala_motd
+    - manala_motd.template

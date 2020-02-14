@@ -4,21 +4,25 @@
 - import_tasks: install.yml
   tags:
     - manala_mysql
+    - manala_mysql.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_mysql
+    - manala_mysql.config
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_mysql
+    - manala_mysql.configs
 
 # Data dir
 - import_tasks: data_dir.yml
   tags:
     - manala_mysql
+    - manala_mysql.data_dir
 
 # Services
 - import_tasks: services.yml
@@ -31,13 +35,16 @@
 - import_tasks: users.yml
   tags:
     - manala_mysql
+    - manala_mysql.users
 
 # Databases
 - import_tasks: databases.yml
   tags:
     - manala_mysql
+    - manala_mysql.databases
 
 # Replications
 - import_tasks: replications.yml
   tags:
     - manala_mysql
+    - manala_mysql.replications

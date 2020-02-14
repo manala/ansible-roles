@@ -4,16 +4,19 @@
 - import_tasks: install.yml
   tags:
     - manala_rsyslog
+    - manala_rsyslog.install
 
 # Config
 - import_tasks: config.yml
   tags:
     - manala_rsyslog
+    - manala_rsyslog.config
 
 # Configs
 - import_tasks: configs.yml
   tags:
     - manala_rsyslog
+    - manala_rsyslog.configs
 
 # Services
 - import_tasks: services.yml

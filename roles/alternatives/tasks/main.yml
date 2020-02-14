@@ -4,3 +4,4 @@
 - import_tasks: selections.yml
   tags:
     - manala_alternatives
+    - manala_alternatives.selections
