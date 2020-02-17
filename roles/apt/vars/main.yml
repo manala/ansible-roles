@@ -266,10 +266,10 @@ manala_apt_repositories_patterns:
     source: deb https://dl.bintray.com/obiba/deb all main
     key: mica
   glusterfs_6:
-    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/{{ {'x86_64':'amd64','armv6l':'arm64'}[ansible_architecture] }}/apt {{ ansible_distribution_release }} main
+    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/amd64/apt {{ ansible_distribution_release }} main
     key: glusterfs_6
   glusterfs_6_1:
-    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{ {'x86_64':'amd64','armv6l':'arm64'}[ansible_architecture] }}/apt {{ ansible_distribution_release }} main
+    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/amd64/apt {{ ansible_distribution_release }} main
     key: glusterfs_6
   haproxy_2_0:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.0 main
