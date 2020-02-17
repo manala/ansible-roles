@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Add Raspbian support
 
+### Added
+- Add Unifi repository
+
 ## [2.0.7] - 2020-02-13
 ### Added
 - Tags for each tasks, with the format `manala_rolename.taskname`
