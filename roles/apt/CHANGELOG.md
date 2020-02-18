@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
 ### Removed
 - GlusterFS arm64 support
+
+### Added
+- Add Raspbian support
+- Add Unifi repository
 
 ## [2.0.7] - 2020-02-13
 ### Added

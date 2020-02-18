@@ -1,1 +1,1 @@
-{% include ansible_distribution|lower ~ '/default_src.j2' %}
+{% include (ansible_lsb.id|default(ansible_distribution))|lower ~ '/default_src.j2' %}
