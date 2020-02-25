@@ -34,6 +34,7 @@
         name: manala.sudo
       vars:
         manala_sudo_sudoers_dir: /etc/sudoers.d.test
+        manala_sudo_sudoers_exclusive: false
         manala_sudo_sudoers:
           - file: bar
             state: absent
