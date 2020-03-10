@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- MaxScale 2.4 repository pattern
 
 ## [2.0.9] - 2020-02-24
 ### Added
