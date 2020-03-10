@@ -1,0 +1,45 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian
+  become: true
+  vars:
+    manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d.test"
+    manala_maxscale_configs:
+      - file: foo.cnf
+        config:
+          - foo-1:
+            - type: server
+            - address: foo-1
+            - port: 3306
+            - protocol: MariaDBBackend
+      - file: bar.cnf
+        state: present
+      - file: baz.cnf
+        state: absent
+  pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
+      when: ansible_distribution_release == 'jessie'
+    - import_tasks: pre_tasks/maxscale_2.4.yml
+  roles:
+    - manala.maxscale
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.1.yml validate
+
+- name: "{{ test }}.2"
+  hosts: debian
+  become: true
+  vars:
+    manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d.test"
+    manala_maxscale_configs:
+      - file: foo.cnf
+      - file: bar.cnf
+        state: absent
+      - file: baz.cnf
+        state: present
+  roles:
+    - manala.maxscale
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.2.yml validate

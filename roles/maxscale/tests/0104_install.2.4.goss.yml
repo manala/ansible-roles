@@ -1,0 +1,11 @@
+---
+
+package:
+  maxscale:
+    installed: true
+
+command:
+  maxscale --version:
+    exit-status: 0
+    stdout:
+      - "/^MaxScale 2.4.\\d+$/"
