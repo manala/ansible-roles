@@ -1,0 +1,10 @@
+---
+
+- name: Pre tasks > Maxscale (MariaDB) apt key
+  apt_key:
+    file: pre_tasks/apt_keys/maxscale.pgp
+    id: 28C12247
+
+- name: Pre tasks > Maxscale (MariaDB) 2.4 apt repository
+  apt_repository:
+    repo: deb https://downloads.mariadb.com/MaxScale/2.4/debian {{ ansible_distribution_release }} main
