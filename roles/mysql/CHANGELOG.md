@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Supports mariadb 10.4 for debian jessie, stretch and buster
 
+### Removed
+- Remove tests for mariadb 10.0, 10.1 and 10.2 version.
+
 ## [2.0.2] - 2020-02-13
 ### Added
 - Tags for each tasks, with the format `manala_rolename.taskname`
