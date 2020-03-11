@@ -1,0 +1,30 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - redis@dotdeb
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.redis
+      vars:
+        manala_redis_config:
+          - port: 1234
+        manala_redis_sentinel: true
+        manala_redis_sentinel_config:
+          sentinel monitor: mymaster 127.0.0.1 6379 2
+          sentinel down-after-milliseconds: mymaster 5000

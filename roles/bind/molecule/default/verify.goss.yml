@@ -1,0 +1,83 @@
+---
+
+package:
+  bind9:
+    installed: true
+
+file:
+  /etc/default/bind9:
+    exists: true
+    filetype: file
+    contains:
+      - OPTIONS="-u bind -4"
+
+  /var/log/bind:
+    exists: true
+    mode: "0755"
+    owner: bind
+    group: bind
+    filetype: directory
+
+  /etc/bind/named.conf.foo:
+    exists: true
+    filetype: file
+    contains:
+      - // Foo
+  /etc/bind/named.conf.bar:
+    exists: true
+    filetype: file
+    contains:
+      - // Bar
+  /etc/bind/named.conf.baz:
+    exists: false
+
+  /etc/bind/named.conf.qux:
+    exists: false
+
+  /var/cache/bind/db.foo.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Foo
+
+  /var/cache/bind/db.bar.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Bar
+
+  /var/cache/bind/db.baz.com:
+    exists: false
+
+  /var/cache/bind/db.qux.com:
+    exists: false
+
+  /var/cache/bind/db.quux.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Quux
+
+  /var/cache/bind/db.corge.com:
+    exists: true
+    filetype: file
+    contains:
+      - // Corge
+
+command:
+  ps aux:
+    exit-status: 0
+    stdout:
+      - /usr/sbin/named -f -u bind -4 #add -f [Run the server in the foreground (i.e. do not daemonize)] -> cause of systemd ?
+
+  host -l foo.local localhost:
+    exit-status: 0
+    stdout:
+      - foo.local name server ns.foo.local.
+      - ns.foo.local has address 172.16.1.1
+      - bar.foo.local has address 172.16.1.123
+
+service:
+  bind9:
+    enabled: true
+    running: true

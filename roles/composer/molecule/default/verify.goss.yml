@@ -1,0 +1,49 @@
+---
+
+package:
+  openssl:
+    installed: true
+  ca-certificates:
+    installed: true
+
+file:
+  /usr/local/bin/composer:
+    exists:   true
+    mode:     "0755"
+    owner:    root
+    filetype: file
+
+  /root/.composer:
+    exists:   true
+    mode:     "0755"
+    owner:    root
+    filetype: directory
+
+  /root/.composer/auth.json:
+    exists:   true
+    mode:     "0644"
+    owner:    root
+    filetype: file
+    contains:
+      - '{'
+      - '    "github-oauth": {'
+      - '        "github.com": "9927d2878ffa105fc5236c762f2fd7zfd28b841d"'
+      - '    },'
+      - '    "http-basic": {'
+      - '        "repo.example1.org": {'
+      - '            "username": "my-username1",'
+      - '            "password": "my-secret-password1"'
+      - '        }'
+      - '    }'
+      - '}'
+
+command:
+  unzip -v:
+    exit-status: 0
+    stdout:
+      - UnZip
+
+  composer --version:
+    exit-status: 0
+    stdout:
+      - Composer version

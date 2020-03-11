@@ -1,0 +1,28 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - ngrok@manala
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.ngrok
+      vars:
+        manala_ngrok_configs:
+          - file: config.yml
+            config:
+              - web_addr: 1.2.3.4:1234

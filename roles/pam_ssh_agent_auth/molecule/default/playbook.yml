@@ -1,0 +1,24 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['jessie', 'stretch']
+      vars:
+        manala_apt_preferences:
+          - pam-ssh-agent-auth@manala
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.pam_ssh_agent_auth

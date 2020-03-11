@@ -1,0 +1,38 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - apt:
+        name: git
+        state: absent
+        update_cache: true
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['jessie']
+      vars:
+        manala_apt_repositories:
+          - backports
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.git
+      vars:
+        manala_git_config:
+          - core:
+            - preloadindex: true
+        manala_git_repositories:
+          - repo: https://github.com/manala/ansible-role-git.git
+            dest: /tmp/ansible-role-git
+          - repo: https://github.com/manala/ansible-role-git.git
+            dest: /tmp/ansible-role-git-user
+            user: manala

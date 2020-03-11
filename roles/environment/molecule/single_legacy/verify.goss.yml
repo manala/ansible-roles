@@ -1,0 +1,20 @@
+---
+
+file:
+  /etc/environment:
+    exists: true
+    filetype: file
+    contains:
+      - '_BAR="123"'
+  /etc/zsh/zshenv:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/zsh/zshenv'
+      - 'export _BAR="123"'
+  /etc/profile.d/test.sh:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/profile.d/test.sh'
+      - 'export _BAR="123"'

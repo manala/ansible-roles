@@ -1,0 +1,16 @@
+---
+
+package:
+  dnsmasq:
+    installed: true
+
+file:
+  /etc/dnsmasq.d/foo:
+    exists: true
+    contains:
+      - alias=11.22.33.44,55.66.77.88
+
+service:
+  dnsmasq:
+    enabled: true
+    running: true

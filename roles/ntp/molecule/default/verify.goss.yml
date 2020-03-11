@@ -1,0 +1,10 @@
+---
+
+package:
+  ntp:
+    installed: true
+
+service:
+  ntp:
+    enabled: true
+    running: true

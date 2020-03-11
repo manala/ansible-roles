@@ -1,0 +1,103 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+  - include_role:
+      name: manala.apt
+    vars:
+      manala_apt_preferences:
+        - ansible@ansible
+  - file:
+      path: /etc/ansible/host_vars.test
+      state: directory
+  - file:
+      path: /etc/ansible/host_vars.test/bar.yml
+      state: touch
+  - file:
+      path: /etc/ansible/host_vars.test/exclusive.yml
+      state: touch
+  - file:
+      path: /etc/ansible/group_vars.test
+      state: directory
+  - file:
+      path: /etc/ansible/group_vars.test/bar.yml
+      state: touch
+  - file:
+      path: /etc/ansible/group_vars.test/exclusive.yml
+      state: touch
+
+########
+# Task #
+########
+
+  tasks:
+  - include_role:
+      name: manala.ansible
+    vars:
+      manala_ansible_hosts_file: /etc/ansible/hosts.test
+      manala_ansible_hosts:
+        - foo: >
+            bar=baz
+        - bar
+        - foo_var:
+          - foo
+          - bar
+        - foo_var:vars:
+          - foo=bar
+          - bar=baz
+        - bar:children:
+          - foo
+      manala_ansible_config_file: /etc/ansible/ansible.cfg.test
+      manala_ansible_config:
+        - defaults:
+            - inventory: foo
+            - forks: 123
+            - ask_sudo_pass: false
+            - module_set_locale: true
+            - foo: bar
+        - foo:
+            - bar: baz
+      manala_ansible_host_vars_dir: /etc/ansible/host_vars.test
+      manala_ansible_host_vars_exclusive: true
+      manala_ansible_host_vars:
+        - file: foo.yml
+          vars:
+            - foo: ~
+            - bar: bar
+            - baz: 123
+            - qux: true
+            - quux:
+              - foo
+              - bar
+            - corge:
+                foo: bar
+                baz: qux
+        - file: bar.yml
+          state: absent
+        - file: baz.yml
+          state: present
+      manala_ansible_group_vars_dir: /etc/ansible/group_vars.test
+      manala_ansible_group_vars_exclusive: true
+      manala_ansible_group_vars:
+        - file: foo.yml
+          vars:
+            - foo: ~
+            - bar: bar
+            - baz: 123
+            - qux: true
+            - quux:
+              - foo
+              - bar
+            - corge:
+                foo: bar
+                baz: qux
+        - file: bar.yml
+          state: absent
+        - file: baz.yml
+          state: present

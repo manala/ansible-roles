@@ -1,0 +1,43 @@
+---
+
+file:
+  /etc/tmpfiles.d.test/mysql.conf:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - d /var/run/mysqld 0755 mysql mysql -
+  /etc/tmpfiles.d.exclusive/foo:
+    exists: false
+  /etc/tmpfiles.d.exclusive/bar:
+    exists: true
+  /etc/tmpfiles.d.exclusive/baz:
+    exists: false
+  /etc/systemd/system.test/foo:
+    exists: true
+    contains:
+      - Description=OpenBSD Secure Shell session cleanup
+  /etc/systemd/system.test/foo_template:
+    exists: true
+    contains:
+      - Description=OpenBSD Secure Shell session cleanup
+  /etc/systemd/system.test/foo_content:
+    exists: true
+    contains:
+      - Description=OpenBSD Secure Shell session cleanup
+  /etc/systemd/system.test/foo_template_content:
+    exists: true
+    contains:
+      - Description=OpenBSD Secure Shell session cleanup
+  /etc/systemd/system.test/bar:
+    exists: true
+  /etc/systemd/system.test/baz:
+    exists: false
+  /etc/systemd/system.exclusive/foo:
+    exists: false
+  /etc/systemd/system.exclusive/bar:
+    exists: true
+  /etc/systemd/system.exclusive/baz:
+    exists: false

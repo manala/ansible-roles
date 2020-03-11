@@ -1,0 +1,22 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - import_role:
+        name: manala.ssh
+      vars:
+        manala_ssh_config:
+          - Host *:
+            - SendEnv: LANG LC_* FOO
+        manala_ssh_config_sshd:
+          - AcceptEnv: LANG LC_* FOO
+          - Match User bar:
+            - X11Forwarding: false
+        manala_ssh_known_hosts:
+          - github.com

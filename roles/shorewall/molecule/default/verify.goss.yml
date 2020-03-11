@@ -1,0 +1,35 @@
+---
+
+package:
+  shorewall:
+    installed: true
+
+file:
+  /etc/shorewall/policy:
+    exists:   true
+    filetype: file
+    contains:
+      - "/^fw all ACCEPT$/"
+      - "/^net all DROP   info$/"
+      - "/^all all REJECT info$/"
+      - "!/^all DROP$/"
+  /etc/shorewall/shorewall.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - LOG_MARTIANS=No
+      - IP_FORWARDING=On
+      - MULTICAST=Yes
+  /etc/shorewall/interfaces:
+    exists:   true
+    filetype: file
+    contains:
+      - net ipv4
+      - dmz ipv6
+  /etc/shorewall/zones:
+    exists:   true
+    filetype: file
+    contains:
+      - net ipv4
+      - dmz ipv4
+      - fw firewall

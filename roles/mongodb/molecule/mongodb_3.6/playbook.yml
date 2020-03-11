@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - mongodb@mongodb_3_6
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.mongodb
+      vars:
+        manala_mongodb_config:
+          - port: 12345

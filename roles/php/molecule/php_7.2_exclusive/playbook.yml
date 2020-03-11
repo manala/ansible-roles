@@ -1,0 +1,44 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - php@sury_php
+        manala_apt_packages:
+          - php7.2-cgi  # Sapi
+          - php7.2-tidy # Native extension
+          - php-apcu    # Pecl extension
+        install_recommends: false
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.php
+      vars:
+        manala_php_version: 7.2
+        manala_php_sapis_exclusive: true
+        manala_php_sapis:
+          - cli
+          - sapi:  fpm
+            state: present
+        manala_php_extensions_exclusive: true
+        manala_php_extensions:
+          - date     # Embedded extension
+          - mbstring # Native extension
+          - intl     # Native extension
+          - geoip    # Pecl extension
+          # Native extension
+          - extension: curl
+            state:     present

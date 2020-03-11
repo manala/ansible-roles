@@ -1,0 +1,53 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.accounts
+      vars:
+        manala_accounts_groups:
+          - group_1
+          - group_2
+        manala_accounts_users:
+          - user:  user_1
+            group: group_1
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+          - user:  user_2
+            group: group_2
+            groups:
+              - group_1
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_2.pub') }}"
+          - user:  user_3
+            group: users
+            authorized_keys_file: authorized_keys2
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_2.pub') }}"
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_3.pub') }}"
+          - user:  user_4
+            group: users
+            authorized_keys_file: /home/user_4/.ssh/authorized_keys3
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_2.pub') }}"
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_3.pub') }}"
+          - user: user_5
+          - user: user_6
+            authorized_keys_file: "{{ omit }}"
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+          - user: user_7
+            authorized_keys_file: ~
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+          - user: user_8
+            authorized_keys_file: ""
+            authorized_keys:
+              - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"

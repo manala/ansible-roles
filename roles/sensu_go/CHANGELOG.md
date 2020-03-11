@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2020-01-07
+### Changed
+- Default packages
+
 ## [1.0.2] - 2020-02-13
 ### Added
 - Tags for each tasks, with the format `manala_rolename.taskname`

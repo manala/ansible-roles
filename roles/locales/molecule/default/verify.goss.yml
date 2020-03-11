@@ -1,0 +1,24 @@
+---
+
+command:
+  locale --version:
+    exit-status: 0
+  which locale-gen:
+    exit-status: 0
+  locale --all-locales:
+    exit-status: 0
+    stdout:
+      - "/^fr_FR.utf8$/"
+      - "!/^en_DK.iso885915$/"
+      - "/^hy_AM.armscii8$/"
+      - "/^ru_RU$/"
+      - "!/^vi_VN$/"
+      - "/^th_TH$/"
+  su $USER --login --shell /bin/sh --command "locale":
+    exit-status: 0
+    stdout:
+      - "/^LANG=fr_FR.UTF-8$/"
+
+file:
+  /etc/default/locale:
+    exists: true

@@ -1,0 +1,14 @@
+---
+
+file:
+  /tmp/app/current/file:
+    exists: false
+  /tmp/app/current/file_shared:
+    exists: true
+    filetype: file
+
+  /tmp/app/current/dir:
+    exists: false
+  /tmp/app/current/dir_shared:
+    exists: true
+    filetype: directory

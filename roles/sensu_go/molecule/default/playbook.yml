@@ -1,0 +1,31 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - sensu-go@sensu-go
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.sensu_go
+      vars:
+        manala_sensu_go_backend: true
+        manala_sensu_go_backend_config:
+          state-dir: "/tmp"
+        manala_sensu_go_agent_config:
+          backend-url: [
+            'ws://127.0.0.1:8081'
+          ]

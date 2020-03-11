@@ -1,0 +1,84 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - "supervisor@{{ {
+            'jessie':  'manala',
+            'stretch': 'backports',
+            'buster':  'default'
+          }[ansible_distribution_release] }}"
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.supervisor
+      vars:
+        manala_supervisor_config:
+          - unix_http_server:
+            - file: /tmp/supervisor.sock
+        manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
+        manala_supervisor_configs:
+          - file: foo.conf
+            config:
+              - foo:
+                - command: cat
+                - environment: BAR="12",FOO="bar"
+          - file: foo_template.conf
+            template: configs/program.dev.j2
+            config:
+              - bar:
+                - command: cat
+                - environment: BAR="12",FOO="bar"
+          - file: foo_content.conf
+            content: |
+              [program:foo]
+              command=/usr/bin/foo
+          - file: foo_template_content.conf
+            template: configs/program.dev.j2
+            content: |
+              [program:foo]
+              command=/usr/bin/foo
+          - file: bar.conf
+            state: present
+          - file: baz.conf
+            state: absent
+
+    - include_role:
+        name: manala.supervisor
+      vars:
+        manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
+        manala_supervisor_configs:
+          - file: bar.conf
+            state: absent
+          - file: baz.conf
+            state: present
+
+    - include_role:
+        name: manala.supervisor
+      vars:
+        manala_supervisor_configs_dir: /etc/supervisor/conf.d.exclusive
+        manala_supervisor_configs:
+          - file: foo.conf
+          - file: bar.conf
+          - file: baz.conf
+
+    - include_role:
+        name: manala.supervisor
+      vars:
+        manala_supervisor_configs_dir: /etc/supervisor/conf.d.exclusive
+        manala_supervisor_configs_exclusive: true
+        manala_supervisor_configs:
+          - file: bar.conf

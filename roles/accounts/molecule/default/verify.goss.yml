@@ -1,0 +1,125 @@
+---
+
+group:
+  group_1:
+    exists: true
+  group_2:
+    exists: true
+  user_5:
+    exists: true
+  user_6:
+    exists: true
+  user_7:
+    exists: true
+  user_8:
+    exists: true
+
+user:
+  user_1:
+    exists: true
+    home:   /home/user_1
+    groups:
+      - group_1
+  user_2:
+    exists: true
+    home:   /home/user_2
+    groups:
+      - group_2
+      - group_1
+  user_3:
+    exists: true
+    home:   /home/user_3
+    groups:
+      - users
+  user_4:
+    exists: true
+    home:   /home/user_4
+    groups:
+      - users
+  user_5:
+    exists: true
+    home:   /home/user_5
+    groups:
+      - user_5
+  user_6:
+    exists: true
+    home:   /home/user_6
+    groups:
+      - user_6
+  user_7:
+    exists: true
+    home:   /home/user_7
+    groups:
+      - user_7
+  user_8:
+    exists: true
+    home:   /home/user_8
+    groups:
+      - user_8
+
+file:
+  /home/user_1/.ssh/authorized_keys:
+    exists:   true
+    filetype: file
+    owner:    user_1
+    group:    group_1
+    mode:     "0600"
+    contains:
+      - "{{ readFile "fixtures/keys/user_1.pub" }}"
+      - "!{{ readFile "fixtures/keys/user_2.pub" }}"
+      - "!{{ readFile "fixtures/keys/user_3.pub" }}"
+  /home/user_2/.ssh/authorized_keys:
+    exists:   true
+    filetype: file
+    owner:    user_2
+    group:    group_2
+    mode:     "0600"
+    contains:
+      - "{{ readFile "fixtures/keys/user_1.pub" }}"
+      - "{{ readFile "fixtures/keys/user_2.pub" }}"
+      - "!{{ readFile "fixtures/keys/user_3.pub" }}"
+  /home/user_3/.ssh/authorized_keys:
+    exists:   false
+    filetype: file
+  /home/user_3/.ssh/authorized_keys2:
+    exists:   true
+    filetype: file
+    owner:    user_3
+    group:    users
+    mode:     "0600"
+    contains:
+      - "!{{ readFile "fixtures/keys/user_1.pub" }}"
+      - "{{ readFile "fixtures/keys/user_2.pub" }}"
+      - "{{ readFile "fixtures/keys/user_3.pub" }}"
+  /home/user_4/.ssh/authorized_keys:
+    exists:   false
+    filetype: file
+  /home/user_4/.ssh/authorized_keys3:
+    exists:   true
+    filetype: file
+    owner:    user_4
+    group:    users
+    mode:     "0600"
+    contains:
+      - "!{{ readFile "fixtures/keys/user_1.pub" }}"
+      - "{{ readFile "fixtures/keys/user_2.pub" }}"
+      - "{{ readFile "fixtures/keys/user_3.pub" }}"
+  /home/user_5/.ssh/authorized_keys:
+    exists:   false
+    filetype: file
+  /home/user_6/.ssh/authorized_keys:
+    exists:   true
+    filetype: file
+    owner:    user_6
+    group:    user_6
+    mode:     "0600"
+    contains:
+      - "{{ readFile "fixtures/keys/user_1.pub" }}"
+  /home/user_7/.ssh/authorized_keys:
+    exists:   true
+    filetype: file
+    owner:    user_7
+    group:    user_7
+    mode:     "0600"
+    contains:
+      - "{{ readFile "fixtures/keys/user_1.pub" }}"

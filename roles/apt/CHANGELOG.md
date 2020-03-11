@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - MaxScale 2.4 repository pattern
 
+## [2.0.5] - 2020-01-06
+### Changed
+- Update Logentries repository patterns
+
+## [2.0.5] - 2020-01-06
+### Changed
+- Update Logentries repository patterns
+
 ## [2.0.9] - 2020-02-24
 ### Added
 - Tags for each tasks, with the format `manala_rolename.taskname`

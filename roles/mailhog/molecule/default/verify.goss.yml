@@ -1,0 +1,26 @@
+---
+
+package:
+  mailhog:
+    installed: true
+
+command:
+  dpkg -s mailhog:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+  mailhog --version:
+    exit-status: 0
+    stdout:
+      - "MailHog version: "
+
+file:
+  /etc/default/mailhog:
+    exists: true
+    contains:
+      - 'DAEMON_ARGS="-smtp-bind-addr 1.2.3.4:2525"'
+
+service:
+  mailhog:
+    enabled: true
+    running: true

@@ -1,0 +1,56 @@
+---
+
+package:
+  nginx:
+    installed: true
+
+file:
+  /etc/nginx/nginx.conf.test:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - worker_processes 3;
+      - load_module foo;
+      - load_module bar;
+      - worker_connections 1234;
+  /etc/nginx/conf.d.test/foo.conf:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - server {
+      - listen 8080;
+      - location / {
+      - root /srv/foo;
+  /etc/nginx/conf.d.test/foo_template.conf:
+    exists: true
+    contains:
+      - root $MAGE_ROOT;
+  /etc/nginx/conf.d.test/foo_content.conf:
+    exists: true
+    contains:
+      - root /var/foo;
+  /etc/nginx/conf.d.test/foo_template_content.conf:
+    exists: true
+    contains:
+      - root /var/foo;
+  /etc/nginx/conf.d.test/bar.conf:
+    exists: false
+  /etc/nginx/conf.d.test/baz.conf:
+    exists: true
+  /etc/nginx/conf.d.exclusive/foo.conf:
+    exists: false
+  /etc/nginx/conf.d.exclusive/bar.conf:
+    exists: true
+  /etc/nginx/conf.d.exclusive/baz.conf:
+    exists: false
+
+service:
+  nginx:
+    enabled: true
+    running: true

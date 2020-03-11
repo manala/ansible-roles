@@ -1,0 +1,26 @@
+---
+
+package:
+  logrotate:
+    installed: true
+
+file:
+  /etc/logrotate.d.test/foo:
+    exists:   true
+    contains:
+      - /var/log/foo/*.log {
+  /etc/logrotate.d.test/foo_template:
+    exists: true
+    size: 1
+  /etc/logrotate.d.test/foo_content:
+    exists: true
+    contains:
+      - /var/log/foo/*.log {
+  /etc/logrotate.d.test/foo_template_content:
+    exists: true
+    contains:
+      - /var/log/foo/*.log {
+  /etc/logrotate.d.test/bar:
+    exists: false
+  /etc/logrotate.d.test/baz:
+    exists: true

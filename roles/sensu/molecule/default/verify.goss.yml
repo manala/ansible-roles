@@ -1,0 +1,34 @@
+---
+
+package:
+  sensu:
+    installed: true
+
+file:
+  /etc/default/sensu:
+    exists: true
+    owner: root
+    group: root
+    contains:
+      - EMBEDDED_RUBY=true
+      - LOG_LEVEL=warn
+  /etc/sensu/conf.d/transport.json:
+    exists: true
+    owner: root
+    group: sensu
+    mode:  '0644'
+    contains:
+      - redis
+  /etc/sensu/conf.d/redis.json:
+    exists: true
+    owner: sensu
+    group: sensu
+    mode:  '0600'
+    contains:
+      - localhost
+
+command:
+  /opt/sensu/embedded/bin/gem list:
+    exit-status: 0
+    stdout:
+      - sensu-plugins-slack

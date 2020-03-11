@@ -1,0 +1,74 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.rsyslog
+      vars:
+        manala_rsyslog_config_template: config/default.prod.j2
+        manala_rsyslog_config:
+          - $ModLoad imklog: false
+          - $ModLoad immark: true
+          - |
+            *.=info;*.=notice;*.=warn;\
+                auth,authpriv.none;\
+                cron,daemon.none;\
+                mail,news.none    -/var/log/messages
+        manala_rsyslog_configs_dir: /etc/rsyslog.d.test
+        manala_rsyslog_configs:
+          - file: foo.conf
+            config:
+              - auth,authpriv.*           /var/log/auth.log
+              - '*.*;auth,authpriv.none   -/var/log/syslog'
+              - daemon.*                  -/var/log/daemon.log
+              - kern.*                    -/var/log/kern.log
+              - mail.*                    -/var/log/mail.log
+              - user.*                    -/var/log/user.log
+          - file: foo_template.conf
+            template: configs/rules.prod.j2
+          - file: foo_content.conf
+            content: |
+              foo.* -/var/log/foo.log
+              bar.*  -/var/log/bar.log
+          - file: foo_template_content.conf
+            template: configs/rules.prod.j2
+            content: |
+              foo.* -/var/log/foo.log
+              bar.*  -/var/log/bar.log
+          - file: bar.conf
+            state: present
+          - file: baz.conf
+            state: absent
+
+    - include_role:
+        name: manala.rsyslog
+      vars:
+        manala_rsyslog_configs_dir: /etc/rsyslog.d.test
+        manala_rsyslog_configs:
+          - file: bar.conf
+            state: absent
+          - file: baz.conf
+            state: present
+
+    - include_role:
+        name: manala.rsyslog
+      vars:
+        manala_rsyslog_configs_dir: /etc/rsyslog.d.exclusive
+        manala_rsyslog_configs:
+          - file: foo.conf
+          - file: bar.conf
+          - file: baz.conf
+
+    - include_role:
+        name: manala.rsyslog
+      vars:
+        manala_rsyslog_configs_dir: /etc/rsyslog.d.exclusive
+        manala_rsyslog_configs_exclusive: true
+        manala_rsyslog_configs:
+          - file: bar.conf

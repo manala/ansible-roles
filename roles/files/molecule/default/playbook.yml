@@ -1,0 +1,143 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - file:
+        path:  "{{ item }}"
+        state: directory
+      with_items:
+        - /tmp/root
+        - /tmp/nobody
+        - /tmp/mail
+        - /tmp/content
+        - /tmp/copy
+        - /tmp/already_exist
+        - /tmp/template
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.files
+      vars:
+        foo: bar
+        manala_files_attributes_defaults:
+          - path:  ^/tmp/root
+            user:  root
+            group: root
+          - path:  ^/tmp/nobody
+            user:  nobody
+            group: nogroup
+          - path:  ^/tmp/mail
+            user:  mail
+            group: mail
+        manala_files_attributes:
+            # Attribute file
+          - path:  /tmp/file
+            state: touch
+            # Attribute link to file
+          - path:  /tmp/link_to_file
+            src:   /tmp/file
+            state: link_file
+            # Attribute link to link to file
+          - path:  /tmp/link_to_link_to_file
+            src:   /tmp/link_to_file
+            state: link
+            # Attribute content
+          - path: /tmp/content/file
+            content: |
+              Hello world!
+          - path: /tmp/content/foo
+            content: |
+              Hello Foo!
+          - path: /tmp/content/bar
+            content: |
+              Hello Bar!
+            state: present
+            # Attribute copy
+          - path: /tmp/copy/file
+            copy: fixtures/file
+          - path: /tmp/copy/foo
+            copy: fixtures/file
+          - path: /tmp/copy/bar
+            copy: fixtures/file
+            state: present
+            # Attribute default
+          - path:  /tmp/root/file
+            state: touch
+          - path:  /tmp/nobody/file
+            state: touch
+          - path:  /tmp/mail/file
+            state: touch
+            # Attribute directory
+          - path:  /tmp/directory
+            state: directory
+            # Attribute link to directory
+          - path:  /tmp/link_directory
+            src:   /tmp/directory
+            state: link_directory
+            # Attribute link to link to directory
+          - path:  /tmp/link_to_link_to_directory
+            src:   /tmp/link_directory
+            state: link
+            # Attribute Overide
+          - path:     /tmp/template/overide
+            template: fixtures/template.j2
+          - path:    /tmp/template/overide
+            content: |
+              Hello world!
+            # Attribute template
+          - path: /tmp/template/foo
+            template: fixtures/template.j2
+          - path: /tmp/template/bar
+            template: fixtures/template.j2
+          - path: /tmp/template/baz
+            template: fixtures/template.j2
+            state: present
+            # Attribute Url
+          - path: /tmp/file_url
+            url:  http://humanstxt.org/humans.txt
+          - path: /tmp/alt-galaxy.tar.xz
+            url:  https://github.com/gantsign/alt-galaxy/releases/download/1.4.0/alt-galaxy_linux_amd64.tar.xz
+            unarchive: true
+            creates:   /tmp/alt-galaxy
+
+    - include_role:
+        name: manala.files
+      vars:
+        manala_files_attributes:
+            # Attributes content absent
+          - path: /tmp/content/bar
+            content: |
+              Hello Bar!
+            state: absent
+            # Attributes copy absent
+          - path: /tmp/copy/bar
+            copy: fixtures/file
+            state: absent
+            # Attributes template absent
+          - path: /tmp/template/baz
+            template: fixtures/template.j2
+            state: absent
+
+    - include_role:
+        name: manala.files
+      ignore_errors: true
+      vars:
+            # Attributes file already exists
+          - path:  /tmp/already_exist
+            state: touch
+          # Attributes directory already exists as link to directory
+          - path:  /tmp/link_to_directory
+            state: directory
+          # Attributes directory already exists as link to file
+          - path:  /tmp/link_to_file
+            state: directory

@@ -1,0 +1,37 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.
+      vars:
+    - apt:
+        name:
+          - ssh
+          - rsync
+        install_recommends: false
+        update_cache: true
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.deploy
+      vars:
+        manala_deploy_dir: /tmp/app
+        manala_deploy_strategy: synchronize
+        manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
+        manala_deploy_writable_dirs_default:
+          mode:    ugo=rwx
+          follow:  true
+          recurse: true
+        manala_deploy_writable_dirs:
+          - dir

@@ -1,0 +1,53 @@
+---
+
+package:
+  proftpd-basic:
+    installed: true
+
+file:
+  /etc/proftpd/conf.d.test/foo.conf:
+    exists: true
+    filetype: file
+    contains:
+      - ServerName Manala ProFTPD Server
+      - DefaultRoot ~
+      - AuthOrder mod_auth_file.c
+      - PassivePorts 10000 10030
+  /etc/proftpd/conf.d.test/foo_template.conf:
+    exists: true
+    filetype: file
+    contains:
+      - <IfModule foo>
+      - </IfModule>
+  /etc/proftpd/conf.d.test/foo_content.conf:
+    exists: true
+    filetype: file
+    contains:
+      - <Anonymous ~ftp>
+      - User foo
+  /etc/proftpd/conf.d.test/foo_template_content.conf:
+    exists: true
+    filetype: file
+    contains:
+      - <Anonymous ~ftp>
+      - User foo
+  /etc/proftpd/conf.d.test/bar.conf:
+    exists: false
+  /etc/proftpd/conf.d.test/baz.conf:
+    exists: true
+  /etc/ftpd.passwd:
+    exists:   true
+    mode:     "0600"
+    owner:    root
+    group:    root
+    filetype: file
+    contains:
+      - user-1
+      - user-2
+      - /tmp
+      - /bin/false
+
+service:
+  proftpd:
+    enabled: true
+    running: true

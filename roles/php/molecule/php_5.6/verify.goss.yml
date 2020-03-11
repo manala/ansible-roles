@@ -1,0 +1,157 @@
+---
+
+package:
+  php5.6-cli:
+    installed: true
+  php5.6-fpm:
+    installed: true
+  php5.6-cgi:
+    installed: false
+  php5.6-intl:
+    installed: true
+  php-geoip:
+    installed: true
+  php5.6-curl:
+    installed: true
+  php5.6-tidy:
+    installed: false
+  blackfire-agent:
+    installed: true
+  blackfire-php:
+    installed: true
+command:
+  php --version:
+    exit-status: 0
+    stdout:
+      - PHP 5.6.
+  blackfire status:
+    exit-status: 0
+  php -m:
+    exit-status: 0
+    stdout:
+      - blackfire
+  php-fpm5.6 -m:
+    exit-status: 0
+    stdout:
+      - blackfire
+  phpcs --version:
+    exit-status: 0
+    stdout:
+      - PHP_CodeSniffer version
+  phpunit --version:
+    exit-status: 0
+    stdout:
+      - PHPUnit 4.8.31
+
+file:
+  # Extensions
+  /etc/php/5.6/cli/conf.d/20-mbstring.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: /etc/php/5.6/mods-available/mbstring.ini
+  /etc/php/5.6/cli/conf.d/20-intl.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: /etc/php/5.6/mods-available/intl.ini
+  /etc/php/5.6/cli/conf.d/20-geoip.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: /etc/php/5.6/mods-available/geoip.ini
+  /etc/php/5.6/cli/conf.d/20-gd.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: /etc/php/5.6/mods-available/gd.ini
+  /etc/php/5.6/cli/conf.d/20-apcu.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: /etc/php/5.6/mods-available/apcu.ini
+  /etc/php/5.6/cli/conf.d/20-gmagick.ini:
+    exists: true
+    filetype:  symlink
+    linked-to: /etc/php/5.6/mods-available/gmagick.ini
+  /etc/php/5.6/cli/conf.d/20-date.ini:
+    exists: false
+  /etc/php/5.6/cli/conf.d/20-tidy.ini:
+    exists: false
+  /etc/php/5.6/cli/conf.d/20-json.ini:
+    exists: false
+  /etc/php/5.6/cli/conf.d/20-xdebug.ini:
+    exists: false
+  /etc/php/5.6/cli/conf.d/20-gearman.ini:
+    exists: false
+  # Configs
+  /etc/php/5.6/cli/conf.d/foo.ini:
+    exists:   true
+    filetype: file
+    contains:
+      - "memory_limit = 456M"
+  /etc/php/5.6/fpm/conf.d/foo.ini:
+    exists:   true
+    filetype: file
+    contains:
+      - "memory_limit = 456M"
+  /etc/php/5.6/cli/conf.d/bar.ini:
+    exists:   true
+    filetype: file
+    contains:
+      - "memory_limit = 255M"
+  /etc/php/5.6/fpm/conf.d/bar.ini:
+    exists:   true
+    filetype: file
+    contains:
+      - "memory_limit = 257M"
+  /etc/php/5.6/cli/conf.d/baz.ini:
+    exists: false
+  /etc/php/5.6/fpm/conf.d/baz.ini:
+    exists: false
+  # Fpm_pools
+  /etc/php/5.6/fpm/pool.d/www.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - "pm.max_children = 12"
+      - "listen = /run/php/php5.6-fpm.sock"
+  /etc/php/5.6/fpm/pool.d/bar.conf:
+    exists: false
+  /etc/php/5.6/fpm/pool.d/foo.conf:
+    exists:   true
+    filetype: file
+    contains:
+      - 'env[_FOO] = bar'
+      - 'env[_BAR] = 123'
+      - 'env[BAR] = "123"'
+      - 'env[BAZ] = "1.2"'
+      - 'env[FOO] = "bar"'
+      - 'env[QUX] = "foo=bar"'
+  # Blackfire
+  /etc/blackfire/agent:
+    exists: true
+    contains:
+      - server-id=c74906db-43d3-4c96-ab27-010600321b89
+      - server-token=5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+  ~/.blackfire.ini:
+    exists: true
+    contains:
+      - client-id=b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+      - client-token=e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+  # Applications
+  /usr/local/bin/phpcs:
+    exists:   true
+    filetype: file
+    mode:     "0755"
+  /usr/local/bin/phpunit_4.8.31:
+    exists:   true
+    filetype: file
+    mode:     "0755"
+  /usr/local/bin/phpunit:
+    exists:    true
+    filetype:  symlink
+    linked-to: phpunit_4.8.31
+
+service:
+  blackfire-agent:
+    enabled: true
+    running: true
+  php5.6-fpm:
+    enabled: true
+    running: true

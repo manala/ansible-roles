@@ -1,0 +1,13 @@
+---
+
+package:
+  vim:
+    installed: true
+
+file:
+  /etc/vim/vimrc.local:
+    exists:   true
+    filetype: file
+    contains:
+      - set encoding=utf8
+      - set expandtab

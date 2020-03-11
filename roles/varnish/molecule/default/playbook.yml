@@ -1,0 +1,34 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - "varnish@{{ {
+            'jessie': 'varnish_4_0',
+            'stretch': 'varnish_6_1',
+          }[ansible_distribution_release] }}"
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.varnish
+      vars:
+        manala_varnish_config:
+          - NFILES: 1310723
+          - MEMLOCK: 82001
+        manala_varnish_configs:
+          - file: foo.vcl
+          - file: bar.vcl
+        template: fixtures/foo.vcl.j2

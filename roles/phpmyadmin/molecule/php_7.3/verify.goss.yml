@@ -1,0 +1,22 @@
+---
+
+package:
+  phpmyadmin:
+    installed: true
+
+command:
+  dpkg -s phpmyadmin:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+
+file:
+  /etc/phpmyadmin/conf.d/config.inc.php:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - $cfg['blowfish_secret'] = 'WU9VIEdPVCBSSUNLIFJPTExFRA==';
+      - $cfg['Servers'][1]['host'] = 'mysql';

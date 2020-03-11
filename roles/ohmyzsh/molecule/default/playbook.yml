@@ -1,0 +1,29 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - apt:
+        name:
+          - git
+          - zsh
+        install_recommends: false
+        update_cache: true
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.ohmyzsh
+      vars:
+        manala_ohmyzsh_users:
+          - user: root
+            group: root
+            template: users/php.dev.j2

@@ -1,0 +1,56 @@
+---
+
+package:
+  rsyslog:
+    installed: true
+
+command:
+  rsyslogd -version:
+    exit-status: 0
+    stdout:
+      - rsyslogd
+
+file:
+  /etc/rsyslog.conf:
+    exists: true
+    contains:
+      - $ModLoad imuxsock
+      - '#$ModLoad imklog'
+      - $ModLoad immark
+  /etc/rsyslog.d.test/foo.conf:
+    exists: true
+    contains:
+      - user.*                    -/var/log/user.log
+      - daemon.*                  -/var/log/daemon.log
+      - '*.*;auth,authpriv.none   -/var/log/syslog'
+  /etc/rsyslog.d.test/foo_template.conf:
+    exists: true
+    contains:
+      - "# First some standard log files.  Log by facility."
+      - auth,authpriv.*         /var/log/auth.log
+  /etc/rsyslog.d.test/foo_content.conf:
+    exists: true
+    contains:
+      - foo.* -/var/log/foo.log
+      - bar.*  -/var/log/bar.log
+  /etc/rsyslog.d.test/foo_template_content.conf:
+    exists: true
+    contains:
+      - foo.* -/var/log/foo.log
+      - bar.*  -/var/log/bar.log
+  /etc/rsyslog.d.test/bar.conf:
+    exists: false
+  /etc/rsyslog.d.test/baz.conf:
+    exists: true
+  /etc/rsyslog.d.exclusive/foo.conf:
+    exists: false
+  /etc/rsyslog.d.exclusive/bar.conf:
+    exists: true
+  /etc/rsyslog.d.exclusive/baz.conf:
+    exists: false
+
+
+service:
+  rsyslog:
+    enabled: true
+    running: true

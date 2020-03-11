@@ -1,0 +1,22 @@
+---
+
+package:
+  ngrok:
+    installed: true
+
+command:
+  dpkg -s ngrok:
+    exit-status: 0
+    stdout:
+      - "/^Version: .+-manala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+  ngrok --version:
+    exit-status: 0
+    stdout:
+      - ngrok version
+
+file:
+  /etc/ngrok/config.yml:
+    exists:   true
+    filetype: file
+    contains:
+      - 'web_addr: "1.2.3.4:1234"'

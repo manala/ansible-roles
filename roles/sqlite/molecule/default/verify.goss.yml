@@ -1,0 +1,5 @@
+---
+
+package:
+  sqlite3:
+    installed: true

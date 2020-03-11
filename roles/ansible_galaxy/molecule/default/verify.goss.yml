@@ -1,0 +1,11 @@
+---
+
+file:
+  /tmp/manala_ansible_galaxy_roles.yml:
+    exists: false
+  /etc/ansible/roles/ansistrano.deploy:
+    exists:   true
+    filetype: directory
+  /etc/ansible/roles/jdauphant.nginx:
+    exists:   true
+    filetype: directory

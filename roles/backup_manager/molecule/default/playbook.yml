@@ -1,0 +1,30 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['wheezy', 'jessie', 'stretch']
+      vars:
+        manala_apt_preferences:
+          - backup-manager@manala
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.backup_manager
+      vars:
+       manala_backup_manager_configs:
+          - file:     mysql.conf
+            template: configs/mysql.j2
+            config:
+              - BM_REPOSITORY_ROOT: /srv/backup/mysql

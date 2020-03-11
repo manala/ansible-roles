@@ -1,0 +1,19 @@
+---
+
+- name: Converge
+  hosts: all
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.graylog_sidecar
+      vars:
+        manala_graylog_sidecar_version: 1.0.2
+        manala_graylog_sidecar_config:
+          server_url: http://foo.bar:9000/api
+          server_api_token: foo-bar-baz-bar-foo
+          node_name: foo.bar.baz.hostname
+          node_id: file:/etc/graylog/sidecar/node-id

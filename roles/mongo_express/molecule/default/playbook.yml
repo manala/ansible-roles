@@ -1,0 +1,25 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - mongo_express@manala
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.mongo_express
+      vars:
+        manala_mongo_express_config_template: config/default.dev.j2

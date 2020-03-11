@@ -1,0 +1,40 @@
+---
+
+package:
+  elasticsearch:
+    installed: true
+
+service:
+  elasticsearch:
+    enabled: true
+    running: true
+
+http:
+  http://localhost:9200/?pretty:
+    status: 200
+    timeout: 2000
+    body:
+      - '/"cluster_name" : "elasticsearch",/'
+      - '/"number" : "5/'
+
+command:
+  /usr/share/elasticsearch/bin/elasticsearch-plugin list:
+    exit-status: 0
+    stdout:
+      - "analysis-icu"
+  "curl -X PUT -H \"Content-Type: application/json\" -d '{\"settings\":{\"analysis\":{\"analyzer\":{\"bar\":{\"tokenizer\":\"icu_tokenizer\"}}}}}' http://localhost:9200/foo":
+    exit-status: 0
+    stdout:
+      - "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"foo\"}"
+
+file:
+  /etc/elasticsearch/elasticsearch.yml:
+    exists: true
+    owner: root
+    filetype: file
+    contains:
+      - "node.name: Foo Bar"
+  /etc/default/elasticsearch.test:
+    exists: true
+    contains:
+      - "/^ES_JAVA_OPTS=\"-Xms1g -Xmx1g\"$/"

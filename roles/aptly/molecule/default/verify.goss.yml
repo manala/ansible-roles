@@ -1,0 +1,13 @@
+---
+
+package:
+  bzip2:
+    installed: true
+  aptly:
+    installed: true
+
+file:
+  /etc/aptly.conf:
+    exists: true
+    contains:
+      - '"rootDir": "/tmp/aptly"'

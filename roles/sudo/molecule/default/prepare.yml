@@ -1,0 +1,8 @@
+---
+
+- name: Prepare
+  hosts: all
+  vars:
+    manala_sudo_sudoers_dir: /etc/sudoers.d.test
+    manala_sudo_sudoers:
+      - file: exclusive

@@ -1,0 +1,33 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - nodejs@nodesource_6
+        manala_apt_packages:
+          - nodejs
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.npm
+      vars:
+        manala_npm_packages:
+          - is-positive
+          - user-home
+          - package: negative-zero
+            state: absent
+          - package: negative-zero
+            state: present

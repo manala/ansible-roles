@@ -1,0 +1,37 @@
+---
+
+package:
+  sudo:
+    installed: true
+
+file:
+  /etc/sudoers.d.test/foo:
+    exists: true
+    filetype: file
+    contains:
+      - vagrant ALL=NOPASSWD:ALL
+  /etc/sudoers.d.test/foo_template:
+    exists: true
+    contains:
+      - foo ALL=(ALL) ALL
+  /etc/sudoers.d.test/foo_content:
+    exists: true
+    contains:
+      - bar ALL=(ALL) ALL
+  /etc/sudoers.d.test/foo_template_content:
+    exists: true
+    contains:
+      - bar ALL=(ALL) ALL
+  /etc/sudoers.d.test/bar:
+    exists: false
+  /etc/sudoers.d.test/baz:
+    exists: true
+  /etc/sudoers.d.exclusive/README:
+    exists: true
+  /etc/sudoers.d.exclusive/foo:
+    exists: false
+  /etc/sudoers.d.exclusive/bar:
+    exists: true
+  /etc/sudoers.d.exclusive/baz:
+    exists: false
+

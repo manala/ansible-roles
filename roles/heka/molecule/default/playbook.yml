@@ -1,0 +1,23 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - heka@manala
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.heka

@@ -1,0 +1,64 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - apt:
+        name:
+          - ssh
+          - rsync
+        install_recommends: false
+        update_cache: true
+    - file:
+        path: /tmp/app/{{ item }}
+        state: directory
+      with_items:
+        - shared
+        - shared/dir
+        - shared/dir/dir
+    - file:
+        path: /tmp/app/{{ item }}
+        state: touch
+      with_items:
+        - shared/file_shared_existing
+        - shared/dir/file_shared_existing
+        - shared/dir/dir/file_shared_existing
+    - file:
+        path: /tmp/app/{{ item }}_link
+        src: /tmp/app/{{ item }}
+        state: link
+      with_items:
+        - shared/file_shared_existing
+        - shared/dir/file_shared_existing
+        - shared/dir/dir/file_shared_existing
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.deploy
+      vars:
+        manala_deploy_dir: /tmp/app
+        manala_deploy_strategy: synchronize
+        manala_deploy_strategy_synchronize_src: "{{ playbook_dir ~ '/fixtures/app/' }}"
+        manala_deploy_shared_files:
+          - file_shared
+          - file_shared_existing
+          - file_shared_existing_link
+          - dir/file_shared
+          - dir/file_shared_existing
+          - dir/file_shared_existing_link
+          - dir/dir/file_shared
+          - dir/dir/file_shared_existing
+          - dir/dir/file_shared_existing_link
+        manala_deploy_shared_dirs:
+          - dir_shared
+          - dir/dir_shared
+          - dir/dir/dir_shared

@@ -1,0 +1,5 @@
+---
+
+package:
+  gitlab-ce:
+    installed: true

@@ -1,0 +1,88 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - nginx@nginx
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.nginx
+      vars:
+        manala_nginx_config_file: /etc/nginx/nginx.conf.test
+        manala_nginx_config:
+          - worker_processes: 3
+          - load_module: foo
+          - load_module: bar
+          - events:
+            - worker_connections: 1234
+        manala_nginx_configs_dir: /etc/nginx/conf.d.test
+        manala_nginx_configs:
+          - file: foo.conf
+            config:
+              - server:
+                - listen: 8080
+                - location /:
+                  - root:  /srv/foo
+          - file: foo_template.conf
+            template: configs/app_magento_2_defaults.j2
+          - file: foo_content.conf
+            content: |
+              server {
+                  listen 80 default_server;
+                  root /var/foo;
+              }
+          - file: foo_template_content.conf
+            template: configs/app_magento_2_defaults.j2
+            content: |
+              server {
+                  listen 80 default_server;
+                  root /var/foo;
+              }
+          - file: bar.conf
+            state: present
+          - file: baz.conf
+            state: absent
+
+    - include_role:
+        name: manala.nginx
+      vars:
+        manala_nginx_configs_dir: /etc/nginx/conf.d.test
+        manala_nginx_configs_exclusive: false
+        manala_nginx_configs:
+          - file: bar.conf
+            state: absent
+          - file: baz.conf
+            state: present
+
+    - debug:
+        msg: " ########### EXCLUSIVE ###########"
+
+    - include_role:
+        name: manala.nginx
+      vars:
+        manala_nginx_configs_dir: /etc/nginx/conf.d.exclusive
+        manala_nginx_configs:
+          - file: foo.conf
+          - file: foo.conf
+          - file: foo.conf
+    - include_role:
+        name: manala.nginx
+      vars:
+        manala_nginx_configs_dir: /etc/nginx/conf.d.exclusive
+        manala_nginx_configs_exclusive: true
+        manala_nginx_configs:
+          - file: bar.conf

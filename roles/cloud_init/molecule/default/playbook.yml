@@ -1,0 +1,30 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['jessie']
+      vars:
+        manala_apt_preferences:
+          - cloud-init@backports
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.cloud_init
+      vars:
+        manala_cloud_init_configs:
+          - file: 99_hostname.cfg
+            config:
+              - fqdn:     foo.manala.io
+              - hostname: foo

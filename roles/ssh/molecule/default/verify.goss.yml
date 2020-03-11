@@ -1,0 +1,25 @@
+---
+
+package:
+  openssh-server:
+    installed: true
+
+file:
+  /etc/ssh/ssh_config:
+    exists: true
+    contains:
+      - "    SendEnv LANG LC_* FOO"
+  /etc/ssh/sshd_config:
+    exists: true
+    contains:
+      - "AcceptEnv LANG LC_* FOO"
+      - "    X11Forwarding no"
+  /etc/ssh/ssh_known_hosts:
+    exists: true
+    contains:
+      - github.com ssh-rsa
+
+service:
+  ssh:
+    enabled: true
+    running: true

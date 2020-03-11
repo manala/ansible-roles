@@ -1,0 +1,20 @@
+---
+
+file:
+  /etc/environment:
+    exists: true
+    filetype: file
+    contains:
+      - 'FOO="bar"'
+  /etc/zsh/zshenv:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/zsh/zshenv'
+      - 'export FOO="bar"'
+  /etc/profile.d/test.sh:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/profile.d/test.sh'
+      - 'export FOO="bar"'

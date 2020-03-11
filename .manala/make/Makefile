@@ -12,6 +12,8 @@ include \
 	$(MANALA_MAKE_DIR)/Makefile.gitsplit \
 	$(MANALA_MAKE_DIR)/Makefile.collection
 
+
+
 -include \
 	$(MANALA_CURRENT_DIR)/.env
 
@@ -23,6 +25,9 @@ MANALA_VERBOSE := $(if $(VERBOSE),$(VERBOSE),$(MANALA_VERBOSE))
 
 ROLES_ALL  = $(filter-out $(ROLES_DEPRECATED),$(sort $(patsubst roles/%/,%,$(wildcard roles/*/))))
 ROLES_DIFF = $(filter-out $(ROLES_DEPRECATED),$(sort $(shell git diff --name-only $(TRAVIS_COMMIT_RANGE)| grep "^roles/" | cut -d/ -f2)))
+
+prout:
+	echo $(ROLES_DIFF)
 
 #############
 # Partition #
@@ -46,7 +51,7 @@ LINT_HELP = \
 lint:
 	$(call list_loop,ROLE,$(call list_partition,$(PARTITION_PART),$(PARTITION_PARTS),$(if $(ROLES),$(ROLES),$(ROLES_ALL))), \
 		$$(call if_in,$$(ROLE),$$(ROLES_ALL), \
-			$$(MAKE) --silent --directory=roles/$$(ROLE) lint, \
+			$$(MAKE) --silent --directory=$$(ROLE) molecule.lint, \
 			$$(call log_error,Role \"$$(ROLE)\" is not available) ; exit 1 \
 		), \
 		TRAVIS_FOLD \
@@ -69,7 +74,7 @@ TEST_HELP = \
 test:
 	$(call list_loop,ROLE,$(call list_partition,$(PARTITION_PART),$(PARTITION_PARTS),$(if $(ROLES),$(ROLES),$(ROLES_ALL))), \
 		$$(call if_in,$$(ROLE),$$(ROLES_ALL), \
-			$$(MAKE) --silent --directory=roles/$$(ROLE) test, \
+			$$(MAKE) --silent --directory=roles/$$(ROLE) molecule.test, \
 			$$(call log_error,Role \"$$(ROLE)\" is not available) ; exit 1 \
 		) \
 	)
@@ -96,7 +101,7 @@ split:
 # Sync #
 ########
 
-MANALA_HELP += $(SYNC_HELP)
+MANALA_HELP += $(SYNC_HELP)\n
 
 SYNC_HELP = \
 	$(call help_section,Sync) \
@@ -112,11 +117,22 @@ sync:
  		cp -r roles/$$FROM/.manala $$ROLE; \
 	done
 
+sync.molecule:
+	$(call fail_if_not,$(FROM),FROM is empty or not set)
+	$(call confirm,Please confirm sync from \"$(FROM)\" ansible role)
+	for ROLE in roles/*; do \
+		echo $$ROLE | cut -d/ -f2; \
+		cp roles/$$FROM/molecule/default/molecule.yml $$ROLE/molecule/default/molecule.yml; \
+ 		cp roles/$$FROM/molecule/.yamllint $$ROLE/molecule; \
+ 		cp roles/$$FROM/molecule/default/verify.yml $$ROLE/molecule/default/verify.yml; \
+	done
+SYNC_HELP +=$(call help,sync.molecule,Sync molecule) \
+
 ##############
 # Collection #
 ##############
 
-MANALA_COLLECTION = manala-roles-*.tar.gz
+MANALA_COLLECTION = ./manala-roles-*.tar.gz | cut -d/ -f2
 
 MANALA_HELP += $(COLLECTION_HELP)
 
@@ -128,17 +144,16 @@ define collection
 endef
 
 collection.prepare:
-	./prepare_collection.py
-	rm -rf ./prepare_collection.py
+	./script.py
+
 COLLECTION_HELP +=$(call help,collection.prepare,Prepare collection) \
 
 collection.build:
-	rm -rf $(MANALA_COLLECTION)
 	$(call collection,build --force)
+
 COLLECTION_HELP +=$(call help,collection.build,  Create collection) \
 
 collection.publish:
-	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN))
+	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN)
+
 COLLECTION_HELP += $(call help,collection.publish,Publish collection)
-
-

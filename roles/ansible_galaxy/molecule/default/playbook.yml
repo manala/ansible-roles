@@ -1,0 +1,31 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - ansible@ansible
+        manala_apt_packages:
+          - ansible
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.ansible_galaxy
+      vars:
+        manala_ansible_galaxy_roles:
+          - ansistrano.deploy
+          - jdauphant.nginx
+          - src: jdauphant.nginx
+            version: v1.11.4

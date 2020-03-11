@@ -1,0 +1,49 @@
+---
+
+- name: Converge
+  hosts: all
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.logrotate
+      vars:
+        manala_logrotate_configs_dir: /etc/logrotate.d.test
+        manala_logrotate_configs:
+          - file: foo
+            config:
+              - /var/log/foo/*.log:
+                - rotate: 17
+                - weekly
+          - file: foo_template
+            template: configs/empty.j2
+          - file: foo_content
+            content: |
+              /var/log/foo/*.log {
+                rotate 17
+                weekly
+              }
+          - file: foo_template_content
+            template: configs/empty.j2
+            content: |
+              /var/log/foo/*.log {
+                rotate 17
+                weekly
+              }
+          - file: bar
+            state: present
+          - file: baz
+            state: absent
+
+    - include_role:
+        name: manala.logrotate
+      vars:
+        manala_logrotate_configs_dir: /etc/logrotate.d.test
+        manala_logrotate_configs:
+          - file: bar
+            state: absent
+          - file: baz
+            state: present

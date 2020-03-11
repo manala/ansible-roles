@@ -1,0 +1,43 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['jessie']
+      vars:
+        manala_apt_preferences:
+          - keepalived@manala
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.keepalived
+      vars:
+        manala_keepalived_config_file: /etc/keepalived/keepalived.conf.test
+        manala_keepalived_config:
+          - global_defs:
+            - router_id: LVS_DEVEL
+          - vrrp_instance VI_1:
+            - virtual_router_id: 50
+            - interface: eth0
+            - state: MASTER
+            - priority: 100
+            - virtual_ipaddress:
+              - 192.168.200.11/24 dev eth0
+              - 192.168.200.12/24 dev eth0
+        manala_keepalived_environment_file: /etc/default/keepalived.test
+        manala_keepalived_environment:
+          - DAEMON_ARGS: --log-console --log-detail
+    - pause:
+        prompt: Make sure transition to MASTER STATE finish
+        seconds: 3

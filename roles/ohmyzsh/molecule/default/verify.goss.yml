@@ -1,0 +1,52 @@
+---
+
+file:
+  /usr/local/share/oh-my-zsh:
+    exists: true
+    owner: root
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "wheezy|jessie|stretch" }}
+    mode: "2755"
+    group: staff
+{{ else }}
+    mode: "0755"
+    group: root
+{{ end }}
+    filetype: directory
+
+  /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme:
+    filetype: file
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+
+  /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme:
+    filetype: file
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+
+  /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme:
+    filetype: file
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+
+  /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme:
+    filetype: file
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+
+  /root/.zshrc:
+    filetype: file
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - 'export ZSH="/usr/local/share/oh-my-zsh"'
+      - 'plugins=(git debian common-aliases history history-substring-search thefuck npm composer symfony2 yarn)'

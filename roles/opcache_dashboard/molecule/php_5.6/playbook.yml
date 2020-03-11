@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - php@sury_php
+          - opcache_dashboard@manala
+        manala_apt_packages:
+          - php5.6-fpm
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.opcache_dashboard

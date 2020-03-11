@@ -1,0 +1,7 @@
+---
+
+file:
+  /tmp/app/current/dir:
+    exists: true
+    mode: "0777"
+    filetype: directory

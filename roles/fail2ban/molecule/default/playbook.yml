@@ -1,0 +1,37 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      when: ansible_distribution_release in ['stretch']
+      vars:
+        manala_apt_preferences:
+          - fail2ban@backports
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.fail2ban
+      vars:
+        manala_fail2ban_config: "{{
+      (
+        ansible_distribution_release in ['jessie']
+      )|ternary([{
+        'ssh': [{'enabled': false}],
+        'DEFAULT': [{'maxretry': '5'}]
+      }], [{
+        'ssh': [{'enabled': false}],
+        'sshd': [{'enabled': false}],
+        'DEFAULT': [{'maxretry': '5'}]
+      }])
+    }}"

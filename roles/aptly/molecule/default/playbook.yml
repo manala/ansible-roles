@@ -1,0 +1,56 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - aptly@aptly
+    - copy:
+        dest: /tmp/private.asc
+        src: "{{ playbook_dir }}/fixtures/gpg/private.asc"
+    # See: https://www.aptly.info/doc/feature/pgp-providers/
+    - block:
+        - apt:
+            name:
+              - gnupg1
+              - gpgv1
+            install_recommends: false
+            update_cache: true
+          when: ansible_distribution_release in ['stretch','buster']
+        - command: gpg1 --allow-secret-key-import --import /tmp/private.asc
+          args:
+            creates: ~/.gnupg/trustdb.gpg
+      when: ansible_distribution_release in ['stretch','buster']
+    - block:
+        - command: gpg --allow-secret-key-import --import /tmp/private.asc
+          args:
+            creates: ~/.gnupg/trustdb.gpg
+      when: ansible_distribution_release not in ['stretch','buster']
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.aptly
+      vars:
+        manala_aptly_config:
+          - rootDir: /tmp/aptly
+          - architectures:
+              - amd64
+        manala_aptly_repositories:
+          - name:         foo
+            comment:      Foo
+            component:    main
+            distribution: jessie
+            origin:       Bar
+            label:        Bar

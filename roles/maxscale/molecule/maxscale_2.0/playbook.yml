@@ -1,0 +1,45 @@
+---
+
+- name: Converge
+  hosts: all
+
+#############
+# Pre_tasks #
+#############
+
+  pre_tasks:
+    - include_role:
+        name: manala.apt
+      vars:
+        manala_apt_preferences:
+          - maxscale@maxscale_2_0
+
+#########
+# Tasks #
+#########
+
+  tasks:
+    - include_role:
+        name: manala.maxscale
+      vars:
+        manala_maxscale_config_file: /etc/maxscale.cnf.test
+        manala_maxscale_config:
+          - maxscale:
+            - threads: auto #Dedicated container
+          - Splitter Service:
+            - type:    service
+            - router:  readwritesplit
+            - servers: mariadb-1, mariadb-2, mariadb-3
+            - user:    maxscale
+            - passwd:  XXXXXXXXXXXX
+        manala_maxscale_network_users:
+          - name:     foo
+            password: $1$MXS$ilOCSZPnjmHjTz6B96SiJ1 # "foo"
+          - name:     bar
+            password: $1$MXS$M.YZOr2pNTgW87l7KQWLU/ # "bar"
+
+    - include_role:
+        name: manala.maxscale
+      vars:
+        manala_maxscale_users_file:  /var/lib/maxscale/passwd.test
+        manala_maxscale_network_users: []

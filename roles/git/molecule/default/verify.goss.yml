@@ -1,0 +1,29 @@
+---
+
+package:
+  git:
+    installed: true
+
+file:
+  /etc/gitconfig:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "[core]"
+      - "    preloadindex = true"
+
+  /tmp/ansible-role-git/.git:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: directory
+
+  /tmp/ansible-role-git-user/.git:
+    exists: true
+    mode: "0755"
+    owner: manala
+    filetype: directory

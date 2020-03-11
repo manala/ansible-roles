@@ -1,0 +1,11 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    - apt:
+        name:
+          - ssh
+          - rsync
+        install_recommends: false
+        update_cache: true

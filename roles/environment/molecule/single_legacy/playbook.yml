@@ -1,0 +1,44 @@
+---
+
+- name: Converge
+  hosts: all
+
+############
+# Pre_task #
+############
+
+  pre_tasks:
+    - copy:
+        dest: /etc/environment
+        content: |
+          _FOO="bar"
+          _BAR="123"
+          BAZ="baz"
+          FOO="foo"
+    - file:
+        path: /etc/zsh
+        state: directory
+    - copy:
+        dest: /etc/zsh/zshenv
+        content: |
+          # /etc/zsh/zshenv
+    - copy:
+        dest: /etc/profile.d/test.sh
+        content: |
+          # /etc/profile.d/test.sh
+
+########
+# Task #
+########
+
+  tasks:
+    - include_role:
+        name: manala.environment
+      vars:
+        manala_environment_files:
+          - pam
+          - zsh
+          - file:   /etc/profile.d/test.sh
+            export: true
+        manala_environment_variables:
+          - _BAR: 123
