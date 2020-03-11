@@ -112,7 +112,10 @@ manala_apt_repositories_patterns:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
     key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
   mariadb_10_3:
-    source: deb http://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
+    source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
+    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
+  mariadb_10_4:
+    source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.4/repo/debian {{ ansible_distribution_release }} main
     key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
   maxscale_2_0:
     source: deb https://downloads.mariadb.com/MaxScale/2.0/debian {{ ansible_distribution_release }} main
