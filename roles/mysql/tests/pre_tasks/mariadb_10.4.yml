@@ -5,9 +5,9 @@
     file: pre_tasks/apt_keys/{{ (ansible_distribution_release in ['stretch', 'buster'])|ternary('mariadb','mariadb_legacy') }}.pgp
     id: "{{ (ansible_distribution_release in ['stretch', 'buster'])|ternary('C74CD1D8','1BB943DB') }}"
 
-- name: Pre tasks > MariaDB 10.3 apt repository
+- name: Pre tasks > MariaDB 10.4 apt repository
   apt_repository:
-    repo: deb https://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
+    repo: deb https://downloads.mariadb.com/MariaDB/mariadb-10.4/repo/debian {{ ansible_distribution_release }} main
 
 - name: Pre tasks > MariaDB apt preferences
   copy:

@@ -1,13 +1,13 @@
 ---
 
 package:
-  mysql-wsrep-server-5.7:
+  mariadb-server:
     installed: true
-  mysql-wsrep-client-5.7:
+  mariadb-client:
     installed: true
 
 command:
   mysql --version:
     exit-status: 0
     stdout:
-      - "/mysql(.)*Distrib 5.7/"
+      - "/mysql(.)*Distrib 10.4.(.){2}-MariaDB/"
