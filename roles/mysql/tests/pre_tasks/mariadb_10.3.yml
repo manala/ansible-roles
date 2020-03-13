@@ -7,7 +7,7 @@
 
 - name: Pre tasks > MariaDB 10.3 apt repository
   apt_repository:
-    repo: deb http://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
+    repo: deb https://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
 
 - name: Pre tasks > MariaDB apt preferences
   copy:

@@ -1,0 +1,10 @@
+---
+
+file:
+  /etc/mysql/my.cnf:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    sha256: 22d7905d0c0936ead926d795fbf5469fc0b3fd601de941333eab7a18bc236ff8

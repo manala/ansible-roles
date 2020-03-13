@@ -1,0 +1,31 @@
+---
+
+file:
+  /etc/mysql/conf.d.test/foo.cnf:
+    exists: true
+    filetype: file
+    contains:
+      - "[mysqld]"
+      - user = mysql
+      - query_cache_size = 0
+      - gtid_mode = ON
+      - enforce_gtid_consistency = OFF
+  /etc/mysql/conf.d.test/foo_template.cnf:
+    exists: true
+    contains:
+      - "[mysqld]"
+      - user = foo
+  /etc/mysql/conf.d.test/foo_content.cnf:
+    exists: true
+    contains:
+      - "[mysqld]"
+      - user = bar
+  /etc/mysql/conf.d.test/foo_template_content.cnf:
+    exists: true
+    contains:
+      - "[mysqld]"
+      - user = bar
+  /etc/mysql/conf.d.test/bar.cnf:
+    exists: true
+  /etc/mysql/conf.d.test/baz.cnf:
+    exists: false
