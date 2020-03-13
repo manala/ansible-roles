@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.11] - 2020-03-13
+### Added
+- MariaDB 10.4 repository pattern
+
 ## [2.0.10] - 2020-03-12
 ### Added
 - MaxScale 2.4 repository pattern
-- MariaDB 10.4 repository pattern
 
 ## [2.0.9] - 2020-02-24
 ### Added
