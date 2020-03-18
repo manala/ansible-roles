@@ -4,21 +4,26 @@
   hosts: debian
   become: true
   vars:
+    manala_network_interfaces_configs_dir: /etc/network/interfaces.d.test
     manala_network_interfaces_configs_exclusive: true
     manala_network_interfaces_configs:
-      - file: alias
+      - file: config_test
         config:
           - auto eth0:0
           - iface eth0:0 inet static:
             - address: 0.0.0.0
             - netmask: 255.255.255.255
+      - file: content_test
+        content: |
+          auto eth1
+          iface eth1 inet dhcp
   pre_tasks:
     - file:
-        path: /etc/network/interfaces.d
+        path: /etc/network/interfaces.d.test
         state: directory
         mode: '0755'
     - file:
-        path: /etc/network/interfaces.d/exclusive_test
+        path: /etc/network/interfaces.d.test/exclusive_test
         state: touch
   roles:
     - manala.network
