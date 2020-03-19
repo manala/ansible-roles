@@ -1,7 +1,7 @@
 ---
 
 file:
-  /etc/network/interfaces.d/alias:
+  /etc/network/interfaces.d.test/config_test:
     exists: true
     mode: "0644"
     owner: root
@@ -13,5 +13,15 @@ file:
       - iface eth0:0 inet static
       - address 0.0.0.0
       - netmask 255.255.255.255
-  /etc/network/interfaces.d/exclusive_test:
+  /etc/network/interfaces.d.test/content_test:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    sha256: 5dd99c18bb9d4458d9b3eab905681c8eaf2405308585bd24f907ebebc03cd7c3
+    contains:
+      - auto eth1
+      - iface eth1 inet dhcp
+  /etc/network/interfaces.d.test/exclusive_test:
     exists: false

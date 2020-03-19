@@ -1,27 +1,60 @@
 ---
 
-- name: configs > Templates
-  template:
-    src:  "{{ item.template|default(
-      manala_network_interfaces_configs_template|ternary(manala_network_interfaces_configs_template, 'interfaces_configs/empty.j2')) }}"
-    dest: "{{ manala_network_interfaces_configs_dir }}/{{ item.file }}"
-  with_items: "{{ manala_network_interfaces_configs }}"
-  notify:
-    - networking restart
+- name: interfaces_configs > Directory
+  file:
+    path: "{{ manala_network_interfaces_configs_dir }}"
+    state: directory
+  when: manala_network_interfaces_configs|length
 
-- name: configs > Exclusive - find files
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: "{{ manala_network_interfaces_configs_dir }}"
+- name: interfaces_configs > Exclusive
+  find:
+    path: "{{ manala_network_interfaces_configs_dir }}"
+    patterns: "*"
   changed_when: false
-  register: __manala_network_interfaces_configs_find_output
+  register: __manala_network_interfaces_configs_exclusive_find
   when: manala_network_interfaces_configs_exclusive
 
-- name: configs > Exclusive - remove files
-  file:
-    path:  "{{ manala_network_interfaces_configs_dir }}/{{ item }}"
-    state: absent
-  when: manala_network_interfaces_configs_exclusive and (item not in manala_network_interfaces_configs|map(attribute='file'))
-  with_items: "{{ __manala_network_interfaces_configs_find_output.stdout_lines|default([]) }}"
+- name: interfaces_configs > Templates present
+  template:
+    src: "{{ item.template|default(manala_network_interfaces_configs_template|ternary(
+      manala_network_interfaces_configs_template,
+      'interfaces_configs/empty.j2')) }}"
+    dest: "{{ item.file }}"
+  loop: "{{ query(
+      'manala_network_interfaces_configs',
+      manala_network_interfaces_configs,
+      __manala_network_interfaces_configs_exclusive_find.files|default([]),
+      manala_network_interfaces_configs_dir,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is not defined
   notify:
     - networking restart
+
+- name: interfaces_configs > Contents present
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.file }}"
+  loop: "{{ query(
+      'manala_network_interfaces_configs',
+      manala_network_interfaces_configs,
+      __manala_network_interfaces_configs_exclusive_find.files|default([]),
+      manala_network_interfaces_configs_dir,
+      wantstate='present'
+    )
+  }}"
+  when: item.content is defined
+
+- name: configs > Files absent
+  file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: "{{ query(
+      'manala_network_interfaces_configs',
+      manala_network_interfaces_configs,
+      __manala_network_interfaces_configs_exclusive_find.files|default([]),
+      manala_network_interfaces_configs_dir,
+      wantstate='absent'
+    )
+  }}"
