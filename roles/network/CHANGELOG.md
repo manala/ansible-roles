@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.3] - 2020-03-19
 ### Fixed
 - Interfaces configs state handling
 - Interfaces configs content handling
