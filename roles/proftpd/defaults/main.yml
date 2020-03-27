@@ -15,3 +15,5 @@ manala_proftpd_configs:           []
 manala_proftpd_users_file:        /etc/ftpd.passwd
 manala_proftpd_users_template:    ~
 manala_proftpd_users:             []
+manala_proftpd_users_default_uid: 108
+manala_proftpd_users_default_gid: 100
