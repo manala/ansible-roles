@@ -5,3 +5,12 @@
     src:  "{{ manala_proftpd_users_template|ternary(manala_proftpd_users_template, 'users/default.j2') }}"
     dest: "{{ manala_proftpd_users_file }}"
     mode: 0600
+
+- name: users > home directories
+  file:
+    path: "{{ item.home }}"
+    owner: "{{ item.uid|default(manala_proftpd_users_defaults.uid) }}"
+    group: "{{ item.gid|default(manala_proftpd_users_defaults.gid) }}"
+    mode: 0600
+    state: directory
+  with_items: "{{ manala_proftpd_users }}"

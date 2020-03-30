@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Automatic creation of home directory for virtual users.
 
 ## [1.0.7] - 2020-02-13
 ### Added
