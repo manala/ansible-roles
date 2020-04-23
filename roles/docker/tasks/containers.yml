@@ -25,4 +25,6 @@
     privileged:         "{{ item.privileged|default(omit) }}"
     capabilities:       "{{ item.capabilities|default(omit) }}"
     network_mode:       "{{ item.network_mode|default(omit) }}"
+    log_driver:         "{{ item.log_driver|default(omit) }}"
+    log_options:        "{{ item.log_options|default(omit) }}"
   with_items: "{{ manala_docker_containers }}"
