@@ -370,7 +370,7 @@ manala_apt_keys_patterns:
     id: D88E42B4
   gitlab:
     url: https://packages.gitlab.com/gpg.key
-    id: E15E78F4
+    id: 51312F3F
   aptly:
     url: https://www.aptly.info/pubkey.txt
     id: ED75B5A4483DA07C
