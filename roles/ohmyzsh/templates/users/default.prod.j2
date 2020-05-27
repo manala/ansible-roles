@@ -107,7 +107,7 @@ source $ZSH/oh-my-zsh.sh
 {{ macros.config_row(config, 'alias', '#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"', true) }}
 
 # Check sensuctl on Elao server to install sensu completion
-if [ -f /usr/sbin/sensuctl ]; then
+if [[ -f /usr/sbin/sensuctl ]]; then
   source <(sensuctl completion zsh)
 fi
 
