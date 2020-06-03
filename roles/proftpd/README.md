@@ -145,6 +145,9 @@ manala_proftpd_users:
       password:         "$1$9f19dba0ce5ece883b53275dcc1721b9"
       home:             "/home/toto"
       shell:            "/bin/false"
+      mode:             "0755"
+      uid:              1000
+      gid:              1000
 ```
 We strongly encourage you to generate SHA2 password hash
 On linux, it can be generated with:
