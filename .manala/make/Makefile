@@ -129,16 +129,13 @@ endef
 
 collection.prepare:
 	./prepare_collection.py
-	rm -rf ./prepare_collection.py
 COLLECTION_HELP +=$(call help,collection.prepare,Prepare collection) \
 
 collection.build:
 	rm -rf $(MANALA_COLLECTION)
-	$(call collection,build --force)
+	$(call collection,build collection --force --verbose)
 COLLECTION_HELP +=$(call help,collection.build,  Create collection) \
 
 collection.publish:
 	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN))
 COLLECTION_HELP += $(call help,collection.publish,Publish collection)
-
-

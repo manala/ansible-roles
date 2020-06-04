@@ -1,7 +1,7 @@
 ### REQUIRED
 
 # The namespace of the collection. This can be a company/brand/organization or product namespace under which all
-# content lives. May only contain alphanumeric characters and underscores. Additionally namespaces cannot start with
+# content lives. May only contain alphanumeric lowercase characters and underscores. Namespaces cannot start with
 # underscores or numbers and cannot contain consecutive underscores
 namespace: manala
 
@@ -9,10 +9,10 @@ namespace: manala
 name: roles
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 0.1.32
+version: 0.1.34
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
-readme: README_COLLECTION.md
+readme: README.md
 
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
