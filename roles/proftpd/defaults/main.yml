@@ -18,3 +18,4 @@ manala_proftpd_users:             []
 manala_proftpd_users_defaults:
   uid: 108
   gid: 100
+  mode: "0700"

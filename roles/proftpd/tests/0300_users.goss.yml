@@ -12,3 +12,13 @@ file:
       - user-2
       - /tmp
       - /bin/false
+  /tmp/user1:
+    exists:   true
+    filetype: directory
+    mode:     "0700"
+  /tmp/user2:
+    exists:   true
+    filetype: directory
+    mode:     "0755"
+    owner:    root
+    group:    root
