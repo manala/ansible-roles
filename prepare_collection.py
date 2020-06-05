@@ -4,60 +4,98 @@ import os
 import shutil
 import glob
 import re
+import logging
 
+logging.basicConfig(level=logging.INFO)
 
-for paths in ['./plugins/lookup', './plugins/callback', './plugins/filter', './plugins/modules']:
-	if not os.path.exists(paths):
-		os.makedirs(paths)
+collection_dir = 'collection'
 
-for files in glob.glob('./roles/*/lookup_plugins/*.py'):
-	shutil.move(files, './plugins/lookup')
+#########
+# Clean #
+#########
 
-for filename in glob.glob('./plugins/lookup/*.py'):
-	new_name = re.sub(r'manala_', r'', filename)
-	os.rename(filename, new_name)
+logging.info('Remove collection dir "%s"', collection_dir)
+if os.path.isdir(collection_dir):
+	shutil.rmtree(collection_dir)
 
-for files in glob.glob('./roles/*/callback_plugins/*.py'):
-	shutil.move(files, './plugins/callback')
+########
+# Root #
+########
 
-for filename in glob.glob('./plugins/callback/*.py'):
-	new_name = re.sub(r'manala_', r'', filename)
-	os.rename(filename, new_name)
+logging.info('Create collection dir "%s"', collection_dir)
+os.makedirs(collection_dir)
 
-for files in glob.glob('./roles/*/filter_plugins/*.py'):
-	shutil.move(files, './plugins/filter')
+logging.info('Copy galaxy file into "%s"', collection_dir)
+shutil.copyfile(
+	'galaxy.yml',
+	os.path.join(collection_dir, 'galaxy.yml')
+)
 
-for filename in glob.glob('./plugins/filter/*.py'):
-	new_name = re.sub(r'manala_', r'', filename)
-	os.rename(filename, new_name)
+logging.info('Copy README file into "%s"', collection_dir)
+shutil.copyfile(
+	'README_COLLECTION.md',
+	os.path.join(collection_dir, 'README.md')
+)
 
-for files in glob.glob('./roles/*/library/*.py'):
-	shutil.move(files, './plugins/modules')
+for plugins_dir in ['lookup', 'callback', 'filter', 'modules']:
+	plugins_dir = os.path.join(collection_dir, 'plugins', plugins_dir)
+	logging.info('Create plugins dir "%s"', plugins_dir)
+	os.makedirs(plugins_dir)
 
-for paths in ['./roles/*/*_plugins/',
-			'./roles/*/library/',
-			'./roles/*/.manala/',
-			'./roles/*/.travis.yml',
-			'./roles/*/Makefile',
-			'./roles/*/.gitignore',
-			'./roles/*/tests/',
-			'./.env.dist',
-			'./.gitsplit.yml',
-			'./.travis.yml',
-			'./README.md']:
-	for path in glob.glob(paths):
-		if os.path.isfile(path):
-			os.remove(path)
-		else:
-			shutil.rmtree(path)
+#########
+# Roles #
+#########
 
-files = [f for f in glob.glob('./roles/*/tasks/*.yml', recursive=True)]
-regex = re.compile(r'(query\(\s*\')manala_', re.DOTALL)
+dir = os.path.join(collection_dir, 'roles')
 
-for file_path in files:
-	with open(file_path, 'r+') as file:
-		file_data = file.read()
-		if len(re.findall(regex, file_data)):
-			file.seek(0)
-			file.write(re.sub(regex, r"\1manala.roles.", file_data))
-			file.truncate
+for role in glob.glob('roles/*'):
+	role = os.path.basename(role)
+	# Path
+	role_path = os.path.join(dir, role)
+	logging.info('Create role path "%s"', role_path)
+	os.makedirs(role_path)
+	# Files
+	for role_file in ['CHANGELOG.md', 'README.md']:
+		src = os.path.join('roles', role, role_file)
+		shutil.copy(
+			src,
+			os.path.join(role_path, role_file)
+		)
+	# Dirs
+	for role_dir in ['defaults', 'files', 'handlers', 'meta', 'tasks', 'templates', 'vars']:
+		src = os.path.join('roles', role, role_dir)
+		if os.path.isdir(src):
+			shutil.copytree(
+				src,
+				os.path.join(role_path, role_dir)
+			)
+	# Plugins
+	for plugins in [
+		{'src': 'lookup_plugins', 'dst': 'lookup'},
+		{'src': 'callback_plugins', 'dst': 'callback'},
+		{'src': 'filter_plugins', 'dst': 'filter'},
+		{'src': 'library', 'dst': 'modules'}
+	]:
+		for src in glob.glob(os.path.join('roles', role, plugins['src'], '*.py')):
+			dst = os.path.join(
+				collection_dir,
+				'plugins',
+				plugins['dst'],
+				re.sub(r'manala_', r'', os.path.basename(src))
+			)
+			logging.info('Copy plugin file "%s" into "%s"', src, dst)
+			shutil.copyfile(src, dst)
+	# Lookups
+	files = []
+	files.extend(glob.glob(os.path.join(role_path, 'handlers/**/*.yml'), recursive=True))
+	files.extend(glob.glob(os.path.join(role_path, 'tasks/**/*.yml'), recursive=True))
+	files.extend(glob.glob(os.path.join(role_path, 'templates/**/*.j2'), recursive=True))
+	regex = re.compile(r'(query\(\s*\')manala_', re.DOTALL)
+	for file_path in files:
+		with open(file_path, 'r+') as file:
+			file_data = file.read()
+			if len(re.findall(regex, file_data)):
+				logging.info('Apply regex into file "%s"', file_path)
+				file.seek(0)
+				file.write(re.sub(regex, r"\1manala.roles.", file_data))
+				file.truncate

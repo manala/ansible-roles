@@ -2,3 +2,4 @@
 /.cache/
 .env
 manala-roles-*.tar.gz
+/collection/
