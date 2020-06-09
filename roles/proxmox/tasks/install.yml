@@ -5,7 +5,7 @@
     name:  "{{
       []
       + (manala_proxmox_instances|length > 0)|ternary(
-        ['python-proxmoxer'],
+        (ansible_python.version.major == 2) | ternary(['python-proxmoxer'], ['python3-proxmoxer']),
         []
       )
     }}"

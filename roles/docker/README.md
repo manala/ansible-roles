@@ -55,9 +55,6 @@ Using ansible galaxy requirements file:
 
 ### Configuration example
 
-Note: Containers handling need `python-docker` debian package > 1.8.0 which is
-only available since debian stretch.
-
 ```yaml
 manala_docker_config_daemon:
   - storage-driver: vfs
