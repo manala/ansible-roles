@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Rename module `manala_set` in `set`
 
 ## [2.0.2] - 2020-02-13
 ### Added
