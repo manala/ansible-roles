@@ -1,0 +1,7 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - symfony_cli
+    - manala_symfony_cli.install

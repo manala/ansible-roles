@@ -1,0 +1,7 @@
+---
+
+# Version
+manala_symfony_cli_version: ~
+
+# Bin
+manala_symfony_cli_bin: /usr/local/bin/symfony

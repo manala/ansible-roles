@@ -1,0 +1,10 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  roles:
+    - symfony_cli
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
