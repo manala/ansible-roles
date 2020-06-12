@@ -13,7 +13,7 @@
     - manala_elasticsearch.config
 
 # Environment
-- include: environment.yml
+- import_tasks: environment.yml
   tags:
     - manala_elasticsearch
     - manala_elasticsearch.environment
