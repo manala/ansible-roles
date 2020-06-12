@@ -57,10 +57,11 @@ for role in glob.glob('roles/*'):
 	# Files
 	for role_file in ['CHANGELOG.md', 'README.md']:
 		src = os.path.join('roles', role, role_file)
-		shutil.copy(
-			src,
-			os.path.join(role_path, role_file)
-		)
+		if os.path.isfile(src):
+			shutil.copy(
+				src,
+				os.path.join(role_path, role_file)
+			)
 	# Dirs
 	for role_dir in ['defaults', 'files', 'handlers', 'meta', 'tasks', 'templates', 'vars']:
 		src = os.path.join('roles', role, role_dir)

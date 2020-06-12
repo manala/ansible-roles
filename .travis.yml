@@ -89,6 +89,7 @@ jobs:
 
     - stage: collection
       script:
+        - set -e
         - make collection.prepare
         - make collection.build
         - make collection.publish
