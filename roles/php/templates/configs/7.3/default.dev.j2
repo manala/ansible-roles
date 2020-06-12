@@ -1,6 +1,7 @@
 {%- import '_macros.j2' as macros with context -%}
 
 {% set config = item.config|default([]) -%}
+{% set sapi = item.sapi -%}
 
 {# Upstream - [PHP] - Error handling and logging #}
 {{ macros.config_row(config, 'error_reporting', 'E_ALL') }}
@@ -14,7 +15,7 @@
 {{ macros.config_row(config, 'expose_php', true) }}
 
 {# [PHP] - Resource Limits #}
-{{ macros.config_row(config, 'memory_limit', '512M') }}
+{{ macros.config_row(config, 'memory_limit', (sapi == 'cli')|ternary('-1', '512M')) }}
 
 {# [PHP] - Error handling and logging #}
 {{ macros.config_row(config, 'error_log', '/var/log/php' ~ manala_php_version|string ~ '/error.log') }}

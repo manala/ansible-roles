@@ -119,12 +119,24 @@ manala_php_extensions:
 
 #### Configs
 
+A state (present|absent) can be provided.
+
 All sapis
 ```yaml
+manala_php_configs_exclusive: true # Ensure other configs are automatically absents
 manala_php_configs:
-  - file: default.ini
+  # Template based
+  - file: foo_template.ini
+    template: configs/default.dev.j2
+  # Config based, empty template by default
+  - file: foo.ini
     config:
       - date.timezone: UTC
+  # Raw content based
+  - file: foo_content.ini
+    content: |
+      memory_limit = 512M
+    state: absent
 ```
 
 Sapis specific

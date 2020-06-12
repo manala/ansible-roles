@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Handle configs states (present|absent) & raw content
+
+### Changed
+- Cli memory_limit default config is now `-1` in  templates
+
+### Fixed
+- Replace deprecated uses of "include"
 
 ## [2.0.3] - 2020-02-13
 ### Added

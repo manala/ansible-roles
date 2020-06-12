@@ -13,7 +13,7 @@
     - manala_php.extensions
 
 # Configs
-- include: configs.yml
+- include_tasks: configs.yml
   loop: "{{
     query(
       'manala_php_sapis',
@@ -25,9 +25,6 @@
   }}"
   loop_control:
     loop_var: __manala_php_sapi
-  tags:
-    - manala_php
-    - manala_php.configs
 
 # Fpm pools
 - import_tasks: fpm_pools.yml

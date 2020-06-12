@@ -4,25 +4,54 @@ __metaclass__ = type
 from ansible.plugins.lookup import LookupBase
 from ansible.errors import AnsibleError
 
+import os
+
 class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
         results = []
 
-        for term in self._flatten(terms):
+        wantstate = kwargs.pop('wantstate', None)
+
+        configs          = self._flatten(terms[0])
+        configsSapi      = terms[1]
+        configsExclusive = self._flatten(terms[2])
+        configsDir       = terms[3]
+
+        itemDefault = {
+            'state': 'present'
+        }
+
+        # Mark exclusive configs as absent
+        for config in configsExclusive:
+            item = itemDefault.copy()
+            item.update({
+                'file':  config['path'],
+                'state': 'absent'
+            })
+            results.append(item)
+
+        for config in configs:
 
             items = []
 
             # Must be a dict
-            if not isinstance(term, dict):
+            if not isinstance(config, dict):
                 raise AnsibleError('Expect a dict')
 
             # Check index key
-            if 'file' not in term:
+            if 'file' not in config:
                 raise AnsibleError('Expect "file" key')
 
-            items.append(term)
+            item = itemDefault.copy()
+            item.update(config)
+            item.update({
+                'file': os.path.join(configsDir, item['file']),
+                'sapi': configsSapi
+            })
+
+            items.append(item)
 
             # Merge by index key
             for item in items:
@@ -35,5 +64,9 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
+
+        # Filter by state
+        if wantstate:
+            results = [result for result in results if result.get('state') == wantstate]
 
         return results

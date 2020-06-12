@@ -1,6 +1,7 @@
 {%- import '_macros.j2' as macros with context -%}
 
 {% set config = item.config|default([]) -%}
+{% set sapi = item.sapi -%}
 
 {{ macros.config_row(config, 'display_errors', false) }}
 {{ macros.config_row(config, 'display_startup_errors', false) }}
@@ -15,7 +16,7 @@
 {{ macros.config_row(config, 'track_errors', false) }}
 {{ macros.config_row(config, 'variables_order', 'GPCS') }}
 {{ macros.config_row(config, 'expose_php', false) }}
-{{ macros.config_row(config, 'memory_limit', '512M') }}
+{{ macros.config_row(config, 'memory_limit', (sapi == 'cli')|ternary('-1', '512M')) }}
 {{ macros.config_row(config, 'session.gc_divisor', 1000) }}
 {{ macros.config_row(config, 'session.hash_bits_per_character', 5) }}
 {{ macros.config_row(config, 'url_rewriter.tags', '\'a=href,area=href,frame=src,input=src,form=fakeentry\'') }}
