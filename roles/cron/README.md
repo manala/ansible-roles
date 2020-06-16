@@ -64,6 +64,8 @@ manala_cron_files:
         hour:   7
 ```
 
+⚠️ In this example, you must **explicitly** set the minute option to `0` to have the job run at a specific hour, otherwise the default value `*` will run it _every minute_ for an hour.
+
 ## Example playbook
 
 ```yaml
