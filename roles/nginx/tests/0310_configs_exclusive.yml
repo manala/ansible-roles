@@ -7,8 +7,8 @@
     manala_nginx_configs_dir: /etc/nginx/conf.d.test
     manala_nginx_configs:
       - file: foo.conf
-      - file: foo.conf
-      - file: foo.conf
+      - file: bar.conf
+      - file: baz.conf
   pre_tasks:
     - import_tasks: pre_tasks/nginx.yml
   roles:
