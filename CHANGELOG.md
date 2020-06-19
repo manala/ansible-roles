@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.43] - 2020-06-19
+### Removed
+- [Nginx] Redundant HTTPS fastcgi parameter
+
 ## [0.1.42] - 2020-06-19
 ### Fixed
 - [Php] Missing configs tags

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.3] - 2020-06-19
+### Removed
+- Redundant HTTPS fastcgi parameter
+
 ## [2.0.2] - 2020-02-13
 ### Added
 - Tags for each tasks, with the format `manala_rolename.taskname`
