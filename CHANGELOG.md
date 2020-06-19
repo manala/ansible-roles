@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.42] - 2020-06-19
+### Fixed
+- [Php] Missing configs tags
+
 ## [0.1.41] - 2020-06-17
 ### Added
 - [Php] Handle configs states (present|absent) & raw content
