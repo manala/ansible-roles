@@ -10,8 +10,7 @@
 ]) }}
 {{ macros.config_row(config, 'fastcgi_param', [
     'SCRIPT_FILENAME $realpath_root$fastcgi_script_name',
-    'DOCUMENT_ROOT $realpath_root',
-    'HTTPS $https if_not_empty'
+    'DOCUMENT_ROOT $realpath_root'
 ]) }}
 
 {{ macros.config(config, [
