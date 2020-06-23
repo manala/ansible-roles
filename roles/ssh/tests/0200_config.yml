@@ -4,7 +4,11 @@
   hosts: debian
   become: true
   vars:
-    manala_ssh_config:
+    manala_ssh_server_config:
+      - AcceptEnv: LANG LC_* FOO
+      - Match User bar:
+        - X11Forwarding: false
+    manala_ssh_client_config:
       - Host *:
         - SendEnv: LANG LC_* FOO
   roles:

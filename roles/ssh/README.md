@@ -18,6 +18,23 @@ None.
 
 None.
 
+## Deprecations
+
+Version 3.0.0 introduces few deprecations, but remains fully backward compatible.
+
+**Variables**
+
+`manala_ssh_config_sshd_file` -> `manala_ssh_server_config_file`
+`manala_ssh_config_sshd_template` -> `manala_ssh_server_config_template`
+`manala_ssh_config_sshd` -> `manala_ssh_server_config`
+`manala_ssh_config_file` -> `manala_ssh_client_config_file`
+`manala_ssh_config_template` -> `manala_ssh_client_config_template`
+`manala_ssh_config` -> `manala_ssh_client_config`
+
+**Templates**
+`config/*.j2` -> `config/client/*.j2`
+`config/sshd/*.j2` -> `config/server/*.j2`
+
 ## Installation
 
 ### Ansible 2+
@@ -42,30 +59,32 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                  | Default                                   | Type   | Description                              |
-| ------------------------------------- | ----------------------------------------- | ------ | ---------------------------------------- |
-| `manala_ssh_install_packages`         | ~                                         | Array  | Dependency packages to install           |
-| `manala_ssh_install_packages_default` | ['openssh-server']                        | Array  | Default dependency packages to install   |
-| `manala_ssh_config_file`              | '/etc/ssh/ssh_config'                     | String | Configuration file path                  |
-| `manala_ssh_config_template`          | 'config/[distribution]_[release].j2'      | String | Default configuration template path      |
-| `manala_ssh_config`                   | []                                        | Array  | Configuration directives                 |
-| `manala_ssh_config_sshd_file`         | '/etc/ssh/sshd_config'                    | String | Sshd configuration file path             |
-| `manala_ssh_config_sshd_template`     | 'config/sshd/[distribution]_[release].j2' | String | Sshd default configuration template path |
-| `manala_ssh_config_sshd`              | []                                        | Array  | Sshd configuration directives            |
-| `manala_ssh_known_hosts`              | []                                        | Array  | Known hosts                              |
+| Name                                  | Default                                     | Type    | Description                                |
+| ------------------------------------- | ------------------------------------------- | ------- | ------------------------------------------ |
+| `manala_ssh_install_packages`         | ~                                           | Array   | Dependency packages to install             |
+| `manala_ssh_install_packages_default` | ['openssh-server']                          | Array   | Default dependency packages to install     |
+| `manala_ssh_server`                   | true                                        | Boolean | Enable server                              |
+| `manala_ssh_server_config_file`       | '/etc/ssh/sshd_config'                      | String  | Server configuration file path             |
+| `manala_ssh_server_config_template`   | 'config/server/[distribution]_[release].j2' | String  | Server default configuration template path |
+| `manala_ssh_server_config`            | []                                          | Array   | Server configuration directives            |
+| `manala_ssh_client`                   | true                                        | Boolean | Enable client                              |
+| `manala_ssh_client_config_file`       | '/etc/ssh/ssh_config'                       | String  | Client configuration file path             |
+| `manala_ssh_client_config_template`   | 'config/client/[distribution]_[release].j2' | String  | Client default configuration template path |
+| `manala_ssh_client_config`            | []                                          | Array   | Client configuration directives            |
+| `manala_ssh_known_hosts`              | []                                          | Array   | Known hosts                                |
 
 ### Configuration example
 
 ```yaml
 # Use default custom templates
-manala_ssh_config_template: config/default.[env].j2
-manala_ssh_config_sshd_template: config/sshd/default.[env].j2
+manala_ssh_server_config_template: config/server/default.[env].j2
+manala_ssh_client_config_template: config/client/default.[env].j2
 
-manala_ssh_config:
+manala_ssh_client_config:
   - Host *:
     - SendEnv: LANG LC_* FOO
 
-manala_ssh_config_sshd:
+manala_ssh_server_config:
   - AcceptEnv: LANG LC_* FOO
   - Match User bar:
     - AcceptEnv: LANG LC_* BAR

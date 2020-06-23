@@ -2,6 +2,6 @@
 
 package:
   openssh-server:
-    installed: true
+    installed: false
   openssh-client:
     installed: true
