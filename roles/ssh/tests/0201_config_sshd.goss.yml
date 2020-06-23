@@ -1,8 +1,0 @@
----
-
-file:
-  /etc/ssh/sshd_config:
-    exists: true
-    contains:
-      - "AcceptEnv LANG LC_* FOO"
-      - "    X11Forwarding no"

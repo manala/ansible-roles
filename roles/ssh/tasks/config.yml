@@ -1,25 +1,33 @@
 ---
 
-- name: config > Template
+- name: config > Server - Template
   template:
     src: "{{
-      manala_ssh_config_template|ternary(
-        manala_ssh_config_template,
-        'config/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
+      manala_ssh_server_config_template|ternary(
+        manala_ssh_server_config_template,
+        'config/server/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
       )
     }}"
-    dest: "{{ manala_ssh_config_file }}"
-  when: (manala_ssh_config_template is not none) or (manala_ssh_config|length)
-
-- name: config > Template sshd
-  template:
-    src: "{{
-      manala_ssh_config_sshd_template|ternary(
-        manala_ssh_config_sshd_template,
-        'config/sshd/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
-      )
-    }}"
-    dest: "{{ manala_ssh_config_sshd_file }}"
-  when: (manala_ssh_config_sshd_template is not none) or (manala_ssh_config_sshd|length)
+    dest: "{{ manala_ssh_server_config_file }}"
+  when: (manala_ssh_server)
+        and (
+          (manala_ssh_server_config_template is not none)
+          or (manala_ssh_server_config|length)
+        )
   notify:
     - ssh reload
+
+- name: config > Client - Template
+  template:
+    src: "{{
+      manala_ssh_client_config_template|ternary(
+        manala_ssh_client_config_template,
+        'config/client/' ~ ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2'
+      )
+    }}"
+    dest: "{{ manala_ssh_client_config_file }}"
+  when: (manala_ssh_client)
+        and (
+          (manala_ssh_client_config_template is not none)
+          or (manala_ssh_client_config|length)
+        )

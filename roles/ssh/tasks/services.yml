@@ -6,3 +6,4 @@
     state: started
   with_items:
     - ssh
+  when: manala_ssh_server

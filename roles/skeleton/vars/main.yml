@@ -91,8 +91,8 @@ manala_skeleton_patterns:
       (ansible_connection == 'local')|ternary(['ansible'],[])
     }}" # Hold ansible package update when ansible itself runs in local
     # Ssh
-    ssh_config_sshd_template: config/sshd/default.{{ manala_skeleton_env }}.j2
-    ssh_config_template: config/default.{{ manala_skeleton_env }}.j2
+    ssh_server_config_template: config/server/default.{{ manala_skeleton_env }}.j2
+    ssh_client_config_template: config/client/default.{{ manala_skeleton_env }}.j2
     ssh_known_hosts:
       - github.com
     # Git

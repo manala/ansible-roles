@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Ssh] Both `manala_ssh_server` and `manala_ssh_client` variables to allow both
+  `server` and `client` ssh components handling
+
+### Changed
+- [Ssh] Rename variables according to `server` and `client` ssh components introduction
 
 ## [0.1.43] - 2020-06-19
 ### Removed

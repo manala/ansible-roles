@@ -1,27 +1,2 @@
-{%- import '_macros.j2' as macros with context -%}
-
-{% set config = manala_ssh_config -%}
-
-{% set config_host_wildcard = [] -%}
-
-{%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.items() -%}
-        {%- if config_name == 'Host *' -%}
-            {%- if config_host_wildcard.extend(config_parameters) -%}{%- endif -%}
-        {%- endif -%}
-    {%- endfor -%}
-{%- endfor -%}
-
-Host *
-{{ macros.config_row(config_host_wildcard, 'HashKnownHosts', true, 4) }}
-{{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', true, 4) }}
-{{ macros.config_row(config_host_wildcard, 'GSSAPIDelegateCredentials', false, 4) }}
-{{ macros.config_row(config_host_wildcard, 'StrictHostKeyChecking', false, 4) }}
-{{ macros.config(config_host_wildcard, [
-    'HashKnownHosts',
-    'GSSAPIAuthentication',
-    'GSSAPIDelegateCredentials',
-    'StrictHostKeyChecking'
-], 4) }}
-
-{{ macros.config(config, ['Host *']) }}
+{#- /!\ Deprecated -#}
+{% extends 'config/client/default.dev.j2' %}

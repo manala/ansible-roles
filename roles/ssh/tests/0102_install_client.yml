@@ -4,10 +4,7 @@
   hosts: debian
   become: true
   vars:
-    manala_ssh_config_sshd:
-      - AcceptEnv: LANG LC_* FOO
-      - Match User bar:
-        - X11Forwarding: false
+    manala_ssh_server: false
   roles:
     - manala.ssh
   post_tasks:
