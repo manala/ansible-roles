@@ -13,15 +13,19 @@
 {%- endfor -%}
 
 Host *
-{{ macros.config_row(config_host_wildcard, 'HashKnownHosts', true, 4) }}
+{{ macros.config_row(config_host_wildcard, 'HashKnownHosts', false, 4) }}
 {{ macros.config_row(config_host_wildcard, 'GSSAPIAuthentication', true, 4) }}
 {{ macros.config_row(config_host_wildcard, 'GSSAPIDelegateCredentials', false, 4) }}
 {{ macros.config_row(config_host_wildcard, 'StrictHostKeyChecking', false, 4) }}
+{{ macros.config_row(config_host_wildcard, 'UserKnownHostsFile', '/dev/null', 4) }}
+{{ macros.config_row(config_host_wildcard, 'LogLevel', 'ERROR', 4) }}
 {{ macros.config(config_host_wildcard, [
     'HashKnownHosts',
     'GSSAPIAuthentication',
     'GSSAPIDelegateCredentials',
-    'StrictHostKeyChecking'
+    'StrictHostKeyChecking',
+    'UserKnownHostsFile',
+    'LogLevel'
 ], 4) }}
 
 {{ macros.config(config, ['Host *']) }}
