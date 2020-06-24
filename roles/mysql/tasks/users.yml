@@ -5,7 +5,7 @@
     name:         "{{ item.name }}"
     password:     "{{ item.password|default(omit) }}"
     host:         "{{ item.host|default('localhost') }}"
-    priv:         "{{ item.priv }}"
+    priv:         "{{ item.priv|default(omit) }}"
     append_privs: "{{ item.append_privs|default(omit) }}"
     state:        "{{ item.state|default(omit) }}"
   with_items: "{{ manala_mysql_users }}"

@@ -107,23 +107,28 @@ manala_mysql_configs:
 
 ### Create mysql users
 
-```
+```yaml
 manala_mysql_users:
 
-  # Creates database user 'bob' and password '12345' with all database privileges and 'WITH GRANT OPTION'
-  - name: bob
+  # Creates database user 'foo' and password '12345' with all database privileges and 'WITH GRANT OPTION'
+  - name: foo
     password: 12345
     priv: '*.*:ALL,GRANT'
 
-  # Modify user Bob to require SSL connections. Note that REQUIRESSL is a special privilege that should only apply to *.* by itself.
-  - name: bob
+  # Modify user `bar` to require SSL connections. Note that REQUIRESSL is a special privilege that should only apply to *.* by itself.
+  - name: bar
     append_privs: true
     priv: '*.*:REQUIRESSL'
+
+  # Ensure user `baz@localhost` is absent.
+  - name: baz
+    host: localhost
+    state: absent
 ```
 
 ### Configure `my.cnf` example
 
-```
+```yaml
 # Create an alternative link for debian MySQL official packages
 manala_mysql_config_alternative: /etc/mysql/my.manala.cnf
 
@@ -136,7 +141,7 @@ manala_mysql_config:
 
 Be aware it will not clean your previous data directory nor migrate it.
 
-```
+```yaml
 manala_mysql_data_dir: /mnt/data
 
 # Required on mariadb
