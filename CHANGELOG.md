@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [MySQL] Omit users privileges if not defined
 
 ## [0.1.45] - 2020-06-23
 ### Changed
