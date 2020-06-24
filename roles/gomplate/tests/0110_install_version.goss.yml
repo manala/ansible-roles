@@ -1,0 +1,14 @@
+---
+
+file:
+  /usr/local/bin/gomplate:
+    exists: true
+    mode: "0755"
+    owner: root
+    filetype: file
+
+command:
+  gomplate --version:
+    exit-status: 0
+    stdout:
+      - gomplate version 3.7.0

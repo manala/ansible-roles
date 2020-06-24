@@ -1,0 +1,7 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - gomplate
+    - manala_gomplate.install

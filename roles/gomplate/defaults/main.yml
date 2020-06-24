@@ -1,0 +1,7 @@
+---
+
+# Version
+manala_gomplate_version: ~
+
+# Bin
+manala_gomplate_bin: /usr/local/bin/gomplate
