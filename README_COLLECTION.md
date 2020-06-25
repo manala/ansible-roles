@@ -48,6 +48,8 @@
 
  [gitlab](https://github.com/manala/ansible-role-gitlab)  This role will assume the setup of [Gitlab](https://about.gitlab.com/).  [![Build Status](https://travis-ci.org/manala/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/manala/ansible-role-gitlab)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-gitlab.svg)](https://img.shields.io/github/release/manala/ansible-role-gitlab.svg)
 
+ [gomplate](https://github.com/manala/ansible-roles/tree/master/roles/gomplate) This role will deal with the setup of [Gomplate](https://github.com/hairyhenderson/gomplate/releases)
+
  [glusterfs](https://github.com/manala/ansible-role-glusterfs)  This role will assume the setup of [GlusterFS](https://www.gluster.org/).  [![Build Status](https://travis-ci.org/manala/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.org/manala/ansible-role-glusterfs)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-glusterfs.svg)](https://img.shields.io/github/release/manala/ansible-role-glusterfs.svg)
 
  [grafana](https://github.com/manala/ansible-role-grafana)  This role will deal with the configuration of [Grafana](http://grafana.org/).  [![Build Status](https://travis-ci.org/manala/ansible-role-grafana.svg?branch=master)](https://travis-ci.org/manala/ansible-role-grafana)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-grafana.svg)](https://img.shields.io/github/release/manala/ansible-role-grafana.svg)
@@ -145,6 +147,8 @@
  [sudo](https://github.com/manala/ansible-role-sudo)  This role will deal with the setup of Sudo.  [![Build Status](https://travis-ci.org/manala/ansible-role-sudo.svg?branch=master)](https://travis-ci.org/manala/ansible-role-sudo)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-sudo.svg)](https://img.shields.io/github/release/manala/ansible-role-sudo.svg)
 
  [supervisor](https://github.com/manala/ansible-role-supervisor)  This role will deal with the setup of [Supervisor](http://supervisord.org/).  [![Build Status](https://travis-ci.org/manala/ansible-role-supervisor.svg?branch=master)](https://travis-ci.org/manala/ansible-role-supervisor)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-supervisor.svg)](https://img.shields.io/github/release/manala/ansible-role-supervisor.svg)
+
+ [symfony_cli](https://github.com/manala/ansible-roles/tree/master/roles/symfony_cli) This role will deal with the setup of [Symfony Cli](https://symfony.com/download).
 
  [systemd](https://github.com/manala/ansible-role-systemd)  This role will deal with the setup of Systemd.  [![Build Status](https://travis-ci.org/manala/ansible-role-systemd.svg?branch=master)](https://travis-ci.org/manala/ansible-role-systemd)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-systemd.svg)](https://img.shields.io/github/release/manala/ansible-role-systemd.svg)
 

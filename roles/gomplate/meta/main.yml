@@ -1,0 +1,22 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name:           gomplate
+  author:              Manala
+  company:             Manala
+  description:         Handle gomplate
+  license:             MIT
+  min_ansible_version: 2.4.0
+  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+        - buster
+  galaxy_tags:
+    - go
+    - template
