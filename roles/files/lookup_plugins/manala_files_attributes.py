@@ -6,6 +6,7 @@ from ansible.errors import AnsibleError
 
 import re
 
+
 class LookupModule(LookupBase):
 
     def _default(self, defaults, path):
@@ -20,7 +21,7 @@ class LookupModule(LookupBase):
         results = []
 
         attributes = self._flatten(terms[0])
-        defaults   = self._flatten(terms[1])
+        defaults = self._flatten(terms[1])
 
         for attribute in attributes:
 
@@ -31,35 +32,33 @@ class LookupModule(LookupBase):
             items = []
 
             # State - Link Directory
-            if  'state' in attribute and (attribute['state'] == 'link_directory'):
+            if 'state' in attribute and (attribute['state'] == 'link_directory'):
                 if 'src' not in attribute:
                     raise AnsibleError('Expect "src" key')
-                # Directory (src)
-                item = self._default(defaults, attribute['src'])
-                item.update(attribute)
-                item.update({
-                    'path':  attribute['src'],
-                    'src': variables['omit'],
-                    'state': 'directory',
-                    'task':  'file'
-                })
-                items.append(item)
-                # Link (path)
-                item = self._default(defaults, attribute['path'])
-                item.update({
-                    'path':  attribute['path'],
-                    'src':   attribute['src'],
-                    'state': 'link',
-                    'task':  'file'
-                })
+                item = {
+                    'path': attribute['path'],
+                    'src': attribute['src'],
+                    'force': attribute.get('force', False),
+                    'directory': self._default(defaults, attribute['src']),
+                    'link': self._default(defaults, attribute['path']),
+                    'task': 'link_directory'
+                }
+                item['directory'].update(attribute)
                 items.append(item)
             # State - Link File
             elif 'state' in attribute and (attribute['state'] == 'link_file'):
-                item = self._default(defaults, attribute['path'])
-                item.update(attribute)
-                item.update({
+                if 'src' not in attribute:
+                    raise AnsibleError('Expect "src" key')
+                item = {
+                    'path': attribute['path'],
+                    'src': attribute['src'],
+                    'force': attribute.get('force', False),
+                    'file': self._default(defaults, attribute['path']),
+                    'link': self._default(defaults, attribute['path']),
                     'task': 'link_file'
-                })
+                }
+                item['file'].update(attribute)
+                item['link'].update(attribute)
                 items.append(item)
             else:
                 # Template

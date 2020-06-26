@@ -1,0 +1,19 @@
+---
+
+file:
+  /tmp/link_file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/file
+  /tmp/link_link_file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_file
+  /tmp/link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory
+  /tmp/link_link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_directory

@@ -45,20 +45,38 @@ manala_files_attributes:
     state: directory
 ```
 
+Symbolic link to directory:
+```yaml
+manala_files_attributes:
+  - path: /path/to/link
+    src: /path/to/directory
+    state: link_directory
+    #force: true # Force both `path` to be a link and `src` to be a directory
+```
+
+Symbolic link to file:
+```yaml
+manala_files_attributes:
+  - path: /path/to/link
+    src: /path/to/file
+    state: link_file
+    #force: true # Force both `path` to be a link and `src` to be a file
+```
+
 Get url:
 ```yaml
 manala_files_attributes:
   - path: /tmp/bar
-    url:  http://example.com/foo
+    url: http://example.com/foo
 ```
 
 Get url and unarchive:
 ```yaml
 manala_files_attributes:
   - path: /tmp/bar.tar.gz
-    url:  http://example.com/foo.tar.gz
+    url: http://example.com/foo.tar.gz
     unarchive: true
-    creates:   /tmp/baz
+    creates: /tmp/baz
 ```
 
 ## Example playbook

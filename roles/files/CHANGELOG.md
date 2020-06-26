@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Flag `force` for "link_directory" and "link_file" states
 
 ## [2.0.2] - 2020-02-13
 ### Added

@@ -1,7 +1,0 @@
----
-
-file:
-  /tmp/link:
-    exists:    true
-    filetype:  symlink
-    linked-to: /tmp/file

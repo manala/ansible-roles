@@ -1,24 +1,23 @@
 ---
 
-- name: attributes/url
-  tags:
+- tags:
     - manala_files
   block:
 
     - name: attributes/url > Get "{{ item.path }}"
       get_url:
-        dest:           "{{ item.path }}"
-        url:            "{{ item.url }}"
+        dest: "{{ item.path }}"
+        url: "{{ item.url }}"
         validate_certs: "{{ item.validate_certs|default(true)|bool }}"
-        force:          "{{ item.force|default(omit) }}"
-        owner:          "{{ item.user|default(omit) }}"
-        group:          "{{ item.group|default(omit) }}"
-        mode:           "{{ item.mode|default(omit) }}"
+        force: "{{ item.force|default(omit) }}"
+        owner: "{{ item.user|default(omit) }}"
+        group: "{{ item.group|default(omit) }}"
+        mode: "{{ item.mode|default(omit) }}"
 
     - name: attributes/url > Unarchive "{{ item.path }}"
       unarchive:
-        src:        "{{ item.path }}"
-        dest:       "{{ item.path|dirname }}"
-        creates:    "{{ item.creates|default(omit) }}"
+        src: "{{ item.path }}"
+        dest: "{{ item.path|dirname }}"
+        creates: "{{ item.creates|default(omit) }}"
         remote_src: true
       when: item.unarchive|default(False)
