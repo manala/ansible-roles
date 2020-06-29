@@ -20,7 +20,7 @@
         dest: "{{ item.file }}"
       loop: "{{ query(
           'manala_php_configs',
-          manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'],
+          manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
           __manala_php_sapi,
           __manala_php_configs_exclusive_find.files|default([]),
           '/etc/php/' ~ manala_php_version|string ~ '/' ~ __manala_php_sapi ~ '/conf.d',
@@ -37,7 +37,7 @@
         dest: "{{ item.file }}"
       loop: "{{ query(
           'manala_php_configs',
-          manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'],
+          manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
           __manala_php_sapi,
           __manala_php_configs_exclusive_find.files|default([]),
           '/etc/php/' ~ manala_php_version|string ~ '/' ~ __manala_php_sapi ~ '/conf.d',
@@ -54,7 +54,7 @@
         state: absent
       loop: "{{ query(
           'manala_php_configs',
-          manala_php_configs + vars['manala_php_' + __manala_php_sapi + '_configs'],
+          manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
           __manala_php_sapi,
           __manala_php_configs_exclusive_find.files|default([]),
           '/etc/php/' ~ manala_php_version|string ~ '/' ~ __manala_php_sapi ~ '/conf.d',
