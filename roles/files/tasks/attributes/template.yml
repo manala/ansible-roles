@@ -1,18 +1,17 @@
 ---
 
-- name: attributes/template
-  tags:
+- tags:
     - manala_files
   block:
 
     - name: attributes/template > Template "{{ item.path }}"
       template:
-        dest:   "{{ item.path }}"
-        src:    "{{ item.template }}"
-        force:  "{{ item.force|default(omit) }}"
-        owner:   "{{ item.user|default(omit) }}"
-        group:   "{{ item.group|default(omit) }}"
-        mode:   "{{ item.mode|default(omit) }}"
+        dest: "{{ item.path }}"
+        src: "{{ item.template }}"
+        force: "{{ item.force|default(omit) }}"
+        owner: "{{ item.user|default(omit) }}"
+        group: "{{ item.group|default(omit) }}"
+        mode: "{{ item.mode|default(omit) }}"
       when: item.state|default('present') == 'present'
 
     - name: attributes/template > Delete "{{ item.path }}"

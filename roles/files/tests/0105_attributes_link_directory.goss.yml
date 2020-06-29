@@ -1,0 +1,93 @@
+---
+
+file:
+  /tmp/link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory
+  /tmp/directory:
+    exists: true
+    filetype: directory
+  # Sub directory
+  /tmp/link_directory_sub:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_sub/directory
+  /tmp/directory_sub/directory:
+    exists: true
+    filetype: directory
+  # Permissions
+  /tmp/link_permissions:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_permissions
+    owner: root
+    group: root
+  /tmp/directory_permissions:
+    exists: true
+    filetype: directory
+    owner: backup
+    group: games
+  # Wrong link
+  /tmp/link_directory_right:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_right
+  /tmp/directory_right:
+    exists: true
+    filetype: directory
+  /tmp/directory_wrong:
+    exists: true
+    filetype: directory
+  # Sub link
+  /tmp/link_sub/link:
+    exists: false
+  /tmp/directory_link_sub:
+    exists: true
+    filetype: directory
+  # Link as existing file
+  /tmp/link_as_existing_file:
+    exists: true
+    filetype: file
+  /tmp/directory_existing_file:
+    exists: true
+    filetype: directory
+  # Link as existing empty directory
+  /tmp/link_as_existing_directory_empty:
+    exists: true
+    filetype: directory
+  /tmp/directory_existing_directory_empty:
+    exists: true
+    filetype: directory
+  # Link as existing full directory
+  /tmp/link_as_existing_directory_full:
+    exists: true
+    filetype: directory
+  /tmp/link_as_existing_directory_full/file:
+    exists: true
+    filetype: file
+  /tmp/directory_existing_directory_full:
+    exists: true
+    filetype: directory
+  # Directory as existing file
+  /tmp/link_directory_existing_file:
+    exists: false
+  /tmp/directory_as_existing_file:
+    exists: true
+    filetype: file
+  # Directory as existing link to file
+  /tmp/link_directory_existing_link_file:
+    exists: false
+  /tmp/directory_as_existing_link_file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/file_directory_as_existing_link_file
+  # Directory as existing link to directory
+  /tmp/link_directory_existing_link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_as_existing_link_directory
+  /tmp/directory_as_existing_link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_directory_as_existing_link_directory

@@ -1,18 +1,17 @@
 ---
 
-- name: attributes/content
-  tags:
+- tags:
     - manala_files
   block:
 
     - name: attributes/content > Copy "{{ item.path }}"
       copy:
-        dest:    "{{ item.path }}"
+        dest: "{{ item.path }}"
         content: "{{ item.content }}"
-        force:   "{{ item.force|default(omit) }}"
-        owner:   "{{ item.user|default(omit) }}"
-        group:   "{{ item.group|default(omit) }}"
-        mode:    "{{ item.mode|default(omit) }}"
+        force: "{{ item.force|default(omit) }}"
+        owner: "{{ item.user|default(omit) }}"
+        group: "{{ item.group|default(omit) }}"
+        mode: "{{ item.mode|default(omit) }}"
       when: item.state|default('present') == 'present'
 
     - name: attributes/content > Delete "{{ item.path }}"

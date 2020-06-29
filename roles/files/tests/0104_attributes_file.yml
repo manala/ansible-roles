@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+    - block:
+        - file:
+            path: /tmp/file
+            state: absent
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/file
+                state: touch
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

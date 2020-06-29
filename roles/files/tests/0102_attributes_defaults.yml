@@ -1,0 +1,37 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+    - block:
+        - file:
+            path: "{{ item }}"
+            state: directory
+          loop:
+            - /tmp/root
+            - /tmp/nobody
+            - /tmp/mail
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes_defaults:
+              - path: ^/tmp/root
+                user: root
+                group: root
+              - path: ^/tmp/nobody
+                user: nobody
+                group: nogroup
+              - path: ^/tmp/mail
+                user: mail
+                group: mail
+            manala_files_attributes:
+              - path: /tmp/root/file
+                state: touch
+              - path: /tmp/nobody/file
+                state: touch
+              - path: /tmp/mail/file
+                state: touch
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,220 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+    - block:
+        - file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - /tmp/link_file
+            - /tmp/file
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_file
+                src: /tmp/file
+                state: link_file
+                force: true
+    # Sub directory
+    - block:
+        - file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - /tmp/link_directory_sub
+            - /tmp/directory_sub
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_directory_sub
+                src: /tmp/directory_sub/file
+                state: link_file
+                force: true
+    # Permissions
+    - block:
+        - file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - /tmp/link_permissions
+            - /tmp/file_permissions
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_permissions
+                src:  /tmp/file_permissions
+                user: backup
+                group: games
+                state: link_file
+                force: true
+    # Wrong link
+    - block:
+        - file:
+            path: /tmp/file_wrong
+            state: touch
+        - file:
+            path: /tmp/link_file_right
+            src: /tmp/file_wrong
+            state: link
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_file_right
+                src: /tmp/file_right
+                state: link_file
+                force: true
+    # Sub link
+    - block:
+        - file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - /tmp/link_sub
+            - /tmp/file_link_sub
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_sub/link
+                src: /tmp/file_link_sub
+                state: link_file
+                force: true
+    # Link as existing file
+    - block:
+        - file:
+            path: /tmp/link_as_existing_file
+            state: touch
+        - file:
+            path: /tmp/file_existing_file
+            state: touch
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_as_existing_file
+                src: /tmp/file_existing_file
+                state: link_file
+                force: true
+    # Link as existing empty directory
+    - block:
+        - file:
+            path: /tmp/file_existing_directory_empty
+            state: absent
+        - file:
+            path: /tmp/file_existing_directory_empty
+            state: directory
+        - file:
+            path: /tmp/file_existing_directory_empty
+            state: touch
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_as_existing_directory_empty
+                src: /tmp/file_existing_directory_empty
+                state: link_file
+                force: true
+    # Link as existing full directory
+    - block:
+        - file:
+            path: /tmp/link_as_existing_directory_full
+            state: absent
+        - file:
+            path: /tmp/link_as_existing_directory_full
+            state: directory
+        - file:
+            path: /tmp/link_as_existing_directory_full/file
+            state: touch
+        - file:
+            path: /tmp/file_existing_directory_full
+            state: touch
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_as_existing_directory_full
+                src: /tmp/file_existing_directory_full
+                state: link_file
+                force: true
+    # File as existing empty directory
+    - block:
+        - file:
+            path: /tmp/file_as_existing_directory_empty
+            state: absent
+        - file:
+            path: /tmp/file_as_existing_directory_empty
+            state: directory
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_file_existing_directory_empty
+                src: /tmp/file_as_existing_directory_empty
+                state: link_file
+                force: true
+    # File as existing full directory
+    - block:
+        - file:
+            path: /tmp/file_as_existing_directory_full
+            state: absent
+        - file:
+            path: /tmp/file_as_existing_directory_full
+            state: directory
+        - file:
+            path: /tmp/file_as_existing_directory_full/file
+            state: touch
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_file_existing_directory_full
+                src: /tmp/file_as_existing_directory_full
+                state: link_file
+                force: true
+    # File as existing link to file
+    - block:
+        - file:
+            path: /tmp/file_file_as_existing_link_file
+            state: touch
+        - file:
+            path: /tmp/file_as_existing_link_file
+            src: /tmp/file_file_as_existing_link_file
+            state: link
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_file_existing_link_file
+                src: /tmp/file_as_existing_link_file
+                state: link_file
+                force: true
+    # File as existing link to directory
+    - block:
+        - file:
+            path: /tmp/directory_file_as_existing_link_directory
+            state: directory
+        - file:
+            path: /tmp/file_as_existing_link_directory
+            state: absent
+        - file:
+            path: /tmp/file_as_existing_link_directory
+            src: /tmp/directory_file_as_existing_link_directory
+            state: link
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes:
+              - path: /tmp/link_file_existing_link_directory
+                src: /tmp/file_as_existing_link_directory
+                state: link_file
+                force: true
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

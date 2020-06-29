@@ -1,6 +1,0 @@
----
-
-file:
-  /tmp/directory:
-    exists:   true
-    filetype: directory
