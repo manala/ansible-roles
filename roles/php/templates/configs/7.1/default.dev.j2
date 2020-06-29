@@ -16,7 +16,7 @@
 {{ macros.config_row(config, 'expose_php', true) }}
 
 {# [PHP] - Resource Limits #}
-{{ macros.config_row(config, 'memory_limit', (sapi == 'cli')|ternary('-1', '512M')) }}
+{{ macros.config_row(config, 'memory_limit', '512M') }}
 
 {# [PHP] - Error handling and logging #}
 {{ macros.config_row(config, 'error_log', '/var/log/php' ~ manala_php_version|string ~ '/error.log') }}
