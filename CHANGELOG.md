@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [Files] Flag `force` for "link_directory" and "link_file" states
 
+### Changed
+- [Php] Changed cli memory_limit default config (previous was `-1`). Use a safer 512M default.
+
 ## [0.1.47] - 2020-06-25
 ### Added
 - [Gomplate] Introduce role
