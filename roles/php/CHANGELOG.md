@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.6] - 2020-06-29
 ### Changed
 - Changed cli memory_limit default config (previous was `-1`). Use a safer 512M default.
 
