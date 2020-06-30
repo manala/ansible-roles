@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.1.49] - 2020-06-30
+## [0.1.50] - 2020-06-30
 ### Fixed
 - [Symfony Cli] Fix tag
 - [Gomplate] Fix tag
