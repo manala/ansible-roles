@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Symfony Cli] Fix tag
+- [Gomplate] Fix tag
 
 ## [0.1.48] - 2020-06-29
 ### Added
