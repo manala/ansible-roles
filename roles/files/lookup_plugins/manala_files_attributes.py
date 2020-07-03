@@ -12,7 +12,7 @@ class LookupModule(LookupBase):
     def _default(self, defaults, path):
         result = {}
         for default in defaults:
-            if re.search(default['path'], path):
+            if ('path' not in default) or (re.search(default['path'], path)):
                 result.update(default)
         return result
 

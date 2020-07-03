@@ -79,6 +79,18 @@ manala_files_attributes:
     creates: /tmp/baz
 ```
 
+Defaults:
+```yaml
+manala_files_attributes_defaults:
+  # Will be applied to *all* files attributes
+  - user: nobody
+    parents: true
+  # Will be applied to files attributes path beginning by "/etc"
+  - path: ^/etc
+    user: root
+    group: root
+```
+
 ## Example playbook
 
 ```yaml

@@ -5,7 +5,10 @@
   become: true
   gather_facts: false
   tasks:
-    - block:
+
+    # Default
+    - tags: [default]
+      block:
         - file:
             path: "{{ item }}"
             state: directory
@@ -17,11 +20,11 @@
             name: manala.files
           vars:
             manala_files_attributes_defaults:
+              - user: nobody
               - path: ^/tmp/root
                 user: root
                 group: root
               - path: ^/tmp/nobody
-                user: nobody
                 group: nogroup
               - path: ^/tmp/mail
                 user: mail
@@ -33,5 +36,6 @@
                 state: touch
               - path: /tmp/mail/file
                 state: touch
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate
