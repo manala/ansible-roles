@@ -6,7 +6,9 @@
   gather_facts: false
   tasks:
 
-    - block:
+    # Default
+    - tags: [default]
+      block:
         - import_role:
             name: manala.ngrok
           vars:

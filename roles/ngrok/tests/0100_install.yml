@@ -8,7 +8,6 @@
 
     # Latest
     - tags: [latest]
-      name: prout
       block:
         - file:
             path: /usr/local/bin/ngrok
