@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - [Symfony Cli] Fix binary path
 
+### Added
+- [Ngrok] Debian buster support
+
+### Changed
+- [Ngrok] Install from upstream binaries instead of manala debian repository
+
 ## [0.1.50] - 2020-06-30
 ### Fixed
 - [Symfony Cli] Fix tag

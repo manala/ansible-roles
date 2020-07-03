@@ -13,15 +13,16 @@
   when: (not __manala_gomplate_bin_stat_result.stat.exists)
         and (manala_gomplate_version is none)
 
-- name: install > Set latest version
-  set_fact:
-    manala_gomplate_version: "{{ __manala_gomplate_version_latest.url | regex_replace('(.*)(\\d\\.\\d\\.\\d)(.*)', '\\2') }}"
-  when: (not __manala_gomplate_bin_stat_result.stat.exists)
-        and (manala_gomplate_version is none)
-
 - name: install > Install
   get_url:
-    url: "https://github.com/hairyhenderson/gomplate/releases/download/v{{ manala_gomplate_version }}/gomplate_linux-amd64"
+    url: "{{ manala_gomplate_version|ternary(
+      'https://github.com/hairyhenderson/gomplate/releases/download/v%s/gomplate_linux-amd64'|format(
+        manala_gomplate_version
+      ),
+      'https://github.com/hairyhenderson/gomplate/releases/download/v%s/gomplate_linux-amd64'|format(
+        __manala_gomplate_version_latest.url|default|regex_replace('(.*)(\\d\\.\\d\\.\\d)(.*)', '\\2')
+      )
+    ) }}"
     dest: "{{ manala_gomplate_bin }}"
     mode: 0755
   when: (not __manala_gomplate_bin_stat_result.stat.exists)

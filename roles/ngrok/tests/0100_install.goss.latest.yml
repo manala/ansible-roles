@@ -1,14 +1,15 @@
 ---
 
 file:
-  /usr/local/bin/gomplate:
+  /usr/local/bin/ngrok:
     exists: true
     mode: "0755"
     owner: root
     filetype: file
 
 command:
-  gomplate --version:
+  ngrok --version:
     exit-status: 0
     stdout:
-      - gomplate version
+      - ngrok version
+      - "!ngrok version 2.2.2"

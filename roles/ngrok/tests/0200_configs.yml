@@ -3,15 +3,17 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_ngrok_configs:
-      - file: config.yml
-        config:
-          - web_addr: 1.2.3.4:1234
-  pre_tasks:
-    - import_tasks: pre_tasks/manala.yml
-  roles:
-    - manala.ngrok
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  gather_facts: false
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.ngrok
+          vars:
+            manala_ngrok_configs:
+              - file: config.yml
+                config:
+                  - web_addr: 1.2.3.4:1234
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

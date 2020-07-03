@@ -8,12 +8,11 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the __manala__ ngrok debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+None.
 
-```yaml
-manala_apt_preferences:
- - ngrok@manala
-```
+## Dependencies
+
+None.
 
 ## Installation
 
@@ -39,14 +38,14 @@ None
 
 ### Definition
 
-| Name                                    | Default      | Type    | Description                            |
-| --------------------------------------- | ------------ | ------- | -------------------------------------- |
-| `manala_ngrok_install_packages`         | ~            | Array   | Dependency packages to install         |
-| `manala_ngrok_install_packages_default` | ['ngrok']    | Array   | Default dependency packages to install |
-| `manala_ngrok_configs_exclusive`        | false        | Boolean | Configurations exclusivity             |
-| `manala_ngrok_configs_dir`              | '/etc/ngrok' | String  | Configurations directory path          |
-| `manala_ngrok_configs_template`         | ~            | String  | Configurations template path           |
-| `manala_ngrok_configs`                  | []           | Array   | Configurations                         |
+| Name                             | Default                | Type    | Description                            |
+| -------------------------------- | ---------------------- | ------- | -------------------------------------- |
+| `manala_ngrok_version`           | ~                      | String  | Version to install, latest by default  |
+| `manala_ngrok_bin`               | '/usr/local/bin/ngrok' | String  | Binary                                 |
+| `manala_ngrok_configs_exclusive` | false                  | Boolean | Configurations exclusivity             |
+| `manala_ngrok_configs_dir`       | '/etc/ngrok'           | String  | Configurations directory path          |
+| `manala_ngrok_configs_template`  | ~                      | String  | Configurations template path           |
+| `manala_ngrok_configs`           | []                     | Array   | Configurations                         |
 
 ### Example
 

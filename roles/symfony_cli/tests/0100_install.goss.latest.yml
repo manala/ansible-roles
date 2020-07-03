@@ -1,14 +1,15 @@
 ---
 
 file:
-  /usr/local/bin/gomplate:
+  /usr/local/bin/symfony:
     exists: true
     mode: "0755"
     owner: root
     filetype: file
 
 command:
-  gomplate --version:
+  symfony -V --no-ansi:
     exit-status: 0
     stdout:
-      - gomplate version 3.7.0
+      - Symfony CLI version
+      - "!Symfony CLI version v4.16.0"

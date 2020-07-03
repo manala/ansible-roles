@@ -1,8 +1,29 @@
 ---
 
-- name: install > Packages
-  apt:
-    name: "{{ manala_ngrok_install_packages|default(manala_ngrok_install_packages_default, True) }}"
-    install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+- name: install > Stat bin
+  stat:
+    path: "{{ manala_ngrok_bin }}"
+  register: __manala_ngrok_bin_stat_result
+
+- name: install > Get version url
+  uri:
+    url: https://dl.equinox.io/ngrok/ngrok/stable/archive
+    return_content: true
+  register: __manala_ngrok_version_html
+  when: (not __manala_ngrok_bin_stat_result.stat.exists)
+        and (manala_ngrok_version is not none)
+
+- name: install > Install
+  unarchive:
+    src: "{{ manala_ngrok_version|ternary(
+      __manala_ngrok_version_html.content|default|regex_search(
+        'https://[^\"]+ngrok-' ~ manala_ngrok_version ~ '-linux-amd64.tar.gz'
+      ),
+      'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz'
+    ) }}"
+    dest: "{{ manala_ngrok_bin|dirname }}"
+    remote_src: true
+    extra_opts:
+      - --transform
+      - s/^ngrok/{{ manala_ngrok_bin|basename }}/
+  when: (not __manala_ngrok_bin_stat_result.stat.exists)
