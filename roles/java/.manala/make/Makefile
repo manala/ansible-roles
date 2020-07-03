@@ -174,7 +174,9 @@ TESTS = $(sort \
 
 tests/%.yml: FORCE
 	$(call verbose, ,ANSIBLE_STDOUT_CALLBACK=actionable, ) \
-		ansible-playbook $@ --extra-vars="test=$(subst .yml,,$(subst tests/,,$@))"
+		ansible-playbook $@ \
+			--extra-vars="test=$(subst .yml,,$(subst tests/,,$@))" \
+			$(if $(TAGS),--tags=$(TAGS))
 FORCE:
 
 MANALA_HELP += $(call if_host,local,$(TEST_HELP_LOCAL),$(TEST_HELP_TEST))
