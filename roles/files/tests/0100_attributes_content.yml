@@ -5,38 +5,75 @@
   become: true
   gather_facts: false
   tasks:
+
     - block:
-        - file:
-            path: "{{ item }}"
-            state: absent
-          loop:
-            - /tmp/foo
-            - /tmp/bar
-            - /tmp/baz
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/foo
-                content: |
-                  Hello foo!
-              - path: /tmp/bar
-                content: |
-                  Hello bar!
-              - path: /tmp/baz
-                content: |
-                  Hello baz!
-                state: present
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
-    - block:
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/bar
-                content: |
-                  Hello bar!
+
+        - block:
+            - file:
+                path: "{{ item }}"
                 state: absent
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+              loop:
+                - /tmp/foo
+                - /tmp/bar
+                - /tmp/baz
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/foo
+                    content: |
+                      Hello foo!
+                  - path: /tmp/bar
+                    content: |
+                      Hello bar!
+                  - path: /tmp/baz
+                    content: |
+                      Hello baz!
+                    state: present
+        # Absent
+        - block:
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - /tmp/qux
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/qux
+                    content: |
+                      Hello bar!
+                    state: absent
+        # Parents
+        - block:
+            - file:
+                path: "{{ item }}"
+                state: absent
+              loop:
+                - /tmp/quux
+                - /tmp/corge
+                - /tmp/grault
+            - import_role:
+                name: manala.files
+              vars:
+                foo: bar
+                manala_files_attributes_defaults:
+                  - path: ^/tmp/corge
+                    parents: true
+                manala_files_attributes:
+                  - path: /tmp/quux/foo
+                    content: |
+                      Hello bar!
+                    parents: true
+                  - path: /tmp/corge/foo
+                    content: |
+                      Hello bar!
+                  - path: /tmp/grault/foo
+                    content: |
+                      Hello bar!
+                    parents: true
+                    state: absent
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

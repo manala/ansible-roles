@@ -38,11 +38,18 @@ class LookupModule(LookupBase):
                 item = {
                     'path': attribute['path'],
                     'src': attribute['src'],
-                    'force': attribute.get('force', False),
-                    'directory': self._default(defaults, attribute['src']),
-                    'link': self._default(defaults, attribute['path']),
+                    'link': {
+                        'parents': False,
+                        'force': False,
+                    },
+                    'directory': {
+                        'force': False,
+                    },
                     'task': 'link_directory'
                 }
+                item['link'].update(self._default(defaults, attribute['path']))
+                item['link'].update(attribute)
+                item['directory'].update(self._default(defaults, attribute['src']))
                 item['directory'].update(attribute)
                 items.append(item)
             # State - Link File
@@ -52,18 +59,29 @@ class LookupModule(LookupBase):
                 item = {
                     'path': attribute['path'],
                     'src': attribute['src'],
-                    'force': attribute.get('force', False),
-                    'file': self._default(defaults, attribute['path']),
-                    'link': self._default(defaults, attribute['path']),
+                    'link': {
+                        'parents': False,
+                        'force': False,
+                    },
+                    'file': {
+                        'parents': False,
+                        'force': False,
+                    },
                     'task': 'link_file'
                 }
-                item['file'].update(attribute)
+                item['link'].update(self._default(defaults, attribute['path']))
                 item['link'].update(attribute)
+                item['file'].update(self._default(defaults, attribute['path']))
+                item['file'].update(attribute)
                 items.append(item)
             else:
                 # Template
                 if 'template' in attribute:
-                    item = self._default(defaults, attribute['path'])
+                    item = {
+                        'state': 'present',
+                        'parents': False
+                    }
+                    item.update(self._default(defaults, attribute['path']))
                     item.update(attribute)
                     item.update({
                         'task': 'template'
@@ -71,7 +89,11 @@ class LookupModule(LookupBase):
                     items.append(item)
                 # Content
                 elif 'content' in attribute:
-                    item = self._default(defaults, attribute['path'])
+                    item = {
+                        'state': 'present',
+                        'parents': False
+                    }
+                    item.update(self._default(defaults, attribute['path']))
                     item.update(attribute)
                     item.update({
                         'task': 'content'
@@ -79,7 +101,10 @@ class LookupModule(LookupBase):
                     items.append(item)
                 # Copy
                 elif 'copy' in attribute:
-                    item = self._default(defaults, attribute['path'])
+                    item = {
+                        'state': 'present'
+                    }
+                    item.update(self._default(defaults, attribute['path']))
                     item.update(attribute)
                     item.update({
                         'task': 'copy'
@@ -87,7 +112,10 @@ class LookupModule(LookupBase):
                     items.append(item)
                 # Url
                 elif 'url' in attribute:
-                    item = self._default(defaults, attribute['path'])
+                    item = {
+                        'unarchive': False
+                    }
+                    item.update(self._default(defaults, attribute['path']))
                     item.update(attribute)
                     item.update({
                         'task': 'url'
@@ -95,7 +123,8 @@ class LookupModule(LookupBase):
                     items.append(item)
                 # File
                 else:
-                    item = self._default(defaults, attribute['path'])
+                    item = {}
+                    item.update(self._default(defaults, attribute['path']))
                     item.update(attribute)
                     item.update({
                         'task': 'file'

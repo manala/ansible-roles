@@ -5,6 +5,7 @@
   become: true
   gather_facts: false
   tasks:
+
     - block:
         - file:
             path: "{{ item }}"
@@ -40,5 +41,6 @@
               - path: /tmp/link_link_directory
                 src: /tmp/link_directory
                 state: link
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

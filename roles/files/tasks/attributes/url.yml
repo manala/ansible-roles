@@ -20,4 +20,4 @@
         dest: "{{ item.path|dirname }}"
         creates: "{{ item.creates|default(omit) }}"
         remote_src: true
-      when: item.unarchive|default(False)
+      when: item.unarchive

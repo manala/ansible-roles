@@ -6,9 +6,7 @@
   gather_facts: false
   tasks:
 
-    # Default
-    - tags: [default]
-      block:
+    - block:
         - file:
             path: "{{ item }}"
             state: directory

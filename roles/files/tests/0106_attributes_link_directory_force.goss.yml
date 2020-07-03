@@ -21,8 +21,8 @@ file:
     exists: true
     filetype: symlink
     linked-to: /tmp/directory_permissions
-    owner: root
-    group: root
+    owner: backup
+    group: games
   /tmp/directory_permissions:
     exists: true
     filetype: directory
@@ -39,12 +39,14 @@ file:
   /tmp/directory_wrong:
     exists: true
     filetype: directory
-  # Sub link
-  /tmp/link_sub/link:
+  # Link parents
+  /tmp/link_parents_true/link:
     exists: true
     filetype: symlink
-    linked-to: /tmp/directory_link_sub
-  /tmp/directory_link_sub:
+    linked-to: /tmp/directory_link_parents
+  /tmp/link_parents_false/link:
+    exists: false
+  /tmp/directory_link_parents:
     exists: true
     filetype: directory
   # Link as existing file

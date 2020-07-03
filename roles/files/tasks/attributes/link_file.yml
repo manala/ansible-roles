@@ -9,25 +9,25 @@
         path: "{{ item.src }}"
         follow: true
       register: __file
-      when: item.force
+      when: item.file.force
       check_mode: false
 
     - name: attributes/link_file > Force file clean "{{ item.src }}"
       file:
         path: "{{ item.src }}"
         state: absent
-      when: item.force
+      when: item.file.force
             and (__file.stat.exists)
             and (not __file.stat.isreg)
 
-    - name: attributes/link_file > Force file directory "{{ item.src|dirname }}"
+    - name: attributes/link_file > File parents "{{ item.src|dirname }}"
       file:
         path: "{{ item.src|dirname }}"
         owner: "{{ item.file.user|default(omit) }}"
         group: "{{ item.file.group|default(omit) }}"
         mode: "{{ item.file.mode|default(omit) }}"
         state: directory
-      when: item.force
+      when: item.file.parents
 
     - name: attributes/link_file > Create file "{{ item.src }}"
       copy:
@@ -46,27 +46,27 @@
         mode: "{{ item.file.mode|default(omit) }}"
         state: file
 
-    - name: attributes/link_file > Force link directory "{{ item.path|dirname }}"
+    - name: attributes/link_file > Link parents "{{ item.path|dirname }}"
       file:
         path: "{{ item.path|dirname }}"
         owner: "{{ item.link.user|default(omit) }}"
         group: "{{ item.link.group|default(omit) }}"
         mode: "{{ item.link.mode|default(omit) }}"
         state: directory
-      when: item.force
+      when: item.link.parents
 
     - name: attributes/link_file > Force link stat "{{ item.path }}"
       stat:
         path: "{{ item.path }}"
       register: __link
-      when: item.force
+      when: item.link.force
       check_mode: false
 
     - name: attributes/link_file > Force link clean "{{ item.path }}"
       file:
         path: "{{ item.path }}"
         state: absent
-      when: item.force
+      when: item.link.force
             and (__link.stat.exists)
             and (not __link.stat.islnk)
 

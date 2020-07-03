@@ -5,6 +5,7 @@
   become: true
   gather_facts: false
   tasks:
+
     - block:
         - file:
             path: /tmp/file
@@ -15,5 +16,6 @@
             manala_files_attributes:
               - path: /tmp/file
                 state: touch
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

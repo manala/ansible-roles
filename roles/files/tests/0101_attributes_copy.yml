@@ -1,38 +1,47 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
   gather_facts: false
   tasks:
+
     - block:
-        - file:
-            path: "{{ item }}"
-            state: absent
-          loop:
-            - /tmp/foo
-            - /tmp/bar
-            - /tmp/baz
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/foo
-                copy: fixtures/file
-              - path: /tmp/bar
-                copy: fixtures/file
-              - path: /tmp/baz
-                copy: fixtures/file
-                state: present
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
-    - block:
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/bar
-                copy: fixtures/file
+
+        - block:
+            - file:
+                path: "{{ item }}"
                 state: absent
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+              loop:
+                - /tmp/foo
+                - /tmp/bar
+                - /tmp/baz
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/foo
+                    copy: fixtures/file
+                  - path: /tmp/bar
+                    copy: fixtures/file
+                  - path: /tmp/baz
+                    copy: fixtures/file
+                    state: present
+        # Absent
+        - block:
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - /tmp/qux
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/qux
+                    copy: fixtures/file
+                    state: absent
+
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

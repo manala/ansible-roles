@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Flag `force` for "link_directory" and "link_file" states
 - A default can be provided without path, so that it applies to *all* path
+- Flag `parents` to make parent directories as needed
 
 ## [2.0.2] - 2020-02-13
 ### Added

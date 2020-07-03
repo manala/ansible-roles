@@ -9,14 +9,14 @@
         path: "{{ item.src }}"
         follow: true
       register: __directory
-      when: item.force
+      when: item.directory.force
       check_mode: false
 
     - name: attributes/link_directory > Force directory clean "{{ item.src }}"
       file:
         path: "{{ item.src }}"
         state: absent
-      when: item.force
+      when: item.directory.force
             and (__directory.stat.exists)
             and (not __directory.stat.isdir)
 
@@ -28,27 +28,27 @@
         mode: "{{ item.directory.mode|default(omit) }}"
         state: directory
 
-    - name: attributes/link_directory > Force link directory "{{ item.path|dirname }}"
+    - name: attributes/link_directory > Link parents "{{ item.path|dirname }}"
       file:
         path: "{{ item.path|dirname }}"
         owner: "{{ item.link.user|default(omit) }}"
         group: "{{ item.link.group|default(omit) }}"
         mode: "{{ item.link.mode|default(omit) }}"
         state: directory
-      when: item.force
+      when: item.link.parents
 
     - name: attributes/link_directory > Force link stat "{{ item.path }}"
       stat:
         path: "{{ item.path }}"
       register: __link
-      when: item.force
+      when: item.link.force
       check_mode: false
 
     - name: attributes/link_directory > Force link clean "{{ item.path }}"
       file:
         path: "{{ item.path }}"
         state: absent
-      when: item.force
+      when: item.link.force
             and (__link.stat.exists)
             and (not __link.stat.islnk)
 
