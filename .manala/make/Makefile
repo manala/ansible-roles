@@ -96,7 +96,7 @@ split:
 # Sync #
 ########
 
-MANALA_HELP += $(SYNC_HELP)
+MANALA_HELP += $(SYNC_HELP)\n
 
 SYNC_HELP = \
 	$(call help_section,Sync) \
