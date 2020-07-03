@@ -3,10 +3,34 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  pre_tasks:
-    - import_tasks: pre_tasks/manala.yml
-  roles:
-    - manala.ngrok
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  gather_facts: false
+  tasks:
+
+    # Latest
+    - tags: [latest]
+      name: prout
+      block:
+        - file:
+            path: /usr/local/bin/ngrok
+            state: absent
+        - import_role:
+            name: manala.ngrok
+          vars:
+            manala_ngrok_version: ~
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.latest.yml validate
+
+    # Version
+    - tags: [version]
+      block:
+        - file:
+            path: /usr/local/bin/ngrok
+            state: absent
+        - import_role:
+            name: manala.ngrok
+          vars:
+            manala_ngrok_version: 2.2.2
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.version.yml validate

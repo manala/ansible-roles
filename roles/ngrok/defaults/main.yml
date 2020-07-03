@@ -1,9 +1,10 @@
 ---
 
-# Install
-manala_ngrok_install_packages: ~
-manala_ngrok_install_packages_default:
-  - ngrok
+# Version
+manala_ngrok_version: ~
+
+# Bin
+manala_ngrok_bin: /usr/local/bin/ngrok
 
 # Configs
 manala_ngrok_configs_exclusive: false
