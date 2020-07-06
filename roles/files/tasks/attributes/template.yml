@@ -4,6 +4,16 @@
     - manala_files
   block:
 
+    - name: attributes/template > Template parents "{{ item.path|dirname }}"
+      file:
+        path: "{{ item.path|dirname }}"
+        owner: "{{ item.user|default(omit) }}"
+        group: "{{ item.group|default(omit) }}"
+        mode: "{{ item.mode|default(omit) }}"
+        state: directory
+      when: item.state == 'present'
+            and item.parents
+
     - name: attributes/template > Template "{{ item.path }}"
       template:
         dest: "{{ item.path }}"
@@ -12,10 +22,10 @@
         owner: "{{ item.user|default(omit) }}"
         group: "{{ item.group|default(omit) }}"
         mode: "{{ item.mode|default(omit) }}"
-      when: item.state|default('present') == 'present'
+      when: item.state == 'present'
 
-    - name: attributes/template > Delete "{{ item.path }}"
+    - name: attributes/template > Absent "{{ item.path }}"
       file:
         path: "{{ item.path }}"
         state: absent
-      when: item.state|default('present') == 'absent'
+      when: item.state == 'absent'

@@ -5,62 +5,67 @@
   become: true
   gather_facts: false
   tasks:
+
     - block:
-        - file:
-            path: /tmp/directory
-            state: absent
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/directory
+
+        - block:
+            - file:
+                path: /tmp/directory
+                state: absent
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/directory
+                    state: directory
+        # Directory already exists as file
+        - block:
+            - file:
+                path: /tmp/file
+                state: touch
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/file
+                    state: directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Directory already exists as link to file
+        - block:
+            - file:
+                path: /tmp/file
+                state: touch
+            - file:
+                path: /tmp/link_file
+                src: /tmp/file
+                state: link
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/link_file
+                    state: directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Directory already exists as link to directory
+        - block:
+            - file:
+                path: /tmp/directory
                 state: directory
-    # Directory already exists as file
-    - block:
-        - file:
-            path: /tmp/file
-            state: touch
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/file
-                state: directory
-      rescue:
-        - debug:
-            msg: A planned error has been caught...
-    # Directory already exists as link to file
-    - block:
-        - file:
-            path: /tmp/file
-            state: touch
-        - file:
-            path: /tmp/link_file
-            src: /tmp/file
-            state: link
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/link_file
-                state: directory
-      rescue:
-        - debug:
-            msg: A planned error has been caught...
-    # Directory already exists as link to directory
-    - block:
-        - file:
-            path: /tmp/directory
-            state: directory
-        - file:
-            path: /tmp/link_directory
-            src: /tmp/directory
-            state: link
-        - import_role:
-            name: manala.files
-          vars:
-            manala_files_attributes:
-              - path: /tmp/link_directory
-                state: directory
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+            - file:
+                path: /tmp/link_directory
+                src: /tmp/directory
+                state: link
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/link_directory
+                    state: directory
+
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

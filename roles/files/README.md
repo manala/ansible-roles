@@ -39,10 +39,30 @@ Using ansible galaxy requirements file:
 
 ### Configuration example
 
+Directory:
 ```yaml
 manala_files_attributes:
   - path: /var/log/app
     state: directory
+```
+
+Template:
+```yaml
+manala_files_attributes:
+  - path: /tmp/foo/bar
+    template: bar.j2
+    #state: absent
+    #parents: true # Make parent directories as needed
+```
+
+Content:
+```yaml
+manala_files_attributes:
+  - path: /tmp/foo/bar
+    content: |
+      Hello world!
+    #state: absent
+    #parents: true # Make parent directories as needed
 ```
 
 Symbolic link to directory:
@@ -52,6 +72,7 @@ manala_files_attributes:
     src: /path/to/directory
     state: link_directory
     #force: true # Force both `path` to be a link and `src` to be a directory
+    #parents: true # Make parent directories as needed
 ```
 
 Symbolic link to file:
@@ -61,6 +82,7 @@ manala_files_attributes:
     src: /path/to/file
     state: link_file
     #force: true # Force both `path` to be a link and `src` to be a file
+    #parents: true # Make parent directories as needed
 ```
 
 Get url:
@@ -79,12 +101,24 @@ manala_files_attributes:
     creates: /tmp/baz
 ```
 
+Defaults:
+```yaml
+manala_files_attributes_defaults:
+  # Will be applied to *all* files attributes
+  - user: nobody
+    parents: true
+  # Will be applied to files attributes path beginning by "/etc"
+  - path: ^/etc
+    user: root
+    group: root
+```
+
 ## Example playbook
 
 ```yaml
-- hosts: servers
+- hosts: all
   roles:
-    - { role: manala.files }
+    - role: manala.files
 ```
 
 # Licence

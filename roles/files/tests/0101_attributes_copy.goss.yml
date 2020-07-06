@@ -16,3 +16,6 @@ file:
     filetype: file
     contains:
       - Hello world!
+  # Absent
+  /tmp/qux:
+    exists: false

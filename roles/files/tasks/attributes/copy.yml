@@ -12,10 +12,10 @@
         owner: "{{ item.user|default(omit) }}"
         group: "{{ item.group|default(omit) }}"
         mode: "{{ item.mode|default(omit) }}"
-      when: item.state|default('present') == 'present'
+      when: item.state == 'present'
 
-    - name: attributes/copy > Delete "{{ item.path }}"
+    - name: attributes/copy > Absent "{{ item.path }}"
       file:
         path: "{{ item.path }}"
         state: absent
-      when: item.state|default('present') == 'absent'
+      when: item.state == 'absent'

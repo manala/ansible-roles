@@ -5,6 +5,7 @@
   become: true
   gather_facts: false
   tasks:
+
     - block:
         - file:
             path: "{{ item }}"
@@ -22,5 +23,6 @@
                 url: https://github.com/gantsign/alt-galaxy/releases/download/1.4.0/alt-galaxy_linux_amd64.tar.xz
                 unarchive: true
                 creates: /tmp/alt-galaxy
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Files] A default can be provided without path, so that it applies to *all* path
+- [Files] Flag `parents` to make parent directories as needed
 
 ## [0.1.51] - 2020-07-03
 ### Fixed

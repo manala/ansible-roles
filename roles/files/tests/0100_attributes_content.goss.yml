@@ -1,0 +1,34 @@
+---
+
+file:
+  /tmp/foo:
+    exists: true
+    filetype: file
+    contains:
+      - Hello foo!
+  /tmp/bar:
+    exists: true
+    filetype: file
+    contains:
+      - Hello bar!
+  /tmp/baz:
+    exists: true
+    filetype: file
+    contains:
+      - Hello baz!
+  # Absent
+  /tmp/qux:
+    exists: false
+  # Parents
+  /tmp/quux/foo:
+    exists: true
+    filetype: file
+    contains:
+      - Hello bar!
+  /tmp/corge/foo:
+    exists: true
+    filetype: file
+    contains:
+      - Hello bar!
+  /tmp/grault:
+    exists: false
