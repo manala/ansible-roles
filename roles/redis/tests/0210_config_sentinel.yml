@@ -1,9 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.jessie
-    - debian.stretch
+  hosts: debian
   become: true
   vars:
     manala_redis_sentinel: true
@@ -12,6 +10,9 @@
       sentinel down-after-milliseconds: mymaster 5000
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb.yml
+      when: ansible_distribution_release in ['jessie']
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release in ['stretch']
   roles:
     - manala.redis
   post_tasks:

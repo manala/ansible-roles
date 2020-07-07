@@ -3,6 +3,5 @@
 package:
   redis-server:
     installed: true
-
   redis-sentinel:
     installed: true

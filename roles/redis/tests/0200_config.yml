@@ -1,15 +1,16 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.jessie
-    - debian.stretch
+  hosts: debian
   become: true
   vars:
     manala_redis_config:
       - port: 1234
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb.yml
+      when: ansible_distribution_release in ['jessie']
+    - import_tasks: pre_tasks/backports.yml
+      when: ansible_distribution_release in ['stretch']
   roles:
     - manala.redis
   post_tasks:
