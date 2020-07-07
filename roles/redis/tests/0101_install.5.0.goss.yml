@@ -1,5 +1,0 @@
----
-
-package:
-  redis-server:
-    installed: true
