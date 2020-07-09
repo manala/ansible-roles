@@ -11,6 +11,7 @@
 {{ macros.config_row(config, 'Subsystem', 'sftp /usr/lib/openssh/sftp-server') }}
 {{ macros.config_row(config, 'UsePAM', true) }}
 {{ macros.config_row(config, 'UseDNS', false) }}
+{{ macros.config_row(config, 'PrintLastLog', false) }}
 
 {{ macros.config(config, [
     'PermitRootLogin',
@@ -21,5 +22,6 @@
     'PrintMotd',
     'Subsystem',
     'UsePAM',
-    'UseDNS'
+    'UseDNS',
+    'PrintLastLog'
 ]) }}
