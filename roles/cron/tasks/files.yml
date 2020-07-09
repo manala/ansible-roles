@@ -10,7 +10,7 @@
     day:        "{{ item.1.day|default(omit) }}"
     month:      "{{ item.1.month|default(omit) }}"
     weekday:    "{{ item.1.weekday|default(omit) }}"
-    user:       "{{ item.0.user|default('root') }}"
+    user:       "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
     state:      "{{ item.1.state|default('present') }}"
   with_subelements:
     - "{{ manala_cron_files }}"
@@ -24,7 +24,7 @@
     env:       true
     name:      "{{ item.name }}"
     value:     "{{ item.value }}"
-    user:      "{{ item.user|default('root') }}"
+    user:      "{{ item.user|default(manala_cron_files_defaults.user) }}"
     state:     present
   loop: "{{ query(
       'manala_cron_files_env',
@@ -41,7 +41,7 @@
     env:       true
     name:      "{{ (item.1.keys()|list)[0] }}"
     value:     "{{ (item.1.values()|list)[0] }}"
-    user:      "{{ item.0.user|default('root') }}"
+    user:      "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
     state:     present
   with_subelements:
     - "{{ manala_cron_files }}"

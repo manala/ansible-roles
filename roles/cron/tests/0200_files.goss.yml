@@ -1,6 +1,7 @@
 ---
 
 file:
+
   /etc/cron.d/foo:
     exists: true
     mode: "0644"
@@ -32,3 +33,23 @@ file:
       - 'QUX="qux"'
       - '#Ansible: baz-baz'
       - '0 7 * * * root cd /srv/app && bin/console app:baz:baz'
+
+  # Defaults
+  /etc/cron.d/qux:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - '#Ansible: foo-foo'
+      - '* * * * * qux whoami'
+  /etc/cron.d/quux:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - '#Ansible: foo-foo'
+      - '* * * * * quux whoami'

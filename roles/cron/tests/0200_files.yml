@@ -3,37 +3,61 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_cron_files:
-      - file: foo
-        user: foo
-        # Deprecated
-        environment:
-          - FOO: foo
-        env:
-          BAR: bar
-        jobs:
-          - name:   foo-foo
-            job:    "cd /srv/app && bin/console app:foo:foo"
-            minute: 0
-            hour:   7
-      - file: bar
-        jobs:
-          - name:   bar-bar
-            job:    "cd /srv/app && bin/console app:bar:bar"
-            minute: 0
-            hour:   7
-      - file: baz
-        env:
-          BAR: bar
-          QUX: qux
-        jobs:
-          - name:   baz-baz
-            job:    "cd /srv/app && bin/console app:baz:baz"
-            minute: 0
-            hour:   7
-  roles:
-    - manala.cron
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+
+        - block:
+            - import_role:
+                name: manala.cron
+              vars:
+                manala_cron_files:
+                  - file: foo
+                    user: foo
+                    # Deprecated
+                    environment:
+                      - FOO: foo
+                    env:
+                      BAR: bar
+                    jobs:
+                      - name: foo-foo
+                        job: "cd /srv/app && bin/console app:foo:foo"
+                        minute: 0
+                        hour: 7
+                  - file: bar
+                    jobs:
+                      - name: bar-bar
+                        job: "cd /srv/app && bin/console app:bar:bar"
+                        minute: 0
+                        hour: 7
+                  - file: baz
+                    env:
+                      BAR: bar
+                      QUX: qux
+                    jobs:
+                      - name: baz-baz
+                        job: "cd /srv/app && bin/console app:baz:baz"
+                        minute: 0
+                        hour: 7
+
+        # Defaults
+        - block:
+            - import_role:
+                name: manala.cron
+              vars:
+                manala_cron_files_defaults:
+                  user: qux
+                manala_cron_files:
+                  - file: qux
+                    jobs:
+                      - name: foo-foo
+                        job: whoami
+                  - file: quux
+                    user: quux
+                    jobs:
+                      - name: foo-foo
+                        job: whoami
+
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate

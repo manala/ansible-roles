@@ -2,5 +2,5 @@
 
 - name: cron restart
   service:
-    name:  cron
+    name: cron
     state: restarted
