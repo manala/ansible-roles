@@ -43,6 +43,7 @@ Using ansible galaxy requirements file:
 | -------------------------------------- | -------- | ----- | -------------------------------------- |
 | `manala_cron_install_packages`         | ~        | Array | Dependency packages to install         |
 | `manala_cron_install_packages_default` | ['cron'] | Array | Default dependency packages to install |
+| `manala_cron_files_defaults`           | {}       | Array | Defaults cron files parameters         |
 | `manala_cron_files`                    | []       | Array | Cron files collection                  |
 
 ### Configuration example
@@ -58,20 +59,33 @@ manala_cron_files:
       - BAR: bar
     jobs:
       # Do foo bar
-      - name:   foo-bar
-        job:    "php /srv/app/bin/console app:foo:bar"
+      - name: foo-bar
+        job: "php /srv/app/bin/console app:foo:bar"
         minute: 0
-        hour:   7
+        hour: 7
 ```
 
 ⚠️ In this example, you must **explicitly** set the minute option to `0` to have the job run at a specific hour, otherwise the default value `*` will run it _every minute_ for an hour.
+
+Using defaults:
+```yaml
+manala_cron_files_defaults:
+  user: bar # Will be applied by default to cron files
+manala_cron_files:
+  - file: app
+    jobs:
+      - name: foo-bar
+        job: "php /srv/app/bin/console app:foo:bar"
+        minute: 0
+        hour: 7
+```
 
 ## Example playbook
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.cron }
+    - role: manala.cron
 ```
 
 # Licence

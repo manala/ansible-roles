@@ -3,8 +3,11 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  roles:
-    - manala.cron
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.cron
+      always:
+        - name: Goss
+          command: goss --gossfile {{ test }}.goss.yml validate
