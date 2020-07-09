@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.55] - 2020-07-09
 ### Changed
 - [Ssh] Stop printing last log on dev/test server config template
 
