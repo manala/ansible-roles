@@ -3,3 +3,9 @@
 manala_motd_file:     /etc/motd
 manala_motd_template: ~
 manala_motd_message:  ~
+
+# Scripts
+manala_motd_scripts_exclusive: false
+manala_motd_scripts_dir: /etc/update-motd.d
+manala_motd_scripts_defaults: {}
+manala_motd_scripts: []

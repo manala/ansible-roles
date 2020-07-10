@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Motd] Support for dynamic motd scripts
 
 ## [0.1.55] - 2020-07-09
 ### Changed

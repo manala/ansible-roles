@@ -1,0 +1,106 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/scripts/default
+            state: absent
+        - import_role:
+            name: manala.motd
+          vars:
+            manala_motd_scripts_dir: tmp/scripts/default
+            manala_motd_scripts:
+              - file: foo
+                message: I hope that someone gets my message in a bottle, yeah
+              - file: foo_template
+                template: scripts/uname.j2
+              - file: foo_content
+                content: |
+                  #!/bin/sh
+                  printf "Maintenant vous faites ce qu'ils vous ont dit de faire\n"
+              - file: bar
+                state: present
+              - file: baz
+                state: absent
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/scripts/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/scripts/state/bar
+            state: touch
+        - import_role:
+            name: manala.motd
+          vars:
+            manala_motd_scripts_dir: tmp/scripts/state
+            manala_motd_scripts:
+              - file: foo
+              - file: bar
+                state: absent
+              - file: baz
+                state: present
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/scripts/defaults
+            state: absent
+        - import_role:
+            name: manala.motd
+          vars:
+            manala_motd_scripts_dir: tmp/scripts/defaults
+            manala_motd_scripts_defaults:
+              template: scripts/cow.j2
+            manala_motd_scripts:
+              - file: foo
+                message: Moo Moo Moo
+              - file: bar
+                template: scripts/dragon.j2
+                message: Fooooo bar baaaaaz
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/scripts/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/scripts/exclusive/{{ item }}
+            state: touch
+          loop: [foo, bar, baz]
+        - import_role:
+            name: manala.motd
+          vars:
+            manala_motd_scripts_dir: tmp/scripts/exclusive
+            manala_motd_scripts_exclusive: true
+            manala_motd_scripts:
+              - file: bar
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate
