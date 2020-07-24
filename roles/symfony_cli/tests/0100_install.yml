@@ -18,7 +18,8 @@
             manala_symfony_cli_version: ~
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.latest.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [latest]}" validate
 
     # Version
     - tags: [version]
@@ -32,4 +33,5 @@
             manala_symfony_cli_version: 4.16.0
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.version.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [version]}" validate

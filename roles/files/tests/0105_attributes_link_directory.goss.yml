@@ -1,5 +1,7 @@
 ---
 
+# Default
+{{ if has "default" .Vars.tags }}
 file:
   /tmp/link_directory:
     exists: true
@@ -8,7 +10,11 @@ file:
   /tmp/directory:
     exists: true
     filetype: directory
-  # Sub directory
+{{ end }}
+
+# Sub directory
+{{ if has "sub_directory" .Vars.tags }}
+file:
   /tmp/link_directory_sub:
     exists: true
     filetype: symlink
@@ -16,7 +22,11 @@ file:
   /tmp/directory_sub/directory:
     exists: true
     filetype: directory
-  # Permissions
+{{ end }}
+
+# Permissions
+{{ if has "permissions" .Vars.tags }}
+file:
   /tmp/link_permissions:
     exists: true
     filetype: symlink
@@ -28,7 +38,11 @@ file:
     filetype: directory
     owner: backup
     group: games
-  # Wrong link
+{{ end }}
+
+# Wrong link
+{{ if has "link_wrong" .Vars.tags }}
+file:
   /tmp/link_directory_right:
     exists: true
     filetype: symlink
@@ -39,7 +53,11 @@ file:
   /tmp/directory_wrong:
     exists: true
     filetype: directory
-  # Link parents
+{{ end }}
+
+# Link parents
+{{ if has "link_parents" .Vars.tags }}
+file:
   /tmp/link_parents_true/link:
     exists: true
     filetype: symlink
@@ -49,21 +67,45 @@ file:
   /tmp/directory_link_parents:
     exists: true
     filetype: directory
-  # Link as existing file
+{{ end }}
+
+# Link as existing file
+{{ if has "link_file" .Vars.tags }}
+file:
+  /tmp/link_as_existing_file_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_existing_file
   /tmp/link_as_existing_file:
     exists: true
     filetype: file
   /tmp/directory_existing_file:
     exists: true
     filetype: directory
-  # Link as existing empty directory
+{{ end }}
+
+# Link as existing empty directory
+{{ if has "link_directory_empty" .Vars.tags }}
+file:
+  /tmp/link_as_existing_directory_empty_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_existing_directory_empty
   /tmp/link_as_existing_directory_empty:
     exists: true
     filetype: directory
   /tmp/directory_existing_directory_empty:
     exists: true
     filetype: directory
-  # Link as existing full directory
+{{ end }}
+
+# Link as existing full directory
+{{ if has "link_directory_full" .Vars.tags }}
+file:
+  /tmp/link_as_existing_directory_full_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_existing_directory_full
   /tmp/link_as_existing_directory_full:
     exists: true
     filetype: directory
@@ -73,20 +115,60 @@ file:
   /tmp/directory_existing_directory_full:
     exists: true
     filetype: directory
-  # Directory as existing file
+{{ end }}
+
+# Directory as existing file
+{{ if has "directory_file" .Vars.tags }}
+file:
+  /tmp/link_directory_existing_file_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_as_existing_file_force
+  /tmp/directory_as_existing_file_force:
+    exists: true
+    filetype: directory
   /tmp/link_directory_existing_file:
     exists: false
   /tmp/directory_as_existing_file:
     exists: true
     filetype: file
-  # Directory as existing link to file
+{{ end }}
+
+# Directory as existing link to file
+{{ if has "directory_link_file" .Vars.tags }}
+file:
+  /tmp/link_directory_existing_link_file_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_as_existing_link_file_force
+  /tmp/directory_as_existing_link_file_force:
+    exists: true
+    filetype: directory
+  /tmp/file_directory_as_existing_link_file_force:
+    exists: true
+    filetype: file
   /tmp/link_directory_existing_link_file:
     exists: false
   /tmp/directory_as_existing_link_file:
     exists: true
     filetype: symlink
     linked-to: /tmp/file_directory_as_existing_link_file
-  # Directory as existing link to directory
+{{ end }}
+
+# Directory as existing link to directory
+{{ if has "directory_link_directory" .Vars.tags }}
+file:
+  /tmp/link_directory_existing_link_directory_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_as_existing_link_directory_force
+  /tmp/directory_as_existing_link_directory_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory_directory_as_existing_link_directory_force
+  /tmp/directory_directory_as_existing_link_directory_force:
+    exists: true
+    filetype: directory
   /tmp/link_directory_existing_link_directory:
     exists: true
     filetype: symlink
@@ -95,3 +177,4 @@ file:
     exists: true
     filetype: symlink
     linked-to: /tmp/directory_directory_as_existing_link_directory
+{{ end }}

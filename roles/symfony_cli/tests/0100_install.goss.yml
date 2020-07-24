@@ -1,0 +1,32 @@
+---
+
+# Latest
+{{ if has "latest" .Vars.tags }}
+file:
+  /usr/local/bin/symfony:
+    exists: true
+    mode: "0755"
+    owner: root
+    filetype: file
+command:
+  symfony -V --no-ansi:
+    exit-status: 0
+    stdout:
+      - Symfony CLI version
+      - "!Symfony CLI version v4.16.0"
+{{ end }}
+
+# Version
+{{ if has "version" .Vars.tags }}
+file:
+  /usr/local/bin/symfony:
+    exists: true
+    mode: "0755"
+    owner: root
+    filetype: file
+command:
+  symfony -V --no-ansi:
+    exit-status: 0
+    stdout:
+      - Symfony CLI version v4.16.0
+{{ end }}

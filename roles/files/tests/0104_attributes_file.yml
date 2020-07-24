@@ -18,4 +18,5 @@
                 state: touch
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate
