@@ -173,7 +173,7 @@ TESTS = $(sort \
 )
 
 tests/%.yml: FORCE
-	$(call verbose, ,ANSIBLE_STDOUT_CALLBACK=actionable, ) \
+	$(call verbose, ,ANSIBLE_STDOUT_CALLBACK=actionable,ANSIBLE_STDOUT_CALLBACK=debug) \
 		ansible-playbook $@ \
 			--extra-vars="test=$(subst .yml,,$(subst tests/,,$@))" \
 			$(if $(TAGS),--tags=$(TAGS))
