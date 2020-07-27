@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MOTD=$(cat <<'END_HEREDOC'
+MOTD=$(cat <<'EOF'
                 [38;5;88m.[0m[38;5;203m,:::::,[38;5;88m.[0m
            [38;5;88m,[0m[38;5;203m;:::::::::::::::;;[38;5;88m.[0m
         [38;5;88m;[0m[38;5;203m;::::::::::::::::::::::;[38;5;88m.,[0m
@@ -27,7 +27,7 @@ MOTD=$(cat <<'END_HEREDOC'
 
 {{ item.message|center(43) }}
 
-END_HEREDOC
+EOF
 )
 
 printf "${MOTD}\n\n\n"

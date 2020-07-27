@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MOTD=$(cat <<'END_HEREDOC'
+MOTD=$(cat <<'EOF'
  -{% for i in range(item.message|length) %}-{% endfor %}-
 < {{ item.message }} >
  -{% for i in range(item.message|length) %}-{% endfor %}-
@@ -33,7 +33,7 @@ MOTD=$(cat <<'END_HEREDOC'
   ' ') '( (/
     '   '  `
 
-END_HEREDOC
+EOF
 )
 
 printf "${MOTD}\n\n\n"
