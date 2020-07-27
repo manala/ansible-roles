@@ -1,5 +1,7 @@
 ---
 
+# Default
+{{ if has "default" .Vars.tags }}
 file:
   /tmp/foo:
     exists: true
@@ -16,6 +18,11 @@ file:
     filetype: file
     contains:
       - Hello world!
-  # Absent
+{{ end }}
+
+# Absent
+{{ if has "absent" .Vars.tags }}
+file:
   /tmp/qux:
     exists: false
+{{ end }}

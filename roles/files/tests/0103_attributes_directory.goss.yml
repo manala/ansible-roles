@@ -1,20 +1,35 @@
 ---
 
+# Default
+{{ if has "default" .Vars.tags }}
 file:
   /tmp/directory:
     exists: true
     filetype: directory
-  # Directory already exists as file
+{{ end }}
+
+# Directory already exists as file
+{{ if has "file" .Vars.tags }}
+file:
   /tmp/file:
     exists: true
     filetype: file
-  # Directory already exists as link to file
+{{ end }}
+
+# Directory already exists as link to file
+{{ if has "link_file" .Vars.tags }}
+file:
   /tmp/link_file:
     exists: true
     filetype: symlink
     linked-to: /tmp/file
-  # Directory already exists as link to directory
+{{ end }}
+
+# Directory already exists as link to directory
+{{ if has "link_directory" .Vars.tags }}
+file:
   /tmp/link_directory:
     exists: true
     filetype: symlink
     linked-to: /tmp/directory
+{{ end }}

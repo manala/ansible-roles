@@ -19,16 +19,14 @@
         - import_role:
             name: manala.files
           vars:
+            foo: bar
             manala_files_attributes:
               - path: /tmp/foo
-                content: |
-                  Hello foo!
+                template: fixtures/template.j2
               - path: /tmp/bar
-                content: |
-                  Hello bar!
+                template: fixtures/template.j2
               - path: /tmp/baz
-                content: |
-                  Hello baz!
+                template: fixtures/template.j2
                 state: present
       always:
         - name: Goss
@@ -46,10 +44,10 @@
         - import_role:
             name: manala.files
           vars:
+            foo: bar
             manala_files_attributes:
               - path: /tmp/qux
-                content: |
-                  Hello bar!
+                template: fixtures/template.j2
                 state: absent
       always:
         - name: Goss
@@ -75,15 +73,12 @@
                 parents: true
             manala_files_attributes:
               - path: /tmp/quux/foo
-                content: |
-                  Hello bar!
+                template: fixtures/template.j2
                 parents: true
               - path: /tmp/corge/foo
-                content: |
-                  Hello bar!
+                template: fixtures/template.j2
               - path: /tmp/grault/foo
-                content: |
-                  Hello bar!
+                template: fixtures/template.j2
                 parents: true
                 state: absent
       always:

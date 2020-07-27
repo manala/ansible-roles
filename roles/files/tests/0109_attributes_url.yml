@@ -25,4 +25,5 @@
                 creates: /tmp/alt-galaxy
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

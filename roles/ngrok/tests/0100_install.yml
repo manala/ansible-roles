@@ -18,7 +18,8 @@
             manala_ngrok_version: ~
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.latest.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [latest]}" validate
 
     # Version
     - tags: [version]
@@ -32,4 +33,5 @@
             manala_ngrok_version: 2.2.2
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.version.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [version]}" validate
