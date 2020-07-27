@@ -1,0 +1,102 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/scripts/default/foo:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    contains:
+      - "#!/bin/sh"
+      - "printf \"I hope that someone gets my message in a bottle, yeah\\n\""
+  tmp/scripts/default/foo_template:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    contains:
+      - "#!/bin/sh"
+      - "uname -snrvm"
+  tmp/scripts/default/foo_content:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    contains:
+      - "#!/bin/sh"
+      - "printf \"Maintenant vous faites ce qu'ils vous ont dit de faire\\n\""
+  tmp/scripts/default/bar:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    size: 1
+  tmp/scripts/default/baz:
+    exists: false
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/scripts/state/foo:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    size: 1
+  tmp/scripts/state/bar:
+    exists: false
+  tmp/scripts/state/baz:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    size: 1
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/scripts/defaults/foo:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    contains:
+      - "< Moo Moo Moo >"
+      - "         \\  (oo)\\_______"
+  tmp/scripts/defaults/bar:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    contains:
+      - "< Fooooo bar baaaaaz >"
+      - "                  |0  0 _/) )-~     | |__>--<__|     |"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/scripts/exclusive/foo:
+    exists: false
+  tmp/scripts/exclusive/bar:
+    exists: true
+    filetype: file
+    mode: "0755"
+    owner: root
+    group: root
+    size: 1
+  tmp/scripts/exclusive/baz:
+    exists: false
+{{ end }}

@@ -1,0 +1,50 @@
+---
+
+- name: scripts > Directory
+  file:
+    path: "{{ manala_motd_scripts_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: manala_motd_scripts|length
+
+- name: scripts > Exclusive
+  find:
+    path: "{{ manala_motd_scripts_dir }}"
+    patterns: "*"
+  changed_when: false
+  register: __manala_motd_scripts_exclusive_find
+  when: manala_motd_scripts_exclusive
+
+- name: scripts > Templates present
+  template:
+    src: "{{ item.template }}"
+    dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_motd_scripts,
+      __manala_motd_scripts_exclusive_find.files|default([]),
+      manala_motd_scripts_dir,
+      manala_motd_scripts_defaults.template|default('scripts/default.j2'),
+      wantstate='present'
+    )
+  }}"
+
+- name: configs > Files absent
+  file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_motd_scripts,
+      __manala_motd_scripts_exclusive_find.files|default([]),
+      manala_motd_scripts_dir,
+      manala_motd_scripts_defaults.template|default('scripts/default.j2'),
+      wantstate='absent'
+    )
+  }}"
+

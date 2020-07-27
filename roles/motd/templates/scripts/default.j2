@@ -1,0 +1,6 @@
+{%- if 'message' in item -%}
+#!/bin/sh
+printf "{{ item.message }}\n"
+{% else %}
+{{ item.content|default('') }}
+{%- endif -%}

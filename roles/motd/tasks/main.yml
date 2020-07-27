@@ -5,3 +5,9 @@
   tags:
     - manala_motd
     - manala_motd.template
+
+# Scripts
+- import_tasks: scripts.yml
+  tags:
+    - manala_motd
+    - manala_motd.scripts
