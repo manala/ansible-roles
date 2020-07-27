@@ -36,28 +36,36 @@ None
 
 ## Role Variables
 
-| Name                   | Default           | Type   | Description   |
-| ---------------------- | ----------------- | ------ | ------------- |
-| `manala_motd_template` | template/empty.j2 | String | Template path |
-| `manala_motd_message`  | ~                 | String | Message       |
+| Name                            | Default              | Type    | Description                |
+| ------------------------------- | -------------------- | ------- | -------------------------- |
+| `manala_motd_scripts_exclusive` | false                | Boolean | Scripts exclusivity        |
+| `manala_motd_scripts_dir`       | '/etc/update-motd.d' | String  | Scripts dir path           |
+| `manala_motd_scripts_defaults`  | {}                   | Array   | Default scripts parameters |
+| `manala_motd_scripts`           | []                   | Array   | Scripts                    |
+| `manala_motd_template`          | 'template/empty.j2'  | String  | Template path              |
+| `manala_motd_message`           | ~                    | String  | Message                    |
 
 ### Configuration example
 
-Use predefined type (manala|cow|turkey|stegosaurus) with custom message:
+Use scripts (recommended)
 
 ```yaml
----
-
-manala_motd_template: template/turkey.j2
-manala_motd_message:  My awesome message
+manala_motd_scripts_exclusive: true # Keep only defined scripts
+manala_motd_scripts:
+  - file: 10-uname
+    template: scripts/uname.j2
+  - file: 10-message
+    message: Hello world! # Simple custom message
+  - file: 30-cow
+    template: scripts/cow.j2 # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
+    message: Hjartað hamast # Icelandic custom message
 ```
 
-Use custom template:
+Static template (deprecated)
 
 ```yaml
----
-
-manala_motd_template: motd/motd.j2
+manala_motd_template: template/turkey.j2 # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
+manala_motd_message: My awesome message # Custom message
 ```
 
 ## Example playbook
@@ -65,7 +73,7 @@ manala_motd_template: motd/motd.j2
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.motd }
+    - role: manala.motd
 ```
 
 # Licence
