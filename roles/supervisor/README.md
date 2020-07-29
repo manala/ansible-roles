@@ -43,36 +43,89 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                         | Default        | Type  | Description                            |
-| -------------------------------------------- | -------------- | ----- | -------------------------------------- |
-| `manala_supervisor_install_packages`         | ~              | Array | Dependency packages to install         |
-| `manala_supervisor_install_packages_default` | ['supervisor'] | Array | Default dependency packages to install |
-| `manala_supervisor_config                    | []             | Array | Main configuration directives          |
-| `manala_supervisor_configs                   | []             | Array | Additional configurations directives   |
+| Name                                         | Default                            | Type         | Description                                           |
+| -------------------------------------------- | ---------------------------------- | ------------ | ----------------------------------------------------- |
+| `manala_supervisor_install_packages`         | ~                                  | Array        | Dependency packages to install                        |
+| `manala_supervisor_install_packages_default` | ['supervisor']                     | Array        | Default dependency packages to install                |
+| `manala_supervisor_config_file`              | '/etc/supervisor/supervisord.conf' | String       | Main configuration file path                          |
+| `manala_supervisor_config_template`          | 'config/_default.j2'               | String       | Main configuration template path                      |
+| `manala_supervisor_config`                   | ~                                  | Array/String | Main configuration directives                         |
+| `manala_supervisor_configs_exclusive`        | false                              | Boolean      | Exclusion of existing files additional configurations |
+| `manala_supervisor_configs_dir`              | '/etc/supervisor/conf.d'           | String       | Additional configurations directory path              |
+| `manala_supervisor_configs_defaults`         | {}                                 | Array        | Additional configurations defaults                    |
+| `manala_supervisor_configs`                  | []                                 | Array        | Additional configurations directives                  |
+| `manala_supervisor_log_dir`                  | '/var/log/supervisor'              | String       | Log directory path                                    |
 
 ### Configuration example
 
+Use debian default main config template (recommended):
+```yaml
+manala_supervisor_config_template: config/debian.j2
+manala_supervisor_config:
+  supervisord:
+    logfile: /var/log/supervisord.log # Change or add only some parameters
+```
+
+Start from a fresh empty main config, using dict parameters:
+```yaml
+manala_supervisor_config:
+  unix_http_server:
+    file: /tmp/supervisor.sock
+    chmod: "0700"
+    chown: nobody:nogroup
+  supervisord:
+    logfile: /var/log/supervisord.log
+    ...
+```
+
+Use raw main config:
+```yaml
+manala_supervisor_config: |
+  [unix_http_server]
+  file=/tmp/supervisor.sock
+  chmod=0700
+  chown=nobody:nogroup
+
+  [supervisord]
+  logfile=/var/log/supervisord.log
+  ...
+```
+
+Use dict's array parameters (deprecated):
 ```yaml
 manala_supervisor_config:
   - loglevel: info
 ```
 
-Enable http server
-
+Enable http server:
 ```yaml
 manala_supervisor_configs:
-  - file:     inet_http_server.conf
-    template: configs/inet_http_server.dev.j2
+  - file: inet_http_server.conf
+    template: configs/inet_http_server.j2
     config:
-      - port: "*:9001"
+      port: "*:9001"
 ```
 
-Program
-
+Programs:
 ```yaml
 manala_supervisor_configs:
-  - file: foo.conf
-    template: configs/program.dev.j2
+  - file: programs_dict.conf
+    config:
+      program:foo:
+        command: /bin/foo
+        priority: 123
+        autostart: true
+        stopsignal: HUP
+        environment:
+          FOO: bar
+          BAR: 123
+      program:bar:
+        command: /bin/bar
+  - file: programs_raw.conf
+    config: |
+      [program:foo]
+      command=/bin/foo
+  - file: foo_dicts_array.conf # Deprecated
     config:
       - foo:
         - command: bar
@@ -106,7 +159,7 @@ A state (present|absent) can be provided.
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.supervisor }
+    - role: manala.supervisor
 ```
 
 # Licence

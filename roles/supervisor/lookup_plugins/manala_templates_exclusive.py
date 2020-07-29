@@ -14,44 +14,46 @@ class LookupModule(LookupBase):
 
         wantstate = kwargs.pop('wantstate', None)
 
-        configs          = self._flatten(terms[0])
-        configsExclusive = self._flatten(terms[1])
-        configsDir       = terms[2]
+        templates  = self._flatten(terms[0])
+        exclusives = self._flatten(terms[1])
+        dir        = terms[2]
+        template   = terms[3]
 
         itemDefault = {
-            'state': 'present'
+            'state': 'present',
+            'template': template
         }
 
-        # Mark exclusive configs as absent
-        for config in configsExclusive:
+        # Mark exclusive templates as absent
+        for template in exclusives:
             item = itemDefault.copy()
             item.update({
-                'file':  config['path'],
+                'file':  template['path'],
                 'state': 'absent'
             })
             results.append(item)
 
-        for config in configs:
+        for template in templates:
 
             items = []
 
             # Must be a dict
-            if not isinstance(config, dict):
+            if not isinstance(template, dict):
                 raise AnsibleError('Expect a dict')
 
-            # Check index key
-            if 'file' not in config:
-                raise AnsibleError('Expect "file" key')
+            # Check file key
+            if 'file' not in template:
+                raise AnsibleError('Expect a "file" key')
 
             item = itemDefault.copy()
-            item.update(config)
+            item.update(template)
             item.update({
-                'file': os.path.join(configsDir, item['file'])
+                'file': os.path.join(dir, item['file'])
             })
 
             items.append(item)
 
-            # Merge by index key
+            # Merge by file key
             for item in items:
                 itemFound = False
                 for i, result in enumerate(results):

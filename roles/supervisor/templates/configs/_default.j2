@@ -1,0 +1,18 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- set config = item.config|default('') -%}
+
+{%- if config is mapping -%}
+
+{{ macros.config_sections(config) }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{{- macros.config(config) -}}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

@@ -1,3 +1,5 @@
+{#- Deprecated -#}
+
 {%- import '_macros.j2' as macros with context -%}
 
 {%- for configs in item.config|default([]) -%}
@@ -33,7 +35,7 @@
 {{ macros.config_row(config, 'stderr_logfile_backups', ';stderr_logfile_backups=10', 0, true) }} ; # of stderr logfile backups (0 means none, default 10)
 {{ macros.config_row(config, 'stderr_capture_maxbytes', ';stderr_capture_maxbytes=1MB', 0, true) }} ; number of bytes in 'capturemode' (default 0)
 {{ macros.config_row(config, 'stderr_events_enabled', ';stderr_events_enabled=false', 0, true) }} ; emit events on stderr writes (default false)
-{{ query('manala_supervisor_config', config, wantrow='environment', wantrowtype='env', wantrowdefault=';environment=A="1",B="2"') }} ; process environment additions (def no adds)
+{{ macros.config_row_sequence(config, 'environment', ';environment=A="1",B="2"', 0, true) }} ; process environment additions (def no adds)
 {{ macros.config_row(config, 'serverurl', ';serverurl=AUTO', 0, true) }} ; override serverurl computation (childutils)
 {{ macros.config(config, [
     'command',

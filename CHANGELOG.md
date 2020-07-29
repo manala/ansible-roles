@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Supervisor] Use unified exclusive template lookup
+- [Supervisor] Deprecate environment oriented templates
+- [Supervisor] Deprecate dict's array configs
 
 ## [0.1.56] - 2020-07-27
 ### Added

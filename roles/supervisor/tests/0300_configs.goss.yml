@@ -1,0 +1,140 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/configs/default/foo.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[group:foo]"
+      - "programs=foo,bar"
+      - "[program:bar]"
+      - "command=/bin/bar"
+      - "[program:foo]"
+      - "autostart=true"
+      - "command=/bin/foo"
+      - 'environment=BAR="123",FOO="bar"'
+      - "priority=123"
+      - "stopsignal=HUP"
+  tmp/configs/default/foo_deprecated.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[program:foo]"
+      - "command=/bin/foo"
+      - "priority=123"
+      - "autostart=true"
+      - "stopsignal=HUP"
+      - 'environment=BAR="123",FOO="bar"'
+      - "[program:bar]"
+      - "command=/bin/bar"
+      - "[group:foo]"
+      - "programs=foo,bar"
+  tmp/configs/default/foo_template_inet_http_server.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[inet_http_server]"
+      - "port=0.0.0.1:9001"
+      - "username=foo"
+  tmp/configs/default/foo_template_deprecated.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[program:foo]"
+      - "command=cat"
+      - "priority=123"
+      - "autostart=true"
+      - "stopsignal=HUP"
+      - 'environment=FOO="bar",BAR="123"'
+  tmp/configs/default/foo_content.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[program:foo]"
+      - "command=/bin/foo"
+  tmp/configs/default/bar.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    size: 1
+  tmp/configs/default/baz.conf:
+    exists: false
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/configs/state/foo.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    size: 1
+  tmp/configs/state/bar.conf:
+    exists: false
+  tmp/configs/state/baz.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    size: 1
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/configs/defaults/foo.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[inet_http_server]"
+      - "port=0.0.0.0:9001"
+  tmp/configs/defaults/bar.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "Bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/configs/exclusive/foo.conf:
+    exists: false
+  tmp/configs/exclusive/bar.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    size: 1
+  tmp/configs/exclusive/baz.conf:
+    exists: false
+{{ end }}

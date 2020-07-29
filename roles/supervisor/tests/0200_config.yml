@@ -3,17 +3,74 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_supervisor_config:
-      - unix_http_server:
-        - file: /tmp/supervisor.sock
-  pre_tasks:
-    - import_tasks: pre_tasks/backports.yml
-      when: ansible_distribution_release in ['stretch']
-    - import_tasks: pre_tasks/manala.yml
-      when: ansible_distribution_release in ['jessie']
-  roles:
-    - manala.supervisor
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/backports.yml
+          when: ansible_distribution_release in ['stretch']
+        - import_tasks: pre_tasks/manala.yml
+          when: ansible_distribution_release in ['jessie']
+
+    - block:
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_config_file: tmp/config/default.conf
+            manala_supervisor_config:
+              unix_http_server:
+                file: /tmp/supervisor.sock
+                chmod: "0700"
+                chown: nobody:nogroup
+              supervisord:
+                logfile: /var/log/supervisord.log
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_config_file: tmp/config/default_deprecated.conf
+            manala_supervisor_config:
+              - unix_http_server:
+                - file: /tmp/supervisor.sock
+                - chmod: "0700"
+                - chown: nobody:nogroup
+              - supervisord:
+                - logfile: /var/log/supervisord.log
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_config_file: tmp/config/default_content.conf
+            manala_supervisor_config: |
+              [unix_http_server]
+              file=/tmp/supervisor.sock
+              chmod=0700
+              chown=nobody:nogroup
+
+              [supervisord]
+              logfile=/var/log/supervisord.log
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_config_file: tmp/config/template.conf
+            manala_supervisor_config_template: config/debian.j2
+            manala_supervisor_config:
+              unix_http_server:
+                file: /tmp/supervisor.sock
+                chmod: "0700"
+                chown: nobody:nogroup
+              supervisord:
+                logfile: /var/log/supervisord.log
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_config_file: tmp/config/template_deprecated.conf
+            manala_supervisor_config_template: config/default.dev.j2
+            manala_supervisor_config:
+              - unix_http_server:
+                - file: /tmp/supervisor.sock
+                - chmod: "0700"
+                - chown: nobody:nogroup
+              - supervisord:
+                - logfile: /var/log/supervisord.log
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

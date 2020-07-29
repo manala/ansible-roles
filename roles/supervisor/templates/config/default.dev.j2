@@ -1,6 +1,8 @@
+{#- Deprecated -#}
+
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_supervisor_config -%}
+{% set config = manala_supervisor_config|default([], true) -%}
 
 {% set config_unix_http_server = [] -%}
 {% set config_supervisord = [] -%}

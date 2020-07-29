@@ -1,6 +1,15 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_supervisor_config -%}
+{%- set config = manala_supervisor_config -%}
+
+{%- if config is mapping -%}
+
+{{ macros.config_sections(config) }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
 
 {% set config_unix_http_server = [] -%}
 {% set config_supervisord = [] -%}
@@ -61,3 +70,9 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 {{ macros.config(config_include, ['files']) }}
 
 {{ macros.config(config, ['unix_http_server', 'supervisord', 'config_supervisorctl', 'include']) }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}
