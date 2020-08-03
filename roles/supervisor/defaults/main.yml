@@ -6,15 +6,17 @@ manala_supervisor_install_packages_default:
   - supervisor
 
 # Config
-manala_supervisor_config_file:     /etc/supervisor/supervisord.conf
+manala_supervisor_config_file: /etc/supervisor/supervisord.conf
 manala_supervisor_config_template: ~
-manala_supervisor_config:          []
+manala_supervisor_config: ~
 
 # Configs
 manala_supervisor_configs_exclusive: false
-manala_supervisor_configs_dir:       /etc/supervisor/conf.d
-manala_supervisor_configs_template:  ~
-manala_supervisor_configs:           []
+manala_supervisor_configs_dir: /etc/supervisor/conf.d
+manala_supervisor_configs_template: ~ # Deprecated
+manala_supervisor_configs_defaults:
+  template: "{{ manala_supervisor_configs_template }}" # Ensure backward compatibility
+manala_supervisor_configs: []
 
 # Log
 manala_supervisor_log_dir: /var/log/supervisor

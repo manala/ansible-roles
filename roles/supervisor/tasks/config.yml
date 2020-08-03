@@ -1,9 +1,21 @@
 ---
 
+- name: config > Directory
+  file:
+    path: "{{ manala_supervisor_config_file | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: config > Template
   template:
-    src:  "{{ manala_supervisor_config_template|ternary(manala_supervisor_config_template, 'config/default.j2') }}"
+    src: "{{ manala_supervisor_config_template|default('config/_default.j2', true) }}"
     dest: "{{ manala_supervisor_config_file }}"
-  when: (manala_supervisor_config_template is not none) or (manala_supervisor_config|length)
+    owner: root
+    group: root
+    mode: 0644
+  when: manala_supervisor_config_template
+        or manala_supervisor_config
   notify:
     - supervisor restart

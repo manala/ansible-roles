@@ -1,61 +1,150 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
-    manala_supervisor_configs:
-      - file: foo.conf
-        config:
-          - foo:
-            - command: cat
-            - environment:
-                FOO: bar
-                BAR: 12
-      - file: foo_template.conf
-        template: configs/program.dev.j2
-        config:
-          - bar:
-            - command: cat
-            - environment: BAR="12",FOO="bar"
-      - file: foo_content.conf
-        content: |
-          [program:foo]
-          command=/usr/bin/foo
-      - file: foo_template_content.conf
-        template: configs/program.dev.j2
-        content: |
-          [program:foo]
-          command=/usr/bin/foo
-      - file: bar.conf
-        state: present
-      - file: baz.conf
-        state: absent
-  pre_tasks:
-    - import_tasks: pre_tasks/backports.yml
-      when: ansible_distribution_release in ['stretch']
-    - import_tasks: pre_tasks/manala.yml
-      when: ansible_distribution_release in ['jessie']
-  roles:
-    - manala.supervisor
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_supervisor_configs_dir: /etc/supervisor/conf.d.test
-    manala_supervisor_configs:
-      - file: foo.conf
-      - file: bar.conf
-        state: absent
-      - file: baz.conf
-        state: present
-  roles:
-    - manala.supervisor
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - tags: [always]
+      block:
+        - import_tasks: pre_tasks/backports.yml
+          when: ansible_distribution_release in ['stretch']
+        - import_tasks: pre_tasks/manala.yml
+          when: ansible_distribution_release in ['jessie']
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_configs_dir: tmp/configs/default
+            manala_supervisor_configs:
+              - file: foo.conf
+                config:
+                  program:foo:
+                    command: /bin/foo
+                    priority: 123
+                    autostart: true
+                    stopsignal: HUP
+                    environment:
+                      FOO: bar
+                      BAR: 123
+                  program:bar:
+                    command: /bin/bar
+                  group:foo:
+                    programs: [foo, bar]
+              - file: foo_deprecated.conf
+                config:
+                  - program:foo:
+                    - command: /bin/foo
+                    - priority: 123
+                    - autostart: true
+                    - stopsignal: HUP
+                    - environment: BAR="123",FOO="bar"
+                  - program:bar:
+                    - command: /bin/bar
+                  - group:foo:
+                    - programs: foo,bar
+              - file: foo_template_inet_http_server.conf
+                template: configs/inet_http_server.j2
+                config:
+                  port: 0.0.0.1:9001
+                  username: foo
+              - file: foo_template_deprecated.conf
+                template: configs/app_program.dev.j2
+                config:
+                  - foo:
+                    - command: cat
+                    - priority: 123
+                    - autostart: true
+                    - stopsignal: HUP
+                    - environment:
+                        FOO: bar
+                        BAR: 123
+              - file: foo_content.conf
+                config: |
+                  [program:foo]
+                  command=/bin/foo
+              - file: bar.conf
+                state: present
+              - file: baz.conf
+                state: absent
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/bar.conf
+            state: touch
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_configs_dir: tmp/configs/state
+            manala_supervisor_configs:
+              - file: foo.conf
+              - file: bar.conf
+                state: absent
+              - file: baz.conf
+                state: present
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_configs_dir: tmp/configs/defaults
+            manala_supervisor_configs_defaults:
+              template: configs/inet_http_server.j2
+            manala_supervisor_configs:
+              - file: foo.conf
+                config:
+                  port: 0.0.0.0:9001
+              - file: bar.conf
+                template: bar.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}
+            state: touch
+          loop: [foo.conf, bar.conf, baz.conf]
+        - import_role:
+            name: manala.supervisor
+          vars:
+            manala_supervisor_configs_dir: tmp/configs/exclusive
+            manala_supervisor_configs_exclusive: true
+            manala_supervisor_configs:
+              - file: bar.conf
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

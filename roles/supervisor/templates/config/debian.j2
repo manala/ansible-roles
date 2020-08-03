@@ -1,0 +1,44 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = {
+  'unix_http_server': {},
+  'supervisord': {},
+  'rpcinterface:supervisor': {},
+  'supervisorctl': {},
+  'include': {},
+} | combine(manala_supervisor_config|default({}, true)) -%}
+
+; supervisor config file
+
+[unix_http_server]
+{{ macros.config_parameter('file', config.unix_http_server.file|default('/var/run/supervisor.sock', true)) }}   ; (the path to the socket file)
+{{ macros.config_parameter('chmod', config.unix_http_server.chmod|default('0700', true)) }}                       ; sockef file mode (default 0700)
+{{- macros.config_parameters(config.unix_http_server, ['file', 'chmod']) }}
+
+[supervisord]
+{{ macros.config_parameter('logfile', config.supervisord.logfile|default('/var/log/supervisor/supervisord.log', true)) }} ; (main log file;default $CWD/supervisord.log)
+{{ macros.config_parameter('pidfile', config.supervisord.pidfile|default('/var/run/supervisord.pid', true)) }} ; (supervisord pidfile;default supervisord.pid)
+{{ macros.config_parameter('childlogdir', config.supervisord.childlogdir|default('/var/log/supervisor', true)) }}            ; ('AUTO' child log dir, default $TEMP)
+{{- macros.config_parameters(config.supervisord, ['logfile', 'pidfile', 'childlogdir']) }}
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+{{ macros.config_parameter('supervisor.rpcinterface_factory', config['rpcinterface:supervisor']['supervisor.rpcinterface_factory']|default('supervisor.rpcinterface:make_main_rpcinterface', true), true) }}
+{{- macros.config_parameters(config['rpcinterface:supervisor'], ['supervisor.rpcinterface_factory']) }}
+
+[supervisorctl]
+{{ macros.config_parameter('serverurl', config.supervisorctl.serverurl|default('unix:///var/run/supervisor.sock', true)) }} ; use a unix:// URL  for a unix socket
+{{- macros.config_parameters(config.supervisorctl, ['serverurl']) }}
+
+; The [include] section can just contain the "files" setting.  This
+; setting can list multiple files (separated by whitespace or
+; newlines).  It can also contain wildcards.  The filenames are
+; interpreted as relative to this file.  Included files *cannot*
+; include files themselves.
+
+[include]
+{{ macros.config_parameter('files', config.include.files|default('/etc/supervisor/conf.d/*.conf', true), true) }}
+
+{{ macros.config_sections(config, ['unix_http_server', 'supervisord', 'rpcinterface:supervisor', 'supervisorctl', 'include']) }}

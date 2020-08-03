@@ -1,7 +1,73 @@
 ---
 
 file:
-  /etc/supervisor/supervisord.conf:
+  tmp/config/default.conf:
     exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
     contains:
-      - file=/tmp/supervisor.sock   ; (the path to the socket file)
+      - "[supervisord]"
+      - "logfile=/var/log/supervisord.log"
+      - "!pidfile=/var/run/supervisord.pid"
+      - "[unix_http_server]"
+      - "chmod=0700"
+      - "chown=nobody:nogroup"
+      - "file=/tmp/supervisor.sock"
+  tmp/config/default_deprecated.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[unix_http_server]"
+      - "file=/tmp/supervisor.sock"
+      - "chmod=0700"
+      - "chown=nobody:nogroup"
+      - "[supervisord]"
+      - "logfile=/var/log/supervisord.log"
+      - "pidfile=/var/run/supervisord.pid"
+  tmp/config/default_content.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[unix_http_server]"
+      - "file=/tmp/supervisor.sock"
+      - "chmod=0700"
+      - "chown=nobody:nogroup"
+      - "[supervisord]"
+      - "logfile=/var/log/supervisord.log"
+      - "!pidfile=/var/run/supervisord.pid"
+  tmp/config/template.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[unix_http_server]"
+      - "file=/tmp/supervisor.sock"
+      - "chmod=0700"
+      - "chown=nobody:nogroup"
+      - "[supervisord]"
+      - "logfile=/var/log/supervisord.log"
+      - "pidfile=/var/run/supervisord.pid"
+  tmp/config/template_deprecated.conf:
+    exists: true
+    filetype: file
+    mode: "0644"
+    owner: root
+    group: root
+    contains:
+      - "[unix_http_server]"
+      - "file=/tmp/supervisor.sock"
+      - "chmod=0700"
+      - "chown=nobody:nogroup"
+      - "[supervisord]"
+      - "logfile=/var/log/supervisord.log"
+      - "pidfile=/var/run/supervisord.pid"

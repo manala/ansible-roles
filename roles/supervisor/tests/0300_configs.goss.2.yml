@@ -1,9 +1,0 @@
----
-
-file:
-  /etc/supervisor/conf.d.test/foo.conf:
-    exists: true
-  /etc/supervisor/conf.d.test/bar.conf:
-    exists: false
-  /etc/supervisor/conf.d.test/baz.conf:
-    exists: true

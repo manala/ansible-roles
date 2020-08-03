@@ -1,0 +1,8 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- set config = item.config -%}
+
+[inet_http_server]
+{{- macros.config_parameters({
+  'port': config.port|mandatory
+} | combine(config)) }}
