@@ -22,7 +22,7 @@
               - file: foo_template
                 template: scripts/uname.j2
               - file: foo_content
-                content: |
+                script: |
                   #!/bin/sh
                   printf "Maintenant vous faites ce qu'ils vous ont dit de faire\n"
               - file: bar
@@ -75,8 +75,7 @@
               - file: foo
                 message: Moo Moo Moo
               - file: bar
-                template: scripts/dragon.j2
-                message: Fooooo bar baaaaaz
+                template: bar.j2
       always:
         - name: Goss
           command: >

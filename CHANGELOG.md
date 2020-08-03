@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Supervisor] Use unified exclusive template lookup
 - [Supervisor] Deprecate environment oriented templates
 - [Supervisor] Deprecate dict's array configs
+- [Motd] Cleanup
 
 ## [0.1.56] - 2020-07-27
 ### Added
