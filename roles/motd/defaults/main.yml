@@ -1,9 +1,9 @@
 ---
 
 # Deprecated
-manala_motd_file:     /etc/motd
+manala_motd_file: /etc/motd
 manala_motd_template: ~
-manala_motd_message:  ~
+manala_motd_message: ~
 
 # Scripts
 manala_motd_scripts_exclusive: false

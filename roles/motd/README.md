@@ -36,14 +36,14 @@ None
 
 ## Role Variables
 
-| Name                            | Default              | Type    | Description                |
-| ------------------------------- | -------------------- | ------- | -------------------------- |
-| `manala_motd_scripts_exclusive` | false                | Boolean | Scripts exclusivity        |
-| `manala_motd_scripts_dir`       | '/etc/update-motd.d' | String  | Scripts dir path           |
-| `manala_motd_scripts_defaults`  | {}                   | Array   | Default scripts parameters |
-| `manala_motd_scripts`           | []                   | Array   | Scripts                    |
-| `manala_motd_template`          | 'template/empty.j2'  | String  | Template path              |
-| `manala_motd_message`           | ~                    | String  | Message                    |
+| Name                            | Default                | Type    | Description                |
+| ------------------------------- | ---------------------- | ------- | -------------------------- |
+| `manala_motd_scripts_exclusive` | false                  | Boolean | Scripts exclusivity        |
+| `manala_motd_scripts_dir`       | '/etc/update-motd.d'   | String  | Scripts dir path           |
+| `manala_motd_scripts_defaults`  | {}                     | Array   | Default scripts parameters |
+| `manala_motd_scripts`           | []                     | Array   | Scripts                    |
+| `manala_motd_template`          | 'template/_default.j2' | String  | Template path              |
+| `manala_motd_message`           | ~                      | String  | Message                    |
 
 ### Configuration example
 
@@ -56,9 +56,14 @@ manala_motd_scripts:
     template: scripts/uname.j2
   - file: 10-message
     message: Hello world! # Simple custom message
-  - file: 30-cow
+  - file: 30-template
     template: scripts/cow.j2 # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
     message: Hjartað hamast # Icelandic custom message
+  - file: 40-raw
+    # Raw script
+    script: |
+      #!/bin/sh
+      printf "Hello world!\n"
 ```
 
 Static template (deprecated)

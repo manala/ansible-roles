@@ -81,8 +81,7 @@ file:
     owner: root
     group: root
     contains:
-      - "< Fooooo bar baaaaaz >"
-      - "                  |0  0 _/) )-~     | |__>--<__|     |"
+      - "Bar"
 {{ end }}
 
 # Exclusive

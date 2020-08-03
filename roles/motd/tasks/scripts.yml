@@ -29,12 +29,12 @@
       manala_motd_scripts,
       __manala_motd_scripts_exclusive_find.files|default([]),
       manala_motd_scripts_dir,
-      manala_motd_scripts_defaults.template|default('scripts/default.j2'),
+      manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
       wantstate='present'
     )
   }}"
 
-- name: configs > Files absent
+- name: scripts > Files absent
   file:
     path: "{{ item.file }}"
     state: absent
@@ -43,8 +43,7 @@
       manala_motd_scripts,
       __manala_motd_scripts_exclusive_find.files|default([]),
       manala_motd_scripts_dir,
-      manala_motd_scripts_defaults.template|default('scripts/default.j2'),
+      manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
       wantstate='absent'
     )
   }}"
-
