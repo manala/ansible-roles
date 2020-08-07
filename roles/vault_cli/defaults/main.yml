@@ -1,0 +1,7 @@
+---
+
+# Version
+manala_vault_cli_version: ~
+
+# Bin
+manala_vault_cli_bin: /usr/local/bin/vault

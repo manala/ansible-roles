@@ -1,0 +1,24 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name:           vault_cli
+  author:              Manala
+  company:             Manala
+  description:         Handle vault binary
+  license:             MIT
+  min_ansible_version: 2.4.0
+  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+        - buster
+  galaxy_tags:
+    - system
+    - vault
+    - acl
+    - passwords

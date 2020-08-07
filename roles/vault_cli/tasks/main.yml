@@ -1,0 +1,7 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_vault_cli
+    - manala_vault_cli.install
