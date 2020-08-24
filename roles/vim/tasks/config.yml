@@ -2,9 +2,9 @@
 
 - name: config > Config
   template:
-    src:   "{{ manala_vim_config_template|ternary(manala_vim_config_template, 'config/empty.j2') }}"
-    dest:  "{{ manala_vim_config_file }}"
+    src: "{{ manala_vim_config_template|ternary(manala_vim_config_template, 'config/empty.j2') }}"
+    dest: "{{ manala_vim_config_file }}"
     owner: root
     group: root
-    mode:  0644
+    mode: "0644"
   when: (manala_vim_config_template is not none) or (manala_vim_config|length)

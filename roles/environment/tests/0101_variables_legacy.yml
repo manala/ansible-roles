@@ -7,15 +7,15 @@
     manala_environment_files:
       - pam
       - zsh
-      - file:   /etc/profile.d/test.sh
+      - file: /etc/profile.d/test.sh
         export: true
     manala_environment_variables:
       - FOO: bar
       - BAR: 123
       - BAZ: 1.2
       - QUX: foo=bar
-      - FOO_NULL:  null
-      - FOO_TRUE:  true
+      - FOO_NULL: null
+      - FOO_TRUE: true
       - FOO_FALSE: false
   pre_tasks:
     - copy:

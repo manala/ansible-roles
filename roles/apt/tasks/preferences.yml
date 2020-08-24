@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_apt_preferences_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: preferences > Exclusive
   find:
@@ -14,8 +17,11 @@
 
 - name: preferences > Templates presents
   template:
-    src:  preferences/default.j2
+    src: preferences/default.j2
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_apt_preferences',
       manala_apt_preferences,
@@ -29,7 +35,7 @@
 
 - name: preferences > Files absents
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
       'manala_apt_preferences',

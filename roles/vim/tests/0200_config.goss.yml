@@ -2,8 +2,11 @@
 
 file:
   /etc/vim/vimrc.local:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - set encoding=utf8
       - set expandtab

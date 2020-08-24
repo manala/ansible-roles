@@ -1,8 +1,18 @@
 ---
 
 file:
+  /etc/apt/apt.conf.d.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/apt/apt.conf.d.test/foo:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Acquire::Check-Valid-Until \"true\";"
       - "APT {"
@@ -19,17 +29,33 @@ file:
       - "};"
   /etc/apt/apt.conf.d.test/foo_template:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Acquire::Check-Valid-Until "false";
   /etc/apt/apt.conf.d.test/foo_content:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - APT::Install-Recommends "false";
   /etc/apt/apt.conf.d.test/foo_template_content:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - APT::Install-Suggests "false";
   /etc/apt/apt.conf.d.test/bar:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/apt/apt.conf.d.test/baz:
     exists: false

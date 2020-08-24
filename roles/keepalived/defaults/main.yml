@@ -6,11 +6,11 @@ manala_keepalived_install_packages_default:
   - keepalived
 
 # Config
-manala_keepalived_config_file:     /etc/keepalived/keepalived.conf
+manala_keepalived_config_file: /etc/keepalived/keepalived.conf
 manala_keepalived_config_template: ~
-manala_keepalived_config:          []
+manala_keepalived_config: []
 
 # Environment
-manala_keepalived_environment_file:     /etc/default/keepalived
+manala_keepalived_environment_file: /etc/default/keepalived
 manala_keepalived_environment_template: ~
-manala_keepalived_environment:          []
+manala_keepalived_environment: []

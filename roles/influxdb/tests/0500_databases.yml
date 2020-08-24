@@ -8,6 +8,7 @@
       - my_db
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
+      when: ansible_distribution_release in ['jessie']
     - import_tasks: pre_tasks/influxdata.yml
   roles:
     - manala.influxdb

@@ -2,9 +2,11 @@
 
 - name: applications > Templates
   template:
-    src:  "{{ item.template|default(manala_docker_applications_template|ternary(manala_docker_applications_template, 'applications/default.j2')) }}"
+    src: "{{ item.template|default(manala_docker_applications_template|ternary(manala_docker_applications_template, 'applications/default.j2')) }}"
     dest: "{{ manala_docker_applications_dir }}/{{ item.application }}"
-    mode: 0755
+    owner: root
+    group: root
+    mode: "0755"
   loop: "{{ query(
       'manala_docker_applications',
       manala_docker_applications,

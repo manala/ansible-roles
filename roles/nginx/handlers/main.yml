@@ -8,5 +8,5 @@
 
 - name: do nginx restart
   service:
-    name:  nginx
+    name: nginx
     state: restarted

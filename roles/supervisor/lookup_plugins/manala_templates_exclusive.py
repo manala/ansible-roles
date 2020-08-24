@@ -28,7 +28,7 @@ class LookupModule(LookupBase):
         for template in exclusives:
             item = itemDefault.copy()
             item.update({
-                'file':  template['path'],
+                'file': template['path'],
                 'state': 'absent'
             })
             results.append(item)

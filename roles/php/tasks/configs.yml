@@ -18,6 +18,9 @@
       template:
         src: "{{ item.template|default(manala_php_configs_template|ternary(manala_php_configs_template, 'configs/empty.j2')) }}"
         dest: "{{ item.file }}"
+        owner: root
+        group: root
+        mode: "0644"
       loop: "{{ query(
           'manala_php_configs',
           manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
@@ -35,6 +38,9 @@
       copy:
         content: "{{ item.content }}"
         dest: "{{ item.file }}"
+        owner: root
+        group: root
+        mode: "0644"
       loop: "{{ query(
           'manala_php_configs',
           manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),

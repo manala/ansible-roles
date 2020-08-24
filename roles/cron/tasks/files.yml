@@ -2,16 +2,16 @@
 
 - name: files > Jobs
   cron:
-    cron_file:  "{{ item.0.file }}"
-    name:       "{{ item.1.name }}"
-    job:        "{{ item.1.job }}"
-    minute:     "{{ item.1.minute|default(omit) }}"
-    hour:       "{{ item.1.hour|default(omit) }}"
-    day:        "{{ item.1.day|default(omit) }}"
-    month:      "{{ item.1.month|default(omit) }}"
-    weekday:    "{{ item.1.weekday|default(omit) }}"
-    user:       "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
-    state:      "{{ item.1.state|default('present') }}"
+    cron_file: "{{ item.0.file }}"
+    name: "{{ item.1.name }}"
+    job: "{{ item.1.job }}"
+    minute: "{{ item.1.minute|default(omit) }}"
+    hour: "{{ item.1.hour|default(omit) }}"
+    day: "{{ item.1.day|default(omit) }}"
+    month: "{{ item.1.month|default(omit) }}"
+    weekday: "{{ item.1.weekday|default(omit) }}"
+    user: "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
+    state: "{{ item.1.state|default('present') }}"
   with_subelements:
     - "{{ manala_cron_files }}"
     - jobs
@@ -21,11 +21,11 @@
 - name: files > Env variables
   cron:
     cron_file: "{{ item.file }}"
-    env:       true
-    name:      "{{ item.name }}"
-    value:     "{{ item.value }}"
-    user:      "{{ item.user|default(manala_cron_files_defaults.user) }}"
-    state:     present
+    env: true
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    user: "{{ item.user|default(manala_cron_files_defaults.user) }}"
+    state: present
   loop: "{{ query(
       'manala_cron_files_env',
       manala_cron_files
@@ -38,11 +38,11 @@
 - name: files > Environment variables (deprecated)
   cron:
     cron_file: "{{ item.0.file }}"
-    env:       true
-    name:      "{{ (item.1.keys()|list)[0] }}"
-    value:     "{{ (item.1.values()|list)[0] }}"
-    user:      "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
-    state:     present
+    env: true
+    name: "{{ (item.1.keys()|list)[0] }}"
+    value: "{{ (item.1.values()|list)[0] }}"
+    user: "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
+    state: present
   with_subelements:
     - "{{ manala_cron_files }}"
     - environment

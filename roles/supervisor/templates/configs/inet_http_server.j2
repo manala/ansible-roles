@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{%- set config = item.config -%}
+{%- set config = item.config|default({}) -%}
 
 [inet_http_server]
 {{- macros.config_parameters({

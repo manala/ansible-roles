@@ -62,7 +62,7 @@
           vars:
             manala_files_attributes:
               - path: /tmp/link_permissions
-                src:  /tmp/directory_permissions
+                src: /tmp/directory_permissions
                 user: backup
                 group: games
                 state: link_directory

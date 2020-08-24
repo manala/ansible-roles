@@ -43,9 +43,9 @@ Using ansible galaxy requirements file:
 ```yaml
 manala_npm_packages:
   - yarn          # Lightweight syntax
-  - name:    gulp
+  - name: gulp
     version: 3
-  - name:  grunt
+  - name: grunt
     state: absent
 ```
 
@@ -66,7 +66,7 @@ manala:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.npm }
+    - role: manala.npm
 ```
 
 # Licence

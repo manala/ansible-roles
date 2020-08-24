@@ -28,8 +28,8 @@
       )
     }}"
     install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+    update_cache: true
+    cache_valid_time: 3600
 
 - name: install > Packages absents
   apt:
@@ -59,7 +59,7 @@
       )
     }}"
     state: absent
-    purge:      true
+    purge: true
     autoremove: true
 
 # Use dpkg-query to find out installed packages
@@ -76,8 +76,8 @@
     name:
       - debfoster
     install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+    update_cache: true
+    cache_valid_time: 3600
   when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
 
 # Use debfoster to find out each package dependencies
@@ -158,6 +158,6 @@
       )
     }}"
     state: absent
-    purge:      true
+    purge: true
     autoremove: true
   when: manala_php_sapis_exclusive or manala_php_extensions_exclusive

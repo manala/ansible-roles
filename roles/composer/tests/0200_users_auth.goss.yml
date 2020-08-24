@@ -2,15 +2,15 @@
 
 file:
   /root/.composer:
-    exists:   true
-    mode:     "0755"
-    owner:    root
+    exists: true
     filetype: directory
+    owner: root
+    mode: "0755"
   /root/.composer/auth.json:
-    exists:   true
-    mode:     "0644"
-    owner:    root
+    exists: true
     filetype: file
+    owner: root
+    mode: "0644"
     contains:
       - '{'
       - '    "github-oauth": {'

@@ -2,7 +2,7 @@
 
 - name: codes > Handle
   locale_gen:
-    name:  "{{ item.code }}"
+    name: "{{ item.code }}"
     state: "{{ item.state }}"
   loop: "{{ query(
       'manala_locales_codes',

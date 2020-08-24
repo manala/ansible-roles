@@ -7,10 +7,10 @@
     - name: attributes/template > Template parents "{{ item.path|dirname }}"
       file:
         path: "{{ item.path|dirname }}"
+        state: directory
         owner: "{{ item.user|default(omit) }}"
         group: "{{ item.group|default(omit) }}"
         mode: "{{ item.mode|default(omit) }}"
-        state: directory
       when: item.state == 'present'
             and item.parents
 

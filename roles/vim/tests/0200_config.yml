@@ -5,7 +5,7 @@
   become: true
   vars:
     manala_vim_config:
-      - encoding:  utf8
+      - encoding: utf8
       - expandtab: true
   roles:
     - manala.vim

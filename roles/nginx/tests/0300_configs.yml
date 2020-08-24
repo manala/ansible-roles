@@ -11,7 +11,7 @@
           - server:
             - listen: 8080
             - location /:
-              - root:  /srv/foo
+              - root: /srv/foo
       - file: foo_template.conf
         template: configs/app_magento_2_defaults.j2
       - file: foo_content.conf

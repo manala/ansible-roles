@@ -5,9 +5,10 @@
 file:
   /usr/local/bin/gomplate:
     exists: true
-    mode: "0755"
-    owner: root
     filetype: file
+    owner: root
+    group: root
+    mode: "0755"
 command:
   gomplate --version:
     exit-status: 0
@@ -21,9 +22,10 @@ command:
 file:
   /usr/local/bin/gomplate:
     exists: true
-    mode: "0755"
-    owner: root
     filetype: file
+    owner: root
+    group: root
+    mode: "0755"
 command:
   gomplate --version:
     exit-status: 0

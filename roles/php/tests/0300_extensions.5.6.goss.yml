@@ -5,25 +5,25 @@ file:
     exists: false
   /etc/php/5.6/cli/conf.d/20-mbstring.ini:
     exists: true
-    filetype:  symlink
+    filetype: symlink
     linked-to: /etc/php/5.6/mods-available/mbstring.ini
   /etc/php/5.6/cli/conf.d/20-intl.ini:
     exists: true
-    filetype:  symlink
+    filetype: symlink
     linked-to: /etc/php/5.6/mods-available/intl.ini
   /etc/php/5.6/cli/conf.d/20-geoip.ini:
     exists: true
-    filetype:  symlink
+    filetype: symlink
     linked-to: /etc/php/5.6/mods-available/geoip.ini
   /etc/php/5.6/cli/conf.d/20-gd.ini:
     exists: true
-    filetype:  symlink
+    filetype: symlink
     linked-to: /etc/php/5.6/mods-available/gd.ini
   /etc/php/5.6/cli/conf.d/20-tidy.ini:
     exists: false
   /etc/php/5.6/cli/conf.d/20-apcu.ini:
     exists: true
-    filetype:  symlink
+    filetype: symlink
     linked-to: /etc/php/5.6/mods-available/apcu.ini
   /etc/php/5.6/cli/conf.d/20-xdebug.ini:
     exists: false

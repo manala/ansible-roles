@@ -2,10 +2,10 @@
 
 - name: packages > Manage
   npm:
-    name:     "{{ item.package }}"
-    global:   true
-    state:    "{{ item.state|default(omit) }}"
-    version:  "{{ item.version|default(omit) }}"
+    name: "{{ item.package }}"
+    global: true
+    state: "{{ item.state|default(omit) }}"
+    version: "{{ item.version|default(omit) }}"
     registry: "{{ item.registry|default(omit) }}"
   loop: "{{ query(
       'manala_npm_packages',

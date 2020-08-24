@@ -12,7 +12,6 @@
       - file: bar.conf
       - file: baz.conf
   pre_tasks:
-    - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/influxdata.yml
   roles:
     - manala.telegraf

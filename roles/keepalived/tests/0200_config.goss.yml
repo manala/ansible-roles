@@ -1,18 +1,15 @@
 ---
 
 file:
-  /etc/keepalived/keepalived.conf:
+  /etc/keepalived/keepalived.conf.test:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - global_defs {
       - '    router_id LVS_DEVEL'
       - virtual_ipaddress {
       - '        192.168.200.11/24 dev eth0'
       - '        192.168.200.12/24 dev eth0'
-
-interface:
-  eth0:
-    exists: true
-    addrs:
-      - 192.168.200.11/24
-      - 192.168.200.12/24

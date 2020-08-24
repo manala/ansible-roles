@@ -2,8 +2,8 @@
 
 - name: databases > Create mysql databases
   mysql_db:
-    name:      "{{ item.name }}"
-    encoding:  "{{ item.encoding|default('utf8') }}"
+    name: "{{ item.name }}"
+    encoding: "{{ item.encoding|default('utf8') }}"
     collation: "{{ item.collation|default('utf8_general_ci') }}"
-    state:     "{{ item.state|default(omit) }}"
+    state: "{{ item.state|default(omit) }}"
   with_items: "{{ manala_mysql_databases }}"

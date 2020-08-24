@@ -2,24 +2,24 @@
 
 - name: users > Accounts
   user:
-    name:       "{{ item.user }}"
-    password:   "{{ item.password|default(omit) }}"
-    group:      "{{ item.group|default(omit) }}"
-    groups:     "{{ item.groups|default([])|join(',') }}"
-    append:     "{{ not manala_accounts_users_groups_exclusive }}"
-    shell:      "{{ item.shell|default(omit) }}"
+    name: "{{ item.user }}"
+    password: "{{ item.password|default(omit) }}"
+    group: "{{ item.group|default(omit) }}"
+    groups: "{{ item.groups|default([])|join(',') }}"
+    append: "{{ not manala_accounts_users_groups_exclusive }}"
+    shell: "{{ item.shell|default(omit) }}"
     createhome: "{{ item.createhome|default(true)|bool }}"
-    system:     "{{ item.system|default(false)|bool }}"
-    uid:        "{{ item.uid|default(omit) }}"
-    comment:    "{{ item.comment|default(omit) }}"
-    state:      "{{ item.state|default('present') }}"
+    system: "{{ item.system|default(false)|bool }}"
+    uid: "{{ item.uid|default(omit) }}"
+    comment: "{{ item.comment|default(omit) }}"
+    state: "{{ item.state|default('present') }}"
   with_items: "{{ manala_accounts_users }}"
 
 - name: users > Authorized keys
   authorized_key:
-    user:      "{{ item.user }}"
-    key:       "{{ item.authorized_keys }}"
-    path:      "{{ item.authorized_keys_file|default(omit) }}"
+    user: "{{ item.user }}"
+    key: "{{ item.authorized_keys }}"
+    path: "{{ item.authorized_keys_file|default(omit) }}"
     exclusive: true
   loop: "{{ query(
       'manala_accounts_users_authorized_keys',
@@ -56,22 +56,22 @@
 
 - name: users > Keys directory
   file:
-    path:  "~{{ item.0.user }}/.ssh"
+    path: "~{{ item.0.user }}/.ssh"
     state: directory
     owner: "{{ item.0.user }}"
     group: "{{ item.0.group|default(omit) }}"
-    mode:  0700
+    mode: "0700"
   with_subelements:
     - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
     - keys
 
 - name: users > Keys private
   copy:
-    dest:    "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}"
+    dest: "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}"
     content: "{{ item.1.private }}"
-    owner:   "{{ item.0.user }}"
-    group:   "{{ item.0.group|default(omit) }}"
-    mode:    0600
+    owner: "{{ item.0.user }}"
+    group: "{{ item.0.group|default(omit) }}"
+    mode: "0600"
   when: item.1.private is defined
   with_subelements:
     - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
@@ -79,11 +79,11 @@
 
 - name: users > Keys public
   copy:
-    dest:    "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}.pub"
+    dest: "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}.pub"
     content: "{{ item.1.public }}"
-    owner:   "{{ item.0.user }}"
-    group:   "{{ item.0.group|default(omit) }}"
-    mode:    0644
+    owner: "{{ item.0.user }}"
+    group: "{{ item.0.group|default(omit) }}"
+    mode: "0644"
   when: item.1.public is defined
   with_subelements:
     - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"

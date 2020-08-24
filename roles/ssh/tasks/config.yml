@@ -9,6 +9,9 @@
       )
     }}"
     dest: "{{ manala_ssh_server_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: (manala_ssh_server)
         and (
           (manala_ssh_server_config_template is not none)
@@ -26,6 +29,9 @@
       )
     }}"
     dest: "{{ manala_ssh_client_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: (manala_ssh_client)
         and (
           (manala_ssh_client_config_template is not none)

@@ -3,6 +3,7 @@
 file:
    /etc/redis/sentinel.conf:
     exists: true
+    filetype: file
     contains:
       - sentinel monitor mymaster 127.0.0.1 6379 2
       - sentinel down-after-milliseconds mymaster 5000

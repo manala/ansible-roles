@@ -4,8 +4,8 @@
   apt:
     name: "{{ manala_composer_install_packages|default(manala_composer_install_packages_default, True) }}"
     install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+    update_cache: true
+    cache_valid_time: 3600
 
 - name: install > Stat bin
   stat:
@@ -14,7 +14,7 @@
 
 - name: install > Download installer
   get_url:
-    url:  https://getcomposer.org/installer
+    url: https://getcomposer.org/installer
     dest: /tmp
   when: not __manala_composer_bin_stat_result.stat.exists
 
@@ -28,6 +28,6 @@
 
 - name: install > Remove installer
   file:
-    path:  /tmp/installer
+    path: /tmp/installer
     state: absent
   when: not __manala_composer_bin_stat_result.stat.exists

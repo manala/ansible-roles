@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [All] Explicit file permissions #1
+
+### Fixed
+- [Supervisor] Fix `inet_http_server` config template (default config handling)
 
 ## [0.1.57] - 2020-08-03
 ### Changed

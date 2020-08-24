@@ -1,18 +1,18 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_php_version: 7.1
     manala_php_fpm_pools_exclusive: true
     manala_php_fpm_pools:
-      - file:     www.conf
+      - file: www.conf
         template: fpm_pools/default.j2
         config:
           - www:
             - pm.max_children: 12
-      - file:     foo.conf
+      - file: foo.conf
         template: fpm_pools/default.j2
         config:
           - foo:
@@ -31,7 +31,7 @@
           - php7.1-fpm
         install_recommends: false
     - copy:
-        dest:    /etc/php/7.1/fpm/pool.d/bar.conf
+        dest: /etc/php/7.1/fpm/pool.d/bar.conf
         content: |
           ; Foo
   roles:

@@ -2,5 +2,5 @@
 
 - name: docker restart
   service:
-    name:  docker
+    name: docker
     state: restarted

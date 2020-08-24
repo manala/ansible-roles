@@ -7,15 +7,15 @@
     manala_locales_codes:
       # With charmap
       - fr_FR.UTF-8
-      - code:  en_DK.ISO-8859-15
+      - code: en_DK.ISO-8859-15
         state: present
-      - code:  hy_AM.ARMSCII-8
+      - code: hy_AM.ARMSCII-8
         state: absent
       # Without charmap
       - ru_RU
-      - code:  vi_VN
+      - code: vi_VN
         state: present
-      - code:  th_TH
+      - code: th_TH
         state: absent
   roles:
     - manala.locales
@@ -30,15 +30,15 @@
     manala_locales_codes:
       # With charmap
       - fr_FR.UTF-8
-      - code:  en_DK.ISO-8859-15
+      - code: en_DK.ISO-8859-15
         state: absent
-      - code:  hy_AM.ARMSCII-8
+      - code: hy_AM.ARMSCII-8
         state: present
       # Without charmap
       - ru_RU
-      - code:  vi_VN
+      - code: vi_VN
         state: absent
-      - code:  th_TH
+      - code: th_TH
         state: present
   roles:
     - manala.locales

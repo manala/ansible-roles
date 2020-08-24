@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}.1"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_php_version: 7.4
@@ -41,7 +41,7 @@
       command: goss --gossfile {{ test }}.goss.1.yml validate
 
 - name: "{{ test }}.2"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_php_version: 7.4

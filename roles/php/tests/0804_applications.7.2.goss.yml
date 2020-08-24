@@ -2,17 +2,23 @@
 
 file:
   /usr/local/bin/phpcs:
-    exists:   true
+    exists: true
     filetype: file
-    mode:     "0755"
+    owner: root
+    group: root
+    mode: "0755"
   /usr/local/bin/phpunit_5.7.25:
-    exists:   true
+    exists: true
     filetype: file
-    mode:     "0755"
+    owner: root
+    group: root
+    mode: "0755"
   /usr/local/bin/phpunit:
-    exists:    true
-    filetype:  symlink
+    exists: true
+    filetype: symlink
     linked-to: phpunit_5.7.25
+    owner: root
+    group: root
 command:
   phpcs --version:
     exit-status: 0

@@ -4,5 +4,8 @@
   template:
     src: "{{ manala_motd_template|ternary(manala_motd_template, 'template/_default.j2') }}"
     dest: "{{ manala_motd_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: manala_motd_template
         or manala_motd_message

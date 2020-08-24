@@ -15,16 +15,16 @@
       - geoip    # Pecl extension
       # Native extension
       - extension: gd
-        enabled:   true
+        enabled: true
       # Native extension
       - extension: tidy
-        enabled:   false
+        enabled: false
       # Pecl extension
       - extension: apcu
-        enabled:   true
+        enabled: true
       # Pecl extension
       - extension: xdebug
-        enabled:   false
+        enabled: false
   pre_tasks:
     - import_tasks: pre_tasks/dotdeb.yml
     - apt:

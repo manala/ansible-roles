@@ -6,16 +6,25 @@ file:
   /tmp/foo:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello foo!
   /tmp/bar:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello bar!
   /tmp/baz:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello baz!
 {{ end }}
@@ -30,14 +39,32 @@ file:
 # Parents
 {{ if has "parents" .Vars.tags }}
 file:
+  /tmp/quux:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /tmp/quux/foo:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello bar!
+  /tmp/corge:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /tmp/corge/foo:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello bar!
   /tmp/grault:

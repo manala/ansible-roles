@@ -16,9 +16,9 @@ manala_redis_install_packages_default: "{{
 }}"
 
 # Config
-manala_redis_config_file:     /etc/redis/redis.conf
+manala_redis_config_file: /etc/redis/redis.conf
 manala_redis_config_template: ~
-manala_redis_config:          []
+manala_redis_config: []
 
 manala_redis_sentinel_config_file: /etc/redis/sentinel.conf
-manala_redis_sentinel_config:      {}
+manala_redis_sentinel_config: {}

@@ -13,86 +13,86 @@ __manala_docker: "{{
 # Applications
 manala_docker_applications_patterns:
   manala/eslint:
-    image:       manala/lint-js
-    command:     eslint
-    rm:          true
+    image: manala/lint-js
+    command: eslint
+    rm: true
     interactive: true
-    tty:         true
-    workdir:     ${PWD}
+    tty: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/stylelint:
-    image:       manala/lint-css
-    command:     stylelint
-    rm:          true
-    workdir:     ${PWD}
+    image: manala/lint-css
+    command: stylelint
+    rm: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/stylefmt:
-    image:       manala/lint-css
-    command:     stylefmt
-    rm:          true
-    workdir:     ${PWD}
+    image: manala/lint-css
+    command: stylefmt
+    rm: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/php-cs-fixer:
-    image:       manala/lint-php
-    command:     php-cs-fixer
-    rm:          true
-    workdir:     ${PWD}
+    image: manala/lint-php
+    command: php-cs-fixer
+    rm: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/phpstan:
-    image:       manala/lint-php
-    command:     phpstan
-    rm:          true
-    tty:         true
-    workdir:     ${PWD}
+    image: manala/lint-php
+    command: phpstan
+    rm: true
+    tty: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/parallel-lint:
-    image:       manala/lint-php
-    command:     parallel-lint
-    rm:          true
-    workdir:     ${PWD}
+    image: manala/lint-php
+    command: parallel-lint
+    rm: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/security-checker:
-    image:       manala/lint-php
-    command:     security-checker
-    rm:          true
-    workdir:     ${PWD}
+    image: manala/lint-php
+    command: security-checker
+    rm: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}
   manala/openl10n-cli:
-    image:       manala/openl10n-cli
-    command:     openl10n
-    rm:          true
-    tty:         true
-    workdir:     ${PWD}
+    image: manala/openl10n-cli
+    command: openl10n
+    rm: true
+    tty: true
+    workdir: ${PWD}
     volumes:
       ${PWD}: ${PWD}
     environment:
-      USER_ID:  ${UID}
+      USER_ID: ${UID}
       GROUP_ID: ${GID}

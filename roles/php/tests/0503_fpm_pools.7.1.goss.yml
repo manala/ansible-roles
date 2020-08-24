@@ -2,16 +2,22 @@
 
 file:
   /etc/php/7.1/fpm/pool.d/www.conf:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "pm.max_children = 12"
       - "listen = /run/php/php7.1-fpm.sock"
   /etc/php/7.1/fpm/pool.d/bar.conf:
     exists: false
   /etc/php/7.1/fpm/pool.d/foo.conf:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 'env[_FOO] = bar'
       - 'env[_BAR] = 123'

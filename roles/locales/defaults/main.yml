@@ -8,5 +8,5 @@ manala_locales_install_packages_default:
             # "libc-bin" package, providing "locale" binary
 
 # Codes
-manala_locales_codes:         []
+manala_locales_codes: []
 manala_locales_codes_default: ~

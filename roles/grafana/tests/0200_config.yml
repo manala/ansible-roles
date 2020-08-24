@@ -8,7 +8,6 @@
       - server:
         - http_port: 3002
   pre_tasks:
-    - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/grafana.yml
   roles:
    - manala.grafana

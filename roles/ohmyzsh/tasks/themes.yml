@@ -2,13 +2,19 @@
 
 - name: theme > Directory
   file:
-    path:  "{{ manala_ohmyzsh_dir }}/custom/themes"
+    path: "{{ manala_ohmyzsh_dir }}/custom/themes"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: themes > Templates
   template:
-    src:   "themes/{{ item }}.j2"
-    dest:  "{{ manala_ohmyzsh_dir }}/custom/themes/{{ item }}.zsh-theme"
+    src: "themes/{{ item }}.j2"
+    dest: "{{ manala_ohmyzsh_dir }}/custom/themes/{{ item }}.zsh-theme"
+    owner: root
+    group: root
+    mode: "0644"
   with_items:
     - default.dev
     - default.demo

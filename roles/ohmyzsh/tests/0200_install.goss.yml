@@ -3,12 +3,12 @@
 file:
   /usr/local/share/oh-my-zsh:
     exists: true
+    filetype: directory
     owner: root
 {{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
-    mode: "2755"
     group: staff
+    mode: "2755"
 {{ else }}
-    mode: "0755"
     group: root
+    mode: "0755"
 {{ end }}
-    filetype: directory

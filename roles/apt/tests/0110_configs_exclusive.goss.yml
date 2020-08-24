@@ -5,5 +5,9 @@ file:
     exists: false
   /etc/apt/apt.conf.d.test/bar:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/apt/apt.conf.d.test/baz:
     exists: false

@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}.1"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_mysql_install_packages:
@@ -19,7 +19,7 @@
     - manala.mysql
 
 - name: "{{ test }}.2"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_mysql_install_packages:
