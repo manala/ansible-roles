@@ -3,5 +3,9 @@
 file:
   /etc/default/rtail:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 'DAEMON_ARGS="--web-host 127.0.0.1"'

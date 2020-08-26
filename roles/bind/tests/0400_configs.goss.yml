@@ -4,11 +4,17 @@ file:
   /etc/bind/named.conf.foo:
     exists: true
     filetype: file
+    owner: root
+    group: bind
+    mode: "0644"
     contains:
       - // Foo
   /etc/bind/named.conf.bar:
     exists: true
     filetype: file
+    owner: root
+    group: bind
+    mode: "0644"
     contains:
       - // Bar
   /etc/bind/named.conf.baz:

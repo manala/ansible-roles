@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_sudo_sudoers_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_sudo_sudoers|length
 
 - name: sudoers > Exclusive
@@ -18,7 +21,9 @@
   template:
     src:  "{{ item.template|default(manala_sudo_sudoers_template|ternary(manala_sudo_sudoers_template, 'sudoers/empty.j2')) }}"
     dest: "{{ item.file }}"
-    mode: 0440
+    owner: root
+    group: root
+    mode: "0440"
   loop: "{{ query(
       'manala_sudo_sudoers',
       manala_sudo_sudoers,
@@ -33,6 +38,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0440"
   loop: "{{ query(
       'manala_sudo_sudoers',
       manala_sudo_sudoers,

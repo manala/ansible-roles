@@ -3,7 +3,13 @@
 file:
   /etc/sudoers.d.test/foo:
     exists: true
+    owner: root
+    group: root
+    mode: "0440"
   /etc/sudoers.d.test/bar:
     exists: false
   /etc/sudoers.d.test/baz:
     exists: true
+    owner: root
+    group: root
+    mode: "0440"

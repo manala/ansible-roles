@@ -4,12 +4,18 @@
   file:
     path: "{{ manala_logrotate_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_logrotate_configs|length
 
 - name: configs > Templates
   template:
     src:  "{{ item.template|default(manala_logrotate_configs_template|ternary(manala_logrotate_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_logrotate_configs_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   with_items: "{{ manala_logrotate_configs }}"
   when: (item.state|default('present') == 'present')
         and (item.content is not defined)
@@ -18,6 +24,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ manala_logrotate_configs_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   with_items: "{{ manala_logrotate_configs }}"
   when: (item.state|default('present') == 'present')
         and (item.content is defined)

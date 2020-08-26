@@ -3,5 +3,9 @@
 file:
   /etc/grafana/grafana.ini:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - http_port = 3002

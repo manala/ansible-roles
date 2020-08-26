@@ -6,12 +6,12 @@ manala_telegraf_install_packages_default:
   - telegraf
 
 # Config
-manala_telegraf_config_file:     /etc/telegraf/telegraf.conf
+manala_telegraf_config_file: /etc/telegraf/telegraf.conf
 manala_telegraf_config_template: ~
-manala_telegraf_config:          []
+manala_telegraf_config: []
 
 # Configs
 manala_telegraf_configs_exclusive: false
-manala_telegraf_configs_dir:       /etc/telegraf/telegraf.d
-manala_telegraf_configs_template:  ~
-manala_telegraf_configs:           []
+manala_telegraf_configs_dir: /etc/telegraf/telegraf.d
+manala_telegraf_configs_template: ~
+manala_telegraf_configs: []

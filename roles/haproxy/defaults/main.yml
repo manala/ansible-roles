@@ -7,19 +7,19 @@ manala_haproxy_install_packages_default:
 
 # Errorfiles
 manala_haproxy_errorfiles_dir: /etc/haproxy/errors
-manala_haproxy_errorfiles:     []
+manala_haproxy_errorfiles: []
 
 # Config
-manala_haproxy_config_file:     /etc/haproxy/haproxy.cfg
+manala_haproxy_config_file: /etc/haproxy/haproxy.cfg
 manala_haproxy_config_template: ~
 
 # Configs
 manala_haproxy_configs_exclusive: false
 manala_haproxy_configs_dir: /etc/haproxy/conf.d
-manala_haproxy_configs_template:  ~
+manala_haproxy_configs_template: ~
 manala_haproxy_configs: []
 
 # Environment
-manala_haproxy_environment_file:     /etc/default/haproxy
+manala_haproxy_environment_file: /etc/default/haproxy
 manala_haproxy_environment_template: ~
-manala_haproxy_environment:          []
+manala_haproxy_environment: []

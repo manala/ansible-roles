@@ -5,5 +5,9 @@ file:
     exists: false
   /etc/maxscale.cnf.d.test/bar.cnf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/maxscale.cnf.d.test/baz.cnf:
     exists: false

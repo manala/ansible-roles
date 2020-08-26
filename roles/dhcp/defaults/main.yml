@@ -9,6 +9,6 @@ manala_dhcp_install_packages_default:
 manala_dhcp_interfaces: []
 
 # Config
-manala_dhcp_config_file:     /etc/dhcp/dhcpd.conf
+manala_dhcp_config_file: /etc/dhcp/dhcpd.conf
 manala_dhcp_config_template: ~
-manala_dhcp_config_content:  ~
+manala_dhcp_config_content: ~

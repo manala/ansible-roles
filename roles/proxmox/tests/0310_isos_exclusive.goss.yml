@@ -5,5 +5,9 @@ file:
     exists: false
   /var/lib/vz/template/iso.test/bar.iso:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /var/lib/vz/template/iso.test/baz.iso:
     exists: false

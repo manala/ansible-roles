@@ -2,8 +2,11 @@
 
 - name: config > Template
   template:
-    src:   "{{ manala_mongodb_config_template|ternary(manala_mongodb_config_template, 'config/default.j2') }}"
-    dest:  "{{ manala_mongodb_config_file }}"
+    src: "{{ manala_mongodb_config_template|ternary(manala_mongodb_config_template, 'config/default.j2') }}"
+    dest: "{{ manala_mongodb_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: (manala_mongodb_config_template is not none) or (manala_mongodb_config|length)
   notify:
     - mongodb restart

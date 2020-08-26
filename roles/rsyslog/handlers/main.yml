@@ -2,5 +2,5 @@
 
 - name: rsyslog restart
   service:
-    name:  rsyslog
+    name: rsyslog
     state: restarted

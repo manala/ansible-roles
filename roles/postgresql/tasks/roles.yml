@@ -2,9 +2,9 @@
 
 - name: roles > Handle
   postgresql_user:
-    name:            "{{ item.role }}"
-    password:        "{{ item.password|default(omit) }}"
+    name: "{{ item.role }}"
+    state: "{{ item.state|default('present') }}"
+    password: "{{ item.password|default(omit) }}"
     role_attr_flags: "{{ (omit) if (item.attributes is not defined) else item.attributes|join(',') }}"
-    state:           "{{ item.state|default('present') }}"
-    login_host:      "{{ manala_postgresql_login_host }}"
+    login_host: "{{ manala_postgresql_login_host }}"
   with_items: "{{ manala_postgresql_roles }}"

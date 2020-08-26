@@ -2,8 +2,11 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_fail2ban_config_template|ternary(manala_fail2ban_config_template, 'config/empty.j2') }}"
+    src: "{{ manala_fail2ban_config_template|ternary(manala_fail2ban_config_template, 'config/empty.j2') }}"
     dest: "{{ manala_fail2ban_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: (manala_fail2ban_config_template is not none) or (manala_fail2ban_config|length)
   notify:
     - fail2ban restart

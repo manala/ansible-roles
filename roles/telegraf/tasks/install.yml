@@ -4,6 +4,6 @@
   apt:
     name: "{{ manala_telegraf_install_packages|default(manala_telegraf_install_packages_default, True) }}"
     install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+    update_cache: true
+    cache_valid_time: 3600
   ignore_errors: "{{ ansible_check_mode }}"

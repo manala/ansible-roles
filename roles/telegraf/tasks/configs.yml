@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_telegraf_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_telegraf_configs|length
 
 - name: configs > Exclusive
@@ -16,8 +19,11 @@
 
 - name: configs > Templates present
   template:
-    src:  "{{ item.template|default(manala_telegraf_configs_template|ternary(manala_telegraf_configs_template, 'configs/empty.j2')) }}"
+    src: "{{ item.template|default(manala_telegraf_configs_template|ternary(manala_telegraf_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_telegraf_configs',
       manala_telegraf_configs,
@@ -32,7 +38,7 @@
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: configs > Files absent
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
       'manala_telegraf_configs',

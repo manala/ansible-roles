@@ -6,7 +6,7 @@ manala_bind_install_packages_default:
   - bind9
 
 # User / Group
-manala_bind_user:  bind
+manala_bind_user: bind
 manala_bind_group: bind
 
 # Options
@@ -18,8 +18,8 @@ manala_bind_log_dir: /var/log/bind
 
 # Configs
 manala_bind_configs_dir: /etc/bind
-manala_bind_configs:     []
+manala_bind_configs: []
 
 # Zones
 manala_bind_zones_dir: /var/cache/bind
-manala_bind_zones:     []
+manala_bind_zones: []

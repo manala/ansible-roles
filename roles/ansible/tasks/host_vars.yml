@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_ansible_host_vars_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_ansible_host_vars|length
 
 - name: host_vars > Exclusive
@@ -15,8 +18,11 @@
 
 - name: host_vars > Templates presents
   template:
-    src:  "{{ item.template|default(manala_ansible_host_vars_template|ternary(manala_ansible_host_vars_template, 'host_vars/empty.j2')) }}"
+    src: "{{ item.template|default(manala_ansible_host_vars_template|ternary(manala_ansible_host_vars_template, 'host_vars/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_ansible_files',
       manala_ansible_host_vars,
@@ -29,7 +35,7 @@
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: host_vars > Files absents
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
       'manala_ansible_files',

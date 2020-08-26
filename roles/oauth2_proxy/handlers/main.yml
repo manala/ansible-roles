@@ -2,5 +2,5 @@
 
 - name: oauth2 proxy restart
   service:
-    name:  oauth2-proxy
+    name: oauth2-proxy
     state: restarted

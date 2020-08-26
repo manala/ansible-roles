@@ -3,7 +3,15 @@
 file:
   /etc/rsyslog.d.test/foo.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/rsyslog.d.test/bar.conf:
     exists: false
   /etc/rsyslog.d.test/baz.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

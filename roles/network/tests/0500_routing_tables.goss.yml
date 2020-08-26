@@ -4,6 +4,9 @@ file:
   /tmp/rt_tables:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 255	local
       - 254	main

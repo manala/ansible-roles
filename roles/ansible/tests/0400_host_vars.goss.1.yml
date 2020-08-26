@@ -1,8 +1,18 @@
 ---
 
 file:
+  /etc/ansible/host_vars.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/ansible/host_vars.test/foo.yml:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "foo: null"
       - "bar: bar"
@@ -16,5 +26,9 @@ file:
       - "  foo: bar"
   /etc/ansible/host_vars.test/bar.yml:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/ansible/host_vars.test/baz.yml:
     exists: false

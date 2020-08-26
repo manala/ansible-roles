@@ -3,6 +3,10 @@
 file:
   /etc/telegraf/telegraf.d.test/foo.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - percpu = true
       - totalcpu = false
@@ -13,6 +17,10 @@ file:
       - cpu = ["cpu6", "cpu7"]
   /etc/telegraf/telegraf.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - '[[inputs.cpu]]'
       - percpu = false

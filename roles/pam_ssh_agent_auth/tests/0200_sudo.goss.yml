@@ -5,6 +5,9 @@ file:
   /etc/sudoers:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0440"
     contains:
       - "Defaults env_keep += SSH_AUTH_SOCK"
 

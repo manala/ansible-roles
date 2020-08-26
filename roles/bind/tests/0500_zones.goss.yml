@@ -4,11 +4,17 @@ file:
   /var/cache/bind/db.foo.com:
     exists: true
     filetype: file
+    owner: bind
+    group: bind
+    mode: "0644"
     contains:
       - // Foo
   /var/cache/bind/db.bar.com:
     exists: true
     filetype: file
+    owner: bind
+    group: bind
+    mode: "0644"
     contains:
       - // Bar
   /var/cache/bind/db.baz.com:
@@ -18,10 +24,12 @@ file:
   /var/cache/bind/db.quux.com:
     exists: true
     filetype: file
+    owner: bind
+    group: bind
+    mode: "0644"
     contains:
       - // Quux
   /var/cache/bind/db.corge.com:
     exists: true
-    filetype: file
     contains:
       - // Corge

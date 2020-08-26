@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_network_interfaces_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_network_interfaces_configs|length
 
 - name: interfaces_configs > Exclusive
@@ -20,6 +23,9 @@
       manala_network_interfaces_configs_template,
       'interfaces_configs/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_network_interfaces_configs',
       manala_network_interfaces_configs,
@@ -36,6 +42,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_network_interfaces_configs',
       manala_network_interfaces_configs,

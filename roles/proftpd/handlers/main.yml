@@ -2,5 +2,5 @@
 
 - name: proftpd restart
   service:
-    name:  proftpd
+    name: proftpd
     state: restarted

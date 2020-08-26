@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_systemd_tmpfiles_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_systemd_tmpfiles_configs|length
 
 - name: tmpfiles_configs > Exclusive
@@ -20,7 +23,7 @@
     dest: "{{ item.file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   loop: "{{ query(
       'manala_systemd_tmpfiles_configs',
       manala_systemd_tmpfiles_configs,
@@ -35,6 +38,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_systemd_tmpfiles_configs',
       manala_systemd_tmpfiles_configs,

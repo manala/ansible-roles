@@ -2,23 +2,23 @@
 
 file:
   /etc/ftpd.passwd:
-    exists:   true
-    mode:     "0600"
-    owner:    root
-    group:    root
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0600"
     contains:
       - user-1
       - user-2
       - /tmp
       - /bin/false
   /tmp/user1:
-    exists:   true
+    exists: true
     filetype: directory
-    mode:     "0700"
+    mode: "0700"
   /tmp/user2:
-    exists:   true
+    exists: true
     filetype: directory
-    mode:     "0755"
-    owner:    root
-    group:    root
+    mode: "0755"
+    owner: root
+    group: root

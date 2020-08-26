@@ -2,11 +2,11 @@
 
 - name: configs > Templates
   template:
-    src:   "{{ item.template }}"
-    dest:  "{{ manala_bind_configs_dir }}/{{ item.file }}"
+    src: "{{ item.template }}"
+    dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     owner: root
     group: "{{ manala_bind_group }}"
-    mode:  0644
+    mode: "0644"
   with_items: "{{ manala_bind_configs }}"
   when: (item.template is defined)
         and (item.state|default('present') == 'present')
@@ -16,10 +16,10 @@
 - name: configs > Contents
   copy:
     content: "{{ item.content }}"
-    dest:    "{{ manala_bind_configs_dir }}/{{ item.file }}"
-    owner:   root
-    group:   "{{ manala_bind_group }}"
-    mode:    0644
+    dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
+    owner: root
+    group: "{{ manala_bind_group }}"
+    mode: "0644"
   with_items: "{{ manala_bind_configs }}"
   when: (item.content is defined)
         and (item.state|default('present') == 'present')
@@ -28,7 +28,7 @@
 
 - name: configs > Absents
   file:
-    path:  "{{ manala_bind_configs_dir }}/{{ item.file }}"
+    path: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     state: absent
   with_items: "{{ manala_bind_configs }}"
   when: (item.state|default('present') == 'absent')

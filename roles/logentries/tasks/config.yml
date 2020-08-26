@@ -6,14 +6,14 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: config > Config
   template:
-    src:  "{{ manala_logentries_config_template }}"
+    src: "{{ manala_logentries_config_template }}"
     dest: "{{ manala_logentries_config_file }}"
     owner: root
     group: root
-    mode: 0640
+    mode: "0640"
   notify:
     - logentries restart

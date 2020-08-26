@@ -2,5 +2,5 @@
 
 - name: graylog-sidecar restart
   service:
-    name:  graylog-sidecar
+    name: graylog-sidecar
     state: restarted

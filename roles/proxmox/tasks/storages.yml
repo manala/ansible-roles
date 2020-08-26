@@ -9,7 +9,7 @@
     {{ (' -content ' ~ item.content) if (item.content is defined) else '' }}
     {{ (' -nodes ' ~ item.nodes) if (item.nodes is defined) else '' }}
     {{ (' -path ' ~ item.path) if (item.path is defined) else '' }}
-  with_items:   "{{ manala_proxmox_storages }}"
-  register:     command_result
-  failed_when:  "command_result.rc != 0 and 'already defined' not in command_result.stderr"
+  with_items: "{{ manala_proxmox_storages }}"
+  register: command_result
+  failed_when: "command_result.rc != 0 and 'already defined' not in command_result.stderr"
   changed_when: "command_result.rc == 0"

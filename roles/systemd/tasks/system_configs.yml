@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_systemd_system_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_systemd_system_configs|length
 
 - name: system_configs > Exclusive
@@ -20,7 +23,7 @@
     dest: "{{ item.file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   loop: "{{ query(
       'manala_systemd_system_configs',
       manala_systemd_system_configs,
@@ -37,6 +40,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_systemd_system_configs',
       manala_systemd_system_configs,

@@ -16,6 +16,9 @@
   get_url:
     url: https://getcomposer.org/installer
     dest: /tmp
+    owner: root
+    group: root
+    mode: "0644"
   when: not __manala_composer_bin_stat_result.stat.exists
 
 - name: install > Install

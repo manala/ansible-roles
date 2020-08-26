@@ -8,11 +8,11 @@
       - maxscale:
         - threads: auto #Dedicated container
       - Splitter Service:
-        - type:    service
-        - router:  readwritesplit
+        - type: service
+        - router: readwritesplit
         - servers: mariadb-1, mariadb-2, mariadb-3
-        - user:    maxscale
-        - passwd:  XXXXXXXXXXXX
+        - user: maxscale
+        - passwd: XXXXXXXXXXXX
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
       when: ansible_distribution_release in ['jessie']

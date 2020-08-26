@@ -2,10 +2,10 @@
 
 - name: sensu-backend restart
   service:
-    name:  sensu-backend
+    name: sensu-backend
     state: restarted
 
 - name: sensu-agent restart
   service:
-    name:  sensu-agent
+    name: sensu-agent
     state: restarted

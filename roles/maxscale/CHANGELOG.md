@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Explicit file permissions
+
 ## [2.0.3] - 2020-03-12
 ### Added
 - MaxScale 2.4 support for Debian jessie, stretch and buster

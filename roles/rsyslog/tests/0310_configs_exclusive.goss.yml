@@ -1,9 +1,19 @@
 ---
 
 file:
+  /etc/rsyslog.d.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/rsyslog.d.test/foo.conf:
     exists: false
   /etc/rsyslog.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/rsyslog.d.test/baz.conf:
     exists: false

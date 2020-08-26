@@ -2,11 +2,11 @@
 
 - name: config > Template
   template:
-    src:   "{{ manala_dhcp_config_template }}"
-    dest:  "{{ manala_dhcp_config_file }}"
+    src: "{{ manala_dhcp_config_template }}"
+    dest: "{{ manala_dhcp_config_file }}"
     owner: root
     group: root
-    mode:  0644
+    mode: "0644"
   when: manala_dhcp_config_template is not none
   notify:
     - dhcp restart
@@ -14,10 +14,10 @@
 - name: config > Content
   copy:
     content: "{{ manala_dhcp_config_content }}"
-    dest:    "{{ manala_dhcp_config_file }}"
-    owner:   root
-    group:   root
-    mode:    0644
+    dest: "{{ manala_dhcp_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: manala_dhcp_config_content is not none
   notify:
     - dhcp restart

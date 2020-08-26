@@ -5,5 +5,9 @@ file:
     exists: false
   /etc/backup-manager.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
   /etc/backup-manager.d.test/baz.conf:
     exists: false

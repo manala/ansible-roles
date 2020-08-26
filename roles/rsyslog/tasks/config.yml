@@ -2,8 +2,11 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_rsyslog_config_template|ternary(manala_rsyslog_config_template, 'config/default.j2') }}"
+    src: "{{ manala_rsyslog_config_template|ternary(manala_rsyslog_config_template, 'config/default.j2') }}"
     dest: "{{ manala_rsyslog_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: (manala_rsyslog_config_template is not none) or (manala_rsyslog_config|length)
   notify:
     - rsyslog restart

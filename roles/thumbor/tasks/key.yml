@@ -5,8 +5,8 @@
     dest: "{{ manala_thumbor_key_file }}"
     content: |
       {{ manala_thumbor_key }}
-    owner:   thumbor
-    group:   thumbor
-    mode:    0600
+    owner: thumbor
+    group: thumbor
+    mode: "0600"
   notify:
     - thumbor restart

@@ -3,6 +3,10 @@
 file:
   /etc/fail2ban/jail.local:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "[DEFAULT]"
       - "maxretry = 5"

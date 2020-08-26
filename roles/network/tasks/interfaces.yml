@@ -2,8 +2,11 @@
 
 - name: interfaces > Template
   template:
-    src:  "{{ manala_network_interfaces_template|ternary(manala_network_interfaces_template, 'interfaces/empty.j2') }}"
+    src: "{{ manala_network_interfaces_template|ternary(manala_network_interfaces_template, 'interfaces/empty.j2') }}"
     dest: "{{ manala_network_interfaces_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: (manala_network_interfaces_template is not none) or (manala_network_interfaces_config|length)
   notify:
     - networking restart

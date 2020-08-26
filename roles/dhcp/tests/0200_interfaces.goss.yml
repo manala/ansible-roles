@@ -4,6 +4,9 @@ file:
   /etc/default/isc-dhcp-server:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - INTERFACESv4="eth0"
 

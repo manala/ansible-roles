@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_ansible_group_vars_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_ansible_group_vars|length
 
 - name: group_vars > Exclusive
@@ -17,6 +20,9 @@
   template:
     src:  "{{ item.template|default(manala_ansible_group_vars_template|ternary(manala_ansible_group_vars_template, 'group_vars/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_ansible_files',
       manala_ansible_group_vars,

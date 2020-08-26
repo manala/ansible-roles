@@ -8,12 +8,12 @@
     manala_proftpd_configs:
       - file: foo.conf
         config:
-          - ServerName:        Manala ProFTPD Server
-          - DefaultRoot:       "~"
-          - AuthOrder:         mod_auth_file.c
-          - AuthUserFile:      /etc/ftpd.passwd
+          - ServerName: Manala ProFTPD Server
+          - DefaultRoot: "~"
+          - AuthOrder: mod_auth_file.c
+          - AuthUserFile: /etc/ftpd.passwd
           - RequireValidShell: false
-          - PassivePorts:      10000 10030
+          - PassivePorts: 10000 10030
       - file: foo_template.conf
         template: configs/module.j2
         name: foo

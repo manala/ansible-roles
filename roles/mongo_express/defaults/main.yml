@@ -7,4 +7,4 @@ manala_mongo_express_install_packages_default:
 
 # Config
 manala_mongo_express_config_template: ~
-manala_mongo_express_config:          []
+manala_mongo_express_config: []

@@ -4,6 +4,9 @@ file:
   /tmp/hosts:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 1.1.1.111 foo.com
       - 1.1.1.222 bar.com

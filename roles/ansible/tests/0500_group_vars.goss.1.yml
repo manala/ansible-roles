@@ -3,6 +3,10 @@
 file:
   /etc/ansible/group_vars.test/foo.yml:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "foo: null"
       - "bar: bar"

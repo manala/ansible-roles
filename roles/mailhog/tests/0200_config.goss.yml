@@ -3,5 +3,9 @@
 file:
   /etc/default/mailhog:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 'DAEMON_ARGS="-smtp-bind-addr 1.2.3.4:2525"'

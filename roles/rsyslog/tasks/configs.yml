@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_rsyslog_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_rsyslog_configs|length
 
 - name: configs > Exclusive
@@ -18,6 +21,9 @@
   template:
     src: "{{ item.template|default(manala_rsyslog_configs_template|ternary(manala_rsyslog_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_rsyslog_configs',
       manala_rsyslog_configs,
@@ -34,6 +40,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_rsyslog_configs',
       manala_rsyslog_configs,

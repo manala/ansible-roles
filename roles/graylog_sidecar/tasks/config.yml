@@ -2,7 +2,10 @@
 
 - name: config > Template
   template:
-    src:  'default.j2'
+    src: "default.j2"
     dest: "{{ manala_graylog_sidecar_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   notify:
     - graylog-sidecar restart

@@ -17,6 +17,8 @@ file:
     group: root
 {{ end }}
     mode: "0755"
+  /tmp/installer:
+    exists: false
 
 command:
   unzip -v:

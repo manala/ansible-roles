@@ -3,5 +3,9 @@
 file:
   /etc/mongod.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "port = 12345"

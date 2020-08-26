@@ -4,6 +4,9 @@ file:
   /etc/default/bind9:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - OPTIONS="-u bind -4"
 

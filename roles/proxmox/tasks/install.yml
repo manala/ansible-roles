@@ -2,7 +2,7 @@
 
 - name: install > Packages
   apt:
-    name:  "{{
+    name: "{{
       []
       + (manala_proxmox_instances|length > 0)|ternary(
         (ansible_python.version.major == 2) | ternary(['python-proxmoxer'], ['python3-proxmoxer']),
@@ -10,5 +10,5 @@
       )
     }}"
     install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+    update_cache: true
+    cache_valid_time: 3600

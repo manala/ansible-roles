@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_proftpd_configs_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: configs > Exclusive
   find:
@@ -17,6 +20,9 @@
   template:
     src:  "{{ item.template|default(manala_proftpd_configs_template|ternary(manala_proftpd_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_proftpd_configs',
       manala_proftpd_configs,
@@ -33,6 +39,9 @@
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_proftpd_configs',
       manala_proftpd_configs,

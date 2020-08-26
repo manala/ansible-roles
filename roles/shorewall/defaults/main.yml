@@ -6,10 +6,10 @@ manala_shorewall_install_packages_default:
   - shorewall
 
 # Configs
-manala_shorewall_configs_dir:      /etc/shorewall
-manala_shorewall_configs_template: ~
-manala_shorewall_configs:          []
+manala_shorewall_configs_dir: /etc/shorewall
+manala_shorewall_configs_template:
+manala_shorewall_configs: []
 
 # Config
 manala_shorewall_config_file: /etc/shorewall/shorewall.conf
-manala_shorewall_config:      []
+manala_shorewall_config: []

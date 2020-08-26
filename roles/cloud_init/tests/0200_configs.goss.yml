@@ -2,8 +2,11 @@
 
 file:
   /etc/cloud/cloud.cfg.d/99_hostname.cfg:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "fqdn: foo.manala.io"
       - "hostname: foo"

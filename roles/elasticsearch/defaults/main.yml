@@ -9,14 +9,14 @@ manala_elasticsearch_install_packages_default:
   - elasticsearch
 
 # Config
-manala_elasticsearch_config_file:     /etc/elasticsearch/elasticsearch.yml
+manala_elasticsearch_config_file: /etc/elasticsearch/elasticsearch.yml
 manala_elasticsearch_config_template: ~
-manala_elasticsearch_config:          []
+manala_elasticsearch_config: []
 
 # Plugins
 manala_elasticsearch_plugins: []
 
 # Environment
-manala_elasticsearch_environment_file:     /etc/default/elasticsearch
+manala_elasticsearch_environment_file: /etc/default/elasticsearch
 manala_elasticsearch_environment_template: ~
-manala_elasticsearch_environment:          []
+manala_elasticsearch_environment: []

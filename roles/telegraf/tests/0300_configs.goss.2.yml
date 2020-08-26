@@ -3,7 +3,15 @@
 file:
   /etc/telegraf/telegraf.d.test/foo.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/telegraf/telegraf.d.test/bar.conf:
     exists: false
   /etc/telegraf/telegraf.d.test/baz.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
