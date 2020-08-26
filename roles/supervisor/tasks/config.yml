@@ -6,7 +6,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: config > Template
   template:
@@ -14,7 +14,7 @@
     dest: "{{ manala_supervisor_config_file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   when: manala_supervisor_config_template
         or manala_supervisor_config
   notify:

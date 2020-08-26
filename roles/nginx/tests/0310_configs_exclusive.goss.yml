@@ -5,5 +5,9 @@ file:
     exists: false
   /etc/nginx/conf.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/nginx/conf.d.test/baz.conf:
     exists: false

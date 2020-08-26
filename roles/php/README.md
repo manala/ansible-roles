@@ -73,23 +73,17 @@ Using ansible galaxy requirements file:
 
 | Version | Distribution | Repository | *manala_apt_preferences* | *manala_php_version* | *manala_php_extensions_pecl_versioned* |
 | :---    | :---:        | :---:      | ---:                     | ---:                 | ---:                                   |
-| **5.6** | Jessie       | Sury       | `php@sury_php`           | `5.6`                |                                        |
 | **5.6** | Stretch      | Sury       | `php@sury_php`           | `5.6`                |                                        |
 | **5.6** | Buster       | Sury       | `php@sury_php`           | `5.6`                |                                        |
 | **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                | `true`                                 |
-| **7.0** | Jessie       | Sury       | `php@sury_php`           | `7.0`                |                                        |
 | **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                |                                        |
 | **7.0** | Buster       | Sury       | `php@sury_php`           | `7.0`                |                                        |
-| **7.1** | Jessie       | Sury       | `php@sury_php`           | `7.1`                |                                        |
 | **7.1** | Stretch      | Sury       | `php@sury_php`           | `7.1`                |                                        |
 | **7.1** | Buster       | Sury       | `php@sury_php`           | `7.1`                |                                        |
-| **7.2** | Jessie       | Sury       | `php@sury_php`           | `7.2`                |                                        |
 | **7.2** | Stretch      | Sury       | `php@sury_php`           | `7.2`                |                                        |
 | **7.2** | Buster       | Sury       | `php@sury_php`           | `7.2`                |                                        |
-| **7.3** | Jessie       | Sury       | `php@sury_php`           | `7.3`                |                                        |
 | **7.3** | Stretch      | Sury       | `php@sury_php`           | `7.3`                |                                        |
 | **7.3** | Buster       | Sury       | `php@sury_php`           | `7.3`                |                                        |
-| **7.4** | Jessie       | Sury       | `php@sury_php`           | `7.4`                |                                        |
 | **7.4** | Stretch      | Sury       | `php@sury_php`           | `7.4`                |                                        |
 | **7.4** | Buster       | Sury       | `php@sury_php`           | `7.4`                |                                        |
 

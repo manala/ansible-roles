@@ -4,6 +4,9 @@ file:
   /tmp/file:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - TEAM
       - THANKS
@@ -11,6 +14,12 @@ file:
   /tmp/alt-galaxy.tar.xz:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /tmp/alt-galaxy:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0755"

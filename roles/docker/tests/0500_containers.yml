@@ -7,7 +7,7 @@
     manala_docker_config_daemon:
       - storage-driver: vfs
     manala_docker_containers:
-      - name:  hello-world
+      - name: hello-world
         image: hello-world
   pre_tasks:
     - import_tasks: pre_tasks/docker.yml

@@ -11,9 +11,9 @@
       - file: foo.cnf
         config:
           - mysqld:
-            - user:                     mysql
-            - query_cache_size:         0
-            - gtid_mode:                true
+            - user: mysql
+            - query_cache_size: 0
+            - gtid_mode: true
             - enforce_gtid_consistency: false
       - file: foo_template.cnf
         template: fixtures/my.cnf.j2

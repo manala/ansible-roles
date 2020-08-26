@@ -6,7 +6,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
   when: manala_supervisor_configs|length
 
 - name: configs > Exclusive
@@ -23,7 +23,7 @@
     dest: "{{ item.file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   loop: "{{ query(
       'manala_templates_exclusive',
       manala_supervisor_configs,

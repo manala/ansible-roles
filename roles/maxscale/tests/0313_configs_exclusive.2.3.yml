@@ -11,7 +11,7 @@
       - file: baz.cnf
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml
-      when: ansible_distribution_release == 'jessie'
+      when: ansible_distribution_release in ['jessie']
     - import_tasks: pre_tasks/maxscale_2.3.yml
   roles:
     - manala.maxscale

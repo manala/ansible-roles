@@ -6,36 +6,36 @@ file:
   tmp/scripts/default/foo:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     contains:
       - "#!/bin/sh"
       - "printf \"I hope that someone gets my message in a bottle, yeah\\n\""
   tmp/scripts/default/foo_template:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     contains:
       - "#!/bin/sh"
       - "uname -snrvm"
   tmp/scripts/default/foo_content:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     contains:
       - "#!/bin/sh"
       - "printf \"Maintenant vous faites ce qu'ils vous ont dit de faire\\n\""
   tmp/scripts/default/bar:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     size: 1
   tmp/scripts/default/baz:
     exists: false
@@ -47,18 +47,18 @@ file:
   tmp/scripts/state/foo:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     size: 1
   tmp/scripts/state/bar:
     exists: false
   tmp/scripts/state/baz:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     size: 1
 {{ end }}
 
@@ -68,18 +68,18 @@ file:
   tmp/scripts/defaults/foo:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     contains:
       - "< Moo Moo Moo >"
       - "         \\  (oo)\\_______"
   tmp/scripts/defaults/bar:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     contains:
       - "Bar"
 {{ end }}
@@ -92,9 +92,9 @@ file:
   tmp/scripts/exclusive/bar:
     exists: true
     filetype: file
-    mode: "0755"
     owner: root
     group: root
+    mode: "0755"
     size: 1
   tmp/scripts/exclusive/baz:
     exists: false

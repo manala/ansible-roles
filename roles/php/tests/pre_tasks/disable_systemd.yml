@@ -1,5 +1,13 @@
 ---
 
+- name: Pre tasks > Install systemd
+  apt:
+    name:
+      - systemd
+    install_recommends: false
+    update_cache: true
+    cache_valid_time: 3600
+
 - name: Pre tasks > Disable systemctl to force sysv init script
   command: mv /bin/systemctl /bin/systemctl.disabled
   args:

@@ -4,8 +4,11 @@ file:
   /etc/apt/preferences.d.test/foo_foo:
     exists: false
   /etc/apt/preferences.d.test/bar_bar:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      bar"
       - "Pin:          bar"

@@ -2,10 +2,15 @@
 
 file:
   /usr/local/bin/composer:
-    exists:   true
-    mode:     "0755"
-    owner:    root
+    exists: true
     filetype: file
+    owner: root
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
+    group: staff
+{{ else }}
+    group: root
+{{ end }}
+    mode: "0755"
 
 command:
   composer --version:

@@ -3,10 +3,10 @@
 file:
   /etc/nginx/nginx.conf.test:
     exists: true
-    mode: "0644"
+    filetype: file
     owner: root
     group: root
-    filetype: file
+    mode: "0644"
     contains:
       - worker_processes 3;
       - load_module foo;

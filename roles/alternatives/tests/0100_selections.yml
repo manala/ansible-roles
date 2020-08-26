@@ -6,7 +6,7 @@
   vars:
     manala_alternatives_selections:
       - selection: editor
-        path:      /bin/ed
+        path: /bin/ed
   pre_tasks:
     - apt:
         name:

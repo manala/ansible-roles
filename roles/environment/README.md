@@ -45,7 +45,7 @@ Note that only string, integer or float variables are supported.
 manala_environment_files:
   - pam # /etc/environment
   - zsh # /etc/zsh/zshenv
-  - file:   /etc/profile.d/test.sh # Custom file
+  - file: /etc/profile.d/test.sh # Custom file
     export: true                   # Use "export" when setting variable
 
 manala_environment_variables:

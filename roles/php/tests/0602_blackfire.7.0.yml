@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_php_version: 7.0
@@ -13,6 +13,7 @@
       - client-id: b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
       - client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
   pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/sury_php.yml
     - import_tasks: pre_tasks/blackfire.yml
   roles:

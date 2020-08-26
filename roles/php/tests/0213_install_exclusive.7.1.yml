@@ -1,14 +1,14 @@
 ---
 
 - name: "{{ test }}"
-  hosts: debian
+  hosts: debian:!debian.jessie
   become: true
   vars:
     manala_php_version: 7.1
     manala_php_sapis_exclusive: true
     manala_php_sapis:
       - cli
-      - sapi:  fpm
+      - sapi: fpm
         state: present
     manala_php_extensions_exclusive: true
     manala_php_extensions:
@@ -18,7 +18,7 @@
       - geoip    # Pecl extension
       # Native extension
       - extension: curl
-        state:     present
+        state: present
   pre_tasks:
     - import_tasks: pre_tasks/sury_php.yml
     - apt:

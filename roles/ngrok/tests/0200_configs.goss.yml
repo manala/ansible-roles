@@ -1,8 +1,17 @@
 ---
 
 file:
+  /etc/ngrok:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/ngrok/config.yml:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 'web_addr: "1.2.3.4:1234"'

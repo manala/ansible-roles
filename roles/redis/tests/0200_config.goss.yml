@@ -3,5 +3,9 @@
 file:
    /etc/redis/redis.conf:
     exists: true
+    filetype: file
+    owner: redis
+    group: redis
+    mode: "0640"
     contains:
       - port 1234

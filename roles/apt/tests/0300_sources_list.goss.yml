@@ -2,8 +2,11 @@
 
 file:
   /etc/apt/sources.list:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
       {{ if not (.Env.DISTRIBUTION_RELEASE | regexMatch "jessie") }}

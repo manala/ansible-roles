@@ -6,17 +6,17 @@ manala_docker_install_packages_default:
   - docker-ce
 
 # Applications
-manala_docker_applications_dir:      /usr/local/bin
+manala_docker_applications_dir: /usr/local/bin
 manala_docker_applications_template: ~
-manala_docker_applications:          []
+manala_docker_applications: []
 
 # Containers
 manala_docker_containers: []
 
 # Config - Daemon
-manala_docker_config_daemon_file:     /etc/docker/daemon.json
+manala_docker_config_daemon_file: /etc/docker/daemon.json
 manala_docker_config_daemon_template: ~
-manala_docker_config_daemon:          []
+manala_docker_config_daemon: []
 
 # Flags
 manala_docker: {}

@@ -9,9 +9,9 @@
     manala_docker_applications:
       - hello-world
       - application: npm
-        image:       node
-        command:     npm
-        tag:         alpine
+        image: node
+        command: npm
+        tag: alpine
   pre_tasks:
     - import_tasks: pre_tasks/docker.yml
   roles:

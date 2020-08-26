@@ -24,7 +24,6 @@
       - file: baz.conf
         state: absent
   pre_tasks:
-    - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/influxdata.yml
   roles:
     - manala.telegraf

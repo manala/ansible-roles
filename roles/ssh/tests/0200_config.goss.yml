@@ -3,10 +3,18 @@
 file:
   /etc/ssh/sshd_config:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "AcceptEnv LANG LC_* FOO"
       - "    X11Forwarding no"
   /etc/ssh/ssh_config:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "    SendEnv LANG LC_* FOO"

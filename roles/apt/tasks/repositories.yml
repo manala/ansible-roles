@@ -10,7 +10,7 @@
 
 - name: repositories > Repositories presents
   apt_repository:
-    repo:     "{{ item.source }}"
+    repo: "{{ item.source }}"
     filename: "{{ (item.file|basename|splitext)[0] }}"
     update_cache: false
   loop: "{{ query(
@@ -34,7 +34,7 @@
 
 - name: repositories > Repositories absents
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
       'manala_apt_repositories',

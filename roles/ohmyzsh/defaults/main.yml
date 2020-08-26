@@ -5,7 +5,7 @@ manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 
 # Users
 manala_ohmyzsh_users_template: ~
-manala_ohmyzsh_users:          []
+manala_ohmyzsh_users: []
 
 # Flags
 manala_ohmyzsh: {}

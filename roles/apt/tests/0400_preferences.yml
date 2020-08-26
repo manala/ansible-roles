@@ -26,20 +26,20 @@
         file: ansible_qux
         priority: 1234
       # Verbose syntax
-      - package:  foo
-        pin:      foo
+      - package: foo
+        pin: foo
         priority: 100
-        file:     foo_foo
-      - package:  bar
-        pin:      bar
+        file: foo_foo
+      - package: bar
+        pin: bar
         priority: 100
-        file:     bar_bar
-        state:    present
-      - package:  baz
-        pin:      baz
+        file: bar_bar
+        state: present
+      - package: baz
+        pin: baz
         priority: 100
-        file:     baz_baz
-        state:    absent
+        file: baz_baz
+        state: absent
   pre_tasks:
     # Jessie repositories have been archived, meaning that some of them
     # (backports, for instance) will remain invalid forever.
@@ -60,20 +60,20 @@
   vars:
     manala_apt_preferences_dir: /etc/apt/preferences.d.test
     manala_apt_preferences:
-      - package:  foo
-        pin:      foo
+      - package: foo
+        pin: foo
         priority: 100
-        file:     foo_foo
-      - package:  bar
-        pin:      bar
+        file: foo_foo
+      - package: bar
+        pin: bar
         priority: 100
-        file:     bar_bar
-        state:    absent
-      - package:  baz
-        pin:      baz
+        file: bar_bar
+        state: absent
+      - package: baz
+        pin: baz
         priority: 100
-        file:     baz_baz
-        state:    present
+        file: baz_baz
+        state: present
   roles:
     - manala.apt
   post_tasks:

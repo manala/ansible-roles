@@ -43,5 +43,5 @@
 
 - name: php blackfire agent restart
   service:
-    name:  blackfire-agent
+    name: blackfire-agent
     state: restarted

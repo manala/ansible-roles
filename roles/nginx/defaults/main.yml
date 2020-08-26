@@ -6,15 +6,15 @@ manala_nginx_install_packages_default:
   - nginx
 
 # Config
-manala_nginx_config_file:     /etc/nginx/nginx.conf
+manala_nginx_config_file: /etc/nginx/nginx.conf
 manala_nginx_config_template: ~
-manala_nginx_config:          []
+manala_nginx_config: []
 
 # Configs
 manala_nginx_configs_exclusive: false
-manala_nginx_configs_dir:       /etc/nginx/conf.d
-manala_nginx_configs_template:  ~
-manala_nginx_configs:           []
+manala_nginx_configs_dir: /etc/nginx/conf.d
+manala_nginx_configs_template: ~
+manala_nginx_configs: []
 
 # User
 manala_nginx_user: www-data

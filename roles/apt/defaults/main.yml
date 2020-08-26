@@ -2,9 +2,9 @@
 
 # Configs
 manala_apt_configs_exclusive: false
-manala_apt_configs_dir:       /etc/apt/apt.conf.d
-manala_apt_configs_template:  ~
-manala_apt_configs:           []
+manala_apt_configs_dir: /etc/apt/apt.conf.d
+manala_apt_configs_template: ~
+manala_apt_configs: []
 
 # Install
 manala_apt_install_packages: ~
@@ -17,18 +17,18 @@ manala_apt_install_packages_default:
 manala_apt_components: ['main']
 
 # Sources list
-manala_apt_sources_list_file:     /etc/apt/sources.list
+manala_apt_sources_list_file: /etc/apt/sources.list
 manala_apt_sources_list_template: ~
-manala_apt_sources_list:          []
+manala_apt_sources_list: []
 
 # Repositories
 manala_apt_repositories_exclusive: false
-manala_apt_repositories:           []
+manala_apt_repositories: []
 
 # Preferences
 manala_apt_preferences_exclusive: false
-manala_apt_preferences_dir:       /etc/apt/preferences.d
-manala_apt_preferences:           []
+manala_apt_preferences_dir: /etc/apt/preferences.d
+manala_apt_preferences: []
 
 # Keys
 manala_apt_keys: []

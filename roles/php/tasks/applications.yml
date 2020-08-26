@@ -2,9 +2,11 @@
 
 - name: applications > Download
   get_url:
-    url:  "{{ item.source }}"
+    url: "{{ item.source }}"
     dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
-    mode: 0755
+    owner: root
+    group: root
+    mode: "0755"
     validate_certs: "{{ item.validate_certs|default(omit) }}"
   loop: "{{ query(
       'manala_php_applications',
@@ -17,8 +19,10 @@
   file:
     state: link
     force: yes
-    src:   "{{ item.application ~ '_' ~ item.version }}"
-    dest:  "{{ manala_php_applications_dir }}/{{ item.application }}"
+    src: "{{ item.application ~ '_' ~ item.version }}"
+    dest: "{{ manala_php_applications_dir }}/{{ item.application }}"
+    owner: root
+    group: root
   when: item.version
   loop: "{{ query(
       'manala_php_applications',

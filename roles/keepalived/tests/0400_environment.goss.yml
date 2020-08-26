@@ -3,5 +3,9 @@
 file:
   /etc/default/keepalived.test:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "/^DAEMON_ARGS=\"--log-console --log-detail\"$/"

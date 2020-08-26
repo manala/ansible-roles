@@ -1,27 +1,38 @@
 ---
 
 file:
+  /usr/local/share/oh-my-zsh:
+    exists: true
+    filetype: directory
+    owner: root
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
+    group: staff
+    mode: "2755"
+{{ else }}
+    group: root
+    mode: "0755"
+{{ end }}
   /usr/local/share/oh-my-zsh/custom/themes/default.demo.zsh-theme:
-    filetype: file
     exists: true
-    mode: "0644"
+    filetype: file
     owner: root
     group: root
+    mode: "0644"
   /usr/local/share/oh-my-zsh/custom/themes/default.dev.zsh-theme:
-    filetype: file
     exists: true
-    mode: "0644"
+    filetype: file
     owner: root
     group: root
+    mode: "0644"
   /usr/local/share/oh-my-zsh/custom/themes/default.prod.zsh-theme:
-    filetype: file
     exists: true
-    mode: "0644"
+    filetype: file
     owner: root
     group: root
+    mode: "0644"
   /usr/local/share/oh-my-zsh/custom/themes/default.staging.zsh-theme:
-    filetype: file
     exists: true
-    mode: "0644"
+    filetype: file
     owner: root
     group: root
+    mode: "0644"

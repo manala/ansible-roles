@@ -2,8 +2,11 @@
 
 file:
   /etc/apt/preferences.d.test/foo_foo:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      foo"
       - "Pin:          foo"
@@ -11,8 +14,11 @@ file:
   /etc/apt/preferences.d.test/bar_bar:
     exists: false
   /etc/apt/preferences.d.test/baz_baz:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      baz"
       - "Pin:          baz"

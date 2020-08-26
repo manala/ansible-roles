@@ -15,7 +15,7 @@
 
 - name: update > Upgrade dist
   apt:
-    upgrade:      dist
+    upgrade: dist
     update_cache: true
 
 - name: update > Restore package marks

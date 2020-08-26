@@ -2,7 +2,7 @@
 
 - name: variables > File
   blockinfile:
-    dest:  "{{ item.file }}"
+    dest: "{{ item.file }}"
     block: |
       {% for variable in query('manala_environment_variables', manala_environment_variables) %}
       {{ (item.export)|ternary('export ', '') }}{{ variable.name }}="{{ variable.value }}"

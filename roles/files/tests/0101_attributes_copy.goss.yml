@@ -6,16 +6,25 @@ file:
   /tmp/foo:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello world!
   /tmp/bar:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello world!
   /tmp/baz:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Hello world!
 {{ end }}

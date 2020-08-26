@@ -57,7 +57,7 @@ The `manala_nginx_config_template` key will allow you to use differents main con
 
 ```yaml
 ---
-env:        prod
+env: prod
 
 manala_vim_config_template: config/default.{{ env }}.j2
 ```
@@ -66,19 +66,19 @@ In combination with it you can specify the vim configuration file with the `mana
 ```yaml
 ---
 
-manala_vim_config_file:     /etc/vim/vimrc.local
+manala_vim_config_file: /etc/vim/vimrc.local
 ```
 
 The `manala_vim_config` is used ton configure vim, you can specify any of the vim options (see: [http://vimconfig.com/](http://vimconfig.com/)) like following:
 
 ```yaml
 manala_vim_config:
-    syntax:     "on"
-    encoding:   "utf8"
-    expandtab:  true   # Use spaces instead of tabs
-    smarttab:   true   # Be smart when using tabs ;)
+    syntax: "on"
+    encoding: utf8
+    expandtab: true   # Use spaces instead of tabs
+    smarttab: true   # Be smart when using tabs ;)
     shiftwidth: 4      # 1 tab == 4 spaces
-    tabstop:    4
+    tabstop: 4
 ```
 
 ## Example playbook
@@ -86,7 +86,7 @@ manala_vim_config:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.vim }
+    - role: manala.vim
 ```
 
 # Licence

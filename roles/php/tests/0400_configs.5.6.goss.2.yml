@@ -3,13 +3,29 @@
 file:
   /etc/php/5.6/cli/conf.d/foo.ini:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/php/5.6/fpm/conf.d/foo.ini:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/php/5.6/cli/conf.d/bar.ini:
     exists: false
   /etc/php/5.6/fpm/conf.d/bar.ini:
     exists: false
   /etc/php/5.6/cli/conf.d/baz.ini:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/php/5.6/fpm/conf.d/baz.ini:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

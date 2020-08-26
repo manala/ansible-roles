@@ -1,5 +1,19 @@
 ---
 
+file:
+  /usr/local/bin/hello-world:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/npm:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+
 command:
   hello-world:
     exit-status: 0

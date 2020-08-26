@@ -1,7 +1,17 @@
 ---
 
 file:
+  /etc/docker:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/docker/daemon.json:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "    \"experimental\": false"

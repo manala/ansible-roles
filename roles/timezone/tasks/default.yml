@@ -14,6 +14,9 @@
     dest: /etc/timezone
     content: >
       {{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
+    owner: root
+    group: root
+    mode: "0644"
   when:
     - __manala_timezone_default_localtime is not skipped
     - __manala_timezone_default_localtime.stat.isreg
@@ -23,10 +26,12 @@
 # ...on the contrary, if it's a link, we need to update it before reconfiguring tzdata
 - name: default > Localtime link
   file:
-    src:   /usr/share/zoneinfo/{{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
-    dest:  /etc/localtime
+    src: /usr/share/zoneinfo/{{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
+    dest: /etc/localtime
     state: link
-    force: yes
+    force: true
+    owner: root
+    group: root
   when:
     - __manala_timezone_default_localtime is not skipped
     - __manala_timezone_default_localtime.stat.islnk

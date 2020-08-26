@@ -6,9 +6,9 @@ file:
   tmp/configs/default/foo.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[group:foo]"
       - "programs=foo,bar"
@@ -23,9 +23,9 @@ file:
   tmp/configs/default/foo_deprecated.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[program:foo]"
       - "command=/bin/foo"
@@ -40,9 +40,9 @@ file:
   tmp/configs/default/foo_template_inet_http_server.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[inet_http_server]"
       - "port=0.0.0.1:9001"
@@ -50,9 +50,9 @@ file:
   tmp/configs/default/foo_template_deprecated.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[program:foo]"
       - "command=cat"
@@ -63,18 +63,18 @@ file:
   tmp/configs/default/foo_content.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[program:foo]"
       - "command=/bin/foo"
   tmp/configs/default/bar.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     size: 1
   tmp/configs/default/baz.conf:
     exists: false
@@ -86,18 +86,18 @@ file:
   tmp/configs/state/foo.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     size: 1
   tmp/configs/state/bar.conf:
     exists: false
   tmp/configs/state/baz.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     size: 1
 {{ end }}
 
@@ -107,18 +107,18 @@ file:
   tmp/configs/defaults/foo.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[inet_http_server]"
       - "port=0.0.0.0:9001"
   tmp/configs/defaults/bar.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "Bar"
 {{ end }}
@@ -131,9 +131,9 @@ file:
   tmp/configs/exclusive/bar.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     size: 1
   tmp/configs/exclusive/baz.conf:
     exists: false

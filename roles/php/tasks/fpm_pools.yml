@@ -2,8 +2,11 @@
 
 - name: fpm_pools > Templates
   template:
-    src:  "{{ item.template|default(manala_php_fpm_pools_template|ternary(manala_php_fpm_pools_template, 'fpm_pools/empty.j2')) }}"
+    src: "{{ item.template|default(manala_php_fpm_pools_template|ternary(manala_php_fpm_pools_template, 'fpm_pools/empty.j2')) }}"
     dest: /etc/php/{{ manala_php_version|string }}/fpm/pool.d/{{ item.file }}
+    owner: root
+    group: root
+    mode: "0644"
   notify:
     - php fpm restart
   loop: "{{ query(

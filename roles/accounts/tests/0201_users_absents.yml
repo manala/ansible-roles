@@ -22,14 +22,14 @@
         group: to_preserve
   vars:
     manala_accounts_users:
-      - user:  user_1
+      - user: user_1
         group: to_delete
         authorized_keys:
           - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
         state: absent
-      - user:  user_2
+      - user: user_2
         group: to_preserve
-      - user:  user_3
+      - user: user_3
         group: to_delete
         authorized_keys:
           - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_3.pub') }}"

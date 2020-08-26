@@ -1,96 +1,141 @@
 ---
 
 file:
+  /etc/apt/preferences.d.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
 {{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
   /etc/apt/preferences.d.test/dotdeb:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      *"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 200"
   /etc/apt/preferences.d.test/php:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-* php7.4-*"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 300"
 {{ else }}
   /etc/apt/preferences.d.test/sury_php:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      *"
       - "Pin:          origin packages.sury.org"
       - "Pin-Priority: 200"
   /etc/apt/preferences.d.test/php:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-* php7.4-*"
       - "Pin:          origin packages.sury.org"
       - "Pin-Priority: 300"
 {{ end }}
   /etc/apt/preferences.d.test/git:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      git git-*"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d.test/libssl1_0_0:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      libssl1.0.0"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d.test/ansible:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      ansible*"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d.test/ansible_foo:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      ansible*"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d.test/ansible_bar:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      foo bar"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d.test/ansible_baz:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      ansible*"
       - "Pin:          baz"
       - "Pin-Priority: 900"
   /etc/apt/preferences.d.test/ansible_qux:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      ansible*"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 1234"
   /etc/apt/preferences.d.test/foo_foo:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      foo"
       - "Pin:          foo"
       - "Pin-Priority: 100"
   /etc/apt/preferences.d.test/bar_bar:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "Package:      bar"
       - "Pin:          bar"

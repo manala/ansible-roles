@@ -17,12 +17,12 @@
       - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
         key:
           url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          id:  ACCC4CF8
+          id: ACCC4CF8
     manala_apt_keys:
       - sensu
       - multimedia
       - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-        id:  056E8E56
+        id: 056E8E56
       - keyserver: keyserver.ubuntu.com
         id: BC19DDBA
   roles:

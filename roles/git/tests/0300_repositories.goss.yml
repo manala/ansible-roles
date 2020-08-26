@@ -3,12 +3,12 @@
 file:
   /tmp/ansible-role-git/.git:
     exists: true
-    mode: "0755"
+    filetype: directory
     owner: root
     group: root
-    filetype: directory
+    mode: "0755"
   /tmp/ansible-role-git-user/.git:
     exists: true
-    mode: "0755"
-    owner: manala
     filetype: directory
+    owner: manala
+    mode: "0755"

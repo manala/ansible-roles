@@ -4,9 +4,9 @@ file:
   tmp/config/default.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[supervisord]"
       - "logfile=/var/log/supervisord.log"
@@ -18,9 +18,9 @@ file:
   tmp/config/default_deprecated.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[unix_http_server]"
       - "file=/tmp/supervisor.sock"
@@ -32,9 +32,9 @@ file:
   tmp/config/default_content.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[unix_http_server]"
       - "file=/tmp/supervisor.sock"
@@ -46,9 +46,9 @@ file:
   tmp/config/template.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[unix_http_server]"
       - "file=/tmp/supervisor.sock"
@@ -60,9 +60,9 @@ file:
   tmp/config/template_deprecated.conf:
     exists: true
     filetype: file
-    mode: "0644"
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "[unix_http_server]"
       - "file=/tmp/supervisor.sock"

@@ -2,15 +2,19 @@
 
 - name: configs > Directory
   file:
-    path:  "{{ manala_ngrok_configs_dir }}"
+    path: "{{ manala_ngrok_configs_dir }}"
     state: directory
     owner: root
     group: root
+    mode: "0755"
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(manala_ngrok_configs_template|ternary(manala_ngrok_configs_template, 'configs/empty.j2')) }}"
+    src: "{{ item.template|default(manala_ngrok_configs_template|ternary(manala_ngrok_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ manala_ngrok_configs_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   register: __manala_ngrok_configs_templates_output
   with_items: "{{ manala_ngrok_configs }}"
 
@@ -24,7 +28,7 @@
 
 - name: configs > Exclusive - remove files
   file:
-    path:  "{{ manala_ngrok_configs_dir }}/{{ item }}"
+    path: "{{ manala_ngrok_configs_dir }}/{{ item }}"
     state: absent
   when: manala_ngrok_configs_exclusive and (item not in manala_ngrok_configs|map(attribute='file'))
   with_items: "{{ __manala_ngrok_configs_find_output.stdout_lines|default([]) }}"

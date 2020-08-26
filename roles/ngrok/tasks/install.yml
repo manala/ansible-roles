@@ -26,4 +26,7 @@
     extra_opts:
       - --transform
       - s/^ngrok/{{ manala_ngrok_bin|basename }}/
+    owner: root
+    group: root
+    mode: "0755"
   when: (not __manala_ngrok_bin_stat_result.stat.exists)

@@ -8,6 +8,7 @@
     manala_php_sapis:
       - fpm
   pre_tasks:
+    - import_tasks: pre_tasks/disable_systemd.yml
     - import_tasks: pre_tasks/dotdeb.yml
   roles:
     - manala.php
