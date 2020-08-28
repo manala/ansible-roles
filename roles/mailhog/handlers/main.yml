@@ -2,5 +2,5 @@
 
 - name: mailhog restart
   service:
-    name:  mailhog
+    name: mailhog
     state: restarted

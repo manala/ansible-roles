@@ -2,7 +2,10 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_grafana_config_template|ternary(manala_grafana_config_template, 'config/default.j2') }}"
+    src: "{{ manala_grafana_config_template|ternary(manala_grafana_config_template, 'config/default.j2') }}"
     dest: "{{ manala_grafana_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   notify:
     - grafana restart

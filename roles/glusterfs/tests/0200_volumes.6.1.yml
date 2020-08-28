@@ -15,7 +15,7 @@
         force: true
 
       - name: volume_test
-        bricks:  /home/vol
+        bricks: /home/vol
         cluster:
           - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
         options:
@@ -28,10 +28,10 @@
     - import_tasks: pre_tasks/service.yml
     - import_tasks: pre_tasks/glusterfs_6.1.yml
     - file:
-        path:  /home/present
+        path: /home/present
         state: directory
     - file:
-        path:  /home/vol
+        path: /home/vol
         state: directory
 
   roles:
@@ -51,7 +51,7 @@
         state: absent
 
       - name: volume_test
-        bricks:  /home/vol2,/home/vol3
+        bricks: /home/vol2,/home/vol3
         cluster:
           - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
         force: true
@@ -60,10 +60,10 @@
     - import_tasks: pre_tasks/service.yml
     - import_tasks: pre_tasks/glusterfs_6.1.yml
     - file:
-        path:  /home/vol2
+        path: /home/vol2
         state: directory
     - file:
-        path:  /home/vol3
+        path: /home/vol3
         state: directory
 
   roles:

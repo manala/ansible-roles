@@ -3,8 +3,10 @@
 file:
   /etc/sensu/agent.yml:
     exists: true
+    filetype: file
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "backend-url:"
       - "ws://127.0.0.1:8081"

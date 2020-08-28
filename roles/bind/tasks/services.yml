@@ -2,7 +2,7 @@
 
 - name: services > Services
   service:
-    name:  "{{ item }}"
+    name: "{{ item }}"
     state: "{{
       'restarted'
         if (__manala_bind_options|default({}) is changed) else

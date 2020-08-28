@@ -4,5 +4,8 @@ file:
   /etc/dhcp/dhcpd.conf:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "# Foo"

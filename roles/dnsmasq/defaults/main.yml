@@ -7,6 +7,6 @@ manala_dnsmasq_install_packages_default:
 
 # Configs
 manala_dnsmasq_configs_exclusive: false
-manala_dnsmasq_configs_dir:       /etc/dnsmasq.d
-manala_dnsmasq_configs_template:  ~
-manala_dnsmasq_configs:           []
+manala_dnsmasq_configs_dir: /etc/dnsmasq.d
+manala_dnsmasq_configs_template: ~
+manala_dnsmasq_configs: []

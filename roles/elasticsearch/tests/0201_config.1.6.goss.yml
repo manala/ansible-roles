@@ -3,7 +3,9 @@
 file:
   /etc/elasticsearch/elasticsearch.yml:
     exists: true
-    owner: root
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "node.name: Foo Bar"

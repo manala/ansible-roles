@@ -6,7 +6,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0700
+    mode: "0700"
 
 - name: configs > Exclusive
   find:
@@ -22,7 +22,7 @@
     dest: "{{ item.file }}"
     owner: root
     group: root
-    mode: 0600
+    mode: "0600"
   loop: "{{ query(
       'manala_backup_manager_configs',
       manala_backup_manager_configs,
@@ -39,7 +39,7 @@
     dest: "{{ item.file }}"
     owner: root
     group: root
-    mode: 0600
+    mode: "0600"
   loop: "{{ query(
       'manala_backup_manager_configs',
       manala_backup_manager_configs,

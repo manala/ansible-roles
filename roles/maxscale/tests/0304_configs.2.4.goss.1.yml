@@ -3,6 +3,10 @@
 file:
   /etc/maxscale.cnf.d.test/foo.cnf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "[foo-1]"
       - "type = server"
@@ -11,5 +15,9 @@ file:
       - "protocol = MariaDBBackend"
   /etc/maxscale.cnf.d.test/bar.cnf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/maxscale.cnf.d.test/baz.cnf:
     exists: false

@@ -2,8 +2,11 @@
 
 file:
   /etc/shorewall/shorewall.conf:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - LOG_MARTIANS=No
       - IP_FORWARDING=On

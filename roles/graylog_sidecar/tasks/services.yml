@@ -10,8 +10,8 @@
 
 - name: services > Services
   service:
-    name:    "{{ item }}"
-    state:   started
+    name: "{{ item }}"
+    state: started
     enabled: true
   with_items:
     - graylog-sidecar

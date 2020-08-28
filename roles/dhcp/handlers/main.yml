@@ -2,5 +2,5 @@
 
 - name: dhcp restart
   service:
-    name:  isc-dhcp-server
+    name: isc-dhcp-server
     state: restarted

@@ -3,5 +3,9 @@
 file:
   /etc/oauth2-proxy/config.cfg:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - 'http_address = "127.0.0.1:1234"'

@@ -4,6 +4,9 @@
   template:
     src:  "{{ item.template }}"
     dest: "{{ manala_haproxy_errorfiles_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   with_items: "{{ manala_haproxy_errorfiles }}"
   notify:
     - haproxy reload

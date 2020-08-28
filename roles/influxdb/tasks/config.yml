@@ -2,7 +2,10 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_influxdb_config_template }}"
+    src: "{{ manala_influxdb_config_template }}"
     dest: "{{ manala_influxdb_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   notify:
     - influxdb restart

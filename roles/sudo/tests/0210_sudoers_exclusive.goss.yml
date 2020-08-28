@@ -1,6 +1,12 @@
 ---
 
 file:
+  /etc/sudoers.d.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/sudoers.d.test/README:
     exists: true
   /etc/sudoers.d.test/foo:

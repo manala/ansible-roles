@@ -1,7 +1,7 @@
 ---
 
 # Grafana installed version. Used to determine base template.
-manala_grafana_version:          ~
+manala_grafana_version: ~
 
 # Install
 manala_grafana_install_packages: ~
@@ -9,19 +9,19 @@ manala_grafana_install_packages_default:
   - grafana
 
 # Config
-manala_grafana_config_file:      /etc/grafana/grafana.ini
-manala_grafana_config_template:  ~
-manala_grafana_config:           []
+manala_grafana_config_file: /etc/grafana/grafana.ini
+manala_grafana_config_template: ~
+manala_grafana_config: []
 
 # Api parameters
-manala_grafana_api_url:          http://127.0.0.1:3000
-manala_grafana_api_user:         admin
-manala_grafana_api_password:     admin
+manala_grafana_api_url: http://127.0.0.1:3000
+manala_grafana_api_user: admin
+manala_grafana_api_password: admin
 
 # Datasources
 manala_grafana_datasources_exclusive: false
-manala_grafana_datasources:           []
+manala_grafana_datasources: []
 
 # Dashboards
 manala_grafana_dashboards_exclusive: false
-manala_grafana_dashboards:           []
+manala_grafana_dashboards: []

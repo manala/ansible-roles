@@ -1,28 +1,54 @@
 ---
 
 file:
+  /etc/rsyslog.d.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/rsyslog.d.test/foo.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - user.*                    -/var/log/user.log
       - daemon.*                  -/var/log/daemon.log
       - '*.*;auth,authpriv.none   -/var/log/syslog'
   /etc/rsyslog.d.test/foo_template.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "# First some standard log files.  Log by facility."
       - auth,authpriv.*         /var/log/auth.log
   /etc/rsyslog.d.test/foo_content.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - foo.* -/var/log/foo.log
       - bar.*  -/var/log/bar.log
   /etc/rsyslog.d.test/foo_template_content.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - foo.* -/var/log/foo.log
       - bar.*  -/var/log/bar.log
   /etc/rsyslog.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/rsyslog.d.test/baz.conf:
     exists: false

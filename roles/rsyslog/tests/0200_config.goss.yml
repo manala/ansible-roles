@@ -3,6 +3,10 @@
 file:
   /etc/rsyslog.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - $ModLoad imuxsock
       - '#$ModLoad imklog'

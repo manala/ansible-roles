@@ -7,4 +7,4 @@ manala_phantomjs_install_packages_default:
 
 # Config
 manala_phantomjs_config_template: ~
-manala_phantomjs_config:          []
+manala_phantomjs_config: []

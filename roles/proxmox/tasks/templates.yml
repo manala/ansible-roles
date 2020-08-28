@@ -4,6 +4,9 @@
   file:
     path: "{{ manala_proxmox_templates_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0755"
   when: manala_proxmox_templates|length
 
 - name: templates > Exclusive
@@ -15,8 +18,11 @@
 
 - name: templates > Download
   get_url:
-    url:  "{{ item.url }}"
+    url: "{{ item.url }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_proxmox_files',
       manala_proxmox_templates,
@@ -29,7 +35,7 @@
 # Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: templates > Files absents
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
       'manala_proxmox_files',

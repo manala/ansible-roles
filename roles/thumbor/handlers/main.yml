@@ -2,6 +2,6 @@
 
 - name: thumbor restart
   service:
-    name:  thumbor
+    name: thumbor
     state: restarted
   when: __manala_thumbor['services']

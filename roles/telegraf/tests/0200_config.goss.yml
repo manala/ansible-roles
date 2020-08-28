@@ -3,6 +3,10 @@
 file:
   /etc/telegraf/telegraf.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - hostname = "test.manala.dev"
       - quiet = true

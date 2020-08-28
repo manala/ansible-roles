@@ -2,6 +2,6 @@
 
 - name: logentries restart
   service:
-    name:  logentries
+    name: logentries
     state: restarted
     sleep: 3

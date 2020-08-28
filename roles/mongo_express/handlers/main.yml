@@ -2,5 +2,5 @@
 
 - name: mongo express restart
   service:
-    name:  mongo-express
+    name: mongo-express
     state: restarted

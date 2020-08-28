@@ -12,7 +12,7 @@ manala_influxdb_dir_group: influxdb
 manala_influxdb_dir_mode: '0750'
 
 # Databases
-manala_influxdb_databases:  []
+manala_influxdb_databases: []
 
 # Users
 manala_influxdb_users: []
@@ -24,6 +24,6 @@ manala_influxdb_privileges: []
 manala_influxdb_influx_bin: /usr/bin/influx
 
 # Config
-manala_influxdb_config_file:     /etc/influxdb/influxdb.conf
+manala_influxdb_config_file: /etc/influxdb/influxdb.conf
 manala_influxdb_config_template: config/base.conf.j2
-manala_influxdb_config:          []
+manala_influxdb_config: []

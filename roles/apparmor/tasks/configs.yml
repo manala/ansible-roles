@@ -3,14 +3,20 @@
 - name: configs > Ensures destination directories exists
   file:
     path: "{{ manala_apparmor_configs_dir ~ '/' ~ item.file | dirname }}"
-    recurse: true
     state: directory
+    recurse: true
+    owner: root
+    group: root
+    mode: "0755"
   with_items: "{{ manala_apparmor_configs }}"
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template }}"
+    src: "{{ item.template }}"
     dest: "{{ manala_apparmor_configs_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: item.state|default('present') != 'absent'
   with_items: "{{ manala_apparmor_configs }}"
   notify:
@@ -18,7 +24,7 @@
 
 - name: configs > Remove files
   file:
-    path:  "{{ manala_apparmor_configs_dir }}/{{ item.file }}"
+    path: "{{ manala_apparmor_configs_dir }}/{{ item.file }}"
     state: absent
   when: item.state|default('present') == 'absent'
   with_items: "{{ manala_apparmor_configs }}"

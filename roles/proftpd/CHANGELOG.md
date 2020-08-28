@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Explicit file permissions
+
 ## [1.0.9] - 2020-06-04
 ### Fixed
 - Home directory mode

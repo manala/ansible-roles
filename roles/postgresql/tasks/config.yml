@@ -4,6 +4,9 @@
   template:
     src: "{{ manala_postgresql_config_template }}"
     dest: /etc/postgresql/{{ manala_postgresql_version }}/main/postgresql.conf
+    owner: root
+    group: root
+    mode: "0644"
   when: manala_postgresql_config_template is not none
   register: __manala_postgresql_config_result
 
@@ -11,5 +14,8 @@
   template:
     src: "{{ manala_postgresql_config_hba_template }}"
     dest: /etc/postgresql/{{ manala_postgresql_version }}/main/pg_hba.conf
+    owner: root
+    group: root
+    mode: "0644"
   when: manala_postgresql_config_hba_template is not none
   register: __manala_postgresql_config_hba_result

@@ -2,8 +2,11 @@
 
 - name: configs > Templates
   template:
-    src:  "{{ item.template|default(manala_shorewall_configs_template|ternary(manala_shorewall_configs_template, 'configs/empty.j2')) }}"
+    src: "{{ item.template|default(manala_shorewall_configs_template|ternary(manala_shorewall_configs_template, 'configs/empty.j2')) }}"
     dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
       'manala_shorewall_configs',
       manala_shorewall_configs,

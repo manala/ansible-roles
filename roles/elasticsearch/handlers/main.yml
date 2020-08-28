@@ -2,5 +2,5 @@
 
 - name: elasticsearch restart
   service:
-    name:  elasticsearch
+    name: elasticsearch
     state: restarted

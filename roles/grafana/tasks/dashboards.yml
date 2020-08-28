@@ -4,12 +4,12 @@
 - name: dashboards > List dashboards
   register: _manala_grafana_dashboards_list_output
   uri:
-    url:              "{{ manala_grafana_api_url }}/api/search"
-    method:           GET
+    url: "{{ manala_grafana_api_url }}/api/search"
+    method: GET
     force_basic_auth: true
-    user:             "{{ manala_grafana_api_user }}"
-    password:         "{{ manala_grafana_api_password }}"
-    status_code:      200
+    user: "{{ manala_grafana_api_user }}"
+    password: "{{ manala_grafana_api_password }}"
+    status_code: 200
     headers:
       Content-Type: application/json
   when: manala_grafana_dashboards_exclusive
@@ -22,12 +22,12 @@
   register: _manala_grafana_dashboards_delete_output
   failed_when: "'Dashboard not found' in _manala_grafana_dashboards_delete_output|to_json"
   uri:
-    url:              "{{ manala_grafana_api_url }}/api/dashboards/{{ item.uri }}"
-    method:           DELETE
+    url: "{{ manala_grafana_api_url }}/api/dashboards/{{ item.uri }}"
+    method: DELETE
     force_basic_auth: true
-    user:             "{{ manala_grafana_api_user }}"
-    password:         "{{ manala_grafana_api_password }}"
-    status_code:      200
+    user: "{{ manala_grafana_api_user }}"
+    password: "{{ manala_grafana_api_password }}"
+    status_code: 200
     headers:
       Content-Type: application/json
   with_items: "{{ _manala_grafana_dashboards_list_output.json|default([]) }}"
@@ -37,19 +37,19 @@
 - name: dashboards > Import dashboards
   register: _manala_grafana_dashboards_import_output
   uri:
-    url:              "{{ manala_grafana_api_url }}/api/dashboards/import"
-    method:           POST
-    body:             "{{
+    url: "{{ manala_grafana_api_url }}/api/dashboards/import"
+    method: POST
+    body: "{{
       {
         'dashboard': lookup('file', item.template)|from_json,
         'overwrite': item.overwrite|default(true),
-        'inputs':    item.inputs|default([])
+        'inputs': item.inputs|default([])
       }|to_json
     }}"
     force_basic_auth: true
-    user:             "{{ manala_grafana_api_user }}"
-    password:         "{{ manala_grafana_api_password }}"
-    status_code:      200
+    user: "{{ manala_grafana_api_user }}"
+    password: "{{ manala_grafana_api_password }}"
+    status_code: 200
     headers:
       Content-Type: application/json
   with_items: "{{ manala_grafana_dashboards }}"

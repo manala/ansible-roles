@@ -3,5 +3,9 @@
 file:
   /etc/influxdb/influxdb.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - reporting-disabled = true

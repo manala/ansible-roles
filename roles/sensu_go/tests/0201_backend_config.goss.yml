@@ -3,7 +3,9 @@
 file:
   /etc/sensu/backend.yml:
     exists: true
+    filetype: file
     owner: root
     group: root
+    mode: "0644"
     contains:
       - "state-dir: /tmp"

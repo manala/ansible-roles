@@ -1,13 +1,27 @@
 ---
 
 file:
+  /etc/thumbor.d.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /etc/thumbor.d.test/foo.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "THUMBOR_LOG_CONFIG = None"
       - "MAX_WIDTH = 100"
       - "PILLOW_RESAMPLING_FILTER = 'LANCZOS'"
   /etc/thumbor.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/thumbor.d.test/baz.conf:
     exists: false

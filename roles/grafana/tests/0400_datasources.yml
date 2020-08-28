@@ -12,15 +12,15 @@
     manala_grafana_api_password: admin
     manala_grafana_datasources_exclusive: true
     manala_grafana_datasources:
-      - name:      datasource_test
-        type:      influxdb
+      - name: datasource_test
+        type: influxdb
         isDefault: true
-        access:    proxy
+        access: proxy
         basicAuth: false
-        url:       http://localhost:8086
-        database:  telegraf
-        username:  ''
-        password:  ''
+        url: http://localhost:8086
+        database: telegraf
+        username: ''
+        password: ''
   pre_tasks:
     - import_tasks: pre_tasks/grafana.yml
   roles:

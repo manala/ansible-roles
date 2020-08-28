@@ -3,6 +3,10 @@
 file:
   /etc/le/config:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0640"
     contains:
       - "[Main]"
       - "pull-server-side-config = False"

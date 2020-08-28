@@ -7,7 +7,7 @@
     manala_cloud_init_configs:
       - file: 99_hostname.cfg
         config:
-          - fqdn:     foo.manala.io
+          - fqdn: foo.manala.io
           - hostname: foo
   roles:
     - manala.cloud_init

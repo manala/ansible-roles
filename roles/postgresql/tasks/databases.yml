@@ -3,7 +3,7 @@
 - name: databases > Create postgresql databases
   postgresql_db:
     name:       "{{ (item) if (item is string) else (item.database) }}"
-    owner:      "{{ item.role|default(omit) }}"
     state:      "{{ item.state|default('present') }}"
+    owner:      "{{ item.role|default(omit) }}"
     login_host: "{{ manala_postgresql_login_host }}"
   with_items: "{{ manala_postgresql_databases }}"

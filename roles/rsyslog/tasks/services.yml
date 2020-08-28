@@ -2,8 +2,8 @@
 
 - name: services > Ensure rsyslog is running
   service:
-    name:    "{{ item }}"
-    state:   started
+    name: "{{ item }}"
+    state: started
     enabled: true
   with_items:
     - rsyslog

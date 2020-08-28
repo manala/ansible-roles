@@ -3,7 +3,15 @@
 file:
   /etc/ansible/group_vars.test/foo.yml:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/ansible/group_vars.test/bar.yml:
     exists: false
   /etc/ansible/group_vars.test/baz.yml:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

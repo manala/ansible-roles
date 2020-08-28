@@ -2,8 +2,11 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_vault_config_template }}"
+    src: "{{ manala_vault_config_template }}"
     dest: "{{ manala_vault_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   when: manala_vault_config_template is not none
   notify:
     - vault restart

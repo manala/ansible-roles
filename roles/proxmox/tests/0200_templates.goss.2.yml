@@ -1,9 +1,23 @@
 ---
 
 file:
+  /var/lib/vz/template/cache.test:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   /var/lib/vz/template/cache.test/foo.tar.gz:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /var/lib/vz/template/cache.test/bar.tar.gz:
     exists: false
   /var/lib/vz/template/cache.test/baz.tar.gz:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

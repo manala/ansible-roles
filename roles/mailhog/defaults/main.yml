@@ -7,4 +7,4 @@ manala_mailhog_install_packages_default:
 
 # Config
 manala_mailhog_config_template: ~
-manala_mailhog_config:          []
+manala_mailhog_config: []

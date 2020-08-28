@@ -8,7 +8,7 @@
       - my_db
     manala_influxdb_users:
       - database: my_db
-        name:     my_user
+        name: my_user
         password: my_password
   pre_tasks:
     - import_tasks: pre_tasks/disable_systemd.yml

@@ -2,8 +2,11 @@
 
 file:
   /var/lib/maxscale/passwd:
-    exists:   true
+    exists: true
     filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
     contains:
       - foo:$1$MXS$ilOCSZPnjmHjTz6B96SiJ1
       - bar:$1$MXS$M.YZOr2pNTgW87l7KQWLU/

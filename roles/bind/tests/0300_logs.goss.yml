@@ -3,7 +3,7 @@
 file:
   /var/log/bind:
     exists: true
-    mode: "0755"
+    filetype: directory
     owner: bind
     group: bind
-    filetype: directory
+    mode: "0755"

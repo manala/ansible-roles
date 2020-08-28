@@ -7,12 +7,12 @@ manala_thumbor_install_packages_default:
 
 # Key
 manala_thumbor_key_file: /etc/thumbor.key
-manala_thumbor_key:      ~
+manala_thumbor_key: ~
 
 # Configs
 manala_thumbor_configs_exclusive: false
-manala_thumbor_configs_dir:       /etc/thumbor.d
-manala_thumbor_configs_template:  ~
+manala_thumbor_configs_dir: /etc/thumbor.d
+manala_thumbor_configs_template: ~
 manala_thumbor_configs:
   - file: 10-default.conf
   - file: 20-debian.conf

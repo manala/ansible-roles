@@ -3,21 +3,41 @@
 file:
   /etc/systemd/system.test/foo:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Description=OpenBSD Secure Shell session cleanup
   /etc/systemd/system.test/foo_template:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Description=OpenBSD Secure Shell session cleanup
   /etc/systemd/system.test/foo_content:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Description=OpenBSD Secure Shell session cleanup
   /etc/systemd/system.test/foo_template_content:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - Description=OpenBSD Secure Shell session cleanup
   /etc/systemd/system.test/bar:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
   /etc/systemd/system.test/baz:
     exists: false

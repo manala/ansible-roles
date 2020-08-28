@@ -2,5 +2,5 @@
 
 - name: phantomjs restart
   service:
-    name:  phantomjs
+    name: phantomjs
     state: restarted

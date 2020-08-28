@@ -4,16 +4,16 @@
 # handle the next tasks who may need the latest changes.
 - name: services > Restart postgresql on config change
   service:
-    name:    "{{ item }}"
-    state:   restarted
+    name: "{{ item }}"
+    state: restarted
   with_items:
     - postgresql
   when: __manala_postgresql_config_result is changed or __manala_postgresql_config_hba_result is changed
 
 - name: services > Ensure postgresql is running
   service:
-    name:    "{{ item }}"
-    state:   started
+    name: "{{ item }}"
+    state: started
     enabled: true
   with_items:
     - postgresql

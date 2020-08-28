@@ -9,7 +9,7 @@ command:
     exit-status: 0
     stdout:
 {{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
-      - "/^Version: .+-\\dmanala\\d+~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
+      - "/^Version: .*manala\\d~{{ .Env.DISTRIBUTION_RELEASE }}\\d+$/"
 {{ else }}
       - "/^Version: \\d+/"
 {{ end }}

@@ -10,27 +10,40 @@ file:
   /etc/backup-manager.d.test/foo.conf:
     exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0600"
     contains:
       - export BM_REPOSITORY_ROOT="/srv/backup/mysql"
   /etc/backup-manager.d.test/foo_template.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
     contains:
       - export BM_ARCHIVE_METHOD="pgsql"
-    owner: root
-    group: root
-    mode: "0600"
   /etc/backup-manager.d.test/foo_content.conf:
     exists: true
-    contains:
-      - BM_REPOSITORY_ROOT="/var/test"
+    filetype: file
     owner: root
     group: root
     mode: "0600"
+    contains:
+      - BM_REPOSITORY_ROOT="/var/test"
   /etc/backup-manager.d.test/foo_template_content.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
     contains:
       - BM_REPOSITORY_ROOT="/var/test"
   /etc/backup-manager.d.test/bar.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
   /etc/backup-manager.d.test/baz.conf:
     exists: false

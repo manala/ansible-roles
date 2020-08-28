@@ -7,6 +7,6 @@ manala_sudo_install_packages_default:
 
 # Sudoers
 manala_sudo_sudoers_exclusive: false
-manala_sudo_sudoers_dir:       /etc/sudoers.d
-manala_sudo_sudoers_template:  ~
-manala_sudo_sudoers:           []
+manala_sudo_sudoers_dir: /etc/sudoers.d
+manala_sudo_sudoers_template: ~
+manala_sudo_sudoers: []

@@ -2,7 +2,10 @@
 
 - name: config > Template
   template:
-    src:  "{{ manala_telegraf_config_template|ternary(manala_telegraf_config_template, 'config/default.j2') }}"
+    src: "{{ manala_telegraf_config_template|ternary(manala_telegraf_config_template, 'config/default.j2') }}"
     dest: "{{ manala_telegraf_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
   notify:
     - telegraf restart

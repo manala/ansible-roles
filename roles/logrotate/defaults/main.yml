@@ -6,6 +6,6 @@ manala_logrotate_install_packages_default:
   - logrotate
 
 # Configs
-manala_logrotate_configs_dir:      /etc/logrotate.d
+manala_logrotate_configs_dir: /etc/logrotate.d
 manala_logrotate_configs_template: ~
-manala_logrotate_configs:          []
+manala_logrotate_configs: []

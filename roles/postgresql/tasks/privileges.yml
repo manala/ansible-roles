@@ -2,9 +2,9 @@
 
 - name: privileges > Handle
   postgresql_user:
-    name:       "{{ item.role }}"
-    priv:       "{{ item.privileges|join(',') }}"
-    db:         "{{ item.database }}"
-    state:      "{{ item.state|default('present') }}"
+    name: "{{ item.role }}"
+    state: "{{ item.state|default('present') }}"
+    db: "{{ item.database }}"
     login_host: "{{ manala_postgresql_login_host }}"
+    priv: "{{ item.privileges|join(',') }}"
   with_items: "{{ manala_postgresql_privileges }}"

@@ -13,6 +13,7 @@
     repo: "{{ item.source }}"
     filename: "{{ (item.file|basename|splitext)[0] }}"
     update_cache: false
+    mode: "0644"
   loop: "{{ query(
       'manala_apt_repositories',
       manala_apt_repositories,

@@ -3,5 +3,9 @@
 file:
   /etc/thumbor.key.test:
     exists: true
+    filetype: file
+    owner: thumbor
+    group: thumbor
+    mode: "0600"
     contains:
       - foo

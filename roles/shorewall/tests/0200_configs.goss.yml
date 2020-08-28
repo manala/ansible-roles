@@ -2,8 +2,11 @@
 
 file:
   /etc/shorewall/policy:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "/^fw all ACCEPT$/"
       - "/^net all DROP   info$/"

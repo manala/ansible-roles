@@ -4,7 +4,7 @@
   hosts: debian
   become: true
   vars:
-    manala_haproxy_configs_dir: //etc/haproxy/conf.d.test
+    manala_haproxy_configs_dir: /etc/haproxy/conf.d.test
     manala_haproxy_configs:
       - file: foo_template.cfg
         template: fixtures/haproxy.cfg.j2

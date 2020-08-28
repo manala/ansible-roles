@@ -3,5 +3,9 @@
 file:
   /etc/dnsmasq.d/foo:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - alias=11.22.33.44,55.66.77.88

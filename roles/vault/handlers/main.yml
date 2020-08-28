@@ -2,5 +2,5 @@
 
 - name: vault restart
   service:
-    name:  vault
+    name: vault
     state: restarted

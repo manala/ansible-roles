@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.59] - 2020-08-28
+### Changed
+- [All] Explicit file permissions #2
+
 ## [0.1.58] - 2020-08-26
 ### Changed
 - [All] Explicit file permissions #1

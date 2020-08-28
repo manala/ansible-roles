@@ -7,4 +7,4 @@ manala_rtail_install_packages_default:
 
 # Config
 manala_rtail_config_template: ~
-manala_rtail_config:          []
+manala_rtail_config: []

@@ -2,8 +2,11 @@
 
 file:
   /etc/maxscale.cnf:
-    exists:   true
+    exists: true
     filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - "[maxscale]"
       - threads = auto

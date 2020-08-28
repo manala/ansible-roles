@@ -3,7 +3,7 @@
 - name: Pre tasks > Gitlab apt key
   apt_key:
     file: pre_tasks/apt_keys/gitlab.pgp
-    id: E15E78F4
+    id: 51312F3F
 
 - name: Pre tasks > Gitlab apt repository
   apt_repository:

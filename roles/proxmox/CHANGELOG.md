@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Explicit file permissions
+
 ## [2.0.3] - 2020-06-09
 ### Changed
 - Install dependencies based on python version

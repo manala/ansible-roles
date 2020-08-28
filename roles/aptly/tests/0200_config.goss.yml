@@ -3,5 +3,9 @@
 file:
   /etc/aptly.conf:
     exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
     contains:
       - '"rootDir": "/tmp/aptly"'

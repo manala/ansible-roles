@@ -10,10 +10,10 @@ manala_postgresql_install_packages_default:
   - postgresql-contrib-{{ manala_postgresql_version }}
 
 # Config
-manala_postgresql_config_template:     ~
-manala_postgresql_config:              []
+manala_postgresql_config_template: ~
+manala_postgresql_config: []
 manala_postgresql_config_hba_template: ~
-manala_postgresql_config_hba:          []
+manala_postgresql_config_hba: []
 
 # Login
 manala_postgresql_login_host: localhost
