@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Gitlab] Fix Explicit file permissions
 
 ## [0.1.59] - 2020-08-28
 ### Changed

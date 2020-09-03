@@ -6,7 +6,7 @@
     dest: "{{ manala_gitlab_configs_dir }}/{{ item.file }}"
     owner: root
     group: root
-    mode: "0644"
+    mode: "0600"
   with_items: "{{ manala_gitlab_configs }}"
   notify:
     - gitlab reconfigure
