@@ -12,6 +12,9 @@
         image: node
         command: npm
         tag: alpine
+      - application: audiowaveform
+        template: fixtures/applications/audiowaveform.j2
+        version: 1.4.2
   pre_tasks:
     - import_tasks: pre_tasks/docker.yml
   roles:

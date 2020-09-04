@@ -15,14 +15,14 @@ class LookupModule(LookupBase):
         patterns = terms[1]
 
         itemDefault = {
-            'tag':         None,
-            'rm':          None,
+            'tag': None,
+            'rm': None,
             'interactive': None,
-            'tty':         None,
-            'command':     None,
-            'volumes':     {},
+            'tty': None,
+            'command': None,
+            'volumes': {},
             'environment': {},
-            'workdir':     None
+            'workdir': None
         }
 
         for term in self._flatten(terms[0]):
@@ -34,7 +34,7 @@ class LookupModule(LookupBase):
                 item = itemDefault.copy()
 
                 item.update({
-                    'image':       term.split(':')[0],
+                    'image': term.split(':')[0],
                     'application': ((term.split('/')[1]).split(':')[0])
                         if len(term.split('/')) > 1 else
                     (term.split(':')[0])
@@ -58,9 +58,6 @@ class LookupModule(LookupBase):
                 # Check index key
                 if 'application' not in term:
                     raise AnsibleError('Expect "application" key')
-
-                if 'image' not in term:
-                    raise AnsibleError('Expect "image" key')
 
                 item = itemDefault.copy()
 

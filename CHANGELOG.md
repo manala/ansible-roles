@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Docker] Allow applications templates
 
 ## [0.1.60] - 2020-09-03
 ### Fixed

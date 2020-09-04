@@ -62,28 +62,30 @@ manala_docker_config_daemon:
 manala_docker_applications:
   - hello-world
   - application: npm
-    image:       node
-    command:     npm
-    tag:         alpine
+    image: node
+    command: npm
+    tag: alpine
+  - application: foo
+    template: docker/foo.j2
 
 manala_docker_containers:
-  - name:           postgres
-    image:          postgres:9.6
-    state:          started
+  - name: postgres
+    image: postgres:9.6
+    state: started
     restart_policy: unless-stopped
     env:
-      POSTGRES_USER:     foo
+      POSTGRES_USER: foo
       POSTGRES_PASSWORD: bar
-      POSTGRES_DB:       baz
-  - name:           memcached
-    image:          memcached:alpine
-    state:          started
+      POSTGRES_DB: baz
+  - name: memcached
+    image: memcached:alpine
+    state: started
     restart_policy: unless-stopped
-  - name:           elasticsearch
-    image:          docker.elastic.co/elasticsearch/elasticsearch:5.6.13
-    state:          started
+  - name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.13
+    state: started
     restart_policy: unless-stopped
-    memory:         1g
+    memory: 1g
     ulimits:
       - memlock:-1:-1 # <type>:<soft>:<hard>    
 ```
