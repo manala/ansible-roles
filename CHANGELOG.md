@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.62] - 2020-09-11
+### Fixed
+- [Elasticsearch] Fix Explicit file permissions
+
 ## [0.1.61] - 2020-09-04
 ### Added
 - [Docker] Allow applications templates
