@@ -5,8 +5,8 @@
     src:  "{{ manala_elasticsearch_environment_template|ternary(manala_elasticsearch_environment_template, 'environment/default.j2') }}"
     dest: "{{ manala_elasticsearch_environment_file }}"
     owner: root
-    group: root
-    mode: "0644"
+    group: elasticsearch
+    mode: "0660"
   when: (manala_elasticsearch_environment_template is not none) or (manala_elasticsearch_environment|length)
   notify:
     - elasticsearch restart

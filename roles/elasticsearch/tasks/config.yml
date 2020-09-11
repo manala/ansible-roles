@@ -5,7 +5,7 @@
     src: "{{ manala_elasticsearch_config_template|ternary(manala_elasticsearch_config_template, 'config/default.j2') }}"
     dest: "{{ manala_elasticsearch_config_file }}"
     owner: root
-    group: root
-    mode: "0644"
+    group: elasticsearch
+    mode: "0660"
   notify:
     - elasticsearch restart
