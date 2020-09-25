@@ -25,6 +25,7 @@
           manala_apt_repositories_patterns,
           [],
           manala_apt_preferences_dir,
+          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
           wantstate='present'
       ),
       __manala_apt_repositories_exclusive_find.files|default([]),
@@ -48,6 +49,7 @@
           manala_apt_repositories_patterns,
           [],
           manala_apt_preferences_dir,
+          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
           wantstate='present'
       ),
       __manala_apt_repositories_exclusive_find.files|default([]),

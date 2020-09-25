@@ -1,9 +1,0 @@
----
-
-command:
-  dpkg --get-selections:
-    exit-status: 0
-    stdout:
-      - "/^apt\t+hold$/"
-      - "/^dpkg\t+hold$/"
-      - "/^python\t+install$/"

@@ -1,3 +1,4 @@
+{#- Deprecated -#}
 {%- macro config(parameters, exclusions = [], indent = 0) -%}
     {%- for parameter in parameters -%}
         {% set outer_loop = loop %}
@@ -13,6 +14,7 @@
     {%- endfor -%}
 {%- endmacro -%}
 
+{#- Deprecated -#}
 {%- macro config_row(parameters, key, default, indent = 0, placeholder = false) -%}
     {%- set vars = {'values': []} -%}
     {%- for parameter in parameters -%}
@@ -39,14 +41,17 @@
     {%- endif -%}
 {%- endmacro -%}
 
+{#- Deprecated -#}
 {%- macro _config_parameter(key, value, indent = 0) -%}
     {{ _config_parameter_key(key)|indent(indent, true) }} {{ _config_parameter_value(value) }}
 {%- endmacro -%}
 
+{#- Deprecated -#}
 {%- macro _config_parameter_key(key) -%}
     {{ key }}
 {%- endmacro -%}
 
+{#- Deprecated -#}
 {%- macro _config_parameter_value(value) -%}
     {%- if value is sameas none -%}
     {%- elif value is string -%}

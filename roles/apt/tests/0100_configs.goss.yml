@@ -1,0 +1,136 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/configs/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/configs/default/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Acquire::Check-Valid-Until \"true\";"
+      - "APT {"
+      - "  Get {"
+      - "    Assume-Yes \"true\";"
+      - "    Fix-Broken \"false\";"
+      - "    Proxy \"ftp://proxy:2121/\";"
+      - "    SuggestsImportant \"42\";"
+      - "  };"
+      - "  NeverAutoRemove {"
+      - "    \"^firmware-linux.*\";"
+      - "    \"^linux-firmware$\";"
+      - "  };"
+      - "};"
+  tmp/configs/default/foo_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Acquire::Check-Valid-Until \"true\";"
+      - "APT {"
+      - "  Get {"
+      - "    Assume-Yes \"true\";"
+      - "    Fix-Broken \"false\";"
+      - "    Proxy \"ftp://proxy:2121/\";"
+      - "    SuggestsImportant \"42\";"
+      - "  };"
+      - "  NeverAutoRemove {"
+      - "    \"^firmware-linux.*\";"
+      - "    \"^linux-firmware$\";"
+      - "  };"
+      - "};"
+  tmp/configs/default/foo_template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config foo"
+  tmp/configs/default/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/default/baz:
+    exists: false
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/configs/state/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/bar:
+    exists: false
+  tmp/configs/state/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/qux:
+    exists: true
+    filetype: file
+  tmp/configs/state/quux:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/configs/defaults/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config foo"
+  tmp/configs/defaults/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/configs/exclusive/foo:
+    exists: false
+  tmp/configs/exclusive/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/exclusive/baz:
+    exists: false
+  tmp/configs/exclusive/qux:
+    exists: false
+  tmp/configs/exclusive/quux:
+    exists: false
+{{ end }}

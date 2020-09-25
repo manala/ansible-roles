@@ -46,6 +46,7 @@ Using ansible galaxy requirements file:
 | `manala_sudo_install_packages_default` | ['sudo']         | Boolean | Default dependency packages to install |
 | `manala_sudo_sudoers_exclusive`        | false            | Boolean | Sudoers files exclusivity              |
 | `manala_sudo_sudoers_dir`              | '/etc/sudoers.d' | String  | Sudoers files directory path           |
+| `manala_sudo_sudoers_defaults`         | {}               | Array   | Sudoers files defaults                 |
 | `manala_sudo_sudoers`                  | []               | Array   | Sudoers files directives               |
 
 ### Example
@@ -55,17 +56,22 @@ Using ansible galaxy requirements file:
   vars:
     manala_sudo_sudoers:
       # Template based
-      - file: foo_template
+      - file: template
         template: sudo/app.j2
-      # Config based, empty template by default
-      - file: foo
+      # Content based
+      - file: content
+        config: |
+          user ALL=NOPASSWD:ALL
+      # Config based (deprecated)
+      - file: config
         config:
           - vagrant: ALL=NOPASSWD:ALL
-      # Raw content based
-      - file: foo_content
-        content: |
-          user ALL=NOPASSWD:ALL
-        state: absent
+      # Ensure sudoer is absent
+      - file: absent
+        state: absent # "present" by default
+      # Ignore sudoer
+      - file: ignore
+        state: ignore
   roles:
     - role: manala.sudo
 

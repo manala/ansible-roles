@@ -3,6 +3,12 @@
 # Default
 {{ if has "default" .Vars.tags }}
 file:
+  tmp/configs/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   tmp/configs/default/foo.conf:
     exists: true
     filetype: file
@@ -37,16 +43,31 @@ file:
       - "command=/bin/bar"
       - "[group:foo]"
       - "programs=foo,bar"
-  tmp/configs/default/foo_template_inet_http_server.conf:
+  tmp/configs/default/foo_content.conf:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - "[inet_http_server]"
-      - "port=0.0.0.1:9001"
-      - "username=foo"
+      - "[program:foo]"
+      - "command=/bin/foo"
+      - "priority=123"
+      - "autostart=true"
+      - "stopsignal=HUP"
+      - 'environment=BAR="123",FOO="bar"'
+      - "[program:bar]"
+      - "command=/bin/bar"
+      - "[group:foo]"
+      - "programs=foo,bar"
+  tmp/configs/default/foo_template.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config foo"
   tmp/configs/default/foo_template_deprecated.conf:
     exists: true
     filetype: file
@@ -60,15 +81,6 @@ file:
       - "autostart=true"
       - "stopsignal=HUP"
       - 'environment=FOO="bar",BAR="123"'
-  tmp/configs/default/foo_content.conf:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0644"
-    contains:
-      - "[program:foo]"
-      - "command=/bin/foo"
   tmp/configs/default/bar.conf:
     exists: true
     filetype: file
@@ -99,6 +111,11 @@ file:
     group: root
     mode: "0644"
     size: 1
+  tmp/configs/state/qux.conf:
+    exists: true
+    filetype: file
+  tmp/configs/state/quux.conf:
+    exists: false
 {{ end }}
 
 # Defaults
@@ -111,8 +128,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "[inet_http_server]"
-      - "port=0.0.0.0:9001"
+      - "Config foo"
   tmp/configs/defaults/bar.conf:
     exists: true
     filetype: file
@@ -120,7 +136,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "Bar"
+      - "Config bar"
 {{ end }}
 
 # Exclusive
@@ -136,5 +152,9 @@ file:
     mode: "0644"
     size: 1
   tmp/configs/exclusive/baz.conf:
+    exists: false
+  tmp/configs/exclusive/qux.conf:
+    exists: false
+  tmp/configs/exclusive/quux.conf:
     exists: false
 {{ end }}

@@ -4,6 +4,8 @@ __metaclass__ = type
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
+from ansible.module_utils._text import to_text
+
 
 class LookupModule(LookupBase):
 
@@ -12,8 +14,12 @@ class LookupModule(LookupBase):
         results = []
 
         wantstate = kwargs.pop('wantstate', None)
-        wantdeb   = kwargs.pop('wantdeb', None)
-        wantmap   = kwargs.pop('wantmap', False)
+
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
+        wantdeb = kwargs.pop('wantdeb', None)
+        wantmap = kwargs.pop('wantmap', False)
 
         itemDefault = {
             'state': 'present',
@@ -24,9 +30,10 @@ class LookupModule(LookupBase):
 
             items = []
 
+            item = itemDefault.copy()
+
             # Short syntax
             if isinstance(term, string_types):
-                item = itemDefault.copy()
                 item.update({
                     'package': term
                 })
@@ -34,14 +41,19 @@ class LookupModule(LookupBase):
 
                 # Must be a dict
                 if not isinstance(term, dict):
-                    raise AnsibleError('Expect a dict')
+                    raise AnsibleError('Expect a dict but was a %s' % type(term))
 
                 # Check index key
                 if 'package' not in term:
                     raise AnsibleError('Expect "package" key')
 
-                item = itemDefault.copy()
                 item.update(term)
+
+                if item['state'] not in ['present', 'absent', 'ignore']:
+                    raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+                if item['state'] == 'ignore':
+                    continue
 
             # Is a .deb ?
             if item.get('package').endswith('.deb'):

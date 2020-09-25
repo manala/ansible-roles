@@ -1,81 +1,172 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt_preferences_dir: /etc/apt/preferences.d.test
-    manala_apt_preferences:
-      # Short syntax
-      - git@backports
-      - libssl1.0.0@backports
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('php@dotdeb:300','php@sury_php:300') }}"
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100','sury_php:100') }}"
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:200','sury_php:200') }}"
-      # Pattern syntax
-      - preference: ansible@ansible
-      - preference: ansible@ansible
-        file: ansible_foo
-      - preference: ansible@ansible
-        file: ansible_bar
-        package: foo bar*
-      - preference: ansible@ansible
-        file: ansible_baz
-        pin: baz
-      - preference: ansible@ansible
-        file: ansible_qux
-        priority: 1234
-      # Verbose syntax
-      - package: foo
-        pin: foo
-        priority: 100
-        file: foo_foo
-      - package: bar
-        pin: bar
-        priority: 100
-        file: bar_bar
-        state: present
-      - package: baz
-        pin: baz
-        priority: 100
-        file: baz_baz
-        state: absent
-  pre_tasks:
-    # Jessie repositories have been archived, meaning that some of them
-    # (backports, for instance) will remain invalid forever.
-    - copy:
-        dest: /etc/apt/apt.conf.d/archive
-        content: |
-          Acquire::Check-Valid-Until "false";
-      when: ansible_distribution_release in ['jessie']
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_apt_preferences_dir: /etc/apt/preferences.d.test
-    manala_apt_preferences:
-      - package: foo
-        pin: foo
-        priority: 100
-        file: foo_foo
-      - package: bar
-        pin: bar
-        priority: 100
-        file: bar_bar
-        state: absent
-      - package: baz
-        pin: baz
-        priority: 100
-        file: baz_baz
-        state: present
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - tags: [always]
+      block:
+        # Jessie repositories have been archived, meaning that some of them
+        # (backports, for instance) will remain invalid forever.
+        - copy:
+            dest: /etc/apt/apt.conf.d/archive
+            content: |
+              Acquire::Check-Valid-Until "false";
+          when: ansible_distribution_release in ['jessie']
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/preferences/default
+            state: absent
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_preferences_dir: tmp/preferences/default
+            manala_apt_preferences:
+              # Short syntax
+              - git@backports
+              - libssl1.0.0@backports
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('php@dotdeb:300','php@sury_php:300') }}"
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100','sury_php:100') }}"
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:200','sury_php:200') }}"
+              # Pattern syntax
+              - preference: ansible@ansible
+              - preference: ansible@ansible
+                file: ansible_foo
+              - preference: ansible@ansible
+                file: ansible_bar
+                package: foo bar*
+              - preference: ansible@ansible
+                file: ansible_baz
+                pin: baz
+              - preference: ansible@ansible
+                file: ansible_qux
+                priority: 1234
+              # Verbose syntax
+              - package: foo
+                pin: foo
+                priority: 100
+                file: foo_foo
+              # Template
+              - file: foo_template
+                template: preferences/foo.j2
+              # States
+              - package: bar
+                pin: bar
+                priority: 100
+                file: bar_bar
+                state: present
+              - package: baz
+                pin: baz
+                priority: 100
+                file: baz_baz
+                state: absent
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/preferences/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/preferences/state/{{ item }}
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_preferences_dir: tmp/preferences/state
+            manala_apt_preferences:
+              - package: foo
+                pin: foo
+                priority: 100
+                file: foo
+              - package: bar
+                pin: bar
+                priority: 100
+                file: bar
+                state: absent
+              - package: baz
+                pin: baz
+                priority: 100
+                file: baz
+                state: present
+              - package: qux
+                pin: qux
+                priority: 100
+                file: qux
+                state: ignore
+              - package: quux
+                pin: quux
+                priority: 100
+                file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/preferences/defaults
+            state: absent
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_preferences_dir: tmp/preferences/defaults
+            manala_apt_preferences_defaults:
+              template: preferences/foo.j2
+            manala_apt_preferences:
+              - file: foo
+              - file: bar
+                template: preferences/bar.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/preferences/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/preferences/exclusive/{{ item }}
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_preferences_dir: tmp/preferences/exclusive
+            manala_apt_preferences_exclusive: true
+            manala_apt_preferences:
+              - package: bar
+                pin: bar
+                priority: 100
+                file: bar
+              - package: qux
+                pin: qux
+                priority: 100
+                file: qux
+                state: ignore
+              - package: quux
+                pin: quux
+                priority: 100
+                file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

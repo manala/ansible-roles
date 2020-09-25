@@ -1,46 +1,112 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_sudo_sudoers_dir: /etc/sudoers.d.test
-    manala_sudo_sudoers:
-      - file: foo
-        config:
-          - vagrant: ALL=NOPASSWD:ALL
-      - file: foo_template
-        template: fixtures/sudo.j2
-      - file: foo_content
-        content: |
-          bar ALL=(ALL) ALL
-      - file: foo_template_content
-        template: fixtures/sudo.j2
-        content: |
-          bar ALL=(ALL) ALL
-      - file: bar
-        state: present
-      - file: baz
-        state: absent
-  roles:
-    - manala.sudo
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_sudo_sudoers_dir: /etc/sudoers.d.test
-    manala_sudo_sudoers:
-      - file: foo
-      - file: bar
-        state: absent
-      - file: baz
-        state: present
-  roles:
-    - manala.sudo
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/sudoers/default
+            state: absent
+        - import_role:
+            name: manala.sudo
+          vars:
+            manala_sudo_sudoers_dir: tmp/sudoers/default
+            manala_sudo_sudoers:
+              - file: foo
+                config: |
+                  foo ALL=NOPASSWD:ALL
+              - file: foo_deprecated
+                config:
+                  - foo: ALL=NOPASSWD:ALL
+              - file: foo_template
+                template: sudoers/foo.j2
+              - file: bar
+                state: present
+              - file: baz
+                state: absent
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/sudoers/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/sudoers/state/{{ item }}
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.sudo
+          vars:
+            manala_sudo_sudoers_dir: tmp/sudoers/state
+            manala_sudo_sudoers:
+              - file: foo
+              - file: bar
+                state: absent
+              - file: baz
+                state: present
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/sudoers/defaults
+            state: absent
+        - import_role:
+            name: manala.sudo
+          vars:
+            manala_sudo_sudoers_dir: tmp/sudoers/defaults
+            manala_sudo_sudoers_defaults:
+              template: sudoers/foo.j2
+            manala_sudo_sudoers:
+              - file: foo
+              - file: bar
+                template: sudoers/bar.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/sudoers/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/sudoers/exclusive/{{ item }}
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.sudo
+          vars:
+            manala_sudo_sudoers_dir: tmp/sudoers/exclusive
+            manala_sudo_sudoers_exclusive: true
+            manala_sudo_sudoers:
+              - file: bar
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

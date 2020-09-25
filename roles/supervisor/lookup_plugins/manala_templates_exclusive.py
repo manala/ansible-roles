@@ -3,8 +3,10 @@ __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
 from ansible.errors import AnsibleError
+from ansible.module_utils._text import to_text
 
 import os
+
 
 class LookupModule(LookupBase):
 
@@ -14,10 +16,13 @@ class LookupModule(LookupBase):
 
         wantstate = kwargs.pop('wantstate', None)
 
-        templates  = self._flatten(terms[0])
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
+        templates = self._flatten(terms[0])
         exclusives = self._flatten(terms[1])
-        dir        = terms[2]
-        template   = terms[3]
+        dir = terms[2]
+        template = terms[3]
 
         itemDefault = {
             'state': 'present',
@@ -39,7 +44,7 @@ class LookupModule(LookupBase):
 
             # Must be a dict
             if not isinstance(template, dict):
-                raise AnsibleError('Expect a dict')
+                raise AnsibleError('Expect a dict but was a %s' % type(template))
 
             # Check file key
             if 'file' not in template:
@@ -47,6 +52,13 @@ class LookupModule(LookupBase):
 
             item = itemDefault.copy()
             item.update(template)
+
+            if item['state'] not in ['present', 'absent', 'ignore']:
+                raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+            if item['state'] == 'ignore':
+                continue
+
             item.update({
                 'file': os.path.join(dir, item['file'])
             })

@@ -3,30 +3,34 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt_preferences_exclusive: true
-    manala_apt_preferences:
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100', 'sury_php:100') }}"
-      - preference: avidemux@multimedia
-    manala_apt_repositories_exclusive: true
-    manala_apt_repositories:
-      - security
-      - nginx
-      - source: deb https://dl.yarnpkg.com/debian/ stable main
-        key: yarn
-      - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
-        key:
-          url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          id: ACCC4CF8
-    manala_apt_keys:
-      - sensu
-      - multimedia
-      - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-        id: 056E8E56
-      - keyserver: keyserver.ubuntu.com
-        id: BC19DDBA
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_preferences_exclusive: true
+            manala_apt_preferences:
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100', 'sury_php:100') }}"
+              - preference: avidemux@multimedia
+            manala_apt_repositories_exclusive: true
+            manala_apt_repositories:
+              - security
+              - nginx
+              - source: deb https://dl.yarnpkg.com/debian/ stable main
+                key: yarn
+              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+                key:
+                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+                  id: ACCC4CF8
+            manala_apt_keys:
+              - sensu
+              - multimedia
+              - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+                id: 056E8E56
+              - keyserver: keyserver.ubuntu.com
+                id: BC19DDBA
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

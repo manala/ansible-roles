@@ -3,21 +3,25 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt_components:
-      - main
-    manala_apt_sources_list_template: sources_list/security_updates.j2
-  pre_tasks:
-    - copy:
-        dest: /etc/apt/sources.list
-        content: |
-          deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
-          {% if ansible_distribution_release not in ['jessie'] -%}
-          deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
-          {% endif %}
-          deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - copy:
+            dest: tmp/sources_list
+            content: |
+              deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
+              {% if ansible_distribution_release not in ['jessie'] -%}
+              deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
+              {% endif %}
+              deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_sources_list_file: tmp/sources_list
+            manala_apt_sources_list_template: sources_list/security_updates.j2
+            manala_apt_components:
+              - main
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

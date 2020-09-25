@@ -4,9 +4,11 @@ __metaclass__ = type
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
+from ansible.module_utils._text import to_text
 
 import os
 import re
+
 
 class LookupModule(LookupBase):
 
@@ -16,18 +18,21 @@ class LookupModule(LookupBase):
 
         wantstate = kwargs.pop('wantstate', None)
 
-        repositories          = self._flatten(terms[0])
-        repositoriesPatterns  = terms[1]
-        preferences           = terms[2]
-        repositoriesExclusive = self._flatten(terms[3])
-        repositoriesDir       = '/etc/apt/sources.list.d'
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
+        repositories = self._flatten(terms[0])
+        repositoriesPatterns = terms[1]
+        preferences = terms[2]
+        exclusives = self._flatten(terms[3])
+        dir = '/etc/apt/sources.list.d'
 
         itemDefault = {
             'state': 'present'
         }
 
         # Mark exclusive repositories as absent
-        for repository in repositoriesExclusive:
+        for repository in exclusives:
             item = itemDefault.copy()
             item.update({
                 'file':  repository['path'],
@@ -44,18 +49,17 @@ class LookupModule(LookupBase):
 
             items = []
 
+            item = itemDefault.copy()
+
             # Short syntax
             if isinstance(repository, string_types):
-                item = itemDefault.copy()
                 item.update(
                     repositoriesPatterns.get(repository)
                 )
             else:
                 # Must be a dict
                 if not isinstance(repository, dict):
-                    raise AnsibleError('Expect a dict')
-
-                item = itemDefault.copy()
+                    raise AnsibleError('Expect a dict but was a %s' % type(repository))
 
                 if 'pattern' in repository:
                     item.update(
@@ -63,6 +67,12 @@ class LookupModule(LookupBase):
                     )
 
                 item.update(repository)
+
+                if item['state'] not in ['present', 'absent', 'ignore']:
+                    raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+                if item['state'] == 'ignore':
+                    continue
 
                 # Check index key
                 if 'source' not in item:
@@ -72,7 +82,7 @@ class LookupModule(LookupBase):
             if 'file' not in item:
                 item.update({
                     'file': os.path.join(
-                        repositoriesDir,
+                        dir,
                         re.sub(
                             '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$',
                             '\\2',
@@ -88,7 +98,7 @@ class LookupModule(LookupBase):
             else:
                 item.update({
                     'file': os.path.join(
-                        repositoriesDir,
+                        dir,
                         item['file']
                     )
                 })

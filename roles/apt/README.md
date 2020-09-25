@@ -46,14 +46,18 @@ None
 | ------------------------------------- | ----------------------------------------------------- | ------- | -------------------------------------- |
 | `manala_apt_configs_exclusive`        | false                                                 | Boolean | Configurations exclusivity             |
 | `manala_apt_configs_dir`              | '/etc/apt/apt.conf.d'                                 | String  | Configurations dir path                |
-| `manala_apt_configs_template`         | 'configs/empty.j2'                                    | String  | Default configurations template path   |
+| `manala_apt_configs_defaults`         | {}                                                    | Array   | Configurations defaults                |
 | `manala_apt_configs`                  | []                                                    | Array   | Configurations                         |
 | `manala_apt_install_packages`         | ~                                                     | Array   | Dependency packages to install         |
 | `manala_apt_install_packages_default` | ['apt-transport-https', 'openssl', 'ca-certificates'] | Array   | Default dependency packages to install |
 | `manala_apt_components`               | ['main']                                              | Array   | Collection of components               |
 | `manala_apt_sources_list`             | []                                                    | Array   | Collection of sources                  |
-| `manala_apt_repositories`             | []                                                    | Array   | Collection of repositories             |
-| `manala_apt_preferences`              | []                                                    | Array   | Collection of preferences              |
+| `manala_apt_repositories_exclusive`   | false                                                 | Boolean | Repositories exclusivity               |
+| `manala_apt_repositories`             | []                                                    | Array   | Repositories                           |
+| `manala_apt_preferences_exclusive`    | false                                                 | Boolean | Preferences exclusivity                |
+| `manala_apt_preferences_dir`          | '/etc/apt/preferences.d'                              | String  | Preferences dir path                   |
+| `manala_apt_preferences_defaults`     | {}                                                    | Array   | Preferences defaults                   |
+| `manala_apt_preferences`              | []                                                    | Array   | Preferences                            |
 | `manala_apt_holds_exclusive`          | false                                                 | Array   | Holds exclusivity                      |
 | `manala_apt_holds`                    | []                                                    | Array   | Collection of holds                    |
 | `manala_apt_packages`                 | []                                                    | Array   | Collection of packages                 |
@@ -83,22 +87,27 @@ None
 
 `manala_apt_configs` allows you to define apt configuration files using template and config, or raw content.
 
-A state (present|absent) can be provided.
+A state (present|absent|ignore) can be provided.
 
 ```yaml
 manala_apt_configs:
   # Template based
   - file: foo_template
     template: configs/check_valid_until_false.j2
-  # Config based, empty template by default
+  # Content based
+  - file: foo_content
+    config: |
+      APT::Install-Recommends "false";
+  # Config based (deprecated)
   - file: foo
     config:
       - Acquire::Check-Valid-Until: true
-  # Raw content based
-  - file: foo_content
-    content: |
-      APT::Install-Recommends "false";
-    state: absent
+  # Ensure config is absent
+  - file: absent
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore
+    state: ignore
 ```
 
 `manala_apt_configs_exclusive` allow you to clean up existing apt configuration files into directory defined by the `manala_apt_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
@@ -212,6 +221,9 @@ manala_apt_repositories:
       id:  D50582E6
   - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
     state: absent
+  # Ignore repository
+  - source: deb https://example.com foo
+    state: ignore
 ```
 
 Exclusivity (all repositories non defined by role will be deleted)
@@ -253,6 +265,9 @@ manala_apt_preferences:
     priority: 900
     file:     php
     state:    absent
+  # Ignore preference
+  - file: foo
+    state: ignore
 ```
 
 ### Holds
@@ -288,8 +303,11 @@ Verbose
 ```yaml
 manala_apt_packages:
   - package:  bzip2  # Name of package, required
-    state: absent # State of package, optionnal, default 'present'
-    force: true   # Force installation, optionnal
+    state: absent # State of package, optional, default "present"
+    force: true   # Force installation, optional
+  # Ignore package
+  - package: foo
+    state: ignore # State of package, optional, default 'present'
 ```
 
 ### Flags

@@ -19,12 +19,12 @@
             manala_motd_scripts:
               - file: foo
                 message: I hope that someone gets my message in a bottle, yeah
-              - file: foo_template
-                template: scripts/uname.j2
               - file: foo_content
                 script: |
                   #!/bin/sh
                   printf "Maintenant vous faites ce qu'ils vous ont dit de faire\n"
+              - file: foo_template
+                template: scripts/foo.j2
               - file: bar
                 state: present
               - file: baz
@@ -42,8 +42,9 @@
             state: "{{ item }}"
           loop: [absent, directory]
         - file:
-            path: tmp/scripts/state/bar
+            path: tmp/scripts/state/{{ item }}
             state: touch
+          loop: [bar, qux]
         - import_role:
             name: manala.motd
           vars:
@@ -54,6 +55,10 @@
                 state: absent
               - file: baz
                 state: present
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
       always:
         - name: Goss
           command: >
@@ -70,12 +75,11 @@
           vars:
             manala_motd_scripts_dir: tmp/scripts/defaults
             manala_motd_scripts_defaults:
-              template: scripts/cow.j2
+              template: scripts/foo.j2
             manala_motd_scripts:
               - file: foo
-                message: Moo Moo Moo
               - file: bar
-                template: bar.j2
+                template: scripts/bar.j2
       always:
         - name: Goss
           command: >
@@ -91,7 +95,7 @@
         - file:
             path: tmp/scripts/exclusive/{{ item }}
             state: touch
-          loop: [foo, bar, baz]
+          loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.motd
           vars:
@@ -99,6 +103,10 @@
             manala_motd_scripts_exclusive: true
             manala_motd_scripts:
               - file: bar
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
       always:
         - name: Goss
           command: >

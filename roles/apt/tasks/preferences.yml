@@ -17,7 +17,7 @@
 
 - name: preferences > Templates presents
   template:
-    src: preferences/default.j2
+    src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
@@ -29,6 +29,7 @@
       manala_apt_repositories_patterns,
       __manala_apt_preferences_exclusive_find.files|default([]),
       manala_apt_preferences_dir,
+      manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
       wantstate='present'
     )
   }}"
@@ -44,6 +45,7 @@
       manala_apt_repositories_patterns,
       __manala_apt_preferences_exclusive_find.files|default([]),
       manala_apt_preferences_dir,
+      manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
       wantstate='absent'
     )
   }}"

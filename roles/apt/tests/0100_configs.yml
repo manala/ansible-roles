@@ -1,55 +1,133 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt_configs_dir: /etc/apt/apt.conf.d.test
-    manala_apt_configs:
-      - file: foo
-        config:
-          - Acquire::Check-Valid-Until: true
-          - APT:
-            - Get:
-              - Assume-Yes: true
-              - Fix-Broken: false
-              - Proxy: ftp://proxy:2121/
-              - SuggestsImportant: 42
-            - NeverAutoRemove:
-              - ^firmware-linux.*
-              - ^linux-firmware$
-      - file: foo_template
-        template: configs/check_valid_until_false.j2
-      - file: foo_content
-        content: |
-          APT::Install-Recommends "false";
-      - file: foo_template_content
-        template: configs/check_valid_until_false.j2
-        content: |
-          APT::Install-Suggests "false";
-      - file: bar
-        state: present
-      - file: baz
-        state: absent
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_apt_configs_dir: /etc/apt/apt.conf.d.test
-    manala_apt_configs:
-      - file: foo
-      - file: bar
-        state: absent
-      - file: baz
-        state: present
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_configs_dir: tmp/configs/default
+            manala_apt_configs:
+              - file: foo
+                config: |
+                  Acquire::Check-Valid-Until "true";
+                  APT {
+                    Get {
+                      Assume-Yes "true";
+                      Fix-Broken "false";
+                      Proxy "ftp://proxy:2121/";
+                      SuggestsImportant "42";
+                    };
+                    NeverAutoRemove {
+                      "^firmware-linux.*";
+                      "^linux-firmware$";
+                    };
+                  };
+              - file: foo_deprecated
+                config:
+                  - Acquire::Check-Valid-Until: true
+                  - APT:
+                    - Get:
+                      - Assume-Yes: true
+                      - Fix-Broken: false
+                      - Proxy: ftp://proxy:2121/
+                      - SuggestsImportant: 42
+                    - NeverAutoRemove:
+                      - ^firmware-linux.*
+                      - ^linux-firmware$
+              - file: foo_template
+                template: configs/foo.j2
+              - file: bar
+                state: present
+              - file: baz
+                state: absent
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_configs_dir: tmp/configs/state
+            manala_apt_configs:
+              - file: foo
+              - file: bar
+                state: absent
+              - file: baz
+                state: present
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_configs_dir: tmp/configs/defaults
+            manala_apt_configs_defaults:
+              template: configs/foo.j2
+            manala_apt_configs:
+              - file: foo
+              - file: bar
+                template: configs/bar.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_configs_dir: tmp/configs/exclusive
+            manala_apt_configs_exclusive: true
+            manala_apt_configs:
+              - file: bar
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

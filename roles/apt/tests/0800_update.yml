@@ -3,11 +3,14 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt:
-      update: true
-    manala_apt_update_holds:
-      - foo
-      - unzip
-  roles:
-    - manala.apt
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt:
+              update: true
+            manala_apt_update_holds:
+              - foo
+              - unzip

@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [MySQL] Supports mariadb 10.5 for debian stretch and buster
 - [Apt] MariaDB 10.5 repository pattern
+- [Motd] Scripts can be individually ignored
+- [Supervisor] Configs can be individually ignored
+- [Sudo] Sudoers can be individually ignored
+- [Apt] Configs|Packages|Preferences|Repositories can be individually ignored
+
+### Changed
+- [Sudo] Use unified exclusive template lookup
+- [Sudo] Deprecate dict's array configs
+- [Apt] Use unified exclusive template lookup for configs
 
 ## [0.1.62] - 2020-09-11
 ### Fixed

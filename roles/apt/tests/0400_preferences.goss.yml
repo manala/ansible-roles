@@ -1,14 +1,16 @@
 ---
 
+# Default
+{{ if has "default" .Vars.tags }}
 file:
-  /etc/apt/preferences.d.test:
+  tmp/preferences/default:
     exists: true
     filetype: directory
     owner: root
     group: root
     mode: "0755"
 {{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
-  /etc/apt/preferences.d.test/dotdeb:
+  tmp/preferences/default/dotdeb:
     exists: true
     filetype: file
     owner: root
@@ -18,7 +20,7 @@ file:
       - "Package:      *"
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 200"
-  /etc/apt/preferences.d.test/php:
+  tmp/preferences/default/php:
     exists: true
     filetype: file
     owner: root
@@ -29,7 +31,7 @@ file:
       - "Pin:          origin packages.dotdeb.org"
       - "Pin-Priority: 300"
 {{ else }}
-  /etc/apt/preferences.d.test/sury_php:
+  tmp/preferences/default/sury_php:
     exists: true
     filetype: file
     owner: root
@@ -39,7 +41,7 @@ file:
       - "Package:      *"
       - "Pin:          origin packages.sury.org"
       - "Pin-Priority: 200"
-  /etc/apt/preferences.d.test/php:
+  tmp/preferences/default/php:
     exists: true
     filetype: file
     owner: root
@@ -50,7 +52,7 @@ file:
       - "Pin:          origin packages.sury.org"
       - "Pin-Priority: 300"
 {{ end }}
-  /etc/apt/preferences.d.test/git:
+  tmp/preferences/default/git:
     exists: true
     filetype: file
     owner: root
@@ -60,7 +62,7 @@ file:
       - "Package:      git git-*"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/libssl1_0_0:
+  tmp/preferences/default/libssl1_0_0:
     exists: true
     filetype: file
     owner: root
@@ -70,7 +72,7 @@ file:
       - "Package:      libssl1.0.0"
       - "Pin:          release a={{ .Env.DISTRIBUTION_RELEASE }}-backports"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/ansible:
+  tmp/preferences/default/ansible:
     exists: true
     filetype: file
     owner: root
@@ -80,7 +82,7 @@ file:
       - "Package:      ansible*"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/ansible_foo:
+  tmp/preferences/default/ansible_foo:
     exists: true
     filetype: file
     owner: root
@@ -90,7 +92,7 @@ file:
       - "Package:      ansible*"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/ansible_bar:
+  tmp/preferences/default/ansible_bar:
     exists: true
     filetype: file
     owner: root
@@ -100,7 +102,7 @@ file:
       - "Package:      foo bar"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/ansible_baz:
+  tmp/preferences/default/ansible_baz:
     exists: true
     filetype: file
     owner: root
@@ -110,7 +112,7 @@ file:
       - "Package:      ansible*"
       - "Pin:          baz"
       - "Pin-Priority: 900"
-  /etc/apt/preferences.d.test/ansible_qux:
+  tmp/preferences/default/ansible_qux:
     exists: true
     filetype: file
     owner: root
@@ -120,7 +122,7 @@ file:
       - "Package:      ansible*"
       - "Pin:          origin ppa.launchpad.net"
       - "Pin-Priority: 1234"
-  /etc/apt/preferences.d.test/foo_foo:
+  tmp/preferences/default/foo_foo:
     exists: true
     filetype: file
     owner: root
@@ -130,7 +132,15 @@ file:
       - "Package:      foo"
       - "Pin:          foo"
       - "Pin-Priority: 100"
-  /etc/apt/preferences.d.test/bar_bar:
+  tmp/preferences/default/foo_template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Preference foo"
+  tmp/preferences/default/bar_bar:
     exists: true
     filetype: file
     owner: root
@@ -140,5 +150,83 @@ file:
       - "Package:      bar"
       - "Pin:          bar"
       - "Pin-Priority: 100"
-  /etc/apt/preferences.d.test/baz_baz:
+  tmp/preferences/default/baz_baz:
     exists: false
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/preferences/state/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      foo"
+      - "Pin:          foo"
+      - "Pin-Priority: 100"
+  tmp/preferences/state/bar:
+    exists: false
+  tmp/preferences/state/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      baz"
+      - "Pin:          baz"
+      - "Pin-Priority: 100"
+  tmp/preferences/state/qux:
+    exists: true
+    filetype: file
+  tmp/preferences/state/quux:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/preferences/defaults/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Preference foo"
+  tmp/preferences/defaults/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Preference bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/preferences/exclusive/foo:
+    exists: false
+  tmp/preferences/exclusive/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      bar"
+      - "Pin:          bar"
+      - "Pin-Priority: 100"
+  tmp/preferences/exclusive/baz:
+    exists: false
+  tmp/preferences/exclusive/qux:
+    exists: false
+  tmp/preferences/exclusive/quux:
+    exists: false
+{{ end }}
+

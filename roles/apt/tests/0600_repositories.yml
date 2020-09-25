@@ -1,63 +1,115 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt_preferences:
-      - git@backports
-      - libssl1.0.0@backports
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('php@dotdeb:300','php@sury_php:300') }}"
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100','sury_php:100') }}"
-      - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:200','sury_php:200') }}"
-      - preference: avidemux@multimedia
-    manala_apt_repositories:
-      - backports
-      - nginx
-      - source: deb https://dl.yarnpkg.com/debian/ stable main
-        key: yarn
-      - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
-        key:
-          url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          id: ACCC4CF8
-      - pattern: grafana
-      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.15', '2.3') }}/debian {{ ansible_distribution_release }} main
-        key: maxscale
-      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.16', '2.3.10') }}/debian {{ ansible_distribution_release }} main
-        key: maxscale
-        state: present
-      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.17', '2.3.11') }}/debian {{ ansible_distribution_release }} main
-        key: maxscale
-        state: absent
-  pre_tasks:
-    # Jessie repositories have been archived, meaning that some of them
-    # (backports, for instance) will remain invalid forever.
-    - copy:
-        dest: /etc/apt/apt.conf.d/archive
-        content: |
-          Acquire::Check-Valid-Until "false";
-      when: ansible_distribution_release in ['jessie']
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_apt_repositories:
-      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.15', '2.3') }}/debian {{ ansible_distribution_release }} main
-        key: maxscale
-      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.16', '2.3.10') }}/debian {{ ansible_distribution_release }} main
-        key: maxscale
-        state: absent
-      - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.17', '2.3.11') }}/debian {{ ansible_distribution_release }} main
-        key: maxscale
-        state: present
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - tags: [always]
+      block:
+        # Jessie repositories have been archived, meaning that some of them
+        # (backports, for instance) will remain invalid forever.
+        - copy:
+            dest: /etc/apt/apt.conf.d/archive
+            content: |
+              Acquire::Check-Valid-Until "false";
+          when: ansible_distribution_release in ['jessie']
+
+    # Default
+    - tags: [default]
+      block:
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_preferences:
+              - git@backports
+              - libssl1.0.0@backports
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('php@dotdeb:300','php@sury_php:300') }}"
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:100','sury_php:100') }}"
+              - "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('dotdeb:200','sury_php:200') }}"
+              - preference: avidemux@multimedia
+            manala_apt_repositories:
+              - backports
+              - nginx
+              - source: deb https://dl.yarnpkg.com/debian/ stable main
+                key: yarn
+              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+                key:
+                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+                  id: ACCC4CF8
+              - pattern: grafana
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.10', '2.3.10') }}/debian {{ ansible_distribution_release }} main
+                key: maxscale
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.11', '2.3.11') }}/debian {{ ansible_distribution_release }} main
+                key: maxscale
+                state: present
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.1.12', '2.3.12') }}/debian {{ ansible_distribution_release }} main
+                key: maxscale
+                state: absent
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - apt_key:
+            url: https://downloads.mariadb.com/MaxScale/old_key.public
+            id: 8167EE24
+        - apt_key:
+            keyserver: hkp://keyserver.ubuntu.com:80
+            id: 28C12247
+        - apt_repository:
+            repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.2', '2.4.2') }}/debian {{ ansible_distribution_release }} main
+        - apt_repository:
+            repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.4', '2.4.4') }}/debian {{ ansible_distribution_release }} main
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_repositories:
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.1', '2.4.1') }}/debian {{ ansible_distribution_release }} main
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.2', '2.4.2') }}/debian {{ ansible_distribution_release }} main
+                state: absent
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.3', '2.4.3') }}/debian {{ ansible_distribution_release }} main
+                state: present
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.4', '2.4.4') }}/debian {{ ansible_distribution_release }} main
+                state: ignore
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.5', '2.4.5') }}/debian {{ ansible_distribution_release }} main
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - apt_key:
+            url: https://downloads.mariadb.com/MaxScale/old_key.public
+            id: 8167EE24
+        - apt_key:
+            keyserver: hkp://keyserver.ubuntu.com:80
+            id: 28C12247
+        - apt_repository:
+            repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.6', '2.4.6') }}/debian {{ ansible_distribution_release }} main
+        - apt_repository:
+            repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.7', '2.4.7') }}/debian {{ ansible_distribution_release }} main
+        - apt_repository:
+            repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.9', '2.4.9') }}/debian {{ ansible_distribution_release }} main
+        - apt_repository:
+            repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.10', '2.4.10') }}/debian {{ ansible_distribution_release }} main
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_repositories_exclusive: true
+            manala_apt_repositories:
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.7', '2.4.7') }}/debian {{ ansible_distribution_release }} main
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.10', '2.4.10') }}/debian {{ ansible_distribution_release }} main
+                state: ignore
+              - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.11', '2.4.11') }}/debian {{ ansible_distribution_release }} main
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

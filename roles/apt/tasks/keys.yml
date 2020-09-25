@@ -22,6 +22,7 @@
             manala_apt_repositories_patterns,
             [],
             manala_apt_preferences_dir,
+            manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
             wantstate='present'
         ),
         [],

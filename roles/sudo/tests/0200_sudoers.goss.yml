@@ -1,0 +1,112 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/sudoers/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/sudoers/default/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    contains:
+      - "foo ALL=NOPASSWD:ALL"
+  tmp/sudoers/default/foo_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    contains:
+      - "foo ALL=NOPASSWD:ALL"
+  tmp/sudoers/default/foo_template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    contains:
+      - "Sudoer foo"
+  tmp/sudoers/default/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    size: 1
+  tmp/sudoers/default/baz:
+    exists: false
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/sudoers/state/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    size: 1
+  tmp/sudoers/state/bar:
+    exists: false
+  tmp/sudoers/state/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    size: 1
+  tmp/sudoers/state/qux:
+    exists: true
+    filetype: file
+  tmp/sudoers/state/quux:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/sudoers/defaults/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    contains:
+      - "Sudoer foo"
+  tmp/sudoers/defaults/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    contains:
+      - "Sudoer bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/sudoers/exclusive/foo:
+    exists: false
+  tmp/sudoers/exclusive/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    size: 1
+  tmp/sudoers/exclusive/baz:
+    exists: false
+  tmp/sudoers/exclusive/qux:
+    exists: false
+  tmp/sudoers/exclusive/quux:
+    exists: false
+{{ end }}

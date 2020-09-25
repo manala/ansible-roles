@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - MariaDB 10.5 repository pattern
+- Configs|Packages|Preferences|Repositories can be individually ignored
+
+### Changed
+- Use unified exclusive template lookup for configs
 
 ## [2.0.14] - 2020-08-28
 ### Changed
