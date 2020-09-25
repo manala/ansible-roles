@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Motd] Fix script templates execution flag
+
 ### Added
 - [MySQL] Supports mariadb 10.5 for debian stretch and buster
 - [Apt] MariaDB 10.5 repository pattern
