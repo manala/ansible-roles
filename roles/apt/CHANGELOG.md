@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.15] - 2020-09-29
 ### Added
 - MariaDB 10.5 repository pattern
 - Configs|Packages|Preferences|Repositories can be individually ignored
