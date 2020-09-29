@@ -1,0 +1,34 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+command:
+  dpkg --get-selections:
+    exit-status: 0
+    stdout:
+      - "/^apt\t+hold$/"
+      - "/^dpkg\t+hold$/"
+      - "/^python\t+install$/"
+{{ end }}
+
+# Hold
+{{ if has "hold" .Vars.tags }}
+command:
+  dpkg --get-selections:
+    exit-status: 0
+    stdout:
+      - "/^apt\t+hold$/"
+      - "/^dpkg\t+install$/"
+      - "/^python\t+hold$/"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+command:
+  dpkg --get-selections:
+    exit-status: 0
+    stdout:
+      - "/^apt\t+install$/"
+      - "/^dpkg\t+hold$/"
+      - "/^python\t+install$/"
+{{ end }}

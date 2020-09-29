@@ -1,33 +1,58 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_apt_holds:
-      - apt
-      - package: dpkg
-        hold: true
-      - package: python
-        hold: false
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_apt_holds:
-      - apt
-      - package: dpkg
-        hold: false
-      - package: python
-        hold: true
-  roles:
-    - manala.apt
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    # Default
+    - tags: [default]
+      block:
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_holds:
+              - apt
+              - package: dpkg
+                hold: true
+              - package: python
+                hold: false
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # Hold
+    - tags: [hold]
+      block:
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_holds:
+              - apt
+              - package: dpkg
+                hold: false
+              - package: python
+                hold: true
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [hold]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - dpkg_selections:
+            name: "{{ item }}"
+            selection: hold
+          loop: [apt, dpkg, python]
+        - import_role:
+            name: manala.apt
+          vars:
+            manala_apt_holds_exclusive: true
+            manala_apt_holds:
+              - dpkg
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

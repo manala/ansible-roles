@@ -4,8 +4,8 @@ __metaclass__ = type
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
+from ansible.module_utils._text import to_text
 
-import os
 
 class LookupModule(LookupBase):
 
@@ -13,15 +13,15 @@ class LookupModule(LookupBase):
 
         results = []
 
-        holds          = self._flatten(terms[0])
-        holdsExclusive = self._flatten(terms[1])
-        
+        holds = self._flatten(terms[0])
+        exclusive = self._flatten(terms[1])
+
         itemDefault = {
             'hold': False
         }
 
         # Unhold exclusives
-        for hold in holdsExclusive:
+        for hold in exclusive:
             item = itemDefault.copy()
             item.update({
                 'package': hold.split()[0],
@@ -32,10 +32,11 @@ class LookupModule(LookupBase):
         for hold in holds:
 
             items = []
-            
+
+            item = itemDefault.copy()
+
             # Short syntax
             if isinstance(hold, string_types):
-                item = itemDefault.copy()
                 item.update({
                     'package': hold,
                     'hold': True
@@ -43,13 +44,12 @@ class LookupModule(LookupBase):
             else:
                 # Must be a dict
                 if not isinstance(hold, dict):
-                    raise AnsibleError('Expect a dict')
+                    raise AnsibleError('Expect a dict but was a %s' % type(hold))
 
                 # Check index key
                 if 'package' not in hold:
                     raise AnsibleError('Expect "package" key')
 
-                item = itemDefault.copy()
                 item.update(hold)
 
             items.append(item)
@@ -65,7 +65,7 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
-        
+
         # Filter by applicables
         results = [result for result in results if (
             ('state' not in result)

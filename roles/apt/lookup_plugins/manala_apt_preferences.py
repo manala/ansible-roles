@@ -4,9 +4,11 @@ __metaclass__ = type
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
+from ansible.module_utils._text import to_text
 
 import os
 import re
+
 
 class LookupModule(LookupBase):
 
@@ -16,21 +18,26 @@ class LookupModule(LookupBase):
 
         wantstate = kwargs.pop('wantstate', None)
 
-        preferences          = self._flatten(terms[0])
-        preferencesPatterns  = terms[1]
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
+        preferences = self._flatten(terms[0])
+        preferencesPatterns = terms[1]
         repositoriesPatterns = terms[2]
-        preferencesExclusive = self._flatten(terms[3])
-        preferencesDir       = terms[4]
+        exclusives = self._flatten(terms[3])
+        dir = terms[4]
+        template = terms[5]
 
         itemDefault = {
-            'state': 'present'
+            'state': 'present',
+            'template': template
         }
 
         # Mark exclusive preferences as absent
-        for preference in preferencesExclusive:
+        for preference in exclusives:
             item = itemDefault.copy()
             item.update({
-                'file':  preference['path'],
+                'file': preference['path'],
                 'state': 'absent'
             })
             results.append(item)
@@ -49,8 +56,15 @@ class LookupModule(LookupBase):
             else:
                 # Must be a dict
                 if not isinstance(preference, dict):
-                    raise AnsibleError('Expect a dict')
+                    raise AnsibleError('Expect a dict but was a %s' % type(preference))
+
                 item.update(preference)
+
+                if item['state'] not in ['present', 'absent', 'ignore']:
+                    raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+                if item['state'] == 'ignore':
+                    continue
 
             if 'preference' in item:
                 pattern = item['preference']
@@ -107,7 +121,7 @@ class LookupModule(LookupBase):
                 raise AnsibleError('Expect "file" key')
 
             item.update({
-                'file': os.path.join(preferencesDir, item['file'])
+                'file': os.path.join(dir, item['file'])
             })
 
             items.append(item)

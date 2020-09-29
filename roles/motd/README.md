@@ -54,16 +54,27 @@ manala_motd_scripts_exclusive: true # Keep only defined scripts
 manala_motd_scripts:
   - file: 10-uname
     template: scripts/uname.j2
-  - file: 10-message
-    message: Hello world! # Simple custom message
+  # Simple custom message
+  - file: 20-message
+    message: Hello world!
+  # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
+  # with icelandic custom message
   - file: 30-template
-    template: scripts/cow.j2 # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
-    message: Hjartað hamast # Icelandic custom message
+    template: scripts/cow.j2
+    message: Hjartað hamast
+  # Raw script
   - file: 40-raw
-    # Raw script
     script: |
       #!/bin/sh
       printf "Hello world!\n"
+  # Ensure script is absent
+  - file: 50-absent
+    message: Look mum no hands!
+    state: absent # "present" by default
+  # Ignore script
+  - file: 60-ignore
+    message: Look daddy there's an airplane up in the sky!
+    state: ignore
 ```
 
 Static template (deprecated)

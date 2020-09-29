@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Scripts can be individually ignored
+
+### Fixed
+- Script templates execution flag
 
 ## [2.0.4] - 2020-08-26
 ### Changed

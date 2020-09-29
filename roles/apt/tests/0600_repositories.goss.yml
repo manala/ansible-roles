@@ -1,0 +1,207 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  # From preferences
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" }}
+  /etc/apt/sources.list.d/archive_debian_org_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://archive.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
+{{ else }}
+  /etc/apt/sources.list.d/deb_debian_org_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-backports main"
+{{ end }}
+/etc/apt/sources.list.d/multimedia.list:
+  exists: true
+  filetype: file
+  owner: root
+  group: root
+  mode: "0644"
+  contains:
+    - "deb http://www.deb-multimedia.org {{ .Env.DISTRIBUTION_RELEASE }} main"
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
+  /etc/apt/sources.list.d/dotdeb.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://packages.dotdeb.org {{ .Env.DISTRIBUTION_RELEASE }} all"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_10_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.1.10/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_11_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.1.11/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_1_12_debian.list:
+    exists: false
+{{ else }}
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_3_10_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.3.10/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_3_11_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.3.11/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_3_12_debian.list:
+    exists: false
+{{ end }}
+  /etc/apt/sources.list.d/nginx_org_packages_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://nginx.org/packages/debian/ {{ .Env.DISTRIBUTION_RELEASE }} nginx"
+  /etc/apt/sources.list.d/dl_yarnpkg_com_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://dl.yarnpkg.com/debian/ stable main"
+  /etc/apt/sources.list.d/apt_postgresql_org_pub_repos_apt.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://apt.postgresql.org/pub/repos/apt/ {{ .Env.DISTRIBUTION_RELEASE }}-pgdg main"
+  /etc/apt/sources.list.d/packages_grafana_com_oss_deb.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://packages.grafana.com/oss/deb stable main"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_1_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.2.1/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_2_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_3_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.2.3/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_4_debian.list:
+    exists: true
+    filetype: file
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_5_debian.list:
+    exists: false
+{{ else }}
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_1_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.4.1/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_2_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_3_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.4.3/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_4_debian.list:
+    exists: true
+    filetype: file
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_5_debian.list:
+    exists: false
+{{ end }}
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+{{ if eq .Env.DISTRIBUTION_RELEASE "jessie" "stretch" }}
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_6_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_7_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.2.7/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_9_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_10_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_2_11_debian.list:
+    exists: false
+{{ else }}
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_6_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_7_debian.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://downloads.mariadb.com/MaxScale/2.4.7/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_9_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_10_debian.list:
+    exists: false
+  /etc/apt/sources.list.d/downloads_mariadb_com_MaxScale_2_4_11_debian.list:
+    exists: false
+{{ end }}
+{{ end }}

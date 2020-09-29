@@ -3,6 +3,12 @@
 # Default
 {{ if has "default" .Vars.tags }}
 file:
+  tmp/scripts/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
   tmp/scripts/default/foo:
     exists: true
     filetype: file
@@ -12,15 +18,6 @@ file:
     contains:
       - "#!/bin/sh"
       - "printf \"I hope that someone gets my message in a bottle, yeah\\n\""
-  tmp/scripts/default/foo_template:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0755"
-    contains:
-      - "#!/bin/sh"
-      - "uname -snrvm"
   tmp/scripts/default/foo_content:
     exists: true
     filetype: file
@@ -30,6 +27,14 @@ file:
     contains:
       - "#!/bin/sh"
       - "printf \"Maintenant vous faites ce qu'ils vous ont dit de faire\\n\""
+  tmp/scripts/default/foo_template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+    contains:
+      - "Script foo"
   tmp/scripts/default/bar:
     exists: true
     filetype: file
@@ -60,6 +65,11 @@ file:
     group: root
     mode: "0755"
     size: 1
+  tmp/scripts/state/qux:
+    exists: true
+    filetype: file
+  tmp/scripts/state/quux:
+    exists: false
 {{ end }}
 
 # Defaults
@@ -72,8 +82,7 @@ file:
     group: root
     mode: "0755"
     contains:
-      - "< Moo Moo Moo >"
-      - "         \\  (oo)\\_______"
+      - "Script foo"
   tmp/scripts/defaults/bar:
     exists: true
     filetype: file
@@ -81,7 +90,7 @@ file:
     group: root
     mode: "0755"
     contains:
-      - "Bar"
+      - "Script bar"
 {{ end }}
 
 # Exclusive
@@ -97,5 +106,9 @@ file:
     mode: "0755"
     size: 1
   tmp/scripts/exclusive/baz:
+    exists: false
+  tmp/scripts/exclusive/qux:
+    exists: false
+  tmp/scripts/exclusive/quux:
     exists: false
 {{ end }}

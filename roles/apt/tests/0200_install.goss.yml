@@ -1,9 +1,0 @@
----
-
-package:
-  apt-transport-https:
-    installed: true
-  openssl:
-    installed: true
-  ca-certificates:
-    installed: true

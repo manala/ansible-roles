@@ -5,13 +5,14 @@ from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
+
 class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
         results = []
 
-        keys         = self._flatten(terms[0])
+        keys = self._flatten(terms[0])
         keysPatterns = terms[1]
         repositories = terms[2]
 
@@ -32,7 +33,7 @@ class LookupModule(LookupBase):
             else:
                 # Must be a dict
                 if not isinstance(key, dict):
-                    raise AnsibleError('Expect a dict')
+                    raise AnsibleError('Expect a dict but was a %s' % type(key))
 
                 # Check index key
                 if 'id' not in key:

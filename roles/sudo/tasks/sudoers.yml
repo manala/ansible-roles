@@ -19,48 +19,31 @@
 
 - name: sudoers > Templates present
   template:
-    src:  "{{ item.template|default(manala_sudo_sudoers_template|ternary(manala_sudo_sudoers_template, 'sudoers/empty.j2')) }}"
+    src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0440"
   loop: "{{ query(
-      'manala_sudo_sudoers',
+      'manala_templates_exclusive',
       manala_sudo_sudoers,
       __manala_sudo_sudoers_exclusive_find.files|default([]),
       manala_sudo_sudoers_dir,
+      manala_sudo_sudoers_defaults.template|default('sudoers/_default.j2', true),
       wantstate='present'
     )
   }}"
-  when: item.content is not defined
 
-- name: sudoers > Contents present
-  copy:
-    content: "{{ item.content }}"
-    dest: "{{ item.file }}"
-    owner: root
-    group: root
-    mode: "0440"
-  loop: "{{ query(
-      'manala_sudo_sudoers',
-      manala_sudo_sudoers,
-      __manala_sudo_sudoers_exclusive_find.files|default([]),
-      manala_sudo_sudoers_dir,
-      wantstate='present'
-    )
-  }}"
-  when: item.content is defined
-
-# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: sudoers > Files absent
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_sudo_sudoers',
+      'manala_templates_exclusive',
       manala_sudo_sudoers,
       __manala_sudo_sudoers_exclusive_find.files|default([]),
       manala_sudo_sudoers_dir,
+      manala_sudo_sudoers_defaults.template|default('sudoers/_default.j2', true),
       wantstate='absent'
     )
   }}"

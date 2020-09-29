@@ -49,11 +49,26 @@
                     - command: /bin/bar
                   - group:foo:
                     - programs: foo,bar
-              - file: foo_template_inet_http_server.conf
-                template: configs/inet_http_server.j2
-                config:
-                  port: 0.0.0.1:9001
-                  username: foo
+              - file: foo_content.conf
+                config: |
+                  [program:foo]
+                  command=/bin/foo
+                  priority=123
+                  autostart=true
+                  stopsignal=HUP
+                  environment=BAR="123",FOO="bar"
+
+                  [program:bar]
+                  command=/bin/bar
+
+                  [group:foo]
+                  programs=foo,bar
+              - file: bar.conf
+                state: present
+              - file: baz.conf
+                state: absent
+              - file: foo_template.conf
+                template: configs/foo.j2
               - file: foo_template_deprecated.conf
                 template: configs/app_program.dev.j2
                 config:
@@ -65,14 +80,6 @@
                     - environment:
                         FOO: bar
                         BAR: 123
-              - file: foo_content.conf
-                config: |
-                  [program:foo]
-                  command=/bin/foo
-              - file: bar.conf
-                state: present
-              - file: baz.conf
-                state: absent
       always:
         - name: Goss
           command: >
@@ -86,8 +93,9 @@
             state: "{{ item }}"
           loop: [absent, directory]
         - file:
-            path: tmp/configs/state/bar.conf
+            path: tmp/configs/state/{{ item }}.conf
             state: touch
+          loop: [bar, qux]
         - import_role:
             name: manala.supervisor
           vars:
@@ -98,6 +106,10 @@
                 state: absent
               - file: baz.conf
                 state: present
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
       always:
         - name: Goss
           command: >
@@ -114,13 +126,11 @@
           vars:
             manala_supervisor_configs_dir: tmp/configs/defaults
             manala_supervisor_configs_defaults:
-              template: configs/inet_http_server.j2
+              template: configs/foo.j2
             manala_supervisor_configs:
               - file: foo.conf
-                config:
-                  port: 0.0.0.0:9001
               - file: bar.conf
-                template: bar.j2
+                template: configs/bar.j2
       always:
         - name: Goss
           command: >
@@ -134,9 +144,9 @@
             state: "{{ item }}"
           loop: [absent, directory]
         - file:
-            path: tmp/configs/exclusive/{{ item }}
+            path: tmp/configs/exclusive/{{ item }}.conf
             state: touch
-          loop: [foo.conf, bar.conf, baz.conf]
+          loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.supervisor
           vars:
@@ -144,6 +154,10 @@
             manala_supervisor_configs_exclusive: true
             manala_supervisor_configs:
               - file: bar.conf
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
       always:
         - name: Goss
           command: >

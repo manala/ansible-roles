@@ -1,7 +1,7 @@
 ---
 
 file:
-  /etc/apt/sources.list:
+  tmp/sources_list:
     exists: true
     filetype: file
     owner: root

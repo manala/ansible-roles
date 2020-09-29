@@ -1,11 +1,12 @@
 ---
 
+{{ if has "default" .Vars.tags }}
 package:
-  e3:
+  asciijump:
     installed: true
-  telnet:
+  freesweep:
     installed: true
-  pwgen:
+  an:
     installed: false
   spinner:
     installed: true
@@ -15,3 +16,19 @@ package:
     installed: true
   pscan:
     installed: false
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+package:
+  asciijump:
+    installed: true
+  an:
+    installed: false
+  freesweep:
+    installed: true
+  nettoe:
+    installed: true
+  wordplay:
+    installed: false
+{{ end }}

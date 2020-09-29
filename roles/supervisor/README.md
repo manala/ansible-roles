@@ -132,8 +132,12 @@ manala_supervisor_configs:
         - environment:
             FOO: bar
             BAR: 12
-  - file: bar.conf
-    state: absent
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
 ```
 
 Raw content
@@ -141,7 +145,7 @@ Raw content
 ```yaml
 manala_supervisor_configs:
   - file: bar.conf
-    content: |
+    config: |
       [program:example]
       command=/usr/bin/example --loglevel=%(ENV_LOGLEVEL)s
 ```
