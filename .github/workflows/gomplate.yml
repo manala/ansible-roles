@@ -1,0 +1,40 @@
+name: gomplate
+
+on:
+  push:
+    paths:
+      - roles/gomplate/**
+      - molecule/gomplate/**
+      - .github/workflows/gomplate.yml
+  pull_request:
+    paths:
+      - roles/gomplate/**
+      - molecule/gomplate/**
+      - .github/workflows/gomplate.yml
+
+jobs:
+  gomplate:
+    runs-on: ubuntu-latest
+    env:
+      PY_COLORS: 1 # allows molecule colors to be passed to GitHub Actions
+      ANSIBLE_FORCE_COLOR: 1 # allows ansible colors to be passed to GitHub Actions
+    strategy:
+      fail-fast: false
+      # matrix:
+      #   distros:
+      #     - geerlingguy/docker-debian8-ansible:latest
+      #     - geerlingguy/docker-debian9-ansible:latest
+      #     - geerlingguy/docker-debian10-ansible:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+
+
+      - name: Molecule
+        uses: gofrolist/molecule-action@v2
+        env:
+          DIR: ${{ runner.workspace }}/${{ github.event.repository.name }}
+        with:
+          molecule_options: --debug
+          molecule_args: --scenario-name gomplate

@@ -6,6 +6,37 @@
   gather_facts: false
   tasks:
 
+    - debug:
+        var: playbook_dir
+
+    - find:
+        paths: "{{ playbook_dir }}"
+      register: prout
+
+    - debug:
+        var: prout
+
+    - command: env
+      register: prout
+
+    - debug:
+        var: prout
+
+    # Latest
+    - tags: [latest]
+      block:
+        - file:
+            path: /usr/local/bin/gomplate
+            state: absent
+        - import_role:
+            name: gomplate
+          vars:
+            manala_gomplate_version: ~
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ playbook_dir }}/{{ test }}.goss.yml --vars-inline "{tags: [latest]}" validate
+
     # Version
     - tags: [version]
       block:
@@ -20,4 +51,4 @@
       always:
         - name: Goss
           command: >
-            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [version]}" validate
+            goss --gossfile {{ playbook_dir }}/{{ test }}.goss.yml --vars-inline "{tags: [version]}" validate
