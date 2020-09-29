@@ -1,0 +1,17 @@
+---
+
+file:
+  /etc/mysql/conf.d.test/foo.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  /etc/mysql/conf.d.test/bar.cnf:
+    exists: false
+  /etc/mysql/conf.d.test/baz.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

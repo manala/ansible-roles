@@ -117,6 +117,9 @@ manala_apt_repositories_patterns:
   mariadb_10_4:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.4/repo/debian {{ ansible_distribution_release }} main
     key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
+  mariadb_10_5:
+    source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/debian {{ ansible_distribution_release }} main
+    key: mariadb
   maxscale_2_0:
     source: deb https://downloads.mariadb.com/MaxScale/2.0/debian {{ ansible_distribution_release }} main
     key: maxscale_legacy
