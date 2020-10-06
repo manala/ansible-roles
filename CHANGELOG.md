@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.64] - 2020-10-06
+### Added
+- [Apt] Add 1.8 and 2.2 HAProxy repositories
+
 ## [0.1.63] - 2020-09-29
 ### Fixed
 - [Motd] Fix script templates execution flag
