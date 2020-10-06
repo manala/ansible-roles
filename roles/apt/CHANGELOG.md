@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add 1.8 and 2.2 HAProxy repositories
 
 ## [2.0.15] - 2020-09-29
 ### Added
