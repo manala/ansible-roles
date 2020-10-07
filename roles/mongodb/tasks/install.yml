@@ -2,7 +2,13 @@
 
 - name: install > Packages
   apt:
-    name: "{{ manala_mongodb_install_packages|default(manala_mongodb_install_packages_default, True) }}"
+    name: "{{
+      manala_mongodb_install_packages|default(manala_mongodb_install_packages_default, True)
+      + (manala_mongodb_users|length > 0)|ternary(
+        ['python-pymongo'],
+        []
+      )
+    }}"
     install_recommends: false
     update_cache: true
     cache_valid_time: 3600
