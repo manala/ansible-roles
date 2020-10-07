@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Role can managed Mongodb users
+- Role can manage MongoDB users
 
 ## [2.0.3] - 2020-08-28
 ### Changed
