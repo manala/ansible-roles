@@ -7,12 +7,10 @@
     database: "{{ item.database }}"
     roles: "{{ item.roles|default(omit) }}"
     state: "{{ item.state|default(omit) }}"
-    login_database: "{{ item.login_database|default(omit) }}"
+    login_database: "{{ item.login_database|default(admin) }}"
     login_host: "{{ item.login_host|default('localhost') }}"
     login_password: "{{ item.login_password|default(omit) }}"
     login_port: "{{ item.login_port|default('27017') }}"
     login_user: "{{ item.login_user|default(omit) }}"
     update_password: "{{ item.update_password|default('always') }}"
   loop: "{{ manala_mongodb_users }}"
-  notify:
-    - mongodb restart
