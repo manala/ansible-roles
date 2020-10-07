@@ -7,7 +7,7 @@
     database: "{{ item.database }}"
     roles: "{{ item.roles|default(omit) }}"
     state: "{{ item.state|default(omit) }}"
-    login_database: "{{ item.login_database|default(admin) }}"
+    login_database: "{{ item.login_database|default('admin') }}"
     login_host: "{{ item.login_host|default('localhost') }}"
     login_password: "{{ item.login_password|default(omit) }}"
     login_port: "{{ item.login_port|default('27017') }}"
