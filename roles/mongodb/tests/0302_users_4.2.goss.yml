@@ -1,0 +1,11 @@
+---
+
+command:
+  mongo --eval "db.system.users.find({user:'dba'}).count()" admin:
+    exit-status: 0
+    stdout:
+      - "1"
+  mongo --eval "db.system.users.find({user:'foo'}).count()" admin:
+    exit-status: 0
+    stdout:
+      - "1"
