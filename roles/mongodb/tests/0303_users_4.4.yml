@@ -19,7 +19,7 @@
         login_user: dba
         login_password: bar
   pre_tasks:
-    - import_tasks: pre_tasks/mongodb_4_2.yml
+    - import_tasks: pre_tasks/mongodb_4_4.yml
     - import_tasks: pre_tasks/service.yml
   roles:
     - manala.mongodb

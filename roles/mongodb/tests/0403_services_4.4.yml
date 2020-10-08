@@ -1,12 +1,10 @@
 ---
 
 - name: "{{ test }}"
-  hosts:
-    - debian.jessie
-    - debian.stretch
+  hosts: debian:!debian.jessie
   become: true
   pre_tasks:
-    - import_tasks: pre_tasks/mongodb_4_0.yml
+    - import_tasks: pre_tasks/mongodb_4_4.yml
     - import_tasks: pre_tasks/service.yml
   roles:
     - manala.mongodb
