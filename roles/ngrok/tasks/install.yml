@@ -17,7 +17,9 @@
   unarchive:
     src: "{{ manala_ngrok_version|ternary(
       __manala_ngrok_version_html.content|default|regex_search(
-        'https://[^\"]+ngrok-' ~ manala_ngrok_version ~ '-linux-amd64.tar.gz'
+        'https://[^\"]+ngrok-%(version)s-linux-amd64.tar.gz'|format(
+          version=manala_ngrok_version
+        )
       ),
       'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz'
     ) }}"

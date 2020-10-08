@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Modified
+- Clean jinja "format" usages
 
 ## [3.0.1] - 2020-08-26
 ### Changed
