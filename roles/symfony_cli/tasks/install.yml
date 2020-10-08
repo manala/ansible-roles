@@ -15,14 +15,14 @@
 
 - name: install > Install
   get_url:
-    url: "{{ manala_symfony_cli_version|ternary(
-      'https://github.com/symfony/cli/releases/download/v%s/symfony_linux_amd64'|format(
-        manala_symfony_cli_version
-      ),
-      'https://github.com/symfony/cli/releases/download/v%s/symfony_linux_amd64'|format(
-        __manala_symfony_cli_version_latest.content|default
+    url: "{{
+      'https://github.com/symfony/cli/releases/download/v%(version)s/symfony_linux_amd64'|format(
+        version=manala_symfony_cli_version|ternary(
+          manala_symfony_cli_version,
+          __manala_symfony_cli_version_latest.content|default
+        )
       )
-    ) }}"
+    }}"
     dest: "{{ manala_symfony_cli_bin }}"
     owner: root
     group: root

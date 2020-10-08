@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Modified
+- [Gomplate] Clean jinja "format" usages
+- [Ngrok] Clean jinja "format" usages
+- [Symfony Cli] Clean jinja "format" usages
 
 ## [0.1.66] - 2020-10-08
 ### Added
