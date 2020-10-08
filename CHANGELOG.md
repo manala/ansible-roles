@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.66] - 2020-10-08
+### Added
+- [Mongodb] Handle MongoDB 4.4
+
 ## [0.1.65] - 2020-10-07
 ### Added
 - [Mongodb] Role can manage MongoDB users
