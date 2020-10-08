@@ -1,0 +1,28 @@
+---
+
+- name: install > Stat bin
+  stat:
+    path: "{{ manala_vault_cli_bin }}"
+  register: __manala_vault_cli_bin_stat_result
+
+- name: install > Get latest version
+  uri:
+    url: https://www.vaultproject.io/downloads
+    return_content: true
+  register: __manala_vault_cli_version_latest
+  when: (not __manala_vault_cli_bin_stat_result.stat.exists)
+        and (manala_vault_cli_version is none)
+
+- name: install > Install
+  unarchive:
+    src: "{{ manala_vault_cli_version is none|ternary(
+      __manala_vault_cli_version_latest.content|default|regex_search(
+        'https://releases.hashicorp.com/vault/\\d\\.\\d\\.\\d/vault_\\d\\.\\d\\.\\d_linux_amd64.zip'
+      ),
+      'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_amd64.zip'|format(version=manala_vault_cli_version)
+      )
+    }}"
+    dest: /usr/local/bin/
+    mode: 0755
+    remote_src: true
+  when: (not __manala_vault_cli_bin_stat_result.stat.exists)

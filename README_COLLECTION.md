@@ -162,6 +162,8 @@
 
  [vault](https://github.com/manala/ansible-role-vault)  This role will deal with the setup and configuration of [Hashicorp Vault server](https://www.vaultproject.io/).  [![Build Status](https://travis-ci.org/manala/ansible-role-vault.svg?branch=master)](https://travis-ci.org/manala/ansible-role-vault)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-vault.svg)](https://img.shields.io/github/release/manala/ansible-role-vault.svg)
 
+ [vault_cli](https://github.com/manala/ansible-roles/tree/master/roles/vault_cli) This role will deal with the setup of [vault](https://www.vaultproject.io/downloads)
+
  [vim](https://github.com/manala/ansible-role-vim)  This role will deal with the setup and configuration of Vim.  [![Build Status](https://travis-ci.org/manala/ansible-role-vim.svg?branch=master)](https://travis-ci.org/manala/ansible-role-vim)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-vim.svg)](https://img.shields.io/github/release/manala/ansible-role-vim.svg)
 
  [yarn](https://github.com/manala/ansible-role-yarn)  This role will deal with the setup of [Yarn](https://yarnpkg.com/).  [![Build Status](https://travis-ci.org/manala/ansible-role-yarn.svg?branch=master)](https://travis-ci.org/manala/ansible-role-yarn)  [![Latest Stable Version](https://img.shields.io/github/release/manala/ansible-role-yarn.svg)](https://img.shields.io/github/release/manala/ansible-role-yarn.svg)

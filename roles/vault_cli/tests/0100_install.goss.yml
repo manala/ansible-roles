@@ -1,0 +1,32 @@
+---
+
+# Latest
+{{ if has "latest" .Vars.tags }}
+file:
+  /usr/local/bin/vault:
+    exists: true
+    mode: "0755"
+    owner: root
+    filetype: file
+command:
+  vault --version:
+    exit-status: 0
+    stdout:
+      - Vault v
+      - "!Vault v1.4.3"
+{{ end }}
+
+# Version
+{{ if has "version" .Vars.tags }}
+file:
+  /usr/local/bin/vault:
+    exists: true
+    mode: "0755"
+    owner: root
+    filetype: file
+command:
+  vault --version:
+    exit-status: 0
+    stdout:
+      - Vault v1.4.3
+{{ end }}
