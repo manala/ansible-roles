@@ -5,3 +5,17 @@
     src: pre_tasks/init.d/mongod
     dest: /etc/init.d/mongod
     mode: 0755
+
+- name: Pre tasks > Disable systemctl to force sysv init script
+  command: mv /bin/systemctl /bin/systemctl.disabled
+  args:
+    creates: /bin/systemctl.disabled
+    removes: /bin/systemctl
+  when: "{{ ansible_distribution_release in ['stretch'] }}"
+
+- name: Pre tasks > Fake systemctl to make postinst succeed
+  copy:
+    dest: /bin/systemctl
+    content: |
+      #!/bin/sh
+    mode: 0755

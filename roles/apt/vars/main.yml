@@ -165,6 +165,9 @@ manala_apt_repositories_patterns:
   mongodb_4_2:
     source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.2 main
     key: mongodb_4_2
+  mongodb_4_4:
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.4 main
+    key: mongodb_4_4
   varnish_4_0:
     source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
     key: varnish_4_0
@@ -344,6 +347,9 @@ manala_apt_keys_patterns:
   mongodb_4_2:
     url: https://www.mongodb.org/static/pgp/server-4.2.asc
     id: 058F8B6B
+  mongodb_4_4:
+    url: https://www.mongodb.org/static/pgp/server-4.4.asc
+    id: 90CFB1F5
   varnish_4_0:
     url: https://packagecloud.io/varnishcache/varnish40/gpgkey
     id: DE3FFEA4
