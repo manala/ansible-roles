@@ -22,6 +22,18 @@
         state: present
       - file: baz.conf
         state: absent
+      - file: pipe.conf
+        config:
+          - BM_REPOSITORY_ROOT: /srv/backup/mysql
+          - BM_PIPE:
+              - COMMAND: command0
+                NAME: name0
+                FILETYPE: filetype0
+                COMPRESS: compress0
+              - COMMAND: command1
+                NAME: name1
+                FILETYPE: filetype1
+                COMPRESS: compress1
   pre_tasks:
     - import_tasks: pre_tasks/manala.yml
       when: ansible_distribution_release in ['jessie', 'stretch']

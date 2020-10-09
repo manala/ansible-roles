@@ -45,5 +45,20 @@ file:
     owner: root
     group: root
     mode: "0600"
+  /etc/backup-manager.d.test/pipe.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - BM_PIPE_COMPRESS[0]="compress0"
+      - BM_PIPE_FILETYPE[0]="filetype0"
+      - BM_PIPE_COMMAND[0]="command0"
+      - BM_PIPE_NAME[0]="name0"
+      - BM_PIPE_COMPRESS[1]="compress1"
+      - BM_PIPE_FILETYPE[1]="filetype1"
+      - BM_PIPE_COMMAND[1]="command1"
+      - BM_PIPE_NAME[1]="name1"
   /etc/backup-manager.d.test/baz.conf:
     exists: false
