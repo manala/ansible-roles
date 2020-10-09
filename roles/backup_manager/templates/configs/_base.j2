@@ -287,7 +287,7 @@ declare -a BM_PIPE_NAME
 declare -a BM_PIPE_FILETYPE
 declare -a BM_PIPE_COMPRESS
 
-# You can virtually implement whatever backup scenario you like
+{{ query('manala_backup_manager_config', config, wantrow='BM_PIPE', wantrowtype='array', wantrowdefault='# You can virtually implement whatever backup scenario you like
 # with this method.
 #
 # The resulting archives will be named like this:
@@ -298,18 +298,18 @@ declare -a BM_PIPE_COMPRESS
 # Here are a couple of examples for using this method:
 
 # Archive a remote MySQL database through SSH:
-#    BM_PIPE_COMMAND[0]="ssh host -c \"mysqldump -ufoo -pbar base\""
+#    BM_PIPE_COMMAND[0]="ssh host -c \\"mysqldump -ufoo -pbar base\\""
 #    BM_PIPE_NAME[0]="base"
 #    BM_PIPE_FILETYPE[0]="sql"
 #    BM_PIPE_COMPRESS[0]="gzip"
 # This will make somthing like: localhost-base.20050421.sql.gz
 
 # Archive a specific directory, on a remote server through SSH:
-#    BM_PIPE_COMMAND[0]="ssh host -c \"tar -c -z /home/user\""
+#    BM_PIPE_COMMAND[0]="ssh host -c \\"tar -c -z /home/user\\""
 #    BM_PIPE_NAME[0]="host.home.user"
 #    BM_PIPE_FILETYPE[0]="tar.gz"
 #    BM_PIPE_COMPRESS[0]=""
-# This will make somthing like: localhost-host.home.user.20050421.tar.gz
+# This will make somthing like: localhost-host.home.user.20050421.tar.gz') }}
 
 export BM_PIPE_COMMAND
 export BM_PIPE_NAME

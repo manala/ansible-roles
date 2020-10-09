@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Backup manager] Lookup to handle arrays in configs
 
 ## [0.1.67] - 2020-10-08
 ### Modified
