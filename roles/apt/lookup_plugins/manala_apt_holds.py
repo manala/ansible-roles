@@ -14,18 +14,18 @@ class LookupModule(LookupBase):
         results = []
 
         holds = self._flatten(terms[0])
-        exclusive = self._flatten(terms[1])
+        exclusives = self._flatten(terms[1])
 
         itemDefault = {
-            'hold': False
+            'state': 'present'
         }
 
         # Unhold exclusives
-        for hold in exclusive:
+        for hold in exclusives:
             item = itemDefault.copy()
             item.update({
-                'package': hold.split()[0],
-                'state': hold.split()[1]
+                'package': hold,
+                'state': 'absent'
             })
             results.append(item)
 
@@ -39,18 +39,28 @@ class LookupModule(LookupBase):
             if isinstance(hold, string_types):
                 item.update({
                     'package': hold,
-                    'hold': True
+                    'state': 'present'
                 })
             else:
                 # Must be a dict
                 if not isinstance(hold, dict):
                     raise AnsibleError('Expect a dict but was a %s' % type(hold))
 
-                # Check index key
+                # Check package key
                 if 'package' not in hold:
                     raise AnsibleError('Expect "package" key')
 
+                # Deprecated
+                if ('hold' in hold) and ('state' not in hold):
+                    hold['state'] = 'present' if hold['hold'] else 'absent'
+
                 item.update(hold)
+
+                if item['state'] not in ['present', 'absent', 'ignore']:
+                    raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+                if item['state'] == 'ignore':
+                    continue
 
             items.append(item)
 
@@ -65,12 +75,5 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
-
-        # Filter by applicables
-        results = [result for result in results if (
-            ('state' not in result)
-            or (result.get('hold') and result.get('state') != 'hold')
-            or (not result.get('hold') and result.get('state') == 'hold')
-        )]
 
         return results

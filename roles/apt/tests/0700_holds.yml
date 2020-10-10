@@ -8,32 +8,59 @@
     # Default
     - tags: [default]
       block:
+        - dpkg_selections:
+            name: "{{ item }}"
+            selection: install
+          loop: [apt, dpkg, grep]
+        - dpkg_selections:
+            name: "{{ item }}"
+            selection: hold
+          loop: [python, tar]
         - import_role:
             name: manala.apt
           vars:
             manala_apt_holds:
+              # Short syntax
               - apt
+              # States
               - package: dpkg
-                hold: true
+                state: present
               - package: python
+                state: absent
+              # Deprecated
+              - package: grep
+                hold: true
+              - package: tar
                 hold: false
       always:
         - name: Goss
           command: >
             goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
 
-    # Hold
-    - tags: [hold]
+    # State
+    - tags: [state]
       block:
+        - dpkg_selections:
+            name: "{{ item }}"
+            selection: install
+          loop: [apt, python, tar]
+        - dpkg_selections:
+            name: "{{ item }}"
+            selection: hold
+          loop: [dpkg, grep]
         - import_role:
             name: manala.apt
           vars:
             manala_apt_holds:
-              - apt
+              - package: apt
               - package: dpkg
-                hold: false
+                state: absent
               - package: python
-                hold: true
+                state: present
+              - package: grep
+                state: ignore
+              - package: tar
+                state: ignore
       always:
         - name: Goss
           command: >
@@ -45,13 +72,17 @@
         - dpkg_selections:
             name: "{{ item }}"
             selection: hold
-          loop: [apt, dpkg, python]
+          loop: [apt, dpkg, python, grep]
         - import_role:
             name: manala.apt
           vars:
             manala_apt_holds_exclusive: true
             manala_apt_holds:
-              - dpkg
+              - package: dpkg
+              - package: grep
+                state: ignore
+              - package: tar
+                state: ignore
       always:
         - name: Goss
           command: >

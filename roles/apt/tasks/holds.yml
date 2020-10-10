@@ -1,7 +1,7 @@
 ---
 
-- name: holds > Get selections
-  command: dpkg --get-selections
+- name: holds > Apt show holds
+  command: apt-mark showhold
   when: manala_apt_holds_exclusive
   register: __manala_apt_holds_exclusive_find
   changed_when: false
@@ -10,7 +10,7 @@
 - name: holds > Set selections
   dpkg_selections:
     name: "{{ item.package }}"
-    selection: "{{ item.hold|ternary('hold', 'install') }}"
+    selection: "{{ (item.state == 'present')|ternary('hold', 'install') }}"
   loop: "{{ query(
       'manala_apt_holds',
       manala_apt_holds,
