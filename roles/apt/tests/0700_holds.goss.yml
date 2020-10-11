@@ -3,32 +3,38 @@
 # Default
 {{ if has "default" .Vars.tags }}
 command:
-  dpkg --get-selections:
+  apt-mark showhold:
     exit-status: 0
     stdout:
-      - "/^apt\t+hold$/"
-      - "/^dpkg\t+hold$/"
-      - "/^python\t+install$/"
+      - apt
+      - dpkg
+      - "!python"
+      - grep
+      - "!tar"
 {{ end }}
 
 # Hold
 {{ if has "hold" .Vars.tags }}
 command:
-  dpkg --get-selections:
+  apt-mark showhold:
     exit-status: 0
     stdout:
-      - "/^apt\t+hold$/"
-      - "/^dpkg\t+install$/"
-      - "/^python\t+hold$/"
+      - apt
+      - "!dpkg"
+      - python
+      - grep
+      - "!tar"
 {{ end }}
 
 # Exclusive
 {{ if has "exclusive" .Vars.tags }}
 command:
-  dpkg --get-selections:
+  apt-mark showhold:
     exit-status: 0
     stdout:
-      - "/^apt\t+install$/"
-      - "/^dpkg\t+hold$/"
-      - "/^python\t+install$/"
+      - "!apt"
+      - dpkg
+      - "!python"
+      - "!grep"
+      - "!tar"
 {{ end }}

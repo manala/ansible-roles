@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Add Mongodb 4.4 repositories
 
+### Changed
+- Handle holds by state (present|absent|ignore)
+
 ## [2.0.16] - 2020-10-06
 ### Added
 - Add 1.8 and 2.2 HAProxy repositories

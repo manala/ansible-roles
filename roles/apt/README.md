@@ -278,9 +278,15 @@ Handle your holded packages (the ones you don't want to upgrade) using:
 manala_apt_holds:
   - foo # Ensure "foo" package won't be upgraded
   - package: bar # The same with "bar" package, using verbose syntax
-    hold: true
+    state: present
   - package: baz # Ensure "baz" package *will* be upgraded
-    hold: false
+    state: absent
+  # Ignore hold
+  - package: qux
+    state: ignore
+  # Deprecated
+  - package: quux
+    hold: true # or false :)
 ```
 
 An exclusivity mode is also provided, to ensure *ALL* packages but the ones you set will be upgradable.

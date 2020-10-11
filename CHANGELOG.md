@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Apt] Handle holds by state (present|absent|ignore)
 
 ## [0.1.68] - 2020-10-09
 ### Added
