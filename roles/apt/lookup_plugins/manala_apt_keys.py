@@ -16,6 +16,8 @@ class LookupModule(LookupBase):
         keysPatterns = terms[1]
         repositories = terms[2]
 
+        itemDefault = {}
+
         # Handle repositories defined as reversed preferences
         for repository in repositories[::-1]:
             if 'key' in repository:
@@ -25,9 +27,11 @@ class LookupModule(LookupBase):
 
             items = []
 
+            item = itemDefault.copy()
+
             # Short syntax
             if isinstance(key, string_types):
-                items.append(
+                item.update(
                     keysPatterns.get(key)
                 )
             else:
@@ -35,11 +39,13 @@ class LookupModule(LookupBase):
                 if not isinstance(key, dict):
                     raise AnsibleError('Expect a dict but was a %s' % type(key))
 
-                # Check index key
+                # Check id key
                 if 'id' not in key:
                     raise AnsibleError('Expect "id" key')
 
-                items.append(key)
+                item.update(key)
+
+            items.append(item)
 
             # Merge by index key
             for item in items:
