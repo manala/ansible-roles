@@ -156,8 +156,6 @@ manala_supervisor_configs:
 manala_supervisor_configs_exclusive: true
 ```
 
-A state (present|absent) can be provided.
-
 ## Example playbook
 
 ```yaml
