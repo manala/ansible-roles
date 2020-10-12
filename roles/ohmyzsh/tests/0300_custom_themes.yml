@@ -1,0 +1,118 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+
+    - tags: [always]
+      block:
+        - apt:
+            name:
+              - git
+              - zsh
+            install_recommends: false
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/custom_themes/default
+            state: absent
+        - import_role:
+            name: manala.ohmyzsh
+          vars:
+            manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/default
+            manala_ohmyzsh_custom_themes:
+              - file: foo.zsh-theme
+                config: |
+                  PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
+              - file: bar.zsh-theme
+                state: present
+              - file: baz.zsh-theme
+                state: absent
+              - file: foo_template.zsh-theme
+                template: custom_themes/foo.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/custom_themes/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/custom_themes/state/{{ item }}.zsh-theme
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.ohmyzsh
+          vars:
+            manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/state
+            manala_ohmyzsh_custom_themes:
+              - file: foo.zsh-theme
+              - file: bar.zsh-theme
+                state: absent
+              - file: baz.zsh-theme
+                state: present
+              - file: qux.zsh-theme
+                state: ignore
+              - file: quux.zsh-theme
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/custom_themes/defaults
+            state: absent
+        - import_role:
+            name: manala.ohmyzsh
+          vars:
+            manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/defaults
+            manala_ohmyzsh_custom_themes_defaults:
+              template: custom_themes/foo.j2
+            manala_ohmyzsh_custom_themes:
+              - file: foo.zsh-theme
+              - file: bar.zsh-theme
+                template: custom_themes/bar.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/custom_themes/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/custom_themes/exclusive/{{ item }}.conf
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.ohmyzsh
+          vars:
+            manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/exclusive
+            manala_ohmyzsh_custom_themes_exclusive: true
+            manala_ohmyzsh_custom_themes:
+              - file: bar.zsh-theme
+              - file: qux.zsh-theme
+                state: ignore
+              - file: quux.zsh-theme
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

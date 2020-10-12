@@ -3,6 +3,21 @@
 # Dir
 manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 
+# Custom Themes
+manala_ohmyzsh_custom_themes_exclusive: false
+manala_ohmyzsh_custom_themes_dir: "{{ manala_ohmyzsh_dir }}/custom/themes"
+manala_ohmyzsh_custom_themes_defaults: {}
+manala_ohmyzsh_custom_themes:
+  # Ensure backward compatibility
+  - file: default.dev.zsh-theme
+    template: custom/themes/default.dev.j2
+  - file: default.demo.zsh-theme
+    template: custom/themes/default.demo.j2
+  - file: default.staging.zsh-theme
+    template: custom/themes/default.staging.j2
+  - file: default.prod.zsh-theme
+    template: custom/themes/default.prod.j2
+
 # Users
 manala_ohmyzsh_users_template: ~
 manala_ohmyzsh_users: []

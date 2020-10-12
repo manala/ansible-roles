@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Ensure destination directory exists
+- Handle users state (present|ignore)
+- Handle custom themes
 
 ## [2.0.6] - 2020-08-26
 ### Changed
