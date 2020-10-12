@@ -3,19 +3,34 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_ohmyzsh_users:
-      - user: root
-        group: root
-        template: users/php.dev.j2
-  pre_tasks:
-    - apt:
-        name:
-          - git
-          - zsh
-        install_recommends: false
-  roles:
-    - manala.ohmyzsh
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  gather_facts: false
+  tasks:
+
+    - block:
+        - apt:
+            name:
+              - git
+              - zsh
+            install_recommends: false
+        - user:
+            name: "{{ item }}"
+          loop: [foo, bar, baz]
+
+    - block:
+        - import_role:
+            name: manala.ohmyzsh
+          vars:
+            manala_ohmyzsh_dir: tmp/users
+            manala_ohmyzsh_users:
+              - user: foo
+                template: users/php.dev.j2
+              - user: bar
+                template: users/php.dev.j2
+                state: present
+              - user: baz
+                template: users/php.dev.j2
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

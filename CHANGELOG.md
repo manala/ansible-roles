@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Oh My Zsh] Ensure destination directory exists
+- [Oh My Zsh] Handle users state (present|ignore)
+- [Oh My Zsh] Handle custom themes
 
 ## [0.1.69] - 2020-10-11
 ### Changed

@@ -1,0 +1,49 @@
+---
+
+- name: custom themes > Directory
+  file:
+    path: "{{ manala_ohmyzsh_custom_themes_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_ohmyzsh_custom_themes|length
+
+- name: custom themes > Exclusive
+  find:
+    path: "{{ manala_ohmyzsh_custom_themes_dir }}"
+    patterns: "*.zsh-theme"
+  changed_when: false
+  register: __manala_ohmyzsh_custom_themes_exclusive_find
+  when: manala_ohmyzsh_custom_themes_exclusive
+
+- name: custom themes > Templates present
+  template:
+    src: "{{ item.template }}"
+    dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_ohmyzsh_custom_themes,
+      __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
+      manala_ohmyzsh_custom_themes_dir,
+      manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
+      wantstate='present'
+    )
+  }}"
+
+- name: custom themes > Files absent
+  file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_ohmyzsh_custom_themes,
+      __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
+      manala_ohmyzsh_custom_themes_dir,
+      manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
+      wantstate='absent'
+    )
+  }}"

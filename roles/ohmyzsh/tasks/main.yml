@@ -1,4 +1,5 @@
 ---
+
 # Requirements
 - import_tasks: requirements.yml
   tags:
@@ -11,11 +12,13 @@
     - manala_ohmyzsh
     - manala_ohmyzsh.install
 
-# Themes
-- import_tasks: themes.yml
+# Custom Themes
+- import_tasks: custom_themes.yml
   tags:
     - manala_ohmyzsh
+    # Deprecated
     - manala_ohmyzsh.themes
+    - manala_ohmyzsh.custom_themes
 
 # Users
 - import_tasks: users.yml

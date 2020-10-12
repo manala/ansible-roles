@@ -1,0 +1,103 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/custom_themes/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/custom_themes/default/foo.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
+  tmp/custom_themes/default/foo_template.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Custom theme foo"
+  tmp/custom_themes/default/bar.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/default/baz.zsh-theme:
+    exists: false
+{{ end }}
+
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/custom_themes/state/foo.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/custom_themes/state/bar.zsh-theme:
+    exists: false
+  tmp/custom_themes/state/baz.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/custom_themes/state/qux.zsh-theme:
+    exists: true
+    filetype: file
+  tmp/custom_themes/state/quux.zsh-theme:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/custom_themes/defaults/foo.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Custom theme foo"
+  tmp/custom_themes/defaults/bar.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Custom theme bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/custom_themes/exclusive/foo.zsh-theme:
+    exists: false
+  tmp/custom_themes/exclusive/bar.zsh-theme:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/custom_themes/exclusive/baz.zsh-theme:
+    exists: false
+  tmp/custom_themes/exclusive/qux.zsh-theme:
+    exists: false
+  tmp/custom_themes/exclusive/quux.zsh-theme:
+    exists: false
+{{ end }}

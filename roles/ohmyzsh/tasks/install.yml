@@ -1,5 +1,13 @@
 ---
 
+- name: install > Directory
+  file:
+    path: "{{ manala_ohmyzsh_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: install > Git repository
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
