@@ -21,33 +21,35 @@ class LookupModule(LookupBase):
         wantdeb = kwargs.pop('wantdeb', None)
         wantmap = kwargs.pop('wantmap', False)
 
+        packages = self._flatten(terms[0])
+
         itemDefault = {
             'state': 'present',
-            'deb':   False
+            'deb': False
         }
 
-        for term in self._flatten(terms):
+        for package in packages:
 
             items = []
 
             item = itemDefault.copy()
 
             # Short syntax
-            if isinstance(term, string_types):
+            if isinstance(package, string_types):
                 item.update({
-                    'package': term
+                    'package': package
                 })
             else:
 
                 # Must be a dict
-                if not isinstance(term, dict):
-                    raise AnsibleError('Expect a dict but was a %s' % type(term))
+                if not isinstance(package, dict):
+                    raise AnsibleError('Expect a dict but was a %s' % type(package))
 
                 # Check index key
-                if 'package' not in term:
+                if 'package' not in package:
                     raise AnsibleError('Expect "package" key')
 
-                item.update(term)
+                item.update(package)
 
                 if item['state'] not in ['present', 'absent', 'ignore']:
                     raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))

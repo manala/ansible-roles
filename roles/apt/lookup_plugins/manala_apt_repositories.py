@@ -35,7 +35,7 @@ class LookupModule(LookupBase):
         for repository in exclusives:
             item = itemDefault.copy()
             item.update({
-                'file':  repository['path'],
+                'file': repository['path'],
                 'state': 'absent'
             })
             results.append(item)
