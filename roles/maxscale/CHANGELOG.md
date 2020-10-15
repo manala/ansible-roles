@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Update apt key for MaxScale 2.4
 
 ## [2.0.4] - 2020-08-28
 ### Changed

@@ -2,8 +2,8 @@
 
 - name: Pre tasks > Maxscale (MariaDB) apt key
   apt_key:
-    file: pre_tasks/apt_keys/maxscale.pgp
-    id: 28C12247
+    file: pre_tasks/apt_keys/mariadb_entreprise.gpg
+    id: E3C94F49
 
 - name: Pre tasks > Maxscale (MariaDB) 2.4 apt repository
   apt_repository:
