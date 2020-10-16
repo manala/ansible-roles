@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.73] - 2020-10-16
+### Changed
+- [Apt] Update Maxscale 2.4 key patterns
+- [Maxscale] Update apt key for MaxScale 2.4
+
 ## [0.1.72] - 2020-10-14
 ### Fixed
 - [Mongodb] Explicitly enable service
