@@ -146,7 +146,7 @@ manala_apt_repositories_patterns:
     key: maxscale
   maxscale_2_4:
     source: deb https://downloads.mariadb.com/MaxScale/2.4/debian {{ ansible_distribution_release }} main
-    key: maxscale
+    key: mariadb_enterprise
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key: postgresql
@@ -323,6 +323,9 @@ manala_apt_keys_patterns:
   mariadb:
     url: https://raw.githubusercontent.com/MariaDB/mariadb.org-tools/master/release/create_package_tarballs/deb_files/MariaDB-C74CD1D8-public.asc
     id: C74CD1D8
+  mariadb_enterprise:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: E3C94F49
   maxscale_legacy:
     url: https://downloads.mariadb.com/MaxScale/old_key.public
     id: 8167EE24

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Update Maxscale 2.4 key patterns
 
 ## [2.0.17] - 2020-10-11
 ### Added
