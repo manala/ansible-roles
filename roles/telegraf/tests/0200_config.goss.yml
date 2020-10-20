@@ -1,12 +1,61 @@
 ---
 
 file:
-  /etc/telegraf/telegraf.conf:
+  tmp/config/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/config/default/default.conf:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - hostname = "test.manala.dev"
-      - quiet = true
+      - "/^\\[global_tags\\]$/"
+      - "/^foo = \"bar\"$/"
+      - "/^\\[agent\\]$/"
+      - "/^hostname = \"test.manala.dev\"$/"
+      - "/^quiet = true$/"
+      - "/^metric_batch_size = 1234$/"
+  tmp/config/default/default_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^\\[global_tags\\]$/"
+      - "/^  foo = \"bar\"$/"
+      - "/^\\[agent\\]$/"
+      - "/^  hostname = \"test.manala.dev\"$/"
+      - "/^  quiet = true$/"
+      - "/^  metric_batch_size = 1234$/"
+  tmp/config/default/default_content.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^\\[global_tags\\]$/"
+      - "/^  foo = \"bar\"$/"
+      - "/^\\[agent\\]$/"
+      - "/^  hostname = \"test.manala.dev\"$/"
+      - "/^  quiet = true$/"
+      - "/^  metric_batch_size = 1234$/"
+  tmp/config/default/template.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^\\[global_tags\\]$/"
+      - "/^  foo = \"bar\"$/"
+      - "/^\\[agent\\]$/"
+      - "/^  hostname = \"test.manala.dev\"$/"
+      - "/^  quiet = true$/"
+      - "/^  metric_batch_size = 1234$/"

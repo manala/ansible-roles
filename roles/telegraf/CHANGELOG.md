@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Config filters
+- Ensure config directory exists
+
+### Changed
+- Use unified exclusive template lookup
+- Deprecate dict's array configs
+- Don't touch config if empty or no template defined
+- Exclusive mode applied on all files (not only `*.conf`)
+- Cleanup `input_docker.conf.j2` configs template
 
 ## [2.0.6] - 2020-08-28
 ### Changed

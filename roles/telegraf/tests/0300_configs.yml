@@ -1,51 +1,147 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.test
-    manala_telegraf_configs:
-      - file: minimal_config.conf
-        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
-      - file: foo.conf
-        template: configs/input_cpu.conf.j2
-        config:
-          - percpu: true
-          - totalcpu: false
-          - tags:
-            - tag-1: foo
-            - tag-2: bar
-          - tagdrop:
-            - cpu: [cpu6, cpu7]
-      - file: bar.conf
-        template: "{{ playbook_dir }}/fixtures/custom.j2"
-        state: present
-      - file: baz.conf
-        state: absent
-  pre_tasks:
-    - import_tasks: pre_tasks/influxdata.yml
-  roles:
-    - manala.telegraf
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_telegraf_configs_dir: /etc/telegraf/telegraf.d.test
-    manala_telegraf_configs:
-      - file: minimal_config.conf
-        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
-      - file: foo.conf
-      - file: bar.conf
-        state: absent
-      - file: baz.conf
-        state: present
-  roles:
-    - manala.telegraf
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - block:
+        - import_tasks: pre_tasks/influxdata.yml
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.telegraf
+          vars:
+            manala_telegraf_configs_dir: tmp/configs/default
+            manala_telegraf_configs:
+              # Default
+              - file: default.conf
+                config:
+                  inputs:
+                    cpu:
+                      - percpu: true
+                        totalcpu: false
+                        tags:
+                          tag-1: foo
+                          tag-2: bar
+                        tagdrop:
+                          cpu: [cpu6, cpu7]
+              # Default - Content
+              - file: default_content.conf
+                config: |
+                  [[inputs.cpu]]
+                    percpu = true
+                    totalcpu = false
+
+                    [inputs.cpu.tags]
+                      tag-1 = "foo"
+                      tag-2 = "bar"
+
+                    [inputs.cpu.tagdrop]
+                      cpu = ["cpu6", "cpu7"]
+              # Template
+              - file: template.conf
+                template: configs/foo.conf.j2
+              # Template - Deprecated
+              - file: template_deprecated.conf
+                template: configs/input_cpu.conf.j2
+                config:
+                  - percpu: true
+                  - totalcpu: false
+                  - tags:
+                    - tag-1: foo
+                    - tag-2: bar
+                  - tagdrop:
+                    - cpu: [cpu6, cpu7]
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}.conf
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.telegraf
+            tasks_from: configs
+          vars:
+            manala_telegraf_configs_dir: tmp/configs/state
+            manala_telegraf_configs:
+              - file: foo.conf
+              - file: bar.conf
+                state: absent
+              - file: baz.conf
+                state: present
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.telegraf
+            tasks_from: configs
+          vars:
+            manala_telegraf_configs_dir: tmp/configs/defaults
+            manala_telegraf_configs_defaults:
+              template: configs/foo.conf.j2
+            manala_telegraf_configs:
+              - file: foo.conf
+              - template: configs/bar.conf.j2
+              - file: baz.conf
+                template: configs/bar.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}.conf
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.telegraf
+            tasks_from: configs
+          vars:
+            manala_telegraf_configs_dir: tmp/configs/exclusive
+            manala_telegraf_configs_exclusive: true
+            manala_telegraf_configs:
+              - file: bar.conf
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

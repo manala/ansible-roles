@@ -1,5 +1,9 @@
 ---
 
+package:
+  telegraf:
+    installed: true
+
 service:
   telegraf:
     enabled: true

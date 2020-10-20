@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Telegraf] Config filters
+- [Telegraf] Ensure config directory exists
+
 ### Changed
 - [Apt] Configs file names based on template name if not provided
 - [Motd] Scripts file names based on template name if not provided
@@ -13,6 +17,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Sudo] Sudoers file names based on template name if not provided
 - [Supervisor] Config file names based on template name if not provided
 - [Supervisor] Exclusive mode applied on all files (not only `*.conf`)
+- [Telegraf] Use unified exclusive template lookup
+- [Telegraf] Deprecate dict's array configs
+- [Telegraf] Don't touch config if empty or no template defined
+- [Telegraf] Exclusive mode applied on all files (not only `*.conf`)
+- [Telegraf] Cleanup `input_docker.conf.j2` configs template
 
 ## [0.1.73] - 2020-10-16
 ### Changed

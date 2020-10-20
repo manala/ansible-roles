@@ -1,0 +1,102 @@
+{% set config = {
+  'global_tags': {},
+  'agent': {},
+} | combine(manala_telegraf_config|default({}, true)) -%}
+
+# Telegraf Configuration
+#
+# Telegraf is entirely plugin driven. All metrics are gathered from the
+# declared inputs, and sent to the declared outputs.
+#
+# Plugins must be declared in here to be active.
+# To deactivate a plugin, comment out the name and any variables.
+#
+# Use 'telegraf -config telegraf.conf -test' to see what metrics a config
+# file would generate.
+#
+# Environment variables can be used anywhere in this config file, simply surround
+# them with ${}. For strings the variable must be within quotes (ie, "${STR_VAR}"),
+# for numbers and booleans they should be plain (ie, ${INT_VAR}, ${BOOL_VAR})
+
+
+# Global tags can be specified here in key="value" format.
+[global_tags]
+  # dc = "us-east-1" # will tag all metrics with dc=us-east-1
+  # rack = "1a"
+  ## Environment variables can be used as tags, and throughout the config file
+  # user = "$USER"
+  {{- config.global_tags | manala_telegraf_config_parameters }}
+
+
+# Configuration for telegraf agent
+[agent]
+  ## Default data collection interval for all inputs
+  {{ config.agent | manala_telegraf_config_parameter('interval', default='10s') }}
+  ## Rounds collection interval to 'interval'
+  ## ie, if interval="10s" then always collect on :00, :10, :20, etc.
+  {{ config.agent | manala_telegraf_config_parameter('round_interval', default=true) }}
+
+  ## Telegraf will send metrics to outputs in batches of at most
+  ## metric_batch_size metrics.
+  ## This controls the size of writes that Telegraf sends to output plugins.
+  {{ config.agent | manala_telegraf_config_parameter('metric_batch_size', default=1000) }}
+
+  ## Maximum number of unwritten metrics per output.  Increasing this value
+  ## allows for longer periods of output downtime without dropping metrics at the
+  ## cost of higher maximum memory usage.
+  {{ config.agent | manala_telegraf_config_parameter('metric_buffer_limit', default=10000) }}
+
+  ## Collection jitter is used to jitter the collection by a random amount.
+  ## Each plugin will sleep for a random time within jitter before collecting.
+  ## This can be used to avoid many plugins querying things like sysfs at the
+  ## same time, which can have a measurable effect on the system.
+  {{ config.agent | manala_telegraf_config_parameter('collection_jitter', default='0s') }}
+
+  ## Default flushing interval for all outputs. Maximum flush_interval will be
+  ## flush_interval + flush_jitter
+  {{ config.agent | manala_telegraf_config_parameter('flush_interval', default='10s') }}
+  ## Jitter the flush interval by a random amount. This is primarily to avoid
+  ## large write spikes for users running a large number of telegraf instances.
+  ## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s
+  {{ config.agent | manala_telegraf_config_parameter('flush_jitter', default='0s') }}
+
+  ## By default or when set to "0s", precision will be set to the same
+  ## timestamp order as the collection interval, with the maximum being 1s.
+  ##   ie, when interval = "10s", precision will be "1s"
+  ##       when interval = "250ms", precision will be "1ms"
+  ## Precision will NOT be used for service inputs. It is up to each individual
+  ## service input to set the timestamp at the appropriate precision.
+  ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
+  {{ config.agent | manala_telegraf_config_parameter('precision', default='') }}
+
+  ## Log at debug level.
+  {{ config.agent | manala_telegraf_config_parameter('debug', default=false, comment=true) }}
+  ## Log only error level messages.
+  {{ config.agent | manala_telegraf_config_parameter('quiet', default=false, comment=true) }}
+
+  ## Log target controls the destination for logs and can be one of "file",
+  ## "stderr" or, on Windows, "eventlog".  When set to "file", the output file
+  ## is determined by the "logfile" setting.
+  {{ config.agent | manala_telegraf_config_parameter('logtarget', default='file', comment=true) }}
+
+  ## Name of the file to be logged to when using the "file" logtarget.  If set to
+  ## the empty string then logs are written to stderr.
+  {{ config.agent | manala_telegraf_config_parameter('logfile', default='', comment=true) }}
+
+  ## The logfile will be rotated after the time interval specified.  When set
+  ## to 0 no time based rotation is performed.  Logs are rotated only when
+  ## written to, if there is no log activity rotation may be delayed.
+  {{ config.agent | manala_telegraf_config_parameter('logfile_rotation_interval', default='0d', comment=true) }}
+
+  ## The logfile will be rotated when it becomes larger than the specified
+  ## size.  When set to 0 no size based rotation is performed.
+  {{ config.agent | manala_telegraf_config_parameter('logfile_rotation_max_size', default='0MB', comment=true) }}
+
+  ## Maximum number of rotated archives to keep, any older logs are deleted.
+  ## If set to -1, no archives are removed.
+  {{ config.agent | manala_telegraf_config_parameter('logfile_rotation_max_archives', default=5, comment=true) }}
+
+  ## Override default hostname, if empty use os.Hostname()
+  {{ config.agent | manala_telegraf_config_parameter('hostname', default='') }}
+  ## If set to true, do no set the "host" tag in the telegraf agent.
+  {{ config.agent | manala_telegraf_config_parameter('omit_hostname', default=false) }}

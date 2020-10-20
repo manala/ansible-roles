@@ -34,42 +34,117 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default              | Type   | Description                                  |
-| ------------------------------------------ | -------------------- | ------ | -------------------------------------------- |
-| `manala_telegraf_install_packages`         | ~                    | String | Dependency packages to install               |
-| `manala_telegraf_install_packages_default` | ['telegraf']         | String | Default dependency packages to install       |
-| `manala_telegraf_config_template`          | 'config/default.j2'  | String | Main configuration base template path        |
-| `manala_telegraf_config`                   | []                   | Array  | Main configuration directives                |
-| `manala_telegraf_configs_template`         | 'configs/empty.j2'   | String | Additional configurations base template path |
-| `manala_telegraf_configs`                  | []                   | Array  | Additional configurations directives         |
-| `manala_telegraf_configs_exclusive`        | false                | Array  | Additional configurations exclusivity        |
+| Name                                       | Default                    | Type         | Description                              |
+| ------------------------------------------ | -------------------------- | ------------ | ---------------------------------------- |
+| `manala_telegraf_install_packages`         | ~                          | String       | Dependency packages to install           |
+| `manala_telegraf_install_packages_default` | ['telegraf']               | String       | Default dependency packages to install   |
+| `manala_telegraf_config_template`          | 'config/_default.j2'       | String       | Main configuration base template path    |
+| `manala_telegraf_config`                   | ~                          | Array/String | Main configuration directives            |
+| `manala_telegraf_configs_exclusive`        | false                      | Array        | Additional configurations exclusivity    |
+| `manala_telegraf_configs_dir`              | '/etc/telegraf/telegraf.d' | String       | Additional configurations directory path |
+| `manala_telegraf_configs_defaults`         | {}                         | Array        | Additional configurations defaults       |
+| `manala_telegraf_configs`                  | []                         | Array        | Additional configurations directives     |
 
 ### Configuration example
 
 See https://github.com/influxdata/telegraf/blob/master/docs/CONFIGURATION.md
 
+Use telegraf default base config template (recommended):
+```yaml
+manala_telegraf_config_template: config/telegraf/base/telegraf.conf.j2
+manala_telegraf_config:
+  global_tags:
+    foo: bar
+  agent:
+    hostname: "{{ ansible_fqdn }}"
+```
+
+Start from a fresh empty main config, using dict parameters:
+```yaml
+manala_telegraf_config:
+  agent:
+    hostname: "{{ ansible_fqdn }}"
+    quiet: true
+  outputs:
+    file:
+      - files: [/dev/null]
+        ...
+```
+
+Use raw main config:
+```yaml
+manala_telegraf_config: |
+[agent]
+  hostname = "{{ ansible_fqdn }}"
+  quiet = true
+
+[[outputs.file]]
+  files = ["/dev/null"]
+  ...
+```
+
+Use dict's array parameters (deprecated):
 ```yaml
 manala_telegraf_config:
   - agent:
     - hostname: "{{ ansible_fqdn }}"
     - quiet: true
+```
 
-manala_telegraf_configs_exclusive: true
+Additionnal configurations:
+```yaml
 manala_telegraf_configs:
-  - file:     output_influxdb.conf
-    template: configs/output_influxdb.conf.j2
+  # Config based
+  - file: config.conf
     config:
-      - urls: ["udp://127.0.0.1:8090"]
-      - database: telegraf
-      - username: telegraf
-      - password: password
-  - file:     input_system.conf
-    template: configs/input_system.conf.j2
-  - file:     input_cpu.conf
+      inputs:
+        cpu:
+          - percpu: true
+            totalcpu: false
+            tags:
+              tag-1: foo
+              tag-2: bar
+            tagdrop:
+              cpu: [cpu6, cpu7]
+  # Content based
+  - file: content.conf
+    config: |
+      [[inputs.cpu]]
+        percpu = true
+        totalcpu = false
+
+        [inputs.cpu.tags]
+          tag-1 = "foo"
+          tag-2 = "bar"
+
+        [inputs.cpu.tagdrop]
+          cpu = ["cpu6", "cpu7"]
+  # Template based (file name based on template)
+  - template: telegraf/bar.conf.j2
+    config:
+      foo: bar
+  # Template based (force file name)
+  - file: baz.conf
+    template: telegraf/bar.conf.j2
+    config:
+      foo: bar
+  # Template dicts array based (deprecated)
+  - file: template_deprecated.conf
     template: configs/input_cpu.conf.j2
-  - file:     input_custom.conf
-    template: telegraf/input_custom.conf.j2
-    state:    absent
+    config:
+      - percpu: true
+      - totalcpu: false
+      - tags:
+        - tag-1: foo
+        - tag-2: bar
+      - tagdrop:
+        - cpu: [cpu6, cpu7]
+```
+
+`manala_telegraf_configs_exclusive` allow you to clean up existing telegraf configuration files into directory defined by the `manala_telegraf_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
+
+```yaml
+manala_telegraf_configs_exclusive: true
 ```
 
 ## Example playbook
@@ -77,7 +152,7 @@ manala_telegraf_configs:
 ```yaml
 - hosts: all
   roles:
-    - { role: manala.telegraf }
+    - role: manala.telegraf
 ```
 
 # Licence
