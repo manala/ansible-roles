@@ -3,19 +3,87 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    # Telegraf require one configured input and output to run.
-    manala_telegraf_configs:
-      - file: minimal_config.conf
-        template: "{{ playbook_dir }}/fixtures/minimal_config.j2"
-    manala_telegraf_config:
-      - agent:
-        - hostname: test.manala.dev
-        - quiet: true
-  pre_tasks:
-    - import_tasks: pre_tasks/influxdata.yml
-  roles:
-    - manala.telegraf
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/influxdata.yml
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: absent
+        # Default
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.telegraf
+          vars:
+            manala_telegraf_config_file: tmp/config/default/default.conf
+            manala_telegraf_config:
+              global_tags:
+                foo: bar
+              agent:
+                hostname: test.manala.dev
+                quiet: true
+                metric_batch_size: 1234
+              outputs:
+                file:
+                  - files: [/dev/null]
+              inputs:
+                cpu:
+                  - {}
+        # Default - Deprecated
+        - import_role:
+            name: manala.telegraf
+            tasks_from: config
+          vars:
+            manala_telegraf_config_file: tmp/config/default/default_deprecated.conf
+            manala_telegraf_config:
+              - global_tags:
+                - foo: bar
+              - agent:
+                - hostname: test.manala.dev
+                - quiet: true
+                - metric_batch_size: 1234
+        # Default - Content
+        - import_role:
+            name: manala.telegraf
+            tasks_from: config
+          vars:
+            manala_telegraf_config_file: tmp/config/default/default_content.conf
+            manala_telegraf_config: |
+              [global_tags]
+                foo = "bar"
+
+              [agent]
+                hostname = "test.manala.dev"
+                quiet = true
+                metric_batch_size = 1234
+
+              [[outputs.file]]
+                files = ["/dev/null"]
+
+              [[inputs.cpu]]
+        # Template
+        - import_role:
+            name: manala.telegraf
+            tasks_from: config
+          vars:
+            manala_telegraf_config_file: tmp/config/default/template.conf
+            manala_telegraf_config_template: config/telegraf/base/telegraf.conf.j2
+            manala_telegraf_config:
+              global_tags:
+                foo: bar
+              agent:
+                hostname: test.manala.dev
+                quiet: true
+                metric_batch_size: 1234
+              outputs:
+                file:
+                  - files: [/dev/null]
+              inputs:
+                cpu:
+                  - {}
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

@@ -1,3 +1,5 @@
+{#- Deprecated -#}
+
 {%- import '_macros.j2' as macros with context -%}
 
 {% set config = item.config|default([]) -%}
@@ -7,24 +9,24 @@
   ## Docker Endpoint
   ##   To use TCP, set endpoint = "tcp://[ip]:[port]"
   ##   To use environment variables (ie, docker-machine), set endpoint = "ENV"
-  {{ macros.config_row(config, 'endpoint', 'endpoint = "unix:///var/run/docker.sock"', 0, true) }}
+  {{ macros.config_row(config, 'endpoint', 'unix:///var/run/docker.sock') }}
 
   ## Set to true to collect Swarm metrics(desired_replicas, running_replicas)
   ## Note: configure this in one of the manager nodes in a Swarm cluster.
   ## configuring in multiple Swarm managers results in duplication of metrics.
-  {{ macros.config_row(config, 'gather_services', 'gather_services = false', 0, true) }}
+  {{ macros.config_row(config, 'gather_services', false) }}
 
   ## Only collect metrics for these containers. Values will be appended to
   ## container_name_include.
   ## Deprecated (1.4.0), use container_name_include
-  {{ macros.config_row(config, 'container_names', 'container_names = []', 0, true) }}
+  {{ macros.config_row(config, 'container_names', []) }}
 
   ## Set the source tag for the metrics to the container ID hostname, eg first 12 chars
   source_tag = false
 
   ## Containers to include and exclude. Collect all if empty. Globs accepted.
-  {{ macros.config_row(config, 'container_name_include', 'container_name_include = []', 0, true) }}
-  {{ macros.config_row(config, 'container_name_exclude', 'container_name_exclude = []', 0, true) }}
+  {{ macros.config_row(config, 'container_name_include', []) }}
+  {{ macros.config_row(config, 'container_name_exclude', []) }}
 
   ## Container states to include and exclude. Globs accepted.
   ## When empty only containers in the "running" state will be captured.
@@ -34,22 +36,22 @@
   {{ macros.config_row(config, 'container_state_exclude', '# container_state_exclude = []', 0, true) }}
 
   ## Timeout for docker list, info, and stats commands
-  {{ macros.config_row(config, 'timeout', 'timeout = "5s"', 0, true) }}
+  {{ macros.config_row(config, 'timeout', '5s') }}
 
   ## Whether to report for each container per-device blkio (8:0, 8:1...) and
   ## network (eth0, eth1, ...) stats or not
-  {{ macros.config_row(config, 'perdevice', 'perdevice = true', 0, true) }}
+  {{ macros.config_row(config, 'perdevice', true) }}
 
   ## Whether to report for each container total blkio and network stats or not
-  {{ macros.config_row(config, 'total', 'total = false', 0, true) }}
+  {{ macros.config_row(config, 'total', false) }}
 
   ## docker labels to include and exclude as tags.  Globs accepted.
   ## Note that an empty array for both will include all labels as tags
-  {{ macros.config_row(config, 'docker_label_include', 'docker_label_include = []', 0, true) }}
-  {{ macros.config_row(config, 'docker_label_exclude', 'docker_label_exclude = []', 0, true) }}
+  {{ macros.config_row(config, 'docker_label_include', []) }}
+  {{ macros.config_row(config, 'docker_label_exclude', []) }}
 
   ## Which environment variables should we use as a tag
-  {{ macros.config_row(config, 'tag_env', 'tag_env = ["JAVA_HOME", "HEAP_SIZE"]', 0, true) }}
+  {{ macros.config_row(config, 'tag_env', ['JAVA_HOME', 'HEAP_SIZE']) }}
 
   ## Optional TLS Config
   {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}

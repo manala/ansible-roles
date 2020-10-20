@@ -1,6 +1,13 @@
-{%- import '_macros.j2' as macros with context -%}
-
 {% set config = manala_telegraf_config -%}
+
+{%- if config is mapping -%}
+
+{{ config | manala_telegraf_config }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
 
 {% set config_global_tags = [] -%}
 {% set config_agent = [] -%}
@@ -102,3 +109,9 @@
   {{ macros.config_row(config_agent, 'hostname', '') }}
   ## If set to true, do no set the "host" tag in the telegraf agent.
   {{ macros.config_row(config_agent, 'omit_hostname', false) }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}
