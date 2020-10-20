@@ -23,7 +23,8 @@
           vars:
             manala_supervisor_configs_dir: tmp/configs/default
             manala_supervisor_configs:
-              - file: foo.conf
+              # Default
+              - file: default.conf
                 config:
                   program:foo:
                     command: /bin/foo
@@ -37,7 +38,8 @@
                     command: /bin/bar
                   group:foo:
                     programs: [foo, bar]
-              - file: foo_deprecated.conf
+              # Default - Deprecated
+              - file: default_deprecated.conf
                 config:
                   - program:foo:
                     - command: /bin/foo
@@ -49,7 +51,8 @@
                     - command: /bin/bar
                   - group:foo:
                     - programs: foo,bar
-              - file: foo_content.conf
+              # Default - Content
+              - file: default_content.conf
                 config: |
                   [program:foo]
                   command=/bin/foo
@@ -63,13 +66,11 @@
 
                   [group:foo]
                   programs=foo,bar
-              - file: bar.conf
-                state: present
-              - file: baz.conf
-                state: absent
-              - file: foo_template.conf
-                template: configs/foo.j2
-              - file: foo_template_deprecated.conf
+              # Template
+              - file: template.conf
+                template: configs/foo.conf.j2
+              # Template - Deprecated
+              - file: template_deprecated.conf
                 template: configs/app_program.dev.j2
                 config:
                   - foo:
@@ -126,11 +127,12 @@
           vars:
             manala_supervisor_configs_dir: tmp/configs/defaults
             manala_supervisor_configs_defaults:
-              template: configs/foo.j2
+              template: configs/foo.conf.j2
             manala_supervisor_configs:
               - file: foo.conf
-              - file: bar.conf
-                template: configs/bar.j2
+              - template: configs/bar.conf.j2
+              - file: baz.conf
+                template: configs/bar.conf.j2
       always:
         - name: Goss
           command: >

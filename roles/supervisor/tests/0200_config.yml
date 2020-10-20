@@ -12,10 +12,14 @@
           when: ansible_distribution_release in ['jessie']
 
     - block:
+        - file:
+            path: tmp/config/default
+            state: absent
+        # Default
         - import_role:
             name: manala.supervisor
           vars:
-            manala_supervisor_config_file: tmp/config/default.conf
+            manala_supervisor_config_file: tmp/config/default/default.conf
             manala_supervisor_config:
               unix_http_server:
                 file: /tmp/supervisor.sock
@@ -23,10 +27,11 @@
                 chown: nobody:nogroup
               supervisord:
                 logfile: /var/log/supervisord.log
+        # Default - Deprecated
         - import_role:
             name: manala.supervisor
           vars:
-            manala_supervisor_config_file: tmp/config/default_deprecated.conf
+            manala_supervisor_config_file: tmp/config/default/default_deprecated.conf
             manala_supervisor_config:
               - unix_http_server:
                 - file: /tmp/supervisor.sock
@@ -34,10 +39,11 @@
                 - chown: nobody:nogroup
               - supervisord:
                 - logfile: /var/log/supervisord.log
+        # Default - Content
         - import_role:
             name: manala.supervisor
           vars:
-            manala_supervisor_config_file: tmp/config/default_content.conf
+            manala_supervisor_config_file: tmp/config/default/default_content.conf
             manala_supervisor_config: |
               [unix_http_server]
               file=/tmp/supervisor.sock
@@ -46,10 +52,11 @@
 
               [supervisord]
               logfile=/var/log/supervisord.log
+        # Template
         - import_role:
             name: manala.supervisor
           vars:
-            manala_supervisor_config_file: tmp/config/template.conf
+            manala_supervisor_config_file: tmp/config/default/template.conf
             manala_supervisor_config_template: config/debian.j2
             manala_supervisor_config:
               unix_http_server:
@@ -58,10 +65,11 @@
                 chown: nobody:nogroup
               supervisord:
                 logfile: /var/log/supervisord.log
+        # Template - Deprecated
         - import_role:
             name: manala.supervisor
           vars:
-            manala_supervisor_config_file: tmp/config/template_deprecated.conf
+            manala_supervisor_config_file: tmp/config/default/template_deprecated.conf
             manala_supervisor_config_template: config/default.dev.j2
             manala_supervisor_config:
               - unix_http_server:

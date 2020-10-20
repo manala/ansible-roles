@@ -91,8 +91,10 @@ A state (present|absent|ignore) can be provided.
 
 ```yaml
 manala_apt_configs:
-  # Template based
-  - file: foo_template
+  # Template based (file name based on template)
+  - template: configs/check_valid_until_false.j2
+  # Template based (force file name)
+  - file: check
     template: configs/check_valid_until_false.j2
   # Content based
   - file: foo_content

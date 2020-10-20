@@ -16,18 +16,17 @@
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/default
             manala_sudo_sudoers:
-              - file: foo
+              # Default - Content
+              - file: default_content
                 config: |
                   foo ALL=NOPASSWD:ALL
-              - file: foo_deprecated
+              # Default - Deprecated
+              - file: default_deprecated
                 config:
                   - foo: ALL=NOPASSWD:ALL
-              - file: foo_template
+              # Template
+              - file: template
                 template: sudoers/foo.j2
-              - file: bar
-                state: present
-              - file: baz
-                state: absent
       always:
         - name: Goss
           command: >
@@ -77,7 +76,8 @@
               template: sudoers/foo.j2
             manala_sudo_sudoers:
               - file: foo
-              - file: bar
+              - template: sudoers/bar.j2
+              - file: baz
                 template: sudoers/bar.j2
       always:
         - name: Goss

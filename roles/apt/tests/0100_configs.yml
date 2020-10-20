@@ -16,7 +16,21 @@
           vars:
             manala_apt_configs_dir: tmp/configs/default
             manala_apt_configs:
-              - file: foo
+              # Default - Deprecated
+              - file: default_deprecated
+                config:
+                  - Acquire::Check-Valid-Until: true
+                  - APT:
+                    - Get:
+                      - Assume-Yes: true
+                      - Fix-Broken: false
+                      - Proxy: ftp://proxy:2121/
+                      - SuggestsImportant: 42
+                    - NeverAutoRemove:
+                      - ^firmware-linux.*
+                      - ^linux-firmware$
+              # Default - Content
+              - file: default_content
                 config: |
                   Acquire::Check-Valid-Until "true";
                   APT {
@@ -31,24 +45,9 @@
                       "^linux-firmware$";
                     };
                   };
-              - file: foo_deprecated
-                config:
-                  - Acquire::Check-Valid-Until: true
-                  - APT:
-                    - Get:
-                      - Assume-Yes: true
-                      - Fix-Broken: false
-                      - Proxy: ftp://proxy:2121/
-                      - SuggestsImportant: 42
-                    - NeverAutoRemove:
-                      - ^firmware-linux.*
-                      - ^linux-firmware$
-              - file: foo_template
+              # Template
+              - file: template
                 template: configs/foo.j2
-              - file: bar
-                state: present
-              - file: baz
-                state: absent
       always:
         - name: Goss
           command: >
@@ -98,7 +97,8 @@
               template: configs/foo.j2
             manala_apt_configs:
               - file: foo
-              - file: bar
+              - template: configs/bar.j2
+              - file: baz
                 template: configs/bar.j2
       always:
         - name: Goss

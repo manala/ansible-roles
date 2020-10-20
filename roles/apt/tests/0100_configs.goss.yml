@@ -9,7 +9,7 @@ file:
     owner: root
     group: root
     mode: "0755"
-  tmp/configs/default/foo:
+  tmp/configs/default/default_deprecated:
     exists: true
     filetype: file
     owner: root
@@ -29,7 +29,7 @@ file:
       - "    \"^linux-firmware$\";"
       - "  };"
       - "};"
-  tmp/configs/default/foo_deprecated:
+  tmp/configs/default/default_content:
     exists: true
     filetype: file
     owner: root
@@ -49,23 +49,14 @@ file:
       - "    \"^linux-firmware$\";"
       - "  };"
       - "};"
-  tmp/configs/default/foo_template:
+  tmp/configs/default/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - "Config foo"
-  tmp/configs/default/bar:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0644"
-    size: 1
-  tmp/configs/default/baz:
-    exists: false
+      - "Configs foo"
 {{ end }}
 
 # State
@@ -104,7 +95,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "Config foo"
+      - "Configs foo"
   tmp/configs/defaults/bar:
     exists: true
     filetype: file
@@ -112,7 +103,15 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "Config bar"
+      - "Configs bar"
+  tmp/configs/defaults/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
 {{ end }}
 
 # Exclusive

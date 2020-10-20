@@ -9,7 +9,7 @@ file:
     owner: root
     group: root
     mode: "0755"
-  tmp/sudoers/default/foo:
+  tmp/sudoers/default/default_content:
     exists: true
     filetype: file
     owner: root
@@ -17,7 +17,7 @@ file:
     mode: "0440"
     contains:
       - "foo ALL=NOPASSWD:ALL"
-  tmp/sudoers/default/foo_deprecated:
+  tmp/sudoers/default/default_deprecated:
     exists: true
     filetype: file
     owner: root
@@ -25,23 +25,14 @@ file:
     mode: "0440"
     contains:
       - "foo ALL=NOPASSWD:ALL"
-  tmp/sudoers/default/foo_template:
+  tmp/sudoers/default/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0440"
     contains:
-      - "Sudoer foo"
-  tmp/sudoers/default/bar:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0440"
-    size: 1
-  tmp/sudoers/default/baz:
-    exists: false
+      - "Sudoers foo"
 {{ end }}
 
 # State
@@ -80,7 +71,7 @@ file:
     group: root
     mode: "0440"
     contains:
-      - "Sudoer foo"
+      - "Sudoers foo"
   tmp/sudoers/defaults/bar:
     exists: true
     filetype: file
@@ -88,7 +79,15 @@ file:
     group: root
     mode: "0440"
     contains:
-      - "Sudoer bar"
+      - "Sudoers bar"
+  tmp/sudoers/defaults/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0440"
+    contains:
+      - "Sudoers bar"
 {{ end }}
 
 # Exclusive

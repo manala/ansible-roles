@@ -60,7 +60,7 @@ Using ansible galaxy requirements file:
 
 Use debian default main config template (recommended):
 ```yaml
-manala_supervisor_config_template: config/debian.j2
+manala_supervisor_config_template: config/debian/supervisord.conf.j2
 manala_supervisor_config:
   supervisord:
     logfile: /var/log/supervisord.log # Change or add only some parameters
@@ -100,10 +100,15 @@ manala_supervisor_config:
 Enable http server:
 ```yaml
 manala_supervisor_configs:
-  - file: inet_http_server.conf
-    template: configs/inet_http_server.j2
+  # Template based (file name based on template)
+  - template: configs/inet_http_server.conf.j2 # File name based on template name
     config:
       port: "*:9001"
+  # Template based (force file name)
+  - file: inet.conf
+    template: configs/inet_http_server.conf.j2 # File name based on template name
+    config:
+      port: "*:9001"      
 ```
 
 Programs:

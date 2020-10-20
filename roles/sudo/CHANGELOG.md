@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Sudoers file names based on template name if not provided
 
 ## [2.0.4] - 2020-09-29
 ### Added

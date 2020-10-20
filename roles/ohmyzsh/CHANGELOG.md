@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Custom theme file names based on template name if not provided
+- Exclusive mode applied on all files (not only `*.zsh-theme`)
 
 ## [2.0.8] - 2020-10-13
 ### Changed

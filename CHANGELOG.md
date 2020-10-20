@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Apt] Configs file names based on template name if not provided
+- [Motd] Scripts file names based on template name if not provided
+- [Oh My Zsh] Custom theme file names based on template name if not provided
+- [Oh My Zsh] Exclusive mode applied on all files (not only `*.zsh-theme`)
+- [Sudo] Sudoers file names based on template name if not provided
+- [Supervisor] Config file names based on template name if not provided
+- [Supervisor] Exclusive mode applied on all files (not only `*.conf`)
 
 ## [0.1.73] - 2020-10-16
 ### Changed
