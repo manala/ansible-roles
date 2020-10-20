@@ -16,14 +16,14 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[\\[inputs.cpu\\]\\]$/"
-      - "/^percpu = true$/"
-      - "/^totalcpu = false$/"
-      - "/^\\[inputs.cpu.tags\\]$/"
-      - "/^tag-1 = \"foo\"$/"
-      - "/^tag-2 = \"bar\"$/"
-      - "/^\\[inputs.cpu.tagdrop\\]$/"
-      - "/^cpu = \\[\"cpu6\", \"cpu7\"\\]$/"
+      - "[[inputs.cpu]]"
+      - "percpu = true"
+      - "totalcpu = false"
+      - "[inputs.cpu.tags]"
+      - 'tag-1 = "foo"'
+      - 'tag-2 = "bar"'
+      - "[inputs.cpu.tagdrop]"
+      - 'cpu = ["cpu6", "cpu7"]'
   tmp/configs/default/default_content.conf:
     exists: true
     filetype: file
@@ -31,14 +31,14 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[\\[inputs.cpu\\]\\]$/"
-      - "/^  percpu = true$/"
-      - "/^  totalcpu = false$/"
-      - "/^  \\[inputs.cpu.tags\\]$/"
-      - "/^    tag-1 = \"foo\"$/"
-      - "/^    tag-2 = \"bar\"$/"
-      - "/^  \\[inputs.cpu.tagdrop\\]$/"
-      - "/^    cpu = \\[\"cpu6\", \"cpu7\"\\]$/"
+      - "[[inputs.cpu]]"
+      - "  percpu = true"
+      - "  totalcpu = false"
+      - "  [inputs.cpu.tags]"
+      - '    tag-1 = "foo"'
+      - '    tag-2 = "bar"'
+      - "  [inputs.cpu.tagdrop]"
+      - '    cpu = ["cpu6", "cpu7"]'
   tmp/configs/default/template.conf:
     exists: true
     filetype: file
@@ -46,7 +46,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^Configs foo$/"
+      - "Configs foo"
   tmp/configs/default/template_deprecated.conf:
     exists: true
     filetype: file
@@ -54,14 +54,14 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[\\[inputs.cpu\\]\\]$/"
-      - "/^  percpu = true$/"
-      - "/^  totalcpu = false$/"
-      - "/^  \\[inputs.cpu.tags\\]$/"
-      - "/^    tag-1 = \"foo\"$/"
-      - "/^    tag-2 = \"bar\"$/"
-      - "/^  \\[inputs.cpu.tagdrop\\]$/"
-      - "/^    cpu = \\[\"cpu6\", \"cpu7\"\\]$/"
+      - "[[inputs.cpu]]"
+      - "  percpu = true"
+      - "  totalcpu = false"
+      - "  [inputs.cpu.tags]"
+      - '    tag-1 = "foo"'
+      - '    tag-2 = "bar"'
+      - "  [inputs.cpu.tagdrop]"
+      - '    cpu = ["cpu6", "cpu7"]'
 {{ end }}
 
 # State
@@ -100,7 +100,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^Configs foo$/"
+      - "Configs foo"
   tmp/configs/defaults/bar.conf:
     exists: true
     filetype: file
@@ -108,7 +108,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^Configs bar$/"
+      - "Configs bar"
   tmp/configs/defaults/baz.conf:
     exists: true
     filetype: file
@@ -116,7 +116,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^Configs bar$/"
+      - "Configs bar"
 {{ end }}
 
 # Exclusive

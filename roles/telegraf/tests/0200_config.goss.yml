@@ -14,12 +14,12 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[global_tags\\]$/"
-      - "/^foo = \"bar\"$/"
-      - "/^\\[agent\\]$/"
-      - "/^hostname = \"test.manala.dev\"$/"
-      - "/^quiet = true$/"
-      - "/^metric_batch_size = 1234$/"
+      - "[global_tags]"
+      - 'foo = "bar"'
+      - "[agent]"
+      - 'hostname = "test.manala.dev"'
+      - "quiet = true"
+      - "metric_batch_size = 1234"
   tmp/config/default/default_deprecated.conf:
     exists: true
     filetype: file
@@ -27,12 +27,12 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[global_tags\\]$/"
-      - "/^  foo = \"bar\"$/"
-      - "/^\\[agent\\]$/"
-      - "/^  hostname = \"test.manala.dev\"$/"
-      - "/^  quiet = true$/"
-      - "/^  metric_batch_size = 1234$/"
+      - "[global_tags]"
+      - '  foo = "bar"'
+      - "[agent]"
+      - '  hostname = "test.manala.dev"'
+      - "  quiet = true"
+      - "  metric_batch_size = 1234"
   tmp/config/default/default_content.conf:
     exists: true
     filetype: file
@@ -40,12 +40,12 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[global_tags\\]$/"
-      - "/^  foo = \"bar\"$/"
-      - "/^\\[agent\\]$/"
-      - "/^  hostname = \"test.manala.dev\"$/"
-      - "/^  quiet = true$/"
-      - "/^  metric_batch_size = 1234$/"
+      - "[global_tags]"
+      - '  foo = "bar"'
+      - "[agent]"
+      - '  hostname = "test.manala.dev"'
+      - "  quiet = true"
+      - "  metric_batch_size = 1234"
   tmp/config/default/template.conf:
     exists: true
     filetype: file
@@ -53,9 +53,9 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "/^\\[global_tags\\]$/"
-      - "/^  foo = \"bar\"$/"
-      - "/^\\[agent\\]$/"
-      - "/^  hostname = \"test.manala.dev\"$/"
-      - "/^  quiet = true$/"
-      - "/^  metric_batch_size = 1234$/"
+      - "[global_tags]"
+      - '  foo = "bar"'
+      - "[agent]"
+      - '  hostname = "test.manala.dev"'
+      - "  quiet = true"
+      - "  metric_batch_size = 1234"
