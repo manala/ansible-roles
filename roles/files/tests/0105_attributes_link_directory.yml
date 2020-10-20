@@ -17,6 +17,7 @@
             - /tmp/directory
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory
@@ -38,6 +39,7 @@
             - /tmp/directory_sub
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory_sub
@@ -59,6 +61,7 @@
             - /tmp/directory_permissions
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_permissions
@@ -83,6 +86,7 @@
             state: link
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory_right
@@ -105,6 +109,7 @@
             - /tmp/directory_link_parents
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_parents_true/link
@@ -136,6 +141,7 @@
             state: directory
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_as_existing_file_force
@@ -167,6 +173,7 @@
             state: directory
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_as_existing_directory_empty_force
@@ -206,6 +213,7 @@
             state: directory
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_as_existing_directory_full_force
@@ -234,6 +242,7 @@
             state: touch
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory_existing_file_force
@@ -273,6 +282,7 @@
             state: link
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory_existing_link_file_force
@@ -312,6 +322,7 @@
             state: link
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory_existing_link_directory_force

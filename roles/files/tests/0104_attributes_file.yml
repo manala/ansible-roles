@@ -12,6 +12,7 @@
             state: absent
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/file

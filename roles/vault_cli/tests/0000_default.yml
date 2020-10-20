@@ -1,0 +1,15 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+
+    - block:
+        - import_role:
+            name: vault_cli
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

@@ -16,6 +16,7 @@
             - /tmp/mail
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes_defaults:
               - user: nobody

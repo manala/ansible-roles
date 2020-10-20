@@ -1,22 +1,5 @@
 ---
 
-# Latest
-{{ if has "latest" .Vars.tags }}
-file:
-  /usr/local/bin/ngrok:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0755"
-command:
-  ngrok --version:
-    exit-status: 0
-    stdout:
-      - ngrok version
-      - "!ngrok version 2.2.2"
-{{ end }}
-
 # Version
 {{ if has "version" .Vars.tags }}
 file:

@@ -8,7 +8,7 @@ file:
     group: foo
     mode: "0644"
     contains:
-      - 'export ZSH="tmp/users"'
+      - 'export ZSH="/usr/local/share/oh-my-zsh"'
       - 'plugins=(git debian common-aliases history history-substring-search npm composer symfony2 yarn)'
   /home/bar/.zshrc:
     exists: true
@@ -17,7 +17,7 @@ file:
     group: bar
     mode: "0644"
     contains:
-      - 'export ZSH="tmp/users"'
+      - 'export ZSH="/usr/local/share/oh-my-zsh"'
       - 'plugins=(git debian common-aliases history history-substring-search npm composer symfony2 yarn)'
   /home/baz/.zshrc:
     exists: false

@@ -13,6 +13,7 @@
             state: absent
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/default
             manala_sudo_sudoers:
@@ -45,6 +46,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/state
             manala_sudo_sudoers:
@@ -70,6 +72,7 @@
             state: absent
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/defaults
             manala_sudo_sudoers_defaults:
@@ -97,6 +100,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/exclusive
             manala_sudo_sudoers_exclusive: true

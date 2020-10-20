@@ -101,12 +101,12 @@ Enable http server:
 ```yaml
 manala_supervisor_configs:
   # Template based (file name based on template)
-  - template: configs/inet_http_server.conf.j2 # File name based on template name
+  - template: configs/inet_http_server.conf.j2
     config:
       port: "*:9001"
   # Template based (force file name)
   - file: inet.conf
-    template: configs/inet_http_server.conf.j2 # File name based on template name
+    template: configs/inet_http_server.conf.j2
     config:
       port: "*:9001"      
 ```

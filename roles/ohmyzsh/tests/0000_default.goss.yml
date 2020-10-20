@@ -1,7 +1,7 @@
 ---
 
 file:
-  tmp/install:
+  /usr/local/share/oh-my-zsh:
     exists: true
     filetype: directory
     owner: root
@@ -9,7 +9,7 @@ file:
     mode: "0755"
 
 command:
-  git --git-dir=tmp/install/.git --work-tree=tmp/install status:
+  git --git-dir=/usr/local/share/oh-my-zsh/.git --work-tree=/usr/local/share/oh-my-zsh status:
     exit-status: 0
     stdout:
       - On branch master

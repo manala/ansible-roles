@@ -8,6 +8,7 @@
     - block:
         - import_role:
             name: manala.apt
+            tasks_from: update
           vars:
             manala_apt:
               update: true

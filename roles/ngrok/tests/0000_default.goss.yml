@@ -1,17 +1,15 @@
 ---
 
-# Version
-{{ if has "version" .Vars.tags }}
 file:
-  /usr/local/bin/gomplate:
+  /usr/local/bin/ngrok:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0755"
+
 command:
-  gomplate --version:
+  ngrok --version:
     exit-status: 0
     stdout:
-      - gomplate version 3.6.0
-{{ end }}
+      - ngrok version

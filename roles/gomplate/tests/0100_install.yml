@@ -6,21 +6,6 @@
   gather_facts: false
   tasks:
 
-    # Latest
-    - tags: [latest]
-      block:
-        - file:
-            path: /usr/local/bin/gomplate
-            state: absent
-        - import_role:
-            name: gomplate
-          vars:
-            manala_gomplate_version: ~
-      always:
-        - name: Goss
-          command: >
-            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [latest]}" validate
-
     # Version
     - tags: [version]
       block:
@@ -29,6 +14,7 @@
             state: absent
         - import_role:
             name: gomplate
+            tasks_from: install
           vars:
             manala_gomplate_version: 3.6.0
       always:

@@ -16,6 +16,7 @@
               deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
         - import_role:
             name: manala.apt
+            tasks_from: sources_list
           vars:
             manala_apt_sources_list_file: tmp/sources_list
             manala_apt_sources_list_template: sources_list/security_updates.j2

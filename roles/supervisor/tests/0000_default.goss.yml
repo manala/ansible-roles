@@ -13,3 +13,8 @@ command:
 {{ else }}
       - "Version:"
 {{ end }}
+
+service:
+  supervisor:
+    enabled: true
+    running: true

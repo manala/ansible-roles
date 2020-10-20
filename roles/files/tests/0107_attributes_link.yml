@@ -23,6 +23,7 @@
             state: directory
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               # Link to file

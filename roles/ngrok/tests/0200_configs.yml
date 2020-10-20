@@ -9,6 +9,7 @@
     - block:
         - import_role:
             name: manala.ngrok
+            tasks_from: configs
           vars:
             manala_ngrok_configs:
               - file: config.yml

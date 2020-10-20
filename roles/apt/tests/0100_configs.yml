@@ -13,6 +13,7 @@
             state: absent
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/default
             manala_apt_configs:
@@ -66,6 +67,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/state
             manala_apt_configs:
@@ -91,6 +93,7 @@
             state: absent
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/defaults
             manala_apt_configs_defaults:
@@ -118,6 +121,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/exclusive
             manala_apt_configs_exclusive: true

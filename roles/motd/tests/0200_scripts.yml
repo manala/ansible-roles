@@ -14,6 +14,7 @@
             state: absent
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/default
             manala_motd_scripts:
@@ -46,6 +47,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/state
             manala_motd_scripts:
@@ -71,6 +73,7 @@
             state: absent
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/defaults
             manala_motd_scripts_defaults:
@@ -98,6 +101,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/exclusive
             manala_motd_scripts_exclusive: true

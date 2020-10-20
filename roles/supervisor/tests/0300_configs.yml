@@ -19,6 +19,7 @@
             path: tmp/configs/default
             state: absent
         - import_role:
+            # Play role fully on first run, so that handlers don't breaks
             name: manala.supervisor
           vars:
             manala_supervisor_configs_dir: tmp/configs/default
@@ -99,6 +100,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.supervisor
+            tasks_from: configs
           vars:
             manala_supervisor_configs_dir: tmp/configs/state
             manala_supervisor_configs:
@@ -124,6 +126,7 @@
             state: absent
         - import_role:
             name: manala.supervisor
+            tasks_from: configs
           vars:
             manala_supervisor_configs_dir: tmp/configs/defaults
             manala_supervisor_configs_defaults:
@@ -151,6 +154,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.supervisor
+            tasks_from: configs
           vars:
             manala_supervisor_configs_dir: tmp/configs/exclusive
             manala_supervisor_configs_exclusive: true

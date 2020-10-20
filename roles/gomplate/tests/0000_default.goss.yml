@@ -1,7 +1,5 @@
 ---
 
-# Version
-{{ if has "version" .Vars.tags }}
 file:
   /usr/local/bin/gomplate:
     exists: true
@@ -9,9 +7,9 @@ file:
     owner: root
     group: root
     mode: "0755"
+
 command:
   gomplate --version:
     exit-status: 0
     stdout:
-      - gomplate version 3.6.0
-{{ end }}
+      - gomplate version

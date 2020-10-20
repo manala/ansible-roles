@@ -7,17 +7,8 @@
   tasks:
 
     - block:
-        - apt:
-            name:
-              - git
-              - zsh
-            install_recommends: false
-
-    - block:
         - import_role:
-            name: manala.ohmyzsh
-          vars:
-            manala_ohmyzsh_dir: tmp/install
+            name: manala.ngrok
       always:
         - name: Goss
           command: >

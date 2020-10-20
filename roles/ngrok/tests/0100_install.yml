@@ -6,21 +6,6 @@
   gather_facts: false
   tasks:
 
-    # Latest
-    - tags: [latest]
-      block:
-        - file:
-            path: /usr/local/bin/ngrok
-            state: absent
-        - import_role:
-            name: manala.ngrok
-          vars:
-            manala_ngrok_version: ~
-      always:
-        - name: Goss
-          command: >
-            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [latest]}" validate
-
     # Version
     - tags: [version]
       block:
@@ -29,6 +14,7 @@
             state: absent
         - import_role:
             name: manala.ngrok
+            tasks_from: install
           vars:
             manala_ngrok_version: 2.2.2
       always:

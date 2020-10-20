@@ -14,6 +14,7 @@
             state: absent
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/directory
@@ -31,6 +32,7 @@
             state: touch
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/file
@@ -55,6 +57,7 @@
             state: link
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_file
@@ -79,6 +82,7 @@
             state: link
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/link_directory

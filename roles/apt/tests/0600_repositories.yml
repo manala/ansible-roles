@@ -19,6 +19,7 @@
     - tags: [default]
       block:
         - import_role:
+            # Play role fully, because of "preferences" tasks dependency
             name: manala.apt
           vars:
             manala_apt_preferences:
@@ -66,6 +67,7 @@
             repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.4', '2.4.4') }}/debian {{ ansible_distribution_release }} main
         - import_role:
             name: manala.apt
+            tasks_from: repositories
           vars:
             manala_apt_repositories:
               - source: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.1', '2.4.1') }}/debian {{ ansible_distribution_release }} main
@@ -101,6 +103,7 @@
             repo: deb https://downloads.mariadb.com/MaxScale/{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('2.2.10', '2.4.10') }}/debian {{ ansible_distribution_release }} main
         - import_role:
             name: manala.apt
+            tasks_from: repositories
           vars:
             manala_apt_repositories_exclusive: true
             manala_apt_repositories:
