@@ -18,6 +18,7 @@
             - /tmp/baz
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/foo
@@ -42,6 +43,7 @@
             - /tmp/qux
         - import_role:
             name: manala.files
+            tasks_from: attributes
           vars:
             manala_files_attributes:
               - path: /tmp/qux

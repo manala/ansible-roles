@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Configs file names based on template name if not provided
 
 ## [2.0.18] - 2020-10-16
 ### Changed

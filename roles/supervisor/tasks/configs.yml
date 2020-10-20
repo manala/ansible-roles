@@ -12,7 +12,7 @@
 - name: configs > Exclusive
   find:
     path: "{{ manala_supervisor_configs_dir }}"
-    patterns: "*.conf"
+    patterns: "*"
   changed_when: false
   register: __manala_supervisor_configs_exclusive_find
   when: manala_supervisor_configs_exclusive

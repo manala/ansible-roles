@@ -9,6 +9,7 @@
     - block:
         - import_role:
             name: manala.motd
+            tasks_from: template
           vars:
             manala_motd_template: template/manala.j2
             manala_motd_message: One of these days, I'm going to cut you into little pieces

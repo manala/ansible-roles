@@ -1,7 +1,13 @@
 ---
 
 file:
-  tmp/config/default.conf:
+  tmp/config/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/config/default/default.conf:
     exists: true
     filetype: file
     owner: root
@@ -15,7 +21,7 @@ file:
       - "chmod=0700"
       - "chown=nobody:nogroup"
       - "file=/tmp/supervisor.sock"
-  tmp/config/default_deprecated.conf:
+  tmp/config/default/default_deprecated.conf:
     exists: true
     filetype: file
     owner: root
@@ -29,7 +35,7 @@ file:
       - "[supervisord]"
       - "logfile=/var/log/supervisord.log"
       - "pidfile=/var/run/supervisord.pid"
-  tmp/config/default_content.conf:
+  tmp/config/default/default_content.conf:
     exists: true
     filetype: file
     owner: root
@@ -43,7 +49,7 @@ file:
       - "[supervisord]"
       - "logfile=/var/log/supervisord.log"
       - "!pidfile=/var/run/supervisord.pid"
-  tmp/config/template.conf:
+  tmp/config/default/template.conf:
     exists: true
     filetype: file
     owner: root
@@ -57,7 +63,7 @@ file:
       - "[supervisord]"
       - "logfile=/var/log/supervisord.log"
       - "pidfile=/var/run/supervisord.pid"
-  tmp/config/template_deprecated.conf:
+  tmp/config/default/template_deprecated.conf:
     exists: true
     filetype: file
     owner: root

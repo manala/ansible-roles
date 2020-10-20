@@ -13,10 +13,25 @@
             state: absent
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/default
             manala_apt_configs:
-              - file: foo
+              # Default - Deprecated
+              - file: default_deprecated
+                config:
+                  - Acquire::Check-Valid-Until: true
+                  - APT:
+                    - Get:
+                      - Assume-Yes: true
+                      - Fix-Broken: false
+                      - Proxy: ftp://proxy:2121/
+                      - SuggestsImportant: 42
+                    - NeverAutoRemove:
+                      - ^firmware-linux.*
+                      - ^linux-firmware$
+              # Default - Content
+              - file: default_content
                 config: |
                   Acquire::Check-Valid-Until "true";
                   APT {
@@ -31,24 +46,9 @@
                       "^linux-firmware$";
                     };
                   };
-              - file: foo_deprecated
-                config:
-                  - Acquire::Check-Valid-Until: true
-                  - APT:
-                    - Get:
-                      - Assume-Yes: true
-                      - Fix-Broken: false
-                      - Proxy: ftp://proxy:2121/
-                      - SuggestsImportant: 42
-                    - NeverAutoRemove:
-                      - ^firmware-linux.*
-                      - ^linux-firmware$
-              - file: foo_template
+              # Template
+              - file: template
                 template: configs/foo.j2
-              - file: bar
-                state: present
-              - file: baz
-                state: absent
       always:
         - name: Goss
           command: >
@@ -67,6 +67,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/state
             manala_apt_configs:
@@ -92,13 +93,15 @@
             state: absent
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/defaults
             manala_apt_configs_defaults:
               template: configs/foo.j2
             manala_apt_configs:
               - file: foo
-              - file: bar
+              - template: configs/bar.j2
+              - file: baz
                 template: configs/bar.j2
       always:
         - name: Goss
@@ -118,6 +121,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.apt
+            tasks_from: configs
           vars:
             manala_apt_configs_dir: tmp/configs/exclusive
             manala_apt_configs_exclusive: true

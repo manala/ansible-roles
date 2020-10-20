@@ -7,11 +7,6 @@
   tasks:
 
     - block:
-        - apt:
-            name:
-              - git
-              - zsh
-            install_recommends: false
         - user:
             name: "{{ item }}"
           loop: [foo, bar, baz]
@@ -19,8 +14,8 @@
     - block:
         - import_role:
             name: manala.ohmyzsh
+            tasks_from: users
           vars:
-            manala_ohmyzsh_dir: tmp/users
             manala_ohmyzsh_users:
               - user: foo
                 template: users/php.dev.j2

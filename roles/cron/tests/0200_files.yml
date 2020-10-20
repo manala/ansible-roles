@@ -9,6 +9,7 @@
     - tags: [default]
       block:
         - import_role:
+            # Play role fully on first run, so that handlers don't breaks
             name: manala.cron
           vars:
             manala_cron_files:
@@ -49,6 +50,7 @@
       block:
         - import_role:
             name: manala.cron
+            tasks_from: files
           vars:
             manala_cron_files_defaults:
               user: qux

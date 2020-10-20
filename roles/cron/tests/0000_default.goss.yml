@@ -1,6 +1,10 @@
 ---
 
+package:
+  cron:
+    installed: true
+
 service:
-  supervisor:
+  cron:
     enabled: true
     running: true

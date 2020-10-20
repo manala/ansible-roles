@@ -9,7 +9,7 @@ file:
     owner: root
     group: root
     mode: "0755"
-  tmp/scripts/default/foo:
+  tmp/scripts/default/message:
     exists: true
     filetype: file
     owner: root
@@ -18,7 +18,7 @@ file:
     contains:
       - "#!/bin/sh"
       - "printf \"I hope that someone gets my message in a bottle, yeah\\n\""
-  tmp/scripts/default/foo_content:
+  tmp/scripts/default/default_content:
     exists: true
     filetype: file
     owner: root
@@ -27,23 +27,14 @@ file:
     contains:
       - "#!/bin/sh"
       - "printf \"Maintenant vous faites ce qu'ils vous ont dit de faire\\n\""
-  tmp/scripts/default/foo_template:
+  tmp/scripts/default/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0755"
     contains:
-      - "Script foo"
-  tmp/scripts/default/bar:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0755"
-    size: 1
-  tmp/scripts/default/baz:
-    exists: false
+      - "Scripts foo"
 {{ end }}
 
 # State
@@ -82,7 +73,7 @@ file:
     group: root
     mode: "0755"
     contains:
-      - "Script foo"
+      - "Scripts foo"
   tmp/scripts/defaults/bar:
     exists: true
     filetype: file
@@ -90,7 +81,15 @@ file:
     group: root
     mode: "0755"
     contains:
-      - "Script bar"
+      - "Scripts bar"
+  tmp/scripts/defaults/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+    contains:
+      - "Scripts bar"
 {{ end }}
 
 # Exclusive

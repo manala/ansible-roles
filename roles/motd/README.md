@@ -52,6 +52,9 @@ Use scripts (recommended)
 ```yaml
 manala_motd_scripts_exclusive: true # Keep only defined scripts
 manala_motd_scripts:
+  # Template based (file name based on template)
+  - template: scripts/uname.j2
+  # Template based (force file name)
   - file: 10-uname
     template: scripts/uname.j2
   # Simple custom message

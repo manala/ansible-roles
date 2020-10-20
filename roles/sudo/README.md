@@ -55,7 +55,9 @@ Using ansible galaxy requirements file:
 - hosts: all
   vars:
     manala_sudo_sudoers:
-      # Template based
+      # Template based (file name based on template)
+      - template: sudo/app.j2
+      # Template based (force file name)
       - file: template
         template: sudo/app.j2
       # Content based

@@ -21,6 +21,7 @@
             deb: http://snapshot.debian.org/archive/debian-archive/20120328T092752Z/debian/pool/main/p/pscan/pscan_1.2-9_amd64.deb
         - import_role:
             name: manala.apt
+            tasks_from: packages
           vars:
             manala_apt_packages:
               - asciijump
@@ -62,6 +63,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.apt
+            tasks_from: packages
           vars:
             manala_apt_packages:
               - asciijump

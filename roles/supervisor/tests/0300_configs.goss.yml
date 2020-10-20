@@ -9,7 +9,7 @@ file:
     owner: root
     group: root
     mode: "0755"
-  tmp/configs/default/foo.conf:
+  tmp/configs/default/default.conf:
     exists: true
     filetype: file
     owner: root
@@ -26,7 +26,7 @@ file:
       - 'environment=BAR="123",FOO="bar"'
       - "priority=123"
       - "stopsignal=HUP"
-  tmp/configs/default/foo_deprecated.conf:
+  tmp/configs/default/default_deprecated.conf:
     exists: true
     filetype: file
     owner: root
@@ -43,7 +43,7 @@ file:
       - "command=/bin/bar"
       - "[group:foo]"
       - "programs=foo,bar"
-  tmp/configs/default/foo_content.conf:
+  tmp/configs/default/default_content.conf:
     exists: true
     filetype: file
     owner: root
@@ -60,15 +60,15 @@ file:
       - "command=/bin/bar"
       - "[group:foo]"
       - "programs=foo,bar"
-  tmp/configs/default/foo_template.conf:
+  tmp/configs/default/template.conf:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - "Config foo"
-  tmp/configs/default/foo_template_deprecated.conf:
+      - "Configs foo"
+  tmp/configs/default/template_deprecated.conf:
     exists: true
     filetype: file
     owner: root
@@ -81,15 +81,6 @@ file:
       - "autostart=true"
       - "stopsignal=HUP"
       - 'environment=FOO="bar",BAR="123"'
-  tmp/configs/default/bar.conf:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0644"
-    size: 1
-  tmp/configs/default/baz.conf:
-    exists: false
 {{ end }}
 
 # State
@@ -128,7 +119,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "Config foo"
+      - "Configs foo"
   tmp/configs/defaults/bar.conf:
     exists: true
     filetype: file
@@ -136,7 +127,15 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "Config bar"
+      - "Configs bar"
+  tmp/configs/defaults/baz.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
 {{ end }}
 
 # Exclusive

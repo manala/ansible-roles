@@ -3,11 +3,19 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
+  gather_facts: false
   tasks:
 
     - block:
+        - apt:
+            name:
+              - git
+              - zsh
+            install_recommends: false
+
+    - block:
         - import_role:
-            name: manala.cron
+            name: manala.ohmyzsh
       always:
         - name: Goss
           command: >

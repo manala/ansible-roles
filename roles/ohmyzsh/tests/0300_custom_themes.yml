@@ -6,14 +6,6 @@
   gather_facts: false
   tasks:
 
-    - tags: [always]
-      block:
-        - apt:
-            name:
-              - git
-              - zsh
-            install_recommends: false
-
     # Default
     - tags: [default]
       block:
@@ -22,18 +14,17 @@
             state: absent
         - import_role:
             name: manala.ohmyzsh
+            tasks_from: custom_themes
           vars:
             manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/default
             manala_ohmyzsh_custom_themes:
-              - file: foo.zsh-theme
+              # Default - Content
+              - file: default_content.zsh-theme
                 config: |
                   PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
-              - file: bar.zsh-theme
-                state: present
-              - file: baz.zsh-theme
-                state: absent
-              - file: foo_template.zsh-theme
-                template: custom_themes/foo.j2
+              # Template
+              - file: template.zsh-theme
+                template: custom_themes/foo.zsh-theme.j2
       always:
         - name: Goss
           command: >
@@ -52,6 +43,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.ohmyzsh
+            tasks_from: custom_themes
           vars:
             manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/state
             manala_ohmyzsh_custom_themes:
@@ -77,14 +69,16 @@
             state: absent
         - import_role:
             name: manala.ohmyzsh
+            tasks_from: custom_themes
           vars:
             manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/defaults
             manala_ohmyzsh_custom_themes_defaults:
-              template: custom_themes/foo.j2
+              template: custom_themes/foo.zsh-theme.j2
             manala_ohmyzsh_custom_themes:
               - file: foo.zsh-theme
-              - file: bar.zsh-theme
-                template: custom_themes/bar.j2
+              - template: custom_themes/bar.zsh-theme.j2
+              - file: baz.zsh-theme
+                template: custom_themes/bar.zsh-theme.j2
       always:
         - name: Goss
           command: >
@@ -103,6 +97,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.ohmyzsh
+            tasks_from: custom_themes
           vars:
             manala_ohmyzsh_custom_themes_dir: tmp/custom_themes/exclusive
             manala_ohmyzsh_custom_themes_exclusive: true

@@ -14,21 +14,21 @@
             state: absent
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/default
             manala_motd_scripts:
-              - file: foo
+              # Message
+              - file: message
                 message: I hope that someone gets my message in a bottle, yeah
-              - file: foo_content
+              # Default - Content
+              - file: default_content
                 script: |
                   #!/bin/sh
                   printf "Maintenant vous faites ce qu'ils vous ont dit de faire\n"
-              - file: foo_template
+              # Template
+              - file: template
                 template: scripts/foo.j2
-              - file: bar
-                state: present
-              - file: baz
-                state: absent
       always:
         - name: Goss
           command: >
@@ -47,6 +47,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/state
             manala_motd_scripts:
@@ -72,13 +73,15 @@
             state: absent
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/defaults
             manala_motd_scripts_defaults:
               template: scripts/foo.j2
             manala_motd_scripts:
               - file: foo
-              - file: bar
+              - template: scripts/bar.j2
+              - file: baz
                 template: scripts/bar.j2
       always:
         - name: Goss
@@ -98,6 +101,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.motd
+            tasks_from: scripts
           vars:
             manala_motd_scripts_dir: tmp/scripts/exclusive
             manala_motd_scripts_exclusive: true

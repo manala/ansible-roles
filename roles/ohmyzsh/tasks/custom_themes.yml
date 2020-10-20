@@ -12,7 +12,7 @@
 - name: custom themes > Exclusive
   find:
     path: "{{ manala_ohmyzsh_custom_themes_dir }}"
-    patterns: "*.zsh-theme"
+    patterns: "*"
   changed_when: false
   register: __manala_ohmyzsh_custom_themes_exclusive_find
   when: manala_ohmyzsh_custom_themes_exclusive

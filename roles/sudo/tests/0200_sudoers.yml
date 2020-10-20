@@ -13,21 +13,21 @@
             state: absent
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/default
             manala_sudo_sudoers:
-              - file: foo
+              # Default - Content
+              - file: default_content
                 config: |
                   foo ALL=NOPASSWD:ALL
-              - file: foo_deprecated
+              # Default - Deprecated
+              - file: default_deprecated
                 config:
                   - foo: ALL=NOPASSWD:ALL
-              - file: foo_template
+              # Template
+              - file: template
                 template: sudoers/foo.j2
-              - file: bar
-                state: present
-              - file: baz
-                state: absent
       always:
         - name: Goss
           command: >
@@ -46,6 +46,7 @@
           loop: [bar, qux]
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/state
             manala_sudo_sudoers:
@@ -71,13 +72,15 @@
             state: absent
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/defaults
             manala_sudo_sudoers_defaults:
               template: sudoers/foo.j2
             manala_sudo_sudoers:
               - file: foo
-              - file: bar
+              - template: sudoers/bar.j2
+              - file: baz
                 template: sudoers/bar.j2
       always:
         - name: Goss
@@ -97,6 +100,7 @@
           loop: [foo, bar, baz, qux]
         - import_role:
             name: manala.sudo
+            tasks_from: sudoers
           vars:
             manala_sudo_sudoers_dir: tmp/sudoers/exclusive
             manala_sudo_sudoers_exclusive: true

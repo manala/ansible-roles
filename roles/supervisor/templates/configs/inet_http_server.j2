@@ -1,8 +1,3 @@
-{%- import '_macros.j2' as macros with context -%}
+{#- Deprecated -#}
 
-{%- set config = item.config|default({}) -%}
-
-[inet_http_server]
-{{- macros.config_parameters({
-  'port': config.port|mandatory
-} | combine(config)) }}
+{% include 'inet_http_server.conf.j2' %}

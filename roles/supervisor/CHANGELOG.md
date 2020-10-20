@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Config file names based on template name if not provided
+- Exclusive mode applied on all files (not only `*.conf`)
 
 ## [2.0.5] - 2020-09-29
 ### Added

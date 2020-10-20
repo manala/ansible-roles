@@ -1,6 +1,0 @@
----
-
-service:
-  cron:
-    enabled: true
-    running: true

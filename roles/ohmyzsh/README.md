@@ -114,8 +114,11 @@ manala_ohmyzsh_custom_themes:
   - file: foo.zsh-theme
     config: |
       PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
+  # Template based (file name based on template)
+  - template: ohmyzsh/custom/template.zsh-theme.j2
+  # Template based (force file name)
   - file: bar.zsh-theme
-    template: ohmyzsh/custom/template.j2
+    template: ohmyzsh/custom/template.zsh-theme.j2
   # Ensure config is absent
   - file: absent.zsh-theme
     state: absent # "present" by default

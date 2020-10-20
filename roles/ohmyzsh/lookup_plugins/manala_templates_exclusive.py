@@ -48,7 +48,13 @@ class LookupModule(LookupBase):
 
             # Check file key
             if 'file' not in template:
-                raise AnsibleError('Expect a "file" key')
+                # File name based on template
+                if 'template' in template:
+                    template['file'] = os.path.splitext(
+                        os.path.basename(template['template'])
+                    )[0]
+                else:
+                    raise AnsibleError('Expect a "file" key')
 
             item = itemDefault.copy()
             item.update(template)
