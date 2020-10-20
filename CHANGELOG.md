@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.74] - 2020-10-20
 ### Added
 - [Telegraf] Config filters
 - [Telegraf] Ensure config directory exists
