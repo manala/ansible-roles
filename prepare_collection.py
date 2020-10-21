@@ -78,6 +78,7 @@ for role in glob.glob('roles/*'):
 		{'src': 'library', 'dst': 'modules'}
 	]:
 		for src in glob.glob(os.path.join('roles', role, plugins['src'], '*.py')):
+			# Copy
 			dst = os.path.join(
 				collection_dir,
 				'plugins',
@@ -86,6 +87,16 @@ for role in glob.glob('roles/*'):
 			)
 			logging.info('Copy plugin file "%s" into "%s"', src, dst)
 			shutil.copyfile(src, dst)
+			# Filters
+			if plugins['src'] == 'filter_plugins':
+				regex = re.compile(r'(\')manala_', re.DOTALL)
+				with open(dst, 'r+') as file:
+					file_data = file.read()
+					if len(re.findall(regex, file_data)):
+						logging.info('Apply filter regex into file "%s"', dst)
+						file.seek(0)
+						file.write(re.sub(regex, r"\1manala.roles.", file_data))
+						file.truncate
 	# Lookups
 	files = []
 	files.extend(glob.glob(os.path.join(role_path, 'handlers/**/*.yml'), recursive=True))
@@ -96,7 +107,19 @@ for role in glob.glob('roles/*'):
 		with open(file_path, 'r+') as file:
 			file_data = file.read()
 			if len(re.findall(regex, file_data)):
-				logging.info('Apply regex into file "%s"', file_path)
+				logging.info('Apply lookup regex into file "%s"', file_path)
+				file.seek(0)
+				file.write(re.sub(regex, r"\1manala.roles.", file_data))
+				file.truncate
+	# Filters
+	files = []
+	files.extend(glob.glob(os.path.join(role_path, 'templates/**/*.j2'), recursive=True))
+	regex = re.compile(r'(\|\s*)manala_', re.DOTALL)
+	for file_path in files:
+		with open(file_path, 'r+') as file:
+			file_data = file.read()
+			if len(re.findall(regex, file_data)):
+				logging.info('Apply filter regex into file "%s"', file_path)
 				file.seek(0)
 				file.write(re.sub(regex, r"\1manala.roles.", file_data))
 				file.truncate
