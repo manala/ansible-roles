@@ -6,8 +6,16 @@ from ansible.module_utils.six import string_types
 
 import re
 
+"""
+Config Encoder Filters
+More information: https://github.com/jtyr/ansible-config_encoder_filters
+"""
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
+try:
+    basestring
+except NameError:
+    basestring = str
+
 def _is_num(data):
     """Verify if data is either int or float.
     Could be replaced by:
@@ -18,7 +26,6 @@ def _is_num(data):
 
     return isinstance(data, int) or isinstance(data, float)
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
 def _escape(data, quote='"', format=None):
     """Escape special characters in a string."""
 
@@ -41,13 +48,11 @@ def _escape(data, quote='"', format=None):
     else:
         return data
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
 def _str_is_int(data):
     """Verify if data is integer."""
 
     return re.match(r"^[-+]?(0|[1-9][0-9]*)$", str(data))
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
 def _str_is_float(data):
     """Verify if data is float."""
 
@@ -55,19 +60,16 @@ def _str_is_float(data):
         r"^[-+]?(0|[1-9][0-9]*)(\.[0-9]*)?(e[-+]?[0-9]+)?$",
         str(data), flags=re.IGNORECASE)
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
 def _str_is_num(data):
     """Verify if data is either integer or float."""
 
     return _str_is_int(data) or _str_is_float(data)
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
 def _str_is_bool(data):
     """Verify if data is boolean."""
 
     return re.match(r"^(true|false)$", str(data), flags=re.IGNORECASE)
 
-# See: https://github.com/jtyr/ansible-config_encoder_filters
 def encode_toml(
         data, convert_bools=False, convert_nums=False, first=True, quote='"',
         table_name="", table_type=None):
