@@ -9,12 +9,11 @@ import re
 """
 Config Encoder Filters
 More information: https://github.com/jtyr/ansible-config_encoder_filters
-"""
 
-try:
-    basestring
-except NameError:
-    basestring = str
+See: https://github.com/jtyr/ansible-config_encoder_filters/pull/14
+See: https://github.com/jtyr/ansible-config_encoder_filters/pull/15
+
+"""
 
 def _is_num(data):
     """Verify if data is either int or float.
@@ -107,7 +106,7 @@ def encode_toml(
 
                 first = False
                 tn = ''
-            elif isinstance(v, list) and not isinstance(v[0], dict):
+            elif isinstance(v, list) and (not v or not isinstance(v[0], dict)):
                 if tn:
                     if not first:
                         rv += "\n"
@@ -164,7 +163,7 @@ def encode_toml(
                     table_type='table')
 
                 first = False
-            elif isinstance(v, list) and isinstance(v[0], dict):
+            elif isinstance(v, list) and (not v or isinstance(v[0], dict)):
                 # Array of tables
                 tk = k
 
@@ -231,7 +230,7 @@ def encode_toml(
 
         rv += str(data).lower()
 
-    elif isinstance(data, basestring):
+    elif isinstance(data, string_types):
         # It's a string
 
         rv += "%s%s%s" % (quote, _escape(data, quote), quote)
