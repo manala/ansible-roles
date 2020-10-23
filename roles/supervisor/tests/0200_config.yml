@@ -61,7 +61,7 @@
             tasks_from: config
           vars:
             manala_supervisor_config_file: tmp/config/default/template.conf
-            manala_supervisor_config_template: config/debian.j2
+            manala_supervisor_config_template: config/debian/supervisord.conf.j2
             manala_supervisor_config:
               unix_http_server:
                 file: /tmp/supervisor.sock

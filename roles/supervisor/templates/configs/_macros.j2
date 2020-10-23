@@ -97,36 +97,3 @@
         {{ value }}
     {%- endif -%}
 {%- endmacro -%}
-
-{%- macro config_sections(sections, excludes = []) -%}
-  {%- for section, parameters in sections|dictsort -%}
-    {%- if section not in excludes -%}
-[{{ section }}]
-{{- config_parameters(parameters) }}{{ '\n\n' }}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endmacro -%}
-
-{%- macro config_parameters(parameters, excludes = []) -%}
-  {%- for key, value in parameters|dictsort -%}
-    {%- if key not in excludes -%}
-{{ '\n' }}{{ config_parameter(key, value) }}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endmacro -%}
-
-{%- macro config_parameter(key, value, whitespace= False) -%}
-    {{ key }}{{ whitespace|ternary(' = ', '=') }}{% if value is sameas true -%}
-      true
-    {%- elif value is sameas false -%}
-      false
-    {%- elif value is mapping -%}
-      {%- for k, v in value|dictsort -%}
-        {{ k }}="{{ v }}"{% if not loop.last %},{% endif %}
-      {%- endfor -%}
-    {%- elif value is iterable and value is not string -%}
-      {{ value | join(',') }}
-    {%- else -%}
-      {{ value }}
-    {%- endif -%}
-{%- endmacro -%}

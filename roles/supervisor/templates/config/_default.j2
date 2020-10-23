@@ -1,14 +1,14 @@
-{%- import '_macros.j2' as macros with context -%}
-
 {%- set config = manala_supervisor_config -%}
 
 {%- if config is mapping -%}
 
-{{ macros.config_sections(config) }}
+{{ config | manala_supervisor_config }}
 
 {%- elif config is iterable and config is not string -%}
 
 {#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
+
 {% set config_unix_http_server = [] -%}
 {% set config_supervisord = [] -%}
 {% set config_supervisorctl = [] -%}

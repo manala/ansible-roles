@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - [Logrotate] Configs filters
+- [Supervisor] Config filters
 
 ## [0.1.76] - 2020-10-21
 ### Fixed
