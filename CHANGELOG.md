@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Logrotate] Use unified exclusive template lookup
+- [Logrotate] Deprecate dict's array configs
+
+### Added
+- [Logrotate] Configs filters
 
 ## [0.1.76] - 2020-10-21
 ### Fixed

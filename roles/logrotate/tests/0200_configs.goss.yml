@@ -1,0 +1,128 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/configs/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/configs/default/default:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/var/log/foo/*.log {"
+      - "    rotate 17"
+      - "    weekly"
+      - "}"
+  tmp/configs/default/default_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/var/log/foo/*.log {"
+      - "    rotate 17"
+      - "    weekly"
+      - "}"
+  tmp/configs/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/var/log/foo/*.log {"
+      - "    rotate 17"
+      - "    weekly"
+      - "}"
+  tmp/configs/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/configs/state/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/bar:
+    exists: false
+  tmp/configs/state/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/qux:
+    exists: true
+    filetype: file
+  tmp/configs/state/quux:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/configs/defaults/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+  tmp/configs/defaults/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+  tmp/configs/defaults/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/configs/exclusive/foo:
+    exists: false
+  tmp/configs/exclusive/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/exclusive/baz:
+    exists: false
+  tmp/configs/exclusive/qux:
+    exists: false
+  tmp/configs/exclusive/quux:
+    exists: false
+{{ end }}
