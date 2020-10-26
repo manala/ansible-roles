@@ -128,7 +128,7 @@ manala_telegraf_configs:
     template: telegraf/bar.conf.j2
     config:
       foo: bar
-  # Template dicts array based (deprecated)
+  # Dicts array template based (deprecated)
   - file: template_deprecated.conf
     template: configs/input_cpu.conf.j2
     config:
@@ -139,6 +139,12 @@ manala_telegraf_configs:
         - tag-2: bar
       - tagdrop:
         - cpu: [cpu6, cpu7]
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
 ```
 
 `manala_telegraf_configs_exclusive` allow you to clean up existing telegraf configuration files into directory defined by the `manala_telegraf_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.

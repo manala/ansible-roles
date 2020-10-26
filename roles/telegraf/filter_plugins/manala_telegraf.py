@@ -9,10 +9,6 @@ import re
 """
 Config Encoder Filters
 More information: https://github.com/jtyr/ansible-config_encoder_filters
-
-See: https://github.com/jtyr/ansible-config_encoder_filters/pull/14
-See: https://github.com/jtyr/ansible-config_encoder_filters/pull/15
-
 """
 
 def _is_num(data):
