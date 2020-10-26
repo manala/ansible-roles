@@ -40,13 +40,13 @@ def config_parameter(parameters, key, default=None, comment=False):
     result = ''
     value = parameters.get(key, default)
     if value == True:
-        result += '%s' % key
+        result = '%s' % key
     elif value == False:
         pass
     elif isinstance(value, string_types):
-        result += '%s %s' % (key, value)
+        result = '%s %s' % (key, value)
     elif isinstance(value, Number):
-        result += '%s %s' % (key, value)
+        result = '%s %s' % (key, value)
     else:
         AnsibleFilterError('manala_logrotate_config_parameter value of an unknown type %s' % type(value))
     if comment and not key in parameters:
