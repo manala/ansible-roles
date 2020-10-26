@@ -100,7 +100,7 @@ manala_apt_configs:
   - file: foo_content
     config: |
       APT::Install-Recommends "false";
-  # Config based (deprecated)
+  # Dicts array config based (deprecated)
   - file: foo
     config:
       - Acquire::Check-Valid-Until: true
