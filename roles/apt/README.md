@@ -110,6 +110,8 @@ manala_apt_configs:
   # Ignore config
   - file: ignore
     state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 `manala_apt_configs_exclusive` allow you to clean up existing apt configuration files into directory defined by the `manala_apt_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
@@ -123,7 +125,12 @@ manala_apt_configs_exclusive: true
 Specify apt components
 
 ```yaml
-manala_apt_components: ['main', 'contrib', 'non-free']
+manala_apt_components:
+  - main
+  - contrib
+  - non-free
+  # Flatten components
+  - "{{ my_custom_components_array }}"
 ```
 
 ### Sources list
@@ -226,6 +233,8 @@ manala_apt_repositories:
   # Ignore repository
   - source: deb https://example.com foo
     state: ignore
+  # Flatten repositories
+  - "{{ my_custom_repositories_array }}"
 ```
 
 Exclusivity (all repositories non defined by role will be deleted)
@@ -270,6 +279,8 @@ manala_apt_preferences:
   # Ignore preference
   - file: foo
     state: ignore
+  # Flatten preferences
+  - "{{ my_custom_preferences_array }}"
 ```
 
 ### Holds
@@ -289,6 +300,8 @@ manala_apt_holds:
   # Deprecated
   - package: quux
     hold: true # or false :)
+  # Flatten holds
+  - "{{ my_custom_holds_array }}"
 ```
 
 An exclusivity mode is also provided, to ensure *ALL* packages but the ones you set will be upgradable.
@@ -316,6 +329,8 @@ manala_apt_packages:
   # Ignore package
   - package: foo
     state: ignore # State of package, optional, default 'present'
+  # Flatten packages
+  - "{{ my_custom_packages_array }}"
 ```
 
 ### Flags

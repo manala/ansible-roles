@@ -74,6 +74,8 @@ Using ansible galaxy requirements file:
       # Ignore sudoer
       - file: ignore
         state: ignore
+      # Flatten sudoers
+      - "{{ my_custom_sudoers_array }}"
   roles:
     - role: manala.sudo
 

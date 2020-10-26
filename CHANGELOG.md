@@ -12,6 +12,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [Logrotate] Configs filters
 - [Supervisor] Config filters
+- [Apt] Flatten configs array
+- [Apt] Flatten holds array
+- [Apt] Flatten keys array
+- [Apt] Flatten packages array
+- [Apt] Flatten preferences array
+- [Apt] Flatten repositories array
+- [Apt] Flatten components array
+- [Oh My Zsh] Flatten themes array
+- [Sudo] Flatten sudoers array
+- [Telegraf] Flatten configs array
+- [Supervisor] Flatten configs array
+- [Motd] Flatten scripts array
+- [Accounts] Flatten groups array
+- [Accounts] Flatten users array
 
 ## [0.1.76] - 2020-10-21
 ### Fixed

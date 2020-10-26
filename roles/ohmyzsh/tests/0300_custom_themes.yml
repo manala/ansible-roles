@@ -22,9 +22,11 @@
               - file: default_content.zsh-theme
                 config: |
                   PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
-              # Template
-              - file: template.zsh-theme
-                template: custom_themes/foo.zsh-theme.j2
+              # Flatten
+              -
+                # Template
+                - file: template.zsh-theme
+                  template: custom_themes/foo.zsh-theme.j2
       always:
         - name: Goss
           command: >

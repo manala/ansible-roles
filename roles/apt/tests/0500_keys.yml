@@ -27,10 +27,12 @@
             manala_apt_keys:
               - sensu
               - multimedia
-              - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-                id: 056E8E56
-              - keyserver: keyserver.ubuntu.com
-                id: BC19DDBA
+              # Flatten
+              -
+                - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+                  id: 056E8E56
+                - keyserver: keyserver.ubuntu.com
+                  id: BC19DDBA
       always:
         - name: Goss
           command: >

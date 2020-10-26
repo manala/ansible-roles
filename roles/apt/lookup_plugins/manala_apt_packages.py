@@ -9,6 +9,19 @@ from ansible.module_utils._text import to_text
 
 class LookupModule(LookupBase):
 
+    def _recursive_flatten(self, terms):
+        if not isinstance(terms, list):
+            raise AnsibleError('Expect a list but was a %s' % type(terms))
+        ret = []
+        for term in terms:
+            if isinstance(term, (list, tuple)):
+                ret.extend(
+                    self._recursive_flatten(term)
+                )
+            else:
+                ret.append(term)
+        return ret
+
     def run(self, terms, variables=None, **kwargs):
 
         results = []
@@ -21,7 +34,7 @@ class LookupModule(LookupBase):
         wantdeb = kwargs.pop('wantdeb', None)
         wantmap = kwargs.pop('wantmap', False)
 
-        packages = self._flatten(terms[0])
+        packages = self._recursive_flatten(terms[0])
 
         itemDefault = {
             'state': 'present',

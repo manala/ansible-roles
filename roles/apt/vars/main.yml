@@ -13,21 +13,21 @@ __manala_apt: "{{
 # Repositories
 manala_apt_repositories_patterns:
   default:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|flatten|join(' ') }}
     pin: release a={{ ansible_distribution_release }}
   security:
-    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
   security_src:
-    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
   updates:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
   updates_src:
-    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
   backports:
-    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|flatten|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   backports_sloppy:
-    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports-sloppy {{ manala_apt_components|join(' ') }}
+    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports-sloppy {{ manala_apt_components|flatten|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports-sloppy
   multimedia:
     source: deb http://www.deb-multimedia.org {{ ansible_distribution_release }} main
@@ -39,19 +39,19 @@ manala_apt_repositories_patterns:
     file: multimedia_backports.list
   # Deprecated
   debian_security:
-    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
   # Deprecated
   debian_security_src:
-    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
   # Deprecated
   debian_updates:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
   # Deprecated
   debian_updates_src:
-    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|join(' ') }}
+    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
   # Deprecated
   debian_backports:
-    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|join(' ') }}
+    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|flatten|join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   dotdeb:
     source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all

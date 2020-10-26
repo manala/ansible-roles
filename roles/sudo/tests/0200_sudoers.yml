@@ -25,9 +25,11 @@
               - file: default_deprecated
                 config:
                   - foo: ALL=NOPASSWD:ALL
-              # Template
-              - file: template
-                template: sudoers/foo.j2
+              # Flatten
+              -
+                # Template
+                - file: template
+                  template: sudoers/foo.j2
       always:
         - name: Goss
           command: >

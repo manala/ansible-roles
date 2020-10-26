@@ -6,7 +6,9 @@
   vars:
     manala_accounts_groups:
       - group_1
-      - group_2
+      # Flatten
+      -
+        - group_2
     manala_accounts_users:
       - user: user_1
         group: group_1
@@ -32,18 +34,20 @@
           - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_2.pub') }}"
           - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_3.pub') }}"
       - user: user_5
-      - user: user_6
-        authorized_keys_file: "{{ omit }}"
-        authorized_keys:
-          - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
-      - user: user_7
-        authorized_keys_file: ~
-        authorized_keys:
-          - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
-      - user: user_8
-        authorized_keys_file: ""
-        authorized_keys:
-          - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+      # Flatten
+      -
+        - user: user_6
+          authorized_keys_file: "{{ omit }}"
+          authorized_keys:
+            - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+        - user: user_7
+          authorized_keys_file: ~
+          authorized_keys:
+            - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
+        - user: user_8
+          authorized_keys_file: ""
+          authorized_keys:
+            - "{{ lookup('file', playbook_dir ~ '/fixtures/keys/user_1.pub') }}"
   roles:
     - manala.accounts
   post_tasks:

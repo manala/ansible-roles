@@ -13,7 +13,7 @@
     uid: "{{ item.uid|default(omit) }}"
     comment: "{{ item.comment|default(omit) }}"
     state: "{{ item.state|default('present') }}"
-  with_items: "{{ manala_accounts_users }}"
+  with_items: "{{ manala_accounts_users|flatten }}"
 
 - name: users > Authorized keys
   authorized_key:
@@ -23,7 +23,7 @@
     exclusive: true
   loop: "{{ query(
       'manala_accounts_users_authorized_keys',
-      manala_accounts_users,
+      manala_accounts_users|flatten,
       wantstate='present'
     )
   }}"
@@ -31,7 +31,7 @@
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
   command: "id -g -n {{ item.user }}"
-  with_items: "{{ manala_accounts_users }}"
+  with_items: "{{ manala_accounts_users|flatten }}"
   when: item.group is not defined and item.state|default('present') == 'present'
   register: __manala_accounts_users
   changed_when: false
@@ -43,7 +43,7 @@
     # Waiting for the ansible 2 "combine" filter...
     __item: "{% set __item = item.0.update(({}) if (item.1 is skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
   with_together:
-    - "{{ manala_accounts_users }}"
+    - "{{ manala_accounts_users|flatten }}"
     - "{{ __manala_accounts_users.results }}"
   register: __manala_accounts_users
   no_log: true

@@ -45,20 +45,22 @@
 
                     [inputs.cpu.tagdrop]
                       cpu = ["cpu6", "cpu7"]
-              # Template
-              - file: template.conf
-                template: configs/foo.conf.j2
-              # Template - Deprecated
-              - file: template_deprecated.conf
-                template: configs/input_cpu.conf.j2
-                config:
-                  - percpu: true
-                  - totalcpu: false
-                  - tags:
-                    - tag-1: foo
-                    - tag-2: bar
-                  - tagdrop:
-                    - cpu: [cpu6, cpu7]
+              # Flatten
+              -
+                # Template
+                - file: template.conf
+                  template: configs/foo.conf.j2
+                # Template - Deprecated
+                - file: template_deprecated.conf
+                  template: configs/input_cpu.conf.j2
+                  config:
+                    - percpu: true
+                    - totalcpu: false
+                    - tags:
+                      - tag-1: foo
+                      - tag-2: bar
+                    - tagdrop:
+                      - cpu: [cpu6, cpu7]
       always:
         - name: Goss
           command: >

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Config filters
+- Flatten configs array
 
 ## [2.0.6] - 2020-10-20
 ### Changed
