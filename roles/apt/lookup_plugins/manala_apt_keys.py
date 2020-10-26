@@ -8,11 +8,24 @@ from ansible.errors import AnsibleError
 
 class LookupModule(LookupBase):
 
+    def _recursive_flatten(self, terms):
+        if not isinstance(terms, list):
+            raise AnsibleError('Expect a list but was a %s' % type(terms))
+        ret = []
+        for term in terms:
+            if isinstance(term, (list, tuple)):
+                ret.extend(
+                    self._recursive_flatten(term)
+                )
+            else:
+                ret.append(term)
+        return ret
+
     def run(self, terms, variables=None, **kwargs):
 
         results = []
 
-        keys = self._flatten(terms[0])
+        keys = self._recursive_flatten(terms[0])
         keysPatterns = terms[1]
         repositories = terms[2]
 

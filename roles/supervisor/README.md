@@ -143,6 +143,8 @@ manala_supervisor_configs:
   # Ignore config
   - file: ignore.conf
     state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 Raw content

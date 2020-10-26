@@ -145,6 +145,8 @@ manala_telegraf_configs:
   # Ignore config
   - file: ignore.conf
     state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 `manala_telegraf_configs_exclusive` allow you to clean up existing telegraf configuration files into directory defined by the `manala_telegraf_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.

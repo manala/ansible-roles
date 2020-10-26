@@ -67,21 +67,23 @@
 
                   [group:foo]
                   programs=foo,bar
-              # Template
-              - file: template.conf
-                template: configs/foo.conf.j2
-              # Template - Deprecated
-              - file: template_deprecated.conf
-                template: configs/app_program.dev.j2
-                config:
-                  - foo:
-                    - command: cat
-                    - priority: 123
-                    - autostart: true
-                    - stopsignal: HUP
-                    - environment:
-                        FOO: bar
-                        BAR: 123
+              # Flatten
+              -
+                # Template
+                - file: template.conf
+                  template: configs/foo.conf.j2
+                # Template - Deprecated
+                - file: template_deprecated.conf
+                  template: configs/app_program.dev.j2
+                  config:
+                    - foo:
+                      - command: cat
+                      - priority: 123
+                      - autostart: true
+                      - stopsignal: HUP
+                      - environment:
+                          FOO: bar
+                          BAR: 123
       always:
         - name: Goss
           command: >

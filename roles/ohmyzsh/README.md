@@ -125,6 +125,8 @@ manala_ohmyzsh_custom_themes:
   # Ignore config
   - file: ignore.zsh-theme
     state: ignore
+  # Flatten themes
+  - "{{ my_custom_themes_array }}"
 ```
 
 Note: to ensure backward compatibility, this role will install these custom themes templates by default:

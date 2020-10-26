@@ -40,9 +40,9 @@ def config_parameter(parameters, key, default=None, comment=False):
     result = ''
     value = parameters.get(key, default)
     if value == True:
-        result = 'true'
+        result = '%s=true' % key
     elif value == False:
-        result = 'false'
+        result = '%s=false' % key
     elif isinstance(value, dict):
         result = '%s=' % key
         for k, v in sorted(iteritems(value)):

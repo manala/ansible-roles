@@ -51,20 +51,22 @@
                 pin: foo
                 priority: 100
                 file: foo_foo
-              # Template
-              - file: foo_template
-                template: preferences/foo.j2
-              # States
-              - package: bar
-                pin: bar
-                priority: 100
-                file: bar_bar
-                state: present
-              - package: baz
-                pin: baz
-                priority: 100
-                file: baz_baz
-                state: absent
+              # Flatten
+              -
+                # Template
+                - file: foo_template
+                  template: preferences/foo.j2
+                # States
+                - package: bar
+                  pin: bar
+                  priority: 100
+                  file: bar_bar
+                  state: present
+                - package: baz
+                  pin: baz
+                  priority: 100
+                  file: baz_baz
+                  state: absent
       always:
         - name: Goss
           command: >

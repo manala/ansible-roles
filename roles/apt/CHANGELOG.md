@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Flatten configs array
+- Flatten holds array
+- Flatten keys array
+- Flatten packages array
+- Flatten preferences array
+- Flatten repositories array
+- Flatten components array
 
 ## [2.0.19] - 2020-10-20
 ### Changed

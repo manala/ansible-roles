@@ -10,6 +10,19 @@ import os
 
 class LookupModule(LookupBase):
 
+    def _recursive_flatten(self, terms):
+        if not isinstance(terms, list):
+            raise AnsibleError('Expect a list but was a %s' % type(terms))
+        ret = []
+        for term in terms:
+            if isinstance(term, (list, tuple)):
+                ret.extend(
+                    self._recursive_flatten(term)
+                )
+            else:
+                ret.append(term)
+        return ret
+
     def run(self, terms, variables=None, **kwargs):
 
         results = []
@@ -19,7 +32,7 @@ class LookupModule(LookupBase):
         if wantstate and wantstate not in ['present', 'absent']:
             raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
 
-        templates = self._flatten(terms[0])
+        templates = self._recursive_flatten(terms[0])
         exclusives = self._flatten(terms[1])
         dir = terms[2]
         template = terms[3]

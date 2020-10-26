@@ -26,9 +26,11 @@
                 script: |
                   #!/bin/sh
                   printf "Maintenant vous faites ce qu'ils vous ont dit de faire\n"
-              # Template
-              - file: template
-                template: scripts/foo.j2
+              # Flatten
+              -
+                # Template
+                - file: template
+                  template: scripts/foo.j2
       always:
         - name: Goss
           command: >

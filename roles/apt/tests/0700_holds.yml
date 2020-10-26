@@ -23,16 +23,18 @@
             manala_apt_holds:
               # Short syntax
               - apt
-              # States
-              - package: dpkg
-                state: present
-              - package: python
-                state: absent
-              # Deprecated
-              - package: grep
-                hold: true
-              - package: tar
-                hold: false
+              # Flatten
+              -
+                # States
+                - package: dpkg
+                  state: present
+                - package: python
+                  state: absent
+                # Deprecated
+                - package: grep
+                  hold: true
+                - package: tar
+                  hold: false
       always:
         - name: Goss
           command: >

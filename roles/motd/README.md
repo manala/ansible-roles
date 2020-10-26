@@ -78,6 +78,8 @@ manala_motd_scripts:
   - file: 60-ignore
     message: Look daddy there's an airplane up in the sky!
     state: ignore
+  # Flatten scripts
+  - "{{ my_custom_scripts_array }}"
 ```
 
 Static template (deprecated)

@@ -46,9 +46,11 @@
                       "^linux-firmware$";
                     };
                   };
-              # Template
-              - file: template
-                template: configs/foo.j2
+              # Flatten
+              -
+                # Template
+                - file: template
+                  template: configs/foo.j2
       always:
         - name: Goss
           command: >

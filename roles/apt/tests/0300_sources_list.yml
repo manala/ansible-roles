@@ -21,7 +21,9 @@
             manala_apt_sources_list_file: tmp/sources_list
             manala_apt_sources_list_template: sources_list/security_updates.j2
             manala_apt_components:
-              - main
+              # Flatten
+              -
+                - main
       always:
         - name: Goss
           command: >

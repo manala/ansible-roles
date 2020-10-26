@@ -6,4 +6,4 @@
     system: "{{ item.system|default(omit) }}"
     state: "{{ item.state|default('present') }}"
     gid: "{{ item.gid|default(omit) }}"
-  with_items: "{{ manala_accounts_groups }}"
+  with_items: "{{ manala_accounts_groups|flatten }}"

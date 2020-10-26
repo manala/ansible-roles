@@ -82,6 +82,8 @@ manala_accounts_users:
 manala_accounts_users:
   - user:   bar
     state:  absent
+  # Flatten users
+  - "{{ my_custom_users_array }}"
 ```
 
 ### Creating group
@@ -97,6 +99,8 @@ You can create your own group by using the `manala_accounts_groups` by specifyin
 manala_accounts_groups:
   - group: ops
     system: false
+  # Flatten groups
+  - "{{ my_custom_groups_array }}"
 ```
 
 ## Example playbook
@@ -104,7 +108,7 @@ manala_accounts_groups:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.accounts }
+    - role: manala.accounts
 ```
 
 # Licence
