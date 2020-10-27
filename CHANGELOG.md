@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.80] - 2020-10-27
 ### Fixed
 - [Logrotate] Boolean evaluations in filters
 - [Supervisor] Boolean evaluations in filters
