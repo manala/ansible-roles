@@ -39,9 +39,9 @@ def config_parameter(parameters, key, default=None, comment=False):
         raise AnsibleFilterError('manala_supervisor_config_parameter key expects a string but was given a %s' % type(key))
     result = ''
     value = parameters.get(key, default)
-    if value == True:
+    if value is True:
         result = '%s=true' % key
-    elif value == False:
+    elif value is False:
         result = '%s=false' % key
     elif isinstance(value, dict):
         result = '%s=' % key

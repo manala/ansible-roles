@@ -39,9 +39,9 @@ def config_parameter(parameters, key, default=None, comment=False):
         raise AnsibleFilterError('manala_logrotate_config_parameter key expects a string but was given a %s' % type(key))
     result = ''
     value = parameters.get(key, default)
-    if value == True:
+    if value is True:
         result = '%s' % key
-    elif value == False:
+    elif value is False:
         pass
     elif isinstance(value, string_types):
         result = '%s %s' % (key, value)
