@@ -95,8 +95,8 @@ for role in glob.glob('roles/*'):
 					if len(re.findall(regex, file_data)):
 						logging.info('Apply filter regex into file "%s"', dst)
 						file.seek(0)
-						file.write(re.sub(regex, r"\1", file_data))
-						file.truncate
+						file.write(re.sub(regex, r'\1', file_data))
+						file.truncate()
 	# Lookups
 	files = []
 	files.extend(glob.glob(os.path.join(role_path, 'handlers/**/*.yml'), recursive=True))
@@ -109,8 +109,8 @@ for role in glob.glob('roles/*'):
 			if len(re.findall(regex, file_data)):
 				logging.info('Apply lookup regex into file "%s"', file_path)
 				file.seek(0)
-				file.write(re.sub(regex, r"\1manala.roles.", file_data))
-				file.truncate
+				file.write(re.sub(regex, r'\1manala.roles.', file_data))
+				file.truncate()
 	# Filters
 	files = []
 	files.extend(glob.glob(os.path.join(role_path, 'templates/**/*.j2'), recursive=True))
@@ -121,5 +121,5 @@ for role in glob.glob('roles/*'):
 			if len(re.findall(regex, file_data)):
 				logging.info('Apply filter regex into file "%s"', file_path)
 				file.seek(0)
-				file.write(re.sub(regex, r"\1manala.roles.", file_data))
-				file.truncate
+				file.write(re.sub(regex, r'\1manala.roles.', file_data))
+				file.truncate()
