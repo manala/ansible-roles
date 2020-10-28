@@ -1,0 +1,115 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/interfaces_configs/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/interfaces_configs/default/default_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - auto eth0:0
+      - iface eth0:0 inet static
+      - address 0.0.0.0
+      - netmask 255.255.255.255
+  tmp/interfaces_configs/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - auto eth1
+      - iface eth1 inet dhcp
+  tmp/interfaces_configs/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Interfaces configs foo"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/interfaces_configs/state/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/interfaces_configs/state/bar:
+    exists: false
+  tmp/interfaces_configs/state/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/interfaces_configs/state/qux:
+    exists: true
+    filetype: file
+  tmp/interfaces_configs/state/quux:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/interfaces_configs/defaults/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Interfaces configs foo"
+  tmp/interfaces_configs/defaults/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Interfaces configs bar"
+  tmp/interfaces_configs/defaults/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Interfaces configs bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/interfaces_configs/exclusive/foo:
+    exists: false
+  tmp/interfaces_configs/exclusive/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/interfaces_configs/exclusive/baz:
+    exists: false
+  tmp/interfaces_configs/exclusive/qux:
+    exists: false
+  tmp/interfaces_configs/exclusive/quux:
+    exists: false
+{{ end }}

@@ -1,0 +1,53 @@
+---
+
+file:
+  tmp/interfaces_config/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/interfaces_config/default/default_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "auto lo"
+      - "iface lo inet loopback"
+      - "auto eth0"
+      - "iface eth0 inet static"
+      - "	address 189.234.23.30"
+      - "	netmask 255.255.255.0"
+      - "	gateway 189.234.23.20"
+      - "auto eth1"
+      - "iface eth1 inet manual"
+      - "	pre-up ip link set dev $IFACE up"
+      - "	post-down ip link set dev $IFACE down"
+  tmp/interfaces_config/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "auto lo"
+      - "iface lo inet loopback"
+      - "auto eth0"
+      - "iface eth0 inet static"
+      - "	address 189.234.23.30"
+      - "	netmask 255.255.255.0"
+      - "	gateway 189.234.23.20"
+      - "auto eth1"
+      - "iface eth1 inet manual"
+      - "	pre-up ip link set dev $IFACE up"
+      - "	post-down ip link set dev $IFACE down"
+  tmp/interfaces_config/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Interfaces config foo"

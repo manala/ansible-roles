@@ -1,0 +1,40 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    - block:
+        - file:
+            path: tmp/routing_tables
+            state: directory
+        - copy:
+            dest: tmp/routing_tables/{{ item }}
+            content: |
+              255	local
+              254	main
+              253	foo
+          loop: [default, default_deprecated]
+        - import_role:
+            name: manala.network
+            tasks_from: routing_tables
+          vars:
+            manala_network_routing_tables_file: tmp/routing_tables/default
+            manala_network_routing_tables:
+              253: default
+              25: foo
+              123: bar
+        - import_role:
+            name: manala.network
+            tasks_from: routing_tables
+          vars:
+            manala_network_routing_tables_file: tmp/routing_tables/default_deprecated
+            manala_network_routing_tables:
+              - 253: default
+              - 25: foo
+              - 123: bar
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

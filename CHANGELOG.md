@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Network] Use unified exclusive template lookup
+- [Network] Deprecate dict's array hosts
+- [Network] Deprecate dict's array interfaces configs
+- [Network] Deprecate dict's array interfaces config
+- [Network] Deprecate dict's array resolver config
+- [Network] Deprecate dict's array routing tables
 
 ## [0.1.82] - 2020-10-28
 ### Fixed
