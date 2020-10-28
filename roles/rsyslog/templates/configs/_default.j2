@@ -1,0 +1,18 @@
+{%- set config = item.config|default('') -%}
+
+{%- if config is mapping -%}
+
+{{ config | manala_rsyslog_config }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
+
+{{ macros.config(config) }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

@@ -1,53 +1,129 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_rsyslog_configs_dir: /etc/rsyslog.d.test
-    manala_rsyslog_configs:
-      - file: foo.conf
-        config:
-          - auth,authpriv.*           /var/log/auth.log
-          - '*.*;auth,authpriv.none   -/var/log/syslog'
-          - daemon.*                  -/var/log/daemon.log
-          - kern.*                    -/var/log/kern.log
-          - mail.*                    -/var/log/mail.log
-          - user.*                    -/var/log/user.log
-      - file: foo_template.conf
-        template: configs/rules.prod.j2
-      - file: foo_content.conf
-        content: |
-          foo.* -/var/log/foo.log
-          bar.*  -/var/log/bar.log
-      - file: foo_template_content.conf
-        template: configs/rules.prod.j2
-        content: |
-          foo.* -/var/log/foo.log
-          bar.*  -/var/log/bar.log
-      - file: bar.conf
-        state: present
-      - file: baz.conf
-        state: absent
-  roles:
-    - manala.rsyslog
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_rsyslog_configs_dir: /etc/rsyslog.d.test
-    manala_rsyslog_configs:
-      - file: foo.conf
-      - file: bar.conf
-        state: absent
-      - file: baz.conf
-        state: present
-  roles:
-    - manala.rsyslog
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.rsyslog
+          vars:
+            manala_rsyslog_configs_dir: tmp/configs/default
+            manala_rsyslog_configs:
+              # Default
+              - file: default.conf
+                config:
+                  foo.*: -/var/log/foo.log
+                  bar.*: -/var/log/bar.log
+              # Default - Deprecated
+              - file: default_deprecated.conf
+                config:
+                  - auth,authpriv.*           /var/log/auth.log
+                  - '*.*;auth,authpriv.none   -/var/log/syslog'
+                  - daemon.*                  -/var/log/daemon.log
+                  - kern.*                    -/var/log/kern.log
+                  - mail.*                    -/var/log/mail.log
+                  - user.*                    -/var/log/user.log
+              # Default - Content
+              - file: default_content.conf
+                config: |
+                  foo.* -/var/log/foo.log
+                  bar.* -/var/log/bar.log
+              # Flatten
+              -
+                # Template
+                - file: template.conf
+                  template: configs/foo.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}.conf
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.rsyslog
+            tasks_from: configs
+          vars:
+            manala_rsyslog_configs_dir: tmp/configs/state
+            manala_rsyslog_configs:
+              - file: foo.conf
+              - file: bar.conf
+                state: absent
+              - file: baz.conf
+                state: present
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.rsyslog
+            tasks_from: configs
+          vars:
+            manala_rsyslog_configs_dir: tmp/configs/defaults
+            manala_rsyslog_configs_defaults:
+              template: configs/foo.conf.j2
+            manala_rsyslog_configs:
+              - file: foo.conf
+              - template: configs/bar.conf.j2
+              - file: baz.conf
+                template: configs/bar.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}.conf
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.rsyslog
+            tasks_from: configs
+          vars:
+            manala_rsyslog_configs_dir: tmp/configs/exclusive
+            manala_rsyslog_configs_exclusive: true
+            manala_rsyslog_configs:
+              - file: bar.conf
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate
