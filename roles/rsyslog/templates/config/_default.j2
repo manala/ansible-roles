@@ -1,6 +1,13 @@
-{%- import '_macros.j2' as macros with context -%}
-
 {% set config = manala_rsyslog_config -%}
+
+{%- if config is mapping -%}
+
+{{ config | manala_rsyslog_config }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
 
 #  /etc/rsyslog.conf	Configuration file for rsyslog.
 #
@@ -113,7 +120,7 @@ news.notice			-/var/log/news/news.notice
 
 # The named pipe /dev/xconsole is for the `xconsole' utility.  To use it,
 # you must invoke `xconsole' with the `-file' option:
-# 
+#
 #    $ xconsole -file /dev/xconsole [...]
 #
 # NOTE: adjust the list below, or you'll go crazy if you have a reasonably
@@ -123,3 +130,9 @@ daemon.*;mail.*;\
 	news.err;\
 	*.=debug;*.=info;\
 	*.=notice;*.=warn	|/dev/xconsole
+
+	{%- else -%}
+
+	{{ config }}
+
+	{%- endif -%}

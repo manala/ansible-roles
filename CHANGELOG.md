@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Rsyslog] Use unified exclusive template lookup
+- [Rsyslog] Deprecate dict's array configs
+
+### Added
+- [Rsyslog] Configs filters
 
 ## [0.1.80] - 2020-10-27
 ### Fixed

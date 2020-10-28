@@ -1,13 +1,48 @@
 ---
 
 file:
-  /etc/rsyslog.conf:
+  tmp/config/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/config/default/default_deprecated.conf:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - $ModLoad imuxsock
-      - '#$ModLoad imklog'
-      - $ModLoad immark
+      - "#$ModLoad imklog"
+      - "$FileOwner foo"
+  tmp/config/default/default_content.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "$FileOwner root"
+      - "$FileGroup adm"
+      - "$FileCreateMode 0640"
+      - "$DirCreateMode 0755"
+      - "$Umask 0022"
+  tmp/config/default/template.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config foo"
+  tmp/config/default/template_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "$ModLoad imuxsock"
+      - "#$ModLoad imklog"
+      - "$ModLoad immark"

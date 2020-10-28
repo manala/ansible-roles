@@ -39,20 +39,37 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                     | Default              | Type   | Description                            |
-| ----------------------------------------- | ------------------- | ------ | -------------------------------------- |
-| `manala_rsyslog_install_packages`         | ~                   | Array  | Dependency packages to install         |
-| `manala_rsyslog_install_packages_default` | ['rsyslog']         | Array  | Default dependency packages to install |
-| `manala_rsyslog_config_template`          | 'config/default.j2' | String | Configuration base template path       |
-| `manala_rsyslog_config`                   | []                  | Array  | Configuration directives               |
-| `manala_rsyslog_configs_template`         | 'configs/empty.j2'  | String | Configurations base template path      |
-| `manala_rsyslog_configs`                  | []                  | Array  | Additional configurations              |
-| `manala_rsyslog_configs_exclusive`        | false               | Array  | Additional configurations exclusivity  |
+| Name                                      | Default              | Type         | Description                              |
+| ----------------------------------------- | -------------------- | ------------ | ---------------------------------------- |
+| `manala_rsyslog_install_packages`         | ~                    | Array        | Dependency packages to install           |
+| `manala_rsyslog_install_packages_default` | ['rsyslog']          | Array        | Default dependency packages to install   |
+| `manala_rsyslog_config_template`          | 'config/_default.j2' | String       | Configuration base template path         |
+| `manala_rsyslog_config`                   | ~                    | Array/String | Configuration directives                 |
+| `manala_rsyslog_configs_exclusive`        | false                | Array        | Additional configurations exclusivity    |
+| `manala_rsyslog_configs_dir`              | '/etc/rsyslog.d'     | String       | Additional configurations directory path |
+| `manala_rsyslog_configs_defaults`         | {}                   | Array        | Additional configurations defaults       |
+| `manala_rsyslog_configs`                  | []                   | Array        | Additional configurations directives     |
 
 ### Configuration example
 
+Content based
 ```yaml
-manala_rsyslog_config_template: config/default.{{ env }}.j2
+manala_rsyslog_config: |
+  $FileOwner root
+  $FileGroup adm
+  $FileCreateMode 0640
+  $DirCreateMode 0755
+  $Umask 0022
+```
+
+Template based
+```yaml
+manala_rsyslog_config_template: my/rsyslog.conf.j2
+```
+
+Dict's array parameters based (deprecated):
+```yaml
+manala_rsyslog_config_template: config/default.prod.j2
 manala_rsyslog_config:
   - $ModLoad imklog: false
   - $ModLoad immark: true
@@ -67,15 +84,32 @@ manala_rsyslog_config:
 
 `manala_rsyslog_configs` allows you to define rsyslog configuration files using template and config, or raw content.
 
-A state (present|absent) can be provided.
+A state (present|absent|ignore) can be provided.
 
 ```yaml
 manala_rsyslog_configs:
-  # Template based
-  - file: foo_template.conf
-    template: configs/rules.prod.j2
-  # Config based, empty template by default
+  # Config based
+  - file: config.conf
+    config:
+      foo.*: -/var/log/foo.log
+      bar.*: -/var/log/bar.log
+  # Content based
+  - file: content.conf
+    config: |
+      foo.* -/var/log/foo.log
+      bar.* -/var/log/bar.log
+  # Template based (file name based on template)
+  - template: rsyslog/bar.conf.j2
+    config:
+      foo: bar
+  # Template based (force file name)
+  - file: baz.conf
+    template: rsyslog/bar.conf.j2
+    config:
+      foo: bar
+  # Dicts array template based (deprecated)
   - file: foo.conf
+    template: configs/rules.prod.j2
     config:
       - auth,authpriv.*           /var/log/auth.log
       - '*.*;auth,authpriv.none   -/var/log/syslog'
@@ -83,11 +117,14 @@ manala_rsyslog_configs:
       - kern.*                    -/var/log/kern.log
       - mail.*                    -/var/log/mail.log
       - user.*                    -/var/log/user.log
-  # Raw content based
-  - file: foo_content.conf
-    content: |
-      APT::Install-Recommends "false";
-    state: absent
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 `manala_rsyslog_configs_exclusive` allow you to clean up existing rsyslog configuration files into directory defined by the `manala_rsyslog_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
@@ -101,7 +138,7 @@ manala_rsyslog_configs_exclusive: true
 ```yaml
 - hosts: all
   roles:
-    - { role: manala.rsyslog }
+    - role: manala.rsyslog
 ```
 
 # Licence

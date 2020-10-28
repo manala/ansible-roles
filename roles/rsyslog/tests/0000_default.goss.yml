@@ -9,3 +9,8 @@ command:
     exit-status: 0
     stdout:
       - rsyslogd
+
+service:
+  rsyslog:
+    enabled: true
+    running: true

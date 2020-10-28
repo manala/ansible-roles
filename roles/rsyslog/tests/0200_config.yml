@@ -3,18 +3,56 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_rsyslog_config_template: config/default.prod.j2
-    manala_rsyslog_config:
-      - $ModLoad imklog: false
-      - $ModLoad immark: true
-      - |
-        *.=info;*.=notice;*.=warn;\
-            auth,authpriv.none;\
-            cron,daemon.none;\
-            mail,news.none    -/var/log/messages
-  roles:
-    - manala.rsyslog
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: absent
+        # Default - Deprecated
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.rsyslog
+          vars:
+            manala_rsyslog_config_file: tmp/config/default/default_deprecated.conf
+            manala_rsyslog_config:
+              - $ModLoad imklog: false
+              - $FileOwner: foo
+        # Default - Content
+        - import_role:
+            name: manala.rsyslog
+            tasks_from: config
+          vars:
+            manala_rsyslog_config_file: tmp/config/default/default_content.conf
+            manala_rsyslog_config: |
+              $FileOwner root
+              $FileGroup adm
+              $FileCreateMode 0640
+              $DirCreateMode 0755
+              $Umask 0022
+        # Template
+        - import_role:
+            name: manala.rsyslog
+            tasks_from: config
+          vars:
+            manala_rsyslog_config_file: tmp/config/default/template.conf
+            manala_rsyslog_config_template: config/foo.conf.j2
+        # Template - Deprecated
+        - import_role:
+            name: manala.rsyslog
+            tasks_from: config
+          vars:
+            manala_rsyslog_config_file: tmp/config/default/template_deprecated.conf
+            manala_rsyslog_config_template: config/default.prod.j2
+            manala_rsyslog_config:
+              - $ModLoad imklog: false
+              - $ModLoad immark: true
+              - |
+                *.=info;*.=notice;*.=warn;\
+                    auth,authpriv.none;\
+                    cron,daemon.none;\
+                    mail,news.none    -/var/log/messages
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

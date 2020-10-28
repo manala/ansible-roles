@@ -8,10 +8,12 @@ manala_rsyslog_install_packages_default:
 # Config
 manala_rsyslog_config_file: /etc/rsyslog.conf
 manala_rsyslog_config_template: ~
-manala_rsyslog_config: []
+manala_rsyslog_config: ~
 
 # Configs
 manala_rsyslog_configs_exclusive: false
 manala_rsyslog_configs_dir: /etc/rsyslog.d
-manala_rsyslog_configs_template: ~
+manala_rsyslog_configs_template: ~ # Deprecated
+manala_rsyslog_configs_defaults:
+  template: "{{ manala_rsyslog_configs_template }}" # Ensure backward compatibility
 manala_rsyslog_configs: []
