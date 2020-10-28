@@ -57,7 +57,7 @@ def config_parameter(parameters, key, default=None, comment=False):
         result = '%s=%s' % (key, value)
     else:
         AnsibleFilterError('manala_supervisor_config_parameter value of an unknown type %s' % type(value))
-    if comment and not key in parameters:
+    if comment and key not in parameters:
         result = ';%s' % result
     return result
 
