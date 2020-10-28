@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- `configs/inet_http_server.conf.j2` used old style macros
 
 ## [2.0.8] - 2020-10-27
 ### Fixed

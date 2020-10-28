@@ -1,8 +1,6 @@
-{%- import '_macros.j2' as macros with context -%}
-
 {%- set config = item.config|default({}) -%}
 
 [inet_http_server]
-{{- macros.config_parameters({
+{{- {
   'port': config.port|mandatory
-} | combine(config)) }}
+} | combine(config) | manala_supervisor_config_parameters }}
