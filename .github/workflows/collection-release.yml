@@ -19,12 +19,6 @@ jobs:
       - name: Build Collection
         run: make collection.build
 
-      # - name: Read version
-      #   id: package
-      #   uses: juliangruber/read-file-action@v1
-      #   with:
-      #     path: ./galaxy.yml
-
       - name: Get Changelog Entry
         id: changelog
         uses: mindsers/changelog-reader-action@v2
@@ -39,7 +33,7 @@ jobs:
         with:
           tag_name: ${{ steps.changelog.outputs.version }}
           release_name: manala-roles ${{ steps.changelog.outputs.version }}
-          body: ${{ steps.changelog_reader.outputs.changes }}
+          body: ${{ steps.changelog.outputs.changes }}
           draft: false
           prerelease: false
 
