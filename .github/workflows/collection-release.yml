@@ -1,0 +1,55 @@
+---
+
+name: Collection Release
+on:
+  push:
+    branches:
+      - release-test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'Release')"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Prepare Collection
+        run: make collection.prepare
+
+      - name: Build Collection
+        run: make collection.build
+
+      # - name: Read version
+      #   id: package
+      #   uses: juliangruber/read-file-action@v1
+      #   with:
+      #     path: ./galaxy.yml
+
+      - name: Get Changelog Entry
+        id: changelog
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          path: ./CHANGELOG.md
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.changelog.outputs.version }}
+          release_name: manala-roles ${{ steps.changelog.outputs.version }}
+          body: ${{ steps.changelog_reader.outputs.changes }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload_release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./manala-roles-${{ steps.changelog.outputs.version }}.tar.gz
+          asset_name: manala-roles-${{ steps.changelog.outputs.version }}.tar.gz
+          asset_content_type: application/zip
