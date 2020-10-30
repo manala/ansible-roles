@@ -12,17 +12,19 @@
     - manala_network
     - manala_network.hosts
 
-# Resolver
-- import_tasks: resolver.yml
+# Resolver config
+- import_tasks: resolver_config.yml
   tags:
     - manala_network
-    - manala_network.resolver
+    - manala_network.resolver # Deprecated
+    - manala_network.resolver_config
 
-# Interfaces
-- import_tasks: interfaces.yml
+# Interfaces config
+- import_tasks: interfaces_config.yml
   tags:
     - manala_network
-    - manala_network.interfaces
+    - manala_network.interfaces # Deprecated
+    - manala_network.interfaces_config
 
 # Interfaces configs
 - import_tasks: interfaces_configs.yml

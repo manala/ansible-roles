@@ -1,0 +1,42 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    - block:
+        - file:
+            path: tmp/resolver_config/default
+            state: absent
+        # Default - Deprecated
+        - import_role:
+            name: manala.network
+            tasks_from: resolver_config
+          vars:
+            manala_network_resolver_config_file: tmp/resolver_config/default/default_deprecated.conf
+            manala_network_resolver_config:
+              - search: manala.local
+              - nameserver: 189.234.23.1
+              - nameserver: 189.234.23.2
+        # Default - Content
+        - import_role:
+            name: manala.network
+            tasks_from: resolver_config
+          vars:
+            manala_network_resolver_config_file: tmp/resolver_config/default/default_content.conf
+            manala_network_resolver_config: |
+              search manala.local
+              nameserver 189.234.23.1
+              nameserver 189.234.23.2
+        # Template
+        - import_role:
+            name: manala.network
+            tasks_from: resolver_config
+          vars:
+            manala_network_resolver_config_file: tmp/resolver_config/default/template.conf
+            manala_network_resolver_config_template: resolver_config/foo.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

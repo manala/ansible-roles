@@ -40,34 +40,58 @@ Using ansible galaxy requirements file:
 
 ### Definition
 
-| Name                                           | Default                       | Type   | Description                              |
-| ---------------------------------------------- | ----------------------------- | ------ | ---------------------------------------- |
-| `manala_network_hosts_file`                    | '/etc/hosts'                  | String | Host file path                           |
-| `manala_network_hosts`                         | []                            | Array  | Hosts                                    |
-| `manala_network_resolver_file`                 | '/etc/resolv.conf'            | String | Resolver file path                       |
-| `manala_network_resolver_template`             | ~                             | String | Resolver file template                   |
-| `manala_network_resolver_config`               | []                            | Array  | Resolver configuration                   |
-| `manala_network_interfaces_file`               | '/etc/network/interfaces'     | String | Interfaces file path                     |
-| `manala_network_interfaces_template`           | ~                             | String | Interfaces file template                 |
-| `manala_network_interfaces_config`             | []                            | Array  | Interfaces configuration                 |
-| `manala_network_interfaces_configs`            | []                            | Array  | Interfaces configurations                |
-| `manala_network_interfaces_configs_template`   | 'interfaces_configs/empty.j2' | String | Interfaces configurations template path  |
-| `manala_network_interfaces_configs_exclusive`  | false                         | Boolean| Exclusion of existings files             |
-| `manala_network_interfaces_configs_dir`        | '/etc/network/interfaces.d'   | String | Interfaces configurations directory path |
-| `manala_network_routing_tables_file`           | '/etc/iproute2/rt_tables'     | String | Routing tables file path                 |
-| `manala_network_routing_tables`                | []                            | Array  | Routing tables                           |
+| Name                                           | Default                       | Type         | Description                                                      |
+| ---------------------------------------------- | ----------------------------- | ------------ | ---------------------------------------------------------------- |
+| `manala_network_hosts_file`                    | '/etc/hosts'                  | String       | Host file path                                                   |
+| `manala_network_hosts`                         | {}                            | Array        | Hosts                                                            |
+| `manala_network_resolver_config_file`          | '/etc/resolv.conf'            | String       | Resolver file path                                               |
+| `manala_network_resolver_config_template`      | ~                             | String       | Resolver file template                                           |
+| `manala_network_resolver_config`               | ~                             | String/Array | Resolver configuration                                           |
+| `manala_network_interfaces_config_file`        | '/etc/network/interfaces'     | String       | Interfaces file path                                             |
+| `manala_network_interfaces_config_template`    | ~                             | String       | Interfaces file template                                         |
+| `manala_network_interfaces_config`             | ~                             | String/Array | Interfaces configuration                                         |
+| `manala_network_interfaces_configs_exclusive`  | false                         | Boolean      | Exclusion of existing files additional interfaces configurations |
+| `manala_network_interfaces_configs_dir`        | '/etc/network/interfaces.d'   | String       | Additional interfaces configurations directory path              |
+| `manala_network_interfaces_configs_defaults`   | {}                            | Array        | Additional interfaces configurations defaults                    |
+| `manala_network_interfaces_configs`            | []                            | Array        | Additional interfaces configurations directives                  |
+| `manala_network_routing_tables_file`           | '/etc/iproute2/rt_tables'     | String       | Routing tables file path                                         |
+| `manala_network_routing_tables`                | {}                            | Array        | Routing tables                                                   |
 
 ### Configuration examples
 
+Hosts:
+```yaml
+manala_network_hosts:
+  189.234.23.35: bismuth.manala.local
+```
+
+Dict's array based hosts (deprecated):
 ```yaml
 manala_network_hosts:
   - 189.234.23.35: bismuth.manala.local
+```
 
-manala_network_resolver_config:
-  - search:     manala.local
-  - nameserver: 189.234.23.1
-  - nameserver: 189.234.23.2
+Content based interfaces config:
+```yaml
+manala_network_interfaces_config: |
+  # Loopback
+  auto lo
+  iface lo inet loopback
+  # Eth0
+  auto eth0
+  iface eth0 inet static
+    address 189.234.23.30
+    netmask 255.255.255.0
+    gateway 189.234.23.20
+  # Eth1
+  auto eth1
+  iface eth1 inet manual
+    pre-up ip link set dev $IFACE up
+    post-down ip link set dev $IFACE down
+```
 
+Dict's array based interfaces config (deprecated):
+```yaml
 manala_network_interfaces_config:
   # Loopback
   - auto lo
@@ -83,7 +107,42 @@ manala_network_interfaces_config:
   - iface eth1 inet manual:
       - pre-up: ip link set dev $IFACE up
       - post-down: ip link set dev $IFACE down
+```
 
+Template based interfaces config:
+```yaml
+manala_network_interfaces_config_template: network/interfaces.j2
+```
+
+Content based resolver config:
+```yaml
+manala_network_resolver_config: |
+  search manala.local
+  nameserver 189.234.23.1
+  nameserver 189.234.23.2
+```
+
+Dict's array based resolver config (deprecated):
+```yaml
+manala_network_resolver_config:
+  - search: manala.local
+  - nameserver: 189.234.23.1
+  - nameserver: 189.234.23.2
+```
+
+Template based resolver config:
+```yaml
+manala_network_resolver_config_template: network/resolv.conf.j2
+```
+
+Routing tables:
+```yaml
+manala_network_routing_tables:
+  1: public
+```
+
+Dict's array based routing tables (deprecated):
+```yaml
 manala_network_routing_tables:
   - 1: public
 ```
@@ -95,18 +154,32 @@ manala_network_routing_tables:
 ```yaml
 manala_network_interfaces_configs_exclusive: true
 
-manala_network_interfaces_config:
-  - source-directory /etc/network/interfaces.d
-  - auto lo
-  - iface lo inet loopback
-
 manala_network_interfaces_configs:
-  - file: alias
+  # Content based
+  - file: content
+    config: |
+      auto eth1
+      iface eth1 inet dhcp
+  # Dicts array template based (deprecated)
+  - file: foo
     config:
       - auto eth0:0
       - iface eth0:0 inet static:
         - address: 0.0.0.0
         - netmask: 255.255.255.255
+  # Template based (file name based on template)
+  - template: network/bar.j2
+  # Template based (force file name)
+  - file: baz
+    template: network/bar.j2
+  # Ensure interfaces config is absent
+  - file: absent
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_interfaces_configs_array }}"
 ```
 
 ## Example playbook
@@ -114,7 +187,7 @@ manala_network_interfaces_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.network }
+    - role: manala.network
 ```
 
 # Licence
