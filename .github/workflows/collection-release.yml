@@ -21,6 +21,8 @@ jobs:
 
       - name: Publish Collection
         run: make collection.publish
+        env:
+          COLLECTION_API_TOKEN: ${{ secrets.COLLECTION_API_TOKEN }}
 
       - name: Retrieve version from galaxy.yml
         id: get_version

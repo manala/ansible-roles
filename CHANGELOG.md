@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.85] - 2020-10-30
 ### Fixed
 - [Collection] Collection is now functionning correctly again
 - [Collection] Versions 0.1.83, 0.1.84 and 0.1.84-2 are to avoid
