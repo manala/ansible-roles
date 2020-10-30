@@ -5,7 +5,7 @@ file:
     exists: true
     filetype: file
     owner: root
-    group: root
-    mode: "0644"
+    group: elasticsearch
+    mode: "0660"
     contains:
       - "node.name: Foo Bar"
