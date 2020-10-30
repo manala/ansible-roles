@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Collection] Collection is now functionning correctly again
+- [Collection] Versions 0.1.83, 0.1.84 and 0.1.84-2 are to avoid
+
+### Changed
+- [Network] Use unified exclusive template lookup
+- [Network] Deprecate dict's array hosts
+- [Network] Deprecate dict's array interfaces configs
+- [Network] Deprecate dict's array interfaces config
+- [Network] Deprecate dict's array resolver config
+- [Network] Deprecate dict's array routing tables
+
+## [0.1.84-2] - 2020-10-30
+### Changed
+- Nothing new from 0.1.84
+- This version is for test
 
 ## [0.1.84] - 2020-10-30
 ### Changed
