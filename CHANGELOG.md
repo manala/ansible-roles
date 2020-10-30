@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.84-2] - 2020-10-30
+### Changed
+- Nothing new from 0.1.84
+- This version is for test, but perfectly usable
+
 ## [0.1.84] - 2020-10-30
 ### Changed
 - [Network] Use unified exclusive template lookup

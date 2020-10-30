@@ -4,7 +4,7 @@ name: Collection Release
 on:
   push:
     branches:
-      - master
+      - release-test
 
 jobs:
   build:
@@ -16,10 +16,11 @@ jobs:
       - name: Prepare Collection
         run: make collection.prepare
 
-      - name: Build and Deploy Collection
-        uses: arillso/action.ansible.collection@master
-        with:
-          api_key: ${{ secrets.COLLECTION_API_TOKEN }}
+      - name: Build Collection
+        run: make collection.build
+
+      # - name: Publish Collection
+      #   run: make collection.publish
 
       - name: Retrieve version from galaxy.yml
         id: get_version

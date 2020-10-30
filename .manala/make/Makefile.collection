@@ -2,7 +2,6 @@ define docker_collection
 	docker run \
 		--rm \
 		--env COLLECTION_API_TOKEN \
-		--tty --interactive \
 		--volume $(PWD):/srv/ \
 		--workdir /srv/ \
 		manala/ansible:edge \
