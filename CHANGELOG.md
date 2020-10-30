@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.83] - 2020-10-29
+### Changed
+- Nothing new from 0.1.82
+- This version is for test, but perfectly usable
+
 ## [0.1.82] - 2020-10-28
 ### Fixed
 - [Supervisor] `configs/inet_http_server.conf.j2` used old style macros
