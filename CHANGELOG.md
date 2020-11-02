@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Systemd] `ignore` service state
+
+### Changed
+- [Systemd] Use unified exclusive template lookup
+- [Systemd] dict's array configs
+- [Systemd] Flatten services array
 
 ## [0.1.85] - 2020-10-30
 ### Fixed

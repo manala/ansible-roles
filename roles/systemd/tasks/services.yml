@@ -8,4 +8,5 @@
     state: "{{ item.state|default(omit) }}"
     user: "{{ item.user|default(omit) }}"
     daemon_reload: "{{ item.daemon_reload|default(omit) }}"
-  with_items: "{{ manala_systemd_services }}"
+  with_items: "{{ manala_systemd_services|flatten }}"
+  when: item.state|default(omit) != 'ignore'

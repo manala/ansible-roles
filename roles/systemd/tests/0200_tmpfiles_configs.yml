@@ -3,14 +3,116 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_systemd_tmpfiles_configs_dir: /etc/tmpfiles.d.test
-    manala_systemd_tmpfiles_configs:
-      - file: mysql.conf
-        config:
-          - d: /var/run/mysqld 0755 mysql mysql -
-  roles:
-    - manala.systemd
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/tmpfiles_configs/default
+            state: absent
+        - import_role:
+            name: manala.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_dir: tmp/tmpfiles_configs/default
+            manala_systemd_tmpfiles_configs:
+              # Default - Deprecated
+              - file: default_deprecated
+                config:
+                  - d: /var/run/mysqld 0755 mysql mysql -
+              # Default - Content
+              - file: default_content
+                config: |
+                  d /var/run/mysqld 0755 mysql mysql -
+              # Flatten
+              -
+                # Template
+                - file: template
+                  template: tmpfiles_configs/foo.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/tmpfiles_configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/tmpfiles_configs/state/{{ item }}
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_dir: tmp/tmpfiles_configs/state
+            manala_systemd_tmpfiles_configs:
+              - file: foo
+              - file: bar
+                state: absent
+              - file: baz
+                state: present
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/tmpfiles_configs/defaults
+            state: absent
+        - import_role:
+            name: manala.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_dir: tmp/tmpfiles_configs/defaults
+            manala_systemd_tmpfiles_configs_defaults:
+              template: tmpfiles_configs/foo.j2
+            manala_systemd_tmpfiles_configs:
+              - file: foo
+              - template: tmpfiles_configs/bar.j2
+              - file: baz
+                template: tmpfiles_configs/bar.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/tmpfiles_configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/tmpfiles_configs/exclusive/{{ item }}
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_dir: tmp/tmpfiles_configs/exclusive
+            manala_systemd_tmpfiles_configs_exclusive: true
+            manala_systemd_tmpfiles_configs:
+              - file: bar
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate
