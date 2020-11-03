@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- `ignore` service state
+
+### Changed
+- Use unified exclusive template lookup
+- Deprecate dict's array configs
+- Flatten services array
 
 ## [1.0.10] - 2020-08-28
 ### Changed

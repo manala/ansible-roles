@@ -32,26 +32,59 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                        | Default                 | Type    | Description                                 |
-| ------------------------------------------- | ----------------------- | ------- | ------------------------------------------- |
-| `manala_systemd_system_configs`             | {}                      | Array   | System configs                              |
-| `manala_systemd_system_configs_template`    | system_configs/empty.j2 | String  |                                             |
-| `manala_systemd_system_configs_exclusive`   | false                   | Boolean | Exclusion of existings files                |
-| `manala_systemd_system_configs_dir`         | /etc/systemd/system     | String  | Path to the system configuration directory  |
-| `manala_systemd_tmpfiles_configs_exclusive` | false                   | Boolean | Exclusion of existings files                |
-| `manala_systemd_tmpfiles_configs_dir`       | /etc/tmpfiles.d         | String  | Path to the system configuration directory  |
-| `manala_systemd_tmpfiles_configs_template`  | ~                       | String  |                                             |
-| `manala_systemd_tmpfiles_configs`           | []                      | Array   | System configs                              |
+| Name                                        | Default               | Type    | Description                                  |
+| ------------------------------------------- | --------------------- | ------- | -------------------------------------------- |
+| `manala_systemd_system_configs_exclusive`   | false                 | Boolean | Exclusion of existings files                 |
+| `manala_systemd_system_configs_dir`         | '/etc/systemd/system' | String  | Path to the system configuration directory   |
+| `manala_systemd_system_configs_defaults`    | {}                    | Array   | System configs defaults                      |
+| `manala_systemd_system_configs`             | []                    | Array   | System configs                               |
+| `manala_systemd_tmpfiles_configs_exclusive` | false                 | Boolean | Exclusion of existings files                 |
+| `manala_systemd_tmpfiles_configs_dir`       | '/etc/tmpfiles.d'     | String  | Path to the tmpfiles configuration directory |
+| `manala_systemd_tmpfiles_configs_defaults`  | {}                    | Array   | Tmpfiles configs defaults                    |
+| `manala_systemd_tmpfiles_configs`           | []                    | Array   | Tmpfiles configs                             |
+| `manala_systemd_services`                   | []                    | Array   | Services                                     |
+
+
+| `manala_telegraf_configs_exclusive`        | false                      | Array        | Additional configurations exclusivity    |
+| `manala_telegraf_configs_dir`              | '/etc/telegraf/telegraf.d' | String       | Additional configurations directory path |
+| `manala_telegraf_configs_defaults`         | {}                         | Array        | Additional configurations defaults       |
+| `manala_telegraf_configs`                  | []                         | Array        | Additional configurations directives     |
+
 
 ### Configuration example
 
 ```yaml
-
 manala_systemd_system_configs_exclusive: true
 
 manala_systemd_system_configs:
-  - file: redis-server.service.d/proxmox-lxc.conf
-    template: system_configs/proxmox-lxc.j2
+  # Content based
+  - file: content.conf
+    config: |
+      [Service]
+      PrivateTmp=no
+      PrivateDevices=no
+      PrivateNetwork=no
+  # Template based (file name based on template)
+  - template: systemd/system/bar.conf.j2
+    config:
+      foo: bar
+  # Template based (force file name)
+  - file: baz.conf
+    template: systemd/system/bar.conf.j2
+    config:
+      foo: bar
+  # Dicts array based (deprecated)
+  - file: deprecated.conf
+    config:
+      - Description=OpenBSD Secure Shell session cleanup
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_systemd_system_configs_array }}"
 
 # Mask redis service
 manala_systemd_services:
@@ -66,9 +99,31 @@ manala_systemd_services:
 manala_systemd_tmpfiles_configs_exclusive: true
 
 manala_systemd_tmpfiles_configs:
-  - file:   mysql.conf
+  # Content based
+  - file: content.conf
+    config: |
+      d /var/run/mysqld 0755 mysql mysql -
+  # Template based (file name based on template)
+  - template: systemd/tmpfiles/bar.conf.j2
+    config:
+      foo: bar
+  # Template based (force file name)
+  - file: baz.conf
+    template: systemd/tmpfiles/bar.conf.j2
+    config:
+      foo: bar
+  # Dicts array based (deprecated)
+  - file: deprecated.conf
     config:
       - d: /var/run/mysqld 0755 mysql mysql -
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_systemd_tmpfiles_configs_array }}"
 ```
 
 ## Example playbook
@@ -76,7 +131,7 @@ manala_systemd_tmpfiles_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.systemd }
+    - role: manala.systemd
 ```
 
 # Licence
