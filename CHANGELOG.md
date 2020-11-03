@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - [Systemd] `ignore` service state
+- [Mount] `ignore` points state
 
 ### Changed
 - [Systemd] Use unified exclusive template lookup
 - [Systemd] dict's array configs
 - [Systemd] Flatten services array
+- [Mount] Flatten points array
 
 ## [0.1.85] - 2020-10-30
 ### Fixed
