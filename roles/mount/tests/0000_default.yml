@@ -1,0 +1,25 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.mount
+            tasks_from: points
+          vars:
+            manala_mount_points:
+              - path: /tmp/ignore
+                state: ignore
+              # Flatten
+              -
+                - path: /tmp/foo
+                  src: "{{ playbook_dir }}/fixtures"
+                  fstype: none
+                  opts: bind
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate
