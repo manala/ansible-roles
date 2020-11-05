@@ -1,0 +1,714 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  gather_facts: false
+  tasks:
+
+    ############
+    # Defaults #
+    ############
+
+    - tags: [defaults]
+      block:
+        - file:
+            path: /tmp/defaults
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - import_role:
+            name: manala.files
+          vars:
+            manala_files_attributes_defaults:
+              - user: nobody
+              - path: ^/tmp/defaults/root
+                user: root
+                group: root
+              - path: ^/tmp/defaults/nobody
+                group: nogroup
+              - path: ^/tmp/defaults/mail
+                user: mail
+                group: mail
+            manala_files_attributes:
+              - path: /tmp/defaults/root
+                state: touch
+              # Flatten
+              -
+                - path: /tmp/defaults/nobody
+                  state: touch
+                - path: /tmp/defaults/mail
+                  state: touch
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    ########
+    # File #
+    ########
+
+    - tags: [file]
+      block:
+        - file:
+            path: /tmp/file
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: /tmp/file/default
+                state: directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/file/default/default
+        # Parents
+        - block:
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^/tmp/file/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: /tmp/file/parents/file
+                    parents: true
+                  - path: /tmp/file/parents_defaults/file
+                  - path: /tmp/file/parents_unexisting/file
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # File already exists as empty directory
+        - block:
+            - file:
+                path: /tmp/file/file_directory_empty
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: directory
+              loop:
+                - /tmp/file/file_directory_empty/file_force
+                - /tmp/file/file_directory_empty/file
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/file/file_directory_empty/file_force
+                    force: true
+                  - path: /tmp/file/file_directory_empty/file
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # File already exists as full directory
+        - block:
+            - file:
+                path: /tmp/file/file_directory_full
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: directory
+              loop:
+                - /tmp/file/file_directory_full/file_force
+                - /tmp/file/file_directory_full/file
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - /tmp/file/file_directory_full/file_force/file
+                - /tmp/file/file_directory_full/file/file
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/file/file_directory_full/file_force
+                    force: true
+                  - path: /tmp/file/file_directory_full/file
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # File already exists as link to file
+        - block:
+            - file:
+                path: /tmp/file/file_link_file
+                state: directory
+            - file:
+                path: /tmp/file/file_link_file/link_file
+                state: touch
+            - file:
+                path: "{{ item }}"
+                src: /tmp/file/file_link_file/link_file
+                state: link
+              loop:
+                - /tmp/file/file_link_file/file_force
+                - /tmp/file/file_link_file/file
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/file/file_link_file/file_force
+                    force: true
+                  - path: /tmp/file/file_link_file/file
+        # File already exists as link to directory
+        - block:
+            - file:
+                path: /tmp/file/file_link_directory
+                state: directory
+            - file:
+                path: /tmp/file/file_link_directory/link_file
+                state: directory
+            - file:
+                path: "{{ item }}"
+                src: /tmp/file/file_link_directory/link_file
+                state: link
+              loop:
+                - /tmp/file/file_link_directory/file_force
+                - /tmp/file/file_link_directory/file
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/file/file_link_directory/file_force
+                    force: true
+                  - path: /tmp/file/file_link_directory/file
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [file]}" validate
+
+    ########
+    # Link #
+    ########
+
+    - tags: [link]
+      block:
+        - file:
+            path: /tmp/link
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: /tmp/link/file
+            state: touch
+        - file:
+            path: /tmp/link/directory
+            state: directory
+        # Default
+        - block:
+            - file:
+                path: /tmp/link/default
+                state: directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  # Link to file
+                  - path: /tmp/link/default/link_file
+                    src: /tmp/link/file
+                    state: link
+                  # Link to link to file
+                  - path: /tmp/link/default/link_link_file
+                    src: /tmp/link/default/link_file
+                    state: link
+                  # Flatten
+                  -
+                    # Link to directory
+                    - path: /tmp/link/default/link_directory
+                      src: /tmp/link/directory
+                      state: link
+                    # Link to link to directory
+                    - path: /tmp/link/default/link_link_directory
+                      src: /tmp/link/default/link_directory
+                      state: link
+        # Parents
+        - block:
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^/tmp/link/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: /tmp/link/parents/link
+                    src: /tmp/link/file
+                    state: link
+                    parents: true
+                  - path: /tmp/link/parents_defaults/link
+                    src: /tmp/link/file
+                    state: link
+                  - path: /tmp/link/parents_unexisting/link
+                    src: /tmp/link/file
+                    state: link_directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Wrong
+        - block:
+            - file:
+                path: /tmp/link/wrong
+                state: directory
+            - file:
+                path: /tmp/link/wrong/link
+                src: /tmp/link/file
+                state: link
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/link/wrong/link
+                    src: /tmp/link/directory
+                    state: link
+        # Link already exists as file
+        - block:
+            - file:
+                path: /tmp/link/link_file
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - /tmp/link/link_file/link_force
+                - /tmp/link/link_file/link
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/link/link_file/link_force
+                    src: /tmp/link/file
+                    state: link
+                    force: true
+                  - path: /tmp/link/link_file/link
+                    src: /tmp/link/file
+                    state: link
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Link already exists as empty directory
+        - block:
+            - file:
+                path: /tmp/link/link_directory_empty
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: directory
+              loop:
+                - /tmp/link/link_directory_empty/link_force
+                - /tmp/link/link_directory_empty/link
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/link/link_directory_empty/link_force
+                    src: /tmp/link/file
+                    state: link
+                    force: true
+                  - path: /tmp/link/link_directory_empty/link
+                    src: /tmp/link/file
+                    state: link
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Link already exists as full directory
+        - block:
+            - file:
+                path: /tmp/link/link_directory_full
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: directory
+              loop:
+                - /tmp/link/link_directory_full/link_force
+                - /tmp/link/link_directory_full/link
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - /tmp/link/link_directory_full/link_force/file
+                - /tmp/link/link_directory_full/link/file
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/link/link_directory_full/link_force
+                    src: /tmp/link/file
+                    state: link
+                    force: true
+                  - path: /tmp/link/link_directory_full/link
+                    src: /tmp/link/file
+                    state: link
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [link]}" validate
+
+    #############
+    # Directory #
+    #############
+
+    - tags: [directory]
+      block:
+        - file:
+            path: /tmp/directory
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: /tmp/directory/default
+                state: directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/directory/default/default
+                    state: directory
+        # Directory already exists as file
+        - block:
+            - file:
+                path: /tmp/directory/directory_file
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - /tmp/directory/directory_file/directory_force
+                - /tmp/directory/directory_file/directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/directory/directory_file/directory_force
+                    state: directory
+                    force: true
+                  - path: /tmp/directory/directory_file/directory
+                    state: directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Directory already exists as link to file
+        - block:
+            - file:
+                path: /tmp/directory/directory_link_file
+                state: directory
+            - file:
+                path: /tmp/directory/directory_link_file/link_file
+                state: touch
+            - file:
+                path: "{{ item }}"
+                src: /tmp/directory/directory_link_file/link_file
+                state: link
+              loop:
+                - /tmp/directory/directory_link_file/directory_force
+                - /tmp/directory/directory_link_file/directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/directory/directory_link_file/directory_force
+                    state: directory
+                    force: true
+                  - path: /tmp/directory/directory_link_file/directory
+                    state: directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Directory already exists as link to directory
+        - block:
+            - file:
+                path: /tmp/directory/directory_link_directory
+                state: directory
+            - file:
+                path: /tmp/directory/directory_link_directory/link_directory
+                state: directory
+            - file:
+                path: "{{ item }}"
+                src: /tmp/directory/directory_link_directory/link_directory
+                state: link
+              loop:
+                - /tmp/directory/directory_link_directory/directory_force
+                - /tmp/directory/directory_link_directory/directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/directory/directory_link_directory/directory_force
+                    state: directory
+                    force: true
+                  - path: /tmp/directory/directory_link_directory/directory
+                    state: directory
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [directory]}" validate
+
+    ########
+    # Copy #
+    ########
+
+    - tags: [copy]
+      block:
+        - file:
+            path: tmp/copy
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: tmp/copy/default
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - tmp/copy/default/absent
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: tmp/copy/default/default
+                    copy: fixtures/copy/default
+                  # Flatten
+                  -
+                    - path: tmp/copy/default/present
+                      copy: fixtures/copy/present
+                      state: present
+                    - path: tmp/copy/default/absent
+                      state: absent
+                    - path: tmp/copy/default/ignore
+                      state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [copy]}" validate
+
+    #######
+    # Url #
+    #######
+
+    - tags: [url]
+      block:
+        - file:
+            path: /tmp/url
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: /tmp/url/default
+                state: directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: /tmp/url/default/humans.txt
+                    url: http://humanstxt.org/humans.txt
+                  # Flatten
+                  -
+                    - path: /tmp/url/default/alt-galaxy.tar.xz
+                      url: https://github.com/gantsign/alt-galaxy/releases/download/1.4.0/alt-galaxy_linux_amd64.tar.xz
+                      unarchive: true
+                      creates: /tmp/url/default/alt-galaxy
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [url]}" validate
+
+    ###########
+    # Content #
+    ###########
+
+    - tags: [content]
+      block:
+        - file:
+            path: tmp/content
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: tmp/content/default
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - tmp/content/default/absent
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: tmp/content/default/default
+                    content: |
+                      Content default
+                  # Flatten
+                  -
+                    - path: tmp/content/default/present
+                      content: |
+                        Content present
+                      state: present
+                    - path: tmp/content/default/absent
+                      state: absent
+                    - path: tmp/content/default/ignore
+                      state: ignore
+        # Parents
+        - block:
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^tmp/content/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: tmp/content/parents/content
+                    content: |
+                      Content parents default
+                    parents: true
+                  - path: tmp/content/parents_defaults/content
+                    content: |
+                      Content defaults parents
+                  - path: tmp/content/parents_unexisting/content
+                    content: |
+                      Content defaults parents
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [content]}" validate
+
+    ############
+    # Template #
+    ############
+
+    - tags: [template]
+      block:
+        - file:
+            path: tmp/template
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: tmp/template/default
+                state: directory
+            - file:
+                path: "{{ item }}"
+                state: touch
+              loop:
+                - tmp/template/default/absent
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  - path: tmp/template/default/default
+                    template: fixtures/template/default.j2
+                  # Flatten
+                  -
+                    - path: tmp/template/default/present
+                      template: fixtures/template/present.j2
+                      state: present
+                    - path: tmp/template/default/absent
+                      state: absent
+                    - path: tmp/template/default/ignore
+                      state: ignore
+        # Parents
+        - block:
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^tmp/template/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: tmp/template/parents/template
+                    template: fixtures/template/default.j2
+                    parents: true
+                  - path: tmp/template/parents_defaults/template
+                    template: fixtures/template/default.j2
+                  - path: tmp/template/parents_unexisting/template
+                    template: fixtures/template/default.j2
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [template]}" validate
+
+    ##################
+    # Link directory #
+    ##################
+
+    - tags: [link_directory]
+      block:
+        - file:
+            path: /tmp/link_directory
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: /tmp/link_directory/default
+                state: directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  # Default
+                  - path: /tmp/link_directory/default/link_directory
+                    src: /tmp/link_directory/default/directory
+                    state: link_directory
+                  # Sub directory
+                  - path: /tmp/link_directory/default/link_directory_sub
+                    src: /tmp/link_directory/default/directory_sub/directory
+                    state: link_directory
+                  # Permissions
+                  - path: /tmp/link_directory/default/link_permissions
+                    src: /tmp/link_directory/default/directory_permissions
+                    state: link_directory
+                    user: backup
+                    group: games
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [link_directory]}" validate
+
+    #############
+    # Link file #
+    #############
+
+    - tags: [link_file]
+      block:
+        - file:
+            path: /tmp/link_file
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - block:
+            - file:
+                path: /tmp/link_file/default
+                state: directory
+            - import_role:
+                name: manala.files
+              vars:
+                manala_files_attributes:
+                  # Default
+                  - path: /tmp/link_file/default/link_file
+                    src: /tmp/link_file/default/file
+                    state: link_file
+                  # Permissions
+                  - path: /tmp/link_file/default/link_permissions
+                    src: /tmp/link_file/default/file_permissions
+                    state: link_file
+                    user: backup
+                    group: games
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [link_file]}" validate

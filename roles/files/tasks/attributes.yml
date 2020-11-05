@@ -1,10 +1,26 @@
 ---
 
 - name: attributes
-  include_tasks: attributes/{{ item['task'] }}.yml
+  manala_files_attributes:
+    path: "{{ item.path }}"
+    state: "{{ item.state|default(omit) }}"
+    parents: "{{ item.parents|default(omit) }}"
+    template: "{{ item.template|default(omit) }}"
+    content: "{{ item.content|default(omit) }}"
+    copy: "{{ item['copy'] if ('copy' in item) else omit }}"
+    url: "{{ item.url|default(omit) }}"
+    validate_certs: "{{ item.validate_certs|default(true)|bool }}"
+    unarchive: "{{ item.unarchive|default(false)|bool }}"
+    creates: "{{ item.creates|default(omit) }}"
+    src: "{{ item.src|default(omit) }}"
+    force: "{{ item.force|default(omit) }}"
+    follow: "{{ item.follow|default(omit) }}"
+    recurse: "{{ item.recurse|default(omit) }}"
+    owner: "{{ item.user|default(omit) }}"
+    group: "{{ item.group|default(omit) }}"
+    mode: "{{ item.mode|default(omit) }}"
   loop: "{{ query(
       'manala_files_attributes',
       manala_files_attributes,
       manala_files_attributes_defaults
-    )
-  }}"
+  ) }}"

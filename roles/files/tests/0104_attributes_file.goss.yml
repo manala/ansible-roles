@@ -1,9 +1,0 @@
----
-
-file:
-  /tmp/file:
-    exists: true
-    filetype: file
-    owner: root
-    group: root
-    mode: "0644"

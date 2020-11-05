@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- `ignore` attribute state
+- file parents flag
+- file force flag
+- directory parents flag
+- directory force flag
+
+### Changed
+- Flatten attributes array
 
 ## [2.0.4] - 2020-08-26
 ### Changed
