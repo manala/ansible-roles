@@ -26,12 +26,34 @@ Using ansible galaxy requirements file:
 - src: manala.mount
 ```
 
+## Role Variables
+
+| Name                  | Default | Type   | Description  |
+| --------------------- | ------- | ------ | ------------ |
+| `manala_mount_points` | []      | Array  | Mount points |
+
+### Configuration example
+
+```yaml
+manala_mount_points:
+  - path: /tmp/foo
+    src: /tmp/bar
+    fstype: none
+    opts: bind
+  # Ignore mount point
+  - path: /tmp/foo
+    src: /tmp/baz
+    state: ignore
+  # Flatten mount points
+  - "{{ my_custom_mount_points_array }}"
+```
+
 ## Example playbook
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.mount }
+    - role: manala.mount
 ```
 
 # Licence
