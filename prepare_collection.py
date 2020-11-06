@@ -37,7 +37,7 @@ shutil.copyfile(
 	os.path.join(collection_dir, 'README.md')
 )
 
-for plugins_dir in ['lookup', 'callback', 'filter', 'modules']:
+for plugins_dir in ['lookup', 'callback', 'filter', 'modules', 'action']:
 	plugins_dir = os.path.join(collection_dir, 'plugins', plugins_dir)
 	logging.info('Create plugins dir "%s"', plugins_dir)
 	os.makedirs(plugins_dir)
@@ -75,7 +75,8 @@ for role in glob.glob('roles/*'):
 		{'src': 'lookup_plugins', 'dst': 'lookup'},
 		{'src': 'callback_plugins', 'dst': 'callback'},
 		{'src': 'filter_plugins', 'dst': 'filter'},
-		{'src': 'library', 'dst': 'modules'}
+		{'src': 'library', 'dst': 'modules'},
+		{'src': 'action_plugins', 'dst': 'action'}
 	]:
 		for src in glob.glob(os.path.join('roles', role, plugins['src'], '*.py')):
 			# Copy
@@ -122,4 +123,16 @@ for role in glob.glob('roles/*'):
 				logging.info('Apply filter regex into file "%s"', file_path)
 				file.seek(0)
 				file.write(re.sub(regex, r'\1manala.roles.', file_data))
+				file.truncate()
+	# Actions
+	files = []
+	files.extend(glob.glob(os.path.join(role_path, 'tasks/**/*.yml'), recursive=True))
+	regex = r"^(\s+)manala_(\S+:)$"
+	for file_path in files:
+		with open(file_path, 'r+') as file:
+			file_data = file.read()
+			if len(re.findall(regex, file_data, re.MULTILINE)):
+				logging.info('Apply action regex into file "%s"', file_path)
+				file.seek(0)
+				file.write(re.sub(regex, "\\1manala.roles.\\2", file_data, 0, re.MULTILINE))
 				file.truncate()
