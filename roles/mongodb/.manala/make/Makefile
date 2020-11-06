@@ -176,6 +176,7 @@ tests/%.yml: FORCE
 	$(call verbose, ,ANSIBLE_STDOUT_CALLBACK=actionable,ANSIBLE_STDOUT_CALLBACK=debug) \
 		ansible-playbook $@ \
 			--extra-vars="test=$(subst .yml,,$(subst tests/,,$@))" \
+			$(if $(CHECK),--check --diff) \
 			$(if $(TAGS),--tags=$(TAGS))
 FORCE:
 
