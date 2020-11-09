@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.86] - 2020-11-09
 ### Added
 - [Systemd] `ignore` service state
 - [Mount] `ignore` points state
