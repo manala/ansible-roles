@@ -1,0 +1,355 @@
+---
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  /tmp/defaults/root:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+  /tmp/defaults/nobody:
+    exists: true
+    filetype: file
+    owner: nobody
+    group: nogroup
+  /tmp/defaults/mail:
+    exists: true
+    filetype: file
+    owner: mail
+    group: mail
+{{ end }}
+
+# File
+{{ if has "file" .Vars.tags }}
+file:
+  # Default
+  /tmp/file/default/default:
+    exists: true
+    filetype: file
+  # Parents
+  /tmp/file/parents:
+    exists: true
+    filetype: directory
+  /tmp/file/parents/file:
+    exists: true
+    filetype: file
+  /tmp/file/parents_defaults:
+    exists: true
+    filetype: directory
+  /tmp/file/parents_defaults/file:
+    exists: true
+    filetype: file
+  /tmp/file/parents_unexisting/file:
+    exists: false
+  # File already exists as empty directory
+  /tmp/file/file_directory_empty/file_force:
+    exists: true
+    filetype: file
+  /tmp/file/file_directory_empty/file:
+    exists: true
+    filetype: directory
+  # File already exists as full directory
+  /tmp/file/file_directory_full/file_force:
+    exists: true
+    filetype: file
+  /tmp/file/file_directory_full/file:
+    exists: true
+    filetype: directory
+  # File already exists as link to file
+  /tmp/file/file_link_file/file_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/file/file_link_file/link_file
+  /tmp/file/file_link_file/file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/file/file_link_file/link_file
+  # File already exists as link to directory
+  /tmp/file/file_link_directory/file_force:
+    exists: true
+    filetype: file
+  /tmp/file/file_link_directory/file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/file/file_link_directory/link_file
+{{ end }}
+
+# Link
+{{ if has "link" .Vars.tags }}
+file:
+  # Default - Link to file
+  /tmp/link/default/link_file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/file
+  # Default - Link to link to file
+  /tmp/link/default/link_link_file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/default/link_file
+  # Default - Link to directory
+  /tmp/link/default/link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/directory
+  # Default - Link to link to directory
+  /tmp/link/default/link_link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/default/link_directory
+  # Parents
+  /tmp/link/parents:
+    exists: true
+    filetype: directory
+  /tmp/link/parents/link:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/file
+  /tmp/link/parents_defaults:
+    exists: true
+    filetype: directory
+  /tmp/link/parents_defaults/link:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/file
+  /tmp/link/parents_unexisting/link:
+    exists: false
+  # Wrong
+  /tmp/link/wrong/link:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/directory
+  # Link already exists as file
+  /tmp/link/link_file/link_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/file
+  /tmp/link/link_file/link:
+    exists: true
+    filetype: file
+  # Link already exists as empty directory
+  /tmp/link/link_directory_empty/link_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/file
+  /tmp/link/link_directory_empty/link:
+    exists: true
+    filetype: directory
+  # Link already exists as full directory
+  /tmp/link/link_directory_full/link_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link/file
+  /tmp/link/link_directory_full/link:
+    exists: true
+    filetype: directory
+{{ end }}
+
+# Directory
+{{ if has "directory" .Vars.tags }}
+file:
+  # Default
+  /tmp/directory/default/default:
+    exists: true
+    filetype: directory
+  # Directory already exists as file
+  /tmp/directory/directory_file/directory_force:
+    exists: true
+    filetype: directory
+  /tmp/directory/directory_file/directory:
+    exists: true
+    filetype: file
+  # Directory already exists as link to file
+  /tmp/directory/directory_link_file/directory_force:
+    exists: true
+    filetype: directory
+  /tmp/directory/directory_link_file/directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory/directory_link_file/link_file
+  # Directory already exists as link to directory
+  /tmp/directory/directory_link_directory/directory_force:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory/directory_link_directory/link_directory
+  /tmp/directory/directory_link_directory/directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/directory/directory_link_directory/link_directory
+{{ end }}
+
+# Copy
+{{ if has "copy" .Vars.tags }}
+file:
+  # Default
+  tmp/copy/default/default:
+    exists: true
+    filetype: file
+    contains:
+      - Copy default
+  tmp/copy/default/present:
+    exists: true
+    filetype: file
+    contains:
+      - Copy present
+  tmp/copy/default/absent:
+    exists: false
+  tmp/copy/default/ignore:
+    exists: false
+{{ end }}
+
+# Url
+{{ if has "url" .Vars.tags }}
+file:
+  # Default
+  /tmp/url/default/humans.txt:
+    exists: true
+    filetype: file
+    contains:
+      - TEAM
+      - THANKS
+      - SITE
+  /tmp/url/default/alt-galaxy.tar.xz:
+    exists: true
+    filetype: file
+  /tmp/url/default/alt-galaxy:
+    exists: true
+    filetype: file
+{{ end }}
+
+# Content
+{{ if has "content" .Vars.tags }}
+file:
+  # Default
+  tmp/content/default/default:
+    exists: true
+    filetype: file
+    contains:
+      - Content default
+  tmp/content/default/present:
+    exists: true
+    filetype: file
+    contains:
+      - Content present
+  tmp/content/default/absent:
+    exists: false
+  tmp/content/default/ignore:
+    exists: false
+  # Parents
+  tmp/content/parents:
+    exists: true
+    filetype: directory
+  tmp/content/parents/content:
+    exists: true
+    filetype: file
+    contains:
+      - Content parents default
+  tmp/content/parents_defaults:
+    exists: true
+    filetype: directory
+  tmp/content/parents_defaults/content:
+    exists: true
+    filetype: file
+    contains:
+      - Content defaults parents
+  tmp/content/parents_unexisting/content:
+    exists: false
+{{ end }}
+
+# Template
+{{ if has "template" .Vars.tags }}
+file:
+  # Default
+  tmp/template/default/default:
+    exists: true
+    filetype: file
+    contains:
+      - Template default
+  tmp/template/default/present:
+    exists: true
+    filetype: file
+    contains:
+      - Template present
+  tmp/template/default/absent:
+    exists: false
+  tmp/template/default/ignore:
+    exists: false
+  # Parents
+  tmp/template/parents:
+    exists: true
+    filetype: directory
+  tmp/template/parents/template:
+    exists: true
+    filetype: file
+    contains:
+      - Template default
+  tmp/template/parents_defaults:
+    exists: true
+    filetype: directory
+  tmp/template/parents_defaults/template:
+    exists: true
+    filetype: file
+    contains:
+      - Template default
+  tmp/template/parents_unexisting/template:
+    exists: false
+{{ end }}
+
+# Link directory
+{{ if has "link_directory" .Vars.tags }}
+file:
+  # Default - Default
+  /tmp/link_directory/default/link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_directory/default/directory
+  /tmp/link_directory/default/directory:
+    exists: true
+    filetype: directory
+  # Default -  Sub directory
+  /tmp/link_directory/default/link_directory_sub:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_directory/default/directory_sub/directory
+  /tmp/link_directory/default/directory_sub/directory:
+    exists: true
+    filetype: directory
+  # Default -  Permissions
+  /tmp/link_directory/default/link_permissions:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_directory/default/directory_permissions
+    owner: backup
+    group: games
+  /tmp/link_directory/default/directory_permissions:
+    exists: true
+    filetype: directory
+    owner: backup
+    group: games
+{{ end }}
+
+# Link file
+{{ if has "link_file" .Vars.tags }}
+file:
+  # Default - Default
+  /tmp/link_file/default/link_file:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_file/default/file
+  /tmp/link_file/default/file:
+    exists: true
+    filetype: file
+  # Default -  Permissions
+  /tmp/link_file/default/link_permissions:
+    exists: true
+    filetype: symlink
+    linked-to: /tmp/link_file/default/file_permissions
+    owner: backup
+    group: games
+  /tmp/link_file/default/file_permissions:
+    exists: true
+    filetype: file
+    owner: backup
+    group: games
+{{ end }}

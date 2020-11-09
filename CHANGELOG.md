@@ -8,12 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [Systemd] `ignore` service state
 - [Mount] `ignore` points state
+- [Files] `ignore` attribute state
+- [Files] file parents flag
+- [Files] file force flag
+- [Files] directory parents flag
+- [Files] directory force flag
 
 ### Changed
 - [Systemd] Use unified exclusive template lookup
 - [Systemd] dict's array configs
 - [Systemd] Flatten services array
 - [Mount] Flatten points array
+- [Files] Flatten attributes array
 
 ## [0.1.85] - 2020-10-30
 ### Fixed
