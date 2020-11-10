@@ -76,7 +76,8 @@ class ActionModule(ActionBase):
                 parents_result = self._run_module(
                     'file',
                     {'path': os.path.dirname(path), 'state': 'directory'},
-                    task_args=['owner', 'group', 'mode'])
+                    task_args=['owner', 'group', 'mode'],
+                    task_vars=task_vars)
                 result['changed'] |= parents_result['changed']
                 result['diff'] += [parents_result['diff']]
 
@@ -152,7 +153,7 @@ class ActionModule(ActionBase):
 
                 # Force
                 if self._task.args.get('force'):
-                    link_stat = self._execute_remote_stat(path, {}, follow=False)
+                    link_stat = self._execute_remote_stat(path, task_vars, follow=False)
 
                     if link_stat['exists'] and not link_stat['islnk']:
                         absent_result = self._run_module(
@@ -178,7 +179,7 @@ class ActionModule(ActionBase):
 
                 # Force
                 if self._task.args.get('force'):
-                    link_stat = self._execute_remote_stat(path, {}, follow=True)
+                    link_stat = self._execute_remote_stat(path, task_vars, follow=True)
 
                     if link_stat['exists'] and not link_stat['isdir']:
                         absent_result = self._run_module(
@@ -204,7 +205,7 @@ class ActionModule(ActionBase):
 
                 # Force
                 if self._task.args.get('force'):
-                    link_stat = self._execute_remote_stat(path, {}, follow=True)
+                    link_stat = self._execute_remote_stat(path, task_vars, follow=True)
 
                     if link_stat['exists'] and not link_stat['isreg']:
                         absent_result = self._run_module(
