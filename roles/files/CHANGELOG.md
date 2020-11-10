@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.6] - 2020-11-10
+### Fixed
+- Pass `task_vars` to indentified sub modules in attributes plugin
+
 ## [2.0.5] - 2020-11-09
 ### Added
 - `ignore` attribute state
