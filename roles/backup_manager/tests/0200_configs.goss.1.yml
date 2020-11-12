@@ -15,6 +15,7 @@ file:
     mode: "0600"
     contains:
       - export BM_REPOSITORY_ROOT="/srv/backup/mysql"
+      - export BM_TARBALL_DIRECTORIES="foo bar baz"
   /etc/backup-manager.d.test/foo_template.conf:
     exists: true
     filetype: file
