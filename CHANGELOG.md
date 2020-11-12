@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.88] - 2020-11-12
 ### Fixed
 - [Files] Pass `task_vars` to indentified sub modules in attributes plugin #2
 
