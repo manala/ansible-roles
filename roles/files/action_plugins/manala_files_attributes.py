@@ -65,7 +65,8 @@ class ActionModule(ActionBase):
                     or 'copy' in self._task.args)):
                 return self._run_module(
                     'file',
-                    {'path': path, 'state': 'absent'})
+                    {'path': path, 'state': 'absent'},
+                    task_vars=task_vars)
 
             # Parents
             if (self._task.args.get('parents') and (
@@ -158,7 +159,8 @@ class ActionModule(ActionBase):
                     if link_stat['exists'] and not link_stat['islnk']:
                         absent_result = self._run_module(
                             'file',
-                            {'path': path, 'state': 'absent'})
+                            {'path': path, 'state': 'absent'},
+                            task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
                         result['diff'] += [absent_result['diff']]
 
@@ -184,7 +186,8 @@ class ActionModule(ActionBase):
                     if link_stat['exists'] and not link_stat['isdir']:
                         absent_result = self._run_module(
                             'file',
-                            {'path': path, 'state': 'absent'})
+                            {'path': path, 'state': 'absent'},
+                            task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
                         result['diff'] += [absent_result['diff']]
 
@@ -210,7 +213,8 @@ class ActionModule(ActionBase):
                     if link_stat['exists'] and not link_stat['isreg']:
                         absent_result = self._run_module(
                             'file',
-                            {'path': path, 'state': 'absent'})
+                            {'path': path, 'state': 'absent'},
+                            task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
                         result['diff'] += [absent_result['diff']]
 
