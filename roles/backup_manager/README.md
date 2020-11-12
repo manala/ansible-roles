@@ -143,6 +143,11 @@ manala_backup_manager_configs:
       - BM_MYSQL_ADMINPASS:  ~
       - BM_MYSQL_HOST:       localhost
       - BM_MYSQL_DBEXCLUDE:  information_schema mysql performance_schema
+      # Flatten configs
+      - BM_TARBALL_DIRECTORIES:
+          - foo
+          - bar
+          - "{{ my_custom_configs_array }}"
   # Raw content based
   - file: foo_content.conf
     content: |

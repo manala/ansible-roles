@@ -58,6 +58,8 @@
         {{ value }}
     {%- elif value is number -%}
         {{ value }}
+    {%- elif value is sequence -%}
+        {{ value|flatten|join(' ') }}
     {%- else -%}
         {{ value }}
     {%- endif -%}

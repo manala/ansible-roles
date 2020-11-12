@@ -9,6 +9,12 @@
       - file: foo.conf
         config:
           - BM_REPOSITORY_ROOT: /srv/backup/mysql
+          - BM_TARBALL_DIRECTORIES:
+              - foo
+              - bar
+              # Flatten
+              -
+                - baz
       - file: foo_template.conf
         template: configs/pgsql.j2
       - file: foo_content.conf
