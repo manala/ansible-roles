@@ -12,25 +12,26 @@
     path: "{{ manala_composer_bin }}"
   register: __manala_composer_bin_stat_result
 
-- name: install > Download installer
+- name: install > Stat installed version
+  command: composer --version
+  register: __manala_composer_installed_version_result
+  when: (__manala_composer_bin_stat_result.stat.exists)
+  changed_when: false
+
+- name: install > Download version
   get_url:
-    url: https://getcomposer.org/installer
-    dest: /tmp
+    url: "{{
+      'https://getcomposer.org/composer-%(version)s.phar'|format(version=manala_composer_version|default('stable', True))
+        if manala_composer_version|string is match('(?!\\d\\.\\d*\\.\\d*)') else
+      'https://getcomposer.org/download/%(version)s/composer.phar'|format(version=manala_composer_version|default('stable', True))
+    }}"
+    dest: "{{ manala_composer_bin }}"
     owner: root
-    group: root
-    mode: "0644"
-  when: not __manala_composer_bin_stat_result.stat.exists
-
-- name: install > Install
-  command: >
-    php /tmp/installer
-    --install-dir="{{ manala_composer_bin|dirname }}"
-    --filename="{{ manala_composer_bin|basename }}"
-    {{ (manala_composer_version is none)|ternary('', '--version=' + manala_composer_version|default('', true)) }}
-  when: not __manala_composer_bin_stat_result.stat.exists
-
-- name: install > Remove installer
-  file:
-    path: /tmp/installer
-    state: absent
-  when: not __manala_composer_bin_stat_result.stat.exists
+    group: "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('staff', 'root') }}"
+    mode: "0755"
+    force: yes
+  when: (not __manala_composer_bin_stat_result.stat.exists)
+        or ( manala_composer_version|string is match('(\\d\\.\\d*\\.\\d*)')
+            and (manala_composer_version != __manala_composer_installed_version_result.stdout|regex_replace('(.*)(\\d\\.\\d*\\.\\d*)(.*)', '\\2')) )
+        or ( manala_composer_version|string is match('(?!\\d\\.\\d*\\.\\d*)')
+            and (manala_composer_version|string != __manala_composer_installed_version_result.stdout|regex_replace('(.*)(\\d)(\\.\\d*\\.\\d*)(.*)', '\\2')))

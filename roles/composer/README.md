@@ -49,6 +49,12 @@ None.
 
 ### Configuration example
 
+### Versions
+
+By default, the role installs the latest version of composer (channel stable).
+If you want the latest version of a specific channel (major version), set `manala_composer_version` value to the desired channel (ie `1` or `2`)
+If you want a specific version, set `manala_composer_version` value to the desired version (ie `1.10.16`)
+
 #### Composer configuration with github token
 
 ```yaml

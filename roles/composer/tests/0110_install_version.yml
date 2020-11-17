@@ -3,15 +3,71 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_composer_version: 1.8.0
   pre_tasks:
     - apt:
         name:
           - "{{ (ansible_distribution_release in ['jessie'])|ternary('php5-cli', 'php-cli') }}"
         install_recommends: false
-  roles:
-    - manala.composer
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+      tags: always
+  tasks:
+
+    - tags: [version]
+      block:
+        - file:
+            path: /usr/local/bin/composer
+            state: absent
+        - import_role:
+            name: manala.composer
+            tasks_from: install
+          vars:
+            manala_composer_version: 1.8.0
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [version]}" validate
+
+    - tags: [no_version]
+      block:
+        - import_role:
+            name: manala.composer
+            tasks_from: install
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [no_version]}" validate
+
+    - tags: [version_update]
+      block:
+        - import_role:
+            name: manala.composer
+            tasks_from: install
+          vars:
+            manala_composer_version: '1.10.15'
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [version_update]}" validate
+
+    - tags: [major_version_no_change]
+      block:
+        - import_role:
+            name: manala.composer
+            tasks_from: install
+          vars:
+            manala_composer_version: 1
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [major_version_no_change]}" validate
+
+    - tags: [major_version]
+      block:
+        - import_role:
+            name: manala.composer
+            tasks_from: install
+          vars:
+            manala_composer_version: '2'
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [major_version]}" validate
