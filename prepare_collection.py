@@ -114,6 +114,7 @@ for role in glob.glob('roles/*'):
 				file.truncate()
 	# Filters
 	files = []
+	files.extend(glob.glob(os.path.join(role_path, 'tasks/**/*.yml'), recursive=True))
 	files.extend(glob.glob(os.path.join(role_path, 'templates/**/*.j2'), recursive=True))
 	regex = re.compile(r'(\|\s*)manala_', re.DOTALL)
 	for file_path in files:
