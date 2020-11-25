@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.90] - 2020-11-12
+### Fixed
+- Collection filters handling in tasks
+
 ## [0.1.89] - 2020-11-12
 ### Added
 - [Backup Manager] Handle list configs parameters
