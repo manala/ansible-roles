@@ -38,20 +38,45 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                        | Default                         | Type   | Description                                                          |
-| ------------------------------------------- | ------------------------------- | ------ | -------------------------------------------------------------------- |
-| `manala_shorewall_install_packages`         | ~                               | Array  | Dependency packages to install                                       |
-| `manala_shorewall_install_packages_default` | ['shorewall']                   | Array  | Default dependency packages to install                               |
-| `manala_shorewall_config_file`              | '/etc/shorewall/shorewall.conf' | String | Main configuration file path                                         |
-| `manala_shorewall_config`                   | []                              | Array  | Main configuration directives                                        |
-| `manala_shorewall_configs_dir`              | '/etc/shorewall'                | String | Additional configurations directory path                             |
-| `manala_shorewall_configs`                  | []                              | Array  | Additional configurations directives (zones, rules, interfaces, ...) |
-                               |
+| Name                                        | Default                         | Type    | Description                                                         |
+| ------------------------------------------- | ------------------------------- | ------- | ------------------------------------------------------------------- |
+| `manala_shorewall_install_packages`         | ~                               | Array   | Dependency packages to install                                      |
+| `manala_shorewall_install_packages_default` | ['shorewall']                   | Array   | Default dependency packages to install                              |
+| `manala_shorewall_config_file`              | '/etc/shorewall/shorewall.conf' | String  | Main configuration file path                                        |
+| `manala_shorewall_config`                   | {}                              | Array   | Main configuration directives                                       |
+| `manala_shorewall_configs_exclusive`        | false                           | Boolean | Exclusion of existing files additional configurations               |
+| `manala_shorewall_configs_dir`              | '/etc/shorewall'                | String  | Additional configurations directory path                            |
+| `manala_shorewall_configs_defaults`         | {}                              | Array   | Additional configurations defaults                                  |
+| `manala_shorewall_configs`                  | []                              | Array   | Additional configurations directives (zones, rules, interfaces,...) |
 
 ## Configuration examples (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 
 ```yaml
+manala_shorewall_config:
+  LOG_MARTIANS: "Yes"
+  IP_FORWARDING: "On"
+
 manala_shorewall_configs:
+  # Content based
+  - file: policy
+    config: |
+      # FW to internet
+      fw  all ACCEPT
+      # Default rule DROP
+      net all DROP   info
+      dmz all DROP   info
+      # Must be last
+      all all REJECT info
+  # Template based (file name based on template)
+  - template: policy.j2
+    config:
+      foo: bar
+  # Template based (force file name)
+  - file: policy
+    template: policy_foo.j2
+    config:
+      foo: bar
+  # Dicts array template based (deprecated)
   - file: policy
     config:
       # FW to internet
@@ -61,28 +86,14 @@ manala_shorewall_configs:
       - dmz: all DROP   info
       # Must be last
       - all: all REJECT info
-  - file: masq
-    config:
-      - eth1: 172.16.0.0/24
-  - file: interfaces
-    config:
-      - dmz: eth0 detect tcpflags,blacklist,bridge,nosmurfs
-      - net: eth1 detect tcpflags,blacklist,bridge,nosmurfs
-  - file: zones
-    config:
-      - net: ipv4
-      - dmz: ipv4
-      - fw:  firewall
-  - file: rules
-    config:
-      # Permit access to SSH
-      - SSH/ACCEPT:   net               fw               -   -              - -
-      # Permit access to HTTP(S)
-      - ACCEPT:       net               fw               tcp 80,443         - -
-      # Dmz
-      - ACCEPT:       dmz:172.16.0.0/24 net,fw           -   -              - -
-      # Ping
-      - Ping(ACCEPT): all
+  # Ensure config is absent
+  - file: policy
+    state: absent # "present" by default
+  # Ignore config
+  - file: policy
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 ## Example playbook
@@ -90,7 +101,7 @@ manala_shorewall_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.shorewall }
+    - role: manala.shorewall
 ```
 
 # Licence
