@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Keepalived] Environment filters
+- [Keepalived] Deprecate dict's array environment
+- [Keepalived] Deprecate dict's array config
 
 ## [0.1.91] - 2020-11-30
 ### Changed
