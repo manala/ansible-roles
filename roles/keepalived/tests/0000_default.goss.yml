@@ -9,3 +9,7 @@ command:
     exit-status: 0
     stderr:
       - Keepalived v
+
+process:
+  keepalived:
+    running: true
