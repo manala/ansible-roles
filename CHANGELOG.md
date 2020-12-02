@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.92] - 2020-12-02
 ### Added
 - [Keepalived] Environment filters
 - [Keepalived] Deprecate dict's array environment
