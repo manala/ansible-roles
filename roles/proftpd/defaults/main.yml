@@ -8,7 +8,9 @@ manala_proftpd_install_packages_default:
 # Configs
 manala_proftpd_configs_exclusive: false
 manala_proftpd_configs_dir: /etc/proftpd/conf.d
-manala_proftpd_configs_template: ~
+manala_proftpd_configs_template: ~ # Deprecated
+manala_proftpd_configs_defaults:
+  template: "{{ manala_proftpd_configs_template }}" # Ensure backward compatibility
 manala_proftpd_configs: []
 
 # Users

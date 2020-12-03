@@ -1,56 +1,138 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
-    manala_proftpd_configs:
-      - file: foo.conf
-        config:
-          - ServerName: Manala ProFTPD Server
-          - DefaultRoot: "~"
-          - AuthOrder: mod_auth_file.c
-          - AuthUserFile: /etc/ftpd.passwd
-          - RequireValidShell: false
-          - PassivePorts: 10000 10030
-      - file: foo_template.conf
-        template: configs/module.j2
-        name: foo
-      - file: foo_content.conf
-        content: |
-          <Anonymous ~ftp>
-            User foo
-          </Anonymous>
-      - file: foo_template_content.conf
-        template: configs/module.j2
-        content: |
-          <Anonymous ~ftp>
-            User foo
-          </Anonymous>
-      - file: bar.conf
-        state: present
-      - file: baz.conf
-        state: absent
-  roles:
-    - manala.proftpd
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_proftpd_configs_dir: /etc/proftpd/conf.d.test
-    manala_proftpd_configs:
-      - file: foo.conf
-      - file: bar.conf
-        state: absent
-      - file: baz.conf
-        state: present
-  roles:
-    - manala.proftpd
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.proftpd
+          vars:
+            manala_proftpd_configs_dir: tmp/configs/default
+            manala_proftpd_configs:
+              # Default
+              - file: default.conf
+                config:
+                  ServerName: Manala ProFTPD Server
+                  DefaultRoot: "~"
+                  AuthOrder: mod_auth_file.c
+                  AuthUserFile: /etc/ftpd.passwd
+                  RequireValidShell: false
+                  PassivePorts: 10000 10030
+              # Default - Deprecated
+              - file: default_deprecated.conf
+                config:
+                  - ServerName: Manala ProFTPD Server
+                  - DefaultRoot: "~"
+                  - AuthOrder: mod_auth_file.c
+                  - AuthUserFile: /etc/ftpd.passwd
+                  - RequireValidShell: false
+                  - PassivePorts: 10000 10030
+              # Default - Content
+              - file: default_content.conf
+                config: |
+                  <Anonymous ~ftp>
+                    User foo
+                  </Anonymous>
+              # Flatten
+              -
+                # Template
+                - file: template.conf
+                  template: configs/foo.conf.j2
+                # Template - Deprecated
+                - file: template_deprecated.conf
+                  template: configs/module.j2
+                  name: foo
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}.conf
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.proftpd
+            tasks_from: configs
+          vars:
+            manala_proftpd_configs_dir: tmp/configs/state
+            manala_proftpd_configs:
+              - file: foo.conf
+              - file: bar.conf
+                state: absent
+              - file: baz.conf
+                state: present
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.proftpd
+            tasks_from: configs
+          vars:
+            manala_proftpd_configs_dir: tmp/configs/defaults
+            manala_proftpd_configs_defaults:
+              template: configs/foo.conf.j2
+            manala_proftpd_configs:
+              - file: foo.conf
+              - template: configs/bar.conf.j2
+              - file: baz.conf
+                template: configs/bar.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}.conf
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.proftpd
+            tasks_from: configs
+          vars:
+            manala_proftpd_configs_dir: tmp/configs/exclusive
+            manala_proftpd_configs_exclusive: true
+            manala_proftpd_configs:
+              - file: bar.conf
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

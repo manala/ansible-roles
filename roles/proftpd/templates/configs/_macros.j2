@@ -1,3 +1,5 @@
+{#- Deprecated -#}
+
 {%- macro config(parameters, exclusions = [], indent = 0) -%}
     {%- for parameter in parameters -%}
         {% set outer_loop = loop %}
@@ -55,9 +57,9 @@
 {%- macro _config_parameter_value(value) -%}
     {%- if value is sameas none -%}
     {%- elif value is sameas true -%}
-        On
+        on
     {%- elif value is sameas false -%}
-        Off
+        off
     {%- elif value is string -%}
         {{ value }}
     {%- elif value is number -%}
