@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Config filters
 - Users defaults values now handles `home` and `shell`
+- Handle required parameters keys in config filters
 
 ## [1.0.10] - 2020-08-28
 ### Changed
