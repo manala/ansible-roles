@@ -5,21 +5,121 @@
   become: true
   tasks:
 
-    - block:
+    - tags: [always]
+      block:
         - import_tasks: pre_tasks/backports.yml
 
-    - block:
+    # Default
+    - tags: [default]
+      block:
         - file:
             path: tmp/errorfiles/default
             state: absent
         - import_role:
+            # Play role fully on first run, so that handlers don't breaks
             name: manala.haproxy
           vars:
             manala_haproxy_errorfiles_dir: tmp/errorfiles/default
             manala_haproxy_errorfiles:
-              - file: 400.http
-                template: errorfiles/400.http.j2
+              # Default - Content
+              - file: default_content.http
+                config: |
+                  HTTP/1.0 400 Bad request
+                  Cache-Control: no-cache
+                  Connection: close
+                  Content-Type: text/html
+
+                  <html><body><h1>400 Bad request</h1>
+                  Your browser sent an invalid request.
+                  </body></html>
+              # Flatten
+              -
+                # Template
+                - file: template.http
+                  template: errorfiles/foo.http.j2
       always:
         - name: Goss
           command: >
-            goss --gossfile {{ test }}.goss.yml validate
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/errorfiles/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/errorfiles/state/{{ item }}.http
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.haproxy
+            tasks_from: errorfiles
+          vars:
+            manala_haproxy_errorfiles_dir: tmp/errorfiles/state
+            manala_haproxy_errorfiles:
+              - file: foo.http
+              - file: bar.http
+                state: absent
+              - file: baz.http
+                state: present
+              - file: qux.http
+                state: ignore
+              - file: quux.http
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/errorfiles/defaults
+            state: absent
+        - import_role:
+            name: manala.haproxy
+            tasks_from: errorfiles
+          vars:
+            manala_haproxy_errorfiles_dir: tmp/errorfiles/defaults
+            manala_haproxy_errorfiles_defaults:
+              template: errorfiles/foo.http.j2
+            manala_haproxy_errorfiles:
+              - file: foo.http
+              - template: errorfiles/bar.http.j2
+              - file: baz.http
+                template: errorfiles/bar.http.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/errorfiles/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/errorfiles/exclusive/{{ item }}.http
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.haproxy
+            tasks_from: errorfiles
+          vars:
+            manala_haproxy_errorfiles_dir: tmp/errorfiles/exclusive
+            manala_haproxy_errorfiles_exclusive: true
+            manala_haproxy_errorfiles:
+              - file: bar.http
+              - file: qux.http
+                state: ignore
+              - file: quux.http
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

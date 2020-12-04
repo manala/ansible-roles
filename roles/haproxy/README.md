@@ -42,7 +42,9 @@ Using ansible galaxy requirements file:
 | ----------------------------------------- | ---------------------------- | ------------ | -------------------------------------- |
 | `manala_haproxy_install_packages`         | ~                            | Array        | Dependency packages to install         |
 | `manala_haproxy_install_packages_default` | []                           | Array        | Default dependency packages to install |
+| `manala_haproxy_errorfiles_exclusive`     | false                        | Boolean      | Errorfiles exclusivity                 |
 | `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String       | Errorfiles directory path              |
+| `manala_haproxy_errorfiles_defaults`      | {}                           | Array        | Errorfiles defaults                    |
 | `manala_haproxy_errorfiles`               | []                           | Array        | Errorfiles                             |
 | `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String       | Configuration file path                |
 | `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String       | Configuration template                 |
@@ -59,11 +61,31 @@ Using ansible galaxy requirements file:
 Handle errorfiles
 
 ```yaml
+manala_haproxy_errorfiles_exclusive: true
+
 manala_haproxy_errorfiles:
-  - name: 400.http
+  # Template based
+  - file: 400.http
     template: errorfiles/400.http.j2
-  - name: maintenance.http
-    template: errorfiles/maintenance.http.j2
+  # Raw content based
+  - file: 400.http
+    config: |
+      HTTP/1.0 400 Bad request
+      Cache-Control: no-cache
+      Connection: close
+      Content-Type: text/html
+
+      <html><body><h1>400 Bad request</h1>
+      Your browser sent an invalid request.
+      </body></html>
+  # Ensure errorfile is absent
+  - file: 432.http
+    state: absent # "present" by default
+  # Ignore errorfile
+  - file: ignore.http
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_errorfiles_array }}"
 ```
 
 Use custom config template
@@ -90,7 +112,7 @@ On Debian this configuration path is handle by the `/etc/default/haproxy` file a
     # Template based
     - file: 010-global.cfg
       template: all/haproxy/010-global.j2
-      # Raw content based
+    # Raw content based
     - file: 020-defaults.cfg
       config: |
         defaults
