@@ -9,14 +9,8 @@
         - import_tasks: pre_tasks/backports.yml
 
     - block:
-        - file:
-            path: tmp/config/default
-            state: absent
         - import_role:
             name: manala.haproxy
-          vars:
-            manala_haproxy_config_file: tmp/config/default/haproxy.cfg
-            manala_haproxy_config_template: config/haproxy.cfg.j2
       always:
         - name: Goss
           command: >

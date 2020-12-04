@@ -1,8 +1,17 @@
 ---
 
+- name: errorfiles > Directory
+  file:
+    path: "{{ manala_haproxy_errorfiles_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_haproxy_errorfiles|length
+
 - name: errorfiles > Templates
   template:
-    src:  "{{ item.template }}"
+    src: "{{ item.template }}"
     dest: "{{ manala_haproxy_errorfiles_dir }}/{{ item.file }}"
     owner: root
     group: root

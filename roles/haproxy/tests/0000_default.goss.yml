@@ -1,5 +1,9 @@
 ---
 
+package:
+  haproxy:
+    installed: true
+
 service:
   haproxy:
     enabled: true

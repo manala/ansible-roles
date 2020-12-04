@@ -3,14 +3,23 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_haproxy_errorfiles:
-      - file: 400.http
-        template: fixtures/400.http.j2
-  pre_tasks:
-    - import_tasks: pre_tasks/backports.yml
-  roles:
-    - manala.haproxy
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/backports.yml
+
+    - block:
+        - file:
+            path: tmp/errorfiles/default
+            state: absent
+        - import_role:
+            name: manala.haproxy
+          vars:
+            manala_haproxy_errorfiles_dir: tmp/errorfiles/default
+            manala_haproxy_errorfiles:
+              - file: 400.http
+                template: errorfiles/400.http.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

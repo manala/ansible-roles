@@ -1,45 +1,119 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_haproxy_configs_dir: /etc/haproxy/conf.d.test
-    manala_haproxy_configs:
-      - file: foo_template.cfg
-        template: fixtures/haproxy.cfg.j2
-      - file: foo_content.cfg
-        content: |
-          global
-          	chroot /var/lib/test
-      - file: foo_template_content.cfg
-        template: fixtures/haproxy.cfg.j2
-        content: |
-          global
-          	chroot /var/lib/test
-      - file: bar.cfg
-        state: present
-      - file: baz.cfg
-        state: absent
-  roles:
-    - manala.haproxy
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_haproxy_configs_dir: /etc/haproxy/conf.d.test
-    manala_haproxy_configs:
-      - file: foo.cfg
-      - file: bar.cfg
-        state: absent
-      - file: baz.cfg
-        state: present
-  roles:
-    - manala.haproxy
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - tags: [always]
+      block:
+        - import_tasks: pre_tasks/backports.yml
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.haproxy
+          vars:
+            manala_haproxy_configs_dir: tmp/configs/default
+            manala_haproxy_configs:
+              # Default - Content
+              - file: default_content.cfg
+                config: |
+                  global
+                    chroot /var/lib/test
+              # Flatten
+              -
+                # Template
+                - file: template.cfg
+                  template: configs/foo.cfg.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}.cfg
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.haproxy
+            tasks_from: configs
+          vars:
+            manala_haproxy_configs_dir: tmp/configs/state
+            manala_haproxy_configs:
+              - file: foo.cfg
+              - file: bar.cfg
+                state: absent
+              - file: baz.cfg
+                state: present
+              - file: qux.cfg
+                state: ignore
+              - file: quux.cfg
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.haproxy
+            tasks_from: configs
+          vars:
+            manala_haproxy_configs_dir: tmp/configs/defaults
+            manala_haproxy_configs_defaults:
+              template: configs/foo.cfg.j2
+            manala_haproxy_configs:
+              - file: foo.cfg
+              - template: configs/bar.cfg.j2
+              - file: baz.cfg
+                template: configs/bar.cfg.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}.cfg
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.haproxy
+            tasks_from: configs
+          vars:
+            manala_haproxy_configs_dir: tmp/configs/exclusive
+            manala_haproxy_configs_exclusive: true
+            manala_haproxy_configs:
+              - file: bar.cfg
+              - file: qux.cfg
+                state: ignore
+              - file: quux.cfg
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

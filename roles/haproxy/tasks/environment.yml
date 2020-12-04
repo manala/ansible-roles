@@ -1,12 +1,23 @@
 ---
 
+- name: environment > Directory
+  file:
+    path: "{{ manala_haproxy_environment_file | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_haproxy_environment_template
+        or manala_haproxy_environment
+
 - name: environment > Template
   template:
-    src:  "{{ manala_haproxy_environment_template|ternary(manala_haproxy_environment_template, 'environment/default.j2') }}"
+    src: "{{ manala_haproxy_environment_template|default('environment/_default.j2', true) }}"
     dest: "{{ manala_haproxy_environment_file }}"
     owner: root
     group: root
     mode: "0644"
-  when: (manala_haproxy_environment_template is not none) or (manala_haproxy_environment|length)
+  when: manala_haproxy_environment_template
+        or manala_haproxy_environment
   notify:
     - haproxy restart

@@ -10,10 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Proftpd] Deprecate dict's array configs
 - [Proftpd] Exclusive mode applied on all files (not only `*.conf`)
 - [Proftpd] Boolean config values are converted to "on/off" instead of "On/Off"
+- [Haproxy] Use unified exclusive template lookup
+- [Haproxy] Exclusive mode applied on all files (not only `*.cfg`)
+- [Haproxy] Deprecate dict's array environment
+- [Haproxy] Deprecate dict's array configs
 
 ### Added
 - [Proftpd] Config filters
 - [Proftpd] Users defaults values now handles `home` and `shell`
+- [Haproxy] Environment filters
+- [Haproxy] Flatten configs array
 
 ## [0.1.92] - 2020-12-02
 ### Added

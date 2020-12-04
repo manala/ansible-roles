@@ -31,27 +31,28 @@ Using ansible galaxy requirements file:
 ```
 
 ## Role Handlers
-| Name             | Type    | Description            |
-| ---------------- | ------- | ---------------------- |
-| `haproxy reload` | Service | Reload haproxy service |
+| Name              | Type    | Description             |
+| ----------------- | ------- | ----------------------- |
+| `haproxy reload`  | Service | Reload haproxy service  |
+| `haproxy restart` | Service | Restart haproxy service |
 
 ## Role Variables
 
-| Name                                      | Default                      | Type    | Description                            |
-| ----------------------------------------- | ---------------------------- | ------- | -------------------------------------- |
-| `manala_haproxy_install_packages`         | ~                            | Array   | Dependency packages to install         |
-| `manala_haproxy_install_packages_default` | []                           | Array   | Default dependency packages to install |
-| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String  | Errorfiles directory path              |
-| `manala_haproxy_errorfiles`               | []                           | Array   | Errorfiles                             |
-| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String  | Configuration file path                |
-| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String  | Configuration template                 |
-| `manala_haproxy_configs_exclusive`        | false                        | Boolean | Configurations exclusivity             |
-| `manala_haproxy_configs_dir`              | /etc/haproxy/conf.d          | String  | Configurations dir path                |
-| `manala_haproxy_configs_template`         | ~                            | String  | Configuration template                 |
-| `manala_haproxy_configs`                  | []                           | Array   | Configurations                         |
-| `manala_haproxy_environment_file`         | /etc/default/haproxy         | String  | Environment file path                  |
-| `manala_haproxy_environment_template`     | ~                            | String  | Environment base template              |
-| `manala_haproxy_environment`              | []                           | Array   | Environment directives                 |
+| Name                                      | Default                      | Type         | Description                            |
+| ----------------------------------------- | ---------------------------- | ------------ | -------------------------------------- |
+| `manala_haproxy_install_packages`         | ~                            | Array        | Dependency packages to install         |
+| `manala_haproxy_install_packages_default` | []                           | Array        | Default dependency packages to install |
+| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String       | Errorfiles directory path              |
+| `manala_haproxy_errorfiles`               | []                           | Array        | Errorfiles                             |
+| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String       | Configuration file path                |
+| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String       | Configuration template                 |
+| `manala_haproxy_configs_exclusive`        | false                        | Boolean      | Configurations exclusivity             |
+| `manala_haproxy_configs_dir`              | '/etc/haproxy/conf.d'        | String       | Configurations dir path                |
+| `manala_haproxy_configs_defaults`         | {}                           | Array        | Configuration defaults                 |
+| `manala_haproxy_configs`                  | []                           | Array        | Configurations                         |
+| `manala_haproxy_environment_file`         | '/etc/default/haproxy'       | String       | Environment file path                  |
+| `manala_haproxy_environment_template`     | 'environment/_default.j2'    | String       | Environment base template              |
+| `manala_haproxy_environment`              | ~                            | Array/String | Environment directives                 |
 
 ### Configuration example
 
@@ -63,32 +64,6 @@ manala_haproxy_errorfiles:
     template: errorfiles/400.http.j2
   - name: maintenance.http
     template: errorfiles/maintenance.http.j2
-```
-
-Use default config template, and set/add custom parameters
-
-```yaml
-manala_haproxy_config:
-  defaults:
-    timeout:
-      - connect 3000
-      - client  30000
-      - server  30000
-  userlist test:
-    user:
-      - test insecure-password test
-  frontend web:
-    bind: 127.0.0.1:80
-    acl:
-      - test hdr_sub(host) -i test.com
-    use_backend:
-      - test if test
-  backend test:
-    mode: http
-    server: test test.local:80
-    acl:
-      - auth http_auth(test)
-    http-request: auth realm Customer if !auth
 ```
 
 Use custom config template
@@ -106,27 +81,30 @@ On Debian this configuration path is handle by the `/etc/default/haproxy` file a
 
 #### Defining configuration files
 
-A state (present|absent) can be provided.
-
 ```yaml
   manala_haproxy_environment:
-    - CONFIG: "{{ manala_haproxy_configs_dir }}" # /etc/haproxy/conf.d
+    CONFIG: "{{ manala_haproxy_configs_dir }}" # /etc/haproxy/conf.d
 
   manala_haproxy_configs_exclusive: true
-
   manala_haproxy_configs:
     # Template based
     - file: 010-global.cfg
       template: all/haproxy/010-global.j2
       # Raw content based
     - file: 020-defaults.cfg
-      content: |
+      config: |
         defaults
             log     global
             option  dontlognull
             option  abortonclose
-      state: absent
-    ...
+    # Ensure config is absent
+    - file: absent.cfg
+      state: absent # "present" by default
+    # Ignore config
+    - file: ignore.cfg
+      state: ignore
+    # Flatten configs
+    - "{{ my_custom_configs_array }}"
 ```
 
 ## Example playbook
@@ -134,7 +112,7 @@ A state (present|absent) can be provided.
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.haproxy }
+    - role: manala.haproxy
 ```
 
 # Licence
