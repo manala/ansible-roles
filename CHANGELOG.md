@@ -18,8 +18,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [Proftpd] Config filters
 - [Proftpd] Users defaults values now handles `home` and `shell`
+- [Proftpd] Handle required parameters keys in config filters
+- [Keepalived] Handle required parameters keys in environment filters
+- [Logrotate] Handle required parameters keys in config filters
+- [Rsyslog] Handle required parameters keys in config filters
+- [Supervisor] Handle required parameters keys in config filters
+- [Telegraf] Handle required parameters keys in config filters
 - [Haproxy] Environment filters
 - [Haproxy] Flatten configs array
+
+### Fixed
+- [Haproxy] Force restart on environment changes
 
 ## [0.1.92] - 2020-12-02
 ### Added
