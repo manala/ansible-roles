@@ -6,7 +6,9 @@ manala_haproxy_install_packages_default:
   - haproxy
 
 # Errorfiles
+manala_haproxy_errorfiles_exclusive: false
 manala_haproxy_errorfiles_dir: /etc/haproxy/errors
+manala_haproxy_errorfiles_defaults: {}
 manala_haproxy_errorfiles: []
 
 # Config

@@ -1,5 +1,7 @@
 ---
 
+# Default
+{{ if has "default" .Vars.tags }}
 file:
   tmp/errorfiles/default:
     exists: true
@@ -7,11 +9,101 @@ file:
     owner: root
     group: root
     mode: "0755"
-  tmp/errorfiles/default/400.http:
+  tmp/errorfiles/default/default_content.http:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - Errorfiles 400
+      - "HTTP/1.0 400 Bad request"
+      - "Cache-Control: no-cache"
+      - "Connection: close"
+      - "Content-Type: text/html"
+      - "<html><body><h1>400 Bad request</h1>"
+      - "Your browser sent an invalid request."
+      - "</body></html>"
+  tmp/errorfiles/default/template.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Errorfiles foo"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/errorfiles/state/foo.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/errorfiles/state/bar.http:
+    exists: false
+  tmp/errorfiles/state/baz.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/errorfiles/state/qux.http:
+    exists: true
+    filetype: file
+  tmp/errorfiles/state/quux.http:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/errorfiles/defaults/foo.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Errorfiles foo"
+  tmp/errorfiles/defaults/bar.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Errorfiles bar"
+  tmp/errorfiles/defaults/baz.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Errorfiles bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/errorfiles/exclusive/foo.http:
+    exists: false
+  tmp/errorfiles/exclusive/bar.http:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/errorfiles/exclusive/baz.http:
+    exists: false
+  tmp/errorfiles/exclusive/qux.http:
+    exists: false
+  tmp/errorfiles/exclusive/quux.http:
+    exists: false
+{{ end }}

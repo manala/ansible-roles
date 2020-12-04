@@ -9,13 +9,45 @@
     mode: "0755"
   when: manala_haproxy_errorfiles|length
 
-- name: errorfiles > Templates
+- name: errorfiles > Exclusive
+  find:
+    path: "{{ manala_haproxy_errorfiles_dir }}"
+    patterns: "*"
+  changed_when: false
+  register: __manala_haproxy_errorfiles_exclusive_find
+  when: manala_haproxy_errorfiles_exclusive
+
+- name: errorfiles > Templates present
   template:
     src: "{{ item.template }}"
-    dest: "{{ manala_haproxy_errorfiles_dir }}/{{ item.file }}"
+    dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  with_items: "{{ manala_haproxy_errorfiles }}"
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_haproxy_errorfiles,
+      __manala_haproxy_errorfiles_exclusive_find.files|default([]),
+      manala_haproxy_errorfiles_dir,
+      manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
+      wantstate='present'
+    )
+  }}"
+  notify:
+    - haproxy reload
+
+- name: errorfiles > Files absent
+  file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_haproxy_errorfiles,
+      __manala_haproxy_errorfiles_exclusive_find.files|default([]),
+      manala_haproxy_errorfiles_dir,
+      manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
+      wantstate='absent'
+    )
+  }}"
   notify:
     - haproxy reload

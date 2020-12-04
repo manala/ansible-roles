@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Haproxy] Use errorfiles unified exclusive template lookup
 
 ## [0.1.93] - 2020-12-04
 ### Changed
