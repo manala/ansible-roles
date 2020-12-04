@@ -52,7 +52,7 @@ Using ansible galaxy requirements file:
 | `manala_keepalived_config_template`          | 'config/_default.j2'              | String       | Configuration base template path                  |
 | `manala_keepalived_config`                   | ~                                 | Array/String | Configuration directives                          |
 | `manala_keepalived_environment_file`         | '/etc/default/keepalived'         | Array        | Environment file path                             |
-| `manala_keepalived_environment_template`     | 'config/empty.j2'                 | String       | Environment base template path                    |
+| `manala_keepalived_environment_template`     | 'environment/_default.j2'         | String       | Environment base template path                    |
 | `manala_keepalived_environment`              | ~                                 | Array/String | Environment directives                            |
 
 ### Configuration example

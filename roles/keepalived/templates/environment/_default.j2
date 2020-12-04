@@ -9,8 +9,6 @@
 {#- Deprecated -#}
 {%- import '_macros.j2' as macros with context -%}
 
-{% set environment = manala_keepalived_environment -%}
-
 # Options to pass to keepalived
 
 # DAEMON_ARGS are appended to the keepalived command-line
@@ -18,7 +16,7 @@
 
 {{ macros.config(environment, [
     'DAEMON_ARGS',
-]) -}}
+]) }}
 
 {%- else -%}
 
