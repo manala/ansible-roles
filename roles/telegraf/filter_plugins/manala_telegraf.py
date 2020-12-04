@@ -258,11 +258,13 @@ def config_parameters(parameters, exclude=[]):
     return result
 
 
-def config_parameter(parameters, key, default=None, comment=False):
+def config_parameter(parameters, key, required=False, default=None, comment=False):
     if not isinstance(parameters, dict):
         raise AnsibleFilterError('manala_telegraf_config_parameter parameters expects a dict but was given a %s' % type(parameters))
     if not isinstance(key, string_types):
         raise AnsibleFilterError('manala_telegraf_config_parameter key expects a string but was given a %s' % type(key))
+    if required and key not in parameters:
+        raise AnsibleFilterError('manala_telegraf_config_parameter requires a value for key %s' % key)
     result = encode_toml({
         key: parameters.get(key, default)
     })
