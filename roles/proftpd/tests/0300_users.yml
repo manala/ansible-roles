@@ -3,22 +3,25 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  pre_tasks:
-  vars:
-    manala_proftpd_users:
-      - name: user-1
-        password: $1$Z4eVi1jp$IQJdkHh28GGFbq9oSQR/b0 # mkpasswd --method=md5 --salt=Z4eVi1jp testpasswordproftpd
-        home: /tmp/user1
-        shell: /bin/false
-      - name: user-2
-        password: $1$Z4eVi1jp$o4qLQc670sqyO2CKWzYBm1 # mkpasswd --method=md5 --salt=Z4eVi1jp proftpdtestpassword
-        home: /tmp/user2
-        mode: "0755"
-        uid: 0
-        gid: 0
-        shell: /bin/false
-  roles:
-    - manala.proftpd
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.proftpd
+          vars:
+            manala_proftpd_users:
+              - name: user-1
+                password: $1$Z4eVi1jp$IQJdkHh28GGFbq9oSQR/b0 # mkpasswd --method=md5 --salt=Z4eVi1jp testpasswordproftpd
+                home: /tmp/user1
+                shell: /bin/false
+              - name: user-2
+                password: $1$Z4eVi1jp$o4qLQc670sqyO2CKWzYBm1 # mkpasswd --method=md5 --salt=Z4eVi1jp proftpdtestpassword
+                home: /tmp/user2
+                mode: "0755"
+                uid: 0
+                gid: 0
+                shell: /bin/false
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

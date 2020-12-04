@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Proftpd] Use unified exclusive template lookup
+- [Proftpd] Deprecate dict's array configs
+- [Proftpd] Exclusive mode applied on all files (not only `*.conf`)
+- [Proftpd] Boolean config values are converted to "on/off" instead of "On/Off"
+
+### Added
+- [Proftpd] Config filters
+- [Proftpd] Users defaults values now handles `home` and `shell`
 
 ## [0.1.92] - 2020-12-02
 ### Added

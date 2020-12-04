@@ -1,3 +1,0 @@
-{% for user in manala_proftpd_users %}
-    {{ user.name }}:{{ user.password }}:{{ user.uid|default(manala_proftpd_users_defaults.uid) }}:{{ user.gid|default(manala_proftpd_users_defaults.gid) }}::{{ user.home }}:{{ user.shell|default('/bin/false') }}
-{% endfor %}

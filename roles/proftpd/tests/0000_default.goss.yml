@@ -1,5 +1,9 @@
 ---
 
+package:
+  proftpd-basic:
+    installed: true
+
 service:
   proftpd:
     enabled: true

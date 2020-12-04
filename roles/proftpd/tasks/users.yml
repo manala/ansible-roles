@@ -1,16 +1,28 @@
 ---
 
+- name: users > Directory
+  file:
+    path: "{{ manala_proftpd_users_file | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_proftpd_users_template
+        or manala_proftpd_users|length
+
 - name: users > Template config
   template:
-    src: "{{ manala_proftpd_users_template|ternary(manala_proftpd_users_template, 'users/default.j2') }}"
+    src: "{{ manala_proftpd_users_template|default('users/_default.j2', true) }}"
     dest: "{{ manala_proftpd_users_file }}"
     owner: root
     group: root
     mode: "0600"
+  when: manala_proftpd_users_template
+        or manala_proftpd_users|length
 
-- name: users > home directories
+- name: users > Home directories
   file:
-    path: "{{ item.home }}"
+    path: "{{ item.home|default(manala_proftpd_users_defaults.home) }}"
     state: directory
     owner: "{{ item.uid|default(manala_proftpd_users_defaults.uid) }}"
     group: "{{ item.gid|default(manala_proftpd_users_defaults.gid) }}"
