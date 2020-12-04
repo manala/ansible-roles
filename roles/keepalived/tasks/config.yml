@@ -7,6 +7,8 @@
     owner: root
     group: root
     mode: "0755"
+  when: manala_keepalived_config_template
+        or manala_keepalived_config
 
 - name: config > Template
   template:
