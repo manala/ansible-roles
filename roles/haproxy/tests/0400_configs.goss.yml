@@ -1,0 +1,104 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/configs/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/configs/default/default_content.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "global"
+      - "  chroot /var/lib/test"
+  tmp/configs/default/template.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/configs/state/foo.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/bar.cfg:
+    exists: false
+  tmp/configs/state/baz.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/qux.cfg:
+    exists: true
+    filetype: file
+  tmp/configs/state/quux.cfg:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/configs/defaults/foo.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+  tmp/configs/defaults/bar.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+  tmp/configs/defaults/baz.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/configs/exclusive/foo.cfg:
+    exists: false
+  tmp/configs/exclusive/bar.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/exclusive/baz.cfg:
+    exists: false
+  tmp/configs/exclusive/qux.cfg:
+    exists: false
+  tmp/configs/exclusive/quux.cfg:
+    exists: false
+{{ end }}

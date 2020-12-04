@@ -16,10 +16,12 @@ manala_haproxy_config_template: ~
 # Configs
 manala_haproxy_configs_exclusive: false
 manala_haproxy_configs_dir: /etc/haproxy/conf.d
-manala_haproxy_configs_template: ~
+manala_haproxy_configs_template: ~ # Deprecated
+manala_haproxy_configs_defaults:
+  template: "{{ manala_haproxy_configs_template }}" # Ensure backward compatibility
 manala_haproxy_configs: []
 
 # Environment
 manala_haproxy_environment_file: /etc/default/haproxy
 manala_haproxy_environment_template: ~
-manala_haproxy_environment: []
+manala_haproxy_environment: ~

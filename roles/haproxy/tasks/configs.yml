@@ -12,58 +12,40 @@
 - name: configs > Exclusive
   find:
     path: "{{ manala_haproxy_configs_dir }}"
-    patterns: "*.cfg"
+    patterns: "*"
   changed_when: false
   register: __manala_haproxy_configs_exclusive_find
   when: manala_haproxy_configs_exclusive
 
 - name: configs > Templates present
   template:
-    src:  "{{ item.template|default(manala_haproxy_configs_template|ternary(manala_haproxy_configs_template, 'configs/empty.j2')) }}"
+    src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_haproxy_configs',
+      'manala_templates_exclusive',
       manala_haproxy_configs,
       __manala_haproxy_configs_exclusive_find.files|default([]),
       manala_haproxy_configs_dir,
+      manala_haproxy_configs_defaults.template|default('configs/_default.j2', true),
       wantstate='present'
     )
   }}"
-  when: item.content is not defined
-  notify:
-    - haproxy reload
-
-- name: configs > Contents present
-  copy:
-    content: "{{ item.content }}"
-    dest: "{{ item.file }}"
-    owner: root
-    group: root
-    mode: "0644"
-  loop: "{{ query(
-      'manala_haproxy_configs',
-      manala_haproxy_configs,
-      __manala_haproxy_configs_exclusive_find.files|default([]),
-      manala_haproxy_configs_dir,
-      wantstate='present'
-    )
-  }}"
-  when: item.content is defined
   notify:
     - haproxy reload
 
 - name: configs > Files absent
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_haproxy_configs',
+      'manala_templates_exclusive',
       manala_haproxy_configs,
       __manala_haproxy_configs_exclusive_find.files|default([]),
       manala_haproxy_configs_dir,
+      manala_haproxy_configs_defaults.template|default('configs/_default.j2', true),
       wantstate='absent'
     )
   }}"

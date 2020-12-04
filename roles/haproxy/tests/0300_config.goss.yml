@@ -1,11 +1,17 @@
 ---
 
 file:
-  /etc/haproxy/haproxy.cfg:
+  tmp/config/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/config/default/haproxy.cfg:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - "# Foo bar"
+      - Config haproxy

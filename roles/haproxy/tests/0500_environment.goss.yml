@@ -1,7 +1,13 @@
 ---
 
 file:
-  /etc/default/haproxy.test:
+  tmp/environment/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/environment/default/default:
     exists: true
     filetype: file
     owner: root
@@ -9,3 +15,40 @@ file:
     mode: "0644"
     contains:
       - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
+      - "/^FOO=\"bar\"$/"
+  tmp/environment/default/default_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
+      - "/^FOO=\"bar\"$/"
+  tmp/environment/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
+      - "/^FOO=\"bar\"$/"
+  tmp/environment/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
+      - "/^FOO=\"bar\"$/"
+  tmp/environment/default/template_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"
+      - "/^FOO=\"bar\"$/"

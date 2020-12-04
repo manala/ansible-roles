@@ -1,0 +1,14 @@
+{% set environment = manala_haproxy_environment|default({}, true) -%}
+
+# Defaults file for HAProxy
+#
+# This is sourced by both, the initscript and the systemd unit file, so do not
+# treat it as a shell script fragment.
+
+# Change the config file location if needed
+{{ environment | manala_environment_parameter('CONFIG', default='/etc/haproxy/haproxy.cfg', comment=True) }}
+
+# Add extra flags here, see haproxy(1) for a few options
+{{ environment | manala_environment_parameter('EXTRAOPTS', default='-de -m 16', comment=True) }}
+
+{{ environment | manala_environment(exclude=['CONFIG', 'EXTRAOPTS']) }}

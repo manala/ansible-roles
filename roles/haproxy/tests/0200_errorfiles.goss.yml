@@ -1,11 +1,17 @@
 ---
 
 file:
-  /etc/haproxy/errors/400.http:
+  tmp/errorfiles/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/errorfiles/default/400.http:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - Foo bar
+      - Errorfiles 400
