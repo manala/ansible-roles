@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- [MaxScale] Version inferior to 2.2 support
+
+### Changed
+- [MaxScale] Use unified exclusive template lookup
+- [MaxScale] Deprecate dict's array config
+- [MaxScale] Deprecate dict's array configs
+- [MaxScale] Exclusive mode applied on all configs files (not only `*.cnf`)
 
 ## [0.1.94] - 2020-12-04
 ### Changed

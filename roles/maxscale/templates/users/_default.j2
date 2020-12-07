@@ -1,0 +1,5 @@
+[
+  {%- for user in manala_maxscale_network_users -%}
+    {{ {'account': 'admin'}|combine(user)|to_json }}{%- if not loop.last -%},{%- endif -%}
+  {%- endfor -%}
+]

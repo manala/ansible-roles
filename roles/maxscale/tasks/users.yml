@@ -2,11 +2,12 @@
 
 - name: users > Template
   template:
-    src: "{{ manala_maxscale_users_template|ternary(manala_maxscale_users_template, 'users/empty.j2') }}"
+    src: "{{ manala_maxscale_users_template|default('users/_default.j2', true) }}"
     dest: "{{ manala_maxscale_users_file }}"
     owner: maxscale
     group: maxscale
     mode: "0600"
-  when: manala_maxscale_network_users is not none
+  when: manala_maxscale_users_template
+        or manala_maxscale_network_users|type_debug == "list"
   notify:
     - maxscale restart

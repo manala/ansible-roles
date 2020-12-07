@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.jessie
+  become: true
+  tasks:
+
+    - block:
+      - import_tasks: pre_tasks/disable_systemd.yml
+        when: ansible_distribution_release in ['jessie']
+      - import_tasks: pre_tasks/maxscale_2.4.yml
+
+    - block:
+        - import_role:
+            name: manala.maxscale
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

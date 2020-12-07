@@ -1,8 +1,5 @@
 ---
 
-# MaxScale version. Available values are '~' (autodetect), '2.0', '2.1', '2.2', '2.3'
-manala_maxscale_version: ~
-
 # Install
 manala_maxscale_install_packages: ~
 manala_maxscale_install_packages_default:
@@ -11,12 +8,14 @@ manala_maxscale_install_packages_default:
 # Config
 manala_maxscale_config_file: /etc/maxscale.cnf
 manala_maxscale_config_template: ~
-manala_maxscale_config: []
+manala_maxscale_config: ~
 
 # Configs
 manala_maxscale_configs_exclusive: false
 manala_maxscale_configs_dir: "{{ manala_maxscale_config_file }}.d"
-manala_maxscale_configs_template: ~
+manala_maxscale_configs_template: ~ # Deprecated
+manala_maxscale_configs_defaults:
+  template: "{{ manala_maxscale_configs_template }}" # Ensure backward compatibility
 manala_maxscale_configs: []
 
 # Users
