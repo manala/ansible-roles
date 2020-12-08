@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Removed
 - [MaxScale] Version inferior to 2.2 support
+- [Apt] MaxScale version inferior to 2.2 support
 
 ### Changed
 - [MaxScale] Use unified exclusive template lookup

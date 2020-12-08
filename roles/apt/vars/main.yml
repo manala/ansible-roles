@@ -120,20 +120,6 @@ manala_apt_repositories_patterns:
   mariadb_10_5:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/debian {{ ansible_distribution_release }} main
     key: mariadb
-  maxscale_2_0:
-    source: deb https://downloads.mariadb.com/MaxScale/2.0/debian {{ ansible_distribution_release }} main
-    key: maxscale_legacy
-  # Deprecated - Use `maxscale_2_0`
-  maxscale_2_0_4:
-    source: deb https://downloads.mariadb.com/MaxScale/2.0.4/debian {{ ansible_distribution_release }} main
-    key: maxscale_legacy
-  maxscale_2_1:
-    source: deb https://downloads.mariadb.com/MaxScale/2.1/debian {{ ansible_distribution_release }} main
-    key: maxscale
-  # Deprecated - Use `maxscale_2_1`
-  maxscale_2_1_10:
-    source: deb https://downloads.mariadb.com/MaxScale/2.1.10/debian {{ ansible_distribution_release }} main
-    key: maxscale
   maxscale_2_2:
     source: deb https://downloads.mariadb.com/MaxScale/2.2/debian {{ ansible_distribution_release }} main
     key: maxscale
@@ -326,9 +312,6 @@ manala_apt_keys_patterns:
   mariadb_enterprise:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: E3C94F49
-  maxscale_legacy:
-    url: https://downloads.mariadb.com/MaxScale/old_key.public
-    id: 8167EE24
   maxscale:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 28C12247
