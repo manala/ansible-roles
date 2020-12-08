@@ -3,22 +3,56 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_maxscale_config:
-      - maxscale:
-        - threads: auto #Dedicated container
-      - Splitter Service:
-        - type: service
-        - router: readwritesplit
-        - servers: mariadb-1, mariadb-2, mariadb-3
-        - user: maxscale
-        - passwd: XXXXXXXXXXXX
-  pre_tasks:
-    - import_tasks: pre_tasks/disable_systemd.yml
-      when: ansible_distribution_release in ['jessie']
-    - import_tasks: pre_tasks/maxscale_2.3.yml
-  roles:
-    - manala.maxscale
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+      - import_tasks: pre_tasks/disable_systemd.yml
+        when: ansible_distribution_release in ['jessie']
+      - import_tasks: pre_tasks/maxscale_2.3.yml
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: absent
+        # Default - Deprecated
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.maxscale
+          vars:
+            manala_maxscale_config_file: tmp/config/default/default_deprecated.cnf
+            manala_maxscale_config:
+              - maxscale:
+                - threads: auto # Dedicated container
+              - Splitter Service:
+                - type: service
+                - router: readwritesplit
+                - servers: mariadb-1, mariadb-2, mariadb-3
+                - user: maxscale
+                - passwd: XXXXXXXXXXXX
+        # Default - Content
+        - import_role:
+            name: manala.maxscale
+            tasks_from: config
+          vars:
+            manala_maxscale_config_file: tmp/config/default/default_content.cnf
+            manala_maxscale_config: |
+              [maxscale]
+              threads = auto
+
+              [Splitter Service]
+              type = service
+              router = readwritesplit
+              servers = mariadb-1, mariadb-2, mariadb-3
+              user = maxscale
+              passwd = XXXXXXXXXXXX
+        # Template
+        - import_role:
+            name: manala.maxscale
+            tasks_from: config
+          vars:
+            manala_maxscale_config_file: tmp/config/default/template.cnf
+            manala_maxscale_config_template: config/maxscale.cnf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

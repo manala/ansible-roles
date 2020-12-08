@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Version inferior to 2.2 support
+
+### Changed
+- Use unified exclusive template lookup
+- Deprecate dict's array config
+- Deprecate dict's array configs
+- Exclusive mode applied on all configs files (not only `*.cnf`)
 
 ## [2.0.5] - 2020-10-16
 ### Changed

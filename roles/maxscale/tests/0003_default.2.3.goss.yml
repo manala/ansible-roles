@@ -1,0 +1,28 @@
+---
+
+package:
+  maxscale:
+    installed: true
+
+command:
+  maxscale --version:
+    exit-status: 0
+    stdout:
+      - "/^MaxScale 2.3.\\d+$/"
+  sudo maxadmin show users:
+    exit-status: 0
+    stdout:
+      - "/^Enabled Linux accounts \\(secure\\)    : root$/"
+      - "/^Created network accounts \\(insecure\\): admin$/"
+
+file:
+  /var/lib/maxscale/passwd:
+    exists: true
+    filetype: file
+    contains:
+      - '[{"name": "admin", "account": "admin", "password": "$1$MXS$ZKZ/yMdf0ycX3d18iuS9U."}]'
+
+service:
+  maxscale:
+    enabled: true
+    running: true

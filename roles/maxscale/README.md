@@ -13,7 +13,7 @@ Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to 
 
 ```yaml
 manala_apt_preferences:
- - maxscale@maxscale_2_2
+ - maxscale@maxscale_2_4
 ```
 
 ## Dependencies
@@ -44,97 +44,139 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default                               | Type    | Description                            |
-| ------------------------------------------ | ------------------------------------- | ------- | -------------------------------------- |
-| `manala_maxscale_version`                  | ~                                     | String  | Version (autodetect if null)           |
-| `manala_maxscale_install_packages`         | ~                                     | Array   | Dependency packages to install         |
-| `manala_maxscale_install_packages_default` | ['maxscale']                          | Array   | Default dependency packages to install |
-| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'                   | String  | Configuration file path                |
-| `manala_maxscale_config_template`          | 'config/empty.j2'                     | String  | Default configuration template path    |
-| `manala_maxscale_config`                   | []                                    | Array   | Configuration                          |
-| `manala_maxscale_configs_exclusive`        | false                                 | Boolean | Configurations exclusivity             |
-| `manala_maxscale_configs_dir`              | '{{ manala_maxscale_config_file }}.d' | String  | Configurations dir path                |
-| `manala_maxscale_configs_template`         | 'configs/empty.j2'                    | String  | Default configurations template path   |
-| `manala_maxscale_configs`                  | []                                    | Array   | Configurations                         |
-| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd'            | String  | Users file path                        |
-| `manala_maxscale_users_template`           | 'users/default.j2'                    | String  | Default users template path            |
-| `manala_maxscale_network_users`            | ~                                     | Array   | Network users (untouched if null)      |
+| Name                                       | Default                               | Type         | Description                            |
+| ------------------------------------------ | ------------------------------------- | ------------ | -------------------------------------- |
+| `manala_maxscale_install_packages`         | ~                                     | Array        | Dependency packages to install         |
+| `manala_maxscale_install_packages_default` | ['maxscale']                          | Array        | Default dependency packages to install |
+| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'                   | String       | Configuration file path                |
+| `manala_maxscale_config_template`          | 'config/_default.j2'                  | String       | Default configuration template path    |
+| `manala_maxscale_config`                   | ~                                     | Array/String | Configuration                          |
+| `manala_maxscale_configs_exclusive`        | false                                 | Boolean      | Configurations exclusivity             |
+| `manala_maxscale_configs_dir`              | '{{ manala_maxscale_config_file }}.d' | String       | Configurations dir path                |
+| `manala_maxscale_configs_defaults`         | {}                                    | Array        | Default configurations template path   |
+| `manala_maxscale_configs`                  | []                                    | Array        | Configurations                         |
+| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd'            | String       | Users file path                        |
+| `manala_maxscale_users_template`           | 'users/_default.j2'                   | String       | Default users template path            |
+| `manala_maxscale_network_users`            | ~                                     | Array        | Network users (untouched if null)      |
 
 ### Configuration example (Galera cluster configuration)
 
+Config template
 ```yaml
-# Using a custom template
 manala_maxscale_config_template: maxscale/custom_template.j2
+```
 
+Content based config
+```yaml
+manala_maxscale_config: |
+  [maxscale]
+  max_auth_errors_until_block = 0
+
+  [admin]
+  type = service
+  router = cli
+```
+
+Dict's array based config (deprecated)
+```yaml
 manala_maxscale_config:
   - maxscale:
     - threads: auto #Dedicated container
   - Splitter Service:
-    - type:    service
-    - router:  readwritesplit
+    - type: service
+    - router: readwritesplit
     - servers: mariadb-1, mariadb-2, mariadb-3
-    - user:    maxscale
-    - passwd:  XXXXXXXXXXXXXX
+    - user: maxscale
+    - passwd: XXXXXXXXXXXXXX
   - Splitter Listener:
-    - type:     listener
-    - address:  "{{ ansible_eth0.ipv4.address }}" # Ip of the host, can be omit default is listen all interfaces
-    - port:     3306
-    - socket:   /tmp/ClusterMaster
-    - service:  Splitter Service
+    - type: listener
+    - address: "{{ ansible_eth0.ipv4.address }}" # Ip of the host, can be omit default is listen all interfaces
+    - port: 3306
+    - socket: /tmp/ClusterMaster
+    - service: Splitter Service
     - protocol: MySQLClient
-  - mysql-1.elao:
-    - type:     server
-    - address:  172.16.X.XX
-    - port:     3306
+  - mysql-1:
+    - type: server
+    - address: 172.16.X.XX
+    - port: 3306
     - protocol: MySQLBackend
-  - mysql-2.elao:
-    - type:     server
-    - address:  172.16.X.XX
-    - port:     3306
+  - mysql-2:
+    - type: server
+    - address: 172.16.X.XX
+    - port: 3306
     - protocol: MySQLBackend
-  - mysql-3.elao:
-    - type:     server
-    - address:  172.16.X.XX
-    - port:     3306
+  - mysql-3:
+    - type: server
+    - address: 172.16.X.XX
+    - port: 3306
     - protocol: MySQLBackend
   - Galera Monitor:
-    - type:     monitor
-    - module:   galeramon
-    - servers:  mariadb-1, mariadb-1, mariadb-1
-    - user:     maxscale
-    - passwd:   XXXXXXXXXXX
+    - type: monitor
+    - module: galeramon
+    - servers: mariadb-1, mariadb-1, mariadb-1
+    - user: maxscale
+    - passwd: XXXXXXXXXXX
   - CLI:
-    - type:     service
-    - router:   cli
+    - type: service
+    - router: cli
   - CLI Listener:
-    - type:     listener
-    - service:  CLI
+    - type: listener
+    - service: CLI
     - protocol: maxscaled
-    - address:  localhost
-    - port:     6603
+    - address: localhost
+    - port: 6603
+```
 
-# Starting from MaxScale 2.1
+Configs
+```yaml
 manala_maxscale_configs_exclusive: true
 manala_maxscale_configs:
+  # Content based
   - file: foo.cnf
+    config: |
+      [foo-1]
+      type = server
+      address = foo-1
+      port = 3306
+      protocol = MariaDBBackend
+  # Dict's array based (deprecated)
+  - file: bar.cnf
     config:
       - foo-1:
         - type: server
         - address: foo-1
         - port: 3306
         - protocol: MariaDBBackend
+  # Dict's array (deprecated)
+  - file: bar.cnf
+    config:
       - foo-1:
         - type: server
         - address: foo-1
         - port: 3306
         - protocol: MariaDBBackend
-  - file: bar.cnf
-    state: absent
+  # Template cnf
+  - file: template.cnf
+    template: my_maxscale_template.cnf.j2
+    config:
+      Foo: bar
+  # Ensure config is absent
+  - file: absent.cnf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.cnf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
+```
 
+
+Users
+```yaml
 manala_maxscale_network_users:
-  - name:     foo
+  - name: foo
     password: $1$MXS$ilOCSZPnjmHjTz6B96SiJ1 # "foo" (generated by maxpasswd)
-  - name:     bar
+  - name: bar
     password: $1$MXS$M.YZOr2pNTgW87l7KQWLU/ # "bar" (generated by maxpasswd)
 ```
 
@@ -143,7 +185,7 @@ manala_maxscale_network_users:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.maxscale }
+    - role: manala.maxscale
 ```
 
 # Licence

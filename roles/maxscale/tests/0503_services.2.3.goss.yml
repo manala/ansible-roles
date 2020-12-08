@@ -1,6 +1,0 @@
----
-
-service:
-  maxscale:
-    enabled: true
-    running: true
