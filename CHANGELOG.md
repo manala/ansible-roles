@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Keepalived] Don't try to create environment file dir
 - [Haproxy] Don't try to create environment file dir
 
+### Added
+- [Haproxy] Allow content based config
+
 ## [0.1.94] - 2020-12-04
 ### Changed
 - [Haproxy] Use errorfiles unified exclusive template lookup
