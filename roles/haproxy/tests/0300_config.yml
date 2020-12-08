@@ -12,10 +12,23 @@
         - file:
             path: tmp/config/default
             state: absent
+        # Default - Content
         - import_role:
+            # Play role fully on first run, so that handlers don't breaks
             name: manala.haproxy
           vars:
-            manala_haproxy_config_file: tmp/config/default/haproxy.cfg
+            manala_haproxy_config_file: tmp/config/default/default_content.cfg
+            manala_haproxy_config: |
+              defaults
+                  log     global
+                  option  dontlognull
+                  option  abortonclose
+        # Template
+        - import_role:
+            name: manala.haproxy
+            tasks_from: config
+          vars:
+            manala_haproxy_config_file: tmp/config/default/template.cfg
             manala_haproxy_config_template: config/haproxy.cfg.j2
       always:
         - name: Goss

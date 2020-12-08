@@ -94,6 +94,16 @@ Use custom config template
 manala_haproxy_config_template: haproxy/haproxy.cfg.j2
 ```
 
+Use content based config
+
+```yaml
+manala_haproxy_config: |
+  defaults
+      log     global
+      option  dontlognull
+      option  abortonclose
+```
+
 ### Split configuration files
 
 As mentioned in the documentation it's possible to split configuration files as haproxy will load all files found in a specific folder when this one is provided to the `-f` option at service startup.
@@ -104,29 +114,30 @@ On Debian this configuration path is handle by the `/etc/default/haproxy` file a
 #### Defining configuration files
 
 ```yaml
-  manala_haproxy_environment:
-    CONFIG: "{{ manala_haproxy_configs_dir }}" # /etc/haproxy/conf.d
+manala_haproxy_environment_template: environment/debian/haproxy.j2
+manala_haproxy_environment:
+  CONFIG: "{{ manala_haproxy_configs_dir }}" # /etc/haproxy/conf.d
 
-  manala_haproxy_configs_exclusive: true
-  manala_haproxy_configs:
-    # Template based
-    - file: 010-global.cfg
-      template: all/haproxy/010-global.j2
-    # Raw content based
-    - file: 020-defaults.cfg
-      config: |
-        defaults
-            log     global
-            option  dontlognull
-            option  abortonclose
-    # Ensure config is absent
-    - file: absent.cfg
-      state: absent # "present" by default
-    # Ignore config
-    - file: ignore.cfg
-      state: ignore
-    # Flatten configs
-    - "{{ my_custom_configs_array }}"
+manala_haproxy_configs_exclusive: true
+manala_haproxy_configs:
+  # Template based
+  - file: 010-global.cfg
+    template: all/haproxy/010-global.j2
+  # Raw content based
+  - file: 020-defaults.cfg
+    config: |
+      defaults
+          log     global
+          option  dontlognull
+          option  abortonclose
+  # Ensure config is absent
+  - file: absent.cfg
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.cfg
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 ## Example playbook

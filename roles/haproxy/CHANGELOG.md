@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Don't try to create environment file dir
 
+### Added
+- Allow content based config
+
 ## [1.0.10] - 2020-12-04
 ### Changed
 - Use errorfiles unified exclusive template lookup
