@@ -1,7 +1,0 @@
----
-
-command:
-  mysqladmin  --user=admin --password=bTxKGlBi ping:
-    exit-status: 0
-    stdout:
-      - "mysqld is alive"

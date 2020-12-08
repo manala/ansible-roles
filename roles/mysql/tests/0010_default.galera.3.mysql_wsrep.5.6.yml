@@ -1,0 +1,46 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.jessie
+    - debian.stretch
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/galera_3.yml
+        - import_tasks: pre_tasks/mysql_wsrep_5.6.yml
+
+    - block:
+        - import_role:
+            name: manala.mysql
+          vars:
+            manala_mysql_install_packages:
+              - galera-3
+              - galera-arbitrator-3
+              - mysql-wsrep-server-5.6
+              - mysql-wsrep-client-5.6
+            manala_mysql_users:
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+              - name: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  host: localhost
+                  priv: "*.*:ALL,GRANT"
+            manala_mysql_databases:
+              - name: foo
+              - name: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

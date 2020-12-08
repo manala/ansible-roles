@@ -1,0 +1,51 @@
+---
+
+file:
+  tmp/config/default/default.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[mysqld]"
+      - "bind-address = 1.2.3.4"
+      - "pid-file = /var/run/mysqld/mysqld.pid"
+  tmp/config/default/default_deprecated.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[mysqld]"
+      - "bind-address = 1.2.3.4"
+      - "pid-file = /var/run/mysqld/mysqld.pid"
+  tmp/config/default/default_content.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[mysqld]"
+      - "bind-address = 1.2.3.4"
+      - "pid-file = /var/run/mysqld/mysqld.pid"
+  tmp/config/default/template.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config mysql"
+  tmp/config/default/template_deprecated.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[mysqld]"
+      - "bind-address = 0.0.0.0"
+      - "pid-file = /var/run/mysqld/mysqld.pid"

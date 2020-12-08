@@ -6,4 +6,9 @@
     encoding: "{{ item.encoding|default('utf8') }}"
     collation: "{{ item.collation|default('utf8_general_ci') }}"
     state: "{{ item.state|default(omit) }}"
-  with_items: "{{ manala_mysql_databases }}"
+  loop: "{{
+    manala_mysql_databases | flatten | selectattr('state', 'undefined') | list
+    +
+    manala_mysql_databases | flatten | selectattr('state', 'defined') | rejectattr('state', 'eq', 'ignore') | list
+  }}"
+

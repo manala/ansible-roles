@@ -10,12 +10,14 @@ manala_mysql_install_packages_default:
 manala_mysql_config_file: /etc/mysql/my.cnf
 manala_mysql_config_alternative: ~
 manala_mysql_config_template: ~
-manala_mysql_config: []
+manala_mysql_config: ~
 
 # Configs
 manala_mysql_configs_exclusive: false
 manala_mysql_configs_dir: /etc/mysql/conf.d
-manala_mysql_configs_template: ~
+manala_mysql_configs_template: ~ # Deprecated
+manala_mysql_configs_defaults:
+  template: "{{ manala_mysql_configs_template }}" # Ensure backward compatibility
 manala_mysql_configs: []
 
 # Data dir

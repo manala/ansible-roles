@@ -2,20 +2,21 @@
 
 - name: config > Template
   template:
-    src: "{{ manala_mysql_config_template|ternary(manala_mysql_config_template, 'config/empty.j2') }}"
-    dest: "{{ manala_mysql_config_alternative|ternary(manala_mysql_config_alternative, manala_mysql_config_file) }}"
+    src: "{{ manala_mysql_config_template|default('config/_default.j2', true) }}"
+    dest: "{{ manala_mysql_config_alternative|default(manala_mysql_config_file, true) }}"
     owner: root
     group: root
     mode: "0644"
-  when: (manala_mysql_config_template is not none) or (manala_mysql_config|length)
+  when: manala_mysql_config_template
+        or manala_mysql_config
   notify:
     - mysql restart
 
-- name: config > Add config alternative
+- name: config > Alternative
   alternatives:
     name: my.cnf
     link: "{{ manala_mysql_config_file }}"
     path: "{{ manala_mysql_config_alternative }}"
-  when: manala_mysql_config_alternative|default(false)
+  when: manala_mysql_config_alternative|default(false, true)
   notify:
     - mysql restart
