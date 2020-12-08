@@ -1,12 +1,6 @@
 ---
 
 file:
-  tmp/environment/default:
-    exists: true
-    filetype: directory
-    owner: root
-    group: root
-    mode: "0755"
   tmp/environment/default/default:
     exists: true
     filetype: file

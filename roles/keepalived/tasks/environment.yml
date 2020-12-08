@@ -1,15 +1,5 @@
 ---
 
-- name: environment > Directory
-  file:
-    path: "{{ manala_keepalived_environment_file | dirname }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_keepalived_environment_template
-        or manala_keepalived_environment
-
 - name: environment > Template
   template:
     src: "{{ manala_keepalived_environment_template|default('environment/_default.j2', true) }}"

@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [MaxScale] Deprecate dict's array config
 - [MaxScale] Deprecate dict's array configs
 - [MaxScale] Exclusive mode applied on all configs files (not only `*.cnf`)
+- [Keepalived] Don't try to create environment file dir
+- [Haproxy] Don't try to create environment file dir
 
 ## [0.1.94] - 2020-12-04
 ### Changed
