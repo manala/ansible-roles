@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.95] - 2020-12-09
 ### Removed
 - [MaxScale] Version inferior to 2.2 support
 - [Apt] MaxScale version inferior to 2.2 support
