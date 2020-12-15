@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- `ignore` users state
+- `ignore` databases state
+- Flatten users array
+- Flatten databases array
+- Config(s) filters
+
+### Changed
+- Use unified exclusive template lookup
+- Deprecate dict's array config(s)
+- Deprecate environment oriented templates
 
 ## [2.0.7] - 2020-09-29
 ### Added

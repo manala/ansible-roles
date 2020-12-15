@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - [Apt] Nodejs 14 support
+- [MySQL] `ignore` users state
+- [MySQL] `ignore` databases state
+- [MySQL] Flatten users array
+- [MySQL] Flatten databases array
+- [MySQL] Config(s) filters
+
+### Changed
+- [MySQL] Use unified exclusive template lookup
+- [MySQL] Deprecate dict's array config(s)
+- [MySQL] Deprecate environment oriented templates
 
 ## [0.1.95] - 2020-12-09
 ### Removed

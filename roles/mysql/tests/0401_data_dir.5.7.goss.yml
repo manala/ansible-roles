@@ -10,3 +10,9 @@ file:
   /tmp/datadir/ibdata1:
     exists: true
     filetype: file
+
+command:
+  mysql -BNe "SELECT @@GLOBAL.datadir":
+    exit-status: 0
+    stdout:
+      - "/tmp/datadir/"

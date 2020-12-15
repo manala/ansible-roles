@@ -5,8 +5,8 @@ file:
     exists: true
     filetype: directory
     owner: mysql
-    group: root
-    mode: "0700"
+    group: mysql
+    mode: "0750"
   /tmp/datadir/ibdata1:
     exists: true
     filetype: file

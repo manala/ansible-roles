@@ -5,22 +5,26 @@
     - debian.jessie
     - debian.stretch
   become: true
-  vars:
-    manala_mysql_config:
-      - mysqld:
-        - pid-file: /var/run/mysqld/mysqld.pid
-        - socket: /var/run/mysqld/mysqld.sock
-        - log-error: /var/log/mysql/error.log
-        - datadir: /tmp/datadir
+  tasks:
 
-    manala_mysql_data_dir: /tmp/datadir
-    manala_mysql_data_dir_user: mysql
-    manala_mysql_data_dir_group: root
-    manala_mysql_data_dir_mode: '0700'
-  pre_tasks:
-    - import_tasks: pre_tasks/mysql_5.6.yml
-  roles:
-    - manala.mysql
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+    - block:
+        - import_tasks: pre_tasks/mysql_5.6.yml
+
+    - block:
+        - import_role:
+            name: manala.mysql
+          vars:
+            manala_mysql_config: |
+              [mysqld]
+              pid-file = /var/run/mysqld/mysqld.pid
+              socket = /var/run/mysqld/mysqld.sock
+              log-error = /var/log/mysql/error.log
+              datadir = /tmp/datadir
+            manala_mysql_data_dir: /tmp/datadir
+            manala_mysql_data_dir_user: mysql
+            manala_mysql_data_dir_group: root
+            manala_mysql_data_dir_mode: "0700"
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

@@ -19,39 +19,20 @@
 
 - name: configs > Templates present
   template:
-    src: "{{ item.template|default(manala_mysql_configs_template|ternary(manala_mysql_configs_template, 'configs/empty.j2')) }}"
+    src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_mysql_configs',
+      'manala_templates_exclusive',
       manala_mysql_configs,
       __manala_mysql_configs_exclusive_find.files|default([]),
       manala_mysql_configs_dir,
+      manala_mysql_configs_defaults.template|default('configs/_default.j2', true),
       wantstate='present'
     )
   }}"
-  when: item.content is not defined
-  notify:
-    - mysql restart
-
-- name: configs > Contents present
-  copy:
-    content: "{{ item.content }}"
-    dest: "{{ item.file }}"
-    owner: root
-    group: root
-    mode: "0644"
-  loop: "{{ query(
-      'manala_mysql_configs',
-      manala_mysql_configs,
-      __manala_mysql_configs_exclusive_find.files|default([]),
-      manala_mysql_configs_dir,
-      wantstate='present'
-    )
-  }}"
-  when: item.content is defined
   notify:
     - mysql restart
 
@@ -60,10 +41,11 @@
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_mysql_configs',
+      'manala_templates_exclusive',
       manala_mysql_configs,
       __manala_mysql_configs_exclusive_find.files|default([]),
       manala_mysql_configs_dir,
+      manala_mysql_configs_defaults.template|default('configs/_default.j2', true),
       wantstate='absent'
     )
   }}"

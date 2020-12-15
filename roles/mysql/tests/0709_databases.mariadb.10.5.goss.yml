@@ -1,9 +1,0 @@
----
-
-command:
-  mysql -u root --execute "show databases":
-    exit-status: 0
-    stdout:
-      - "manala_test_1"
-      - "manala_test_1"
-      - "!manala_test_3"
