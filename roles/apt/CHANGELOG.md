@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.22] - 2020-12-15
 ### Added
 - Nodejs 14 support
 

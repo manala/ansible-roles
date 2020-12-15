@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.96] - 2020-12-15
 ### Added
 - [Apt] Nodejs 14 support
 - [MySQL] `ignore` users state
