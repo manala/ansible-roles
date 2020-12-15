@@ -8,6 +8,10 @@ manala_backup_manager_install_packages_default:
 # Configs
 manala_backup_manager_configs_exclusive: false
 manala_backup_manager_configs_dir: /etc/backup-manager.d
-manala_backup_manager_configs_template: ~
+manala_backup_manager_configs_template: ~ # Deprecated
+manala_backup_manager_configs_defaults:
+  template: "{{ manala_backup_manager_configs_template }}" # Ensure backward compatibility
 manala_backup_manager_configs: []
+
+# Bin
 manala_backup_manager_bin: /usr/sbin/backup-manager

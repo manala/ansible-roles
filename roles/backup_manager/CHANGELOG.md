@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Config filters
+
+### Changed
+- Use unified exclusive template lookup
+- Deprecate dbms oriented templates
+- Deprecate dict's array configs
 
 ## [2.0.5] - 2020-11-12
 ### Added
