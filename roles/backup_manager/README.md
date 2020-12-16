@@ -8,7 +8,7 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the __manala__ backup-manager debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the backup-manager debian package, available on the __manala__ debian repository for jessie and stretch. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -43,7 +43,7 @@ Using ansible galaxy requirements file:
 | `manala_backup_manager_install_packages_default` | ['backup-manager']         | Array   | Default dependency packages to install |
 | `manala_backup_manager_configs_exclusive`        | false                      | Boolean | Configs exclusivity                    |
 | `manala_backup_manager_configs_dir`              | '/etc/backup-manager.d'    | String  | Configs directory path                 |
-| `manala_backup_manager_configs_template`         | ~                          | String  | Configs template path                  |
+| `manala_backup_manager_configs_defaults`         | {}                         | String  | Configs defaults                       |
 | `manala_backup_manager_configs`                  | []                         | Array   | Collection of configs                  |
 | `manala_backup_manager_bin`                      | '/usr/sbin/backup-manager' | String  | Binary path                            |
 
@@ -123,40 +123,59 @@ Execute hooks before and after backup
 
 `manala_backup_manager_configs` allows you to define backup manager configuration files using template and config, or raw content.
 
-A state (present|absent) can be provided.
+A state (present|absent|ignore) can be provided.
+
+A default template can be provided
+
+```yaml
+manala_backup_manager_configs_defaults:
+  template: configs/debian/backup-manager.conf.j2
+```
 
 ```yaml
 manala_backup_manager_configs:
-  # Template based
-  - file: foo_template.conf
-    template: configs/pgsql.j2
-  # Config based, default template by default
   - file: foo.conf
-    template: configs/mysql.j2
     config:
-      - BM_REPOSITORY_CHMOD: 775
-      - BM_ARCHIVE_CHMOD:    664
-      - BM_REPOSITORY_ROOT:  /srv/backup/mysql
-      - BM_ARCHIVE_TTL:      5
-      - BM_ARCHIVE_PREFIX:   backup
-      - BM_MYSQL_ADMINLOGIN: root
-      - BM_MYSQL_ADMINPASS:  ~
-      - BM_MYSQL_HOST:       localhost
-      - BM_MYSQL_DBEXCLUDE:  information_schema mysql performance_schema
+      BM_REPOSITORY_CHMOD: 775
+      BM_ARCHIVE_CHMOD: 664
+      BM_REPOSITORY_ROOT: /srv/backup/mysql
       # Flatten configs
-      - BM_TARBALL_DIRECTORIES:
-          - foo
-          - bar
-          - "{{ my_custom_configs_array }}"
-  # Raw content based
-  - file: foo_content.conf
+      BM_TARBALL_DIRECTORIES:
+        - foo
+        - bar
+        - "{{ my_custom_configs_array }}"
+  # Raw content
+  - file: content.conf
     content: |
       # Where to store the archives
       export BM_REPOSITORY_ROOT="/var/archives"
       # Where to place temporary files
       export BM_TEMP_DIR="/tmp"
-      ...
-    state: absent
+  # Template based
+  - file: template.conf
+    template: my/backup_manager.conf.j2
+    config:
+      foo: bar
+  # Dict's array (deprecated)
+  - file: foo.conf
+    template: configs/mysql.j2
+    config:
+      - BM_REPOSITORY_CHMOD: 775
+      - BM_ARCHIVE_CHMOD: 664
+      - BM_REPOSITORY_ROOT: /srv/backup/mysql
+      # Flatten configs
+      - BM_TARBALL_DIRECTORIES:
+          - foo
+          - bar
+          - "{{ my_custom_configs_array }}"
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 `manala_backup_manager_configs_exclusive` allow you to clean up existing backup manager configuration files into directory defined by the `manala_backup_manager_configs_dir` key. Made to be sure no old or manually created files will alter current configuration.
@@ -169,22 +188,21 @@ manala_backup_manager_configs_exclusive: true
 
 ```yaml
 manala_backup_manager_configs:
-  - file:    uploads.conf
-    template: configs/default.j2
+  - file: uploads.conf
     config:
-      - BM_REPOSITORY_CHMOD:           775
-      - BM_ARCHIVE_CHMOD:              664
+      BM_REPOSITORY_CHMOD: 775
+      BM_ARCHIVE_CHMOD: 664
 
-      - BM_REPOSITORY_ROOT:            /srv/backup/uploads
-      - BM_ARCHIVE_TTL:                5
-      - BM_ARCHIVE_PURGEDUPS:          true
-      - BM_ARCHIVE_METHOD:             tarball-incremental
+      BM_REPOSITORY_ROOT: /srv/backup/uploads
+      BM_ARCHIVE_TTL: 5
+      BM_ARCHIVE_PURGEDUPS: true
+      BM_ARCHIVE_METHOD: tarball-incremental
 
-      - BM_TARBALLINC_MASTERDATETYPE:  weekly
-      - BM_TARBALLINC_MASTERDATEVALUE: 1
+      BM_TARBALLINC_MASTERDATETYPE: weekly
+      BM_TARBALLINC_MASTERDATEVALUE: 1
 
-      - BM_TARBALL_FILETYPE:           tar.gz
-      - BM_TARBALL_DIRECTORIES:        /srv/app/web/uploads
+      BM_TARBALL_FILETYPE: tar.gz
+      BM_TARBALL_DIRECTORIES: /srv/app/web/uploads
 ```
 
 ## Example playbook
@@ -192,7 +210,7 @@ manala_backup_manager_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.backup_manager }
+    - role: manala.backup_manager
 ```
 
 ## CRON
@@ -204,10 +222,10 @@ manala_cron_files:
   - file: backup-manager
     user: root
     jobs:
-      - name:   backup-manager
-        job:    for file in {{ manala_backup_manager_configs_dir }}/*.conf; do {{ manala_backup_manager_bin }} --conffile $file; done
+      - name: backup-manager
+        job: for file in {{ manala_backup_manager_configs_dir }}/*.conf; do {{ manala_backup_manager_bin }} --conffile $file; done
         minute: 25
-        hour:   6
+        hour: 6
 ```
 
 # Licence
