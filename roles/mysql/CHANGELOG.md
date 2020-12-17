@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.9] - 2020-12-17
 ### Changed
 - Switch from `eq` to more widely available `equalto` test
 
