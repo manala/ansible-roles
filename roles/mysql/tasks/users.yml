@@ -11,5 +11,5 @@
   loop: "{{
     manala_mysql_users | flatten | selectattr('state', 'undefined') | list
     +
-    manala_mysql_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'eq', 'ignore') | list
+    manala_mysql_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
   }}"

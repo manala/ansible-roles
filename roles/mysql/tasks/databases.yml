@@ -9,6 +9,6 @@
   loop: "{{
     manala_mysql_databases | flatten | selectattr('state', 'undefined') | list
     +
-    manala_mysql_databases | flatten | selectattr('state', 'defined') | rejectattr('state', 'eq', 'ignore') | list
+    manala_mysql_databases | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
   }}"
 
