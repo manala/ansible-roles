@@ -11,5 +11,5 @@
   loop: "{{
     manala_systemd_services | flatten | selectattr('state', 'undefined') | list
     +
-    manala_systemd_services | flatten | selectattr('state', 'defined') | rejectattr('state', 'eq', 'ignore') | list
+    manala_systemd_services | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
   }}"

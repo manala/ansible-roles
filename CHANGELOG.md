@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Mount] Switch from `eq` to more widely available `equalto` test
+- [MySQL] Switch from `eq` to more widely available `equalto` test
+- [Systemd] Switch from `eq` to more widely available `equalto` test
 
 ## [0.1.97] - 2020-12-16
 ### Added
