@@ -1,0 +1,17 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  pre_tasks:
+    - import_tasks: pre_tasks/sury_php.yml
+    - apt:
+        name:
+          - php8.0-fpm
+        install_recommends: false
+    - import_tasks: pre_tasks/manala.yml
+  roles:
+    - manala.phppgadmin
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate
