@@ -3,12 +3,16 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_docker_config_daemon:
-      - storage-driver: vfs
-    manala_docker:
-      update: true
-  pre_tasks:
-    - import_tasks: pre_tasks/docker.yml
-  roles:
-    - manala.docker
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/docker.yml
+
+    - block:
+        - import_role:
+            name: manala.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+            manala_docker:
+              update: true

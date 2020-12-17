@@ -9,3 +9,8 @@ command:
     exit-status: 0
     stdout:
       - Docker version
+
+service:
+  docker:
+    enabled: true
+    running: true

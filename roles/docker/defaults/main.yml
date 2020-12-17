@@ -16,7 +16,7 @@ manala_docker_containers: []
 # Config - Daemon
 manala_docker_config_daemon_file: /etc/docker/daemon.json
 manala_docker_config_daemon_template: ~
-manala_docker_config_daemon: []
+manala_docker_config_daemon: ~
 
 # Flags
 manala_docker: {}

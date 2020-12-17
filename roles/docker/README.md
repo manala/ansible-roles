@@ -45,20 +45,48 @@ Using ansible galaxy requirements file:
 | `manala_docker_install_packages`         | ~                         | Array   | Dependency packages to install             |
 | `manala_docker_install_packages_default` | ['docker-ce']             | Array   | Default dependency packages to install     |
 | `manala_docker_applications_dir`         | '/usr/local/bin'          | String  | Applications dir path                      |
-| `manala_docker_applications_template`    | 'applications/default.j2' | String  | Applications default template path         |
+| `manala_docker_applications_template`    | 'applications/_default.j2' | String  | Applications default template path         |
 | `manala_docker_applications`             | []                        | Array   | Applications                               |
 | `manala_docker_containers`               | []                        | Array   | Containers                                 |
 | `manala_docker_config_daemon_file`       | '/etc/docker/daemon.json' | String  | Daemon configuration file path             |
 | `manala_docker_config_daemon_template`   | 'config_daemon/empty.j2'  | String  | Daemon configuration default template path |
-| `manala_docker_config_daemon`            | []                        | Array   | Daemon configuration                       |
+| `manala_docker_config_daemon`            | ~                         | Array   | Daemon configuration                       |
 | `manala_docker.update`                   | false                     | Boolean | Update images                              |
 
 ### Configuration example
 
+Daemon config using dict parameters:
+
+```yaml
+manala_docker_config_daemon:
+  storage-driver: vfs
+```
+
+Daemon config using template:
+
+```yaml
+manala_docker_config_daemon_template: my/docker/daemon.json.j2
+manala_docker_config_daemon:
+  foo: bar
+```
+
+Daemon config using raw content:
+
+```yaml
+manala_docker_config_daemon: |
+  {
+      storage-driver: vfs
+  }
+```
+
+Daemon config using dict's array parameters (deprecated):
+
 ```yaml
 manala_docker_config_daemon:
   - storage-driver: vfs
+```
 
+```yaml
 manala_docker_applications:
   - hello-world
   - application: npm
@@ -87,7 +115,13 @@ manala_docker_containers:
     restart_policy: unless-stopped
     memory: 1g
     ulimits:
-      - memlock:-1:-1 # <type>:<soft>:<hard>    
+      - memlock:-1:-1 # <type>:<soft>:<hard>
+  # Ignore container
+  - name: ignore.conf
+    image: centos
+    state: ignore
+  # Flatten containers
+  - "{{ my_custom_containers_array }}"
 ```
 
 ### Flags
@@ -107,7 +141,7 @@ manala:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.docker }
+    - role: manala.docker
 ```
 
 # Licence

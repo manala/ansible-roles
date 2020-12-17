@@ -5,3 +5,5 @@ command:
     exit-status: 0
     stdout:
       - hello-world
+      - "!busybox"
+      - alpine

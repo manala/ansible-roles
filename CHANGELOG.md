@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Docker] `ignore` containers state
+- [Docker] Dict based daemon config
+
+### Changed
+- [Docker] Flatten containers array
+- [Docker] Deprecate dict's array daemon config
 
 ## [0.1.98] - 2020-12-17
 ### Changed
