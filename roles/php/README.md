@@ -86,6 +86,8 @@ Using ansible galaxy requirements file:
 | **7.3** | Buster       | Sury       | `php@sury_php`           | `7.3`                |                                        |
 | **7.4** | Stretch      | Sury       | `php@sury_php`           | `7.4`                |                                        |
 | **7.4** | Buster       | Sury       | `php@sury_php`           | `7.4`                |                                        |
+| **8.0** | Stretch      | Sury       | `php@sury_php`           | `8.0`                |                                        |
+| **8.0** | Buster       | Sury       | `php@sury_php`           | `8.0`                |                                        |
 
 #### Sapis
 

@@ -1,0 +1,32 @@
+---
+
+- name: "{{ test }}.1"
+  hosts: debian:!debian.jessie
+  become: true
+  vars:
+    manala_php_version: 8.0
+    manala_php_configs:
+      - file: foo.ini
+      - file: bar.ini
+    manala_php_cli_configs:
+      - file: baz.ini
+    manala_php_fpm_configs:
+      - file: baz.ini
+  pre_tasks:
+    - import_tasks: pre_tasks/sury_php.yml
+  roles:
+    - manala.php
+
+- name: "{{ test }}.2"
+  hosts: debian:!debian.jessie
+  become: true
+  vars:
+    manala_php_version: 8.0
+    manala_php_configs_exclusive: true
+    manala_php_configs:
+      - file: bar.ini
+  roles:
+    - manala.php
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

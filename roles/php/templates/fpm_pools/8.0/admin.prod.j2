@@ -1,0 +1,14 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{%- set config_name_default = 'admin' -%}
+
+{%- set config_default = {
+  'listen':          '/run/php-fpm.admin.sock',
+  'pm.max_children': 20
+} -%}
+
+{%- set config_extra = {
+  'php_admin_value[display_errors]': false
+} -%}
+
+{% include manala_php_version|string ~ '/_base.j2' %}
