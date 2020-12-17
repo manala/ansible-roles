@@ -1,0 +1,15 @@
+FROM {{ item.image }}
+
+{% if item.env is defined %}
+{% for var, value in item.env.items() %}
+{% if value %}
+ENV {{ var }} {{ value }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+# Goss
+ENV GOSS_VERSION="0.3.13"
+RUN wget https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-amd64 \
+      -O /usr/local/bin/goss \
+    && chmod +x /usr/local/bin/goss

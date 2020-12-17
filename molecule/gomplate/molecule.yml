@@ -1,0 +1,48 @@
+---
+
+#dependency:
+#  name: galaxy
+#lint: |
+#  set -e
+#  yamllint .
+#  ansible-lint
+#  flake8
+driver:
+  name: docker
+platforms:
+  # - name: instance
+  #   image: docker.io/pycontribs/centos:8
+  #   pre_build_image: true
+  - name: debian.buster
+    groups:
+      - debian
+    image: geerlingguy/docker-debian10-ansible
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ${DIR}:${MOLECULE_PROJECT_DIRECTORY}
+    privileged: true
+    #command: /lib/systemd/systemd
+    #pre_build_image: true
+    override_command: false
+provisioner:
+  name: ansible
+  ansible_args:
+    - --extra-vars=test=0100_install
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles
+  # inventory:
+  #   hosts:
+  #     all:
+  #       vars:
+  #         test: prout1
+  #   group_vars:
+  #     all:
+  #       test: prout2
+  #remote_user: root
+  #vars:
+#    favcolor: blue
+
+  playbooks:
+    converge: ../../roles/gomplate/tests/0100_install.yml
+#verifier:
+#  name: ansible
