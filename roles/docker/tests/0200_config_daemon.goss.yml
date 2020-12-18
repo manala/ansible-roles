@@ -1,12 +1,6 @@
 ---
 
 file:
-  /etc/docker:
-    exists: true
-    filetype: directory
-    owner: root
-    group: root
-    mode: "0755"
   /etc/docker/daemon.json:
     exists: true
     filetype: file
@@ -14,4 +8,37 @@ file:
     group: root
     mode: "0644"
     contains:
+      - "{"
+      - "    \"experimental\": false,"
+      - "    \"storage-driver\": \"vfs\""
+      - "}"
+  tmp/config_daemon/default/default_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "{"
+      - "    \"storage-driver\": \"vfs\","
       - "    \"experimental\": false"
+      - "}"
+  tmp/config_daemon/default/default_content.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "{"
+      - "    \"storage-driver\": \"vfs\","
+      - "    \"experimental\": false"
+      - "}"
+  tmp/config_daemon/default/template.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config daemon foo"

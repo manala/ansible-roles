@@ -9,21 +9,11 @@
         - import_tasks: pre_tasks/docker.yml
 
     - block:
-        # Default
         - import_role:
             name: manala.docker
           vars:
             manala_docker_config_daemon:
               storage-driver: vfs
-            manala_docker_applications:
-              - hello-world
-              - application: npm
-                image: node
-                command: npm
-                tag: alpine
-              - application: audiowaveform
-                template: applications/audiowaveform.j2
-                version: 1.4.2
       always:
         - name: Goss
           command: >

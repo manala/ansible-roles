@@ -1,0 +1,20 @@
+{%- set config = manala_docker_config_daemon -%}
+
+{%- if config is mapping -%}
+
+{{ config | to_nice_json }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
+
+{
+{{ macros.config(config, [], 4) }}
+}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

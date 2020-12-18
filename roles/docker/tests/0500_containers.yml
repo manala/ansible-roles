@@ -3,16 +3,29 @@
 - name: "{{ test }}"
   hosts: debian:!debian.jessie
   become: true
-  vars:
-    manala_docker_config_daemon:
-      - storage-driver: vfs
-    manala_docker_containers:
-      - name: hello-world
-        image: hello-world
-  pre_tasks:
-    - import_tasks: pre_tasks/docker.yml
-  roles:
-    - manala.docker
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/docker.yml
+
+    - block:
+        # Default
+        - import_role:
+            name: manala.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+            manala_docker_containers:
+              - name: hello-world
+                image: hello-world
+              - name: busybox
+                image: busybox
+                state: ignore
+              # Flatten
+              -
+                - name: alpine
+                  image: alpine
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate
