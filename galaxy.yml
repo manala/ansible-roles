@@ -9,7 +9,7 @@ namespace: manala
 name: roles
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 0.1.98
+version: 0.1.99
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
