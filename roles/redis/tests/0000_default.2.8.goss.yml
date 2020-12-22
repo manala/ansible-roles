@@ -1,0 +1,16 @@
+---
+
+package:
+  redis-server:
+    installed: true
+
+service:
+  redis-server:
+    enabled: true
+    running: true
+
+command:
+  redis-server --version:
+    exit-status: 0
+    stdout:
+      - "/^Redis server v=2\\.8\\.\\d+ /"

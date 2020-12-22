@@ -39,39 +39,66 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                    | Default                             | Type    | Description                            |
-| --------------------------------------- | ----------------------------------- | ------- | -------------------------------------- |
-| `manala_redis_version`                  | ~                                   | String  | Version (autodetect if null)           |
-| `manala_redis_server`                   | true                                | Boolean | Install and configure "redis-server"   |
-| `manala_redis_sentinel`                 | false                               | Boolean | Install and configure "redis-sentinel" |
-| `manala_redis_install_packages`         | ~                                   | Array   | Dependency packages to install         |
-| `manala_redis_install_packages_default` | ['redis-server']/['redis-sentinel'] | Array   | Default dependency packages to install |
-| `manala_redis_config_file`              | '/etc/redis/redis.conf'             | String  | Configuration file path                |
-| `manala_redis_config_template`          | ~                                   | String  | Configuration template path            |
-| `manala_redis_config`                   | []                                  | Array   | Configuration directives               |
-| `manala_redis_sentinel_config_file`     | '/etc/redis/redis.conf'             | String  | Sentinel configuration file path       |
-| `manala_redis_sentinel_config`          | []                                  | Array   | Sentinel configuration directives      |
+| Name                                    | Default                             | Type         | Description                            |
+| --------------------------------------- | ----------------------------------- | ------------ | -------------------------------------- |
+| `manala_redis_version`                  | ~                                   | String       | Version (autodetect if null)           |
+| `manala_redis_install_packages`         | ~                                   | Array        | Dependency packages to install         |
+| `manala_redis_install_packages_default` | ['redis-server']/['redis-sentinel'] | Array        | Default dependency packages to install |
+| `manala_redis_server`                   | true                                | Boolean      | Install and configure "redis-server"   |
+| `manala_redis_server_config_file`       | '/etc/redis/redis.conf'             | String       | Configuration file path                |
+| `manala_redis_server_config_template`   | ~                                   | String       | Configuration template path            |
+| `manala_redis_server_config`            | ~                                   | Array/String | Configuration directives               |
+| `manala_redis_sentinel`                 | false                               | Boolean      | Install and configure "redis-sentinel" |
+| `manala_redis_sentinel_config_file`     | '/etc/redis/sentinel.conf'          | String       | Sentinel configuration file path       |
+| `manala_redis_sentinel_config`          | {}                                  | Array        | Sentinel configuration directives      |
 
 ### Configuration example
 
 #### Redis server
 
+Use debian default main config template (recommended):
 ```yaml
-manala_redis_config:
-  - bind: "127.0.0.1 {{ ansible_eth0.ipv4.address }}"
+manala_redis_server_config_template: config/debian/redis.conf.j2
+manala_redis_server_config:
+  include:
+    - /foo/bar.conf
+    - /foo/baz.conf
+  port: 1234
 ```
 
-#### Redis sentinel only
+Use dict parameters:
+```yaml
+manala_redis_server_config:
+  include:
+    - /foo/bar.conf
+    - /foo/baz.conf
+  port: 1234
+```
+
+Use raw main config:
+```yaml
+manala_redis_server_config: |
+  include /foo/bar.conf
+  include /foo/baz.conf
+  port 1234
+```
+
+Use dict's array parameters (deprecated):
+```yaml
+manala_redis_server_config:
+  - port: 1234
+```
+
+
+#### Redis sentinel
 
 ```yaml
-manala_redis_server: false
 manala_redis_sentinel: true
-
 manala_redis_sentinel_config:
     sentinel monitor: mymaster 192.168.0.10 6379 2
     sentinel auth-pass: mymaster f00bar
     sentinel down-after-milliseconds: mymaster 5000
-    protected-mode: 'no'
+    protected-mode: "no"
 ```
 
 ## Example playbook
@@ -79,7 +106,7 @@ manala_redis_sentinel_config:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.redis }
+    - role: manala.redis
 ```
 
 # Licence

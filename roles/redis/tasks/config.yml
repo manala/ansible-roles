@@ -1,22 +1,27 @@
 ---
 
-- name: config > Redis server template
+- name: config > Server - Template
   template:
-    src: "{{ manala_redis_config_template|ternary(manala_redis_config_template, 'config/default.j2') }}"
-    dest: "{{ manala_redis_config_file }}"
+    src: "{{ manala_redis_server_config_template|default('config/_default.j2', true) }}"
+    dest: "{{ manala_redis_server_config_file }}"
     owner: redis
     group: redis
     mode: "0640"
-  when: manala_redis_server and ((manala_redis_config_template is not none) or (manala_redis_config|length))
+  when:
+    - manala_redis_server
+    - manala_redis_server_config_template
+      or manala_redis_server_config
   notify:
     - redis restart
 
-- name: config > Redis sentinel template
+- name: config > Sentinel - File
   lineinfile:
     dest: "{{ manala_redis_sentinel_config_file }}"
     regexp: "^{{ item.key }} (.*)$"
     line: "{{ item.key }} {{ item.value }}"
-  when: manala_redis_sentinel and (manala_redis_sentinel_config|length)
+  when:
+    - manala_redis_sentinel
+    - manala_redis_sentinel_config|length
   with_dict: "{{ manala_redis_sentinel_config }}"
   notify:
     - redis-sentinel restart

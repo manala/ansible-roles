@@ -1,0 +1,14 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian.jessie
+  become: true
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.redis
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

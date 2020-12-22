@@ -1,11 +1,7 @@
 ---
 
-# Redis version. Available values are '~' (autodetect), '2.4', '2.8', '3.0', '4.0', '5.0'
+# Redis version. Available values are '~' (autodetect), '2.8', '3.2', '5.0', '6.0'
 manala_redis_version: ~
-
-# Install
-manala_redis_server: true
-manala_redis_sentinel: false
 
 # Install
 manala_redis_install_packages: ~
@@ -15,10 +11,18 @@ manala_redis_install_packages_default: "{{
   + (manala_redis_sentinel)|ternary(['redis-sentinel'], [])
 }}"
 
-# Config
-manala_redis_config_file: /etc/redis/redis.conf
-manala_redis_config_template: ~
-manala_redis_config: []
+# /!\ Deprecated
+manala_redis_config_file: /etc/redis/redis.conf # Use `manala_redis_server_config_file`
+manala_redis_config_template: ~ # Use `manala_redis_server_config_template`
+manala_redis_config: ~ # Use `manala_redis_server_config`
 
+# Server
+manala_redis_server: true
+manala_redis_server_config_file: "{{ manala_redis_config_file }}"
+manala_redis_server_config_template: "{{ manala_redis_config_template }}"
+manala_redis_server_config: "{{ manala_redis_config }}"
+
+# Sentinel
+manala_redis_sentinel: false
 manala_redis_sentinel_config_file: /etc/redis/sentinel.conf
 manala_redis_sentinel_config: {}

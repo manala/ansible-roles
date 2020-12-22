@@ -1,0 +1,23 @@
+---
+
+package:
+  redis-server:
+    installed: true
+
+service:
+  redis-server:
+    enabled: true
+    running: true
+  redis-sentinel:
+    enabled: true
+    running: true
+
+command:
+  redis-server --version:
+    exit-status: 0
+    stdout:
+      - "/^Redis server v=5\\.0\\.\\d+ /"
+  redis-sentinel --version:
+    exit-status: 0
+    stdout:
+      - "/^Redis server v=5\\.0\\.\\d+ /"
