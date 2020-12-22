@@ -13,7 +13,7 @@ For this purpose, one can make usage of our shiny [manala.apt](https://github.co
 
 ```yaml
 manala_apt_preferences:
- - mongodb@mongodb_4_2
+ - mongodb@mongodb_4_4
 ```
 
 ## Dependencies
@@ -44,26 +44,53 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default                                                                         | Type   | Description                             |
-| ----------------------------------------- | ------------------------------------------------------------------------------- | ------ | --------------------------------------- |
-| `manala_mongodb_install_packages`         | ~                                                                               | Array  |  Dependency packages to install         |
-| `manala_mongodb_install_packages_default` | ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-tools'] | Array  |  Default dependency packages to install |
-| `manala_mongodb_config`                   | []                                                                              | Array  |  Configuration                          |
-| `manala_mongodb_config_template`          | 'config/default.j2'                                                             | String |  Configuration template path            |
+| Name                                      | Default                                                                         | Type         | Description                             |
+| ----------------------------------------- | ------------------------------------------------------------------------------- | ------------ | --------------------------------------- |
+| `manala_mongodb_install_packages`         | ~                                                                               | Array        |  Dependency packages to install         |
+| `manala_mongodb_install_packages_default` | ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-tools'] | Array        |  Default dependency packages to install |
+| `manala_mongodb_config_file`              | '/etc/mongod.conf'                                                              | String       |  Configuration file path                |
+| `manala_mongodb_config_template`          | 'config/_default.j2'                                                            | String       |  Configuration template path            |
+| `manala_mongodb_config`                   | ~                                                                               | Array/String |  Configuration                          |
 
 ### Configuration example
 
+Use dict parameters:
 ```yaml
 manala_mongodb_config:
-  # default parameters
-  dbpath:     /var/lib/mongodb
-  logpath:    /var/log/mongodb/mongod.log
-  logappend:  true
-  port:       27017
-  bind_ip:    127.0.0.1
-  # add extra parameters
-  verbose:    true
-  vv:         true
+  port: 12345
+```
+
+Use raw content:
+```yaml
+manala_mongodb_config: |
+  port: 12345
+```
+
+Use template:
+```yaml
+manala_mongodb_config_template: my/mongod.conf.j2
+manala_mongodb_config:
+  foo: bar
+```
+
+Use dict's array parameters (deprecated):
+```yaml
+manala_supervisor_config:
+  - port: 12345
+```
+
+Users:
+```yaml
+manala_mongodb_users:
+  - name: foo
+    password: foo
+    database: admin
+    roles: userAdminAnyDatabase
+  # Ignore user
+  - name: bar
+    state: ignore
+  # Flatten users
+  - "{{ my_custom_users_array }}"
 ```
 
 ## Example playbook
@@ -71,7 +98,7 @@ manala_mongodb_config:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.mongodb }
+    - role: manala.mongodb
 ```
 
 # Licence

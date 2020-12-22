@@ -1,6 +1,13 @@
-{%- import '_macros.j2' as macros with context -%}
+{%- set config = manala_mongodb_config -%}
 
-{% set config = manala_mongodb_config -%}
+{%- if config is mapping -%}
+
+{{ config | to_nice_yaml }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
 
 # mongod.conf
 
@@ -77,3 +84,9 @@
 # path to a key file storing authentication info for connections
 # between replica set members
 {{ macros.config_row(config, 'keyFile', '# keyFile=/path/to/keyfile', true) }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

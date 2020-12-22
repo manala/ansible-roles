@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Config content support
+- Config dict support
+- Flatten users array
+
+### Changed
+- Deprecate environment oriented templates
+- Deprecate dict's array configs
 
 ## [2.0.6] - 2020-10-14
 ### Fixed
