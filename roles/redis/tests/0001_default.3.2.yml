@@ -1,0 +1,16 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian.stretch
+  become: true
+  tasks:
+
+    - block:
+        - import_role:
+            name: manala.redis
+          vars:
+            manala_redis_sentinel: true
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

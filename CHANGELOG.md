@@ -5,14 +5,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- [Redis] Version 2.4 support
+- [Redis] Version 3.0 support
+- [Redis] Version 4.0 support
+
 ### Added
 - [MongoDB] Config content support
 - [MongoDB] Config dict support
 - [MongoDB] Flatten users array
+- [Redis] Version 3.2 support
+- [Redis] Version 6.0 support (dict config only)
+- [Redis] Config filters
 
 ### Changed
 - [MongoDB] Deprecate environment oriented templates
 - [MongoDB] Deprecate dict's array configs
+- [Redis] Rename `manala_redis_config*` variables to `manala_redis_server_config*` (providing backward compatibility)
+- [Redis] Guess only MAJOR.MINOR version parts
+- [Redis] Deprecate environment oriented templates
+- [Redis] Deprecate dict's array configs
 
 ## [0.1.99] - 2020-12-18
 ### Added

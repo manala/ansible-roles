@@ -1,0 +1,55 @@
+---
+
+file:
+  tmp/config/default/server_default.conf:
+    exists: true
+    filetype: file
+    owner: redis
+    group: redis
+    mode: "0640"
+    contains:
+      - "include /foo/bar.conf"
+      - "include /foo/baz.conf"
+      - "port 1234"
+  tmp/config/default/sentinel_default.conf:
+    exists: true
+    filetype: file
+    contains:
+      - "sentinel monitor foo 1.2.3.4 6379 2"
+      - "sentinel down-after-milliseconds foo 1234"
+  tmp/config/default/server_default_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: redis
+    group: redis
+    mode: "0640"
+    contains:
+      - "port 1234"
+  tmp/config/default/server_default_content.conf:
+    exists: true
+    filetype: file
+    owner: redis
+    group: redis
+    mode: "0640"
+    contains:
+      - "include /foo/bar.conf"
+      - "include /foo/baz.conf"
+      - "port 1234"
+  tmp/config/default/server_template.conf:
+    exists: true
+    filetype: file
+    owner: redis
+    group: redis
+    mode: "0640"
+    contains:
+      - "include /foo/bar.conf"
+      - "include /foo/baz.conf"
+      - "port 1234"
+  tmp/config/default/server_template_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: redis
+    group: redis
+    mode: "0640"
+    contains:
+      - "port 1234"

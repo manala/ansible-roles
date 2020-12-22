@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Version 2.4 support
+- Version 3.0 support
+- Version 4.0 support
+
+### Added
+- Version 3.2 support
+- Version 6.0 support (dict config only)
+- Config filters
+
+# Changed
+- Rename `manala_redis_config*` variables to `manala_redis_server_config*` (providing backward compatibility)
+- Guess only MAJOR.MINOR version parts
+- Deprecate environment oriented templates
+- Deprecate dict's array configs
 
 ## [2.0.3] - 2020-08-26
 ### Changed

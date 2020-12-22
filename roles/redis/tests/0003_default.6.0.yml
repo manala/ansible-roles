@@ -1,0 +1,19 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian.buster
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/backports.yml
+
+    - block:
+        - import_role:
+            name: manala.redis
+          vars:
+            manala_redis_sentinel: true
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

@@ -1,0 +1,80 @@
+---
+
+- name: "{{ test }}"
+  hosts:
+    - debian.stretch
+    - debian.buster
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/backports.yml
+          when: ansible_distribution_release in ['stretch']
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - template:
+            src: config/sentinel.conf.j2
+            dest: tmp/config/default/sentinel_default.conf
+        # Default
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.redis
+          vars:
+            manala_redis_server_config_file: tmp/config/default/server_default.conf
+            manala_redis_server_config:
+              include:
+                - /foo/bar.conf
+                - /foo/baz.conf
+              port: 1234
+            manala_redis_sentinel: true
+            manala_redis_sentinel_config_file: tmp/config/default/sentinel_default.conf
+            manala_redis_sentinel_config:
+              sentinel monitor: foo 1.2.3.4 6379 2
+              sentinel down-after-milliseconds: foo 1234
+        # Default - Deprecated
+        - import_role:
+            name: manala.redis
+            tasks_from: config
+          vars:
+            manala_redis_server_config_file: tmp/config/default/server_default_deprecated.conf
+            manala_redis_server_config:
+              - port: 1234
+        # Default - Content
+        - import_role:
+            name: manala.redis
+            tasks_from: config
+          vars:
+            manala_redis_server_config_file: tmp/config/default/server_default_content.conf
+            manala_redis_server_config: |
+              include /foo/bar.conf
+              include /foo/baz.conf
+              port 1234
+        # Template
+        - import_role:
+            name: manala.redis
+            tasks_from: config
+          vars:
+            manala_redis_server_config_file: tmp/config/default/server_template.conf
+            manala_redis_server_config_template: config/debian/redis.conf.j2
+            manala_redis_server_config:
+              include:
+                - /foo/bar.conf
+                - /foo/baz.conf
+              port: 1234
+        # Template - Deprecated
+        - import_role:
+            name: manala.redis
+            tasks_from: config
+          vars:
+            manala_redis_server_config_file: tmp/config/default/server_template_deprecated.conf
+            manala_redis_server_config_template: config/default.dev.j2
+            manala_redis_server_config:
+              - port: 1234
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate
