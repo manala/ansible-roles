@@ -1,0 +1,40 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian.buster
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/mongodb_4_4.yml
+        - import_tasks: pre_tasks/service.yml
+
+    - block:
+        - import_role:
+            name: manala.mongodb
+          vars:
+            manala_mongodb_users:
+              - name: foo
+                password: foo
+                database: admin
+                roles: userAdminAnyDatabase
+                state: present
+              - name: bar
+                password: bar
+                database: zerty
+                roles: read
+                login_database: admin
+                login_user: dba
+                login_password: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  database: admin
+                  roles: userAdminAnyDatabase
+                  state: present
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

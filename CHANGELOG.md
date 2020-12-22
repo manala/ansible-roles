@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [MongoDB] Config content support
+- [MongoDB] Config dict support
+- [MongoDB] Flatten users array
+
+### Changed
+- [MongoDB] Deprecate environment oriented templates
+- [MongoDB] Deprecate dict's array configs
 
 ## [0.1.99] - 2020-12-18
 ### Added

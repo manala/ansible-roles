@@ -1,7 +1,0 @@
----
-
-file:
-  /etc/mongod.conf:
-    exists: true
-    contains:
-      - "port = 12345"

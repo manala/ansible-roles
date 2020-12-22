@@ -14,4 +14,9 @@ command:
   mongo --version:
     exit-status: 0
     stdout:
-      - "/^MongoDB shell version v3.6.\\d+$/"
+      - "/^MongoDB shell version v4.4.\\d+$/"
+
+service:
+  mongod:
+    enabled: true
+    running: true
