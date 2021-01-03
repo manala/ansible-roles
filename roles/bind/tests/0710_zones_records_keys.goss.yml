@@ -1,0 +1,9 @@
+---
+
+command:
+  host -l foo-keyed.local localhost:
+    exit-status: 0
+    stdout:
+      - foo-keyed.local name server ns.foo-keyed.local.
+      - ns.foo-keyed.local has address 172.16.1.1
+      - bar-key.foo-keyed.local has address 172.16.1.124
