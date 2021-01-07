@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Drop 1.5/1.6 support
 
+### Added
+- Yaml config filter
+- Version dependent config/environment files group & mode
+
+### Changed
+- Use environment filter
+- Deprecate dict's array config/environment templates
+
 ## [2.0.3] - 2020-09-11
 ### Fixed
 - Fix explicit file permissions

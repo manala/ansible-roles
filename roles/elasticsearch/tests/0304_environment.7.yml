@@ -1,0 +1,82 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/elasticsearch_7.yml
+        - import_tasks: pre_tasks/backports.yml
+          when: ansible_distribution_release in ['jessie']
+        - apt:
+            name: "{{ {
+              'jessie': 'openjdk-8-jre-headless',
+              'stretch': 'openjdk-8-jre-headless',
+              'buster': 'openjdk-11-jre-headless',
+            }[ansible_distribution_release] }}"
+            install_recommends: false
+
+    - block:
+        - file:
+            path: tmp/environment/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.elasticsearch
+          vars:
+            manala_elasticsearch_environment_file: tmp/environment/default/default
+            manala_elasticsearch_environment:
+              ES_JAVA_OPTS: -Xms1g -Xmx1g
+              FOO: bar
+        # Default - Deprecated
+        - import_role:
+            name: manala.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: tmp/environment/default/default_deprecated
+            manala_elasticsearch_environment:
+              - ES_JAVA_OPTS: -Xms1g -Xmx1g
+              - FOO: bar
+        # Default - Content
+        - import_role:
+            name: manala.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: tmp/environment/default/default_content
+            manala_elasticsearch_environment: |
+              ES_JAVA_OPTS="-Xms1g -Xmx1g"
+              FOO="bar"
+        # Template
+        - import_role:
+            name: manala.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: tmp/environment/default/template
+            manala_elasticsearch_environment_template: environment/elasticsearch/elasticsearch.j2
+            manala_elasticsearch_environment:
+              ES_JAVA_OPTS: -Xms1g -Xmx1g
+              FOO: bar
+        # Template - Deprecated
+        - import_role:
+            name: manala.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: tmp/environment/default/template_deprecated
+            manala_elasticsearch_environment_template: environment/empty.j2
+            manala_elasticsearch_environment:
+              - ES_JAVA_OPTS: -Xms1g -Xmx1g
+              - FOO: bar
+      always:
+        - name: Wait for pretty response
+          uri:
+            url: http://localhost:9200/?pretty
+          register: result
+          until: result.status == 200
+          retries: 60
+          delay: 1
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate
