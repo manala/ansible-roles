@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.101] - 2021-01-07
 ### Removed
 - [HAProxy] Useless `manala_environment_parameters` filter
 - [Keepalived] Useless `manala_environment_parameters` filter

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.23] - 2021-01-07
 ### Removed
 - Drop elasticsearch 1.5/1.6 support
 
