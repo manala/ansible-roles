@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - [HAProxy] Useless `manala_environment_parameters` filter
 - [Keepalived] Useless `manala_environment_parameters` filter
+- [Apt] Drop elasticsearch 1.5/1.6 support
+- [Elasticsearch] Drop 1.5/1.6 support
 
 ### Added
 - [HAProxy] Handle string comments in `manala_environment` filter
