@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Drop 1.5/1.6 support
 
 ## [2.0.3] - 2020-09-11
 ### Fixed

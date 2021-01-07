@@ -196,12 +196,6 @@ manala_apt_repositories_patterns:
   grafana:
     source: deb https://packages.grafana.com/oss/deb stable main
     key: grafana
-  elasticsearch_1_5:
-    source: deb https://packages.elastic.co/elasticsearch/1.5/debian stable main
-    key: elasticsearch
-  elasticsearch_1_6:
-    source: deb https://packages.elastic.co/elasticsearch/1.6/debian stable main
-    key: elasticsearch
   elasticsearch_1_7:
     source: deb https://packages.elastic.co/elasticsearch/1.7/debian stable main
     key: elasticsearch

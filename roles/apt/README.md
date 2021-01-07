@@ -199,8 +199,6 @@ manala_apt_repositories:
   - logentries
   - galera_3
   - grafana
-  - elasticsearch_1_5
-  - elasticsearch_1_6
   - elasticsearch_1_7
   - elasticsearch_2
   - elasticsearch_5
