@@ -1,0 +1,16 @@
+{%- set environment = manala_elasticsearch_environment -%}
+
+{%- if environment is mapping -%}
+
+{{ environment | manala_environment }}
+
+{%- elif environment is iterable and environment is not string -%}
+
+{#- Deprecated -#}
+{%- include '_base.j2' -%}
+
+{%- else -%}
+
+{{ environment }}
+
+{%- endif -%}

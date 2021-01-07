@@ -1,0 +1,24 @@
+---
+
+package:
+  elasticsearch:
+    installed: true
+
+service:
+  elasticsearch:
+    enabled: true
+    running: true
+
+http:
+  http://localhost:9200/?pretty:
+    status: 200
+    timeout: 1000
+    body:
+      - '/"cluster_name" : "elasticsearch",/'
+      - '/"number" : "6/'
+
+command:
+  /usr/share/elasticsearch/bin/elasticsearch-plugin list:
+    exit-status: 0
+    stdout:
+      - "analysis-icu"

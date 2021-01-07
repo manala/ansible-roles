@@ -1,0 +1,84 @@
+{% set environment = manala_elasticsearch_environment|default({}, true) -%}
+
+################################
+# Elasticsearch
+################################
+
+# Elasticsearch home directory
+{{ environment | manala_environment_parameter('ES_HOME', comment='#ES_HOME=/usr/share/elasticsearch') }}
+
+# Elasticsearch Java path
+{{ environment | manala_environment_parameter('JAVA_HOME', comment='#JAVA_HOME=') }}
+
+# Elasticsearch configuration directory
+{{ environment | manala_environment_parameter('CONF_DIR', comment='#CONF_DIR=/etc/elasticsearch') }}
+
+# Elasticsearch data directory
+{{ environment | manala_environment_parameter('DATA_DIR', comment='#DATA_DIR=/var/lib/elasticsearch') }}
+
+# Elasticsearch logs directory
+{{ environment | manala_environment_parameter('LOG_DIR', comment='#LOG_DIR=/var/log/elasticsearch') }}
+
+# Elasticsearch PID directory
+{{ environment | manala_environment_parameter('PID_DIR', comment='#PID_DIR=/var/run/elasticsearch') }}
+
+# Additional Java OPTS
+{{ environment | manala_environment_parameter('ES_JAVA_OPTS', comment='#ES_JAVA_OPTS=') }}
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+{{ environment | manala_environment_parameter('RESTART_ON_UPGRADE', comment='#RESTART_ON_UPGRADE=true') }}
+
+################################
+# Elasticsearch service
+################################
+
+# SysV init.d
+#
+# When executing the init script, this user will be used to run the elasticsearch service.
+# The default value is 'elasticsearch' and is declared in the init.d file.
+# Note that this setting is only used by the init script. If changed, make sure that
+# the configured user can read and write into the data, work, plugins and log directories.
+# For systemd service, the user is usually configured in file /usr/lib/systemd/system/elasticsearch.service
+{{ environment | manala_environment_parameter('ES_USER', comment='#ES_USER=elasticsearch') }}
+{{ environment | manala_environment_parameter('ES_GROUP', comment='#ES_GROUP=elasticsearch') }}
+
+# The number of seconds to wait before checking if Elasticsearch started successfully as a daemon process
+{{ environment | manala_environment_parameter('ES_STARTUP_SLEEP_TIME', default=5) }}
+
+################################
+# System properties
+################################
+
+# Specifies the maximum file descriptor number that can be opened by this process
+# When using Systemd, this setting is ignored and the LimitNOFILE defined in
+# /usr/lib/systemd/system/elasticsearch.service takes precedence
+{{ environment | manala_environment_parameter('MAX_OPEN_FILES', default=65536, comment=True) }}
+
+# The maximum number of bytes of memory that may be locked into RAM
+# Set to "unlimited" if you use the 'bootstrap.memory_lock: true' option
+# in elasticsearch.yml.
+# When using systemd, LimitMEMLOCK must be set in a unit file such as
+# /etc/systemd/system/elasticsearch.service.d/override.conf.
+{{ environment | manala_environment_parameter('MAX_LOCKED_MEMORY', comment='#MAX_LOCKED_MEMORY=unlimited') }}
+
+# Maximum number of VMA (Virtual Memory Areas) a process can own
+# When using Systemd, this setting is ignored and the 'vm.max_map_count'
+# property is set at boot time in /usr/lib/sysctl.d/elasticsearch.conf
+{{ environment | manala_environment_parameter('MAX_MAP_COUNT', default=262144, comment='#MAX_MAP_COUNT=262144') }}
+
+{{ environment | manala_environment(exclude=[
+  'ES_HOME',
+  'JAVA_HOME',
+  'CONF_DIR',
+  'DATA_DIR',
+  'LOG_DIR',
+  'PID_DIR',
+  'ES_JAVA_OPTS',
+  'RESTART_ON_UPGRADE',
+  'ES_USER',
+  'ES_GROUP',
+  'ES_STARTUP_SLEEP_TIME',
+  'MAX_OPEN_FILES',
+  'MAX_LOCKED_MEMORY',
+  'MAX_MAP_COUNT',
+]) }}

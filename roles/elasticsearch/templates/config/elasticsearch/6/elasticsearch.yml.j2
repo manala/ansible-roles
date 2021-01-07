@@ -1,0 +1,104 @@
+{%- set config = manala_elasticsearch_config|default({}, true)|manala_yaml_flatten -%}
+
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please consult the documentation for further information on configuration options:
+# https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#
+{{ config | manala_yaml_parameter('cluster.name', default='my-application', comment=True) }}
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#
+{{ config | manala_yaml_parameter('node.name', default='node-1', comment=True) }}
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+#
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+#
+{{ config | manala_yaml_parameter('path.data', default='/var/lib/elasticsearch') }}
+#
+# Path to log files:
+#
+{{ config | manala_yaml_parameter('path.logs', default='/var/log/elasticsearch') }}
+#
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+#
+{{ config | manala_yaml_parameter('bootstrap.memory_lock', default=True, comment=True) }}
+#
+# Make sure that the heap size is set to about half the memory available
+# on the system and that the owner of the process is allowed to use this
+# limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+{{ config | manala_yaml_parameter('network.host', default='192.168.0.1', comment=True) }}
+#
+# Set a custom port for HTTP:
+#
+{{ config | manala_yaml_parameter('http.port', default=9200, comment=True) }}
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#
+{{ config | manala_yaml_parameter('discovery.zen.ping.unicast.hosts', comment='#discovery.zen.ping.unicast.hosts: ["host1", "host2"]') }}
+#
+# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#
+{{ config | manala_yaml_parameter('discovery.zen.minimum_master_nodes', comment='#discovery.zen.minimum_master_nodes: ') }}
+#
+# For more information, consult the zen discovery module documentation.
+#
+# ---------------------------------- Gateway -----------------------------------
+#
+# Block initial recovery after a full cluster restart until N nodes are started:
+#
+{{ config | manala_yaml_parameter('gateway.recover_after_nodes', default=3, comment=True) }}
+#
+# For more information, consult the gateway module documentation.
+#
+# ---------------------------------- Various -----------------------------------
+#
+# Require explicit names when deleting indices:
+#
+{{ config | manala_yaml_parameter('action.destructive_requires_name', default=True, comment=True) }}
+
+{{ config | manala_yaml(exclude=[
+  'cluster.name',
+  'node.name',
+  'path.data',
+  'path.logs',
+  'bootstrap.memory_lock',
+  'network.host',
+  'http.port',
+  'discovery.zen.ping.unicast.hosts',
+  'discovery.zen.minimum_master_nodes',
+  'gateway.recover_after_nodes',
+  'action.destructive_requires_name',
+]) }}

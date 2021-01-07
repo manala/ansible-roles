@@ -1,7 +1,0 @@
----
-
-command:
-  /usr/share/elasticsearch/bin/plugin list:
-    exit-status: 0
-    stdout:
-      - "- head"

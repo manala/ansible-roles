@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [HAProxy] Handle string comments in `manala_environment` filter
 - [Keepalived] Handle string comments in `manala_environment` filter
+- [Elasticsearch] Yaml config filter
+- [Elasticsearch] Version dependent config/environment files group & mode
+
+### Changed
+- [Elasticsearch] Use environment filter
+- [Elasticsearch] Deprecate dict's array config/environment templates
 
 ## [0.1.100] - 2020-12-22
 ### Removed

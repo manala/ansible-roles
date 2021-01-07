@@ -1,0 +1,41 @@
+---
+
+file:
+  tmp/config/default/default.yml:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "cluster:"
+      - "    name: foo"
+      - "path.data: /foo/bar"
+  tmp/config/default/default_deprecated.yml:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "cluster.name: foo"
+      - "path.data: /foo/bar"
+  tmp/config/default/default_content.yml:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "cluster:"
+      - "    name: foo"
+      - "path.data: /foo/bar"
+  tmp/config/default/template.yml:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "cluster.name: foo"
+      - "path.data: /foo/bar"
