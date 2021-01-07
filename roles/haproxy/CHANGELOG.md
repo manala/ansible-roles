@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Useless `manala_environment_parameters` filter
+
+### Added
+- Handle string comments in `manala_environment` filter
 
 ## [1.0.11] - 2020-12-09
 ### Changed
