@@ -47,59 +47,90 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default                       | Type   | Description                                    |
-| ------------------------------------------ | ----------------------------- | ------ | ---------------------------------------------- |
-| `manala_influxdb_install_packages`         | ~                             | Array  | Dependency packages to install                 |
-| `manala_influxdb_install_packages_default` | ['influxdb']                  | Array  | Default dependency packages to install         |
-| `manala_influxdb_dir`:                     | []                            | Array  | Directories used by Influxdb                   |
-| `manala_influxdb_databases`                | []                            | Array  | Databases                                      |
-| `manala_influxdb_users`                    | []                            | Array  | Users                                          |
-| `manala_influxdb_privileges`               | []                            | Array  | Privileges                                     |
-| `manala_influxdb_config`                   | []                            | Array  | Configuration                                  |
-| `manala_influxdb_config_file`              | '/etc/influxdb/influxdb.conf' | String | Configuration file path                        |
-| `manala_influxdb_config_template`          | 'config/base.conf.j2'         | String | Configuration template path                    |
+| Name                                       | Default                       | Type         | Description                            |
+| ------------------------------------------ | ----------------------------- | ------------ | -------------------------------------- |
+| `manala_influxdb_install_packages`         | ~                             | Array        | Dependency packages to install         |
+| `manala_influxdb_install_packages_default` | ['influxdb']                  | Array        | Default dependency packages to install |
+| `manala_influxdb_dir`:                     | []                            | Array        | Directories used by Influxdb           |
+| `manala_influxdb_databases`                | []                            | Array        | Databases                              |
+| `manala_influxdb_users`                    | []                            | Array        | Users                                  |
+| `manala_influxdb_privileges`               | []                            | Array        | Privileges                             |
+| `manala_influxdb_config`                   | ~                             | Array/String | Configuration                          |
+| `manala_influxdb_config_file`              | '/etc/influxdb/influxdb.conf' | String       | Configuration file path                |
+| `manala_influxdb_config_template`          | 'config/base.conf.j2'         | String       | Configuration template path            |
 
 ### Configuration example
 
+Use influxdata default main config template (recommended):
+
 ```yaml
-############
-# InfluxDB #
-############
+manala_influxdb_config_template: config/influxdata/influxdb.conf.j2
+manala_influxdb_config:
+  reporting-disabled: true
+  meta:
+    dir: /srv/db/influxdb/meta
+  http:
+    enabled: true
+  udp:
+    - enabled: true
+      bind-address: :8090
+      database: app
+```
 
-manala_influxdb_databases:
-  - my_db
+Use dict parameters:
+```yaml
+manala_influxdb_config:
+  reporting-disabled: true
+  meta:
+    dir: /srv/db/influxdb/meta
+  http:
+    enabled: true
+  udp:
+    - enabled: true
+      bind-address: :8090
+      database: app
+```
 
-manala_influxdb_users:
-  - database: my_db
-    name:     my_user
-    password: my_password
+Use raw config:
+```yaml
+manala_influxdb_config: |
+  reporting-disabled = true
+  [meta]
+    dir = "/srv/db/influxdb/meta"
+  [http]
+    enabled = true
+  [[udp]]
+    enabled = true
+    bind-address = ":8090"
+    database = "app"
+```
 
-manala_influxdb_privileges:
-  - database: my_db
-    user:     my_user
-    grant:    ALL
-
-manala_influxdb_dir:
-  - /foo/bar/influxdb/meta
-  - /foo/bar/influxdb/data
-  - /foo/bar/influxdb/wal
-
+Use dict's array parameters (deprecated):
+```yaml
 manala_influxdb_config:
   - reporting-disabled: true
   - meta:
-    - dir: /foo/bar/influxdb/meta
-  - data:
-    - dir: /foo/bar/influxdb/data
-    - wal-dir: /foo/bar/influxdb/wal
-  # see: https://docs.influxdata.com/influxdb/v0.13/write_protocols/udp
+    - dir: /srv/db/influxdb/meta
+  - http:
+    - enabled: true
   - udp:
     - enabled: true
-    - bind-address: :8089
-    - database: stats
-    - batch-size: 5000
-    - batch-timeout: 1s
-    - batch-pending: 10
-    - read-buffer: 0
+    - bind-address: :8090
+    - database: app
+```
+
+Databases & Users & Privileges:
+```yaml
+manala_influxdb_databases:
+  - my_db
+manala_influxdb_users:
+  - database: my_db
+    name: my_user
+    password: my_password
+manala_influxdb_privileges:
+  - database: my_db
+    user: my_user
+    grant: ALL
 ```
 
 See InfluxDB documentation for more information about [databases](https://docs.influxdata.com/influxdb/v0.13/query_language/database_management/#data-management), [users and privileges](https://docs.influxdata.com/influxdb/v0.13/administration/authentication_and_authorization/)
@@ -108,7 +139,7 @@ See InfluxDB documentation for more information about [databases](https://docs.i
 
     - hosts: servers
       roles:
-         - { role: manala.influxdb }
+         - role: manala.influxdb
 
 # Licence
 

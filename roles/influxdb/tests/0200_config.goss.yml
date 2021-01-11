@@ -1,7 +1,31 @@
 ---
 
 file:
-  /etc/influxdb/influxdb.conf:
+  tmp/config/default/default.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - reporting-disabled = true
+  tmp/config/default/default_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - reporting-disabled = true
+  tmp/config/default/default_content.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - reporting-disabled = true
+  tmp/config/default/template.conf:
     exists: true
     filetype: file
     owner: root
