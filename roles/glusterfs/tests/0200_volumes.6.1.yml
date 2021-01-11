@@ -1,74 +1,61 @@
 ---
 
-- name: "{{ test }}.1"
+- name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_glusterfs_volumes:
-      - name: volume_absent
-        state: absent
+  tasks:
 
-      - name: volume_present
-        bricks: /home/present
-        cluster:
-          - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
-        force: true
+    - block:
+        - import_tasks: pre_tasks/service.yml
+        - import_tasks: pre_tasks/glusterfs_6.1.yml
 
-      - name: volume_test
-        bricks: /home/vol
-        cluster:
-          - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
-        options:
-          storage.owner-gid: '1337'
-          storage.owner-uid: '1337'
-          nfs.disable: 'off'
-        force: true
-
-  pre_tasks:
-    - import_tasks: pre_tasks/service.yml
-    - import_tasks: pre_tasks/glusterfs_6.1.yml
-    - file:
-        path: /home/present
-        state: directory
-    - file:
-        path: /home/vol
-        state: directory
-
-  roles:
-    - manala.glusterfs
-  ignore_errors: yes
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
-
-
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_glusterfs_volumes:
-      - name: volume_present
-        state: absent
-
-      - name: volume_test
-        bricks: /home/vol2,/home/vol3
-        cluster:
-          - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
-        force: true
-
-  pre_tasks:
-    - import_tasks: pre_tasks/service.yml
-    - import_tasks: pre_tasks/glusterfs_6.1.yml
-    - file:
-        path: /home/vol2
-        state: directory
-    - file:
-        path: /home/vol3
-        state: directory
-
-  roles:
-    - manala.glusterfs
-  ignore_errors: yes
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - block:
+        - file:
+            path: "{{ item }}"
+            state: directory
+          loop: [/home/absent, /home/present, /home/test_1]
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.glusterfs
+          vars:
+            manala_glusterfs_volumes:
+              - name: volume_absent
+                bricks: /home/absent
+                cluster:
+                  - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
+                force: true
+              - name: volume_present
+                bricks: /home/present
+                cluster:
+                  - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
+                force: true
+              - name: volume_test
+                bricks: /home/test_1
+                cluster:
+                  - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
+                options:
+                  storage.owner-gid: "1337"
+                  storage.owner-uid: "1337"
+                  nfs.disable: "off"
+                force: true
+        - file:
+            path: "{{ item }}"
+            state: directory
+          loop: [/home/test_2, /home/test_3]
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.glusterfs
+            tasks_from: volumes
+          vars:
+            manala_glusterfs_volumes:
+              - name: volume_absent
+                state: absent
+              - name: volume_test
+                bricks: /home/test_2,/home/test_3
+                cluster:
+                  - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
+                force: true
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

@@ -5,20 +5,31 @@ command:
     exit-status: 0
     stderr:
       - "Volume volume_absent does not exist"
+  gluster volume info volume_present:
+    exit-status: 0
+    stderr:
+      - "Volume volume_present does not exist"
+  gluster volume info volume_test:
+    exit-status: 0
+    stderr:
+      - "Volume volume_test does not exist"
 
 command:
   gluster volume info:
     exit-status: 0
     stdout:
+      # Present
       - "Volume Name: volume_present"
       - "Status: Started"
       - "Bricks:"
       - "Brick1: manala.glusterfs.debian.{{ .Env.DISTRIBUTION_RELEASE }}.test:/home/present"
-
+      # Test
       - "Volume Name: volume_test"
       - "Status: Started"
       - "Bricks:"
-      - "Brick1: manala.glusterfs.debian.{{ .Env.DISTRIBUTION_RELEASE }}.test:/home/vol"
+      - "Brick1: manala.glusterfs.debian.{{ .Env.DISTRIBUTION_RELEASE }}.test:/home/test_1"
+      - "Brick2: manala.glusterfs.debian.{{ .Env.DISTRIBUTION_RELEASE }}.test:/home/test_2"
+      - "Brick3: manala.glusterfs.debian.{{ .Env.DISTRIBUTION_RELEASE }}.test:/home/test_3"
       - "storage.owner-uid: 1337"
       - "storage.owner-gid: 1337"
       - "nfs.disable: off"

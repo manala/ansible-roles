@@ -1,0 +1,20 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/service.yml
+        - import_tasks: pre_tasks/glusterfs_6.1.yml
+
+    - block:
+        - import_role:
+            name: manala.glusterfs
+          vars:
+            manala_redis_sentinel: true
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate
