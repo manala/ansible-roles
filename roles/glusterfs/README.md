@@ -45,17 +45,23 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_glusterfs_volumes:
-  - name:     volume_test
+  - name: volume_test
     cluster:
       - foo
       - bar
-    bricks:   /mnt/foo, /mnt/bar
+    bricks: /mnt/foo, /mnt/bar
     replicas: 2
     options:
-      nfs.disable: 'off'
-      storage.owner-gid: '1234'
-      storage.owner-uid: '1234'
-  ```
+      nfs.disable: "off"
+      storage.owner-gid: "1234"
+      storage.owner-uid: "1234"
+  # Ignore volume
+  - name: volume_ignore
+    state: ignore
+  # Flatten volumes
+  - "{{ my_custom_volumes_array }}"
+```
+
 - "Options" are expecting strings only. Quotes are required.
 - To add bricks, use the same syntax on existent volume.
 

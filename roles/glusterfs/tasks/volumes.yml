@@ -10,5 +10,8 @@
     force: "{{ item.force|default(omit) }}"
     options: "{{ item.options|default(omit) }}"
     host: "{{ item.host|default(omit) }}"
-  with_items: "{{ manala_glusterfs_volumes }}"
-  when: not item.omit|default(False)
+  loop: "{{
+    manala_glusterfs_volumes | flatten | selectattr('state', 'undefined') | list
+    +
+    manala_glusterfs_volumes | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+  }}"

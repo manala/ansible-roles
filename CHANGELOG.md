@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [GlusterFS] `ignore` volumes state
+
+### Changed
+- [GlusterFS] Flatten volumes array
 
 ## [0.1.102] - 2021-01-11
 ### Added
