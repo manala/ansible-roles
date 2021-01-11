@@ -19,6 +19,8 @@
             name: manala.glusterfs
           vars:
             manala_glusterfs_volumes:
+              - name: volume_ignore
+                state: ignore
               - name: volume_absent
                 bricks: /home/absent
                 cluster:
@@ -29,15 +31,17 @@
                 cluster:
                   - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
                 force: true
-              - name: volume_test
-                bricks: /home/test_1
-                cluster:
-                  - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
-                options:
-                  storage.owner-gid: "1337"
-                  storage.owner-uid: "1337"
-                  nfs.disable: "off"
-                force: true
+              # Flatten
+              -
+                - name: volume_test
+                  bricks: /home/test_1
+                  cluster:
+                    - manala.glusterfs.debian.{{ ansible_distribution_release }}.test
+                  options:
+                    storage.owner-gid: "1337"
+                    storage.owner-uid: "1337"
+                    nfs.disable: "off"
+                  force: true
         - file:
             path: "{{ item }}"
             state: directory

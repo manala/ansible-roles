@@ -1,6 +1,10 @@
 ---
 
 command:
+  gluster volume info volume_ignore:
+    exit-status: 0
+    stderr:
+      - "Volume volume_ignore does not exist"
   gluster volume info volume_absent:
     exit-status: 0
     stderr:
