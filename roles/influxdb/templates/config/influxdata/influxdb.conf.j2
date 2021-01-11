@@ -1,62 +1,21 @@
-{%- import '_macros.j2' as macros with context -%}
+{% set config = {
+  'meta': {},
+  'data': {},
+  'coordinator': {},
+  'retention': {},
+  'shard-precreation': {},
+  'monitor': {},
+  'http': {},
+  'logging': {},
+  'subscriber': {},
+  'graphite': [{}],
+  'collectd': [{}],
+  'opentsdb': [{}],
+  'udp': [{}],
+  'continuous_queries': {},
+  'tls': {},
+} | combine(manala_influxdb_config|default({}, true)) -%}
 
-{% set config = manala_influxdb_config -%}
-
-{% set config_meta = [] -%}
-{% set config_data = [] -%}
-{% set config_database = [] -%}
-{% set config_hinted_handoff = [] -%}
-{% set config_coordinator = [] -%}
-{% set config_retention = [] -%}
-{% set config_shard_precreation = [] -%}
-{% set config_monitor = [] -%}
-{% set config_http = [] -%}
-{% set config_logging = [] -%}
-{% set config_subscriber = [] -%}
-{% set config_graphite = [] -%}
-{% set config_collectd = [] -%}
-{% set config_opentsdb = [] -%}
-{% set config_udp = [] -%}
-{% set config_continuous_queries = [] -%}
-{% set config_tls = [] -%}
-
-{%- for configs in config -%}
-    {%- for config_name, config_parameters in configs.items() -%}
-        {%- if config_name == 'meta' -%}
-            {%- if config_meta.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'data' -%}
-            {%- if config_data.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'database' -%}
-            {%- if config_database.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'hinted_handoff' -%}
-            {%- if config_hinted_handoff.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'coordinator' -%}
-            {%- if config_coordinator.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'retention' -%}
-            {%- if config_retention.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'shard_precreation' -%}
-            {%- if config_shard_precreation.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'monitor' -%}
-            {%- if config_monitor.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'http' -%}
-            {%- if config_http.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'logging' -%}
-            {%- if config_logging.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'subscriber' -%}
-            {%- if config_subscriber.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'auth.graphite' -%}
-            {%- if config_graphite.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'collectd' -%}
-            {%- if config_collectd.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'udp' -%}
-            {%- if config_udp.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'continuous_queries' -%}
-            {%- if config_continuous_queries.extend(config_parameters) -%}{%- endif -%}
-        {%- elif config_name == 'tls' -%}
-            {%- if config_tls.extend(config_parameters) -%}{%- endif -%}
-        {%- endif -%}
-    {%- endfor -%}
-{%- endfor -%}
 ### Welcome to the InfluxDB configuration file.
 
 # The values in this file override the default values used by the system if
@@ -68,10 +27,10 @@
 # The data includes a random ID, os, arch, version, the number of series and other
 # usage data. No data from user databases is ever transmitted.
 # Change this option to true to disable reporting.
-{{ macros.config_row(config, 'reporting-disabled', '# reporting-disabled = false', 0, true) }}
+{{ config | manala_toml_parameter('reporting-disabled', default=False, comment=True) }}
 
 # Bind address to use for the RPC service for backup and restore.
-{{ macros.config_row(config, 'bind-address', '# bind-address = "127.0.0.1:8088"', 0, true) }}
+{{ config | manala_toml_parameter('bind-address', default='127.0.0.1:8088', comment=True) }}
 
 ###
 ### [meta]
@@ -82,13 +41,13 @@
 
 [meta]
   # Where the metadata/raft database is stored
-  {{ macros.config_row(config_meta, 'dir', '/var/lib/influxdb/meta') }}
+  {{ config.meta | manala_toml_parameter('dir', default='/var/lib/influxdb/meta') }}
 
   # Automatically create a default retention policy when creating a database.
-  {{ macros.config_row(config_meta, 'retention-autocreate', '# retention-autocreate = true', 0, true) }}
+  {{ config.meta | manala_toml_parameter('retention-autocreate', default=True, comment=True) }}
 
   # If log messages are printed for the meta service
-  {{ macros.config_row(config_meta, 'logging-enabled', '# logging-enabled = true', 0, true) }}
+  {{ config.meta | manala_toml_parameter('logging-enabled', default=True, comment=True) }}
 
 ###
 ### [data]
@@ -101,34 +60,34 @@
 
 [data]
   # The directory where the TSM storage engine stores TSM files.
-  {{ macros.config_row(config_data, 'dir', '/var/lib/influxdb/data') }}
+  {{ config.data | manala_toml_parameter('dir', default='/var/lib/influxdb/data') }}
 
   # The directory where the TSM storage engine stores WAL files.
-  {{ macros.config_row(config_data, 'wal-dir', '/var/lib/influxdb/wal') }}
+  {{ config.data | manala_toml_parameter('wal-dir', default='/var/lib/influxdb/wal') }}
 
   # The amount of time that a write will wait before fsyncing.  A duration
   # greater than 0 can be used to batch up multiple fsync calls.  This is useful for slower
   # disks or when WAL write contention is seen.  A value of 0s fsyncs every write to the WAL.
   # Values in the range of 0-100ms are recommended for non-SSD disks.
-  {{ macros.config_row(config_data, 'wal-fsync-delay', '# wal-fsync-delay = "0s"', 0, true) }}
+  {{ config.data | manala_toml_parameter('wal-fsync-delay', default='0s', comment=True) }}
 
 
   # The type of shard index to use for new shards.  The default is an in-memory index that is
   # recreated at startup.  A value of "tsi1" will use a disk based index that supports higher
   # cardinality datasets.
-  {{ macros.config_row(config_data, 'index-version', '# index-version = "inmem"', 0, true) }}
+  {{ config.data | manala_toml_parameter('index-version', default='inmem', comment=True) }}
 
   # Trace logging provides more verbose output around the tsm engine. Turning
   # this on can provide more useful output for debugging tsm engine issues.
-  {{ macros.config_row(config_data, 'trace-logging-enabled', '# trace-logging-enabled = false', 0, true) }}
+  {{ config.data | manala_toml_parameter('trace-logging-enabled', default=False, comment=True) }}
 
   # Whether queries should be logged before execution. Very useful for troubleshooting, but will
   # log any sensitive data contained within a query.
-  {{ macros.config_row(config_data, 'query-log-enabled', '# query-log-enabled = true', 0, true) }}
+  {{ config.data | manala_toml_parameter('query-log-enabled', default=True, comment=True) }}
 
   # Validates incoming writes to ensure keys only have valid unicode characters.
   # This setting will incur a small overhead because every key must be checked.
-  {{ macros.config_row(config_data, 'validate-keys', '# validate-keys = false', 0, true) }}
+  {{ config.data | manala_toml_parameter('validate-keys', default=False, comment=True) }}
 
   # Settings for the TSM engine
 
@@ -136,55 +95,55 @@
   # reach before it starts rejecting writes.
   # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
   # Values without a size suffix are in bytes.
-  {{ macros.config_row(config_data, 'cache-max-memory-size', '# cache-max-memory-size = "1g"', 0, true) }}
+  {{ config.data | manala_toml_parameter('cache-max-memory-size', default='1g', comment=True) }}
 
   # CacheSnapshotMemorySize is the size at which the engine will
   # snapshot the cache and write it to a TSM file, freeing up memory
   # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
   # Values without a size suffix are in bytes.
-  {{ macros.config_row(config_data, 'cache-snapshot-memory-size', '# cache-snapshot-memory-size = "25m"', 0, true) }}
+  {{ config.data | manala_toml_parameter('cache-snapshot-memory-size', default='25m', comment=True) }}
 
   # CacheSnapshotWriteColdDuration is the length of time at
   # which the engine will snapshot the cache and write it to
   # a new TSM file if the shard hasn't received writes or deletes
-  {{ macros.config_row(config_data, 'cache-snapshot-write-cold-duration', '# cache-snapshot-write-cold-duration = "10m"', 0, true) }}
+  {{ config.data | manala_toml_parameter('cache-snapshot-write-cold-duration', default='10m', comment=True) }}
 
   # CompactFullWriteColdDuration is the duration at which the engine
   # will compact all TSM files in a shard if it hasn't received a
   # write or delete
-  {{ macros.config_row(config_data, 'compact-full-write-cold-duration', '# compact-full-write-cold-duration = "4h"', 0, true) }}
+  {{ config.data | manala_toml_parameter('compact-full-write-cold-duration', default='4h', comment=True) }}
 
   # The maximum number of concurrent full and level compactions that can run at one time.  A
   # value of 0 results in 50% of runtime.GOMAXPROCS(0) used at runtime.  Any number greater
   # than 0 limits compactions to that value.  This setting does not apply
   # to cache snapshotting.
-  {{ macros.config_row(config_data, 'max-concurrent-compactions', '# max-concurrent-compactions = 0', 0, true) }}
+  {{ config.data | manala_toml_parameter('max-concurrent-compactions', default=0, comment=True) }}
 
   # CompactThroughput is the rate limit in bytes per second that we
   # will allow TSM compactions to write to disk. Note that short bursts are allowed
   # to happen at a possibly larger value, set by CompactThroughputBurst
-  {{ macros.config_row(config_data, 'compact-throughput', '# compact-throughput = "48m"', 0, true) }}
+  {{ config.data | manala_toml_parameter('compact-throughput', default='48m', comment=True) }}
 
   # CompactThroughputBurst is the rate limit in bytes per second that we
   # will allow TSM compactions to write to disk.
-  {{ macros.config_row(config_data, 'compact-throughput-burst', '# compact-throughput-burst = "48m"', 0, true) }}
+  {{ config.data | manala_toml_parameter('compact-throughput-burst', default='48m', comment=True) }}
 
   # If true, then the mmap advise value MADV_WILLNEED will be provided to the kernel with respect to
   # TSM files. This setting has been found to be problematic on some kernels, and defaults to off.
   # It might help users who have slow disks in some cases.
-  {{ macros.config_row(config_data, 'tsm-use-madv-willneed', '# tsm-use-madv-willneed = false', 0, true) }}
+  {{ config.data | manala_toml_parameter('tsm-use-madv-willneed', default=False, comment=True) }}
 
   # Settings for the inmem index
 
   # The maximum series allowed per database before writes are dropped.  This limit can prevent
   # high cardinality issues at the database level.  This limit can be disabled by setting it to
   # 0.
-  {{ macros.config_row(config_data, 'max-series-per-database', '# max-series-per-database = 1000000', 0, true) }}
+  {{ config.data | manala_toml_parameter('max-series-per-database', default=1000000, comment=True) }}
 
   # The maximum number of tag values per tag that are allowed before writes are dropped.  This limit
   # can prevent high cardinality tag values from being written to a measurement.  This limit can be
   # disabled by setting it to 0.
-  {{ macros.config_row(config_data, 'max-values-per-tag', '# max-values-per-tag = 100000', 0, true) }}
+  {{ config.data | manala_toml_parameter('max-values-per-tag', default=100000, comment=True) }}
 
   # Settings for the tsi1 index
 
@@ -195,7 +154,7 @@
   # and provide higher write throughput.
   # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
   # Values without a size suffix are in bytes.
-  {{ macros.config_row(config_data, 'max-index-log-file-size', '# max-index-log-file-size = "1m"', 0, true) }}
+  {{ config.data | manala_toml_parameter('max-index-log-file-size', default='1m', comment=True) }}
 
   # The size of the internal cache used in the TSI index to store previously 
   # calculated series results. Cached results will be returned quickly from the cache rather
@@ -205,7 +164,7 @@
   # This value should only be increased if it is known that the set of regularly used 
   # tag key/value predicates across all measurements for a database is larger than 100. An
   # increase in cache size may lead to an increase in heap usage.
-  {{ macros.config_row(config_data, 'series-id-set-cache-size', 100) }}
+  {{ config.data | manala_toml_parameter('series-id-set-cache-size', default=100) }}
 
 ###
 ### [coordinator]
@@ -215,33 +174,33 @@
 
 [coordinator]
   # The default time a write request will wait until a "timeout" error is returned to the caller.
-  {{ macros.config_row(config_coordinator, 'write-timeout', '# write-timeout = "10s"', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('write-timeout', default='10s', comment=True) }}
 
   # The maximum number of concurrent queries allowed to be executing at one time.  If a query is
   # executed and exceeds this limit, an error is returned to the caller.  This limit can be disabled
   # by setting it to 0.
-  {{ macros.config_row(config_coordinator, 'max-concurrent-queries', '# max-concurrent-queries = 0', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('max-concurrent-queries', default=0, comment=True) }}
 
   # The maximum time a query will is allowed to execute before being killed by the system.  This limit
   # can help prevent run away queries.  Setting the value to 0 disables the limit.
-  {{ macros.config_row(config_coordinator, 'query-timeout', '# query-timeout = "0s"', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('query-timeout', default='0s', comment=True) }}
 
   # The time threshold when a query will be logged as a slow query.  This limit can be set to help
   # discover slow or resource intensive queries.  Setting the value to 0 disables the slow query logging.
-  {{ macros.config_row(config_coordinator, 'log-queries-after', '# log-queries-after = "0s"', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('log-queries-after', default='0s', comment=True) }}
 
   # The maximum number of points a SELECT can process.  A value of 0 will make
   # the maximum point count unlimited.  This will only be checked every second so queries will not
   # be aborted immediately when hitting the limit.
-  {{ macros.config_row(config_coordinator, 'max-select-point', '# max-select-point = 0', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('max-select-point', default=0, comment=True) }}
 
   # The maximum number of series a SELECT can run.  A value of 0 will make the maximum series
   # count unlimited.
-  {{ macros.config_row(config_coordinator, 'max-select-series', '# max-select-series = 0', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('max-select-series', default=0, comment=True) }}
 
   # The maximum number of group by time bucket a SELECT can create.  A value of zero will max the maximum
   # number of buckets unlimited.
-  {{ macros.config_row(config_coordinator, 'max-select-buckets', '# max-select-buckets = 0', 0, true) }}
+  {{ config.coordinator | manala_toml_parameter('max-select-buckets', default=0, comment=True) }}
 
 ###
 ### [retention]
@@ -251,10 +210,10 @@
 
 [retention]
   # Determines whether retention policy enforcement enabled.
-  {{ macros.config_row(config_retention, 'enabled', '# enabled = true', 0, true) }}
+  {{ config.retention | manala_toml_parameter('enabled', default=True, comment=True) }}
 
   # The interval of time when retention policy enforcement checks run.
-  {{ macros.config_row(config_retention, 'check-interval', '# check-interval = "30m"', 0, true) }}
+  {{ config.retention | manala_toml_parameter('check-interval', default='30m', comment=True) }}
 
 ###
 ### [shard-precreation]
@@ -266,14 +225,14 @@
 
 [shard-precreation]
   # Determines whether shard pre-creation service is enabled.
-  {{ macros.config_row(config_shard_precreation, 'enabled', '# enabled = true', 0, true) }}
+  {{ config['shard-precreation'] | manala_toml_parameter('enabled', default=True, comment=True) }}
 
   # The interval of time when the check to pre-create new shards runs.
-  {{ macros.config_row(config_shard_precreation, 'check-interval', '# check-interval = "10m"', 0, true) }}
+  {{ config['shard-precreation'] | manala_toml_parameter('check-interval', default='10m', comment=True) }}
 
   # The default period ahead of the endtime of a shard group that its successor
   # group is created.
-  {{ macros.config_row(config_shard_precreation, 'advance-period', '# advance-period = "30m"', 0, true) }}
+  {{ config['shard-precreation'] | manala_toml_parameter('advance-period', default='30m', comment=True) }}
 
 ###
 ### Controls the system self-monitoring, statistics and diagnostics.
@@ -286,13 +245,13 @@
 
 [monitor]
   # Whether to record statistics internally.
-  {{ macros.config_row(config_monitor, 'store-enabled', '# store-enabled = true', 0, true) }}
+  {{ config.monitor | manala_toml_parameter('store-enabled', default=True, comment=True) }}
 
   # The destination database for recorded statistics
-  {{ macros.config_row(config_monitor, 'store-database', '# store-database = "_internal"', 0, true) }}
+  {{ config.monitor | manala_toml_parameter('store-database', default='_internal', comment=True) }}
 
   # The interval at which to record statistics
-  {{ macros.config_row(config_monitor, 'store-interval', '# store-interval = "10s"', 0, true) }}
+  {{ config.monitor | manala_toml_parameter('store-interval', default='10s', comment=True) }}
 
 ###
 ### [http]
@@ -303,28 +262,28 @@
 
 [http]
   # Determines whether HTTP endpoint is enabled.
-  {{ macros.config_row(config_http, 'enabled', '# enabled = true', 0, true) }}
+  {{ config.http | manala_toml_parameter('enabled', default=True, comment=True) }}
 
   # Determines whether the Flux query endpoint is enabled.
-  {{ macros.config_row(config_http, 'flux-enabled', '# flux-enabled = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('flux-enabled', default=False, comment=True) }}
 
   # Determines whether the Flux query logging is enabled.
-  {{ macros.config_row(config_http, 'flux-log-enabled', '# flux-log-enabled = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('flux-log-enabled', default=False, comment=True) }}
 
   # The bind address used by the HTTP service.
-  {{ macros.config_row(config_http, 'bind-address', '# bind-address = ":8086"', 0, true) }}
+  {{ config.http | manala_toml_parameter('bind-address', default=':8086', comment=True) }}
 
   # Determines whether user authentication is enabled over HTTP/HTTPS.
-  {{ macros.config_row(config_http, 'auth-enabled', '# auth-enabled = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('auth-enabled', default=False, comment=True) }}
 
   # The default realm sent back when issuing a basic auth challenge.
-  {{ macros.config_row(config_http, 'realm', '# realm = "InfluxDB"', 0, true) }}
+  {{ config.http | manala_toml_parameter('realm', default='InfluxDB', comment=True) }}
 
   # Determines whether HTTP request logging is enabled.
-  {{ macros.config_row(config_http, 'log-enabled', '# log-enabled = true', 0, true) }}
+  {{ config.http | manala_toml_parameter('log-enabled', default=True, comment=True) }}
 
   # Determines whether the HTTP write request logs should be suppressed when the log is enabled.
-  {{ macros.config_row(config_http, 'suppress-write-log', '# suppress-write-log = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('suppress-write-log', default=False, comment=True) }}
 
   # When HTTP request logging is enabled, this option specifies the path where
   # log entries should be written. If unspecified, the default is to write to stderr, which
@@ -332,64 +291,83 @@
   #
   # If influxd is unable to access the specified path, it will log an error and fall back to writing
   # the request log to stderr.
-  {{ macros.config_row(config_http, 'access-log-path', '# access-log-path = ""', 0, true) }}
+  {{ config.http | manala_toml_parameter('access-log-path', default='', comment=True) }}
 
   # Filters which requests should be logged. Each filter is of the pattern NNN, NNX, or NXX where N is
   # a number and X is a wildcard for any number. To filter all 5xx responses, use the string 5xx.
   # If multiple filters are used, then only one has to match. The default is to have no filters which
   # will cause every request to be printed.
-  {{ macros.config_row(config_http, 'access-log-status-filters', '# access-log-status-filters = []', 0, true) }}
+  {{ config.http | manala_toml_parameter('access-log-status-filters', default=[], comment=True) }}
 
   # Determines whether detailed write logging is enabled.
-  {{ macros.config_row(config_http, 'write-tracing', '# write-tracing = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('write-tracing', default=False, comment=True) }}
 
   # Determines whether the pprof endpoint is enabled.  This endpoint is used for
   # troubleshooting and monitoring.
-  {{ macros.config_row(config_http, 'pprof-enabled', '# pprof-enabled = true', 0, true) }}
+  {{ config.http | manala_toml_parameter('pprof-enabled', default=True, comment=True) }}
+
+  # Enables authentication on pprof endpoints. Users will need admin permissions
+  # to access the pprof endpoints when this setting is enabled. This setting has
+  # no effect if either auth-enabled or pprof-enabled are set to false.
+  {{ config.http | manala_toml_parameter('pprof-auth-enabled', default=False, comment=True) }}
 
   # Enables a pprof endpoint that binds to localhost:6060 immediately on startup.
   # This is only needed to debug startup issues.
-  {{ macros.config_row(config_http, 'debug-pprof-enabled', '# debug-pprof-enabled = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('debug-pprof-enabled', default=False, comment=True) }}
+
+  # Enables authentication on the /ping, /metrics, and deprecated /status
+  # endpoints. This setting has no effect if auth-enabled is set to false.
+  {{ config.http | manala_toml_parameter('ping-auth-enabled', default=False, comment=True) }}
 
   # Determines whether HTTPS is enabled.
-  {{ macros.config_row(config_http, 'https-enabled', '# https-enabled = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('https-enabled', default=False, comment=True) }}
 
   # The SSL certificate to use when HTTPS is enabled.
-  {{ macros.config_row(config_http, 'https-certificate', '# https-certificate = "/etc/ssl/influxdb.pem"', 0, true) }}
+  {{ config.http | manala_toml_parameter('https-certificate', default='/etc/ssl/influxdb.pem', comment=True) }}
 
   # Use a separate private key location.
-  {{ macros.config_row(config_http, 'https-private-key', '# https-private-key = ""', 0, true) }}
+  {{ config.http | manala_toml_parameter('https-private-key', default='', comment=True) }}
 
   # The JWT auth shared secret to validate requests using JSON web tokens.
-  {{ macros.config_row(config_http, 'shared-secret', '# shared-secret = ""', 0, true) }}
+  {{ config.http | manala_toml_parameter('shared-secret', default='', comment=True) }}
 
   # The default chunk size for result sets that should be chunked.
-  {{ macros.config_row(config_http, 'max-row-limit', '# max-row-limit = 0', 0, true) }}
+  {{ config.http | manala_toml_parameter('max-row-limit', default=0, comment=True) }}
 
   # The maximum number of HTTP connections that may be open at once.  New connections that
   # would exceed this limit are dropped.  Setting this value to 0 disables the limit.
-  {{ macros.config_row(config_http, 'max-connection-limit', '# max-connection-limit = 0', 0, true) }}
+  {{ config.http | manala_toml_parameter('max-connection-limit', default=0, comment=True) }}
 
   # Enable http service over unix domain socket
-  {{ macros.config_row(config_http, 'unix-socket-enabled', '# unix-socket-enabled = false', 0, true) }}
+  {{ config.http | manala_toml_parameter('unix-socket-enabled', default=False, comment=True) }}
 
   # The path of the unix domain socket.
-  {{ macros.config_row(config_http, 'bind-socket', '# bind-socket = "/var/run/influxdb.sock"', 0, true) }}
+  {{ config.http | manala_toml_parameter('bind-socket', default='/var/run/influxdb.sock', comment=True) }}
 
   # The maximum size of a client request body, in bytes. Setting this value to 0 disables the limit.
-  {{ macros.config_row(config_http, 'max-body-size', '# max-body-size = 25000000', 0, true) }}
+  {{ config.http | manala_toml_parameter('max-body-size', default=25000000, comment=True) }}
 
   # The maximum number of writes processed concurrently.
   # Setting this to 0 disables the limit.
-  {{ macros.config_row(config_http, 'max-concurrent-write-limit', '# max-concurrent-write-limit = 0', 0, true) }}
+  {{ config.http | manala_toml_parameter('max-concurrent-write-limit', default=0, comment=True) }}
 
   # The maximum number of writes queued for processing.
   # Setting this to 0 disables the limit.
-  {{ macros.config_row(config_http, 'max-enqueued-write-limit', '# max-enqueued-write-limit = 0', 0, true) }}
+  {{ config.http | manala_toml_parameter('max-enqueued-write-limit', default=0, comment=True) }}
 
   # The maximum duration for a write to wait in the queue to be processed.
   # Setting this to 0 or setting max-concurrent-write-limit to 0 disables the limit.
-  {{ macros.config_row(config_http, 'enqueued-write-timeout', '# enqueued-write-timeout = 0', 0, true) }}
+  {{ config.http | manala_toml_parameter('enqueued-write-timeout', default=0, comment=True) }}
+
+	# User supplied HTTP response headers
+	#
+{% if 'headers' in config.http %}
+	{{ {'http': {'headers': config.http.headers}} | manala_toml_parameter('http') | replace('\n','\n	  ') }}
+{% else %}
+	# [http.headers]
+	#   X-Header-1 = "Header Value 1"
+	#   X-Header-2 = "Header Value 2"
+{% endif %}
 
 ###
 ### [logging]
@@ -403,16 +381,16 @@
   # output format if the output terminal is a TTY, but the format is not as
   # easily machine-readable. When the output is a non-TTY, auto will use
   # logfmt.
-  {{ macros.config_row(config_logging, 'format', '# format = "auto"', 0, true) }}
+  {{ config.logging | manala_toml_parameter('format', default='auto', comment=True) }}
 
   # Determines which level of logs will be emitted. The available levels
   # are error, warn, info, and debug. Logs that are equal to or above the
   # specified level will be emitted.
-  {{ macros.config_row(config_logging, 'level', '# level = "info"', 0, true) }}
+  {{ config.logging | manala_toml_parameter('level', default='info', comment=True) }}
 
   # Suppresses the logo output that is printed when the program is started.
   # The logo is always suppressed if STDOUT is not a TTY.
-  {{ macros.config_row(config_logging, 'suppress-logo', '# suppress-logo = false', 0, true) }}
+  {{ config.logging | manala_toml_parameter('suppress-logo', default=False, comment=True) }}
 
 ###
 ### [subscriber]
@@ -423,23 +401,23 @@
 
 [subscriber]
   # Determines whether the subscriber service is enabled.
-  {{ macros.config_row(config_subscriber, 'enabled', '# enabled = true', 0, true) }}
+  {{ config.subscriber | manala_toml_parameter('enabled', default=True, comment=True) }}
 
   # The default timeout for HTTP writes to subscribers.
-  {{ macros.config_row(config_subscriber, 'http-timeout', '# http-timeout = "30s"', 0, true) }}
+  {{ config.subscriber | manala_toml_parameter('http-timeout', default='30s', comment=True) }}
 
   # Allows insecure HTTPS connections to subscribers.  This is useful when testing with self-
   # signed certificates.
-  {{ macros.config_row(config_subscriber, 'insecure-skip-verify', '# insecure-skip-verify = false', 0, true) }}
+  {{ config.subscriber | manala_toml_parameter('insecure-skip-verify', default=False, comment=True) }}
 
   # The path to the PEM encoded CA certs file. If the empty string, the default system certs will be used
-  {{ macros.config_row(config_subscriber, 'ca-certs', '# ca-certs = ""', 0, true) }}
+  {{ config.subscriber | manala_toml_parameter('ca-certs', default='', comment=True) }}
 
   # The number of writer goroutines processing the write channel.
-  {{ macros.config_row(config_subscriber, 'write-concurrency', '# write-concurrency = 40', 0, true) }}
+  {{ config.subscriber | manala_toml_parameter('write-concurrency', default=40, comment=True) }}
 
   # The number of in-flight writes buffered in the write channel.
-  {{ macros.config_row(config_subscriber, 'write-buffer-size', '# write-buffer-size = 1000', 0, true) }}
+  {{ config.subscriber | manala_toml_parameter('write-buffer-size', default=1000, comment=True) }}
 
 
 ###
@@ -447,150 +425,158 @@
 ###
 ### Controls one or many listeners for Graphite data.
 ###
+{% for graphite in config.graphite %}
 
 [[graphite]]
   # Determines whether the graphite endpoint is enabled.
-  {{ macros.config_row(config_graphite, 'enabled', '# enabled = false', 0, true) }}
-  {{ macros.config_row(config_graphite, 'database', '# database = "graphite"', 0, true) }}
-  {{ macros.config_row(config_graphite, 'retention-policy', '# retention-policy = ""', 0, true) }}
-  {{ macros.config_row(config_graphite, 'bind-address', '# bind-address = ":2003"', 0, true) }}
-  {{ macros.config_row(config_graphite, 'protocol', '# protocol = "tcp"', 0, true) }}
-  {{ macros.config_row(config_graphite, 'consistency-level', '# consistency-level = "one"', 0, true) }}
+  {{ graphite | manala_toml_parameter('enabled', default=False, comment=True) }}
+  {{ graphite | manala_toml_parameter('database', default='graphite', comment=True) }}
+  {{ graphite | manala_toml_parameter('retention-policy', default='', comment=True) }}
+  {{ graphite | manala_toml_parameter('bind-address', default=':2003', comment=True) }}
+  {{ graphite | manala_toml_parameter('protocol', default='tcp', comment=True) }}
+  {{ graphite | manala_toml_parameter('consistency-level', default='one', comment=True) }}
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  {{ macros.config_row(config_graphite, 'batch-size', '# batch-size = 5000', 0, true) }}
+  {{ graphite | manala_toml_parameter('batch-size', default=5000, comment=True) }}
 
   # number of batches that may be pending in memory
-  {{ macros.config_row(config_graphite, 'batch-pending', '# batch-pending = 10', 0, true) }}
+  {{ graphite | manala_toml_parameter('batch-pending', default=10, comment=True) }}
 
   # Flush at least this often even if we haven't hit buffer limit
-  {{ macros.config_row(config_graphite, 'batch-timeout', '# batch-timeout = "1s"', 0, true) }}
+  {{ graphite | manala_toml_parameter('batch-timeout', default='1s', comment=True) }}
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  {{ macros.config_row(config_graphite, 'udp-read-buffer', '# udp-read-buffer = 0', 0, true) }}
+  {{ graphite | manala_toml_parameter('udp-read-buffer', default=0, comment=True) }}
 
   ### This string joins multiple matching 'measurement' values providing more control over the final measurement name.
-  {{ macros.config_row(config_graphite, 'separator', '# separator = "."', 0, true) }}
+  {{ graphite | manala_toml_parameter('separator', default='.', comment=True) }}
 
   ### Default tags that will be added to all metrics.  These can be overridden at the template level
   ### or by tags extracted from metric
-  {{ macros.config_row(config_graphite, 'tags', '# tags = ["region=us-east", "zone=1c"]', 0, true) }}
+  {{ graphite | manala_toml_parameter('tags', default=['region=us-east', 'zone=1c'], comment=True) }}
 
   ### Each template line requires a template pattern.  It can have an optional
   ### filter before the template and separated by spaces.  It can also have optional extra
   ### tags following the template.  Multiple tags should be separated by commas and no spaces
   ### similar to the line protocol format.  There can be only one default template.
-  {{ macros.config_row(config_graphite, 'templates', '# templates = [
+  {{ graphite | manala_toml_parameter('templates', comment='# templates = [
   #   "*.app env.service.resource.measurement",
   #   # Default template
   #   "server.*",
-  # ]', 0, true) }}
+  # ]') }}
+{% endfor %}
 
 ###
 ### [collectd]
 ###
 ### Controls one or many listeners for collectd data.
 ###
+{% for collectd in config.collectd %}
 
 [[collectd]]
-  {{ macros.config_row(config_collectd, 'enabled', '# enabled = false', 0, true) }}
-  {{ macros.config_row(config_collectd, 'bind-address', '# bind-address = ":25826"', 0, true) }}
-  {{ macros.config_row(config_collectd, 'database', '# database = "collectd"', 0, true) }}
-  {{ macros.config_row(config_collectd, 'retention-policy', '# retention-policy = ""', 0, true) }}
+  {{ collectd | manala_toml_parameter('enabled', default=False, comment=True) }}
+  {{ collectd | manala_toml_parameter('bind-address', default=':25826', comment=True) }}
+  {{ collectd | manala_toml_parameter('database', default='collectd', comment=True) }}
+  {{ collectd | manala_toml_parameter('retention-policy', default='', comment=True) }}
   #
   # The collectd service supports either scanning a directory for multiple types
   # db files, or specifying a single db file.
-  {{ macros.config_row(config_collectd, 'typesdb', '# typesdb = "/usr/local/share/collectd"', 0, true) }}
+  {{ collectd | manala_toml_parameter('typesdb', default='/usr/local/share/collectd', comment=True) }}
   #
-  {{ macros.config_row(config_collectd, 'security-level', '# security-level = "none"', 0, true) }}
-  {{ macros.config_row(config_collectd, 'auth-file', '# auth-file = "/etc/collectd/auth_file"', 0, true) }}
+  {{ collectd | manala_toml_parameter('security-level', default='none', comment=True) }}
+  {{ collectd | manala_toml_parameter('auth-file', default='/etc/collectd/auth_file', comment=True) }}
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  {{ macros.config_row(config_collectd, 'batch-size', '# batch-size = 5000', 0, true) }}
+  {{ collectd | manala_toml_parameter('batch-size', default=5000, comment=True) }}
 
   # Number of batches that may be pending in memory
-  {{ macros.config_row(config_collectd, 'batch-pending', '# batch-pending = 10', 0, true) }}
+  {{ collectd | manala_toml_parameter('batch-pending', default=10, comment=True) }}
 
   # Flush at least this often even if we haven't hit buffer limit
-  {{ macros.config_row(config_collectd, 'batch-timeout', '# batch-timeout = "10s"', 0, true) }}
+  {{ collectd | manala_toml_parameter('batch-timeout', default='10s', comment=True) }}
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  {{ macros.config_row(config_collectd, 'read-buffer', '# read-buffer = 0', 0, true) }}
+  {{ collectd | manala_toml_parameter('read-buffer', default=0, comment=True) }}
 
   # Multi-value plugins can be handled two ways.
   # "split" will parse and store the multi-value plugin data into separate measurements
   # "join" will parse and store the multi-value plugin as a single multi-value measurement.
   # "split" is the default behavior for backward compatibility with previous versions of influxdb.
-  {{ macros.config_row(config_collectd, 'parse-multivalue-plugin', '# parse-multivalue-plugin = "split"', 0, true) }}
+  {{ collectd | manala_toml_parameter('parse-multivalue-plugin', default='split', comment=True) }}
+{% endfor %}
 ###
 ### [opentsdb]
 ###
 ### Controls one or many listeners for OpenTSDB data.
 ###
+{% for opentsdb in config.opentsdb %}
 
 [[opentsdb]]
-  {{ macros.config_row(config_opentsdb, 'enabled', '# enabled = false', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'bind-address', '# bind-address = ":4242"', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'database', '# database = "opentsdb"', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'retention-policy', '# retention-policy = ""', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'consistency-level', '# consistency-level = "one"', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'tls-enabled', '# tls-enabled = false', 0, true) }}
-  {{ macros.config_row(config_opentsdb, 'certificate', '# certificate= "/etc/ssl/influxdb.pem"', 0, true) }}
+  {{ opentsdb | manala_toml_parameter('enabled', default=False, comment=True) }}
+  {{ opentsdb | manala_toml_parameter('bind-address', default=':4242', comment=True) }}
+  {{ opentsdb | manala_toml_parameter('database', default='opentsdb', comment=True) }}
+  {{ opentsdb | manala_toml_parameter('retention-policy', default='', comment=True) }}
+  {{ opentsdb | manala_toml_parameter('consistency-level', default='one', comment=True) }}
+  {{ opentsdb | manala_toml_parameter('tls-enabled', default=False, comment=True) }}
+  {{ opentsdb | manala_toml_parameter('certificate', comment='# certificate= "/etc/ssl/influxdb.pem"') }}
 
   # Log an error for every malformed point.
-  {{ macros.config_row(config_opentsdb, 'log-point-errors', '# log-point-errors = true', 0, true) }}
+  {{ opentsdb | manala_toml_parameter('log-point-errors', default=True, comment=True) }}
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Only points
   # metrics received over the telnet protocol undergo batching.
 
   # Flush if this many points get buffered
-  {{ macros.config_row(config_opentsdb, 'batch-size', '# batch-size = 1000', 0, true) }}
+  {{ opentsdb | manala_toml_parameter('batch-size', default=1000, comment=True) }}
 
   # Number of batches that may be pending in memory
-  {{ macros.config_row(config_opentsdb, 'batch-pending', '# batch-pending = 5', 0, true) }}
+  {{ opentsdb | manala_toml_parameter('batch-pending', default=5, comment=True) }}
 
   # Flush at least this often even if we haven't hit buffer limit
-  {{ macros.config_row(config_opentsdb, 'batch-timeout', '# batch-timeout = "1s"', 0, true) }}
+  {{ opentsdb | manala_toml_parameter('batch-timeout', default='1s', comment=True) }}
+{% endfor %}
 
 ###
 ### [[udp]]
 ###
 ### Controls the listeners for InfluxDB line protocol data via UDP.
 ###
+{% for udp in config.udp %}
 
 [[udp]]
-  {{ macros.config_row(config_udp, 'enabled', '# enabled = false', 0, true) }}
-  {{ macros.config_row(config_udp, 'bind-address', '# bind-address = ":8089"', 0, true) }}
-  {{ macros.config_row(config_udp, 'database', '# database = "udp"', 0, true) }}
-  {{ macros.config_row(config_udp, 'retention-policy', '# retention-policy = ""', 0, true) }}
+  {{ udp | manala_toml_parameter('enabled', default=False, comment=True) }}
+  {{ udp | manala_toml_parameter('bind-address', default=':8089', comment=True) }}
+  {{ udp | manala_toml_parameter('database', default='udp', comment=True) }}
+  {{ udp | manala_toml_parameter('retention-policy', default='', comment=True) }}
 
   # InfluxDB precision for timestamps on received points ("" or "n", "u", "ms", "s", "m", "h")
-  {{ macros.config_row(config_udp, 'precision', '# precision = ""', 0, true) }}
+  {{ udp | manala_toml_parameter('precision', default='', comment=True) }}
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  {{ macros.config_row(config_udp, 'batch-size', '# batch-size = 5000', 0, true) }}
+  {{ udp | manala_toml_parameter('batch-size', default=5000, comment=True) }}
 
   # Number of batches that may be pending in memory
-  {{ macros.config_row(config_udp, 'batch-pending', '# batch-pending = 10', 0, true) }}
+  {{ udp | manala_toml_parameter('batch-pending', default=10, comment=True) }}
 
   # Will flush at least this often even if we haven't hit buffer limit
-  {{ macros.config_row(config_udp, 'batch-timeout', '# batch-timeout = "1s"', 0, true) }}
+  {{ udp | manala_toml_parameter('batch-timeout', default='1s', comment=True) }}
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  {{ macros.config_row(config_udp, 'read-buffer', '# read-buffer = 0', 0, true) }}
+  {{ udp | manala_toml_parameter('read-buffer', default=0, comment=True) }}
+{% endfor %}
 
 ###
 ### [continuous_queries]
@@ -600,16 +586,16 @@
 
 [continuous_queries]
   # Determines whether the continuous query service is enabled.
-  {{ macros.config_row(config_continuous_queries, 'enabled', '# enabled = true', 0, true) }}
+  {{ config.continuous_queries | manala_toml_parameter('enabled', default=True, comment=True) }}
 
   # Controls whether queries are logged when executed by the CQ service.
-  {{ macros.config_row(config_continuous_queries, 'log-enabled', '# log-enabled = true', 0, true) }}
+  {{ config.continuous_queries | manala_toml_parameter('log-enabled', default=True, comment=True) }}
 
   # Controls whether queries are logged to the self-monitoring data store.
-  {{ macros.config_row(config_continuous_queries, 'query-stats-enabled', '# query-stats-enabled = false', 0, true) }}
+  {{ config.continuous_queries | manala_toml_parameter('query-stats-enabled', default=False, comment=True) }}
 
   # interval for how often continuous queries will be checked if they need to run
-  {{ macros.config_row(config_continuous_queries, 'run-interval', '# run-interval = "1s"', 0, true) }}
+  {{ config.continuous_queries | manala_toml_parameter('run-interval', default='1s', comment=True) }}
 
 ###
 ### [tls]
@@ -622,15 +608,15 @@
   # for a list of available ciphers, which depends on the version of Go (use the query
   # SHOW DIAGNOSTICS to see the version of Go used to build InfluxDB). If not specified, uses
   # the default settings from Go's crypto/tls package.
-  {{ macros.config_row(config_tls, 'ciphers', '# ciphers = [
+  {{ config.tls | manala_toml_parameter('ciphers', comment='# ciphers = [
   #   "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
-  #   "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
-  # ]', 0, true) }}
+  #   "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+  # ]') }}
 
   # Minimum version of the tls protocol that will be negotiated. If not specified, uses the
   # default settings from Go's crypto/tls package.
-  {{ macros.config_row(config_tls, 'min-version', '# min-version = "tls1.2"', 0, true) }}
+  {{ config.tls | manala_toml_parameter('min-version', default='tls1.2', comment=True) }}
 
   # Maximum version of the tls protocol that will be negotiated. If not specified, uses the
   # default settings from Go's crypto/tls package.
-  {{ macros.config_row(config_tls, 'max-version', '# max-version = "tls1.2"', 0, true) }}
+  {{ config.tls | manala_toml_parameter('max-version', default='tls1.3', comment=True) }}

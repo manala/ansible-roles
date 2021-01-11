@@ -3,15 +3,52 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_influxdb_config:
-      - reporting-disabled: true
-  pre_tasks:
-    - import_tasks: pre_tasks/disable_systemd.yml
-      when: ansible_distribution_release in ['jessie']
-    - import_tasks: pre_tasks/influxdata.yml
-  roles:
-    - manala.influxdb
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/disable_systemd.yml
+          when: ansible_distribution_release in ['jessie']
+        - import_tasks: pre_tasks/influxdata.yml
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.influxdb
+          vars:
+            manala_influxdb_config_file: tmp/config/default/default.conf
+            manala_influxdb_config:
+              reporting-disabled: true
+        # Default - Deprecated
+        - import_role:
+            name: manala.influxdb
+            tasks_from: config
+          vars:
+            manala_influxdb_config_file: tmp/config/default/default_deprecated.conf
+            manala_influxdb_config:
+              - reporting-disabled: true
+        # Default - Content
+        - import_role:
+            name: manala.influxdb
+            tasks_from: config
+          vars:
+            manala_influxdb_config_file: tmp/config/default/default_content.conf
+            manala_influxdb_config: |
+              reporting-disabled = true
+        # Template
+        - import_role:
+            name: manala.influxdb
+            tasks_from: config
+          vars:
+            manala_influxdb_config_file: tmp/config/default/template.conf
+            manala_influxdb_config_template: config/influxdata/influxdb.conf.j2
+            manala_influxdb_config:
+              reporting-disabled: true
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

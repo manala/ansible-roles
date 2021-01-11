@@ -1,7 +1,0 @@
----
-
-command:
-  influx -execute 'show users':
-    exit-status: 0
-    stdout:
-      - my_user

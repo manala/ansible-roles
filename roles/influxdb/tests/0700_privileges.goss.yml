@@ -1,7 +1,0 @@
----
-
-command:
-  influx -database my_db -execute 'show grants for my_user':
-    exit-status: 0
-    stdout:
-      - my_db    ALL PRIVILEGES
