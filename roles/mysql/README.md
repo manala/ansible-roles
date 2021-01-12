@@ -159,6 +159,11 @@ manala_mysql_users:
     state: ignore
   # Flatten users
   - "{{ my_custom_users_array }}"
+  # Example of skipping binary logging while adding user
+  - name: foo
+    password: 12345
+    priv: '*.*:ALL,GRANT'
+    sql_log_bin: false
 ```
 
 ### Databases
