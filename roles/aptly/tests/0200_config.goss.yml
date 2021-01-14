@@ -1,11 +1,48 @@
 ---
 
 file:
-  /etc/aptly.conf:
+  tmp/config/default/default.conf:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - '"rootDir": "/tmp/aptly"'
+      - '{'
+      - '    "architectures": ['
+      - '        "amd64"'
+      - '    ], '
+      - '    "rootDir": "/tmp/aptly"'
+      - '}'
+  tmp/config/default/default_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - '{'
+      - '    "rootDir": "/tmp/aptly",'
+      - '    "architectures": ["amd64"]'
+      - '}'
+  tmp/config/default/default_content.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - '{'
+      - '    "rootDir": "/tmp/aptly",'
+      - '    "architectures": ['
+      - '        "amd64"'
+      - '    ]'
+      - '}'
+  tmp/config/default/template.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - Config aptly

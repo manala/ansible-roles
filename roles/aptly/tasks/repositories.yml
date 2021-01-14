@@ -28,7 +28,11 @@
     )
   }}"
   when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
-  with_items: "{{ manala_aptly_repositories }}"
+  loop: "{{
+    manala_aptly_repositories | flatten | selectattr('state', 'undefined') | list
+    +
+    manala_aptly_repositories | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+  }}"
 
 - name: repositories > Publish
   command: "{{
@@ -38,4 +42,8 @@
     ) }}aptly publish repo -origin={{ item.origin }} -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '')
   }}"
   when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
-  with_items: "{{ manala_aptly_repositories }}"
+  loop: "{{
+    manala_aptly_repositories | flatten | selectattr('state', 'undefined') | list
+    +
+    manala_aptly_repositories | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+  }}"

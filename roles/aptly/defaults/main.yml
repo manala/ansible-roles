@@ -12,7 +12,7 @@ manala_aptly_user: ~
 # Config
 manala_aptly_config_file: /etc/aptly.conf
 manala_aptly_config_template: ~
-manala_aptly_config: []
+manala_aptly_config: ~
 
 # Repositories
 manala_aptly_repositories: []
