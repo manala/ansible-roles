@@ -1,0 +1,104 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/configs/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/configs/default/default_content.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "## GitLab configuration settings"
+      - "external_url 'http://gitlab.example.com'"
+  tmp/configs/default/template.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "Configs foo"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/configs/state/foo.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    size: 1
+  tmp/configs/state/bar.rb:
+    exists: false
+  tmp/configs/state/baz.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    size: 1
+  tmp/configs/state/qux.rb:
+    exists: true
+    filetype: file
+  tmp/configs/state/quux.rb:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/configs/defaults/foo.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "Configs foo"
+  tmp/configs/defaults/bar.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "Configs bar"
+  tmp/configs/defaults/baz.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "Configs bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/configs/exclusive/foo.rb:
+    exists: false
+  tmp/configs/exclusive/bar.rb:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    size: 1
+  tmp/configs/exclusive/baz.rb:
+    exists: false
+  tmp/configs/exclusive/qux.rb:
+    exists: false
+  tmp/configs/exclusive/quux.rb:
+    exists: false
+{{ end }}

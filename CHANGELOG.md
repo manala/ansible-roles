@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - [MySQL] Supports `sql_log_bin` directive on `manala_mysql_users`
+- [Gitlab] Flatten configs array
+
+### Changed
+- [Gitlab] Use unified exclusive template lookup
 
 ## [0.1.103] - 2021-01-11
 ### Added

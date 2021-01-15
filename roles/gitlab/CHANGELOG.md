@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Flatten configs array
+
+### Changed
+- Use unified exclusive template lookup
 
 ## [2.0.3] - 2020-09-03
 ### fixed

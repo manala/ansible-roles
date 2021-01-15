@@ -16,16 +16,18 @@ None.
 
 ## Installation
 
-Using ansible galaxy:
+### Ansible 2+
+
+Using ansible galaxy cli:
 
 ```bash
 ansible-galaxy install manala.gitlab
 ```
-You can add this role as a dependency for other roles by adding the role to the meta/main.yml file of your own role:
+
+Using ansible galaxy requirements file:
 
 ```yaml
-dependencies:
-  - { role: manala.gitlab }
+- src: manala.gitlab
 ```
 
 ## Role Handlers
@@ -41,28 +43,41 @@ dependencies:
 | ---------------------------------------- | ------------- | ------- | -------------------------------------------------- |
 | `manala_gitlab_install_packages`         | ~             | Array   | Dependency packages to install                     |
 | `manala_gitlab_install_packages_default` | ['gitlab-ce'] | Array   | Default dependency packages to install             |
-| `manala_gitlab_configs`                  | []            | Array   | Configuration files                                |
 | `manala_gitlab_configs_exclusive`        | false         | Boolean | If true, will delete any extra configuration files |
 | `manala_gitlab_configs_dir`              | '/etc/gitlab' | String  | Path to the main configuration directory           |
+| `manala_gitlab_configs_defaults`         | {}            | Array   | Configuration defaults                             |
+| `manala_gitlab_configs`                  | []            | Array   | Configuration files                                |
 
 ### Configuration example
 
 ```yaml
-manala_gitlab_version: 8.1.*
-
 manala_gitlab_configs_exclusive: true
 manala_gitlab_configs:
-  - file:     gitlab-secrets.json
-    template: gitlab-secrets.json.j2
-  - file:     gitlab.rb
-    template: gitlab.rb.j2
+  # Template based
+  - file: gitlab.rb
+    template: my/config/gitlab.rb.j2
+  # Raw content based
+  - file: gitlab.rb
+    config: |
+      ## GitLab configuration settings
+      external_url 'http://gitlab.example.com'
+  # Ensure config is absent
+  - file: absent.rb
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.rb
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-        - role: manala.gitlab
+```yaml
+- hosts: servers
+  roles:
+    - role: manala.gitlab
+```
 
 # Licence
 
