@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [MySQL] Supports `sql_log_bin` directive on `manala_mysql_users`
 
 ## [0.1.103] - 2021-01-11
 ### Added

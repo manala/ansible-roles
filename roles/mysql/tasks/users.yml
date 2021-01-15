@@ -7,6 +7,7 @@
     host: "{{ item.host|default('localhost') }}"
     priv: "{{ item.priv|default(omit) }}"
     append_privs: "{{ item.append_privs|default(omit) }}"
+    sql_log_bin: "{{ item.sql_log_bin|default(omit) }}"
     state: "{{ item.state|default(omit) }}"
   loop: "{{
     manala_mysql_users | flatten | selectattr('state', 'undefined') | list
