@@ -3,46 +3,61 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_aptly_config:
-      - rootDir: /tmp/aptly
-      - architectures:
-          - amd64
-    manala_aptly_repositories:
-      - name:         foo
-        comment:      Foo
-        component:    main
-        distribution: jessie
-        origin:       Bar
-        label:        Bar
-  pre_tasks:
-    # See: https://www.aptly.info/doc/feature/pgp-providers/
-    - apt:
-        name:
-          - gnupg1
-          - gpgv1
-        install_recommends: false
-      when: ansible_distribution_release in ['stretch','buster']
-    - import_tasks: pre_tasks/aptly.yml
-    # See: https://www.aptly.info/doc/feature/pgp-providers/
+  tasks:
+
     - block:
+        # See: https://www.aptly.info/doc/feature/pgp-providers/
         - apt:
             name:
               - gnupg1
               - gpgv1
             install_recommends: false
           when: ansible_distribution_release in ['stretch','buster']
-        - command: gpg1 --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
-          args:
-            creates: ~/.gnupg/trustdb.gpg
-      when: ansible_distribution_release in ['stretch','buster']
+        - import_tasks: pre_tasks/aptly.yml
+        # See: https://www.aptly.info/doc/feature/pgp-providers/
+        - block:
+            - apt:
+                name:
+                  - gnupg1
+                  - gpgv1
+                install_recommends: false
+              when: ansible_distribution_release in ['stretch','buster']
+            - command: gpg1 --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
+              args:
+                creates: ~/.gnupg/trustdb.gpg
+          when: ansible_distribution_release in ['stretch','buster']
+        - block:
+            - command: gpg --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
+              args:
+                creates: ~/.gnupg/trustdb.gpg
+          when: ansible_distribution_release not in ['stretch','buster']
+
     - block:
-        - command: gpg --allow-secret-key-import --import {{ playbook_dir }}/fixtures/gpg/private.asc
-          args:
-            creates: ~/.gnupg/trustdb.gpg
-      when: ansible_distribution_release not in ['stretch','buster']
-  roles:
-    - manala.aptly
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+        - import_role:
+            name: manala.aptly
+          vars:
+            manala_aptly_config:
+              rootDir: /tmp/aptly
+              architectures:
+                - amd64
+            manala_aptly_repositories:
+              - name: ignore
+                state: ignore
+              - name: foo
+                comment: Foo
+                component: main
+                distribution: stretch
+                origin: Foo
+                label: Foo
+              # Flatten
+              -
+                - name: bar
+                  comment: Bar
+                  component: main
+                  distribution: buster
+                  origin: Bar
+                  label: Bar
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

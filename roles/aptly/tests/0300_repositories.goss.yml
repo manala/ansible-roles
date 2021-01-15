@@ -1,11 +1,38 @@
 ---
 
+command:
+  aptly repo list:
+    exit-status: 0
+    stdout:
+      - " * [bar]: Bar (packages: 0)"
+      - " * [foo]: Foo (packages: 0)"
+  aptly repo show foo:
+    exit-status: 0
+    stdout:
+      - "Name: foo"
+      - "Comment: Foo"
+      - "Default Distribution: stretch"
+      - "Default Component: main"
+      - "Number of packages: 0"
+  aptly repo show bar:
+    exit-status: 0
+    stdout:
+      - "Name: bar"
+      - "Comment: Bar"
+      - "Default Distribution: buster"
+      - "Default Component: main"
+      - "Number of packages: 0"
+
 file:
-  /etc/aptly.conf:
+  /tmp/aptly/public/dists/buster/Release:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - '"rootDir": "/tmp/aptly"'
+  /tmp/aptly/public/dists/buster/main/binary-amd64/Packages:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

@@ -3,13 +3,57 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_aptly_config:
-      - rootDir: /tmp/aptly
-  pre_tasks:
-    - import_tasks: pre_tasks/aptly.yml
-  roles:
-    - manala.aptly
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/aptly.yml
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.aptly
+          vars:
+            manala_aptly_config_file: tmp/config/default/default.conf
+            manala_aptly_config:
+              rootDir: /tmp/aptly
+              architectures:
+                - amd64
+        # Default - Deprecated
+        - import_role:
+            name: manala.aptly
+            tasks_from: config
+          vars:
+            manala_aptly_config_file: tmp/config/default/default_deprecated.conf
+            manala_aptly_config:
+              - rootDir: /tmp/aptly
+              - architectures:
+                - amd64
+        # Default - Content
+        - import_role:
+            name: manala.aptly
+            tasks_from: config
+          vars:
+            manala_aptly_config_file: tmp/config/default/default_content.conf
+            manala_aptly_config: |
+              {
+                  "rootDir": "/tmp/aptly",
+                  "architectures": [
+                      "amd64"
+                  ]
+              }
+        # Template
+        - import_role:
+            name: manala.aptly
+            tasks_from: config
+          vars:
+            manala_aptly_config_file: tmp/config/default/template.conf
+            manala_aptly_config_template: config/aptly.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

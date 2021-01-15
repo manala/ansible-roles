@@ -1,6 +1,0 @@
-{%- import '_macros.j2' as macros with context -%}
-
-{% set config = manala_aptly_config|default([]) -%}
-
-{
-{{ macros.config(config, [], 4) }}}
