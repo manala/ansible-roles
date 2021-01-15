@@ -8,63 +8,133 @@
     # Default
     - tags: [default]
       block:
+        - file:
+            path: tmp/files/default
+            state: "{{ item }}"
+          loop: [absent, directory]
         - import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.cron
           vars:
+            manala_cron_files_dir: tmp/files/default
             manala_cron_files:
-              - file: foo
+              # Default
+              - file: default
                 user: foo
-                # Deprecated
-                environment:
-                  - FOO: foo
                 env:
-                  BAR: bar
+                  FOO: bar
                 jobs:
+                  # Deprecated
                   - name: foo-foo
-                    job: "cd /srv/app && bin/console app:foo:foo"
+                    job: cd /srv/app && bin/console app:foo:foo
                     minute: 0
                     hour: 7
-              - file: bar
-                jobs:
-                  - name: bar-bar
-                    job: "cd /srv/app && bin/console app:bar:bar"
+                  - command: cd /srv/app && bin/console app:bar:bar
+                    user: bar
                     minute: 0
                     hour: 7
-              - file: baz
-                env:
-                  BAR: bar
-                  QUX: qux
-                jobs:
-                  - name: baz-baz
-                    job: "cd /srv/app && bin/console app:baz:baz"
-                    minute: 0
-                    hour: 7
+                  - command: cd /srv/app && bin/console app:baz:baz
+                    minute: 1
+                    hour: 2
+                    day: 3
+                    month: 4
+                    weekday: 5
+                  - command: cd /srv/app && bin/console app:foo:present
+                    state: present
+                  - command: cd /srv/app && bin/console app:foo:absent
+                    state: absent
+              - file: default_content
+                config: |
+                  0 7 * * * root cd /srv/app && bin/console app:bar:bar
+              # Flatten
+              -
+                # Template
+                - file: template
+                  template: files/foo.j2
       always:
         - name: Goss
           command: >
             goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
 
-    # Defaults
-    - tags: [defaults]
+    # State
+    - tags: [state]
       block:
+        - file:
+            path: tmp/files/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/files/state/{{ item }}
+            state: touch
+          loop: [bar, qux]
         - import_role:
             name: manala.cron
             tasks_from: files
           vars:
-            manala_cron_files_defaults:
-              user: qux
+            manala_cron_files_dir: tmp/files/state
             manala_cron_files:
+              - file: foo
+              - file: bar
+                state: absent
+              - file: baz
+                state: present
               - file: qux
-                jobs:
-                  - name: foo-foo
-                    job: whoami
+                state: ignore
               - file: quux
-                user: quux
-                jobs:
-                  - name: foo-foo
-                    job: whoami
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/files/defaults
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - import_role:
+            name: manala.cron
+            tasks_from: files
+          vars:
+            manala_cron_files_dir: tmp/files/defaults
+            manala_cron_files_defaults:
+              template: files/foo.j2
+            manala_cron_files:
+              - file: foo
+              - template: files/bar.j2
+              - file: baz
+                template: files/bar.j2
       always:
         - name: Goss
           command: >
             goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/files/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/files/exclusive/{{ item }}
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.cron
+            tasks_from: files
+          vars:
+            manala_cron_files_dir: tmp/files/exclusive
+            manala_cron_files_exclusive: true
+            manala_cron_files:
+              - file: bar
+              - file: qux
+                state: ignore
+              - file: quux
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

@@ -1,51 +1,44 @@
 ---
 
-- name: files > Jobs
-  cron:
-    cron_file: "{{ item.0.file }}"
-    name: "{{ item.1.name }}"
-    job: "{{ item.1.job }}"
-    minute: "{{ item.1.minute|default(omit) }}"
-    hour: "{{ item.1.hour|default(omit) }}"
-    day: "{{ item.1.day|default(omit) }}"
-    month: "{{ item.1.month|default(omit) }}"
-    weekday: "{{ item.1.weekday|default(omit) }}"
-    user: "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
-    state: "{{ item.1.state|default('present') }}"
-  with_subelements:
-    - "{{ manala_cron_files }}"
-    - jobs
-  notify:
-    - cron restart
+- name: files > Exclusive
+  find:
+    path: "{{ manala_cron_files_dir }}"
+    patterns: "*"
+  changed_when: false
+  register: __manala_cron_files_exclusive_find
+  when: manala_cron_files_exclusive
 
-- name: files > Env variables
-  cron:
-    cron_file: "{{ item.file }}"
-    env: true
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    user: "{{ item.user|default(manala_cron_files_defaults.user) }}"
-    state: present
+- name: configs > Templates present
+  template:
+    src: "{{ item.template }}"
+    dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: "{{ query(
-      'manala_cron_files_env',
-      manala_cron_files
+      'manala_templates_exclusive',
+      manala_cron_files,
+      __manala_cron_files_exclusive_find.files|default([]),
+      manala_cron_files_dir,
+      manala_cron_files_defaults.template|default('files/_default.j2', true),
+      wantstate='present'
     )
   }}"
   notify:
     - cron restart
 
-# Deprecated
-- name: files > Environment variables (deprecated)
-  cron:
-    cron_file: "{{ item.0.file }}"
-    env: true
-    name: "{{ (item.1.keys()|list)[0] }}"
-    value: "{{ (item.1.values()|list)[0] }}"
-    user: "{{ item.0.user|default(manala_cron_files_defaults.user) }}"
-    state: present
-  with_subelements:
-    - "{{ manala_cron_files }}"
-    - environment
-    - skip_missing: true
+- name: configs > Files absent
+  file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_cron_files,
+      __manala_cron_files_exclusive_find.files|default([]),
+      manala_cron_files_dir,
+      manala_cron_files_defaults.template|default('files/_default.j2', true),
+      wantstate='absent'
+    )
+  }}"
   notify:
     - cron restart

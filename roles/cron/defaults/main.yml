@@ -6,6 +6,7 @@ manala_cron_install_packages_default:
   - cron
 
 # Files
-manala_cron_files_defaults:
-  user: root
+manala_cron_files_exclusive: false
+manala_cron_files_dir: /etc/cron.d
+manala_cron_files_defaults: {}
 manala_cron_files: []
