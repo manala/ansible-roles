@@ -1,0 +1,29 @@
+{% if 'config' in item %}
+{{ item.config }}
+{% else %}
+{% if 'env' in item %}
+{{ item.env|manala_environment }}
+{% endif %}
+{% for job in item.jobs|default([]) %}
+{% if job.state|default('present') == 'present' %}
+  {{-
+    job.minute|default('*')
+  }} {{
+    job.hour|default('*')
+  }} {{
+    job.day|default('*')
+  }} {{
+    job.month|default('*')
+  }} {{
+    job.weekday|default('*')
+  }} {{
+    job.user|default(item.user|default('root'))
+  }}
+  {#- Deprecated #}
+  {%- if 'job' in job %} {{ job.job }}
+  {%- else %} {{ job.command|mandatory }}
+  {%- endif %}
+
+{% endif %}
+{% endfor %}
+{% endif %}

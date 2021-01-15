@@ -30,7 +30,6 @@ Using ansible galaxy requirements file:
 - src: manala.cron
 ```
 
-
 ## Role Handlers
 
 | Name          | Type    | Description          |
@@ -39,12 +38,14 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                   | Default  | Type  | Description                            |
-| -------------------------------------- | -------- | ----- | -------------------------------------- |
-| `manala_cron_install_packages`         | ~        | Array | Dependency packages to install         |
-| `manala_cron_install_packages_default` | ['cron'] | Array | Default dependency packages to install |
-| `manala_cron_files_defaults`           | {}       | Array | Defaults cron files parameters         |
-| `manala_cron_files`                    | []       | Array | Cron files collection                  |
+| Name                                   | Default       | Type    | Description                            |
+| -------------------------------------- | ------------- | ------- | -------------------------------------- |
+| `manala_cron_install_packages`         | ~             | Array   | Dependency packages to install         |
+| `manala_cron_install_packages_default` | ['cron']      | Array   | Default dependency packages to install |
+| `manala_cron_files_exclusive`          | false         | Boolean | Files exclusivity                      |
+| `manala_cron_files_dir`                | '/etc/cron.d' | String  | Files dir path                         |
+| `manala_cron_files_defaults`           | {}            | Array   | Defaults cron files parameters         |
+| `manala_cron_files`                    | []            | Array   | Cron files collection                  |
 
 ### Configuration example
 
@@ -54,30 +55,32 @@ manala_cron_files:
     user: foo
     env:
       FOO: foo
-    # Deprecated
-    environment:
-      - BAR: bar
     jobs:
-      # Do foo bar
+      # ⚠️ In this example, you must **explicitly** set the minute option to `0` to have the job run at a specific hour,
+      # otherwise the default value `*` will run it _every minute_ for an hour.
+      - command: "php /srv/app/bin/console app:foo:bar"
+        minute: 0
+        hour: 7
+      # Deprecated
       - name: foo-bar
         job: "php /srv/app/bin/console app:foo:bar"
         minute: 0
         hour: 7
-```
-
-⚠️ In this example, you must **explicitly** set the minute option to `0` to have the job run at a specific hour, otherwise the default value `*` will run it _every minute_ for an hour.
-
-Using defaults:
-```yaml
-manala_cron_files_defaults:
-  user: bar # Will be applied by default to cron files
-manala_cron_files:
-  - file: app
-    jobs:
-      - name: foo-bar
-        job: "php /srv/app/bin/console app:foo:bar"
-        minute: 0
-        hour: 7
+  # Template based
+  - file: template
+    template: my/cron.j2
+  # Raw content based
+  - file: content
+    config: |
+      0 7 * * * root cd /srv/app && bin/console app:bar:bar
+  # Ensure file is absent
+  - file: absent
+    state: absent # "present" by default
+  # Ignore file
+  - file: ignore
+    state: ignore
+  # Flatten files
+  - "{{ my_custom_files_array }}"
 ```
 
 ## Example playbook

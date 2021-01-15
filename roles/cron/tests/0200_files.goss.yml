@@ -3,58 +3,108 @@
 # Default
 {{ if has "default" .Vars.tags }}
 file:
-  /etc/cron.d/foo:
+  tmp/files/default/default:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
     contains:
-      - 'FOO="foo"'
-      - 'BAR="bar"'
-      - '#Ansible: foo-foo'
-      - '0 7 * * * foo cd /srv/app && bin/console app:foo:foo'
-  /etc/cron.d/bar:
+      - 'FOO="bar"'
+      - "0 7 * * * foo cd /srv/app && bin/console app:foo:foo"
+      - "0 7 * * * bar cd /srv/app && bin/console app:bar:bar"
+      - "1 2 3 4 5 foo cd /srv/app && bin/console app:baz:baz"
+      - "* * * * * foo cd /srv/app && bin/console app:foo:present"
+      - "!* * * * * foo cd /srv/app && bin/console app:foo:absent"
+  tmp/files/default/default_content:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
     contains:
-      - '#Ansible: bar-bar'
-      - '0 7 * * * root cd /srv/app && bin/console app:bar:bar'
-  /etc/cron.d/baz:
+      - "0 7 * * * root cd /srv/app && bin/console app:bar:bar"
+  tmp/files/default/template:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
     contains:
-      - 'BAR="bar"'
-      - 'QUX="qux"'
-      - '#Ansible: baz-baz'
-      - '0 7 * * * root cd /srv/app && bin/console app:baz:baz'
+      - Files foo
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/files/state/foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/files/state/bar:
+    exists: false
+  tmp/files/state/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/files/state/qux:
+    exists: true
+    filetype: file
+  tmp/files/state/quux:
+    exists: false
 {{ end }}
 
 # Defaults
 {{ if has "defaults" .Vars.tags }}
 file:
-  /etc/cron.d/qux:
+  tmp/files/defaults/foo:
     exists: true
-    mode: "0644"
+    filetype: file
     owner: root
     group: root
-    filetype: file
-    contains:
-      - '#Ansible: foo-foo'
-      - '* * * * * qux whoami'
-  /etc/cron.d/quux:
-    exists: true
     mode: "0644"
+    contains:
+      - "Files foo"
+  tmp/files/defaults/bar:
+    exists: true
+    filetype: file
     owner: root
     group: root
-    filetype: file
+    mode: "0644"
     contains:
-      - '#Ansible: foo-foo'
-      - '* * * * * quux whoami'
+      - "Files bar"
+  tmp/files/defaults/baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Files bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/files/exclusive/foo:
+    exists: false
+  tmp/files/exclusive/bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/files/exclusive/baz:
+    exists: false
+  tmp/files/exclusive/qux:
+    exists: false
+  tmp/files/exclusive/quux:
+    exists: false
 {{ end }}

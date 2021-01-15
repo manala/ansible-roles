@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Aptly] Flatten repositories array
 - [Aptly] `ignore` repository state
 - [Aptly] Deprecate dict's array config
+- [Cron] Use unified exclusive template lookup
+- [Cron] Use template ansible module instead of cron ones
+- [Cron] Deprecate job `name` parameter
+- [Cron] Rename job `job` parameter into `command`
+
+### Removed
+- [Cron] Already deprecated dict's array based environment variable handling
 
 ## [0.1.103] - 2021-01-11
 ### Added

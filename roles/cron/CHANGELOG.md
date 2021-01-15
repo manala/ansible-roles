@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Use unified exclusive template lookup
+- Use template ansible module instead of cron ones
+- Deprecate job `name` parameter
+- Rename job `job` parameter into `command`
+
+### Removed
+- Already deprecated dict's array based environment variable handling
 
 ## [2.0.3] - 2020-07-09
 ### Added
