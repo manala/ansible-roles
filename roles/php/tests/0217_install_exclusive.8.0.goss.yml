@@ -1,0 +1,21 @@
+---
+
+package:
+  php8.0-cli:
+    installed: true
+  php8.0-fpm:
+    installed: true
+  php8.0-cgi:
+    installed: false
+  php8.0-mbstring:
+    installed: true
+  php8.0-intl:
+    installed: true
+  php-geoip:
+    installed: true
+  php8.0-curl:
+    installed: true
+  php8.0-tidy:
+    installed: false
+  php-apcu:
+    installed: false

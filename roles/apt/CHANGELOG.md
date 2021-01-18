@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- PHP 8.0 support
 
 ## [2.0.24] - 2021-01-18
 - Add Galera_3_31 repository to set on Jessie (last version before deprecation)

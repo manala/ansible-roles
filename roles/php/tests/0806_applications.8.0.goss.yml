@@ -1,0 +1,30 @@
+---
+
+file:
+  /usr/local/bin/phpcs:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/phpunit_9.5.0:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/phpunit:
+    exists: true
+    filetype: symlink
+    linked-to: phpunit_9.5.0
+    owner: root
+    group: root
+command:
+  phpcs --version:
+    exit-status: 0
+    stdout:
+      - PHP_CodeSniffer version
+  phpunit --version:
+    exit-status: 0
+    stdout:
+      - PHPUnit 9.5.0
