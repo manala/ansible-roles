@@ -7,7 +7,7 @@
 
 - name: Pre tasks > Galera 3 apt repository
   apt_repository:
-    repo: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    repo: deb {{ (ansible_distribution_release == 'stretch')|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-{{ (ansible_distribution_release == 'jessie')|ternary('3.31','3') }}/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
 
 - name: Pre tasks > Galera apt preferences
   copy:

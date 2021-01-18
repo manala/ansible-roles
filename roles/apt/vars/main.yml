@@ -187,6 +187,9 @@ manala_apt_repositories_patterns:
   galera_3:
     source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
+  galera_3_31:
+    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3.31/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
   mysql_wsrep_5_6:
     source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
