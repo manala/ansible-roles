@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.105] - 2021-01-18
+### Added
+- [MySQL] Add Galera_3_31 repository to set on Jessie (last version before deprecation)
+
 ## [0.1.104] - 2021-01-15
 ### Added
 - [MySQL] Supports `sql_log_bin` directive on `manala_mysql_users`

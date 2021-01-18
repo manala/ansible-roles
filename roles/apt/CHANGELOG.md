@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.24] - 2021-01-18
 - Add Galera_3_31 repository to set on Jessie (last version before deprecation)
 
 ## [2.0.23] - 2021-01-07
