@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - PHP 8.0 support
+- Config filters
+- "state" applications parameter (present|ignore)
+- "ignore" extensions state parameter value
+- "ignore" sapis state parameter value
+
+### Changed
+- Use unified exclusive template lookup
+- "manala_php_extensions_pecl_versioned" default value to true (See: https://www.patreon.com/posts/october-update-42636315)
+- Deprecate "manala_php_extensions_pecl_versioned"
+- Deprecate environment oriented templates
+- Deprecate dict's array configs
+
+### Removed
+- "cgi" and "phpdbg" sapi configs support
+- useless "cli", "cgi" and "phpdbg" sapi restart handlers
 
 ## [2.0.7] - 2020-08-26
 ### Changed

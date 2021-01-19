@@ -1,6 +1,0 @@
----
-
-service:
-  php7.1-fpm:
-    enabled: true
-    running: true

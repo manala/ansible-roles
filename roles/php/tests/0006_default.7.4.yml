@@ -1,0 +1,108 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.jessie
+  become: true
+  tasks:
+
+    - tags: [always]
+      block:
+        - import_tasks: pre_tasks/disable_systemd.yml
+        - import_tasks: pre_tasks/sury_php.yml
+        - import_tasks: pre_tasks/blackfire.yml
+
+    - tags: [default]
+      block:
+        - apt:
+            name:
+              - php7.4-cgi  # Sapi
+              - php7.4-tidy # Native extension
+              - php7.4-apcu # Pecl extension
+            install_recommends: false
+        - import_role:
+            name: manala.php
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis:
+              - cli
+              # Flatten
+              -
+                - sapi: fpm
+                  state: present
+                - sapi: cgi
+                  state: absent
+                - sapi: phpdbg
+                  state: ignore
+            manala_php_extensions:
+              - date      # Embedded extension
+              - calendar  # Common extension
+              - xml       # Native extension
+              - memcached # Pecl extension
+              # Flatten
+              -
+                - extension: gd # Native extension
+                  enabled: true
+                - extension: bz2 # Native extension
+                  enabled: false
+                - extension: igbinary # Pecl extension
+                  enabled: true
+                - extension: xdebug # Pecl extension
+                  enabled: false
+                - extension: curl # Native extension
+                  state: present
+                - extension: tidy # Native extension
+                  state: absent
+                - extension: apcu # Pecl extension
+                  state: absent
+                - extension: bcmath # Native extension
+                  state: ignore
+            manala_php_applications:
+              - phpcs
+              # Flatten
+              -
+                - phpunit@4.8.30
+                - application: phpunit
+                  version: 5.7.25
+                - application: phpcbf
+                  state: ignore
+            manala_php_blackfire: true
+            manala_php_blackfire_agent_config_template: blackfire/agent/agent.j2
+            manala_php_blackfire_agent_config:
+              server-id: c74906db-43d3-4c96-ab27-010600321b89
+              server-token: 5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+            manala_php_blackfire_client_config_template: blackfire/client/.blackfire.ini.j2
+            manala_php_blackfire_client_config:
+              client-id: b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+              client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    - tags: [exclusive]
+      block:
+        - apt:
+            name:
+              - php7.4-cgi  # Sapi
+              - php7.4-tidy # Native extension
+              - php7.4-apcu # Pecl extension
+            install_recommends: false
+        - import_role:
+            name: manala.php
+            tasks_from: install
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis_exclusive: true
+            manala_php_sapis:
+              - cli
+              - fpm
+            manala_php_extensions_exclusive: true
+            manala_php_extensions:
+              - date      # Embedded extension
+              - calendar  # Common extension
+              - xml       # Native extension
+              - memcached # Pecl extension
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

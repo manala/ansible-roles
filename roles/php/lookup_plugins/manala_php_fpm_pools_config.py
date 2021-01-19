@@ -1,9 +1,12 @@
+# Deprecated
+
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types, iteritems
 from ansible.errors import AnsibleError
+
 
 class LookupModule(LookupBase):
 
@@ -24,8 +27,8 @@ class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
-        wantrow        = kwargs.pop('wantrow', None)
-        wantrowtype    = kwargs.pop('wantrowtype', None)
+        wantrow = kwargs.pop('wantrow', None)
+        wantrowtype = kwargs.pop('wantrowtype', None)
         wantrowdefault = kwargs.pop('wantrowdefault', None)
 
         config = self._flatten(terms[0])

@@ -120,7 +120,7 @@
   apt:
     name: "{{
       query(
-        'manala_php_install_packages_exclusive',
+        'manala_php_packages_exclusive',
         query(
           'manala_php_packages',
           (

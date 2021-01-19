@@ -2,7 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
-from ansible.errors import AnsibleError
+
 
 class LookupModule(LookupBase):
 
@@ -10,22 +10,21 @@ class LookupModule(LookupBase):
 
         results = []
 
-        # Version
+        packages = self._flatten(terms[0])
         version = terms[1]
 
-        # Extensions - Pecl
-        extensionsPecl          = terms[2]
+        extensionsPecl = terms[2]
         extensionsPeclVersioned = terms[3]
 
-        for term in self._flatten(terms[0]):
+        for package in packages:
 
             items = []
 
             # Extensions
-            if (term in extensionsPecl) and (not extensionsPeclVersioned):
-                items.append('php-' + term)
+            if (package in extensionsPecl) and (not extensionsPeclVersioned):
+                items.append('php-%s' % package)
             else:
-                items.append('php' + version + '-' + term)
+                items.append('php%s-%s' % (version, package))
 
             # Merge
             for item in items:

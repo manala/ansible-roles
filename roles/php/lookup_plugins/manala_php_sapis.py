@@ -5,52 +5,59 @@ from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
+
 class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
         results = []
 
-        # Sapis - Available
-        sapisAvailable = terms[1]
-
         wantstate = kwargs.pop('wantstate', None)
-        wantmap   = kwargs.pop('wantmap', False)
 
-        #########
-        # Sapis #
-        #########
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
+        wantmap = kwargs.pop('wantmap', False)
+
+        sapis = self._flatten(terms[0])
+        sapisAvailable = terms[1]
 
         itemDefault = {
             'state': 'present'
         }
 
-        for term in self._flatten(terms[0]):
+        for sapi in sapis:
 
             items = []
 
             # Short syntax
-            if isinstance(term, string_types):
+            if isinstance(sapi, string_types):
                 item = itemDefault.copy()
                 item.update({
-                    'sapi': term
+                    'sapi': sapi
                 })
             else:
 
                 # Must be a dict
-                if not isinstance(term, dict):
-                    raise AnsibleError('Expect a dict')
+                if not isinstance(sapi, dict):
+                    raise AnsibleError('Expect a dict but was a %s' % type(sapi))
 
                 # Check index key
-                if 'sapi' not in term:
-                    raise AnsibleError('Expect "sapi" key')
+                if 'sapi' not in sapi:
+                    raise AnsibleError('Expect a "sapi" key')
 
                 item = itemDefault.copy()
-                item.update(term)
+                item.update(sapi)
 
             # Known sapi ?
-            if item.get('sapi') not in sapisAvailable:
-                raise AnsibleError('Unknown sapi "' + item.get('sapi') + '"')
+            if item['sapi'] not in sapisAvailable:
+                raise AnsibleError('Unknown "%s" sapi' % item['sapi'])
+
+            if item['state'] not in ['present', 'absent', 'ignore']:
+                raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+            if item['state'] == 'ignore':
+                continue
 
             items.append(item)
 

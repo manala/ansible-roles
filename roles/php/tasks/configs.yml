@@ -1,71 +1,119 @@
 ---
 
-- name: configs
-  tags:
-    - manala_php
-    - manala_php.configs
-  block:
+# Cli
+- block:
 
-    - name: configs > {{ __manala_php_sapi|capitalize }} - Exclusive
+    - name: configs > Cli - Exclusive
       find:
-        path: /etc/php/{{ manala_php_version|string }}/{{ __manala_php_sapi }}/conf.d
+        path: "{{ __manala_php_cli_configs_dir }}"
+        file_type: file
         patterns: "*"
       changed_when: false
       register: __manala_php_configs_exclusive_find
       when: manala_php_configs_exclusive
 
-    - name: configs > {{ __manala_php_sapi|capitalize }} - Templates present
+    - name: configs > Cli - Templates present
       template:
-        src: "{{ item.template|default(manala_php_configs_template|ternary(manala_php_configs_template, 'configs/empty.j2')) }}"
+        src: "{{ item.template }}"
         dest: "{{ item.file }}"
         owner: root
         group: root
         mode: "0644"
       loop: "{{ query(
-          'manala_php_configs',
-          manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
-          __manala_php_sapi,
+          'manala_templates_exclusive',
+          __manala_php_cli_configs,
           __manala_php_configs_exclusive_find.files|default([]),
-          '/etc/php/' ~ manala_php_version|string ~ '/' ~ __manala_php_sapi ~ '/conf.d',
+          __manala_php_cli_configs_dir,
+          manala_php_configs_defaults.template|default('configs/_default.j2', true),
           wantstate='present'
         )
       }}"
-      when: item.content is not defined
-      notify:
-        - "php {{ __manala_php_sapi }} restart"
 
-    - name: configs > {{ __manala_php_sapi|capitalize }} - Contents present
-      copy:
-        content: "{{ item.content }}"
-        dest: "{{ item.file }}"
-        owner: root
-        group: root
-        mode: "0644"
-      loop: "{{ query(
-          'manala_php_configs',
-          manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
-          __manala_php_sapi,
-          __manala_php_configs_exclusive_find.files|default([]),
-          '/etc/php/' ~ manala_php_version|string ~ '/' ~ __manala_php_sapi ~ '/conf.d',
-          wantstate='present'
-        )
-      }}"
-      when: item.content is defined
-      notify:
-        - "php {{ __manala_php_sapi }} restart"
-
-    - name: configs > {{ __manala_php_sapi|capitalize }} - Files absent
+    - name: configs > Cli - Files absent
       file:
         path: "{{ item.file }}"
         state: absent
       loop: "{{ query(
-          'manala_php_configs',
-          manala_php_configs + lookup('vars', 'manala_php_' + __manala_php_sapi + '_configs'),
-          __manala_php_sapi,
+          'manala_templates_exclusive',
+          __manala_php_cli_configs,
           __manala_php_configs_exclusive_find.files|default([]),
-          '/etc/php/' ~ manala_php_version|string ~ '/' ~ __manala_php_sapi ~ '/conf.d',
+          __manala_php_cli_configs_dir,
+          manala_php_configs_defaults.template|default('configs/_default.j2', true),
+          wantstate='absent'
+        )
+      }}"
+
+  vars:
+    __manala_php_cli_configs_dir: "{{ manala_php_configs_dir }}/cli/conf.d"
+    __manala_php_cli_configs: "{{ manala_php_configs + manala_php_cli_configs }}"
+  when: |
+    'cli' in query(
+      'manala_php_sapis',
+      manala_php_sapis|default(manala_php_sapis_default, True),
+      manala_php_sapis_available,
+      wantstate='present',
+      wantmap=true
+    )
+  tags:
+    - manala_php.cli_configs
+
+# Fpm
+- block:
+
+    - name: configs > Fpm - Exclusive
+      find:
+        path: "{{ __manala_php_fpm_configs_dir }}"
+        file_type: file
+        patterns: "*"
+      changed_when: false
+      register: __manala_php_configs_exclusive_find
+      when: manala_php_configs_exclusive
+
+    - name: configs > Fpm - Templates present
+      template:
+        src: "{{ item.template }}"
+        dest: "{{ item.file }}"
+        owner: root
+        group: root
+        mode: "0644"
+      loop: "{{ query(
+          'manala_templates_exclusive',
+          __manala_php_fpm_configs,
+          __manala_php_configs_exclusive_find.files|default([]),
+          __manala_php_fpm_configs_dir,
+          manala_php_configs_defaults.template|default('configs/_default.j2', true),
+          wantstate='present'
+        )
+      }}"
+      notify:
+        - php fpm restart
+
+    - name: configs > Fpm - Files absent
+      file:
+        path: "{{ item.file }}"
+        state: absent
+      loop: "{{ query(
+          'manala_templates_exclusive',
+          __manala_php_fpm_configs,
+          __manala_php_configs_exclusive_find.files|default([]),
+          __manala_php_fpm_configs_dir,
+          manala_php_configs_defaults.template|default('configs/_default.j2', true),
           wantstate='absent'
         )
       }}"
       notify:
-        - "php {{ __manala_php_sapi }} restart"
+        - php fpm restart
+
+  vars:
+    __manala_php_fpm_configs_dir: "{{ manala_php_configs_dir }}/fpm/conf.d"
+    __manala_php_fpm_configs: "{{ manala_php_configs + manala_php_fpm_configs }}"
+  when: |
+    'fpm' in query(
+      'manala_php_sapis',
+      manala_php_sapis|default(manala_php_sapis_default, True),
+      manala_php_sapis_available,
+      wantstate='present',
+      wantmap=true
+    )
+  tags:
+    - manala_php.fpm_configs

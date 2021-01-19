@@ -1,0 +1,237 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/configs/default/cli/conf.d/default.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/cli/conf.d/default_cli.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 255M"
+  tmp/configs/default/fpm/conf.d/default.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/fpm/conf.d/default_fpm.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 257M"
+  tmp/configs/default/cli/conf.d/default_deprecated.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/fpm/conf.d/default_deprecated.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/cli/conf.d/default_content.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/fpm/conf.d/default_content.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/cli/conf.d/template.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+  tmp/configs/default/fpm/conf.d/template.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+  tmp/configs/default/cli/conf.d/template_deprecated.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+  tmp/configs/default/fpm/conf.d/template_deprecated.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "memory_limit = 123M"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/configs/state/cli/conf.d/foo.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/fpm/conf.d/foo.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/cli/conf.d/bar.ini:
+    exists: false
+  tmp/configs/state/fpm/conf.d/bar.ini:
+    exists: false
+  tmp/configs/state/cli/conf.d/baz.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/fpm/conf.d/baz.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/state/cli/conf.d/qux.ini:
+    exists: true
+    filetype: file
+  tmp/configs/state/fpm/conf.d/qux.ini:
+    exists: true
+    filetype: file
+  tmp/configs/state/cli/conf.d/quux.ini:
+    exists: false
+  tmp/configs/state/fpm/conf.d/quux.ini:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/configs/defaults/cli/conf.d/foo.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+  tmp/configs/defaults/fpm/conf.d/foo.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs foo"
+  tmp/configs/defaults/cli/conf.d/bar.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+  tmp/configs/defaults/fpm/conf.d/bar.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+  tmp/configs/defaults/cli/conf.d/baz.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+  tmp/configs/defaults/fpm/conf.d/baz.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Configs bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/configs/exclusive/cli/conf.d/foo.ini:
+    exists: false
+  tmp/configs/exclusive/fpm/conf.d/foo.ini:
+    exists: false
+  tmp/configs/exclusive/cli/conf.d/bar.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/exclusive/fpm/conf.d/bar.ini:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/configs/exclusive/cli/conf.d/baz.ini:
+    exists: false
+  tmp/configs/exclusive/fpm/conf.d/baz.ini:
+    exists: false
+  tmp/configs/exclusive/cli/conf.d/qux.ini:
+    exists: false
+  tmp/configs/exclusive/fpm/conf.d/qux.ini:
+    exists: false
+  tmp/configs/exclusive/cli/conf.d/quux.ini:
+    exists: false
+  tmp/configs/exclusive/fpm/conf.d/quux.ini:
+    exists: false
+{{ end }}

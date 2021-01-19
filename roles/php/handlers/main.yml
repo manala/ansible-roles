@@ -29,18 +29,6 @@
       wantmap=true
     )
 
-- name: php cli restart
-  debug:
-    msg: There is nothing to do here...
-
-- name: php cgi restart
-  debug:
-    msg: There is nothing to do here...
-
-- name: php phpdbg restart
-  debug:
-    msg: There is nothing to do here...
-
 - name: php blackfire agent restart
   service:
     name: blackfire-agent

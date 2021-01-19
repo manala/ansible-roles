@@ -2,8 +2,10 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.lookup import LookupBase
-from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
+from ansible.module_utils.six import string_types
+from ansible.module_utils._text import to_text
+
 
 class LookupModule(LookupBase):
 
@@ -11,54 +13,57 @@ class LookupModule(LookupBase):
 
         results = []
 
-        # Patterns
+        wantstate = kwargs.pop('wantstate', None)
+
+        if wantstate and wantstate not in ['present']:
+            raise AnsibleError('Expect a wanstate of "present" but was "%s"' % to_text(wantstate))
+
+        applications = self._flatten(terms[0])
         patterns = terms[1]
 
         itemDefault = {
-            'version':        None,
-            'source':         None,
+            'state': 'present',
+            'version': None,
+            'source': None,
             'source_version': None
         }
 
-        for term in self._flatten(terms[0]):
+        for application in applications:
 
             items = []
 
             # Short syntax
-            if isinstance(term, string_types):
+            if isinstance(application, string_types):
                 item = itemDefault.copy()
 
                 # Pattern
-                if term.split('@')[0] not in patterns:
-                    print(term.split('@')[0])
-                    raise AnsibleError('Unknown pattern')
+                if application.split('@')[0] not in patterns:
+                    raise AnsibleError('Unknown "%s" pattern' % application.split('@')[0])
 
-                item.update(patterns.get(term.split('@')[0]))
+                item.update(patterns.get(application.split('@')[0]))
 
                 item.update({
-                    'application': term.split('@')[0],
-                    'version':     (term.split('@')[1])
-                        if len(term.split('@')) > 1 else
-                    (None)
+                    'application': application.split('@')[0],
+                    'version': application.split('@')[1] if (len(application.split('@')) > 1) else None
                 })
 
             else:
 
                 # Must be a dict
-                if not isinstance(term, dict):
-                    raise AnsibleError('Expect a dict')
+                if not isinstance(application, dict):
+                    raise AnsibleError('Expect a dict but was a %s' % type(application))
 
                 # Check index key
-                if 'application' not in term:
-                    raise AnsibleError('Expect "application" key')
+                if 'application' not in application:
+                    raise AnsibleError('Expect an "application" key')
 
                 item = itemDefault.copy()
 
                 # Pattern
-                if term.get('application') in patterns:
-                    item.update(patterns.get(term.get('application')))
+                if application['application'] in patterns:
+                    item.update(patterns.get(application['application']))
 
-                item.update(term)
+                item.update(application)
 
             # Source version
             if item.get('source_version') and item.get('version'):
@@ -69,6 +74,12 @@ class LookupModule(LookupBase):
             # No source
             if not item.get('source'):
                 raise AnsibleError('No source')
+
+            if item['state'] not in ['present', 'ignore']:
+                raise AnsibleError('Expect a state of "present" or "ignore" but was "%s"' % to_text(item['state']))
+
+            if item['state'] == 'ignore':
+                continue
 
             items.append(item)
 

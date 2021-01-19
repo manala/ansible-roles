@@ -13,21 +13,23 @@
 
 - name: blackfire > Configure agent
   template:
-    src: "{{ manala_php_blackfire_agent_config_template|ternary(manala_php_blackfire_agent_config_template, 'blackfire/agent/default.j2') }}"
+    src: "{{ manala_php_blackfire_agent_config_template|default('blackfire/agent/_default.j2', true) }}"
     dest: "{{ manala_php_blackfire_agent_config_file }}"
     owner: root
     group: root
     mode: "0644"
-  when: (manala_php_blackfire_agent_config_template is not none) or (manala_php_blackfire_agent_config|length)
+  when: manala_php_blackfire_agent_config_template
+        or manala_php_blackfire_agent_config
   notify:
     - php blackfire agent restart
 
 - name: blackfire > Configure client
   template:
-    src: "{{ manala_php_blackfire_client_config_template|ternary(manala_php_blackfire_client_config_template, 'blackfire/client/default.j2') }}"
+    src: "{{ manala_php_blackfire_client_config_template|default('blackfire/client/_default.j2', true) }}"
     dest: "{{ manala_php_blackfire_client_config_file }}"
     mode: "0644"
-  when: (manala_php_blackfire_client_config_template is not none) or (manala_php_blackfire_client_config|length)
+  when: manala_php_blackfire_client_config_template
+        or manala_php_blackfire_client_config
 
 - name: blackfire > Services
   service:

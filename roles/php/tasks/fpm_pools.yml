@@ -1,33 +1,44 @@
 ---
 
-- name: fpm_pools > Templates
+- name: fpm_pools > Exclusive
+  find:
+    path: "{{ manala_php_fpm_pools_dir }}"
+    patterns: "*"
+  changed_when: false
+  register: __manala_php_fpm_pools_exclusive_find
+  when: manala_php_fpm_pools_exclusive
+
+- name: fpm_pools > Templates present
   template:
-    src: "{{ item.template|default(manala_php_fpm_pools_template|ternary(manala_php_fpm_pools_template, 'fpm_pools/empty.j2')) }}"
-    dest: /etc/php/{{ manala_php_version|string }}/fpm/pool.d/{{ item.file }}
+    src: "{{ item.template }}"
+    dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  notify:
-    - php fpm restart
   loop: "{{ query(
-      'manala_php_fpm_pools',
+      'manala_templates_exclusive',
       manala_php_fpm_pools,
+      __manala_php_fpm_pools_exclusive_find.files|default([]),
+      manala_php_fpm_pools_dir,
+      manala_php_fpm_pools_defaults.template|default('fpm_pools/_default.j2', true),
+      wantstate='present'
     )
   }}"
+  notify:
+    - php fpm restart
 
-- name: fpm_pools > Exclusive - Find files
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: /etc/php/{{ manala_php_version|string }}/fpm/pool.d
-  changed_when: false
-  register: __manala_php_fpm_pools_exclusive_find_result
-  when: manala_php_fpm_pools_exclusive
-
-- name: fpm_pools > Exclusive - Remove files
+- name: fpm_pools > Files absent
   file:
-    path: /etc/php/{{ manala_php_version|string }}/fpm/pool.d/{{ item }}
+    path: "{{ item.file }}"
     state: absent
-  when: manala_php_fpm_pools_exclusive and (item not in manala_php_fpm_pools|map(attribute='file'))
-  with_items: "{{ __manala_php_fpm_pools_exclusive_find_result.stdout_lines|default([]) }}"
+  loop: "{{ query(
+      'manala_templates_exclusive',
+      manala_php_fpm_pools,
+      __manala_php_fpm_pools_exclusive_find.files|default([]),
+      manala_php_fpm_pools_dir,
+      manala_php_fpm_pools_defaults.template|default('fpm_pools/_default.j2', true),
+      wantstate='absent'
+    )
+  }}"
   notify:
     - php fpm restart

@@ -11,7 +11,8 @@
   loop: "{{ query(
       'manala_php_applications',
       manala_php_applications,
-      manala_php_applications_patterns
+      manala_php_applications_patterns,
+      wantstate='present'
     )
   }}"
 
@@ -27,6 +28,7 @@
   loop: "{{ query(
       'manala_php_applications',
       manala_php_applications,
-      manala_php_applications_patterns
+      manala_php_applications_patterns,
+      wantstate='present'
     )
   }}"

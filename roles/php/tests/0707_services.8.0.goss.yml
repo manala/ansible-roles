@@ -1,6 +1,0 @@
----
-
-service:
-  php8.0-fpm:
-    enabled: true
-    running: true
