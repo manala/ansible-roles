@@ -18,7 +18,7 @@ file:
       - '    },'
       - '    "http-basic": {'
       - '        "repo.example1.org": {'
-      - '            "username": "my-username1",'
+      - '            "username": "my-username1"'
       - '            "password": "my-secret-password1"'
       - '        }'
       - '    }'
