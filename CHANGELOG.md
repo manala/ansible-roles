@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Composer] Handle versions (specific and major)
+- [Composer] Use dict based users auth config
 
 ## [0.1.105] - 2021-01-18
 ### Added

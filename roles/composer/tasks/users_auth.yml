@@ -10,7 +10,7 @@
 
 - name: users_auth > Template
   template:
-    src: "{{ item.template|default(manala_composer_users_auth_template|ternary(manala_composer_users_auth_template, 'users/auth/empty.j2')) }}"
+    src: "{{ item.template|default(manala_composer_users_auth_template|default('users/auth/_default.j2', true)) }}"
     dest: "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer/auth.json"
     owner: "{{ item.user }}"
     mode: "0644"
