@@ -1,7 +1,7 @@
 ---
 
-# Version
-{{ if has "version" .Vars.tags }}
+# Default
+{{ if has "default" .Vars.tags }}
 file:
   /usr/local/bin/composer:
     exists: true
@@ -21,29 +21,8 @@ command:
       - Composer version 1.8.0
 {{ end }}
 
-# No version
-{{ if has "no_version" .Vars.tags }}
-file:
-  /usr/local/bin/composer:
-    exists: true
-    filetype: file
-    owner: root
-{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
-    group: staff
-{{ else }}
-    group: root
-{{ end }}
-    mode: "0755"
-
-command:
-  composer --version:
-    exit-status: 0
-    stdout:
-      - Composer version 2
-{{ end }}
-
-# Version_update
-{{ if has "version_update" .Vars.tags }}
+# Update
+{{ if has "update" .Vars.tags }}
 file:
   /usr/local/bin/composer:
     exists: true
@@ -63,8 +42,50 @@ command:
       - Composer version 1.10.15
 {{ end }}
 
-# Major_version_no_change
-{{ if has "major_version_no_change" .Vars.tags }}
+# Major
+{{ if has "major" .Vars.tags }}
+file:
+  /usr/local/bin/composer:
+    exists: true
+    filetype: file
+    owner: root
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
+    group: staff
+{{ else }}
+    group: root
+{{ end }}
+    mode: "0755"
+
+command:
+  composer --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1
+{{ end }}
+
+# Major - Change
+{{ if has "major_change" .Vars.tags }}
+file:
+  /usr/local/bin/composer:
+    exists: true
+    filetype: file
+    owner: root
+{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
+    group: staff
+{{ else }}
+    group: root
+{{ end }}
+    mode: "0755"
+
+command:
+  composer --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1
+{{ end }}
+
+# Major - No change
+{{ if has "major_no_change" .Vars.tags }}
 file:
   /usr/local/bin/composer:
     exists: true
@@ -82,25 +103,4 @@ command:
     exit-status: 0
     stdout:
       - Composer version 1.10.15
-{{ end }}
-
-# Major_version
-{{ if has "major_version" .Vars.tags }}
-file:
-  /usr/local/bin/composer:
-    exists: true
-    filetype: file
-    owner: root
-{{ if .Env.DISTRIBUTION_RELEASE | regexMatch "jessie|stretch" }}
-    group: staff
-{{ else }}
-    group: root
-{{ end }}
-    mode: "0755"
-
-command:
-  composer --version:
-    exit-status: 0
-    stdout:
-      - Composer version 2
 {{ end }}
