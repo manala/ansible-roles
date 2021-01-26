@@ -96,7 +96,7 @@ manala_composer_users_auth:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.composer }
+    - role: manala.composer
 ```
 
 # Licence
