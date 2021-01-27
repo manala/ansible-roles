@@ -13,6 +13,7 @@
   register: __manala_composer_bin_check_result
   changed_when: false
   failed_when: false
+  check_mode: false
 
 - name: install > Download
   get_url:
