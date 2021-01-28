@@ -9,8 +9,7 @@
     mode: "0644"
   when: manala_mysql_config_template
         or manala_mysql_config
-  notify:
-    - mysql restart
+  register: __manala_mysql_config_template_result
 
 - name: config > Alternative
   alternatives:
@@ -18,5 +17,4 @@
     link: "{{ manala_mysql_config_file }}"
     path: "{{ manala_mysql_config_alternative }}"
   when: manala_mysql_config_alternative|default(false, true)
-  notify:
-    - mysql restart
+  register: __manala_mysql_config_alternative_result

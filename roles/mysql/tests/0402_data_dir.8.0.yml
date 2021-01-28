@@ -1,0 +1,31 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/mysql_8.0.yml
+        - import_tasks: pre_tasks/sysvinit_mysql_8.0.yml
+
+    - block:
+        - import_role:
+            name: manala.mysql
+          vars:
+            manala_mysql_config: |
+              [mysqld]
+              pid-file = /var/run/mysqld/mysqld.pid
+              socket = /var/run/mysqld/mysqld.sock
+              log-error = /var/log/mysql/error.log
+              datadir = /tmp/datadir
+              # Use native authentication plugin
+              default-authentication-plugin = mysql_native_password
+            manala_mysql_data_dir: /tmp/datadir
+            manala_mysql_data_dir_user: mysql
+            manala_mysql_data_dir_group: root
+            manala_mysql_data_dir_mode: "0700"
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

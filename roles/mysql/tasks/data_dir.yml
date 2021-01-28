@@ -7,15 +7,13 @@
     owner: "{{ manala_mysql_data_dir_user }}"
     group: "{{ manala_mysql_data_dir_group }}"
     mode: "{{ manala_mysql_data_dir_mode }}"
-  register: __manala_mysql_data_dir_create_output
+  register: __manala_mysql_data_dir_create_result
   when: manala_mysql_data_dir|default(false)
 
-- name: data_dir > Initialize data dir
-  command: mysql_install_db --user={{ manala_mysql_data_dir_user }} --datadir={{ manala_mysql_data_dir }}
-  when: manala_mysql_data_dir_initialize and __manala_mysql_data_dir_create_output.changed  # noqa 503
-
-- name: data_dir > Restart mysql
-  service:
-    name: mysql
-    state: restarted
-  when: __manala_mysql_data_dir_create_output.changed  # noqa 503
+- name: data_dir > Initialize data directory
+  command: >
+    mysql_install_db
+    --user={{ manala_mysql_data_dir_user }}
+    --datadir={{ manala_mysql_data_dir }}
+  when: manala_mysql_data_dir_initialize
+        and __manala_mysql_data_dir_create_result is changed

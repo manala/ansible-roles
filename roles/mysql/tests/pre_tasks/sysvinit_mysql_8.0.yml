@@ -1,0 +1,8 @@
+---
+
+- name: Pre tasks > MySQL 8.0 sysvinit
+  copy:
+    src: pre_tasks/sysvinit/mysql_8.0.init
+    dest: /etc/init.d/mysql
+    owner: root
+    mode: 0755
