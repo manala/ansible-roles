@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [MySQL] Group services handling and stop using handlers
 
 ## [0.1.107] - 2021-01-27
 ### Fixed

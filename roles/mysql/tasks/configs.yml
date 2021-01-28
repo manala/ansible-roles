@@ -33,8 +33,7 @@
       wantstate='present'
     )
   }}"
-  notify:
-    - mysql restart
+  register: __manala_mysql_configs_templates_present_result
 
 - name: configs > Files absent
   file:
@@ -49,5 +48,4 @@
       wantstate='absent'
     )
   }}"
-  notify:
-    - mysql restart
+  register: __manala_mysql_configs_files_absent_result
