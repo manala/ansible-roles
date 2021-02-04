@@ -5,6 +5,8 @@
   tags:
     - manala_composer
     - manala_composer.install
+    - manala_composer.update
+    - manala.update
 
 # Users Auth
 - import_tasks: users_auth.yml

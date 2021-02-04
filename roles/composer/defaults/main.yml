@@ -16,3 +16,6 @@ manala_composer_bin: /usr/local/bin/composer
 # Users - Auth
 manala_composer_users_auth_template: ~
 manala_composer_users_auth: []
+
+# Flags
+manala_composer: {}
