@@ -46,14 +46,19 @@ None.
 | `manala_composer_bin`                      | '/usr/local/bin/composer'      | String | Binary path                            |
 | `manala_composer_users_auth_template`      | ~                              | String | User auth template path                |
 | `manala_composer_users_auth`               | []                             | Array  | User auth config                       |
+| `manala_composer`                          | {}                             | Dict   | Use for custom flags                   |
 
 ### Configuration example
 
 ### Versions
 
 By default, the role installs the latest version of composer (channel stable).
-If you want the latest version of a specific channel (major version), set `manala_composer_version` value to the desired channel (ie `1` or `2`)
 If you want a specific version, set `manala_composer_version` value to the desired version (ie `1.10.16`)
+If you want the latest version of a specific channel (major version), set `manala_composer_version` value to the desired channel (ie `1` or `2`)
+
+If you set a specific channel, and want to update to the latest version of this specific channel :
+  - Set `manala_composer_version` value to the desired channel (ie `1` or `2`)
+  - Set `manala_composer.update=true`
 
 #### Composer configuration with github token
 

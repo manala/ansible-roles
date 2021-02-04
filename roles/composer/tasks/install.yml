@@ -40,3 +40,6 @@
             manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+)(\\.\\d+\\.\\d+.*)', '\\2')
           )
         )
+        or (
+          __manala_composer['update']
+        )
