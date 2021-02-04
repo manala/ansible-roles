@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'Release')"
     steps:
+      - name: Notify Slack of starting
+        uses: act10ns/slack@v1
+        with:
+          status: starting
+          channel: '#collection_release'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - uses: actions/checkout@v2
 
       - name: Prepare Collection
@@ -60,3 +68,12 @@ jobs:
           asset_path: ./manala-roles-${{ steps.changelog.outputs.version }}.tar.gz
           asset_name: manala-roles-${{ steps.changelog.outputs.version }}.tar.gz
           asset_content_type: application/zip
+
+      - name: Notify Slack of action status
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#collection_release'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
