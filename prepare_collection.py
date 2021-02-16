@@ -2,7 +2,7 @@
 
 import os
 import shutil
-import glob
+import pathlib
 import re
 import logging
 
@@ -46,29 +46,28 @@ for plugins_dir in ['lookup', 'callback', 'filter', 'modules', 'action']:
 # Roles #
 #########
 
-dir = os.path.join(collection_dir, 'roles')
+roles_dir = os.path.join(collection_dir, 'roles')
 
-for role in glob.glob('roles/*'):
-	role = os.path.basename(role)
-	# Path
-	role_path = os.path.join(dir, role)
-	logging.info('Create role path "%s"', role_path)
-	os.makedirs(role_path)
+for role_path in pathlib.Path('roles').glob('*'):
+	role = os.path.basename(role_path)
+	role_dir = os.path.join(roles_dir, role)
+	logging.info('Create role dir "%s"', role_dir)
+	os.makedirs(role_dir)
 	# Files
-	for role_file in ['CHANGELOG.md', 'README.md']:
-		src = os.path.join('roles', role, role_file)
-		if os.path.isfile(src):
+	for file in ['CHANGELOG.md', 'README.md']:
+		file_src = os.path.join('roles', role, file)
+		if os.path.isfile(file_src):
 			shutil.copy(
-				src,
-				os.path.join(role_path, role_file)
+				file_src,
+				os.path.join(role_dir, file)
 			)
 	# Dirs
-	for role_dir in ['defaults', 'files', 'handlers', 'meta', 'tasks', 'templates', 'vars']:
-		src = os.path.join('roles', role, role_dir)
-		if os.path.isdir(src):
+	for dir in ['defaults', 'files', 'handlers', 'meta', 'tasks', 'templates', 'vars']:
+		dir_src = os.path.join('roles', role, dir)
+		if os.path.isdir(dir_src):
 			shutil.copytree(
-				src,
-				os.path.join(role_path, role_dir)
+				dir_src,
+				os.path.join(role_dir, dir)
 			)
 	# Plugins
 	for plugins in [
@@ -78,7 +77,7 @@ for role in glob.glob('roles/*'):
 		{'src': 'library', 'dst': 'modules'},
 		{'src': 'action_plugins', 'dst': 'action'}
 	]:
-		for src in glob.glob(os.path.join('roles', role, plugins['src'], '*.py')):
+		for src in pathlib.Path('roles', role, plugins['src']).glob('*.py'):
 			# Copy
 			dst = os.path.join(
 				collection_dir,
@@ -100,9 +99,9 @@ for role in glob.glob('roles/*'):
 						file.truncate()
 	# Lookups
 	files = []
-	files.extend(glob.glob(os.path.join(role_path, 'handlers/**/*.yml'), recursive=True))
-	files.extend(glob.glob(os.path.join(role_path, 'tasks/**/*.yml'), recursive=True))
-	files.extend(glob.glob(os.path.join(role_path, 'templates/**/*.j2'), recursive=True))
+	files.extend(pathlib.Path(role_dir, 'handlers').rglob('*.yml'))
+	files.extend(pathlib.Path(role_dir, 'tasks').rglob('*.yml'))
+	files.extend(pathlib.Path(role_dir, 'templates').rglob('*.j2'))
 	regex = re.compile(r'(query\(\s*\')manala_', re.DOTALL)
 	for file_path in files:
 		with open(file_path, 'r+') as file:
@@ -114,8 +113,8 @@ for role in glob.glob('roles/*'):
 				file.truncate()
 	# Filters
 	files = []
-	files.extend(glob.glob(os.path.join(role_path, 'tasks/**/*.yml'), recursive=True))
-	files.extend(glob.glob(os.path.join(role_path, 'templates/**/*.j2'), recursive=True))
+	files.extend(pathlib.Path(role_dir, 'tasks').rglob('*.yml'))
+	files.extend(pathlib.Path(role_dir, 'templates').rglob('*.j2'))
 	regex = re.compile(r'(\|\s*)manala_', re.DOTALL)
 	for file_path in files:
 		with open(file_path, 'r+') as file:
@@ -127,7 +126,7 @@ for role in glob.glob('roles/*'):
 				file.truncate()
 	# Actions
 	files = []
-	files.extend(glob.glob(os.path.join(role_path, 'tasks/**/*.yml'), recursive=True))
+	files.extend(pathlib.Path(role_dir, 'tasks').rglob('*.yml'))
 	regex = r"^(\s+)manala_(\S+:)$"
 	for file_path in files:
 		with open(file_path, 'r+') as file:
