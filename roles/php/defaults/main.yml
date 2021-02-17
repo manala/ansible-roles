@@ -13,34 +13,36 @@ manala_php_sapis_default:
 # Extensions
 manala_php_extensions_exclusive: false
 manala_php_extensions: []
-manala_php_extensions_pecl_versioned: false
+manala_php_extensions_pecl_versioned: true # Deprecated
 
 # Configs
-manala_php_configs_template: ~
 manala_php_configs_exclusive: false
+manala_php_configs_dir: /etc/php/{{ manala_php_version|string }}
+manala_php_configs_template: ~ # Deprecated
+manala_php_configs_defaults:
+  template: "{{ manala_php_configs_template }}" # Ensure backward compatibility
 manala_php_configs: []
 manala_php_cli_configs: []
 manala_php_fpm_configs: []
-manala_php_cgi_configs: []
-manala_php_phpdbg_configs: []
 
 # Fpm pools
-manala_php_fpm_pools_template: ~
 manala_php_fpm_pools_exclusive: false
-manala_php_fpm_pools:
-  - file: www.conf
-    template: fpm_pools/default.j2
+manala_php_fpm_pools_dir: /etc/php/{{ manala_php_version|string }}/fpm/pool.d
+manala_php_fpm_pools_template: ~ # Deprecated
+manala_php_fpm_pools_defaults:
+  template: "{{ manala_php_fpm_pools_template }}" # Ensure backward compatibility
+manala_php_fpm_pools: []
 
 # Blackfire
 manala_php_blackfire: false
 
 manala_php_blackfire_agent_config_file: /etc/blackfire/agent
 manala_php_blackfire_agent_config_template: ~
-manala_php_blackfire_agent_config: []
+manala_php_blackfire_agent_config: ~
 
 manala_php_blackfire_client_config_file: ~/.blackfire.ini
 manala_php_blackfire_client_config_template: ~
-manala_php_blackfire_client_config: []
+manala_php_blackfire_client_config: ~
 
 # Applications
 manala_php_applications_dir: /usr/local/bin

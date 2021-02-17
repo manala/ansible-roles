@@ -1,0 +1,163 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+package:
+  php8.0-cli:
+    installed: true
+  php8.0-fpm:
+    installed: true
+  php8.0-cgi:
+    installed: false
+  php8.0-phpdbg:
+    installed: false
+  php8.0-xml:
+    installed: true
+  php-memcached:
+    installed: false
+  php8.0-memcached:
+    installed: true
+  php7.4-memcached:
+    installed: false
+  # Extensions
+  php8.0-gd:
+    installed: true
+  php8.0-bz2:
+    installed: true
+  php8.0-igbinary:
+    installed: true
+  php8.0-xdebug:
+    installed: true
+  # State
+  php8.0-curl:
+    installed: true
+  php8.0-tidy:
+    installed: false
+  php-apcu:
+    installed: false
+  php-bcmath:
+    installed: false
+  # Blackfire
+  blackfire-agent:
+    installed: true
+  blackfire-php:
+    installed: true
+
+file:
+  # Extensions
+  /etc/php/8.0/cli/conf.d/20-date.ini:
+    exists: false
+  /etc/php/8.0/cli/conf.d/20-calendar.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/8.0/mods-available/calendar.ini
+  /etc/php/8.0/cli/conf.d/15-xml.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/8.0/mods-available/xml.ini
+  /etc/php/8.0/cli/conf.d/25-memcached.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/8.0/mods-available/memcached.ini
+  /etc/php/8.0/cli/conf.d/20-gd.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/8.0/mods-available/gd.ini
+  /etc/php/8.0/cli/conf.d/20-bz2.ini:
+    exists: false
+  /etc/php/8.0/cli/conf.d/20-igbinary.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/8.0/mods-available/igbinary.ini
+  /etc/php/8.0/cli/conf.d/20-xdebug.ini:
+    exists: false
+  # Applications
+  /usr/local/bin/phpcs:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/phpunit_9.5.1:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/phpunit:
+    exists: true
+    filetype: symlink
+    linked-to: phpunit_9.5.1
+    owner: root
+    group: root
+  /usr/local/bin/phpcbf:
+    exists: false
+  # Blackfire
+  /etc/blackfire/agent:
+    exists: true
+    contains:
+      - server-id=c74906db-43d3-4c96-ab27-010600321b89
+      - server-token=5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+  ~/.blackfire.ini:
+    exists: true
+    contains:
+      - client-id=b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+      - client-token=e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+
+command:
+  # Install
+  php --version:
+    exit-status: 0
+    stdout:
+      - PHP 8.0.
+  # Applications
+  phpcs --version:
+    exit-status: 0
+    stdout:
+      - PHP_CodeSniffer version
+  phpunit --version:
+    exit-status: 0
+    stdout:
+      - PHPUnit 9.5.1
+  phpcbf --version:
+    exit-status: 127
+  # Blackfire
+  blackfire status:
+    exit-status: 0
+  php -m:
+    exit-status: 0
+    stdout:
+      - blackfire
+  php-fpm8.0 -m:
+    exit-status: 0
+    stdout:
+      - blackfire
+
+service:
+  php8.0-fpm:
+    enabled: true
+    running: true
+  # Blackfire
+  blackfire-agent:
+    enabled: true
+    running: true
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+package:
+  php8.0-cli:
+    installed: true
+  php8.0-fpm:
+    installed: true
+  php8.0-cgi:
+    installed: false
+  php8.0-xml:
+    installed: true
+  php8.0-memcached:
+    installed: true
+  php8.0-tidy:
+    installed: false
+  php8.0-apcu:
+    installed: false
+{{ end }}

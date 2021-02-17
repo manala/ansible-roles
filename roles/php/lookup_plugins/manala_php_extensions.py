@@ -5,60 +5,66 @@ from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
 
+
 class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
         results = []
 
-        # Extensions - Available
+        wantstate = kwargs.pop('wantstate', None)
+
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
+        wantenabled = kwargs.pop('wantenabled', None)
+        wantmap = kwargs.pop('wantmap', False)
+
+        extensions = self._flatten(terms[0])
         extensionsAvailable = terms[1]
 
-        # Sapis - Available
         sapisAvailable = terms[2]
 
-        wantstate   = kwargs.pop('wantstate', None)
-        wantenabled = kwargs.pop('wantenabled', None)
-        wantmap     = kwargs.pop('wantmap', False)
-
-        ##############
-        # Extensions #
-        ##############
-
         itemDefault = {
-            'state':   'present',
+            'state': 'present',
             'enabled': None
         }
 
-        for term in self._flatten(terms[0]):
+        for extension in extensions:
 
             items = []
 
             # Short syntax
-            if isinstance(term, string_types):
+            if isinstance(extension, string_types):
                 item = itemDefault.copy()
                 item.update({
-                    'extension': term
+                    'extension': extension
                 })
             else:
 
                 # Must be a dict
-                if not isinstance(term, dict):
-                    raise AnsibleError('Expect a dict')
+                if not isinstance(extension, dict):
+                    raise AnsibleError('Expect a dict but was a %s' % type(extension))
 
                 # Check index key
-                if 'extension' not in term:
-                    raise AnsibleError('Expect "extension" key')
+                if 'extension' not in extension:
+                    raise AnsibleError('Expect an "extension" key')
 
                 item = itemDefault.copy()
-                item.update(term)
+                item.update(extension)
 
-            # Known as a sapi ?
-            if item.get('extension') in sapisAvailable:
-                raise AnsibleError('Extension "' + item.get('extension') + '" is known as a sapi')
+            # Extension known as a sapi ?
+            if item['extension'] in sapisAvailable:
+                raise AnsibleError('Extension "%s" is known as a sapi' % item['extension'])
 
             # Already embedded extension ?
-            if item.get('extension') in extensionsAvailable:
+            if item['extension'] in extensionsAvailable:
+                continue
+
+            if item['state'] not in ['present', 'absent', 'ignore']:
+                raise AnsibleError('Expect a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+            if item['state'] == 'ignore':
                 continue
 
             items.append(item)

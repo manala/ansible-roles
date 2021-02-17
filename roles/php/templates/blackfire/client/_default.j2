@@ -1,0 +1,64 @@
+{%- set config = manala_php_blackfire_client_config -%}
+
+{%- if config is mapping -%}
+
+[blackfire]
+{{- config | manala_php_blackfire_config_section }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
+
+[blackfire]
+;
+; This is a configuration file for Blackfire.
+;
+
+;
+; setting: ca-cert
+; desc   : Sets the PEM encoded certificates to use
+; default:
+{{ macros.config_row(config, 'ca-cert', '') }}
+
+;
+; setting: client-id
+; desc   : Sets the Client ID used for API authentication
+; default:
+{{ macros.config_row(config, 'client-id', '') }}
+
+;
+; setting: client-token
+; desc   : Sets the Client Token used for API authentication
+; default:
+{{ macros.config_row(config, 'client-token', '') }}
+
+;
+; setting: endpoint
+; desc   : Sets the API endpoint
+; default: https://blackfire.io
+{{ macros.config_row(config, 'endpoint', 'https://blackfire.io') }}
+
+;
+; setting: http-proxy
+; desc   : Sets the HTTP proxy to use
+; default:
+{{ macros.config_row(config, 'http-proxy', '') }}
+
+;
+; setting: https-proxy
+; desc   : Sets the HTTPS proxy to use
+; default:
+{{ macros.config_row(config, 'https-proxy', '') }}
+
+;
+; setting: timeout
+; desc   : Sets the Blackfire API connection timeout
+; default: 15s
+{{ macros.config_row(config, 'timeout', '15s') }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

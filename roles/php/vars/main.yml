@@ -13,17 +13,17 @@ manala_php_extensions_available:
   # Embedded #
   ############
   - date
-  - ereg # 5.6 only (deprecated)
+  - ereg # 5.6 (deprecated)
   - filter
   - hash
   - libxml
-  - mhash # 5.6 only (deprecated)
+  - mhash # 5.6 (deprecated)
   - openssl
   - pcntl
   - pcre
   - reflection
   - session
-  - sodium # Starting from 7.2
+  - sodium # 7.2+
   - spl
   - zlib
   ##########
@@ -32,6 +32,7 @@ manala_php_extensions_available:
   - calendar
   - ctype
   - exif
+  - ffi # 7.4+
   - fileinfo
   - ftp
   - gettext
@@ -54,42 +55,42 @@ manala_php_extensions_available:
 
 # Extensions - Pecl
 manala_php_extensions_pecl_available:
-    - amqp
-    - apcu
-    - apcu-bc
-    - ast
-    - ds
-    - gearman
-    - geoip
-    - gmagick
-    - http
-    - igbinary
-    - imagick
-    - mailparse
-    - memcache
-    - memcached
-    - mongo
-    - mongodb
-    - msgpack
-    - oauth
-    - propro
-    - radius
-    - raphf
-    - redis
-    - rrd
-    - sass
-    - smbclient
-    - solr
-    - ssh2
-    - stomp
-    - tideways
-    - uploadprogress
-    - uuid
-    - xcache
-    - xdebug
-    - yac
-    - yaml
-    - zmq
+  - amqp
+  - apcu
+  - apcu-bc
+  - ast
+  - ds
+  - gearman
+  - geoip
+  - gmagick
+  - http
+  - igbinary
+  - imagick
+  - mailparse
+  - memcache
+  - memcached
+  - mongo
+  - mongodb
+  - msgpack
+  - oauth
+  - propro
+  - radius
+  - raphf
+  - redis
+  - rrd
+  - sass
+  - smbclient
+  - solr
+  - ssh2
+  - stomp
+  - tideways
+  - uploadprogress
+  - uuid
+  - xcache
+  - xdebug
+  - yac
+  - yaml
+  - zmq
 
 # Applications
 manala_php_applications_patterns:

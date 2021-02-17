@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Php] PHP 8.0 support
+- [Php] Config filters
+- [Php] "state" applications parameter (present|ignore)
+- [Php] "ignore" extensions state parameter value
+- [Php] "ignore" sapis state parameter value
+
+### Changed
+- [Php] Use unified exclusive template lookup
+- [Php] "manala_php_extensions_pecl_versioned" default value to true (See: https://www.patreon.com/posts/october-update-42636315)
+- [Php] Deprecate "manala_php_extensions_pecl_versioned"
+- [Php] Deprecate environment oriented templates
+- [Php] Deprecate dict's array configs
+
+### Removed
+- [Php] "cgi" and "phpdbg" sapi configs support
+- [Php] useless "cli", "cgi" and "phpdbg" sapi restart handlers
 
 ## [0.1.109] - 2021-02-04
 ### Added

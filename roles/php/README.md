@@ -71,23 +71,23 @@ Using ansible galaxy requirements file:
 
 #### Version matrix
 
-| Version | Distribution | Repository | *manala_apt_preferences* | *manala_php_version* | *manala_php_extensions_pecl_versioned* |
-| :---    | :---:        | :---:      | ---:                     | ---:                 | ---:                                   |
-| **5.6** | Stretch      | Sury       | `php@sury_php`           | `5.6`                |                                        |
-| **5.6** | Buster       | Sury       | `php@sury_php`           | `5.6`                |                                        |
-| **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                | `true`                                 |
-| **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                |                                        |
-| **7.0** | Buster       | Sury       | `php@sury_php`           | `7.0`                |                                        |
-| **7.1** | Stretch      | Sury       | `php@sury_php`           | `7.1`                |                                        |
-| **7.1** | Buster       | Sury       | `php@sury_php`           | `7.1`                |                                        |
-| **7.2** | Stretch      | Sury       | `php@sury_php`           | `7.2`                |                                        |
-| **7.2** | Buster       | Sury       | `php@sury_php`           | `7.2`                |                                        |
-| **7.3** | Stretch      | Sury       | `php@sury_php`           | `7.3`                |                                        |
-| **7.3** | Buster       | Sury       | `php@sury_php`           | `7.3`                |                                        |
-| **7.4** | Stretch      | Sury       | `php@sury_php`           | `7.4`                |                                        |
-| **7.4** | Buster       | Sury       | `php@sury_php`           | `7.4`                |                                        |
-| **8.0** | Stretch      | Sury       | `php@sury_php`           | `8.0`                |                                        |
-| **8.0** | Buster       | Sury       | `php@sury_php`           | `8.0`                |                                        |
+| Version | Distribution | Repository | *manala_apt_preferences* | *manala_php_version* |
+| :---    | :---:        | :---:      | ---:                     | ---:                 |
+| **5.6** | Stretch      | Sury       | `php@sury_php`           | `5.6`                |
+| **5.6** | Buster       | Sury       | `php@sury_php`           | `5.6`                |
+| **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                |
+| **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                |
+| **7.0** | Buster       | Sury       | `php@sury_php`           | `7.0`                |
+| **7.1** | Stretch      | Sury       | `php@sury_php`           | `7.1`                |
+| **7.1** | Buster       | Sury       | `php@sury_php`           | `7.1`                |
+| **7.2** | Stretch      | Sury       | `php@sury_php`           | `7.2`                |
+| **7.2** | Buster       | Sury       | `php@sury_php`           | `7.2`                |
+| **7.3** | Stretch      | Sury       | `php@sury_php`           | `7.3`                |
+| **7.3** | Buster       | Sury       | `php@sury_php`           | `7.3`                |
+| **7.4** | Stretch      | Sury       | `php@sury_php`           | `7.4`                |
+| **7.4** | Buster       | Sury       | `php@sury_php`           | `7.4`                |
+| **8.0** | Stretch      | Sury       | `php@sury_php`           | `8.0`                |
+| **8.0** | Buster       | Sury       | `php@sury_php`           | `8.0`                |
 
 #### Sapis
 
@@ -96,8 +96,12 @@ manala_php_sapis_exclusive: true # Ensure other sapis are automatically absents
 manala_php_sapis:
   - cli
   - fpm
-  - sapi:  cgi
+  # Ensure sapi is absent
+  - sapi: cgi
     state: absent
+  # Ignore sapi
+  - sapi: phpdbg
+    state: ignore
 ```
 
 #### Extensions
@@ -107,10 +111,14 @@ manala_php_extensions_exclusive: true # Ensure other extensions are automaticall
 manala_php_extensions:
   - intl
   - gd
-  - extension: gd
-    state:     absent
   - extension: xdebug
-    enabled:   false # Ensure extension will be installed *but* disabled
+    enabled: false # Ensure extension will be installed *but* disabled
+  # Ensure extension is absent
+  - extension: gd
+    state: absent
+  # Ignore extension
+  - extension: xml
+    state: ignore
 ```
 
 #### Configs
@@ -124,15 +132,26 @@ manala_php_configs:
   # Template based
   - file: foo_template.ini
     template: configs/default.dev.j2
-  # Config based, empty template by default
+  # Config based
+  - file: foo.ini
+    config:
+      date.timezone: UTC
+  # Dict's array config based (deprecated)
   - file: foo.ini
     config:
       - date.timezone: UTC
   # Raw content based
   - file: foo_content.ini
-    content: |
+    config: |
       memory_limit = 512M
-    state: absent
+  # Ensure config is absent
+  - file: absent.ini
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.ini
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 Sapis specific
@@ -140,24 +159,20 @@ Sapis specific
 # Fpm
 manala_php_fpm_configs:
   - file: app.ini
-    # A development environment template with some preconfigured directives.
-    template: configs/default.dev.j2
     config:
-      - max_input_time:   60
-      - output_buffering: 4096
-      - expose_php:       true
-      - memory_limit:     512M
+      max_input_time: 60
+      output_buffering: 4096
+      expose_php: true
+      memory_limit: 512M
 
 # Cli
 manala_php_cli_configs:
   - file: app.ini
-    # A development environment template with some preconfigured directives.
-    template: configs/default.staging.j2
     config:
-      - max_input_time:   -1
-      - output_buffering: 4096
-      - expose_php:       false
-      - memory_limit:     2G
+      max_input_time: -1
+      output_buffering: 4096
+      expose_php: false
+      memory_limit: 2G
 ```
 
 #### Fpm pools
@@ -166,24 +181,51 @@ manala_php_cli_configs:
 manala_php_fpm_pools:
   - file: www.conf
     config:
+      www:
+        pm.max_children: 5
+        pm.start_servers: 2
+        pm.min_spare_servers: 1
+        pm.max_spare_servers: 3
+        env:
+          FOO: bar
+          APP_ENV: prod
+        php_flag:
+          display_errors: true
+  # Dict's array based (deprecated)
+  - file: www.conf
+    config:
       - www:
-        - pm.max_children:          5
-        - pm.start_servers:         2
-        - pm.min_spare_servers:     1
-        - pm.max_spare_servers:     3
+        - pm.max_children: 5
+        - pm.start_servers: 2
+        - pm.min_spare_servers: 1
+        - pm.max_spare_servers: 3
         - env:
-            FOO:     bar
+            FOO: bar
             APP_ENV: prod
         - php_flag[display_errors]: true
+  # Content based
+  - file: content.conf
+    config: |
+      [www]
+      user = foo
+      group = foo
+  # Ensure pool is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore pool
+  - file: ignore.conf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_pools_array }}"
 ```
 
 #### Applications:
 
 Installation of specific php applications
 
-```
-  php_applications:
-    - drush@8.1.18
+```yaml
+manala_php_applications:
+  - drush@8.1.18
 ```
 
 ##### List of available applications:
@@ -205,12 +247,12 @@ Installation of specific php applications
 manala_php_blackfire: true
 
 manala_php_blackfire_agent_config:
-  - server-id: your-server-id
-  - server-token: your-token-id
+  server-id: your-server-id
+  server-token: your-token-id
 
 manala_php_blackfire_client_config:
-  - client-id: your-client-id
-  - client-token: your-client-token
+  client-id: your-client-id
+  client-token: your-client-token
 ```
 
 ## Example playbook
@@ -218,7 +260,7 @@ manala_php_blackfire_client_config:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.php }
+    - role: manala.php
 ```
 
 # Licence

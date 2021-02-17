@@ -6,6 +6,7 @@ from ansible.errors import AnsibleError
 
 import os
 
+
 class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
@@ -14,10 +15,10 @@ class LookupModule(LookupBase):
 
         wantstate = kwargs.pop('wantstate', None)
 
-        configs          = self._flatten(terms[0])
-        configsSapi      = terms[1]
+        configs = self._flatten(terms[0])
+        configsSapi = terms[1]
         configsExclusive = self._flatten(terms[2])
-        configsDir       = terms[3]
+        configsDir = terms[3]
 
         itemDefault = {
             'state': 'present'

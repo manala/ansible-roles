@@ -1,0 +1,44 @@
+{%- set config = manala_php_blackfire_client_config|default({}, true) -%}
+
+[blackfire]
+;
+; setting: client-id
+; desc   : Sets the Client ID used for API authentication
+; default:
+{{ config | manala_php_blackfire_config_parameter('client-id', default='<YOUR_CLIENT_ID>') }}
+
+;
+; setting: client-token
+; desc   : Sets the Client Token used for API authentication
+; default:
+{{ config | manala_php_blackfire_config_parameter('client-token', default='<YOUR_CLIENT_TOKEN>') }}
+
+;
+; setting: http-proxy
+; desc   : Sets the HTTP proxy to use
+; default:
+{{ config | manala_php_blackfire_config_parameter('http-proxy', default='', comment=True) }}
+
+;
+; setting: https-proxy
+; desc   : Sets the HTTPS proxy to use
+; default:
+{{ config | manala_php_blackfire_config_parameter('https-proxy', default='', comment=True) }}
+
+;
+; setting: endpoint
+; desc   : Sets the API endpoint
+; default: https://blackfire.io
+{{ config | manala_php_blackfire_config_parameter('endpoint', default='https://blackfire.io', comment=True) }}
+
+;
+; setting: timeout
+; desc   : Sets the Blackfire API connection timeout
+; default: 15s
+{{ config | manala_php_blackfire_config_parameter('timeout', default='15s', comment=True) }}
+
+;
+; setting: ca-cert
+; desc   : Sets the PEM encoded certificates to use
+; default:
+{{ config | manala_php_blackfire_config_parameter('ca-cert', default='', comment=True) }}

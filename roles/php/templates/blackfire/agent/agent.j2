@@ -1,0 +1,84 @@
+{%- set config = manala_php_blackfire_agent_config|default({}, true) -%}
+
+[blackfire]
+;
+; This is a configuration file for Blackfire's Agent.
+;
+
+;
+; setting: ca-cert
+; desc   : Sets the PEM encoded certificates
+; default:
+{{ config | manala_php_blackfire_config_parameter('ca-cert', default='') }}
+
+;
+; setting: collector
+; desc   : Sets the URL of Blackfire's data collector
+; default: https://blackfire.io
+{{ config | manala_php_blackfire_config_parameter('collector', default='https://blackfire.io') }}
+
+;
+; setting: http-proxy
+; desc   : Sets the HTTP proxy to use
+; default:
+{{ config | manala_php_blackfire_config_parameter('http-proxy', default='') }}
+
+;
+; setting: https-proxy
+; desc   : Sets the HTTPS proxy to use
+; default:
+{{ config | manala_php_blackfire_config_parameter('https-proxy', default='') }}
+
+;
+; setting: log-file
+; desc   : Sets the path of the log file. Use stderr to log to stderr
+; default: stderr
+{{ config | manala_php_blackfire_config_parameter('log-file', default='stderr') }}
+
+;
+; setting: log-level
+; desc   : log verbosity level (4: debug, 3: info, 2: warning, 1: error)
+; default: 1
+{{ config | manala_php_blackfire_config_parameter('log-level', default=1) }}
+
+;
+; setting: memory-limit
+; desc   : Sets the maximum allowed RAM usage (megabytes). Use 0 to disable
+; default: 500
+{{ config | manala_php_blackfire_config_parameter('memory-limit', default=500) }}
+
+;
+; setting: server-id
+; desc   : Sets the server id used to authenticate with Blackfire API
+; default:
+{{ config | manala_php_blackfire_config_parameter('server-id', default='') }}
+
+;
+; setting: server-token
+; desc   : Sets the server token used to authenticate with Blackfire API. It is unsafe to set this from the command line
+; default:
+{{ config | manala_php_blackfire_config_parameter('server-token', default='') }}
+
+;
+; setting: socket
+; desc   : Sets the socket the agent should read traces from. Possible value can be a unix socket or a TCP address. ie: unix:///var/run/blackfire/agent.sock or tcp://127.0.0.1:8307
+; default: unix:///var/run/blackfire/agent.sock
+{{ config | manala_php_blackfire_config_parameter('socket', default='unix:///var/run/blackfire/agent.sock') }}
+
+;
+; setting: spec
+; desc   : Sets the path to the JSON specifications file
+; default:
+{{ config | manala_php_blackfire_config_parameter('spec', default='') }}
+
+;
+; setting: statsd
+; desc   : Sets the statsd server to send agent's statistics to. ie: udp://host:port. Leave empty to disable.
+; default:
+{{ config | manala_php_blackfire_config_parameter('statsd', default='') }}
+
+;
+; setting: statsd-prefix
+; desc   : Sets the statsd prefix to use when sending data
+; default: blackfire
+{{ config | manala_php_blackfire_config_parameter('statsd-prefix', default='blackfire') }}
