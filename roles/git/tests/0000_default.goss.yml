@@ -1,5 +1,9 @@
 ---
 
+package:
+  git:
+    installed: true
+
 file:
   /tmp/ansible-role-git/.git:
     exists: true

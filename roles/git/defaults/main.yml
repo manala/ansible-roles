@@ -8,7 +8,7 @@ manala_git_install_packages_default:
 # Config
 manala_git_config_file: /etc/gitconfig
 manala_git_config_template: ~
-manala_git_config: []
+manala_git_config: ~
 
 # Repositories
 manala_git_repositories: []

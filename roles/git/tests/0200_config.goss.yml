@@ -1,7 +1,54 @@
 ---
 
 file:
-  /etc/gitconfig:
+  tmp/config/default/default:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[foo]"
+      - "    foo = true"
+      - "    bar = false"
+      - "[bar]"
+      - "    foo = bar"
+      - "    bar = 123"
+  tmp/config/default/default_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[foo]"
+      - "    foo = true"
+      - "    bar = false"
+      - "[bar]"
+      - "    foo = bar"
+      - "    bar = 123"
+  tmp/config/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[foo]"
+      - "    foo = true"
+      - "    bar = false"
+      - "[bar]"
+      - "    foo = bar"
+      - "    bar = 123"
+  tmp/config/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config foo"
+  tmp/config/default/template_deprecated:
     exists: true
     filetype: file
     owner: root
@@ -9,4 +56,5 @@ file:
     mode: "0644"
     contains:
       - "[core]"
-      - "    preloadindex = true"
+      - "    preloadindex = false"
+      - "    untrackedCache = true"
