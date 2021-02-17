@@ -3,14 +3,74 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_git_config:
-      - core:
-        - preloadindex: true
-  pre_tasks:
-    - import_tasks: pre_tasks/backports.yml
-  roles:
-    - manala.git
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/backports.yml
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default
+        - import_role:
+            name: manala.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: tmp/config/default/default
+            manala_git_config:
+              foo:
+                foo: true
+                bar: false
+              bar:
+                foo: bar
+                bar: 123
+        # Default - Deprecated
+        - import_role:
+            name: manala.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: tmp/config/default/default_deprecated
+            manala_git_config:
+              - foo:
+                - foo: true
+                - bar: false
+              - bar:
+                - foo: bar
+                - bar: 123
+        # Default - Content
+        - import_role:
+            name: manala.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: tmp/config/default/default_content
+            manala_git_config: |
+              [foo]
+                  foo = true
+                  bar = false
+
+              [bar]
+                  foo = bar
+                  bar = 123
+        # Template
+        - import_role:
+            name: manala.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: tmp/config/default/template
+            manala_git_config_template: config/foo.j2
+        # Template - Deprecated
+        - import_role:
+            name: manala.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: tmp/config/default/template_deprecated
+            manala_git_config_template: config/default.dev.j2
+            manala_git_config:
+              - core:
+                - preloadindex: false
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml validate

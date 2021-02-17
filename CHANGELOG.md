@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Php] "state" applications parameter (present|ignore)
 - [Php] "ignore" extensions state parameter value
 - [Php] "ignore" sapis state parameter value
+- [Git] Dict based config filters
 
 ### Changed
 - [Php] Use unified exclusive template lookup
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Php] Deprecate "manala_php_extensions_pecl_versioned"
 - [Php] Deprecate environment oriented templates
 - [Php] Deprecate dict's array configs
+- [Git] Deprecate dict's array config
 
 ### Removed
 - [Php] "cgi" and "phpdbg" sapi configs support
