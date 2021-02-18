@@ -39,7 +39,7 @@ None
 | Name                                     | Default                      | Type    | Description                                                    |
 | ---------------------------------------- | ---------------------------- | ------- | -------------------------------------------------------------- |
 | `manala_ohmyzsh_dir`                     | '/usr/local/share/oh-my-zsh' | String  | Oh My Zsh installation directory                               |
-| `manala_ohmyzsh_users_template`          | 'users/default.j2'           | String  | User config template                                           |
+| `manala_ohmyzsh_users_defaults`          | []                           | Array   | Users config defaults                                          |
 | `manala_ohmyzsh_users`                   | []                           | Array   | Collection of users with ohMyZsh custom configurations.        |
 | `manala_ohmyzsh.update`                  | false                        | Boolean | Whether or not we should auto retrieve new revision of ohMyZsh |
 | `manala_ohmyzsh_custom_themes_exclusive` | false                        | Boolean | Exclusion of existing custom themes                            |
@@ -50,15 +50,11 @@ None
 
 ### Oh My Zsh configuration
 
-The `manala_ohmyzsh_users_template` key will allow you to use different main configuration templates. The role is shipped with basic templates :
-
-- base (Simple template with common configuration)
-- dev (Dev configuration, provide a different OhMyZsh theme than production template)
-- empty ("Let me handle this" template, no default configuration inside.)
-- prod (For production purpose.)
+The `manala_ohmyzsh_users_defaults` key will allow you to define different users configuration default templates.
 
 ```yaml
-manala_ohmyzsh_users_template: users/default.j2
+manala_ohmyzsh_users_defaults:
+  template: my/.zshrc.j2
 ```
 
 The `manala_ohmyzsh_dir` key is used to specify the path where to checkout oh-my-zsh
@@ -71,34 +67,42 @@ manala_ohmyzsh_dir: /usr/local/share/oh-my-zsh
 
 This part allow you, with the key `manala_ohmyzsh_users`, to configure each user account as following:
 
-| Name       | Default                      | Type   | Description                               |
-| ---------- | ---------------------------- | ------ | ----------------------------------------- |
-| `user`     | ~ (required)                 | String | User account name                         |
-| `home`     | root or '/home/' ~ item.user | String | User account home directory               |
-| `template` | ~ (required)                 | String | Template used for Oh My Zsh configuration |
-| `config`   | []                           | Array  | List of Oh My Zsh options                 |
-| `state`    | 'present'                    | String | State                                     |
-
+| Name       | Default                   | Type         | Description                               |
+| ---------- | ------------------------- | ------------ | ----------------------------------------- |
+| `user`     | ~ (required)              | String       | User account name                         |
+| `home`     | 'root' or '~' ~ item.user | String       | User account home directory               |
+| `template` | ~                         | String       | Template used for Oh My Zsh configuration |
+| `config`   | ~                         | Array/String | List of Oh My Zsh options                 |
+| `state`    | 'present'                 | String       | State                                     |
 
 ```yaml
----
-
-env: prod
-
 manala_ohmyzsh_users:
+  # Template (recommended)
   - user: root
-    template: users/default.{{ env }}.j2
+    template: users/manala/.zshrc.j2
     config:
-      - ZSH_THEME: default.prod
-      - plugins: (git debian common-aliases history history-substring-search)
-  - user: foo
-    group: root # Default to user primary group, but can be overriden
-    template: users/default.{{ env }}.j2
+      ZSH_THEME: default.prod
+      plugins: [git, debian, common-aliases, history, history-substring-search]
+  # Dict config
+  - user: root
+    group: foo # Default to user primary group, but can be overriden
+    config:
+      ZSH_THEME: default.prod
+      plugins: [git, debian, common-aliases, history, history-substring-search]
+  # Raw config
+  - user: root
+    config: |
+      # Path to your oh-my-zsh installation.
+      export ZSH=$HOME/.oh-my-zsh
+  # Dict's array parameters (deprecated):
+  - user: root
     config:
       - ZSH_THEME: default.prod
       - plugins: (git debian common-aliases history history-substring-search)
   - user: bar
     state: ignore # Entry will be ignored
+  # Flatten users
+  - "{{ my_custom_users_array }}"
 ```
 
 ### Custom themes
@@ -153,15 +157,7 @@ manala:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.ohmyzsh }
-```
-
-## Testing themes
-
-```bash
-make dev@jessie
-make test-themes
-/bin/zsh
+    - role: manala.ohmyzsh
 ```
 
 # Licence

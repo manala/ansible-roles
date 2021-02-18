@@ -1,15 +1,13 @@
-{%- import '_macros.j2' as macros with context -%}
-
-{%- set config = item.config|default([]) -%}
+{%- set config = item.config|default({}) -%}
 
 # If you come from bash you might have to change your $PATH.
-{{ macros.config_row(config, 'export PATH', '# export PATH=$HOME/bin:/usr/local/bin:$PATH', true) }}
+{{ config | manala_zsh_config_parameter('export PATH', comment='# export PATH=$HOME/bin:/usr/local/bin:$PATH') }}
 
 # Path to your oh-my-zsh installation.
-{{ macros.config_row(config, 'export ZSH', manala_ohmyzsh_dir) }}
+{{ config | manala_zsh_config_parameter('export ZSH', default=manala_ohmyzsh_dir) }}
 
 # Ensure per-user cache
-{{ macros.config_row(config, 'ZSH_CACHE_DIR', '$HOME/.oh-my-zsh/cache') }}
+{{ config | manala_zsh_config_parameter('ZSH_CACHE_DIR', default='$HOME/.oh-my-zsh/cache') }}
 
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir -p $ZSH_CACHE_DIR
@@ -19,49 +17,51 @@ fi
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-{{ macros.config_row(config, 'ZSH_THEME', 'robbyrussell') }}
+{{ config | manala_zsh_config_parameter('ZSH_THEME', default='robbyrussell') }}
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-{{ macros.config_row(config, 'ZSH_THEME_RANDOM_CANDIDATES', '# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )', true) }}
+{{ config | manala_zsh_config_parameter('ZSH_THEME_RANDOM_CANDIDATES', comment='# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )') }}
 
 # Uncomment the following line to use case-sensitive completion.
-{{ macros.config_row(config, 'CASE_SENSITIVE', '# CASE_SENSITIVE="true"', true) }}
+{{ config | manala_zsh_config_parameter('CASE_SENSITIVE', default=true, comment=true) }}
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-{{ macros.config_row(config, 'HYPHEN_INSENSITIVE', '# HYPHEN_INSENSITIVE="true"', true) }}
+{{ config | manala_zsh_config_parameter('HYPHEN_INSENSITIVE', default=true, comment=true) }}
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-{{ macros.config_row(config, 'DISABLE_AUTO_UPDATE', '# DISABLE_AUTO_UPDATE="true"', true) }}
+{{ config | manala_zsh_config_parameter('DISABLE_AUTO_UPDATE', default=true, comment=true) }}
 
 # Uncomment the following line to automatically update without prompting.
-{{ macros.config_row(config, 'DISABLE_UPDATE_PROMPT', '# DISABLE_UPDATE_PROMPT="true"', true) }}
+{{ config | manala_zsh_config_parameter('DISABLE_UPDATE_PROMPT', default=true, comment=true) }}
 
 # Uncomment the following line to change how often to auto-update (in days).
-{{ macros.config_row(config, 'UPDATE_ZSH_DAYS', '# export UPDATE_ZSH_DAYS=13', true) }}
+{{ config | manala_zsh_config_parameter('export UPDATE_ZSH_DAYS', default=13, comment=true) }}
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-{{ macros.config_row(config, 'DISABLE_MAGIC_FUNCTIONS', '# DISABLE_MAGIC_FUNCTIONS="true"', true) }}
+{{ config | manala_zsh_config_parameter('DISABLE_MAGIC_FUNCTIONS', default=true, comment=true) }}
 
 # Uncomment the following line to disable colors in ls.
-{{ macros.config_row(config, 'DISABLE_LS_COLORS', '# DISABLE_LS_COLORS="true"', true) }}
+{{ config | manala_zsh_config_parameter('DISABLE_LS_COLORS', default=true, comment=true) }}
 
 # Uncomment the following line to disable auto-setting terminal title.
-{{ macros.config_row(config, 'DISABLE_AUTO_TITLE', '# DISABLE_AUTO_TITLE="true"', true) }}
+{{ config | manala_zsh_config_parameter('DISABLE_AUTO_TITLE', default=true, comment=true) }}
 
 # Uncomment the following line to enable command auto-correction.
-{{ macros.config_row(config, 'ENABLE_CORRECTION', '# ENABLE_CORRECTION="true"', true) }}
+{{ config | manala_zsh_config_parameter('ENABLE_CORRECTION', default=true, comment=true) }}
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-{{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', '# COMPLETION_WAITING_DOTS="true"', true) }}
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+{{ config | manala_zsh_config_parameter('COMPLETION_WAITING_DOTS', default=true, comment=true) }}
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-{{ macros.config_row(config, 'DISABLE_UNTRACKED_FILES_DIRTY', '# DISABLE_UNTRACKED_FILES_DIRTY="true"', true) }}
+{{ config | manala_zsh_config_parameter('DISABLE_UNTRACKED_FILES_DIRTY', default=true, comment=true) }}
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -69,28 +69,26 @@ fi
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-{{ macros.config_row(config, 'HIST_STAMPS', '# HIST_STAMPS="mm/dd/yyyy"', true) }}
+{{ config | manala_zsh_config_parameter('HIST_STAMPS', default='mm/dd/yyyy', comment=true) }}
 
 # Would you like to use another custom folder than $ZSH/custom?
-{{ macros.config_row(config, 'ZSH_CUSTOM', '# ZSH_CUSTOM=/path/to/new-custom-folder', true) }}
+{{ config | manala_zsh_config_parameter('ZSH_CUSTOM', comment='# ZSH_CUSTOM=/path/to/new-custom-folder') }}
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-{{ macros.config_row(config, 'plugins', '(
-  git
-)') }}
+{{ config | manala_zsh_config_parameter('plugins', default=['git']) }}
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-{{ macros.config_row(config, 'export MANPATH', '# export MANPATH="/usr/local/man:$MANPATH"', true) }}
+{{ config | manala_zsh_config_parameter('export MANPATH', default='/usr/local/man:$MANPATH', comment=true) }}
 
 # You may need to manually set your language environment
-{{ macros.config_row(config, 'export LANG', '# export LANG=en_US.UTF-8', true) }}
+{{ config | manala_zsh_config_parameter('export LANG', comment='# export LANG=en_US.UTF-8') }}
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -100,15 +98,15 @@ source $ZSH/oh-my-zsh.sh
 # fi
 
 # Compilation flags
-{{ macros.config_row(config, 'export ARCHFLAGS', '# export ARCHFLAGS="-arch x86_64"', true) }}
+{{ config | manala_zsh_config_parameter('export ARCHFLAGS', default='-arch x86_64', comment=true) }}
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-{{ macros.config_row(config, 'alias', '#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"', true) }}
+{{ config | manala_zsh_config_parameter('alias', comment='#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"') }}
 
-{{ macros.config(config, [
+{{ config | manala_zsh_config(exclude=[
     'export PATH',
     'export ZSH',
     'ZSH_CACHE_DIR',

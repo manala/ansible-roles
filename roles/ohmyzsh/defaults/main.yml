@@ -19,7 +19,9 @@ manala_ohmyzsh_custom_themes:
     template: custom/themes/default.prod.j2
 
 # Users
-manala_ohmyzsh_users_template: ~
+manala_ohmyzsh_users_template: ~ # Deprecated
+manala_ohmyzsh_users_defaults:
+  template: "{{ manala_ohmyzsh_users_template }}" # Ensure backward compatibility
 manala_ohmyzsh_users: []
 
 # Flags

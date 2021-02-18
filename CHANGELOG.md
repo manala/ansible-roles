@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Php] "ignore" extensions state parameter value
 - [Php] "ignore" sapis state parameter value
 - [Git] Dict based config filters
+- [OhMyZsh] Flatten users array
+- [OhMyZsh] Dict based users config filters
 
 ### Changed
 - [Php] Use unified exclusive template lookup
@@ -20,6 +22,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Php] Deprecate environment oriented templates
 - [Php] Deprecate dict's array configs
 - [Git] Deprecate dict's array config
+- [OhMyZsh] Update users templates
+- [OhMyZsh] Deprecate dict's array users config
 
 ### Removed
 - [Php] "cgi" and "phpdbg" sapi configs support
