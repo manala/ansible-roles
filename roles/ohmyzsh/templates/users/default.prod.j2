@@ -1,3 +1,5 @@
+{#- Deprecated -#}
+
 {%- import '_macros.j2' as macros with context -%}
 
 {%- set config = item.config|default([]) -%}
@@ -56,6 +58,8 @@ fi
 {{ macros.config_row(config, 'ENABLE_CORRECTION', '# ENABLE_CORRECTION="true"', true) }}
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 {{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', '# COMPLETION_WAITING_DOTS="true"', true) }}
 
 # Uncomment the following line if you want to disable marking untracked files

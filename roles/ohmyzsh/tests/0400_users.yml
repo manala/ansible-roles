@@ -8,23 +8,64 @@
 
     - block:
         - user:
-            name: "{{ item }}"
-          loop: [foo, bar, baz]
-
-    - block:
+            name: foo
+        - file:
+            path: tmp/users/{{ item }}
+            state: absent
+          loop: [default, default_deprecated, default_content, template, template_deprecated]
+        - file:
+            path: tmp/users/{{ item }}
+            state: directory
+          loop: [default, default_deprecated, default_content, template, template_deprecated]
         - import_role:
             name: manala.ohmyzsh
             tasks_from: users
           vars:
             manala_ohmyzsh_users:
+              # Default
               - user: foo
-                template: users/php.dev.j2
-              - user: bar
-                template: users/php.dev.j2
-                state: present
-              - user: baz
-                template: users/php.dev.j2
-                state: ignore
+                dir: tmp/users/default
+                config:
+                  foo: ~
+                  bar: true
+                  baz: false
+                  qux: foo
+                  quux: 123
+                  corge: [foo, bar, baz]
+              # Default - Deprecated
+              - user: foo
+                dir: tmp/users/default_deprecated
+                config:
+                  - ZSH_THEME: foo
+                  - foo: ~
+                  - bar: true
+                  - baz: false
+                  - qux: foo
+                  - quux: 123
+                  - corge: (foo bar baz)
+              # Default - Content
+              - user: foo
+                dir: tmp/users/default_content
+                config: |
+                  # Path to your oh-my-zsh installation.
+                  export ZSH=$HOME/.oh-my-zsh
+              # Flatten
+              -
+                # Template
+                - user: foo
+                  dir: tmp/users/template
+                  template: users/manala/.zshrc.j2
+                  config:
+                    ZSH_THEME: foo
+                # Template - Deprecated
+                - user: foo
+                  dir: tmp/users/template_deprecated
+                  template: users/php.dev.j2
+                  config:
+                    - ZSH_THEME: foo
+                - user: foo
+                  dir: tmp/users/ignore
+                  state: ignore
       always:
         - name: Goss
           command: >

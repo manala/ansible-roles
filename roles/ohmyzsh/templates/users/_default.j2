@@ -1,11 +1,16 @@
-{#- Deprecated -#}
+{%- set config = item.config|default('') -%}
 
+{%- if config is mapping -%}
+
+{{ config | manala_zsh_config }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
 {%- import '_macros.j2' as macros with context -%}
 
-{%- set config = item.config|default([]) -%}
-
 # If you come from bash you might have to change your $PATH.
-{{ macros.config_row(config, 'export PATH', './bin:./vendor/bin:./node_modules/.bin:$PATH') }}
+{{ macros.config_row(config, 'export PATH', '# export PATH=$HOME/bin:/usr/local/bin:$PATH', true) }}
 
 # Path to your oh-my-zsh installation.
 {{ macros.config_row(config, 'export ZSH', manala_ohmyzsh_dir) }}
@@ -21,7 +26,7 @@ fi
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-{{ macros.config_row(config, 'ZSH_THEME', 'default.dev') }}
+{{ macros.config_row(config, 'ZSH_THEME', 'robbyrussell') }}
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -60,7 +65,7 @@ fi
 # Uncomment the following line to display red dots whilst waiting for completion.
 # Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
 # See https://github.com/ohmyzsh/ohmyzsh/issues/5765
-{{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', true) }}
+{{ macros.config_row(config, 'COMPLETION_WAITING_DOTS', '# COMPLETION_WAITING_DOTS="true"', true) }}
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -83,7 +88,7 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-{{ macros.config_row(config, 'plugins', '(git debian common-aliases history history-substring-search npm composer symfony2 yarn)') }}
+{{ macros.config_row(config, 'plugins', '(git)') }}
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,16 +115,6 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 {{ macros.config_row(config, 'alias', '#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"', true) }}
 
-echo
-
-{% include '_function_ip.j2' %}
-
-{% include '_function_php_xdebug.j2' %}
-
-{% include '_function_nginx_timeout.j2' %}
-
-{% include '_function_ngrok_http.j2' %}
-
 {{ macros.config(config, [
     'export PATH',
     'export ZSH',
@@ -143,5 +138,11 @@ echo
     'export MANPATH',
     'export LANG',
     'export ARCHFLAGS',
-     'alias'
+    'alias'
 ]) }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}
