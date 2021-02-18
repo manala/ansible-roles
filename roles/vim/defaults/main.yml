@@ -11,4 +11,4 @@ manala_vim_install_packages_default:
 # Config
 manala_vim_config_file: /etc/vim/vimrc.local
 manala_vim_config_template: ~
-manala_vim_config: []
+manala_vim_config: ~

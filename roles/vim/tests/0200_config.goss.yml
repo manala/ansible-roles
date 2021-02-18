@@ -1,7 +1,7 @@
 ---
 
 file:
-  /etc/vim/vimrc.local:
+  tmp/config/default/default:
     exists: true
     filetype: file
     owner: root
@@ -9,4 +9,39 @@ file:
     mode: "0644"
     contains:
       - set encoding=utf8
+      - set expandtab
+  tmp/config/default/default_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - set encoding=utf8
+      - set expandtab
+  tmp/config/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - set encoding=utf8
+      - set expandtab
+  tmp/config/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - Config foo
+  tmp/config/default/template_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - set encoding=iso-8859-1
       - set expandtab
