@@ -1,0 +1,38 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.apache' -%}
+
+# Read Apache status information (mod_status)
+[[{{ section }}]]
+  ## An array of URLs to gather from, must be directed at the machine
+  ## readable version of the mod_status page including the auto query string.
+  ## Default is "http://localhost/server-status?auto".
+  {{ macros.config_row(config, 'urls', ['http://localhost/server-status?auto']) }} 
+
+  ## Credentials for basic HTTP authentication.
+  {{ macros.config_row(config, 'username',  '# username = "myuser"', 0, true) }}
+  {{ macros.config_row(config, 'password',  '# password = "mypassword"', 0, true) }}
+
+  ## Maximum time to receive response.
+  {{ macros.config_row(config, 'response_timeout',  '# response_timeout = "5s"', 0, true) }}
+
+  ## Optional TLS Config
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.pem"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
+
+{{ macros.config(config, [
+  'urls',
+  'username',
+  'password',
+  'response_timeout',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify'
+], 2) }}
+
+{%- include '_tags.j2' %}
