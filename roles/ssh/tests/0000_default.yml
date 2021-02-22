@@ -1,0 +1,36 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  tasks:
+
+    # Default
+    - tags: [default]
+      block:
+        - import_role:
+            name: manala.ssh
+          vars:
+            manala_ssh_known_hosts:
+              - github.com
+      # always:
+      #   - name: Goss
+      #     command: >
+      #       goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # # Client
+    # - tags: [client]
+    #   block:
+    #     - apt:
+    #         name:
+    #           - openssh-server
+    #           - openssh-client
+    #         state: absent
+    #     - import_role:
+    #         name: manala.ssh
+    #       vars:
+    #         manala_ssh_server: false
+    #   always:
+    #     - name: Goss
+    #       command: >
+    #         goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [client]}" validate

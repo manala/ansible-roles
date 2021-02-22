@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Dict based config filters
+- Introduce version check
+
+# Changed
+- Deprecate dict's array config
+
+# Removed
+- Useless `manala_ssh_client` flag
 
 ## [3.0.3] - 2020-08-26
 ### Changed

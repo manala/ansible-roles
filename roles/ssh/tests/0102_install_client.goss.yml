@@ -1,7 +1,0 @@
----
-
-package:
-  openssh-server:
-    installed: false
-  openssh-client:
-    installed: true

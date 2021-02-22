@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [OhMyZsh] Flatten users array
 - [OhMyZsh] Dict based users config filters
 - [Vim] Dict based config filters
+- [Ssh] Dict based config filters
+- [Ssh] Introduce version check
 
 ### Changed
 - [Php] Use unified exclusive template lookup
@@ -26,10 +28,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [OhMyZsh] Update users templates
 - [OhMyZsh] Deprecate dict's array users config
 - [Vim] Deprecate dict's array config
+- [Ssh] Deprecate dict's array config
 
 ### Removed
 - [Php] "cgi" and "phpdbg" sapi configs support
 - [Php] useless "cli", "cgi" and "phpdbg" sapi restart handlers
+- [Ssh] Useless `manala_ssh_client` flag
 
 ## [0.1.109] - 2021-02-04
 ### Added
