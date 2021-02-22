@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.110] - 2021-02-22
 ### Added
 - [Php] PHP 8.0 support
 - [Php] Config filters
