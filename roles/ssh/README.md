@@ -59,36 +59,62 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                  | Default                                     | Type    | Description                                |
-| ------------------------------------- | ------------------------------------------- | ------- | ------------------------------------------ |
-| `manala_ssh_install_packages`         | ~                                           | Array   | Dependency packages to install             |
-| `manala_ssh_install_packages_default` | ['openssh-server']                          | Array   | Default dependency packages to install     |
-| `manala_ssh_server`                   | true                                        | Boolean | Enable server                              |
-| `manala_ssh_server_config_file`       | '/etc/ssh/sshd_config'                      | String  | Server configuration file path             |
-| `manala_ssh_server_config_template`   | 'config/server/[distribution]_[release].j2' | String  | Server default configuration template path |
-| `manala_ssh_server_config`            | []                                          | Array   | Server configuration directives            |
-| `manala_ssh_client`                   | true                                        | Boolean | Enable client                              |
-| `manala_ssh_client_config_file`       | '/etc/ssh/ssh_config'                       | String  | Client configuration file path             |
-| `manala_ssh_client_config_template`   | 'config/client/[distribution]_[release].j2' | String  | Client default configuration template path |
-| `manala_ssh_client_config`            | []                                          | Array   | Client configuration directives            |
-| `manala_ssh_known_hosts`              | []                                          | Array   | Known hosts                                |
+| Name                                  | Default                                     | Type         | Description                                |
+| ------------------------------------- | ------------------------------------------- | ------------ | ------------------------------------------ |
+| `manala_ssh_install_packages`         | ~                                           | Array        | Dependency packages to install             |
+| `manala_ssh_install_packages_default` | ['openssh-server']                          | Array        | Default dependency packages to install     |
+| `manala_ssh_server`                   | true                                        | Boolean      | Enable server                              |
+| `manala_ssh_server_config_file`       | '/etc/ssh/sshd_config'                      | String       | Server configuration file path             |
+| `manala_ssh_server_config_template`   | 'config/server/[distribution]_[release].j2' | String       | Server default configuration template path |
+| `manala_ssh_server_config`            | ~                                           | Array/String | Server configuration directives            |
+| `manala_ssh_client_config_file`       | '/etc/ssh/ssh_config'                       | String       | Client configuration file path             |
+| `manala_ssh_client_config_template`   | 'config/client/[distribution]_[release].j2' | String       | Client default configuration template path |
+| `manala_ssh_client_config`            | ~                                           | Array/String | Client configuration directives            |
+| `manala_ssh_known_hosts`              | []                                          | Array        | Known hosts                                |
 
 ### Configuration example
 
+Use default debian templates (recommended)
 ```yaml
-# Use default custom templates
-manala_ssh_server_config_template: config/server/default.[env].j2
-manala_ssh_client_config_template: config/client/default.[env].j2
+manala_ssh_server_config_template: config/server/debian/sshd_config.j2
+manala_ssh_client_config_template: config/client/debian/ssh_config.j2
+```
 
+Use dict parameters:
+```yaml
+manala_ssh_client_config:
+  Host *:
+    SendEnv: LANG LC_* FOO
+manala_ssh_server_config:
+  AcceptEnv: LANG LC_* FOO
+  Match User bar:
+    AcceptEnv: LANG LC_* BAR
+```
+
+Use raw config:
+```yaml
+manala_ssh_client_config: |
+  Host *
+      SendEnv LANG LC_* FOO
+manala_ssh_server_config: |
+  AcceptEnv LANG LC_* FOO
+  Match User bar
+      AcceptEnv LANG LC_* BAR
+```
+
+Use dict's array parameters (deprecated):
+```yaml
 manala_ssh_client_config:
   - Host *:
     - SendEnv: LANG LC_* FOO
-
 manala_ssh_server_config:
   - AcceptEnv: LANG LC_* FOO
   - Match User bar:
     - AcceptEnv: LANG LC_* BAR
+```
 
+Known hosts
+```yaml
 manala_ssh_known_hosts:
   - github.com
 ```
@@ -98,7 +124,7 @@ manala_ssh_known_hosts:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.ssh }
+    - role: manala.ssh
 ```
 
 # Licence

@@ -1,0 +1,16 @@
+{%- set config = manala_ssh_client_config -%}
+
+{%- if config is mapping -%}
+
+{{ config | manala_ssh_config }}
+
+{%- elif config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- include ansible_distribution|lower ~ '_' ~ ansible_distribution_release ~ '.j2' -%}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

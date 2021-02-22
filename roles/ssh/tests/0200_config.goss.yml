@@ -1,7 +1,33 @@
 ---
 
 file:
-  /etc/ssh/sshd_config:
+  tmp/config/default/server.default:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "foo none"
+      - "bar yes"
+      - "baz no"
+      - "qux foo"
+      - "quux 123"
+      - "corge foo"
+      - "corge bar"
+      - "corge baz"
+      - "grault"
+      - "    foo bar"
+      - "    bar 123"
+  tmp/config/default/client.default:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "foo bar"
+  tmp/config/default/server.default_deprecated:
     exists: true
     filetype: file
     owner: root
@@ -9,12 +35,77 @@ file:
     mode: "0644"
     contains:
       - "AcceptEnv LANG LC_* FOO"
+      - "Match User bar"
       - "    X11Forwarding no"
-  /etc/ssh/ssh_config:
+  tmp/config/default/client.default_deprecated:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
+      - "Host *"
       - "    SendEnv LANG LC_* FOO"
+  tmp/config/default/server.default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "# Allow client to pass locale environment variables"
+      - "AcceptEnv LANG LC_* FOO"
+      - "Match User bar"
+      - "    X11Forwarding no"
+  tmp/config/default/client.default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Host *"
+      - "    SendEnv LANG LC_* FOO"
+  tmp/config/default/server.template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Port 123"
+      - "foo bar"
+  tmp/config/default/client.template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Host *"
+      - "    ForwardX11 yes"
+      - "    HashKnownHosts no"
+      - "    bar 123"
+      - "    foo bar"
+      - "Host foo"
+      - "    bar 123"
+      - "    foo bar"
+  tmp/config/default/server.template_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "PermitRootLogin no"
+      - "PermitEmptyPasswords yes"
+  tmp/config/default/client.template_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Host *"
+      - "    HashKnownHosts no"
+      - "    GSSAPIAuthentication yes"
