@@ -36,49 +36,58 @@ None
 
 ## Role Variables
 
-| Name                                  | Default                | Type   | Description                            |
-| ------------------------------------- | ---------------------- | ------ | -------------------------------------- |
-| `manala_vim_install_packages`         | ~                      | Array  | Dependency packages to install         |
-| `manala_vim_install_packages_default` | ['vim']                | Array  | Default dependency packages to install |
-| `manala_vim_config_template`          | 'config/empty.j2'      | String | `vimrc.local` template path            |
-| `manala_vim_config_file`              | '/etc/vim/vimrc.local' | String | Configuration file path                |
-| `manala_vim_config`                   | []                     | Array  | Configuration directives               |
+| Name                                  | Default                | Type         | Description                            |
+| ------------------------------------- | ---------------------- | ------------ | -------------------------------------- |
+| `manala_vim_install_packages`         | ~                      | Array        | Dependency packages to install         |
+| `manala_vim_install_packages_default` | ['vim']                | Array        | Default dependency packages to install |
+| `manala_vim_config_template`          | 'config/empty.j2'      | String       | `vimrc.local` template path            |
+| `manala_vim_config_file`              | '/etc/vim/vimrc.local' | String       | Configuration file path                |
+| `manala_vim_config`                   | ~                      | Array/String | Configuration directives               |
 
 ### Configuring VIM
 
-The `manala_nginx_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
-
-- base (Simple template with common configuration)
-- dev (Development configuration)
-- empty ("Let me handle this" template, no default configuration inside.)
-- prod (For production purpose.)
+The `manala_vim_config_template` key will allow you to use configuration templates.
 
 #### Example
 
 ```yaml
----
-env: prod
-
-manala_vim_config_template: config/default.{{ env }}.j2
+manala_vim_config_template: my/vim.j2
 ```
 In combination with it you can specify the vim configuration file with the `manala_vim_config_file`:
 
 ```yaml
----
-
 manala_vim_config_file: /etc/vim/vimrc.local
 ```
 
 The `manala_vim_config` is used ton configure vim, you can specify any of the vim options (see: [http://vimconfig.com/](http://vimconfig.com/)) like following:
 
+Use dict parameters:
 ```yaml
 manala_vim_config:
-    syntax: "on"
-    encoding: utf8
-    expandtab: true   # Use spaces instead of tabs
-    smarttab: true   # Be smart when using tabs ;)
-    shiftwidth: 4      # 1 tab == 4 spaces
-    tabstop: 4
+  syntax: "on"
+  encoding: utf8
+  expandtab: true   # Use spaces instead of tabs
+  smarttab: true   # Be smart when using tabs ;)
+  shiftwidth: 4      # 1 tab == 4 spaces
+  tabstop: 4
+```
+
+Use raw config:
+```yaml
+manala_vim_config: |
+  set encoding=utf8
+  set expandtab
+```
+
+Use dict's array parameters (deprecated):
+```yaml
+manala_vim_config:
+  - syntax: "on"
+  - encoding: utf8
+  - expandtab: true   # Use spaces instead of tabs
+  - smarttab: true   # Be smart when using tabs ;)
+  - shiftwidth: 4      # 1 tab == 4 spaces
+  - tabstop: 4
 ```
 
 ## Example playbook
