@@ -3,26 +3,27 @@ __metaclass__ = type
 
 from ansible.errors import AnsibleFilterError
 from ansible.module_utils.six import iteritems, string_types
+from ansible.plugins.filter.core import flatten
 
 from numbers import Number
 
 
-def config(config, exclude=[]):
-    if not isinstance(config, dict):
-        raise AnsibleFilterError('manala_supervisor_config expects a dict but was given a %s' % type(config))
-    [config.pop(key, None) for key in exclude]
+def config(sections, exclude=[]):
+    if not isinstance(sections, dict):
+        raise AnsibleFilterError('manala_supervisor_config expects a dict but was given a %s' % type(sections))
+    [sections.pop(key, None) for key in exclude]
     result = ''
-    for section, parameters in sorted(iteritems(config)):
+    for section, parameters in sorted(iteritems(sections)):
         result += '[%s]%s\n\n' % (
             section,
-            config_parameters(parameters)
+            config_section(parameters)
         )
     return result.rsplit('\n', 1)[0]
 
 
-def config_parameters(parameters, exclude=[]):
+def config_section(parameters, exclude=[]):
     if not isinstance(parameters, dict):
-        raise AnsibleFilterError('manala_supervisor_config_parameters expects a dict but was given a %s' % type(parameters))
+        raise AnsibleFilterError('manala_supervisor_config_section expects a dict but was given a %s' % type(parameters))
     [parameters.pop(key, None) for key in exclude]
     result = ''
     for key in sorted(parameters):
@@ -39,38 +40,45 @@ def config_parameter(parameters, key, required=False, default=None, comment=Fals
         raise AnsibleFilterError('manala_supervisor_config_parameter key expects a string but was given a %s' % type(key))
     if required and key not in parameters:
         raise AnsibleFilterError('manala_supervisor_config_parameter requires a value for key %s' % key)
-    result = ''
+
     value = parameters.get(key, default)
-    if value is True:
-        result = '%s=true' % key
-    elif value is False:
-        result = '%s=false' % key
-    elif isinstance(value, dict):
+
+    if isinstance(value, dict):
         result = '%s=' % key
         for k, v in sorted(iteritems(value)):
             result += '%s="%s",' % (k, v)
         result = result.rsplit(',', 1)[0]
     elif isinstance(value, list):
-        result = '%s=' % key
-        result += ','.join(value)
-    elif isinstance(value, string_types):
+        value = flatten(value)
+        result = '%s=%s' % (key, ','.join(value))
+    else
+        if value is True:
+            value = 'true'
+        elif value is False:
+            value = 'false'
+        elif isinstance(value, (string_types, Number)):
+            pass
+        else:
+            AnsibleFilterError('manala_supervisor_config_parameter value of an unknown type %s' % type(value))
+
         result = '%s=%s' % (key, value)
-    elif isinstance(value, Number):
-        result = '%s=%s' % (key, value)
-    else:
-        AnsibleFilterError('manala_supervisor_config_parameter value of an unknown type %s' % type(value))
-    if comment and key not in parameters:
-        result = ';%s' % result
+
+    if key not in parameters:
+        if comment is True:
+            result = ';' + result.replace('\n', '\n;')
+        elif isinstance(comment, string_types):
+            result = comment
+
     return result
 
 
 class FilterModule(object):
-    ''' Manala supervisor jinja2 filters '''
+    ''' Manala supervisor config jinja2 filters '''
 
     def filters(self):
         filters = {
             'manala_supervisor_config': config,
-            'manala_supervisor_config_parameters': config_parameters,
+            'manala_supervisor_config_section': config_section,
             'manala_supervisor_config_parameter': config_parameter,
         }
 

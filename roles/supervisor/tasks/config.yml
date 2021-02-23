@@ -1,15 +1,5 @@
 ---
 
-- name: config > Directory
-  file:
-    path: "{{ manala_supervisor_config_file | dirname }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_supervisor_config_template
-        or manala_supervisor_config
-
 - name: config > Template
   template:
     src: "{{ manala_supervisor_config_template|default('config/_default.j2', true) }}"

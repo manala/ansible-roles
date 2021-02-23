@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Don't force config directory presence anymore
+
+### Changed
+- Rename `manala_supervisor_config_parameters` filter to `manala_supervisor_config_section`
 
 ## [2.0.10] - 2020-12-04
 ### Added

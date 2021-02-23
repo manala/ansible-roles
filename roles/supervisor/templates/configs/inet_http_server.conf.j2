@@ -3,4 +3,4 @@
 [inet_http_server]
 {{- {
   'port': config.port|mandatory
-} | combine(config) | manala_supervisor_config_parameters }}
+} | combine(config) | manala_supervisor_config_section }}
