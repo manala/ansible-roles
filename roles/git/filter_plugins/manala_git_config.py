@@ -11,7 +11,7 @@ from numbers import Number
 def config(sections, exclude=[]):
     if not isinstance(sections, dict):
         raise AnsibleFilterError('manala_git_config expects a dict but was given a %s' % type(sections))
-    [parameters.pop(key, None) for key in exclude]
+    [sections.pop(key, None) for key in exclude]
     result = ''
     for section, parameters in sorted(iteritems(sections)):
         result += '[%s]%s\n\n' % (

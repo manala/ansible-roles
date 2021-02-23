@@ -1,4 +1,4 @@
-{% set config = {
+{%- set config = {
   'unix_http_server': {},
   'supervisord': {},
   'rpcinterface:supervisor': {},
@@ -11,24 +11,24 @@
 [unix_http_server]
 {{ config.unix_http_server | manala_supervisor_config_parameter('file', default='/var/run/supervisor.sock') }}   ; (the path to the socket file)
 {{ config.unix_http_server | manala_supervisor_config_parameter('chmod', default='0700') }}                       ; sockef file mode (default 0700)
-{{- config.unix_http_server | manala_supervisor_config_parameters(exclude=['file', 'chmod']) }}
+{{- config.unix_http_server | manala_supervisor_config_section(exclude=['file', 'chmod']) }}
 
 [supervisord]
 {{ config.supervisord | manala_supervisor_config_parameter('logfile', default='/var/log/supervisor/supervisord.log') }} ; (main log file;default $CWD/supervisord.log)
 {{ config.supervisord | manala_supervisor_config_parameter('pidfile', default='/var/run/supervisord.pid') }} ; (supervisord pidfile;default supervisord.pid)
 {{ config.supervisord | manala_supervisor_config_parameter('childlogdir', default='/var/log/supervisor') }}            ; ('AUTO' child log dir, default $TEMP)
-{{- config.supervisord | manala_supervisor_config_parameters(exclude=['logfile', 'pidfile', 'childlogdir']) }}
+{{- config.supervisord | manala_supervisor_config_section(exclude=['logfile', 'pidfile', 'childlogdir']) }}
 
 ; the below section must remain in the config file for RPC
 ; (supervisorctl/web interface) to work, additional interfaces may be
 ; added by defining them in separate rpcinterface: sections
 [rpcinterface:supervisor]
 {{ config['rpcinterface:supervisor'] | manala_supervisor_config_parameter('supervisor.rpcinterface_factory', default='supervisor.rpcinterface:make_main_rpcinterface') }}
-{{- config['rpcinterface:supervisor'] | manala_supervisor_config_parameters(exclude=['supervisor.rpcinterface_factory']) }}
+{{- config['rpcinterface:supervisor'] | manala_supervisor_config_section(exclude=['supervisor.rpcinterface_factory']) }}
 
 [supervisorctl]
 {{ config.supervisorctl | manala_supervisor_config_parameter('serverurl', default='unix:///var/run/supervisor.sock') }} ; use a unix:// URL  for a unix socket
-{{- config.supervisorctl | manala_supervisor_config_parameters(exclude=['serverurl']) }}
+{{- config.supervisorctl | manala_supervisor_config_section(exclude=['serverurl']) }}
 
 ; The [include] section can just contain the "files" setting.  This
 ; setting can list multiple files (separated by whitespace or

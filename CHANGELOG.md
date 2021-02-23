@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- [Supervisor] Don't force config directory presence anymore
+
+### Changed
+- [Supervisor] Rename `manala_supervisor_config_parameters` filter to `manala_supervisor_config_section`
+
+### Fixed
+- [Git] Fix config filter
+- [OhMyZsh] Fix users template indentation
+- [Redis] Fix config filter
+- [Ssh] Fix client template indentation
 
 ## [0.1.110] - 2021-02-22
 ### Added

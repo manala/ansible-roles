@@ -10,7 +10,7 @@ from numbers import Number
 
 def config(parameters, exclude=[]):
     if not isinstance(parameters, dict):
-        raise AnsibleFilterError('manala_redis_config expects a dict but was given a %s' % type(sections))
+        raise AnsibleFilterError('manala_redis_config expects a dict but was given a %s' % type(parameters))
     [parameters.pop(key, None) for key in exclude]
     result = ''
     for key in sorted(parameters):
