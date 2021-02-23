@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Php] XDebug 3 configuration templates
 
 ## [0.1.114] - 2021-02-23
 ### Fixed
