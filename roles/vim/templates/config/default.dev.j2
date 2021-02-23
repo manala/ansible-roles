@@ -2,7 +2,7 @@
 
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_vim_config -%}
+{% set config = manala_vim_config|default([], true) -%}
 
 syntax on
 
