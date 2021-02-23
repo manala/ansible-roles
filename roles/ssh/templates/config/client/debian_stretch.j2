@@ -2,7 +2,7 @@
 
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_ssh_client_config -%}
+{% set config = manala_ssh_client_config|default([], true) -%}
 
 {% set config_host_wildcard = [] -%}
 

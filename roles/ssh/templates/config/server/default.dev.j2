@@ -2,7 +2,7 @@
 
 {%- import '_macros.j2' as macros with context -%}
 
-{%- set config = manala_ssh_server_config -%}
+{%- set config = manala_ssh_server_config|default([], true) -%}
 
 {{ macros.config_row(config, 'PermitRootLogin', true) }}
 {{ macros.config_row(config, 'PermitEmptyPasswords', true) }}
