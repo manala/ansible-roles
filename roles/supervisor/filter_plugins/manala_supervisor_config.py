@@ -51,7 +51,7 @@ def config_parameter(parameters, key, required=False, default=None, comment=Fals
     elif isinstance(value, list):
         value = flatten(value)
         result = '%s=%s' % (key, ','.join(value))
-    else
+    else:
         if value is True:
             value = 'true'
         elif value is False:
