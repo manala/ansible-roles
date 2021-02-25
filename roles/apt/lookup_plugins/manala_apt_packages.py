@@ -26,15 +26,9 @@ class LookupModule(LookupBase):
 
         results = []
 
-        wantstate = kwargs.pop('wantstate', None)
-
-        if wantstate and wantstate not in ['present', 'absent']:
-            raise AnsibleError('Expect a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
-
-        wantdeb = kwargs.pop('wantdeb', None)
-        wantmap = kwargs.pop('wantmap', False)
-
         packages = self._recursive_flatten(terms[0])
+
+        groups = []
 
         itemDefault = {
             'state': 'present',
@@ -81,25 +75,28 @@ class LookupModule(LookupBase):
             # Merge by index key
             for item in items:
                 itemFound = False
-                for i, result in enumerate(results):
-                    if result['package'] == item['package']:
-                        results[i] = item
+                for i, group in enumerate(groups):
+                    if group['package'] == item['package']:
+                        groups[i] = item
                         itemFound = True
                         break
 
                 if not itemFound:
-                    results.append(item)
+                    groups.append(item)
 
-        # Filter by state
-        if wantstate:
-            results = [result for result in results if result.get('state') == wantstate]
-
-        # Filter by deb
-        if wantdeb is not None:
-            results = [result for result in results if result.get('deb') == wantdeb]
-
-        # Map
-        if wantmap:
-            results = [result.get('package') for result in results]
+        # Groups
+        for group in groups:
+            # Deb packages could only be installed one by one
+            if group['deb']:
+                results.append(group)
+            else:
+                # If package share the previous one state, group them
+                if results and not results[-1]['deb'] and group['state'] == results[-1]['state']:
+                    results[-1]['package'].append(group['package'])
+                else:
+                    group.update({
+                        'package': [group['package']]
+                    })
+                    results.append(group)
 
         return results
