@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Apt] PHP 8.0 support
+
+### Changed
+- [Apt] Group package by state, respecting order
 
 ## [0.1.116] - 2021-02-23
 ### Fixed

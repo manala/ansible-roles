@@ -34,8 +34,6 @@
               # Flatten
               -
                 - http://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb
-                - package: http://snapshot.debian.org/archive/debian/20171229T170214Z/pool/main/w/wait-for-it/wait-for-it_0.0~git20170723-1_all.deb
-                  state: absent
                 - package: http://snapshot.debian.org/archive/debian/20160619T164515Z/pool/main/w/wait-for-it/wait-for-it_0.0~git20160501-1_all.deb
                   state: present
                 - package: pscan
