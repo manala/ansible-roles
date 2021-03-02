@@ -8,16 +8,18 @@ manala_nginx_install_packages_default:
 # Config
 manala_nginx_config_file: /etc/nginx/nginx.conf
 manala_nginx_config_template: ~
-manala_nginx_config: []
+manala_nginx_config: ~
 
 # Configs
 manala_nginx_configs_exclusive: false
 manala_nginx_configs_dir: /etc/nginx/conf.d
-manala_nginx_configs_template: ~
+manala_nginx_configs_template: ~ # Deprecated
+manala_nginx_configs_defaults:
+  template: "{{ manala_nginx_configs_template }}" # Ensure backward compatibility
 manala_nginx_configs: []
 
 # User
-manala_nginx_user: www-data
+manala_nginx_user: www-data # Deprecated
 
 # Logs
-manala_nginx_log_dir: /var/log/nginx
+manala_nginx_log_dir: /var/log/nginx # Deprecated

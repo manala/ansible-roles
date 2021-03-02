@@ -3,55 +3,136 @@
 - name: "{{ test }}.1"
   hosts: debian
   become: true
-  vars:
-    manala_nginx_configs_dir: /etc/nginx/conf.d.test
-    manala_nginx_configs:
-      - file: foo.conf
-        config:
-          - server:
-            - listen: 8080
-            - location /:
-              - root: /srv/foo
-      - file: foo_template.conf
-        template: configs/app_magento_2_defaults.j2
-      - file: foo_content.conf
-        content: |
-          server {
-              listen 80 default_server;
-              root /var/foo;
-          }
-      - file: foo_template_content.conf
-        template: configs/app_magento_2_defaults.j2
-        content: |
-          server {
-              listen 80 default_server;
-              root /var/foo;
-          }
-      - file: bar.conf
-        state: present
-      - file: baz.conf
-        state: absent
-  pre_tasks:
-    - import_tasks: pre_tasks/nginx.yml
-  roles:
-    - manala.nginx
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.1.yml validate
+  tasks:
 
-- name: "{{ test }}.2"
-  hosts: debian
-  become: true
-  vars:
-    manala_nginx_configs_dir: /etc/nginx/conf.d.test
-    manala_nginx_configs:
-      - file: foo.conf
-      - file: bar.conf
-        state: absent
-      - file: baz.conf
-        state: present
-  roles:
-    - manala.nginx
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.2.yml validate
+    - tags: [always]
+      block:
+        - import_tasks: pre_tasks/nginx.yml
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.nginx
+          vars:
+            manala_nginx_configs_dir: tmp/configs/default
+            manala_nginx_configs:
+              # Default - Deprecated
+              - file: default_deprecated.conf
+                config:
+                  - server:
+                    - listen: 8080
+                    - location /:
+                      - root: /srv/foo
+              # Default - Content
+              - file: default_content.conf
+                config: |
+                  server {
+                      listen 8080;
+                      location / {
+                          root /srv/foo;
+                      }
+                  }
+              # Flatten
+              -
+                # Template
+                - file: template.conf
+                  template: configs/nginx/default.conf.j2
+                # Template - Deprecated
+                - file: template_deprecated.conf
+                  template: configs/app_ssl_offloading.dev.j2
+                  config:
+                    - listen: 123
+                    - server_name: foo
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}.conf
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.nginx
+            tasks_from: configs
+          vars:
+            manala_nginx_configs_dir: tmp/configs/state
+            manala_nginx_configs:
+              - file: foo.conf
+              - file: bar.conf
+                state: absent
+              - file: baz.conf
+                state: present
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - import_role:
+            name: manala.nginx
+            tasks_from: configs
+          vars:
+            manala_nginx_configs_dir: tmp/configs/defaults
+            manala_nginx_configs_defaults:
+              template: configs/foo.conf.j2
+            manala_nginx_configs:
+              - file: foo.conf
+              - template: configs/bar.conf.j2
+              - file: baz.conf
+                template: configs/bar.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}.conf
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.nginx
+            tasks_from: configs
+          vars:
+            manala_nginx_configs_dir: tmp/configs/exclusive
+            manala_nginx_configs_exclusive: true
+            manala_nginx_configs:
+              - file: bar.conf
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

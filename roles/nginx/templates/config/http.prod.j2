@@ -1,6 +1,6 @@
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_nginx_config -%}
+{% set config = manala_nginx_config|default([], true) -%}
 
 {% set config_events = [] -%}
 {% set config_http = [] -%}

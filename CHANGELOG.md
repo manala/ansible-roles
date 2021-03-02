@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Nginx] Config filters
+
+### Changed
+- [Nginx] Use unified exclusive template lookup
+- [Nginx] Deprecate environment oriented templates
+- [Nginx] Deprecate dict's array configs
+- [Nginx] Deprecate `manala_nginx_user` and `manala_nginx_log_dir` variables (only used in dict's array configs)
+
+### Removed
+- [Nginx] Don't force configs directory presence anymore
 
 ## [0.1.117] - 2021-02-25
 ### Added

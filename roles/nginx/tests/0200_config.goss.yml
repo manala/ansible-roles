@@ -1,14 +1,43 @@
 ---
 
 file:
-  /etc/nginx/nginx.conf.test:
+  tmp/config/default/default_deprecated:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - worker_processes 3;
-      - load_module foo;
-      - load_module bar;
-      - worker_connections 1234;
+      - "worker_processes 3;"
+      - "load_module foo;"
+      - "load_module bar;"
+      - "    worker_connections 1234;"
+  tmp/config/default/default_content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "user  nginx;"
+      - "worker_processes  1;"
+  tmp/config/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "user  nginx;"
+      - "worker_processes  1;"
+  tmp/config/default/template_deprecated:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "worker_processes 3;"
+      - "load_module foo;"
+      - "load_module bar;"
+      - "    worker_connections 1234;"
