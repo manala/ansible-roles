@@ -190,11 +190,20 @@ manala_apt_repositories_patterns:
   galera_3_31:
     source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3.31/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
+  galera_4:
+    source: deb https://releases.galeracluster.com/galera-4/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
+  galera_4_7:
+    source: deb https://releases.galeracluster.com/galera-4.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
   mysql_wsrep_5_6:
     source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_5_7:
     source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    key: galera
+  mysql_wsrep_8_0:
+    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
     source: deb https://packages.grafana.com/oss/deb stable main
