@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.26] - 2021-03-02
+### Added
+- Add Galera 4 repositories
+
 ## [2.0.25] - 2021-02-25
 ### Added
 - PHP 8.0 support

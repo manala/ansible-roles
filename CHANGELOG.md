@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.119] - 2021-03-02
+### Added
+- [Apt] Add Galera 4 repositories
+
 ## [0.1.118] - 2021-03-02
 ### Added
 - [Nginx] Config filters
