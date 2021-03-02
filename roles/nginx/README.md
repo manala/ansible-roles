@@ -53,28 +53,32 @@ Using ansible galaxy requirements file:
 | `manala_nginx_configs_template`         | 'configs/empty.j2'  | String  | Configurations template path                   |
 | `manala_nginx_configs_exclusive`        | false               | Boolean | Exclusion of existings files                   |
 | `manala_nginx_configs_dir`              | '/etc/nginx/conf.d' | String  | Configurations directory path                  |
-| `manala_nginx_user`                     | 'www-data'          | String  | User running nginx                             |
-| `manala_nginx_log_dir`                  | '/var/log/nginx'    | String  | Directory path where Nginx will store its logs |
 
 
 ### Nginx configuration
 
-The `manala_nginx_config_template` key will allow you to use differents main configuration templates. The role is shipped with basic templates :
-
-- base (Simple template with no default configuration)
-- dev (This configuration will keep serving NGINX informations like server tokens and provide directives for Vagrant VM)
-- test
-- prod (For production purpose. Cleaning all sensible server informations)
-
-#### Example:
+The `manala_nginx_config_template` key will allow you to use main configuration templates. The role is shipped with default upstream template:
 ```yaml
-manala_nginx_config_template: config/http.dev.j2
+manala_nginx_config_template: config/nginx/nginx.conf.j2
 ```
 
-The `manala_nginx_config` key is made to allow you to alter main Nginx configuration templates.
+But you can feel free to use your owns:
+```yaml
+manala_nginx_config_template: my/nginx.conf.j2
+```
 
-#### Example:
+The `manala_nginx_config` key is made to allow you to alter main Nginx configuration template.
 
+#### Examples:
+
+Use raw content:
+```yaml
+manala_nginx_config: |
+  user nginx;
+  worker_processes 1;
+```
+
+Use dict's array (deprecated):
 ```yaml
 manala_nginx_config:
   - user: nginx
@@ -92,70 +96,52 @@ manala_nginx_config:
 manala_nginx_configs_exclusive: true
 ```
 
-### Hosts configuration
+### Configurations
 
-The `manala_nginx_configs` key is made to define Nginx host configuration.
+The `manala_nginx_configs` key is made to define Nginx configurations.
 
-A state (present|absent) can be provided.
+A state (present|absent|ignore) can be provided.
 
 ```yaml
 manala_nginx_configs:
   # Template based
-  - file: foo_template.conf
-    template: configs/app_magento_2_defaults.j2
-  # Config based, empty template by default
-  - file: foo.conf
-    config:
-      - server:
-        - listen: 8080
-        - location /:
-          - root:  /srv/foo
+  - file: template.conf
+    template: my/template.conf.j2
   # Raw content based
-  - file: foo_content.conf
-    content: |
+  - file: content.conf
+    config: |
       server {
-          listen         80 default_server;
-          listen         [::]:80 default_server;
-          server_name    example.com www.example.com;
-          root           /var/www/example.com;
-          index          index.html;
+          listen 80 default_server;
+          listen [::]:80 default_server;
+          server_name example.com www.example.com;
+          root /var/www/example.com;
+          index index.html;
           try_files $uri /index.html;
       }
-    state: absent
+  # Dict's array based (deprecated)
   - file: symfony2.conf
     config:
       - server:
         - server_name: symfony2.dev
         - root: /srv/symfony2/web
-        - access_log:  "{{ manala_nginx_log_dir }}/app.access.log"
-        - error_log:   "{{ manala_nginx_log_dir }}/app.error.log"
+        - access_log: /var/log/nginx/app.access.log
+        - error_log: /var/log/nginx/app.error.log
         - client_max_body_size: 8G
-        - include:     conf.d/gzip
+        - include: conf.d/gzip
         - location ^~ /sf/:
-          - alias: "/usr/share/symfony/symfony-1.4/data/web/sf/"
+          - alias: /usr/share/symfony/symfony-1.4/data/web/sf/
         - location /:
           - try_files: $uri /index.php$is_args$args
         - location ~ ^/(index|frontend_dev)\.php(/|$):
           - include: conf.d/php_fpm_params
-  - file: wordpress.conf
-    config:
-      - server:
-        - listen: 80
-        - location /:
-          - root:  /srv/wordpress/
-  - file: pma.conf
-    config:
-      - server:
-        - server_name:          pma.my_domain.com
-        - listen:               "{{ ansible_venet0_0.ipv4.address }}:80"
-        - root:                 /opt/phpmyadmin
-        - include:              conf.d/gzip
-        - client_max_body_size: 16M
-        - location /:
-          - try_files: $uri /index.php$is_args$args
-  # Enables HTTPS offloading support based on a self-signed certificate
-  - file: app_ssl.conf
-    template: configs/app_ssl_offloading.dev.j2
+  # Ensure config is absent
+  - file: absent.conf
+    state: absent # "present" by default
+  # Ignore config
+  - file: ignore.conf
+    state: ignore
+  # Flatten configs
+  - "{{ my_custom_configs_array }}"
 ```
 
 ## Example playbook
@@ -163,7 +149,7 @@ manala_nginx_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.nginx }
+    - role: manala.nginx
 ```
 
 # Licence

@@ -2,11 +2,12 @@
 
 - name: config > Template
   template:
-    src: "{{ manala_nginx_config_template|ternary(manala_nginx_config_template, 'config/default.j2') }}"
+    src: "{{ manala_nginx_config_template|default('config/_default.j2', true) }}"
     dest: "{{ manala_nginx_config_file }}"
     owner: root
     group: root
     mode: "0644"
-  when: (manala_nginx_config_template is not none) or (manala_nginx_config|length)
+  when: manala_nginx_config_template
+        or manala_nginx_config
   notify:
     - nginx restart

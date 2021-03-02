@@ -1,6 +1,9 @@
-{%- import '_macros.j2' as macros with context -%}
-
 {% set config = manala_nginx_config -%}
+
+{%- if config is iterable and config is not string -%}
+
+{#- Deprecated -#}
+{%- import '_macros.j2' as macros with context -%}
 
 {% set config_events = [] -%}
 {% set config_http = [] -%}
@@ -66,3 +69,10 @@ http {
     'events',
     'http'
 ]) }}
+
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

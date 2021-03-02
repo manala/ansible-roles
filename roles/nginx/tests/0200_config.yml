@@ -3,18 +3,54 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  vars:
-    manala_nginx_config_file: /etc/nginx/nginx.conf.test
-    manala_nginx_config:
-      - worker_processes: 3
-      - load_module: foo
-      - load_module: bar
-      - events:
-        - worker_connections: 1234
-  pre_tasks:
-    - import_tasks: pre_tasks/nginx.yml
-  roles:
-    - manala.nginx
-  post_tasks:
-    - name: Goss
-      command: goss --gossfile {{ test }}.goss.yml validate
+  tasks:
+
+    - block:
+        - import_tasks: pre_tasks/nginx.yml
+
+    - block:
+        - file:
+            path: tmp/config/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default - Deprecated
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.nginx
+          vars:
+            manala_nginx_config_file: tmp/config/default/default_deprecated
+            manala_nginx_config:
+              - worker_processes: 3
+              - load_module: foo
+              - load_module: bar
+              - events:
+                - worker_connections: 1234
+        # Default - Content
+        - import_role:
+            name: manala.nginx
+            tasks_from: config
+          vars:
+            manala_nginx_config_file: tmp/config/default/default_content
+            manala_nginx_config: |
+              user  nginx;
+              worker_processes  1;
+        # Template
+        - import_role:
+            name: manala.nginx
+            tasks_from: config
+          vars:
+            manala_nginx_config_file: tmp/config/default/template
+            manala_nginx_config_template: config/nginx/nginx.conf.j2
+        # Template - Deprecated
+        - import_role:
+            name: manala.nginx
+            tasks_from: config
+          vars:
+            manala_nginx_config_file: tmp/config/default/template_deprecated
+            manala_nginx_config_template: config/http.dev.j2
+            manala_nginx_config:
+              - worker_processes: 3
+              - load_module: foo
+              - load_module: bar
+              - events:
+                - worker_connections: 1234
