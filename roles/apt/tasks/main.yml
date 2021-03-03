@@ -36,6 +36,12 @@
     - manala_apt
     - manala_apt.repositories
 
+# Packages
+- import_tasks: packages.yml
+  tags:
+    - manala_apt
+    - manala_apt.packages
+
 # Holds
 - import_tasks: holds.yml
   tags:
@@ -49,9 +55,3 @@
     - manala_apt
     - manala_apt.update
     - manala.update
-
-# Packages
-- import_tasks: packages.yml
-  tags:
-    - manala_apt
-    - manala_apt.packages
