@@ -290,6 +290,9 @@ manala_apt_repositories_patterns:
   unifi:
     source: deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti
     key: unifi
+  kopia:
+    source: deb http://packages.kopia.io/apt/ stable main
+    key: kopia
 
 # Keys
 manala_apt_keys_patterns:
@@ -439,6 +442,9 @@ manala_apt_keys_patterns:
   unifi:
     url: https://dl.ubnt.com/unifi/unifi-repo.gpg
     id: 06E85760C0A52C50
+  kopia:
+    url: https://kopia.io/signing-key
+    id: 7713E6D88ED70D9D
 
 # Preferences
 manala_apt_preferences_patterns:
@@ -496,3 +502,4 @@ manala_apt_preferences_patterns:
   glusterfs:          glusterfs-*
   newrelic-infra:     newrelic-infra
   filebeat:           filebeat*
+  kopia:              kopia*
