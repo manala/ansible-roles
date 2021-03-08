@@ -6,19 +6,43 @@
   tasks:
 
     - block:
-        - copy:
-            dest: tmp/sources_list
-            content: |
-              deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
-              {% if ansible_distribution_release not in ['jessie'] -%}
-              deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
-              {% endif %}
-              deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
+        - file:
+            path: tmp/sources_list/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        # Default - Deprecated
         - import_role:
             name: manala.apt
             tasks_from: sources_list
           vars:
-            manala_apt_sources_list_file: tmp/sources_list
+            manala_apt_sources_list_file: tmp/sources_list/default/default_deprecated.list
+            manala_apt_sources_list:
+              - deb: http://deb.debian.org/debian {{ ansible_distribution_release }} main
+              - deb: http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
+              - deb: http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
+        # Default - Content
+        - import_role:
+            name: manala.apt
+            tasks_from: sources_list
+          vars:
+            manala_apt_sources_list_file: tmp/sources_list/default/default_content.list
+            manala_apt_sources_list: |
+              deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
+              deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
+              deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
+        # Template
+        - import_role:
+            name: manala.apt
+            tasks_from: sources_list
+          vars:
+            manala_apt_sources_list_file: tmp/sources_list/default/template.list
+            manala_apt_sources_list_template: sources_list/foo.j2
+        # Template - Deprecated
+        - import_role:
+            name: manala.apt
+            tasks_from: sources_list
+          vars:
+            manala_apt_sources_list_file: tmp/sources_list/default/template_deprecated.list
             manala_apt_sources_list_template: sources_list/security_updates.j2
             manala_apt_components:
               # Flatten
