@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.28] - 2021-03-08
 - Deprecate dict's array sources list
 
 ## [2.0.27] - 2021-03-03
