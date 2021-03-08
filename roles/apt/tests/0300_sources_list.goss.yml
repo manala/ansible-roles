@@ -1,7 +1,35 @@
 ---
 
 file:
-  tmp/sources_list:
+  tmp/sources_list/default/default_deprecated.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+      - "deb http://security.debian.org/debian-security {{ .Env.DISTRIBUTION_RELEASE }}/updates main"
+      - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-updates main"
+  tmp/sources_list/default/default_content.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }} main"
+      - "deb http://security.debian.org/debian-security {{ .Env.DISTRIBUTION_RELEASE }}/updates main"
+      - "deb http://deb.debian.org/debian {{ .Env.DISTRIBUTION_RELEASE }}-updates main"
+  tmp/sources_list/default/template.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Sources list foo"
+  tmp/sources_list/default/template_deprecated.list:
     exists: true
     filetype: file
     owner: root

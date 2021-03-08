@@ -1,6 +1,8 @@
+{#- Deprecated -#}
+
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_apt_sources_list -%}
+{% set config = manala_apt_sources_list|default([], true) -%}
 
 deb http://raspbian.raspberrypi.org/raspbian/ {{ ansible_distribution_release }} {{ manala_apt_components|flatten|join(' ') }} rpi
 {{ macros.config(config) }}

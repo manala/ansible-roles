@@ -42,27 +42,29 @@ None
 
 ### Definition
 
-| Name                                  | Default                                               | Type    | Description                            |
-| ------------------------------------- | ----------------------------------------------------- | ------- | -------------------------------------- |
-| `manala_apt_configs_exclusive`        | false                                                 | Boolean | Configurations exclusivity             |
-| `manala_apt_configs_dir`              | '/etc/apt/apt.conf.d'                                 | String  | Configurations dir path                |
-| `manala_apt_configs_defaults`         | {}                                                    | Array   | Configurations defaults                |
-| `manala_apt_configs`                  | []                                                    | Array   | Configurations                         |
-| `manala_apt_install_packages`         | ~                                                     | Array   | Dependency packages to install         |
-| `manala_apt_install_packages_default` | ['apt-transport-https', 'openssl', 'ca-certificates'] | Array   | Default dependency packages to install |
-| `manala_apt_components`               | ['main']                                              | Array   | Collection of components               |
-| `manala_apt_sources_list`             | []                                                    | Array   | Collection of sources                  |
-| `manala_apt_repositories_exclusive`   | false                                                 | Boolean | Repositories exclusivity               |
-| `manala_apt_repositories`             | []                                                    | Array   | Repositories                           |
-| `manala_apt_preferences_exclusive`    | false                                                 | Boolean | Preferences exclusivity                |
-| `manala_apt_preferences_dir`          | '/etc/apt/preferences.d'                              | String  | Preferences dir path                   |
-| `manala_apt_preferences_defaults`     | {}                                                    | Array   | Preferences defaults                   |
-| `manala_apt_preferences`              | []                                                    | Array   | Preferences                            |
-| `manala_apt_holds_exclusive`          | false                                                 | Array   | Holds exclusivity                      |
-| `manala_apt_holds`                    | []                                                    | Array   | Collection of holds                    |
-| `manala_apt_packages`                 | []                                                    | Array   | Collection of packages                 |
-| `manala_apt_cache_valid_time`         | 3600                                                  | Integer | Permitted age of apt cache, in seconds |
-| `manala_apt.update`                   | false                                                 | Boolean | Update packages                        |
+| Name                                  | Default                                               | Type         | Description                            |
+| ------------------------------------- | ----------------------------------------------------- | ------------ | -------------------------------------- |
+| `manala_apt_configs_exclusive`        | false                                                 | Boolean      | Configurations exclusivity             |
+| `manala_apt_configs_dir`              | '/etc/apt/apt.conf.d'                                 | String       | Configurations dir path                |
+| `manala_apt_configs_defaults`         | {}                                                    | Array        | Configurations defaults                |
+| `manala_apt_configs`                  | []                                                    | Array        | Configurations                         |
+| `manala_apt_install_packages`         | ~                                                     | Array        | Dependency packages to install         |
+| `manala_apt_install_packages_default` | ['apt-transport-https', 'openssl', 'ca-certificates'] | Array        | Default dependency packages to install |
+| `manala_apt_components`               | ['main']                                              | Array        | Collection of components               |
+| `manala_apt_sources_list_file`        | '/etc/apt/sources.list'                               | String       | Sources list file path                 |
+| `manala_apt_sources_list_template`    | ~                                                     | String       | Sources list template path             |
+| `manala_apt_sources_list`             | ~                                                     | String/Array | Sources list                           |
+| `manala_apt_repositories_exclusive`   | false                                                 | Boolean      | Repositories exclusivity               |
+| `manala_apt_repositories`             | []                                                    | Array        | Repositories                           |
+| `manala_apt_preferences_exclusive`    | false                                                 | Boolean      | Preferences exclusivity                |
+| `manala_apt_preferences_dir`          | '/etc/apt/preferences.d'                              | String       | Preferences dir path                   |
+| `manala_apt_preferences_defaults`     | {}                                                    | Array        | Preferences defaults                   |
+| `manala_apt_preferences`              | []                                                    | Array        | Preferences                            |
+| `manala_apt_holds_exclusive`          | false                                                 | Array        | Holds exclusivity                      |
+| `manala_apt_holds`                    | []                                                    | Array        | Collection of holds                    |
+| `manala_apt_packages`                 | []                                                    | Array        | Collection of packages                 |
+| `manala_apt_cache_valid_time`         | 3600                                                  | Integer      | Permitted age of apt cache, in seconds |
+| `manala_apt.update`                   | false                                                 | Boolean      | Update packages                        |
 
 ### Example
 
@@ -135,27 +137,28 @@ manala_apt_components:
 
 ### Sources list
 
-Define manually each sources
+Use template:
+
+```yaml
+manala_apt_sources_list_template: my/sources.list.j2
+manala_apt_sources_list:
+  foo: bar
+```
+
+Use raw content:
+```yaml
+manala_apt_sources_list: |
+  deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
+  deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
+  deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
+```
+
+Use dict's array (deprecated):
 
 ```yaml
 manala_apt_sources_list:
-  - deb: http://deb.debian.org/debian stretch main
-  - deb http://deb.debian.org/debian stretch contrib
-```
-
-Or use predefined templates
-
-```yaml
-manala_apt_sources_list_template: sources_list/default.j2
-```
-
-Or combine both
-
-```yaml
-manala_apt_sources_list_template: sources_list/default_src.j2
-manala_apt_sources_list:
-  - deb-src: http://deb.debian.org/debian stretch main
-  - deb-src http://deb.debian.org/debian stretch contrib
+  - deb: http://deb.debian.org/debian {{ ansible_distribution_release }} main
+  - deb http://deb.debian.org/debian {{ ansible_distribution_release }} contrib
 ```
 
 ### Repositories

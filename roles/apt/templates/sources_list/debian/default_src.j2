@@ -1,6 +1,8 @@
+{#- Deprecated -#}
+
 {%- import '_macros.j2' as macros with context -%}
 
-{% set config = manala_apt_sources_list -%}
+{% set config = manala_apt_sources_list|default([], true) -%}
 
 deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|flatten|join(' ') }}
 deb-src http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|flatten|join(' ') }}
