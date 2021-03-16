@@ -201,6 +201,23 @@ manala_mysql_configs:
         datadir: /mnt/data
 ```
 
+## MariaDB
+
+If you are using the apt role, define the wanted MariaDB version:
+
+```yaml
+manala_apt_preferences:
+ - mariadb@mariadb_10_5
+```
+
+You will also need to override default packages:
+
+```yaml
+manala_mysql_install_packages_default:
+  - mariadb-server
+  - mariadb-client
+```
+
 ## Example playbook
 
 ```yaml
