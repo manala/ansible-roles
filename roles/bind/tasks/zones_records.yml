@@ -2,7 +2,7 @@
 
 - name: zones_records > Records
   nsupdate:
-    server: localhost
+    server: "{{ item.0.zone_hostname | default('localhost') }}"
     zone: "{{ item.0.zone }}"
     record: "{{ item.1.record }}"
     value: "{{ item.1.value|default(omit) }}"
@@ -15,6 +15,21 @@
     ttl: "{{
       item.1.ttl|default(
         (item.0.records_default|default({})).ttl|default(omit)
+      )
+    }}"
+    key_name: "{{
+      item.1.key_name|default(
+        (item.0.records_default|default({})).key_name|default(omit)
+      )
+    }}"
+    key_secret: "{{
+      item.1.key_secret|default(
+        (item.0.records_default|default({})).key_secret|default(omit)
+      )
+    }}"
+    key_algorithm: "{{
+      item.1.key_algorithm|default(
+        (item.0.records_default|default({})).key_algorithm|default(omit)
       )
     }}"
   with_subelements:
