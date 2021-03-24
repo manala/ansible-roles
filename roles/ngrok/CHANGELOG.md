@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.0.3] - 2021-03-24
 ### Changed
 - Use unified exclusive template lookup
 - Deprecate environment oriented templates
