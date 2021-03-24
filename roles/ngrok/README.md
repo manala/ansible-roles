@@ -44,7 +44,7 @@ None
 | `manala_ngrok_bin`               | '/usr/local/bin/ngrok' | String  | Binary                                 |
 | `manala_ngrok_configs_exclusive` | false                  | Boolean | Configurations exclusivity             |
 | `manala_ngrok_configs_dir`       | '/etc/ngrok'           | String  | Configurations directory path          |
-| `manala_ngrok_configs_template`  | ~                      | String  | Configurations template path           |
+| `manala_ngrok_configs_defaults`  | {}                     | String  | Configurations defaults                |
 | `manala_ngrok_configs`           | []                     | Array   | Configurations                         |
 
 ### Example

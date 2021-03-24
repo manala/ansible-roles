@@ -9,5 +9,7 @@ manala_ngrok_bin: /usr/local/bin/ngrok
 # Configs
 manala_ngrok_configs_exclusive: false
 manala_ngrok_configs_dir: /etc/ngrok
-manala_ngrok_configs_template: ~
+manala_ngrok_configs_template: ~ # Deprecated
+manala_ngrok_configs_defaults:
+  template: "{{ manala_ngrok_configs_template }}" # Ensure backward compatibility
 manala_ngrok_configs: []

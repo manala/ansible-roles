@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [Apt] Add Kopia
 
+### Changed
+- [Ngrok] Use unified exclusive template lookup
+- [Ngrok] Deprecate environment oriented templates
+- [Ngrok] Deprecate dict's array configs
+
 ## [0.1.121] - 2021-03-08
 - Deprecate dict's array sources list
 
