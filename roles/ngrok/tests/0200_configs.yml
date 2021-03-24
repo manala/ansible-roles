@@ -6,15 +6,136 @@
   gather_facts: false
   tasks:
 
-    - block:
+    # - block:
+    #     - import_role:
+    #         name: manala.ngrok
+    #         tasks_from: configs
+    #       vars:
+    #         manala_ngrok_configs:
+    #           - file: config.yml
+    #             config:
+    #               - web_addr: 1.2.3.4:1234
+    #   always:
+    #     - name: Goss
+    #       command: goss --gossfile {{ test }}.goss.yml validate
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/configs/default
+            state: absent
         - import_role:
             name: manala.ngrok
             tasks_from: configs
           vars:
+            manala_ngrok_configs_dir: tmp/configs/default
             manala_ngrok_configs:
-              - file: config.yml
+              # Default
+              - file: default.yml
+                config:
+                  web_addr: 1.2.3.4:1234
+              # Default - Deprecated
+              - file: default_deprecated.yml
                 config:
                   - web_addr: 1.2.3.4:1234
+              # Default - Content
+              - file: default_content.yml
+                config: |
+                  web_addr: 1.2.3.4:1234
+              # Flatten
+              -
+                # Template
+                - file: template.yml
+                  template: configs/foo.yml.j2
+                # Template - Deprecated
+                - file: template_deprecated.yml
+                  template: configs/default.dev.j2
+                  config:
+                    - web_addr: 1.2.3.4:1234
       always:
         - name: Goss
-          command: goss --gossfile {{ test }}.goss.yml validate
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/configs/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/state/{{ item }}.yml
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.ngrok
+            tasks_from: configs
+          vars:
+            manala_ngrok_configs_dir: tmp/configs/state
+            manala_ngrok_configs:
+              - file: foo.yml
+              - file: bar.yml
+                state: absent
+              - file: baz.yml
+                state: present
+              - file: qux.yml
+                state: ignore
+              - file: quux.yml
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/configs/defaults
+            state: absent
+        - import_role:
+            name: manala.ngrok
+            tasks_from: configs
+          vars:
+            manala_ngrok_configs_dir: tmp/configs/defaults
+            manala_ngrok_configs_defaults:
+              template: configs/foo.yml.j2
+            manala_ngrok_configs:
+              - file: foo.yml
+              - template: configs/bar.yml.j2
+              - file: baz.yml
+                template: configs/bar.yml.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/configs/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/configs/exclusive/{{ item }}.yml
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.ngrok
+            tasks_from: configs
+          vars:
+            manala_ngrok_configs_dir: tmp/configs/exclusive
+            manala_ngrok_configs_exclusive: true
+            manala_ngrok_configs:
+              - file: bar.yml
+              - file: qux.yml
+                state: ignore
+              - file: quux.yml
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate
