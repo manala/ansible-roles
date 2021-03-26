@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Elasticsearch] Use absolute path when including sub templates
+- [Php] Use absolute path when including sub templates
+- [Redis] Use absolute path when including sub templates
+- [Ssh] Use absolute path when including sub templates
 
 ## [0.1.122] - 2021-03-24
 ### Added
