@@ -50,20 +50,29 @@ Using ansible galaxy requirements file:
 ### Configuration example
 
 ```yaml
+manala_cron_files_defaults:
+  user: foo # Override default "root" user
+```
+
+```yaml
 manala_cron_files:
   - file: app
-    user: foo
+    user: foo # Default jobs user
     env:
       FOO: foo
     jobs:
       # ⚠️ In this example, you must **explicitly** set the minute option to `0` to have the job run at a specific hour,
       # otherwise the default value `*` will run it _every minute_ for an hour.
-      - command: "php /srv/app/bin/console app:foo:bar"
+      - command: php /srv/app/bin/console app:foo:bar
+        minute: 0
+        hour: 7
+      - command: php /srv/app/bin/console app:foo:bar
+        user: bar # Override default jobs user
         minute: 0
         hour: 7
       # Deprecated
       - name: foo-bar
-        job: "php /srv/app/bin/console app:foo:bar"
+        job: php /srv/app/bin/console app:foo:bar
         minute: 0
         hour: 7
   # Template based

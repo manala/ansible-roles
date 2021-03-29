@@ -11,11 +11,11 @@ file:
     filetype: file
     contains:
       - 'FOO="bar"'
-      - "0 7 * * * foo cd /srv/app && bin/console app:foo:foo"
       - "0 7 * * * bar cd /srv/app && bin/console app:bar:bar"
       - "1 2 3 4 5 foo cd /srv/app && bin/console app:baz:baz"
       - "* * * * * foo cd /srv/app && bin/console app:foo:present"
       - "!* * * * * foo cd /srv/app && bin/console app:foo:absent"
+      - "0 7 * * * foo cd /srv/app && bin/console app:foo:foo"
   tmp/files/default/default_content:
     exists: true
     mode: "0644"
@@ -32,6 +32,30 @@ file:
     filetype: file
     contains:
       - Files foo
+  tmp/files/default/default_user:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "* * * * * foo foo"
+  tmp/files/default/default_user_file:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "* * * * * bar bar"
+  tmp/files/default/default_user_job:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "* * * * * baz baz"
 {{ end }}
 
 # State

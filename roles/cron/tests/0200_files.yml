@@ -24,11 +24,6 @@
                 env:
                   FOO: bar
                 jobs:
-                  # Deprecated
-                  - name: foo-foo
-                    job: cd /srv/app && bin/console app:foo:foo
-                    minute: 0
-                    hour: 7
                   - command: cd /srv/app && bin/console app:bar:bar
                     user: bar
                     minute: 0
@@ -43,6 +38,11 @@
                     state: present
                   - command: cd /srv/app && bin/console app:foo:absent
                     state: absent
+                  # Deprecated
+                  - name: foo-foo
+                    job: cd /srv/app && bin/console app:foo:foo
+                    minute: 0
+                    hour: 7
               - file: default_content
                 config: |
                   0 7 * * * root cd /srv/app && bin/console app:bar:bar
@@ -51,6 +51,30 @@
                 # Template
                 - file: template
                   template: files/foo.j2
+        - import_role:
+            name: manala.cron
+            tasks_from: files
+          vars:
+            manala_cron_files_dir: tmp/files/default
+            manala_cron_files_defaults:
+              user: foo
+            manala_cron_files:
+              # Default
+              - file: default_user
+                jobs:
+                  - command: foo
+              # Default - File
+              - file: default_user_file
+                user: bar
+                jobs:
+                  - command: bar
+              # Default - Job
+              - file: default_user_job
+                user: bar
+                jobs:
+                  - command: baz
+                    user: baz
+
       always:
         - name: Goss
           command: >

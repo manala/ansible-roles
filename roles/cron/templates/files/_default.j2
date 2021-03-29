@@ -17,7 +17,14 @@
   }} {{
     job.weekday|default('*')
   }} {{
-    job.user|default(item.user|default('root'))
+    job.user|default(
+      item.user|default(
+        manala_cron_files_defaults.user|default(
+          'root',
+          true
+        )
+      )
+    )
   }}
   {#- Deprecated #}
   {%- if 'job' in job %} {{ job.job }}

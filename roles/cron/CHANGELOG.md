@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Default job users can now be defined using `manala_cron_files_defaults`
 
 ## [3.0.0] - 2021-01-15
 ### Changed
