@@ -7,16 +7,16 @@ define gitsplit
 	docker run \
 		--rm \
 		--tty --interactive \
+		--env GITSPLIT_GITHUB_API_TOKEN \
 		--volume $(MANALA_CURRENT_DIR):/srv \
-		--volume $(HOME)/.ssh:/root/.ssh \
 		jderusse/gitsplit
 endef
 else
 define gitsplit
 	docker run \
 		--rm \
-		--env GITSPLIT_GITHUB_API_TOKEN \
 		--tty --interactive \
+		--env GITSPLIT_GITHUB_API_TOKEN \
 		--volume $(MANALA_CURRENT_DIR):/srv \
 		jderusse/gitsplit
 		--ref "${TRAVIS_BRANCH}"
