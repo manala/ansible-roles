@@ -85,7 +85,8 @@ manala_composer_users_auth:
                   "password": "my-secret-password1"
               }
           }
-      }  - user: baz
+      } 
+  - user: baz
     config:
       # Use dict's array syntax (deprecated)
       - github-oauth:
