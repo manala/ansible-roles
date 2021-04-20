@@ -1,0 +1,20 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.memcached' -%}
+
+# Read metrics from one or many memcached servers.
+[[{{ section }}]]
+  # An array of address to gather stats about. Specify an ip on hostname
+  # with optional port. ie localhost, 10.0.0.1:11211, etc.
+  {{ macros.config_row(config, 'servers', ['localhost:11211']) }} 
+
+  # An array of unix memcached sockets to gather stats about.
+  {{ macros.config_row(config, 'unix_sockets', '# unix_sockets = ["/var/run/memcached.sock"]', 0, true) }}
+
+{{ macros.config(config, [
+  'servers',
+  'unix_sockets'
+], 2) }}
+
+{%- include '_tags.j2' %}

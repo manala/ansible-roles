@@ -1,0 +1,84 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.elasticsearch' -%}
+
+[[inputs.elasticsearch]]
+  ## specify a list of one or more Elasticsearch servers
+  ## you can add username and password to your url to use basic authentication:
+  ## servers = ["http://user:pass@localhost:9200"]
+  {{ macros.config_row(config, 'servers', ['http://localhost:9200']) }}
+
+  ## Timeout for HTTP requests to the elastic search server(s)
+  {{ macros.config_row(config, 'http_timeout', "5s") }}
+
+  ## When local is true (the default), the node will read only its own stats.
+  ## Set local to false when you want to read the node stats from all nodes
+  ## of the cluster.
+  {{ macros.config_row(config, 'local', true) }}
+
+  ## Set cluster_health to true when you want to obtain cluster health stats
+  {{ macros.config_row(config, 'cluster_health', false) }}
+
+  ## Adjust cluster_health_level when you want to obtain detailed health stats
+  ## The options are
+  ##  - indices (default)
+  ##  - cluster
+  {{ macros.config_row(config, 'cluster_health_level', '# cluster_health_level = "indices"', 0, true) }}
+
+  ## Set cluster_stats to true when you want to obtain cluster stats.
+  {{ macros.config_row(config, 'cluster_stats', false) }}
+
+  ## Only gather cluster_stats from the master node. To work this require local = true
+  {{ macros.config_row(config, 'cluster_stats_only_from_master', true) }}
+
+  ## Indices to collect; can be one or more indices names or _all
+  ## Use of wildcards is allowed. Use a wildcard at the end to retrieve index names that end with a changing value, like a date.
+  {{ macros.config_row(config, 'indices_include', ["_all"]) }}
+
+  ## One of "shards", "cluster", "indices"
+  ## Currently only "shards" is implemented
+  {{ macros.config_row(config, 'indices_level', "shards") }}
+
+  ## node_stats is a list of sub-stats that you want to have gathered. Valid options
+  ## are "indices", "os", "process", "jvm", "thread_pool", "fs", "transport", "http",
+  ## "breaker". Per default, all stats are gathered.
+  # node_stats = ["jvm", "http"]
+  {{ macros.config_row(config, 'node_stats', '# node_stats = ["jvm", "http"]', 0, true) }}
+
+  ## HTTP Basic Authentication username and password.
+  {{ macros.config_row(config, 'username', '# username = ""', 0, true) }}
+  {{ macros.config_row(config, 'password', '# password = ""', 0, true) }}
+
+  ## Optional TLS Config
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.pem"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
+
+  ## Sets the number of most recent indices to return for indices that are configured with a date-stamped suffix.
+  ## Each 'indices_include' entry ending with a wildcard (*) or glob matching pattern will group together all indices that match it, and ## sort them by the date or number after the wildcard. Metrics then are gathered for only the 'num_most_recent_indices' amount of most ## recent indices.
+  {{ macros.config_row(config, 'num_most_recent_indices', '# num_most_recent_indices = 0', 0, true) }}
+
+{{ macros.config(config, [
+  'servers',
+  'http_timeout',
+  'local',
+  'cluster_health',
+  'cluster_health_level',
+  'cluster_stats',
+  'cluster_stats_only_from_master',
+  'indices_include',
+  'indices_level',
+  'node_stats',
+  'username',
+  'password',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify',
+  'num_most_recent_indices'
+], 2) }}
+
+{%- include '_tags.j2' %}

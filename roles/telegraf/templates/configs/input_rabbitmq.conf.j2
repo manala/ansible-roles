@@ -1,0 +1,76 @@
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) %}
+{% set section = 'inputs.rabbitmq' -%}
+
+[[inputs.rabbitmq]]
+  ## Management Plugin url. (default: http://localhost:15672)
+  # url = "http://localhost:15672"
+  {{ macros.config_row(config, 'url', '# url = "http://localhost:15672"', 0, true) }}
+  ## Tag added to rabbitmq_overview series; deprecated: use tags
+  {{ macros.config_row(config, 'name', '# name = "rmq-server-1"', 0, true) }}
+  ## Credentials
+  {{ macros.config_row(config, 'username', '# username = "guest"', 0, true) }}
+  {{ macros.config_row(config, 'password', '# password = "guest"', 0, true) }}
+
+  ## Optional TLS Config
+  {{ macros.config_row(config, 'tls_ca', '# tls_ca = "/etc/telegraf/ca.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_cert', '# tls_cert = "/etc/telegraf/cert.pem"', 0, true) }}
+  {{ macros.config_row(config, 'tls_key', '# tls_key = "/etc/telegraf/key.pem"', 0, true) }}
+  ## Use TLS but skip chain & host verification
+  {{ macros.config_row(config, 'insecure_skip_verify', '# insecure_skip_verify = false', 0, true) }}
+
+  ## Optional request timeouts
+  ##
+  ## ResponseHeaderTimeout, if non-zero, specifies the amount of time to wait
+  ## for a server's response headers after fully writing the request.
+  {{ macros.config_row(config, 'header_timeout', '# header_timeout = "3s"', 0, true) }}
+  ##
+  ## client_timeout specifies a time limit for requests made by this client.
+  ## Includes connection time, any redirects, and reading the response body.
+  {{ macros.config_row(config, 'client_timeout', '# client_timeout = "4s"', 0, true) }}
+
+  ## A list of nodes to gather as the rabbitmq_node measurement. If not
+  ## specified, metrics for all nodes are gathered.
+  {{ macros.config_row(config, 'nodes', '# nodes = ["rabbit@node1", "rabbit@node2"]', 0, true) }}
+
+  ## A list of queues to gather as the rabbitmq_queue measurement. If not
+  ## specified, metrics for all queues are gathered.
+  {{ macros.config_row(config, 'queues', '# queues = ["telegraf"]', 0, true) }}
+
+  ## A list of exchanges to gather as the rabbitmq_exchange measurement. If not
+  ## specified, metrics for all exchanges are gathered.
+  {{ macros.config_row(config, 'exchanges', '# exchanges = ["telegraf"]', 0, true) }}
+
+  ## Queues to include and exclude. Globs accepted.
+  ## Note that an empty array for both will include all queues
+  {{ macros.config_row(config, 'queue_name_include', '# queue_name_include = []', 0, true) }}
+  {{ macros.config_row(config, 'queue_name_exclude', '# queue_name_exclude = []', 0, true) }}
+
+  ## Federation upstreams to include and exclude specified as an array of glob
+  ## pattern strings.  Federation links can also be limited by the queue and
+  ## exchange filters.
+  {{ macros.config_row(config, 'federation_upstream_include', '# federation_upstream_include = []', 0, true) }}
+  {{ macros.config_row(config, 'federation_upstream_exclude', '# federation_upstream_exclude = []', 0, true) }}
+
+{{ macros.config(config, [
+  'url',
+  'name',
+  'username',
+  'password',
+  'tls_ca',
+  'tls_cert',
+  'tls_key',
+  'insecure_skip_verify',
+  'header_timeout',
+  'client_timeout',
+  'nodes',
+  'queues',
+  'exchanges',
+  'queue_name_include',
+  'queue_name_exclude',
+  'federation_upstream_include',
+  'federation_upstream_exclude'
+], 2) }}
+
+{%- include '_tags.j2' %}
