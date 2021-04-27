@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.30] - 2021-04-27
 ### Added
 - Add Galera 4.8
 - Add Galera wsrep 8.0.22, 8.0.23
