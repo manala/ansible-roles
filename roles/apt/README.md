@@ -185,6 +185,7 @@ manala_apt_repositories:
   - nodesource_10
   - nodesource_12
   - nodesource_14
+  - nodesource_16
   - postgresql
   - maxscale_2_2
   - mongodb_3_0
