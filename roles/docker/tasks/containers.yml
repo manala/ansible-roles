@@ -27,6 +27,7 @@
     network_mode: "{{ item.network_mode|default(omit) }}"
     log_driver: "{{ item.log_driver|default(omit) }}"
     log_options: "{{ item.log_options|default(omit) }}"
+    etc_hosts: "{{ item.etc_hosts|default(omit) }}"
   loop: "{{
     manala_docker_containers | flatten | selectattr('state', 'undefined') | list
     +
