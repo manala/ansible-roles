@@ -5,10 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Docker] Handle containers labels option
 
 ## [0.1.128] - 2021-06-16
 ### Added
-- [Container] Handle containers etc_hosts option
+- [Docker] Handle containers etc_hosts option
 
 ## [0.1.127] - 2021-05-17
 ### Added
