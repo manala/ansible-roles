@@ -282,7 +282,7 @@ manala_apt_repositories_patterns:
     source: deb http://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/ /
     key: owncloud
   mica:
-    source: deb https://dl.bintray.com/obiba/deb all main
+    source: deb https://obiba.jfrog.io/artifactory/debian-local all main
     key: mica
   glusterfs_6:
     source: deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/amd64/apt {{ ansible_distribution_release }} main
@@ -440,8 +440,8 @@ manala_apt_keys_patterns:
     url: https://packages.blackfire.io/gpg.key
     id: 47312329
   mica:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 379CE192D401AB61
+    url: https://www.obiba.org/assets/obiba-pub.pem
+    id: 7B0A831B
   glusterfs_6:
     url: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
     id: C2F8238C
