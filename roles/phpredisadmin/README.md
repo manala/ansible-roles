@@ -12,7 +12,7 @@ This role is made to work with the __manala__ phpredisadmin debian package, avai
 
 ```yaml
 manala_apt_preferences:
- - phpredisadmin@manala
+  - phpredisadmin@manala
 ```
 
 ## Dependencies

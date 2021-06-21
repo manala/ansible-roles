@@ -12,7 +12,7 @@ This role is made to work with the __manala__ hugo debian package, available on 
 
 ```yaml
 manala_apt_preferences:
- - hugo@manala
+  - hugo@manala
 ```
 
 ## Dependencies

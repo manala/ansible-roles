@@ -8,7 +8,13 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the [__dotdeb__](https://www.dotdeb.org/) or [__sury__](https://deb.sury.org/) php debian repositories. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle them properly.
+This role is made to work with the [__sury__](https://deb.sury.org/) or [__dotdeb__](https://www.dotdeb.org/) php debian repositories. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle them properly.
+
+```yaml
+manala_apt_preferences:
+  - php@sury_php
+  # - php@dotdeb
+```
 
 ## Dependencies
 

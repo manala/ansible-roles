@@ -12,7 +12,7 @@ This role is made to work with the __manala__ mailhog debian package, available 
 
 ```yaml
 manala_apt_preferences:
- - mailhog@manala
+  - mailhog@manala
 ```
 
 ## Dependencies

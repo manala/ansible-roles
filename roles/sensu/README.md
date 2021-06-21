@@ -10,6 +10,11 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 This role is made to work with the __sensu__ official debian packages, available on the [__sensu__ debian repository](https://sensuapp.org/docs/0.26/platforms/sensu-on-ubuntu-debian.html#sensu-core). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
+```yaml
+manala_apt_preferences:
+  - sensu@sensu
+```
+
 ## Dependencies
 
 None.

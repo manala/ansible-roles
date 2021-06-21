@@ -12,7 +12,7 @@ This role is made to work with the __manala__ keepalived debian package, availab
 
 ```yaml
 manala_apt_preferences:
- - keepalived@manala
+  - keepalived@manala
 ```
 
 ## Dependencies

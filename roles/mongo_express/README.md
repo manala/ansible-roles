@@ -12,7 +12,7 @@ This role is made to work with the __manala__ mongo-express debian package, avai
 
 ```yaml
 manala_apt_preferences:
- - mongo-express@manala
+  - mongo-express@manala
 ```
 
 ## Dependencies
