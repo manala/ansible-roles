@@ -10,6 +10,11 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 This role is made to work with the __telegraf__ official debian packages, available on the [__influxdata__ debian repository](https://www.influxdata.com/package-repository-for-linux/). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
+```yaml
+manala_apt_preferences:
+  - telegraf@influxdata
+```
+
 ## Installation
 
 ### Ansible 2+

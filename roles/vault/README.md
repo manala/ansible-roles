@@ -17,7 +17,7 @@ This role is made to work with the __manala__ vault debian package, available on
 
 ```yaml
 manala_apt_preferences:
- - vault@manala
+  - vault@manala
 ```
 
 ## Dependencies

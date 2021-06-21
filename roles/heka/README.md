@@ -12,7 +12,7 @@ This role is made to work with the __manala__ heka debian package, available on 
 
 ```yaml
 manala_apt_preferences:
- - heka@manala
+  - heka@manala
 ```
 
 ## Dependencies

@@ -12,7 +12,7 @@ This role is made to work with the __manala__ rtail debian package, available on
 
 ```yaml
 manala_apt_preferences:
- - rtail@manala
+  - rtail@manala
 ```
 
 ## Dependencies

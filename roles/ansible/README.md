@@ -12,7 +12,7 @@ This role is made to work with the __manala__ ansible debian package, available 
 
 ```yaml
 manala_apt_preferences:
- - ansible@manala
+  - ansible@manala
 ```
 
 ## Installation

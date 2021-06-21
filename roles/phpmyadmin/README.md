@@ -12,7 +12,7 @@ This role is made to work with the __manala__ phpmyadmin debian package, availab
 
 ```yaml
 manala_apt_preferences:
- - phpmyadmin@manala
+  - phpmyadmin@manala
 ```
 
 ## Dependencies

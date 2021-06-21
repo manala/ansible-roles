@@ -12,7 +12,7 @@ This role is made to work with the __manala__ opcache-dashboard debian package, 
 
 ```yaml
 manala_apt_preferences:
- - opcache-dashboard@manala
+  - opcache-dashboard@manala
 ```
 
 ## Dependencies

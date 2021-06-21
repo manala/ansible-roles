@@ -12,7 +12,7 @@ This role is made to work with the __manala__ supervisor debian package, availab
 
 ```yaml
 manala_apt_preferences:
- - supervisor@manala
+  - supervisor@manala
 ```
 
 ## Dependencies

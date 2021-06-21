@@ -13,7 +13,7 @@ For this purpose, one can make usage of our shiny [manala.apt](https://github.co
 
 ```yaml
 manala_apt_preferences:
- - mongodb@mongodb_4_4
+  - mongodb@mongodb_4_4
 ```
 
 ## Dependencies

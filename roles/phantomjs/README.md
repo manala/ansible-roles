@@ -12,7 +12,7 @@ This role is made to work with the __manala__ phantomjs debian package, availabl
 
 ```yaml
 manala_apt_preferences:
- - phantomjs@manala
+  - phantomjs@manala
 ```
 
 ## Dependencies

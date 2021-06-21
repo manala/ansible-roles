@@ -12,7 +12,7 @@ This role is made to work with the __influxdata__ influxDB debian packages. Plea
 
 ```yaml
 manala_apt_preferences:
- - influxdb@influxdata
+  - influxdb@influxdata
 ```
 
 ## Dependencies
@@ -137,9 +137,11 @@ See InfluxDB documentation for more information about [databases](https://docs.i
 
 ## Example playbook
 
-    - hosts: servers
-      roles:
-         - role: manala.influxdb
+ ```yaml
+ - hosts: servers
+   roles:
+     - role: manala.influxdb
+ ```
 
 # Licence
 

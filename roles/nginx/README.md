@@ -12,7 +12,7 @@ This role is made to work with the official __nginx__ debian packages, available
 
 ```yaml
 manala_apt_preferences:
- - nginx@nginx
+  - nginx@nginx
 ```
 
 ## Dependencies

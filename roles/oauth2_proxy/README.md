@@ -12,7 +12,7 @@ This role is made to work with the __manala__ oauth2-proxy debian package, avail
 
 ```yaml
 manala_apt_preferences:
- - oauth2-proxy@manala
+  - oauth2-proxy@manala
 ```
 
 ## Dependencies

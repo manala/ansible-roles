@@ -12,7 +12,7 @@ This role is made to work with the backup-manager debian package, available on t
 
 ```yaml
 manala_apt_preferences:
- - backup-manager@manala
+  - backup-manager@manala
 ```
 
 ## Dependencies

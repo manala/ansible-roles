@@ -12,7 +12,7 @@ This role is made to work with the __manala__ libpam-ssh-agent-auth debian packa
 
 ```yaml
 manala_apt_preferences:
- - pam-ssh-agent-auth@manala
+  - pam-ssh-agent-auth@manala
 ```
 
 ## Dependencies

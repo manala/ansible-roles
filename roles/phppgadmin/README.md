@@ -12,7 +12,7 @@ This role is made to work with the __manala__ phppgadmin debian package, availab
 
 ```yaml
 manala_apt_preferences:
- - phppgadmin@manala
+  - phppgadmin@manala
 ```
 
 ## Dependencies
