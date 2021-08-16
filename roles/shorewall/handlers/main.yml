@@ -2,5 +2,7 @@
 
 - name: shorewall restart
   service:
-    name:  shorewall
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - shorewall

@@ -7,8 +7,7 @@
     collation: "{{ item.collation|default('utf8_general_ci') }}"
     state: "{{ item.state|default(omit) }}"
   loop: "{{
-    manala_mysql_databases | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_mysql_databases | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_mysql_databases
+      | flatten
+      | manala.roles.staten(want='present')
   }}"
-

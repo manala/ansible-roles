@@ -2,21 +2,7 @@
 
 {%- if environment is mapping -%}
 
-{{ environment | manala_environment }}
-
-{%- elif environment is iterable and environment is not string -%}
-
-{#- Deprecated -#}
-{%- import '_macros.j2' as macros with context -%}
-
-# Options to pass to keepalived
-
-# DAEMON_ARGS are appended to the keepalived command-line
-{{ macros.config_row(environment, 'DAEMON_ARGS') }}
-
-{{ macros.config(environment, [
-    'DAEMON_ARGS',
-]) }}
+{{ environment | manala.roles.environment }}
 
 {%- else -%}
 

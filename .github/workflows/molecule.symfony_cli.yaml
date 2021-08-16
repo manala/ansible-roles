@@ -1,0 +1,39 @@
+name: Molecule - Symfony cli
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/molecule.symfony_cli.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/symfony_cli/**
+      - roles/symfony_cli/**
+      # Plugins
+      - plugins/filter/symfony_cli_architecture.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/manala/roles
+      - name: Molecule
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && molecule converge --scenario-name symfony_cli \
+            "
+      - name: Debug
+        uses: mxschmitt/action-tmate@v3
+        if: github.event.inputs.debug && always()

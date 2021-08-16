@@ -1,0 +1,150 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.cron
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+#########
+# Files #
+#########
+
+- name: Files
+  tags: [files]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/cron/files
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.cron
+          vars:
+            manala_cron_files_exclusive: false
+            manala_cron_files_dir: "{{ tests_dir }}/default"
+            manala_cron_files_defaults: {}
+            manala_cron_files:
+              # Dict
+              - file: dict
+                user: foo
+                env:
+                  FOO: bar
+                jobs:
+                  - command: cd /srv/app && bin/console app:bar:bar
+                    user: bar
+                    minute: 0
+                    hour: 7
+                  - command: cd /srv/app && bin/console app:baz:baz
+                    minute: 1
+                    hour: 2
+                    day: 3
+                    month: 4
+                    weekday: 5
+                  - command: cd /srv/app && bin/console app:foo:present
+                    state: present
+                  - command: cd /srv/app && bin/console app:foo:absent
+                    state: absent
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults - Template
+          import_role:
+            name: manala.roles.cron
+            tasks_from: files
+          vars:
+            manala_cron_files_exclusive: false
+            manala_cron_files_dir: "{{ tests_dir }}/defaults"
+            manala_cron_files_defaults:
+              template: fixtures/template.j2
+            manala_cron_files:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Defaults - User
+          import_role:
+            name: manala.roles.cron
+            tasks_from: files
+          vars:
+            manala_cron_files_exclusive: false
+            manala_cron_files_dir: "{{ tests_dir }}/defaults"
+            manala_cron_files_defaults:
+              user: foo
+            manala_cron_files:
+              - file: user
+                jobs:
+                  - command: foo
+              - file: user_file
+                user: bar
+                jobs:
+                  - command: bar
+              - file: user_job
+                user: bar
+                jobs:
+                  - command: baz
+                    user: baz
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.cron
+            tasks_from: files
+          vars:
+            manala_cron_files_exclusive: true
+            manala_cron_files_dir: "{{ tests_dir }}/exclusive"
+            manala_cron_files_defaults: {}
+            manala_cron_files:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/files.yml.j2') }}"

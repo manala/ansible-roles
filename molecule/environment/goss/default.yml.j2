@@ -1,0 +1,31 @@
+---
+
+file:
+  /etc/environment:
+    exists: true
+    filetype: file
+    contains:
+      - '_FOO="bar"'
+      - '_BAR="123"'
+      - 'BAR="123"'
+      - 'BAZ="1.2"'
+      - 'FOO="bar"'
+      - 'QUX="foo=bar"'
+  /etc/zsh/zshenv:
+    exists: true
+    filetype: file
+    contains:
+      - '# /etc/zsh/zshenv'
+      - 'export BAR="123"'
+      - 'export BAZ="1.2"'
+      - 'export FOO="bar"'
+      - 'export QUX="foo=bar"'
+  {{ tests_dir }}/file:
+    exists: true
+    filetype: file
+    contains:
+      - '# {{ tests_dir }}/file'
+      - 'export BAR="123"'
+      - 'export BAZ="1.2"'
+      - 'export FOO="bar"'
+      - 'export QUX="foo=bar"'

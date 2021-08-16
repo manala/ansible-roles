@@ -1,0 +1,18 @@
+---
+
+file:
+  {{ tests_dir }}/default/root:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+  {{ tests_dir }}/default/nobody:
+    exists: true
+    filetype: file
+    owner: nobody
+    group: nogroup
+  {{ tests_dir }}/default/mail:
+    exists: true
+    filetype: file
+    owner: mail
+    group: mail

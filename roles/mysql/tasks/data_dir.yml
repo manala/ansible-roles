@@ -15,5 +15,6 @@
     mysql_install_db
     --user={{ manala_mysql_data_dir_user }}
     --datadir={{ manala_mysql_data_dir }}
-  when: manala_mysql_data_dir_initialize
-        and __manala_mysql_data_dir_create_result is changed
+  when:
+    - manala_mysql_data_dir_initialize
+    - __manala_mysql_data_dir_create_result is changed

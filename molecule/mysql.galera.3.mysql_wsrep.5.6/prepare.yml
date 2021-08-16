@@ -1,0 +1,13 @@
+---
+
+- hosts:
+    - debian.stretch
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - galera@galera_3
+          - mysql@mysql_wsrep_5_6

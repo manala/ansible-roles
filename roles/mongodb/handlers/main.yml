@@ -2,5 +2,7 @@
 
 - name: mongodb restart
   service:
-    name: mongod
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - mongod

@@ -1,12 +1,14 @@
 ---
 
 - name: nginx restart
-  command: "nginx -t"
+  command: nginx -t
   changed_when: true
   notify:
     - do nginx restart
 
 - name: do nginx restart
   service:
-    name: nginx
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - nginx

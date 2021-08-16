@@ -1,0 +1,18 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - pam-ssh-agent-auth@manala
+      when: ansible_distribution_release in ['stretch']
+    - name: Packages
+      apt:
+        name: [sudo]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600

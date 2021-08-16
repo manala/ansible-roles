@@ -1,0 +1,15 @@
+---
+
+file:
+  {{ manala_symfony_cli_bin }}:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+
+command:
+  {{ manala_symfony_cli_bin }} -V --no-ansi:
+    exit-status: 0
+    stdout:
+      - Symfony CLI version

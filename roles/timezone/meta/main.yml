@@ -4,19 +4,19 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           timezone
-  author:              Manala
-  company:             Manala
-  description:         Handle timezone
-  license:             MIT
-  min_ansible_version: 2.4.0
-  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  role_name: timezone
+  author: Manala
+  company: Manala
+  description: Handle timezone
+  license: MIT
+  min_ansible_version: 2.9.0
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:
-        - jessie
         - stretch
         - buster
+        - bullseye
   galaxy_tags:
     - system
     - timezone

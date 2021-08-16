@@ -1,0 +1,181 @@
+---
+
+####################
+# Tmpfiles Configs #
+####################
+
+- name: Tmpfiles Configs
+  tags: [tmpfiles_configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/systemd/tmpfiles_configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_exclusive: false
+            manala_systemd_tmpfiles_configs_dir: "{{ tests_dir }}/default"
+            manala_systemd_tmpfiles_configs_defaults: {}
+            manala_systemd_tmpfiles_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_exclusive: false
+            manala_systemd_tmpfiles_configs_dir: "{{ tests_dir }}/defaults"
+            manala_systemd_tmpfiles_configs_defaults:
+              template: fixtures/template.j2
+            manala_systemd_tmpfiles_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.systemd
+            tasks_from: tmpfiles_configs
+          vars:
+            manala_systemd_tmpfiles_configs_exclusive: true
+            manala_systemd_tmpfiles_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_systemd_tmpfiles_configs_defaults: {}
+            manala_systemd_tmpfiles_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/tmpfiles_configs.yml.j2') }}"
+
+##################
+# System Configs #
+##################
+
+- name: System Configs
+  tags: [system_configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/systemd/system_configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.systemd
+            tasks_from: system_configs
+          vars:
+            manala_systemd_system_configs_exclusive: false
+            manala_systemd_system_configs_dir: "{{ tests_dir }}/default"
+            manala_systemd_system_configs_defaults: {}
+            manala_systemd_system_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.systemd
+            tasks_from: system_configs
+          vars:
+            manala_systemd_system_configs_exclusive: false
+            manala_systemd_system_configs_dir: "{{ tests_dir }}/defaults"
+            manala_systemd_system_configs_defaults:
+              template: fixtures/template.j2
+            manala_systemd_system_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.systemd
+            tasks_from: system_configs
+          vars:
+            manala_systemd_system_configs_exclusive: true
+            manala_systemd_system_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_systemd_system_configs_defaults: {}
+            manala_systemd_system_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/system_configs.yml.j2') }}"

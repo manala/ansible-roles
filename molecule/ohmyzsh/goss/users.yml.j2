@@ -1,0 +1,80 @@
+---
+
+file:
+
+  # Dict
+  {{ tests_dir }}/dict/.zshrc:
+    exists: true
+    filetype: file
+    owner: user_dict
+    group: user_dict
+    mode: "0644"
+    contains:
+      - 'foo=""'
+      - 'bar="true"'
+      - 'baz="false"'
+      - 'qux="foo"'
+      - 'quux=123'
+      - 'corge=(foo bar baz)'
+  # Content
+  {{ tests_dir }}/content/.zshrc:
+    exists: true
+    filetype: file
+    owner: user_content
+    group: user_content
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  # Template
+  {{ tests_dir }}/template/.zshrc:
+    exists: true
+    filetype: file
+    owner: user_template
+    group: user_template
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  # Flatten
+  {{ tests_dir }}/flatten/.zshrc:
+    exists: true
+    filetype: file
+    owner: user_flatten
+    group: user_flatten
+    mode: "0644"
+  # State
+  {{ tests_dir }}/state_present_implicit/.zshrc:
+    exists: true
+    filetype: file
+    owner: user_state_present_implicit
+    group: user_state_present_implicit
+    mode: "0644"
+  {{ tests_dir }}/state_present/.zshrc:
+    exists: true
+    filetype: file
+    owner: user_state_present
+    group: user_state_present
+    mode: "0644"
+  {{ tests_dir }}/state_absent/.zshrc:
+    exists: false
+  {{ tests_dir }}/state_ignore/.zshrc:
+    exists: false
+
+user:
+  user_dict:
+    exists: true
+    shell: /bin/zsh
+  user_content:
+    exists: true
+    shell: /bin/zsh
+  user_template:
+    exists: true
+    shell: /bin/zsh
+  user_flatten:
+    exists: true
+    shell: /bin/zsh
+  user_state_present_implicit:
+    exists: true
+    shell: /bin/zsh
+  user_state_present:
+    exists: true
+    shell: /bin/zsh

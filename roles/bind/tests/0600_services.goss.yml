@@ -1,6 +1,0 @@
----
-
-service:
-  bind9:
-    enabled: true
-    running: true

@@ -1,0 +1,69 @@
+---
+
+file:
+  # Default - Link to file
+  {{ tests_dir }}/default/link_file:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file
+  # Default - Link to link to file
+  {{ tests_dir }}/default/link_link_file:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/link_file
+  # Default - Link to directory
+  {{ tests_dir }}/default/link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/directory
+  # Default - Link to link to directory
+  {{ tests_dir }}/default/link_link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/link_directory
+  # Parents
+  {{ tests_dir }}/parents:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/parents/link:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file
+  {{ tests_dir }}/parents_defaults:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/parents_defaults/link:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file
+  {{ tests_dir }}/parents_unexisting/link:
+    exists: false
+  # Wrong
+  {{ tests_dir }}/wrong/link:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/directory
+  # Link already exists as file
+  {{ tests_dir }}/link_file/link_force:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file
+  {{ tests_dir }}/link_file/link:
+    exists: true
+    filetype: file
+  # Link already exists as empty directory
+  {{ tests_dir }}/link_directory_empty/link_force:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file
+  {{ tests_dir }}/link_directory_empty/link:
+    exists: true
+    filetype: directory
+  # Link already exists as full directory
+  {{ tests_dir }}/link_directory_full/link_force:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file
+  {{ tests_dir }}/link_directory_full/link:
+    exists: true
+    filetype: directory

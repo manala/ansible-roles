@@ -15,5 +15,5 @@
       'started'
     }}"
     enabled: true
-  with_items:
+  loop:
     - mysql

@@ -1,0 +1,51 @@
+name: Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/manala/roles
+      - name: Sanity
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && ansible-test sanity --python 3.8 --requirements --verbose --color \
+            "
+      - name: Units
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && ansible-test units --python 3.8 --requirements --coverage --verbose --color \
+            "
+      - name: Integration
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && ansible-test integration --python 3.8 --requirements --coverage --verbose --color \
+            "
+      - name: Coverage
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && ansible-test coverage xml --python 3.8 --requirements --group-by command --group-by version --verbose --color \
+            "
+      - name: Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: false

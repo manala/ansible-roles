@@ -1,9 +1,56 @@
 name: Molecule - MySQL
 
 on:
+  pull_request:
+    paths:
+      - .github/workflows/molecule.mysql.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/mysql.*/**
+      - roles/mysql/**
+      # Plugins
+      - plugins/filter/mysql_config.py
+      - plugins/filter/staten.py
+      - plugins/lookup/templates_exclusive.py
   workflow_dispatch:
     inputs:
       debug:
-        description: Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)
+        description: Run with tmate debugging
         required: false
         default: false
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        version:
+          - 5.6
+          - 5.7
+          - "8.0"
+          - galera.3.mysql_wsrep.5.6
+          - mariadb.10.3
+          - mariadb.10.4
+          - mariadb.10.5
+          - mariadb.10.6
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/manala/roles
+      - name: Disable apparmor for mysql
+        run: |
+          sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+          sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+      - name: Molecule
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && molecule converge --scenario-name mysql.${{ matrix.version }} \
+            "
+      - name: Debug
+        uses: mxschmitt/action-tmate@v3
+        if: github.event.inputs.debug && always()

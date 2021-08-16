@@ -1,8 +1,0 @@
----
-
-- name: Pre tasks > MariaDB 10.5 sysvinit
-  copy:
-    src: pre_tasks/sysvinit/mariadb_10.5.init
-    dest: /etc/init.d/mysql
-    owner: root
-    mode: 0755

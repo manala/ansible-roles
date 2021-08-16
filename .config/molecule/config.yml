@@ -1,0 +1,82 @@
+---
+
+driver:
+  name: docker
+
+platforms:
+  - name: debian.stretch
+    groups: [debian]
+    image: jrei/systemd-debian:stretch
+    dockerfile: ../Dockerfile.debian.stretch.j2
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+    override_command: false
+  - name: debian.buster
+    groups: [debian]
+    image: jrei/systemd-debian:buster
+    dockerfile: ../Dockerfile.debian.buster.j2
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+    override_command: false
+  - name: debian.bullseye
+    groups: [debian]
+    image: jrei/systemd-debian:bullseye
+    dockerfile: ../Dockerfile.debian.bullseye.j2
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+    override_command: false
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
+      gathering: smart
+      fact_caching: jsonfile
+      fact_caching_connection: facts.json
+      fact_caching_timeout: 3600
+  inventory:
+    host_vars:
+      debian.stretch:
+        # Force python version on debian stretch
+        ansible_python_interpreter: /usr/bin/python3
+
+scenario:
+  create_sequence:
+    - create
+    - prepare
+  cleanup_sequence:
+    - cleanup
+  check_sequence:
+    - cleanup
+    - destroy
+    - create
+    - prepare
+    - converge
+    - check
+    - cleanup
+    - destroy
+  converge_sequence:
+    - create
+    - prepare
+    - converge
+  destroy_sequence:
+    - cleanup
+    - destroy
+  test_sequence:
+    - cleanup
+    - destroy
+    - create
+    - prepare
+    - converge
+    - cleanup
+    - destroy

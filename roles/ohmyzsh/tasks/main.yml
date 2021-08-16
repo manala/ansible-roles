@@ -16,8 +16,6 @@
 - import_tasks: custom_themes.yml
   tags:
     - manala_ohmyzsh
-    # Deprecated
-    - manala_ohmyzsh.themes
     - manala_ohmyzsh.custom_themes
 
 # Users

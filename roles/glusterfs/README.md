@@ -1,24 +1,12 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: GlusterFS [![Build Status](https://travis-ci.org/manala/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.org/manala/ansible-role-glusterfs)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: GlusterFS
 
 This role will deal with the configuration of [GlusterFS](https://www.gluster.org/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
-This role is made to work with the __glusterfs__ official packages, available on the [__glusterfs__ repository](https://download.gluster.org/pub/gluster/glusterfs). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the __glusterfs__ official packages, available on the [__glusterfs__ repository](https://download.gluster.org/pub/gluster/glusterfs). Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -31,28 +19,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.glusterfs
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.glusterfs
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                        | Default                    | Type    | Description                            |
-| -----------------------------------------   | -------------------------- | ------- | -------------------------------------- |
-| `manala_glusterfs_install_packages`         | ~                          | Array   | Dependency packages to install         |
-| `manala_glusterfs_install_packages_default` | ['glusterfs-server']       | Array   | Default dependency packages to install |
-| `manala_glusterfs_volumes`                  | []                         | Array   | Volumes settings                       |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -80,9 +51,11 @@ manala_glusterfs_volumes:
 - "Options" are expecting strings only. Quotes are required.
 - To add bricks, use the same syntax on existent volume.
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

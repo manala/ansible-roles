@@ -1,4 +1,0 @@
-{#- Deprecated -#}
-
-{%- set template_name = (template_env == '')|ternary('default.j2','default.' ~ template_env ~ '.j2') -%}
-{%- include manala_redis_version ~ '/' ~ template_name -%}

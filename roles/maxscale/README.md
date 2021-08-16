@@ -1,25 +1,13 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Maxscale [![Build Status](https://travis-ci.org/manala/ansible-role-maxscale.svg?branch=master)](https://travis-ci.org/manala/ansible-role-maxscale)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Maxscale
 
 This role will deal with the setup and configuration of [Maxscale](https://mariadb.com/products/technology/maxscale).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
 This role is made to work with the __mariadb maxscale__ debian packages, available on the [__mariadb maxscale__ repository](https://downloads.mariadb.com/MaxScale/).
-Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -32,42 +20,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.maxscale
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.maxscale
-
-```
-## Role Handlers
-
-| Name               | Type    | Description              |
-| ------------------ | ------- | ------------------------ |
-| `maxscale restart` | Service | Restart Maxscale service |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                       | Default                               | Type         | Description                            |
-| ------------------------------------------ | ------------------------------------- | ------------ | -------------------------------------- |
-| `manala_maxscale_install_packages`         | ~                                     | Array        | Dependency packages to install         |
-| `manala_maxscale_install_packages_default` | ['maxscale']                          | Array        | Default dependency packages to install |
-| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'                   | String       | Configuration file path                |
-| `manala_maxscale_config_template`          | 'config/_default.j2'                  | String       | Default configuration template path    |
-| `manala_maxscale_config`                   | ~                                     | Array/String | Configuration                          |
-| `manala_maxscale_configs_exclusive`        | false                                 | Boolean      | Configurations exclusivity             |
-| `manala_maxscale_configs_dir`              | '{{ manala_maxscale_config_file }}.d' | String       | Configurations dir path                |
-| `manala_maxscale_configs_defaults`         | {}                                    | Array        | Default configurations template path   |
-| `manala_maxscale_configs`                  | []                                    | Array        | Configurations                         |
-| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd'            | String       | Users file path                        |
-| `manala_maxscale_users_template`           | 'users/_default.j2'                   | String       | Default users template path            |
-| `manala_maxscale_network_users`            | ~                                     | Array        | Network users (untouched if null)      |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example (Galera cluster configuration)
 
@@ -87,56 +44,6 @@ manala_maxscale_config: |
   router = cli
 ```
 
-Dict's array based config (deprecated)
-```yaml
-manala_maxscale_config:
-  - maxscale:
-    - threads: auto #Dedicated container
-  - Splitter Service:
-    - type: service
-    - router: readwritesplit
-    - servers: mariadb-1, mariadb-2, mariadb-3
-    - user: maxscale
-    - passwd: XXXXXXXXXXXXXX
-  - Splitter Listener:
-    - type: listener
-    - address: "{{ ansible_eth0.ipv4.address }}" # Ip of the host, can be omit default is listen all interfaces
-    - port: 3306
-    - socket: /tmp/ClusterMaster
-    - service: Splitter Service
-    - protocol: MySQLClient
-  - mysql-1:
-    - type: server
-    - address: 172.16.X.XX
-    - port: 3306
-    - protocol: MySQLBackend
-  - mysql-2:
-    - type: server
-    - address: 172.16.X.XX
-    - port: 3306
-    - protocol: MySQLBackend
-  - mysql-3:
-    - type: server
-    - address: 172.16.X.XX
-    - port: 3306
-    - protocol: MySQLBackend
-  - Galera Monitor:
-    - type: monitor
-    - module: galeramon
-    - servers: mariadb-1, mariadb-1, mariadb-1
-    - user: maxscale
-    - passwd: XXXXXXXXXXX
-  - CLI:
-    - type: service
-    - router: cli
-  - CLI Listener:
-    - type: listener
-    - service: CLI
-    - protocol: maxscaled
-    - address: localhost
-    - port: 6603
-```
-
 Configs
 ```yaml
 manala_maxscale_configs_exclusive: true
@@ -149,22 +56,6 @@ manala_maxscale_configs:
       address = foo-1
       port = 3306
       protocol = MariaDBBackend
-  # Dict's array based (deprecated)
-  - file: bar.cnf
-    config:
-      - foo-1:
-        - type: server
-        - address: foo-1
-        - port: 3306
-        - protocol: MariaDBBackend
-  # Dict's array (deprecated)
-  - file: bar.cnf
-    config:
-      - foo-1:
-        - type: server
-        - address: foo-1
-        - port: 3306
-        - protocol: MariaDBBackend
   # Template cnf
   - file: template.cnf
     template: my_maxscale_template.cnf.j2
@@ -194,13 +85,16 @@ manala_maxscale_network_users:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.maxscale
+  tasks:
+    - import_role:  
+        name: manala.roles.maxscale
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

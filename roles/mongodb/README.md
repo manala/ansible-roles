@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Mongodb [![Build Status](https://travis-ci.org/manala/ansible-role-mongodb.svg?branch=master)](https://travis-ci.org/manala/ansible-role-mongodb)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Mongodb
 
 This role will deal with the setup of [Mongodb](https://www.mongodb.com/fr).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -32,35 +20,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.mongodb
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.mongodb
-```
-
-## Role Handlers
-
-| Name              | Type    | Description            |
-| ----------------- | ------- | ---------------------- |
-| `mongodb restart` | Service | Restart mongodb server |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                      | Default                                                                         | Type         | Description                             |
-| ----------------------------------------- | ------------------------------------------------------------------------------- | ------------ | --------------------------------------- |
-| `manala_mongodb_install_packages`         | ~                                                                               | Array        |  Dependency packages to install         |
-| `manala_mongodb_install_packages_default` | ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-tools'] | Array        |  Default dependency packages to install |
-| `manala_mongodb_config_file`              | '/etc/mongod.conf'                                                              | String       |  Configuration file path                |
-| `manala_mongodb_config_template`          | 'config/_default.j2'                                                            | String       |  Configuration template path            |
-| `manala_mongodb_config`                   | ~                                                                               | Array/String |  Configuration                          |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -83,12 +47,6 @@ manala_mongodb_config:
   foo: bar
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_supervisor_config:
-  - port: 12345
-```
-
 Users:
 ```yaml
 manala_mongodb_users:
@@ -107,13 +65,16 @@ manala_mongodb_users:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.mongodb
+  tasks:
+    - import_role:
+        name: manala.roles.mongodb
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

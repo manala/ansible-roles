@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: PostgreSQL [![Build Status](https://travis-ci.org/manala/ansible-role-postgresql.svg?branch=master)](https://travis-ci.org/manala/ansible-role-postgresql)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: PostgreSQL
 
 This role will deal with the setup of [PostgreSQL](http://www.postgresql.org/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,33 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.postgresql
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.postgresql
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-### Definition
-
-| Name                                         | Default                                                                                              | Type   | Description                            |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------ | -------------------------------------- |
-| `manala_postgresql_version`                  | ~                                                                                                    | String | REQUIRED - PostgreSQL version          |
-| `manala_postgresql_install_packages`         | ~                                                                                                    | Array  | Dependency packages to install         |
-| `manala_postgresql_install_packages_default` | ['postgresql-{{ manala_postgresql_version }}', 'postgresql-contrib-{{ manala_postgresql_version }}'] | Array  | Default dependency packages to install |
-| `manala_postgresql_config`                   | []                                                                                                   | Array  | Configuration parameters               |
-| `manala_postgresql_config_template`          | ~                                                                                                    | String | Configuration template path            |
-| `manala_postgresql_config_hba`               | []                                                                                                   | Array  | Hba configuration parameters           |
-| `manala_postgresql_config_hba_template`      | ~                                                                                                    | String | Hba configuration template path        |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -64,28 +30,31 @@ manala_postgresql_version: 9.4
 ## PostgreSQL with custom configuration files:
 
 ```yaml
-manala_postgresql_config_template: config/default.dev.j2
-manala_postgresql_config:
-  - max_connections: 123
-manala_postgresql_config_hba_template: config/hba/default.dev.j2
-manala_postgresql_config_hba:
-  - local   all             postgres                                peer
-  - local   all             all                                     peer
-  - host    all             all             127.0.0.1/32            md5
-  - host    all             all             ::1/128                 md5
+manala_postgresql_config_template: my/config.j2
+manala_postgresql_config: |
+  max_connections = 123
+manala_postgresql_config_hba_template: my/config_hba.j2
+manala_postgresql_config_hba: |
+  local   all             postgres                                peer
+  local   all             all                                     peer
+  host    all             all             127.0.0.1/32            md5
+  host    all             all             ::1/128                 md5
 ```
 
 ## Example playbook
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.postgresql }
+  tasks:
+    - import_role:  
+        name: manala.roles.postgresql
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

@@ -1,0 +1,19 @@
+---
+
+file:
+  {{ tests_dir }}/app:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/releases:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/shared:
+    exists: true
+    filetype: directory
+  # Finalize
+  {{ tests_dir }}/app/current:
+    exists: true
+    filetype: symlink
+  # Unfinished
+  {{ tests_dir }}/app/current/{{ deploy_helper.unfinished_filename }}:
+    exists: false

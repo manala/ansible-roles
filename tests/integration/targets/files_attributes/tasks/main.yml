@@ -1,0 +1,34 @@
+---
+
+#########
+# Touch #
+#########
+
+- vars:
+    tests_dir: /integration/files_attributes/touch
+  block:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: Module
+      manala.roles.files_attributes:
+        path: "{{ tests_dir }}/file"
+        state: touch
+  always:
+    - name: Stat
+      stat:
+        path: "{{ tests_dir }}/file"
+      register: stat
+    - name: Assert
+      assert:
+        that:
+          - stat is not changed
+          - stat is not failed
+          - stat.stat.exists
+          - stat.stat.isreg
+          - stat.stat.mode == '0644'
+          - stat.stat.gr_name == 'root'
+          - stat.stat.pw_name == 'root'
+          - stat.stat.size == 0

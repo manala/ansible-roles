@@ -1,0 +1,96 @@
+---
+
+user:
+
+  # None
+  user_gk_none:
+    exists: true
+  # Public
+  user_gk_public:
+    exists: true
+  # Secret
+  user_gk_secret:
+    exists: true
+  # Trust
+  user_gk_trust:
+    exists: true
+  # Verbose syntax
+  user_gk_verbose_syntax:
+    exists: true
+  # Flatten
+  user_gk_flatten:
+    exists: true
+  # Multiple
+  user_gk_multiple:
+    exists: true
+  # State
+  user_gk_state_ignore:
+    exists: false
+
+command:
+
+  # None
+  su user_gk_none -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 2
+  su user_gk_none -c 'gpg --list-secret-keys EEFB7858B3971AA2':
+    exit-status: 2
+  # Public
+  su user_gk_public -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_public -c 'gpg --list-secret-keys EEFB7858B3971AA2':
+    exit-status: 2
+  # Secret
+  su user_gk_secret -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_secret -c 'gpg --list-secret-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  # Trust
+  su user_gk_trust -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_trust -c 'gpg --export-ownertrust':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  # Verbose syntax
+  su user_gk_verbose_syntax -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_verbose_syntax -c 'gpg --list-secret-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  # Flatten
+  su user_gk_flatten -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_flatten -c 'gpg --list-secret-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  # Multiple
+  su user_gk_multiple -c 'gpg --list-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_multiple -c 'gpg --list-secret-keys EEFB7858B3971AA2':
+    exit-status: 0
+    stdout:
+      - EEFB7858B3971AA2
+  su user_gk_multiple -c 'gpg --list-keys 3C0AA0CD6E3382DA':
+    exit-status: 0
+    stdout:
+      - 3C0AA0CD6E3382DA
+  su user_gk_multiple -c 'gpg --list-secret-keys 3C0AA0CD6E3382DA':
+    exit-status: 0
+    stdout:
+      - 3C0AA0CD6E3382DA

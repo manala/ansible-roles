@@ -1,0 +1,13 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - php@sury_php
+        manala_apt_repositories:
+          - blackfire

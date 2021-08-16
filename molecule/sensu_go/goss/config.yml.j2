@@ -1,0 +1,21 @@
+---
+
+file:
+  "{{ tests_dir }}/dict-agent":
+    exists: true
+    filetype: file
+    owner: sensu
+    group: sensu
+    mode: "0640"
+    contains:
+      - "backend-url:"
+      - "ws://127.0.0.1:8081"
+
+  "{{ tests_dir }}/dict-backend":
+    exists: true
+    filetype: file
+    owner: sensu
+    group: sensu
+    mode: "0640"
+    contains:
+      - "state-dir: /tmp"

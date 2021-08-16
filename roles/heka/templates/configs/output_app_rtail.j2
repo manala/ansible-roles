@@ -1,8 +1,0 @@
-[encoder_manala_rtail]
-type = "SandboxEncoder"
-filename = "lua_encoders/rtail.lua"
-
-[UdpOutput]
-address = "127.0.0.1:9999"
-encoder = "encoder_manala_rtail"
-message_matcher = "Fields[channel] == 'app'"

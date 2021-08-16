@@ -5,7 +5,7 @@
     /usr/sbin/php-fpm{{ manala_php_version|string }} -t
   when: |
     'fpm' in query(
-      'manala_php_sapis',
+      'manala.roles.php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
@@ -18,11 +18,13 @@
 
 - name: do php fpm restart
   service:
-    name: php{{ manala_php_version|string }}-fpm
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - php{{ manala_php_version|string }}-fpm
   when: |
     'fpm' in query(
-      'manala_php_sapis',
+      'manala.roles.php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
@@ -31,5 +33,7 @@
 
 - name: php blackfire agent restart
   service:
-    name: blackfire-agent
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - blackfire-agent

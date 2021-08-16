@@ -2,47 +2,39 @@
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
-  command: "id -g -n {{ item.user }}"
+  command: >
+    id -g -n {{ item.user }}
   loop: "{{
-    manala_ohmyzsh_users | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_ohmyzsh_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_ohmyzsh_users
+      | flatten
+      | manala.roles.staten(want='present')
   }}"
   when:
-    - item.state|default('present') == 'present'
+    - item is not string
     - item.group is not defined
-  register: __manala_ohmyzsh_users
+  register: __manala_ohmyzsh_users_groups
   changed_when: false
 
-# Pair users with their found groups
-- name: users > Pair primary groups
-  set_fact:
-    # Waiting for the ansible 2 "combine" filter...
-    __item: "{% set __item = item.0.update(({}) if (item.1 is skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
-  loop: "{{
-    (
-      manala_ohmyzsh_users | flatten | selectattr('state', 'undefined') | list
-      +
-      manala_ohmyzsh_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
-    )|zip(__manala_ohmyzsh_users.results)|list }}"
-  register: __manala_ohmyzsh_users
-
-# Flatten results structure to the original variable
-- name: users > Flatten primary groups
-  set_fact:
-    manala_ohmyzsh_users: "{{ __manala_ohmyzsh_users.results|map(attribute='ansible_facts.__item')|list }}"
-
-- name: users > Templates
+- name: users > Zshrc templates
   template:
     src: "{{ item.template|default(manala_ohmyzsh_users_defaults.template|default('users/_default.j2', true), true) }}"
     dest: "{{ item.dir|default('~' ~ item.user, true) }}/.zshrc"
     owner: "{{ item.user }}"
     group: "{{ item.group|default(omit) }}"
     mode: "0644"
-  loop: "{{ manala_ohmyzsh_users }}"
+  loop: "{{
+    manala_ohmyzsh_users
+      | flatten
+      | manala.roles.staten(want='present')
+      | manala.roles.users_groups(__manala_ohmyzsh_users_groups.results)
+  }}"
 
 - name: users > Shells
   user:
     name: "{{ item.user }}"
     shell: /bin/zsh
-  loop: "{{ manala_ohmyzsh_users }}"
+  loop: "{{
+    manala_ohmyzsh_users
+      | flatten
+      | manala.roles.staten(want='present')
+  }}"

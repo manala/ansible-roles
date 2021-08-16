@@ -8,7 +8,7 @@
     clone: "{{ item.clone|default(omit) }}"
     update: "{{ item.update|default(true)|bool }}"
     version: "{{ item.version|default(omit) }}"
-  with_items: "{{ manala_git_repositories }}"
+  loop: "{{ manala_git_repositories }}"
   when: item.user is undefined
 
 - name: repositories > Setup git repositories as specified user
@@ -21,5 +21,5 @@
     version: "{{ item.version|default(omit) }}"
   become: true
   become_user: "{{ item.user }}"
-  with_items: "{{ manala_git_repositories }}"
+  loop: "{{ manala_git_repositories }}"
   when: item.user is defined

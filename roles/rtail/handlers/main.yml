@@ -1,6 +1,0 @@
----
-
-- name: rtail restart
-  service:
-    name: rtail
-    state: restarted

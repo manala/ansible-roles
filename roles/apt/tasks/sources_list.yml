@@ -8,4 +8,4 @@
     group: root
     mode: "0644"
   when: manala_apt_sources_list_template
-        or manala_apt_sources_list
+    or manala_apt_sources_list

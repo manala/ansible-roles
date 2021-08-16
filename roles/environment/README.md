@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Environment [![Build Status](https://travis-ci.org/manala/ansible-role-environment.svg?branch=master)](https://travis-ci.org/manala/ansible-role-environment)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Environment
 
 This role will deal with the setup of environment variables.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,26 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.environment
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.environment
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                           | Default | Type    | Description            |
-| ------------------------------ | ------- | ------- | ---------------------- |
-| `manala_environment_files`     | ['pam'] | Array   |  Environment files     |
-| `manala_environment_variables` | {}/[]   | Array   |  Environment variables |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -63,30 +36,20 @@ manala_environment_variables:
   BAR: true
 ```
 
-For legacy purposes, `manala_environment_variables` also accepts values as
-a dictionnary list.
-Note that in this mode (and only in this mode), some non-scalar values are
-interpreted to strings.
-
-```yaml
-manala_environment_variables:
-  - FOO: bar
-  - FOO_NULL: ~      # -> "null"
-  - FOO_TRUE: true   # -> "true"
-  - FOO_FALSE: false # -> "false"
-```
-
 ## Example playbook
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.environment }
+  tasks:
+    - import_role:  
+        name: manala.roles.environment
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

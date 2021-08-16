@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Systemd [![Build Status](https://travis-ci.org/manala/ansible-role-systemd.svg?branch=master)](https://travis-ci.org/manala/ansible-role-systemd)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Systemd
 
 This role will deal with the setup of Systemd.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,40 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.systemd
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.systemd
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                        | Default               | Type    | Description                                  |
-| ------------------------------------------- | --------------------- | ------- | -------------------------------------------- |
-| `manala_systemd_system_configs_exclusive`   | false                 | Boolean | Exclusion of existings files                 |
-| `manala_systemd_system_configs_dir`         | '/etc/systemd/system' | String  | Path to the system configuration directory   |
-| `manala_systemd_system_configs_defaults`    | {}                    | Array   | System configs defaults                      |
-| `manala_systemd_system_configs`             | []                    | Array   | System configs                               |
-| `manala_systemd_tmpfiles_configs_exclusive` | false                 | Boolean | Exclusion of existings files                 |
-| `manala_systemd_tmpfiles_configs_dir`       | '/etc/tmpfiles.d'     | String  | Path to the tmpfiles configuration directory |
-| `manala_systemd_tmpfiles_configs_defaults`  | {}                    | Array   | Tmpfiles configs defaults                    |
-| `manala_systemd_tmpfiles_configs`           | []                    | Array   | Tmpfiles configs                             |
-| `manala_systemd_services`                   | []                    | Array   | Services                                     |
-
-
-| `manala_telegraf_configs_exclusive`        | false                      | Array        | Additional configurations exclusivity    |
-| `manala_telegraf_configs_dir`              | '/etc/telegraf/telegraf.d' | String       | Additional configurations directory path |
-| `manala_telegraf_configs_defaults`         | {}                         | Array        | Additional configurations defaults       |
-| `manala_telegraf_configs`                  | []                         | Array        | Additional configurations directives     |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -83,10 +42,6 @@ manala_systemd_system_configs:
     template: systemd/system/bar.conf.j2
     config:
       foo: bar
-  # Dicts array based (deprecated)
-  - file: deprecated.conf
-    config:
-      - Description=OpenBSD Secure Shell session cleanup
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -122,10 +77,6 @@ manala_systemd_tmpfiles_configs:
     template: systemd/tmpfiles/bar.conf.j2
     config:
       foo: bar
-  # Dicts array based (deprecated)
-  - file: deprecated.conf
-    config:
-      - d: /var/run/mysqld 0755 mysql mysql -
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -140,13 +91,16 @@ manala_systemd_tmpfiles_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.systemd
+  tasks:
+    - import_role:  
+        name: manala.roles.systemd
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

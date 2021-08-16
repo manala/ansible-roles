@@ -1,0 +1,539 @@
+---
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/apt/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.apt
+            tasks_from: configs
+          vars:
+            manala_apt_configs_exclusive: false
+            manala_apt_configs_dir: "{{ tests_dir }}/default"
+            manala_apt_configs_defaults: {}
+            manala_apt_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.apt
+            tasks_from: configs
+          vars:
+            manala_apt_configs_exclusive: false
+            manala_apt_configs_dir: "{{ tests_dir }}/defaults"
+            manala_apt_configs_defaults:
+              template: fixtures/template.j2
+            manala_apt_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.apt
+            tasks_from: configs
+          vars:
+            manala_apt_configs_exclusive: true
+            manala_apt_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_apt_configs_defaults: {}
+            manala_apt_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+
+################
+# Sources List #
+################
+
+- name: Sources List
+  tags: [sources_list]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/apt/sources_list
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Content
+          import_role:
+            name: manala.roles.apt
+            tasks_from: sources_list
+          vars:
+            manala_apt_sources_list_file: "{{ tests_dir }}/content"
+            manala_apt_sources_list_template: ~
+            manala_apt_sources_list: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.apt
+            tasks_from: sources_list
+          vars:
+            manala_apt_sources_list_file: "{{ tests_dir }}/template"
+            manala_apt_sources_list_template: fixtures/template.j2
+            manala_apt_sources_list: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/sources_list.yml.j2') }}"
+
+###############
+# Preferences #
+###############
+
+- name: Preferences
+  tags: [preferences]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/apt/preferences
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.apt
+            tasks_from: preferences
+          vars:
+            manala_apt_preferences_exclusive: false
+            manala_apt_preferences_dir: "{{ tests_dir }}/default"
+            manala_apt_preferences_defaults: {}
+            manala_apt_preferences:
+              # Short syntax
+              - git@backports
+              - libssl1.0.0@backports
+              - php@sury_php:300
+              - sury_php:100
+              - sury_php:200
+              # Pattern syntax
+              - preference: ansible@ansible
+              - preference: ansible@ansible
+                file: ansible_foo
+              - preference: ansible@ansible
+                file: ansible_bar
+                package: foo bar*
+              - preference: ansible@ansible
+                file: ansible_baz
+                pin: baz
+              - preference: ansible@ansible
+                file: ansible_qux
+                priority: 1234
+              # Verbose syntax
+              - package: foo
+                pin: foo
+                priority: 100
+                file: foo_foo
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              # Flatten
+              -
+                - package: foo
+                  pin: foo
+                  priority: 100
+                  file: flatten
+              # State
+              - package: foo
+                pin: foo
+                priority: 100
+                file: state_present_implicit
+              - package: foo
+                pin: foo
+                priority: 100
+                file: state_present
+                state: present
+              - package: foo
+                pin: foo
+                priority: 100
+                file: state_absent
+                state: absent
+              - package: foo
+                pin: foo
+                priority: 100
+                file: state_absent_existing
+                state: absent
+              - package: foo
+                pin: foo
+                priority: 100
+                file: state_ignore
+                state: ignore
+              - package: foo
+                pin: foo
+                priority: 100
+                file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.apt
+            tasks_from: preferences
+          vars:
+            manala_apt_preferences_exclusive: false
+            manala_apt_preferences_dir: "{{ tests_dir }}/defaults"
+            manala_apt_preferences_defaults:
+              template: fixtures/template.j2
+            manala_apt_preferences:
+              - file: template
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.apt
+            tasks_from: preferences
+          vars:
+            manala_apt_preferences_exclusive: true
+            manala_apt_preferences_dir: "{{ tests_dir }}/exclusive"
+            manala_apt_preferences_defaults: {}
+            manala_apt_preferences:
+              - package: bar
+                pin: bar
+                priority: 100
+                file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/preferences.yml.j2') }}"
+
+########
+# Keys #
+########
+
+- name: Keys
+  tags: [keys]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.apt
+            tasks_from: keys
+          vars:
+            manala_apt_preferences:
+              - sury_php:100
+            manala_apt_repositories:
+              - nginx
+              - source: deb https://dl.yarnpkg.com/debian/ stable main
+                key: yarn
+              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+                key:
+                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+                  id: ACCC4CF8
+            manala_apt_keys:
+              # Short syntax
+              - sensu-go
+              # Verbose syntax
+              - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+                id: 056E8E56
+              - keyserver: keyserver.ubuntu.com
+                id: BC19DDBA  # Galera
+              # Flatten
+              -
+                - multimedia
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/keys.yml.j2') }}"
+
+################
+# Repositories #
+################
+
+- name: Repositories - Default
+  tags: [repositories, repositories.default]
+  hosts: debian
+  tasks:
+    - name: Apt keys
+      apt_key:
+        url: "{{ item.0 }}"
+        id: "{{ item.1 }}"
+      loop:
+        - [http://deb.nodesource.com/gpgkey/nodesource.gpg.key, 68576280]
+    - name: Apt repositories
+      apt_repository:
+        repo: "{{ item }}"
+      loop:
+        - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+        - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+    - block:
+        - name: Role
+          import_role:
+            # Play role fully, because of "keys" tasks dependency
+            name: manala.roles.apt
+          vars:
+            manala_apt_preferences:
+              - sury_php:100
+            manala_apt_repositories:
+              # Short syntax
+              - percona
+              # Pattern syntax
+              - repository: grafana
+              # Verbose syntax
+              - source: deb https://dl.yarnpkg.com/debian/ stable main
+                key: yarn
+              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+                key:
+                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+                  id: ACCC4CF8
+              # Flatten
+              -
+                - nginx
+              # State
+              - source: deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+                state: absent
+              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
+                state: present
+              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+                state: ignore
+              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/repositories.default.yml.j2') }}"
+
+- name: Repositories - Exclusive
+  tags: [repositories, repositories.exclusive]
+  hosts: debian
+  tasks:
+    - name: Apt keys
+      apt_key:
+        url: "{{ item.0 }}"
+        id: "{{ item.1 }}"
+      loop:
+        - [http://deb.nodesource.com/gpgkey/nodesource.gpg.key, 68576280]
+    - name: Apt repositories
+      apt_repository:
+        repo: "{{ item }}"
+      loop:
+        - deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
+        - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+        - deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
+        - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+    - block:
+        - name: Role
+          import_role:
+            # Play role fully, because of "keys" tasks dependency
+            name: manala.roles.apt
+            tasks_from: repositories
+          vars:
+            manala_apt_repositories_exclusive: true
+            manala_apt_repositories:
+              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+                state: ignore
+              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/repositories.exclusive.yml.j2') }}"
+
+############
+# Packages #
+############
+
+- name: Packages
+  tags: [packages]
+  hosts: debian
+  tasks:
+    - name: Packages absent
+      apt:
+        name: [asciijump, freesweep, wordplay]
+        state: absent
+    - name: Packages
+      apt:
+        name: [an, nettoe]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+    - name: Packages apt
+      apt:
+        deb: http://snapshot.debian.org/archive/debian-archive/20120328T092752Z/debian/pool/main/p/pscan/pscan_1.2-9_amd64.deb
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.apt
+            tasks_from: packages
+          vars:
+            manala_apt_packages:
+              # Short syntax
+              - asciijump
+              - http://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb
+              # Verbose syntax
+              - package: freesweep
+              # Flatten
+              -
+                - package: http://snapshot.debian.org/archive/debian/20160619T164515Z/pool/main/w/wait-for-it/wait-for-it_0.0~git20160501-1_all.deb
+              # State
+              - package: an
+                state: absent
+              - package: pscan
+                state: absent
+              - package: nettoe
+                state: ignore
+              - package: wordplay
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/packages.yml.j2') }}"
+
+#########
+# Holds #
+#########
+
+- name: Holds - Default
+  tags: [holds, holds.default]
+  hosts: debian
+  tasks:
+    - name: Dpkg selections install
+      dpkg_selections:
+        name: "{{ item }}"
+        selection: install
+      loop: [apt, python3, grep]
+    - name: Dpkg selections holds
+      dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop: [dpkg, tar]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.apt
+            tasks_from: holds
+          vars:
+            manala_apt_holds:
+              # Short syntax
+              - apt
+              # Flatten
+              -
+                # State
+                - package: dpkg
+                  state: absent
+                - package: python3
+                  state: present
+                - package: grep
+                  state: ignore
+                - package: tar
+                  state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/holds.default.yml.j2') }}"
+
+- name: Holds - Exclusive
+  tags: [holds, holds.exclusive]
+  hosts: debian
+  tasks:
+    - name: Dpkg selections holds
+      dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop: [python3, tar]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.apt
+            tasks_from: holds
+          vars:
+            manala_apt_holds_exclusive: true
+            manala_apt_holds:
+              - package: dpkg
+              - package: grep
+                state: ignore
+              - package: tar
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/holds.exclusive.yml.j2') }}"
+##########
+# Update #
+##########
+
+- name: Update
+  tags: [update]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.apt
+            tasks_from: update
+          vars:
+            manala_apt:
+              update: true

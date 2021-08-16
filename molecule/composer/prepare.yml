@@ -1,0 +1,11 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Packages
+      apt:
+        name: [php-cli]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600

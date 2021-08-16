@@ -5,6 +5,65 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Php] 8.1 support
+
+## [Unreleased]
+### Added
+- [All] Add debian bullseye support
+- [Accounts] `ignore` users state
+- [Accounts] users short syntax
+- [Accounts] `ignore` groups state
+
+### Fixed
+- [Apt] Percona key url
+- [Cron] Remove empty lines between jobs
+- [MongoDB] `python-pymongo` or `python3-pymongo` apt package as requirements for users handling, depending of tha ansible python version
+- [ProFTPd] Remove useless leading spaces in users password file
+
+### Removed
+- [All] Remove debian jessie support
+- [Ansible Galaxy] Remove alternatives support
+- [Apt] Remove deprecated `debian_security` `debian_security_src` `debian_updates` `debian_updates_src` `debian_backports` `dotdeb` `maxscale_2_2_6` `sury_php_debian` repositories patterns
+- [Apt] Remove deprecated `sury_php_debian` keys patterns
+- [Apt] Remove debian jessie related `mariadb_10_0`, `elasticsearch_1_7`, `nodesource_0_10`, `nodesource_0_12`, `nodesource_5` repositories patterns
+- [Apt] Remove debian jessie related `mariadb_legacy` keys patterns
+- [Apt] Remove `php5-*` preferences pattern
+- [Apt] Remove deprecated `phpmyadmin`, `phppgadmin`, `oauth2-proxy`, `thefuck`, and `httpie` preferences pattern, all related to deprecated manala debian packages
+- [Apt] Remove 'logentries' repository, key, and preference patterns (no more available)
+- [Apt] Remove 'sensu' repository, key, and preference patterns  (no more available)
+- [Beanstalkd] Remove role
+- [Elasticsearch] debian jessie related version 1.7 support
+- [Grafana] Remove versions 2.0/2.1/2.5 support
+- [Graylog Sidecar] Remove role
+- [Heka] Remove role
+- [Hugo] Remove role
+- [Logentries] Remove role
+- [Merge] Remove role
+- [Mongo Express] Remove role
+- [OAuth2 Proxy] Remove role
+- [Timezone] Stop using handlers
+- [Mailhog] Remove role
+- [Nginx] Remove config filters
+- [Opcache Dashboard] Remove role
+- [PhantomJS] Remove role
+- [PhpMyAdmin] Remove role
+- [PhpPgAdmin] Remove role
+- [PhpRedisAdmin] Remove role
+- [Proxmox] Remove role
+- [Redis] Remove version 2.8 support
+- [Rtail] Remove role
+- [Vault] Remove role
+- [Varnish] Remove role
+
+### Changed
+- [Apt] Don't ensure anymore that configs (`/etc/apt/apt.conf.d`) and preferences (`/etc/apt/preferences.d`) directory exists
+- [Apt] Switch default preferences pin priority from 900 to 1000
+- [Apt] Use regular expressions in preferences patterns when possible (such as `php`)
+- [OhMyZsh] Update users template (see: https://github.com/ohmyzsh/ohmyzsh/commits/master/templates/zshrc.zsh-template)
+- [Grafana] Group services handling and stop using handlers
+- [Shorewall] Explicit config file permissions
+- [Systemd] Use native systemd module for `daemon-reload`
 
 ## [0.1.141] - 2021-12-10
 ### Added

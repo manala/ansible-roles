@@ -1,0 +1,85 @@
+---
+
+file:
+  # Fixed
+  {{ tests_dir }}/fixed:
+    exists: true
+    filetype: file
+    owner: root
+{% if ansible_distribution_release in ['stretch'] %}
+    group: staff
+{% else %}
+    group: root
+{% endif %}
+    mode: "0755"
+  # Update
+  {{ tests_dir }}/update:
+    exists: true
+    filetype: file
+    owner: root
+{% if ansible_distribution_release in ['stretch'] %}
+    group: staff
+{% else %}
+    group: root
+{% endif %}
+    mode: "0755"
+  # Major
+  {{ tests_dir }}/major:
+    exists: true
+    filetype: file
+    owner: root
+{% if ansible_distribution_release in ['stretch'] %}
+    group: staff
+{% else %}
+    group: root
+{% endif %}
+    mode: "0755"
+  # Major Change
+  {{ tests_dir }}/major_change:
+    exists: true
+    filetype: file
+    owner: root
+{% if ansible_distribution_release in ['stretch'] %}
+    group: staff
+{% else %}
+    group: root
+{% endif %}
+    mode: "0755"
+  # Major No Change
+  {{ tests_dir }}/major_no_change:
+    exists: true
+    filetype: file
+    owner: root
+{% if ansible_distribution_release in ['stretch'] %}
+    group: staff
+{% else %}
+    group: root
+{% endif %}
+    mode: "0755"
+
+command:
+  # Fixed
+  {{ tests_dir }}/fixed --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1.8.0
+  # Update
+  {{ tests_dir }}/update --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1.10.15
+  # Major
+  {{ tests_dir }}/major --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1
+  # Major Change
+  {{ tests_dir }}/major_change --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1
+  # Major No Change
+  {{ tests_dir }}/major_no_change --version:
+    exit-status: 0
+    stdout:
+      - Composer version 1.10.15

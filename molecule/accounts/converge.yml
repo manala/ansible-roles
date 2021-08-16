@@ -1,0 +1,289 @@
+---
+
+##########
+# Groups #
+##########
+
+- name: Groups
+  tags: [groups]
+  hosts: debian
+  tasks:
+    - name: Groups
+      group:
+        name: "{{ item }}"
+      loop: [group_state_absent_existing, group_state_ignore_existing]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.accounts
+            tasks_from: groups
+          vars:
+            manala_accounts_groups:
+              # Short syntax
+              - group_short_syntax
+              # Simple
+              - group: group_simple
+              # verbose syntax
+              - group: group_verbose_syntax
+                gid: 1337
+              # Flatten
+              -
+                - group: group_flatten
+              # State
+              - group: group_state_present_implicit
+              - group: group_state_present
+                state: present
+              - group: group_state_absent
+                state: absent
+              - group: group_state_absent_existing
+                state: absent
+              - group: group_state_ignore
+                state: ignore
+              - group: group_state_ignore_existing
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/groups.yml.j2') }}"
+
+#########
+# Users #
+#########
+
+- name: Users
+  tags: [users]
+  hosts: debian
+  tasks:
+    - name: Groups
+      group:
+        name: "{{ item }}"
+      loop: [users_group]
+    - name: Users
+      user:
+        name: "{{ item }}"
+      loop: [user_state_absent_existing, user_state_ignore_existing]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.accounts
+            tasks_from: users
+          vars:
+            manala_accounts_users:
+              # Short syntax
+              - user_short_syntax
+              # Simple
+              - user: user_simple
+              # Verbose syntax
+              - user: user_verbose_syntax
+                group: users_group
+              # Flatten
+              -
+                - user: user_flatten
+              # State
+              - user: user_state_present_implicit
+              - user: user_state_present
+                state: present
+              - user: user_state_absent
+                state: absent
+              - user: user_state_absent_existing
+                state: absent
+              - user: user_state_ignore
+                state: ignore
+              - user: user_state_ignore_existing
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
+
+#########################
+# Users Authorized Keys #
+#########################
+
+- name: Users Authorized Keys
+  tags: [users_authorized_keys]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.accounts
+            tasks_from: users
+          vars:
+            manala_accounts_users:
+              # Short syntax
+              - user_ak_short_syntax
+              # Simple
+              - user: user_ak_simple
+              # Verbose syntax
+              - user: user_ak_verbose_syntax
+                authorized_keys:
+                  - "{{ lookup('file', 'fixtures/key_1.pub') }}"
+              # Flatten
+              -
+                - user: user_ak_flatten
+                  authorized_keys:
+                    - "{{ lookup('file', 'fixtures/key_1.pub') }}"
+              # Multiple
+              - user: user_ak_multiple
+                authorized_keys:
+                  - "{{ lookup('file', 'fixtures/key_1.pub') }}"
+                  - "{{ lookup('file', 'fixtures/key_2.pub') }}"
+              # File
+              - user: user_ak_file
+                authorized_keys_file: authorized_keys2
+                authorized_keys:
+                  - "{{ lookup('file', 'fixtures/key_1.pub') }}"
+              # State
+              - user: user_ak_state_ignore
+                authorized_keys:
+                  - "{{ lookup('file', 'fixtures/key_1.pub') }}"
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users_authorized_keys.yml.j2') }}"
+
+##############
+# Users Keys #
+##############
+
+- name: Users Keys
+  tags: [users_keys]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.accounts
+            tasks_from: users
+          vars:
+            manala_accounts_users:
+              # Short syntax
+              - user_k_short_syntax
+              # Simple
+              - user: user_k_simple
+              # None
+              - user: user_k_none
+                keys:
+                  - key: id_rsa
+              # Private
+              - user: user_k_private
+                keys:
+                  - key: id_rsa
+                    private: "{{ lookup('file', 'fixtures/key_1') }}"
+              # Public
+              - user: user_k_public
+                keys:
+                  - key: id_rsa
+                    public: "{{ lookup('file', 'fixtures/key_1.pub') }}"
+              # Verbose syntax
+              - user: user_k_verbose_syntax
+                keys:
+                  - key: id_rsa
+                    private: "{{ lookup('file', 'fixtures/key_1') }}"
+                    public: "{{ lookup('file', 'fixtures/key_1.pub') }}"
+              # Flatten
+              -
+                - user: user_k_flatten
+                  keys:
+                    - private: "{{ lookup('file', 'fixtures/key_1') }}"
+                      public: "{{ lookup('file', 'fixtures/key_1.pub') }}"
+              # Multiple
+              - user: user_k_multiple
+                keys:
+                  - key: id_rsa_1
+                    private: "{{ lookup('file', 'fixtures/key_1') }}"
+                    public: "{{ lookup('file', 'fixtures/key_1.pub') }}"
+                  - key: id_rsa_2
+                    private: "{{ lookup('file', 'fixtures/key_2') }}"
+                    public: "{{ lookup('file', 'fixtures/key_2.pub') }}"
+              # State
+              - user: user_k_state_ignore
+                keys:
+                  - private: "{{ lookup('file', 'fixtures/key_1') }}"
+                    public: "{{ lookup('file', 'fixtures/key_1.pub') }}"
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users_keys.yml.j2') }}"
+
+##################
+# Users Gpg Keys #
+##################
+
+- name: Users Gpg Keys
+  tags: [users_gpg_keys]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.accounts
+            tasks_from: users
+          vars:
+            manala_accounts_users:
+              # Short syntax
+              - user_gk_short_syntax
+              # Simple
+              - user: user_gk_simple
+              # None
+              - user: user_gk_none
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+              # Public
+              - user: user_gk_public
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+                    public: "{{ lookup('file', 'fixtures/gpg_key_1.pub') }}"
+              # Secret
+              - user: user_gk_secret
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+                    secret: "{{ lookup('file', 'fixtures/gpg_key_1') }}"
+              # Trust
+              - user: user_gk_trust
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+                    public: "{{ lookup('file', 'fixtures/gpg_key_1.pub') }}"
+                    trust: true
+              # Verbose syntax
+              - user: user_gk_verbose_syntax
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+                    public: "{{ lookup('file', 'fixtures/gpg_key_1.pub') }}"
+                    secret: "{{ lookup('file', 'fixtures/gpg_key_1') }}"
+              # Flatten
+              -
+                - user: user_gk_flatten
+                  gpg_keys:
+                    - key: EEFB7858B3971AA2
+                      public: "{{ lookup('file', 'fixtures/gpg_key_1.pub') }}"
+                      secret: "{{ lookup('file', 'fixtures/gpg_key_1') }}"
+              # Multiple
+              - user: user_gk_multiple
+                keys:
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+                    public: "{{ lookup('file', 'fixtures/gpg_key_1.pub') }}"
+                    secret: "{{ lookup('file', 'fixtures/gpg_key_1') }}"
+                  - key: 3C0AA0CD6E3382DA
+                    public: "{{ lookup('file', 'fixtures/gpg_key_2.pub') }}"
+                    secret: "{{ lookup('file', 'fixtures/gpg_key_2') }}"
+              # State
+              - user: user_gk_state_ignore
+                gpg_keys:
+                  - key: EEFB7858B3971AA2
+                    public: "{{ lookup('file', 'fixtures/gpg_key_1.pub') }}"
+                    secret: "{{ lookup('file', 'fixtures/gpg_key_1') }}"
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users_gpg_keys.yml.j2') }}"

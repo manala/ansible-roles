@@ -1,0 +1,16 @@
+---
+
+package:
+  supervisor:
+    installed: true
+
+command:
+  dpkg -s supervisor:
+    exit-status: 0
+    stdout:
+      - "Version:"
+
+service:
+  supervisor:
+    enabled: true
+    running: true

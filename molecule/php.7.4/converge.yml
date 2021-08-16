@@ -1,0 +1,369 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - name: Packages
+      apt:
+        name:
+          - php7.4-cgi  # Sapi
+          - php7.4-tidy  # Native extension
+          - php7.4-apcu  # Pecl extension
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.php
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis:
+              - cli
+              # Flatten
+              -
+                - sapi: fpm
+                  state: present
+                - sapi: cgi
+                  state: absent
+                - sapi: phpdbg
+                  state: ignore
+            manala_php_extensions:
+              - date  # Embedded extension
+              - calendar  # Common extension
+              - xml  # Native extension
+              - mbstring  # Native extension
+              - memcached  # Pecl extension
+              # Flatten
+              -
+                - extension: gd  # Native extension
+                  enabled: true
+                - extension: bz2  # Native extension
+                  enabled: false
+                - extension: igbinary  # Pecl extension
+                  enabled: true
+                - extension: xdebug  # Pecl extension
+                  enabled: false
+                - extension: curl  # Native extension
+                  state: present
+                - extension: tidy  # Native extension
+                  state: absent
+                - extension: apcu  # Pecl extension
+                  state: absent
+                - extension: bcmath  # Native extension
+                  state: ignore
+            manala_php_applications:
+              - phpcs
+              # Flatten
+              -
+                - phpunit@4.8.36
+                - application: phpunit
+                  version: 6.5.14
+                - application: phpcbf
+                  state: ignore
+            manala_php_blackfire: true
+            manala_php_blackfire_agent_config_template: blackfire/agent/agent.j2
+            manala_php_blackfire_agent_config:
+              server-id: c74906db-43d3-4c96-ab27-010600321b89
+              server-token: 5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+            manala_php_blackfire_client_config_template: blackfire/client/.blackfire.ini.j2
+            manala_php_blackfire_client_config:
+              client-id: b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+              client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+#############
+# Exclusive #
+#############
+
+- name: Exclusive
+  tags: [exclusive]
+  hosts: debian
+  tasks:
+    - name: Packages
+      apt:
+        name:
+          - php7.4-cgi  # Sapi
+          - php7.4-tidy  # Native extension
+          - php7.4-apcu  # Pecl extension
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.php
+            tasks_from: install
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis_exclusive: true
+            manala_php_sapis:
+              - cli
+              - fpm
+            manala_php_extensions_exclusive: true
+            manala_php_extensions:
+              - date  # Embedded extension
+              - calendar  # Common extension
+              - xml  # Native extension
+              - memcached  # Pecl extension
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/exclusive.yml.j2') }}"
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/php/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ [
+        'default/cli/conf.d', 'defaults/cli/conf.d', 'exclusive/cli/conf.d',
+        'default/fpm/conf.d', 'defaults/fpm/conf.d', 'exclusive/fpm/conf.d'
+      ] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/cli/conf.d/state_absent_existing, default/cli/conf.d/state_ignore_existing,
+        default/fpm/conf.d/state_absent_existing, default/fpm/conf.d/state_ignore_existing,
+        exclusive/cli/conf.d/existing, exclusive/cli/conf.d/existing_present, exclusive/cli/conf.d/existing_ignore,
+        exclusive/cli/conf.d/existing_cli, exclusive/cli/conf.d/existing_present_cli, exclusive/cli/conf.d/existing_ignore_cli,
+        exclusive/fpm/conf.d/existing, exclusive/fpm/conf.d/existing_present, exclusive/fpm/conf.d/existing_ignore,
+        exclusive/fpm/conf.d/existing_fpm, exclusive/fpm/conf.d/existing_present_fpm, exclusive/fpm/conf.d/existing_ignore_fpm,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.php
+            tasks_from: configs
+          vars:
+            manala_php_version: 7.4
+            manala_php_configs_exclusive: false
+            manala_php_configs_dir: "{{ tests_dir }}/default"
+            manala_php_configs_defaults: {}
+            manala_php_configs:
+              # Dict
+              - file: dict
+                config:
+                  memory_limit: 123M
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+            manala_php_cli_configs:
+              # Dict
+              - file: dict_cli
+                config:
+                  memory_limit: 255M
+            manala_php_fpm_configs:
+              # Dict
+              - file: dict_fpm
+                config:
+                  memory_limit: 257M
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.php
+            tasks_from: configs
+          vars:
+            manala_php_version: 7.4
+            manala_php_configs_exclusive: false
+            manala_php_configs_dir: "{{ tests_dir }}/defaults"
+            manala_php_configs_defaults:
+              template: fixtures/template.j2
+            manala_php_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+            manala_php_cli_configs:
+              - file: template_cli
+            manala_php_fpm_configs:
+              - file: template_fpm
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.php
+            tasks_from: configs
+          vars:
+            manala_php_version: 7.4
+            manala_php_configs_exclusive: true
+            manala_php_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_php_configs_defaults: {}
+            manala_php_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+            manala_php_cli_configs:
+              - file: existing_present_cli
+              - file: existing_ignore_cli
+                state: ignore
+              - file: ignore_cli
+                state: ignore
+            manala_php_fpm_configs:
+              - file: existing_present_fpm
+              - file: existing_ignore_fpm
+                state: ignore
+              - file: ignore_fpm
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+
+#############
+# Fpm Pools #
+#############
+
+- name: Fpm Pools
+  tags: [fpm_pools]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/php/fpm_pools
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.php
+            tasks_from: fpm_pools
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis:
+              - fpm
+            manala_php_fpm_pools_exclusive: false
+            manala_php_fpm_pools_dir: "{{ tests_dir }}/default"
+            manala_php_fpm_pools_defaults: {}
+            manala_php_fpm_pools:
+              # Dict
+              - file: dict
+                config:
+                  www:
+                    user: foo
+                    group: foo
+                    env:
+                      FOO: bar
+                      BAR: 123
+                      BAZ: 1.2
+                      QUX: foo=bar
+                    php_admin_value:
+                      memory_limit: 123M
+                    php_value:
+                      display_errors: false
+                  bar:
+                    user: bar
+                    group: bar
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.php
+            tasks_from: fpm_pools
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis:
+              - fpm
+            manala_php_fpm_pools_exclusive: false
+            manala_php_fpm_pools_dir: "{{ tests_dir }}/defaults"
+            manala_php_fpm_pools_defaults:
+              template: fixtures/template.j2
+            manala_php_fpm_pools:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.php
+            tasks_from: fpm_pools
+          vars:
+            manala_php_version: 7.4
+            manala_php_sapis:
+              - fpm
+            manala_php_fpm_pools_exclusive: true
+            manala_php_fpm_pools_dir: "{{ tests_dir }}/exclusive"
+            manala_php_fpm_pools_defaults: {}
+            manala_php_fpm_pools:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/fpm_pools.yml.j2') }}"

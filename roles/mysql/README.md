@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Mysql [![Build Status](https://travis-ci.org/manala/ansible-role-mysql.svg?branch=master)](https://travis-ci.org/manala/ansible-role-mysql)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Mysql
 
 This role will deal with the setup of [Mysql](https://www.mysql.com/) (>= 5.6).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,45 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.mysql
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.mysql
-```
-
-## Role Handlers
-
-| Name            | Type    | Description          |
-| --------------- | ------- | -------------------- |
-| `mysql restart` | Service | Restart MySQL server |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                    | Default                          | Type         | Description                                            |
-| --------------------------------------- | -------------------------------- | ------------ | ------------------------------------------------------ |
-| `manala_mysql_install_packages`         | ~                                | Array        | Dependency packages to install                         |
-| `manala_mysql_install_packages_default` | ['mysql-server', 'mysql-client'] | Array        | Default dependency packages to install                 |
-| `manala_mysql_config_file`              | /etc/mysql/my.cnf                | String       | Configuration file path                                |
-| `manala_mysql_config_alternative`       | ~                                | String       | Setup an alternative link on configuration file        |
-| `manala_mysql_config_template`          | 'config/empty.j2'                | String       | Default configuration template path                    |
-| `manala_mysql_config`                   | ~                                | Array/String | Configuration directives                               |
-| `manala_mysql_configs_dir`              | '/etc/mysql/conf.d'              | String       | Configurations directory path                          |
-| `manala_mysql_configs_exclusive`        | false                            | Boolean      | Whether to remove all other non-specified config files |
-| `manala_mysql_configs_defaults`         | {}                               | Array        | Configurations defaults                                |
-| `manala_mysql_configs`                  | []                               | Array        | Configurations files                                   |
-| `manala_mysql_data_dir`                 | ~                                | String       | Data directory path to create                          |
-| `manala_mysql_data_dir_user`            | mysql                            | String       | Data directory owner                                   |
-| `manala_mysql_data_dir_group`           | mysql                            | String       | Data directory group                                   |
-| `manala_mysql_data_dir_mode`            | 0750                             | String       | Data directory mode                                    |
-| `manala_mysql_data_dir_initialize`      | false                            | Boolean      | Initialize data directory with `mysqld_install_db`     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Configuration example
 
@@ -98,14 +52,6 @@ manala_mysql_config: |
   innodb_buffer_pool_size = 4G
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_mysql_config:
-  - mysqld:
-    - bind-address: 0.0.0.0
-    - innodb_buffer_pool_size: 4G
-```
-
 ### Configure `/etc/mysql/conf.d` example
 
 A state (present|absent|ignore) can be provided.
@@ -132,12 +78,6 @@ manala_mysql_configs:
     template: mysql/baz.cnf.j2
     config:
       foo: bar
-  # Dict's array (deprecated)
-  - file: qux.cnf
-    config:
-      - client:
-        - port: 3306
-        - socket: /var/run/mysqld/mysqld.sock
   # Ensure config is absent
   - file: absent.cnf
     state: absent # "present" by default
@@ -232,13 +172,16 @@ manala_mysql_install_packages_default:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.mysql
+  tasks:
+    - import_role:  
+        name: manala.roles.mysql
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

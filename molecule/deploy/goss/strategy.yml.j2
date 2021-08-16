@@ -1,0 +1,47 @@
+---
+
+file:
+  # Synchronize
+  {{ tests_dir }}/synchronize:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/synchronize/current:
+    exists: true
+    filetype: symlink
+  {{ tests_dir }}/synchronize/current/file:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/synchronize/current/file_shared:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/synchronize/current/dir:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/synchronize/current/dir/dir:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/synchronize/current/dir/dir_shared:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/synchronize/current/dir/file:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/synchronize/current/dir/file_shared:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/synchronize/current/dir_shared:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/synchronize/current/dir_shared/file:
+    exists: true
+    filetype: file
+  # Include
+  {{ tests_dir }}/include:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/include/current:
+    exists: true
+    filetype: symlink
+  {{ tests_dir }}/include/current/file:
+    exists: true
+    filetype: file

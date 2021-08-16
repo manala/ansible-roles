@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Message Of The Day [![Build Status](https://travis-ci.org/manala/ansible-role-motd.svg?branch=master)](https://travis-ci.org/manala/ansible-role-motd)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Message Of The Day
 
 This role will deal with the setup of Message Of The Day.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,34 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.motd
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.motd
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                            | Default                | Type    | Description                |
-| ------------------------------- | ---------------------- | ------- | -------------------------- |
-| `manala_motd_scripts_exclusive` | false                  | Boolean | Scripts exclusivity        |
-| `manala_motd_scripts_dir`       | '/etc/update-motd.d'   | String  | Scripts dir path           |
-| `manala_motd_scripts_defaults`  | {}                     | Array   | Default scripts parameters |
-| `manala_motd_scripts`           | []                     | Array   | Scripts                    |
-| `manala_motd_template`          | 'template/_default.j2' | String  | Template path              |
-| `manala_motd_message`           | ~                      | String  | Message                    |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -92,24 +57,20 @@ manala_motd_scripts:
   - "{{ my_custom_scripts_array }}"
 ```
 
-Static template (deprecated)
-
-```yaml
-manala_motd_template: template/turkey.j2 # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
-manala_motd_message: My awesome message # Custom message
-```
-
 ## Example playbook
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.motd
+  tasks:
+    - import_role:  
+        name: manala.roles.motd
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

@@ -1,0 +1,53 @@
+---
+
+file:
+  # Default
+  {{ tests_dir }}/default/default:
+    exists: true
+    filetype: file
+  # Parents
+  {{ tests_dir }}/parents:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/parents/file:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/parents_defaults:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/parents_defaults/file:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/parents_unexisting/file:
+    exists: false
+  # File already exists as empty directory
+  {{ tests_dir }}/file_directory_empty/file_force:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/file_directory_empty/file:
+    exists: true
+    filetype: directory
+  # File already exists as full directory
+  {{ tests_dir }}/file_directory_full/file_force:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/file_directory_full/file:
+    exists: true
+    filetype: directory
+  # File already exists as link to file
+  {{ tests_dir }}/file_link_file/file_force:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file_link_file/link_file
+  {{ tests_dir }}/file_link_file/file:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file_link_file/link_file
+  # File already exists as link to directory
+  {{ tests_dir }}/file_link_directory/file_force:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/file_link_directory/file:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/file_link_directory/link_file

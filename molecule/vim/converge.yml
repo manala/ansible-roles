@@ -1,0 +1,68 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.vim
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/vim/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Dict
+          import_role:
+            name: manala.roles.vim
+            tasks_from: config
+          vars:
+            manala_vim_config_file: "{{ tests_dir }}/dict"
+            manala_vim_config_template: ~
+            manala_vim_config:
+              encoding: utf8
+              expandtab: true
+        - name: Role - Content
+          import_role:
+            name: manala.roles.vim
+            tasks_from: config
+          vars:
+            manala_vim_config_file: "{{ tests_dir }}/content"
+            manala_vim_config_template: ~
+            manala_vim_config: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.vim
+            tasks_from: config
+          vars:
+            manala_vim_config_file: "{{ tests_dir }}/template"
+            manala_vim_config_template: fixtures/template.j2
+            manala_vim_config: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

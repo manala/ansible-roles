@@ -1,0 +1,164 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+#################
+# Config Daemon #
+#################
+
+- name: Config Daemon
+  tags: [config_daemon]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/docker/config_daemon
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+        - name: Role - Dict
+          import_role:
+            name: manala.roles.docker
+            tasks_from: config_daemon
+          vars:
+            manala_docker_config_daemon_file: "{{ tests_dir }}/dict"
+            manala_docker_config_daemon_template: ~
+            manala_docker_config_daemon:
+              storage-driver: vfs
+              experimental: false
+        - name: Role - Content
+          import_role:
+            name: manala.roles.docker
+            tasks_from: config_daemon
+          vars:
+            manala_docker_config_daemon_file: "{{ tests_dir }}/content"
+            manala_docker_config_daemon_template: ~
+            manala_docker_config_daemon: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.docker
+            tasks_from: config_daemon
+          vars:
+            manala_docker_config_daemon_file: "{{ tests_dir }}/template"
+            manala_docker_config_daemon_template: fixtures/template.j2
+            manala_docker_config_daemon: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config_daemon.yml.j2') }}"
+
+################
+# Applications #
+################
+
+- name: Applications
+  tags: [applications]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/docker/applications
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+            manala_docker_applications_dir: "{{ tests_dir }}"
+            manala_docker_applications:
+              - hello-world
+              - application: npm
+                image: node
+                command: npm
+                tag: alpine
+              - application: template
+                template: fixtures/template.j2
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/applications.yml.j2') }}"
+
+##############
+# Containers #
+##############
+
+- name: Containers
+  tags: [containers]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+            manala_docker_containers:
+              - name: hello-world
+                image: hello-world
+              - name: busybox
+                image: busybox
+                state: ignore
+              # Flatten
+              -
+                - name: alpine
+                  image: alpine
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/containers.yml.j2') }}"
+
+##########
+# Update #
+##########
+
+- name: Update
+  tags: [update]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.docker
+          vars:
+            manala_docker_config_daemon:
+              storage-driver: vfs
+            manala_docker:
+              update: true

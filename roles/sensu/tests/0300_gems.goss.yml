@@ -1,7 +1,0 @@
----
-
-command:
-  /opt/sensu/embedded/bin/gem list:
-    exit-status: 0
-    stdout:
-      - sensu-plugins-slack

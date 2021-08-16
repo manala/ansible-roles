@@ -1,0 +1,125 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.composer
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+###########
+# Version #
+###########
+
+- name: Version
+  tags: [version]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/composer/version
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Fixed
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/fixed"
+            manala_composer_version: 1.8.0
+        - name: Role - Update 1/2
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/update"
+        - name: Role - Update 2/2
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/update"
+            manala_composer_version: 1.10.15
+        - name: Role - Major
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/major"
+            manala_composer_version: 1
+        - name: Role - Major Change 1/2
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/major_change"
+            manala_composer_version: 2.0.3
+        - name: Role - Major Change 2/2
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/major_change"
+            manala_composer_version: 1
+        - name: Role - Major No Change 1/2
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/major_no_change"
+            manala_composer_version: 1.10.15
+        - name: Role - Major No Change 2/2
+          import_role:
+            name: manala.roles.composer
+            tasks_from: install
+          vars:
+            manala_composer_bin: "{{ tests_dir }}/major_no_change"
+            manala_composer_version: 1
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/version.yml.j2') }}"
+
+##############
+# Users Auth #
+##############
+
+- name: Users Auth
+  tags: [users_auth]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.composer
+            tasks_from: users_auth
+          vars:
+            manala_composer_users_auth:
+              - user: root
+                config:
+                  github-oauth:
+                    github.com: 9927d2878ffa105fc5236c762f2fd7zfd28b841d
+                  http-basic:
+                    repo.example1.org:
+                      username: my-username1
+                      password: my-secret-password1
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users_auth.yml.j2') }}"

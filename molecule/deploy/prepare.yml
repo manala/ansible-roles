@@ -1,0 +1,22 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Packages
+      apt:
+        name: [rsync]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+
+- hosts: 127.0.0.1
+  connection: local
+  tags: [always]
+  tasks:
+    - name: Packages local
+      apt:
+        name: [rsync]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600

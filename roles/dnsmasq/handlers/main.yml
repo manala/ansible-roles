@@ -2,5 +2,7 @@
 
 - name: dnsmasq restart
   service:
-    name: dnsmasq
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - dnsmasq
