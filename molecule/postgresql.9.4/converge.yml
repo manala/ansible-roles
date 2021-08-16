@@ -1,0 +1,85 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.postgresql
+          vars:
+            manala_postgresql_version: 9.4
+            manala_postgresql_config_hba: |
+              # Database administrative login by Unix domain socket
+              local   all             postgres                                peer
+              # Trust all IPv4 local connections
+              host    all             all             127.0.0.1/32            trust
+            manala_postgresql_roles:
+              - role: foo
+                password: ~
+                attributes: ['SUPERUSER']
+            manala_postgresql_databases:
+              - database: bar
+            manala_postgresql_privileges:
+              - role: foo
+                database: bar
+                privileges:
+                  - ALL
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/postgresql/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Content
+          import_role:
+            name: manala.roles.postgresql
+            tasks_from: config
+          vars:
+            manala_postgresql_version: 9.4
+            manala_postgresql_config_file: "{{ tests_dir }}/content"
+            manala_postgresql_config_template: ~
+            manala_postgresql_config: |
+              Content
+            manala_postgresql_config_hba_file: "{{ tests_dir }}/content_hba"
+            manala_postgresql_config_hba_template: ~
+            manala_postgresql_config_hba: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.postgresql
+            tasks_from: config
+          vars:
+            manala_postgresql_version: 9.4
+            manala_postgresql_config_file: "{{ tests_dir }}/template"
+            manala_postgresql_config_template: fixtures/template.j2
+            manala_postgresql_config: ~
+            manala_postgresql_config_hba_file: "{{ tests_dir }}/template_hba"
+            manala_postgresql_config_hba_template: fixtures/template.j2
+            manala_postgresql_config_hba: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

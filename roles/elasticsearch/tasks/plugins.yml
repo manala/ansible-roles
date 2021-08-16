@@ -4,6 +4,6 @@
   elasticsearch_plugin:
     name: "{{ (item) if (item is string) else (item.name) }}"
     state: "{{ item.state|default('present') }}"
-  with_items: "{{ manala_elasticsearch_plugins }}"
+  loop: "{{ manala_elasticsearch_plugins }}"
   notify:
     - elasticsearch restart

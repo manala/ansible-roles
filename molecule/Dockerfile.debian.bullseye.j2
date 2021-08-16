@@ -1,0 +1,19 @@
+FROM {{ item.image }}
+
+# Versions
+ENV GOSS_VERSION=0.3.16
+
+# System
+RUN \
+    apt-get update \
+    && apt-get install --yes --no-install-recommends \
+        curl ca-certificates \
+        python3 \
+        gnupg \
+        procps iproute2 \
+    # Bash
+    && sed -i -e '/PS1=/s/\\h/\\H/' /etc/bash.bashrc \
+    # Goss
+    && curl -sSL https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-amd64 \
+        -o /usr/local/bin/goss \
+    && chmod +x /usr/local/bin/goss

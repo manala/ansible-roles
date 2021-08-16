@@ -2,5 +2,7 @@
 
 - name: dhcp restart
   service:
-    name: isc-dhcp-server
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - isc-dhcp-server

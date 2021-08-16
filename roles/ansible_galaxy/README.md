@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Ansible Galaxy [![Build Status](https://travis-ci.org/manala/ansible-role-ansible_galaxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ansible_galaxy)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Ansible Galaxy
 
 This role will deal with the setup of __Ansible Galaxy__.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,27 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.ansible_galaxy
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.ansible_galaxy
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                           | Default                        | Type    | Description  |
-| ------------------------------ | ------------------------------ | ------- | ------------ |
-| `manala_ansible_galaxy_roles`  | []                             | Array   | Roles        |
-| `manala_ansible_galaxy_force`  | `manala_ansible_galaxy.update` | Boolean | Force        |
-| `manala_ansible_galaxy.update` | false                          | Boolean | Update roles |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Roles
 
@@ -54,7 +26,7 @@ Using ansible galaxy requirements file:
 
 ```yaml
 manala_ansible_galaxy_roles:
-  - manala.skeleton
+  - ansistrano.deploy
 ```
 
 ### Flags
@@ -73,13 +45,16 @@ manala:
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.ansible_galaxy }
+  tasks:
+    - import_role:  
+        name: manala.roles.ansible_galaxy
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

@@ -6,6 +6,7 @@ manala_dhcp_install_packages_default:
   - isc-dhcp-server
 
 # Interfaces
+manala_dhcp_interfaces_file: /etc/default/isc-dhcp-server
 manala_dhcp_interfaces: []
 
 # Config

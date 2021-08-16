@@ -1,0 +1,37 @@
+---
+
+file:
+  # Default
+  {{ tests_dir }}/default/default:
+    exists: true
+    filetype: file
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/default/present:
+    exists: true
+    filetype: file
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/default/absent:
+    exists: false
+  {{ tests_dir }}/default/ignore:
+    exists: false
+  # Parents
+  {{ tests_dir }}/parents:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/parents/template:
+    exists: true
+    filetype: file
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/parents_defaults:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/parents_defaults/template:
+    exists: true
+    filetype: file
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/parents_unexisting/template:
+    exists: false

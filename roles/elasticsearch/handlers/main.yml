@@ -2,5 +2,7 @@
 
 - name: elasticsearch restart
   service:
-    name: elasticsearch
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - elasticsearch

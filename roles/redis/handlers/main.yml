@@ -2,10 +2,15 @@
 
 - name: redis restart
   service:
-    name: redis-server
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - redis-server
+
 
 - name: redis-sentinel restart
   service:
-    name: redis-sentinel
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - redis-sentinel

@@ -2,12 +2,7 @@
 
 {%- if config is mapping -%}
 
-{{ config | manala_yaml }}
-
-{%- elif config is iterable and config is not string -%}
-
-{#- Deprecated -#}
-{%- include '_base.j2' -%}
+{{ config | manala.roles.yaml }}
 
 {%- else -%}
 

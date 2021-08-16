@@ -1,0 +1,23 @@
+---
+
+file:
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: bind
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: bind
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/state_absent_existing:
+    exists: false
+  {{ tests_dir }}/omit:
+    exists: false

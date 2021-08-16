@@ -1,17 +1,9 @@
 ---
 
-- name: tmpfiles_configs > Directory
-  file:
-    path: "{{ manala_systemd_tmpfiles_configs_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_systemd_tmpfiles_configs|length
-
 - name: tmpfiles_configs > Exclusive
   find:
     path: "{{ manala_systemd_tmpfiles_configs_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_systemd_tmpfiles_configs_exclusive_find
@@ -25,25 +17,23 @@
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_systemd_tmpfiles_configs,
-      __manala_systemd_tmpfiles_configs_exclusive_find.files|default([]),
-      manala_systemd_tmpfiles_configs_dir,
-      manala_systemd_tmpfiles_configs_defaults.template|default('tmpfiles_configs/_default.j2', true),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_systemd_tmpfiles_configs,
+    __manala_systemd_tmpfiles_configs_exclusive_find.files|default([]),
+    manala_systemd_tmpfiles_configs_dir,
+    manala_systemd_tmpfiles_configs_defaults.template|default('tmpfiles_configs/_default.j2', true),
+    wantstate='present'
+  ) }}"
 
 - name: tmpfiles_configs > Files absent
   file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_systemd_tmpfiles_configs,
-      __manala_systemd_tmpfiles_configs_exclusive_find.files|default([]),
-      manala_systemd_tmpfiles_configs_dir,
-      manala_systemd_tmpfiles_configs_defaults.template|default('tmpfiles_configs/_default.j2', true),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_systemd_tmpfiles_configs,
+    __manala_systemd_tmpfiles_configs_exclusive_find.files|default([]),
+    manala_systemd_tmpfiles_configs_dir,
+    manala_systemd_tmpfiles_configs_defaults.template|default('tmpfiles_configs/_default.j2', true),
+    wantstate='absent'
+  ) }}"

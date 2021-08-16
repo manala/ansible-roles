@@ -13,10 +13,9 @@
     purge: true
     autoremove: true
   loop: "{{ query(
-      'manala_apt_packages',
-      manala_apt_packages,
-      wantstate='present',
-      wantmap=True,
-      wantdeb=True,
-    )
-  }}"
+    'manala.roles.apt_packages',
+    manala_apt_packages,
+    wantstate='present',
+    wantmap=True,
+    wantdeb=True,
+  ) }}"

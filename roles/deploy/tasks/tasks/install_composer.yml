@@ -12,7 +12,7 @@
 
     - name: tasks/install_composer > Download installer
       get_url:
-        url:  https://getcomposer.org/installer
+        url: https://getcomposer.org/installer
         dest: /tmp
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
@@ -22,7 +22,7 @@
 
     - name: tasks/install_composer > Remove installer
       file:
-        path:  /tmp/installer
+        path: /tmp/installer
         state: absent
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 

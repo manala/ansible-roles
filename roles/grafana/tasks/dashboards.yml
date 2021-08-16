@@ -2,7 +2,7 @@
 
 # Import dashboards
 - name: dashboards > List dashboards
-  register: _manala_grafana_dashboards_list_output
+  register: __manala_grafana_dashboards_list_output
   uri:
     url: "{{ manala_grafana_api_url }}/api/search"
     method: GET
@@ -13,14 +13,14 @@
     headers:
       Content-Type: application/json
   when: manala_grafana_dashboards_exclusive
-  until: _manala_grafana_dashboards_list_output is not failed
+  until: __manala_grafana_dashboards_list_output is not failed
   retries: 12
   delay: 1
 
 # Delete dashboards
 - name: dashboards > Delete dashboards
-  register: _manala_grafana_dashboards_delete_output
-  failed_when: "'Dashboard not found' in _manala_grafana_dashboards_delete_output|to_json"
+  register: __manala_grafana_dashboards_delete_output
+  failed_when: "'Dashboard not found' in __manala_grafana_dashboards_delete_output|to_json"
   uri:
     url: "{{ manala_grafana_api_url }}/api/dashboards/{{ item.uri }}"
     method: DELETE
@@ -30,12 +30,12 @@
     status_code: 200
     headers:
       Content-Type: application/json
-  with_items: "{{ _manala_grafana_dashboards_list_output.json|default([]) }}"
+  loop: "{{ __manala_grafana_dashboards_list_output.json|default([]) }}"
   when: manala_grafana_dashboards_exclusive
 
 # Import dashboards
 - name: dashboards > Import dashboards
-  register: _manala_grafana_dashboards_import_output
+  register: __manala_grafana_dashboards_import_output
   uri:
     url: "{{ manala_grafana_api_url }}/api/dashboards/import"
     method: POST
@@ -52,7 +52,7 @@
     status_code: 200
     headers:
       Content-Type: application/json
-  with_items: "{{ manala_grafana_dashboards }}"
-  until: _manala_grafana_dashboards_import_output is not failed
+  loop: "{{ manala_grafana_dashboards }}"
+  until: __manala_grafana_dashboards_import_output is not failed
   retries: 12
   delay: 1

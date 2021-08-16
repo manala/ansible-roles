@@ -1,10 +1,10 @@
 ---
 
 # Dirs
-manala_deploy_dir:          ~
-manala_deploy_current_dir:  current
+manala_deploy_dir: ~
+manala_deploy_current_dir: current
 manala_deploy_releases_dir: releases
-manala_deploy_shared_dir:   shared
+manala_deploy_shared_dir: shared
 
 # Releases
 manala_deploy_releases: 5
@@ -13,7 +13,7 @@ manala_deploy_releases: 5
 manala_deploy_strategy: git
 
 # Strategy - Git
-manala_deploy_strategy_git_repo:    ~
+manala_deploy_strategy_git_repo: ~
 manala_deploy_strategy_git_version: master
 
 # [READ-ONLY] This variable will be filled with the head commit hash
@@ -33,7 +33,7 @@ manala_deploy_strategy_include_options: []
 
 # Shared
 manala_deploy_shared_files: []
-manala_deploy_shared_dirs:  []
+manala_deploy_shared_dirs: []
 
 # Copied
 manala_deploy_copied: []
@@ -42,12 +42,12 @@ manala_deploy_copied: []
 manala_deploy_removed: []
 
 # Writable
-manala_deploy_writable_dirs_default: # Ensure backward compatibility
-  mode:    "{{ manala_deploy_writable_dirs_mode|default('ug=rwx,o=rx') }}"
-  follow:  true
+manala_deploy_writable_dirs_default:  # Ensure backward compatibility
+  mode: "{{ manala_deploy_writable_dirs_mode|default('ug=rwx,o=rx') }}"
+  follow: true
   recurse: true
 manala_deploy_writable_dirs: []
 
 # Tasks
-manala_deploy_tasks:      []
+manala_deploy_tasks: []
 manala_deploy_post_tasks: []

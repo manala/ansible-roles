@@ -1,6 +1,0 @@
----
-
-file:
-  /tmp/app/current/strategy_include.txt:
-    exists: true
-    filetype: file

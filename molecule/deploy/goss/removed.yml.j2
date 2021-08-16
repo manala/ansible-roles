@@ -1,0 +1,14 @@
+---
+
+file:
+  {{ tests_dir }}/app/current/file:
+    exists: false
+  {{ tests_dir }}/app/current/file_shared:
+    exists: true
+    filetype: file
+
+  {{ tests_dir }}/app/current/dir:
+    exists: false
+  {{ tests_dir }}/app/current/dir_shared:
+    exists: true
+    filetype: directory

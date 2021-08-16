@@ -4,8 +4,7 @@
 - name: tasks
   include_tasks: tasks/{{ item.task }}.yml
   loop: "{{ query(
-      'manala_deploy_tasks',
-      __manala_deploy_tasks
-    )
-  }}"
+    'manala.roles.deploy_tasks',
+    __manala_deploy_tasks
+  ) }}"
   when: item.when

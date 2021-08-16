@@ -2,10 +2,12 @@
 
 - name: install > Packages
   apt:
-    name: "{{ manala_composer_install_packages|default(manala_composer_install_packages_default, True) }}"
+    name: "{{ item }}"
     install_recommends: false
     update_cache: true
     cache_valid_time: 3600
+  loop:
+    - "{{ manala_composer_install_packages|default(manala_composer_install_packages_default, True) }}"
 
 - name: install > Check
   command: >
@@ -24,22 +26,22 @@
     }}"
     dest: "{{ manala_composer_bin }}"
     owner: root
-    group: "{{ (ansible_distribution_release in ['jessie', 'stretch'])|ternary('staff', 'root') }}"
+    group: "{{ (ansible_distribution_release in ['stretch'])|ternary('staff', 'root') }}"
     mode: "0755"
     force: true
   when: (__manala_composer_bin_check_result.rc == 2)
-        or (
-          manala_composer_version|string is match('^\\d+\\.\\d+\\.\\d+$')
-          and (
-            manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+\\.\\d+\\.\\d+)(.*)', '\\2')
-          )
-        )
-        or (
-          manala_composer_version|string is match('^\\d+$')
-          and (
-            manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+)(\\.\\d+\\.\\d+.*)', '\\2')
-          )
-        )
-        or (
-          __manala_composer['update']
-        )
+    or (
+      manala_composer_version|string is match('^\\d+\\.\\d+\\.\\d+$')
+      and (
+        manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+\\.\\d+\\.\\d+)(.*)', '\\2')
+      )
+    )
+    or (
+      manala_composer_version|string is match('^\\d+$')
+      and (
+        manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+)(\\.\\d+\\.\\d+.*)', '\\2')
+      )
+    )
+    or (
+      __manala_composer['update']
+    )

@@ -1,29 +1,43 @@
 ---
 
-- name: configs > Templates
+- name: configs > Exclusive
+  find:
+    path: "{{ manala_dnsmasq_configs_dir }}"
+    file_type: file
+    patterns: "*"
+  changed_when: false
+  register: __manala_dnsmasq_configs_exclusive_find
+  when: manala_dnsmasq_configs_exclusive
+
+- name: configs > Templates present
   template:
-    src: "{{ item.template|default(manala_dnsmasq_configs_template|ternary(manala_dnsmasq_configs_template, 'configs/empty.j2')) }}"
-    dest: "{{ manala_dnsmasq_configs_dir }}/{{ item.file }}"
+    src: "{{ item.template }}"
+    dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  with_items: "{{ manala_dnsmasq_configs }}"
+  loop: "{{ query(
+    'manala.roles.templates_exclusive',
+    manala_dnsmasq_configs,
+    __manala_dnsmasq_configs_exclusive_find.files|default([]),
+    manala_dnsmasq_configs_dir,
+    manala_dnsmasq_configs_defaults.template|default('configs/_default.j2', true),
+    wantstate='present'
+  ) }}"
   notify:
     - dnsmasq restart
 
-- name: configs > Exclusive - find files
-  command: "find -type f -printf '%P\n'"
-  args:
-    chdir: "{{ manala_dnsmasq_configs_dir }}"
-  changed_when: false
-  register: __manala_dnsmasq_configs_find_output
-  when: manala_dnsmasq_configs_exclusive
-
-- name: configs > Exclusive - remove files
+- name: configs > Files absent
   file:
-    path: "{{ manala_dnsmasq_configs_dir }}/{{ item }}"
+    path: "{{ item.file }}"
     state: absent
-  when: manala_dnsmasq_configs_exclusive and (item not in manala_dnsmasq_configs|map(attribute='file'))
-  with_items: "{{ __manala_dnsmasq_configs_find_output.stdout_lines|default([]) }}"
+  loop: "{{ query(
+    'manala.roles.templates_exclusive',
+    manala_dnsmasq_configs,
+    __manala_dnsmasq_configs_exclusive_find.files|default([]),
+    manala_dnsmasq_configs_dir,
+    manala_dnsmasq_configs_defaults.template|default('configs/_default.j2', true),
+    wantstate='absent'
+  ) }}"
   notify:
     - dnsmasq restart

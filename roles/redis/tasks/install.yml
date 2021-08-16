@@ -2,19 +2,27 @@
 
 - name: install > Packages
   apt:
-    name: "{{ manala_redis_install_packages|default(manala_redis_install_packages_default, True) }}"
+    name: "{{ item }}"
     install_recommends: false
     update_cache: true
     cache_valid_time: 3600
+  loop:
+    - "{{ manala_redis_install_packages|default(manala_redis_install_packages_default, True) }}"
 
 - block:
-    - name: install > Version
-      command: redis-server --version
+    - name: install > Parse version
+      command: >
+        dpkg -s
+        {{ manala_redis_install_packages|default(manala_redis_install_packages_default, True) | first }}
       register: __manala_redis_version
       changed_when: false
-    - name: install > Version
+    - name: install > Set version
       set_fact:
-        manala_redis_version: "{{ __manala_redis_version.stdout | regex_search('Redis server v=(\\d\\.\\d)', '\\1') | first }}"
+        manala_redis_version: "{{
+          __manala_redis_version.stdout
+            | regex_search('Version: (\\d+:)?(?P<version>\\d+\\.\\d+)', '\\g<version>')
+            | first
+        }}"
       changed_when: false
   when: manala_redis_version is none
   check_mode: false

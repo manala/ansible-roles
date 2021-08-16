@@ -1,47 +1,26 @@
 ---
 
-- name: extensions > Enabled
+- name: extensions > Availability
   command: >
-    /usr/sbin/phpenmod
-    {{
-      query(
-        'manala_php_extensions',
+    /usr/sbin/{{ item.enabled|ternary('phpenmod', 'phpdismod') }}
+    {{ item.extensions|join(' ') }}
+  when: item.extensions|length
+  loop:
+    - enabled: true
+      extensions: "{{ query(
+        'manala.roles.php_extensions',
         manala_php_extensions,
         manala_php_extensions_available,
         manala_php_sapis_available,
         wantenabled=true,
         wantmap=true
-      )|join(' ')
-    }}
-  when: |
-    query(
-      'manala_php_extensions',
-      manala_php_extensions,
-      manala_php_extensions_available,
-      manala_php_sapis_available,
-      wantenabled=true,
-      wantmap=true,
-    )|length
-
-- name: extensions > Disabled
-  command: >
-    /usr/sbin/phpdismod
-    {{
-      query(
-        'manala_php_extensions',
+      ) }}"
+    - enabled: false
+      extensions: "{{ query(
+        'manala.roles.php_extensions',
         manala_php_extensions,
         manala_php_extensions_available,
         manala_php_sapis_available,
         wantenabled=false,
         wantmap=true
-      )|join(' ')
-    }}
-  when: |
-    query(
-      'manala_php_extensions',
-      manala_php_extensions,
-      manala_php_extensions_available,
-      manala_php_sapis_available,
-      wantenabled=false,
-      wantmap=true,
-    )|length
+      ) }}"

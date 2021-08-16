@@ -1,7 +1,0 @@
----
-
-- name: Pre tasks > Install sysv init script
-  copy:
-    src: pre_tasks/init.d/glusterd
-    dest: /etc/init.d/glusterd
-    mode: 0755

@@ -1,0 +1,137 @@
+---
+
+file:
+
+  # Default - Dict
+  {{ tests_dir }}/default/dict:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - 'FOO="bar"'
+      - "0 7 * * * bar cd /srv/app && bin/console app:bar:bar"
+      - "1 2 3 4 5 foo cd /srv/app && bin/console app:baz:baz"
+      - "* * * * * foo cd /srv/app && bin/console app:foo:present"
+      - "!* * * * * foo cd /srv/app && bin/console app:foo:absent"
+  # Default - Content
+  {{ tests_dir }}/default/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  # Default - Template
+  {{ tests_dir }}/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/default/template_file:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template file$/"
+  # Default - Flatten
+  {{ tests_dir }}/default/flatten:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  # Default - State
+  {{ tests_dir }}/default/state_present_implicit:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/default/state_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/default/state_absent:
+    exists: false
+  {{ tests_dir }}/default/state_absent_existing:
+    exists: false
+  {{ tests_dir }}/default/state_ignore:
+    exists: false
+  {{ tests_dir }}/default/state_ignore_existing:
+    exists: true
+    filetype: file
+
+  # Defaults - Template
+  {{ tests_dir }}/defaults/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/defaults/template_file:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template file$/"
+  {{ tests_dir }}/defaults/template_overwrite:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template file$/"
+  # Defaults - User
+  {{ tests_dir }}/defaults/user:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "* * * * * foo foo"
+  {{ tests_dir }}/defaults/user_file:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "* * * * * bar bar"
+  {{ tests_dir }}/defaults/user_job:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "* * * * * baz baz"
+
+  # Exclusive
+  {{ tests_dir }}/exclusive/existing:
+    exists: false
+  {{ tests_dir }}/exclusive/existing_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/exclusive/existing_ignore:
+    exists: false
+  {{ tests_dir }}/exclusive/ignore:
+    exists: false

@@ -1,7 +1,7 @@
 ---
 
 - name: attributes
-  manala_files_attributes:
+  manala.roles.files_attributes:
     path: "{{ item.path }}"
     state: "{{ item.state|default(omit) }}"
     parents: "{{ item.parents|default(omit) }}"
@@ -20,7 +20,7 @@
     group: "{{ item.group|default(omit) }}"
     mode: "{{ item.mode|default(omit) }}"
   loop: "{{ query(
-      'manala_files_attributes',
-      manala_files_attributes,
-      manala_files_attributes_defaults
+    'manala.roles.files_attributes',
+    manala_files_attributes,
+    manala_files_attributes_defaults
   ) }}"

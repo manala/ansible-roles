@@ -1,0 +1,181 @@
+---
+
+file:
+
+  # Default - Short syntax
+  {{ tests_dir }}/default/git:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      git git-*"
+      - "Pin:          release a={{ ansible_distribution_release }}-backports"
+      - "Pin-Priority: 1000"
+  {{ tests_dir }}/default/libssl1_0_0:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      libssl1.0.0"
+      - "Pin:          release a={{ ansible_distribution_release }}-backports"
+      - "Pin-Priority: 1000"
+  {{ tests_dir }}/default/php:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      php php-* /^php[1-9]+/"
+      - "Pin:          origin packages.sury.org"
+      - "Pin-Priority: 300"
+  {{ tests_dir }}/default/sury_php:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      *"
+      - "Pin:          origin packages.sury.org"
+      - "Pin-Priority: 200"
+  # Default - Pattern syntax
+  {{ tests_dir }}/default/ansible:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 1000"
+  {{ tests_dir }}/default/ansible_foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 1000"
+  {{ tests_dir }}/default/ansible_bar:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      foo bar"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 1000"
+  {{ tests_dir }}/default/ansible_baz:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          baz"
+      - "Pin-Priority: 1000"
+  {{ tests_dir }}/default/ansible_qux:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      ansible*"
+      - "Pin:          origin ppa.launchpad.net"
+      - "Pin-Priority: 1234"
+  # Default - Verbose syntax
+  {{ tests_dir }}/default/foo_foo:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      foo"
+      - "Pin:          foo"
+      - "Pin-Priority: 100"
+  # Default - Template
+  {{ tests_dir }}/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  # Default - Flatten
+  {{ tests_dir }}/default/flatten:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Package:      foo"
+      - "Pin:          foo"
+      - "Pin-Priority: 100"
+  # Default - State
+  {{ tests_dir }}/default/state_present_implicit:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/default/state_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/default/state_absent:
+    exists: false
+  {{ tests_dir }}/default/state_absent_existing:
+    exists: false
+  {{ tests_dir }}/default/state_ignore:
+    exists: false
+  {{ tests_dir }}/default/state_ignore_existing:
+    exists: true
+    filetype: file
+
+  # Defaults
+  {{ tests_dir }}/defaults/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/defaults/template_overwrite:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template file$/"
+
+  # Exclusive
+  {{ tests_dir }}/exclusive/existing:
+    exists: false
+  {{ tests_dir }}/exclusive/existing_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/exclusive/existing_ignore:
+    exists: false
+  {{ tests_dir }}/exclusive/ignore:
+    exists: false

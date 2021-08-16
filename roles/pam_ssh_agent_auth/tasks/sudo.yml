@@ -2,13 +2,13 @@
 
 - name: sudo > Sudoers
   blockinfile:
-    dest:  /etc/sudoers
+    dest: /etc/sudoers
     block: |
       Defaults env_keep += SSH_AUTH_SOCK
 
-- name: sudo > Sudoers
+- name: sudo > Pam
   blockinfile:
-    dest:         /etc/pam.d/sudo
+    dest: /etc/pam.d/sudo
     insertbefore: '^@include common-auth'
     block: |
       auth sufficient pam_ssh_agent_auth.so file=%h/.ssh/authorized_keys

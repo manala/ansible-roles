@@ -1,0 +1,87 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.stretch
+    - debian.buster
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.glusterfs
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+###########
+# Volumes #
+###########
+
+- name: Volumes
+  tags: [volumes]
+  hosts:
+    - debian.stretch
+    - debian.buster
+  vars:
+    tests_dir: /molecule/glusterfs/volumes
+  tasks:
+    - name: Directories  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: directory
+      loop: [absent, present, test_1, test_2, test_3]
+    - block:
+        - name: Role - 1
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.glusterfs
+          vars:
+            manala_glusterfs_volumes:
+              - name: volume_ignore
+                state: ignore
+              - name: volume_absent
+                bricks: "{{ tests_dir }}/absent"
+                cluster:
+                  - debian.{{ ansible_distribution_release }}
+                force: true
+              - name: volume_present
+                bricks: "{{ tests_dir }}/present"
+                cluster:
+                  - debian.{{ ansible_distribution_release }}
+                force: true
+              # Flatten
+              -
+                - name: volume_test
+                  bricks: "{{ tests_dir }}/test_1"
+                  cluster:
+                    - debian.{{ ansible_distribution_release }}
+                  options:
+                    storage.owner-gid: "1337"
+                    storage.owner-uid: "1337"
+                    nfs.disable: "off"
+                  force: true
+        - name: Role - 2
+          import_role:
+            name: manala.roles.glusterfs
+            tasks_from: volumes
+          vars:
+            manala_glusterfs_volumes:
+              - name: volume_absent
+                state: absent
+              - name: volume_test
+                bricks: "{{ tests_dir }}/test_2,{{ tests_dir }}/test_3"
+                cluster:
+                  - debian.{{ ansible_distribution_release }}
+                force: true
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/volumes.yml.j2') }}"

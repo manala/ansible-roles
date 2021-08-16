@@ -1,0 +1,92 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.locales
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+#########
+# Codes #
+#########
+
+- name: Codes - Codes
+  tags: [codes, codes.codes]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role - 1
+          import_role:
+            name: manala.roles.locales
+          vars:
+            manala_locales_codes:
+              # With charmap
+              - fr_FR.UTF-8
+              - code: en_DK.UTF-8
+                state: present
+              - code: en_DK.ISO-8859-15
+                state: present
+              - code: hu_HU.UTF-8
+                state: absent
+              - code: hy_AM.ARMSCII-8
+                state: absent
+              # Without charmap
+              - ru_RU
+              - code: ve_ZA
+                state: present
+              - code: vi_VN
+                state: present
+              - code: th_TH
+                state: absent
+              - code: the_NP
+                state: absent
+        - name: Role - 2
+          import_role:
+            name: manala.roles.locales
+          vars:
+            manala_locales_codes:
+              # With charmap
+              - code: en_DK.ISO-8859-15
+                state: absent
+              - code: hy_AM.ARMSCII-8
+                state: present
+              # Without charmap
+              - code: vi_VN
+                state: absent
+              - code: the_NP
+                state: present
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/codes_codes.yml.j2') }}"
+
+- name: Codes - Default
+  tags: [codes, codes.default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.locales
+          vars:
+            manala_locales_codes:
+              - fr_FR.UTF-8
+            manala_locales_codes_default: fr_FR.UTF-8
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/codes_default.yml.j2') }}"

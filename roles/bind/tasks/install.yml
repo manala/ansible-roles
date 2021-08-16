@@ -2,10 +2,15 @@
 
 - name: install > Packages
   apt:
-    name: "{{
-      manala_bind_install_packages|default(manala_bind_install_packages_default, True)
-      + (ansible_python.version.major == 2) | ternary(['python-dnspython'], ['python3-dnspython'])
-    }}"
+    name: "{{ item }}"
     install_recommends: false
     update_cache: true
     cache_valid_time: 3600
+  loop:
+    - "{{
+      manala_bind_install_packages|default(manala_bind_install_packages_default, True)
+      + (ansible_python.version.major == 2)|ternary(
+          ['python-dnspython'],
+          ['python3-dnspython']
+      )
+    }}"

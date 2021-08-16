@@ -1,0 +1,29 @@
+---
+
+package:
+  openssl:
+    installed: true
+  ca-certificates:
+    installed: true
+  unzip:
+    installed: true
+
+file:
+  {{ manala_composer_bin }}:
+    exists: true
+    filetype: file
+    owner: root
+{% if ansible_distribution_release in ['stretch'] %}
+    group: staff
+{% else %}
+    group: root
+{% endif %}
+    mode: "0755"
+  /tmp/installer:
+    exists: false
+
+command:
+  {{ manala_composer_bin }} --version:
+    exit-status: 0
+    stdout:
+      - Composer version

@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Network [![Build Status](https://travis-ci.org/manala/ansible-role-network.svg?branch=master)](https://travis-ci.org/manala/ansible-role-network)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Network
 
 This role will handle network hosts, resolver and interfaces.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,46 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.network
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.network
-```
-
-## Role Handlers
-
-| Name                 | Type    | Description               |
-| -------------------- | ------- | ------------------------- |
-| `networking restart` | Service | Restart networking server |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-### Definition
-
-| Name                                           | Default                       | Type         | Description                                                      |
-| ---------------------------------------------- | ----------------------------- | ------------ | ---------------------------------------------------------------- |
-| `manala_network_hosts_file`                    | '/etc/hosts'                  | String       | Host file path                                                   |
-| `manala_network_hosts`                         | {}                            | Array        | Hosts                                                            |
-| `manala_network_resolver_config_file`          | '/etc/resolv.conf'            | String       | Resolver file path                                               |
-| `manala_network_resolver_config_template`      | ~                             | String       | Resolver file template                                           |
-| `manala_network_resolver_config`               | ~                             | String/Array | Resolver configuration                                           |
-| `manala_network_interfaces_config_file`        | '/etc/network/interfaces'     | String       | Interfaces file path                                             |
-| `manala_network_interfaces_config_template`    | ~                             | String       | Interfaces file template                                         |
-| `manala_network_interfaces_config`             | ~                             | String/Array | Interfaces configuration                                         |
-| `manala_network_interfaces_configs_exclusive`  | false                         | Boolean      | Exclusion of existing files additional interfaces configurations |
-| `manala_network_interfaces_configs_dir`        | '/etc/network/interfaces.d'   | String       | Additional interfaces configurations directory path              |
-| `manala_network_interfaces_configs_defaults`   | {}                            | Array        | Additional interfaces configurations defaults                    |
-| `manala_network_interfaces_configs`            | []                            | Array        | Additional interfaces configurations directives                  |
-| `manala_network_routing_tables_file`           | '/etc/iproute2/rt_tables'     | String       | Routing tables file path                                         |
-| `manala_network_routing_tables`                | {}                            | Array        | Routing tables                                                   |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration examples
 
@@ -73,12 +26,6 @@ Hosts:
 ```yaml
 manala_network_hosts:
   189.234.23.35: bismuth.manala.local
-```
-
-Dict's array based hosts (deprecated):
-```yaml
-manala_network_hosts:
-  - 189.234.23.35: bismuth.manala.local
 ```
 
 Content based interfaces config:
@@ -100,25 +47,6 @@ manala_network_interfaces_config: |
     post-down ip link set dev $IFACE down
 ```
 
-Dict's array based interfaces config (deprecated):
-```yaml
-manala_network_interfaces_config:
-  # Loopback
-  - auto lo
-  - iface lo inet loopback
-  # Eth0
-  - auto eth0
-  - iface eth0 inet static:
-      - address: 189.234.23.30
-      - netmask: 255.255.255.0
-      - gateway: 189.234.23.20
-  # Eth1
-  - auto eth1
-  - iface eth1 inet manual:
-      - pre-up: ip link set dev $IFACE up
-      - post-down: ip link set dev $IFACE down
-```
-
 Template based interfaces config:
 ```yaml
 manala_network_interfaces_config_template: network/interfaces.j2
@@ -132,14 +60,6 @@ manala_network_resolver_config: |
   nameserver 189.234.23.2
 ```
 
-Dict's array based resolver config (deprecated):
-```yaml
-manala_network_resolver_config:
-  - search: manala.local
-  - nameserver: 189.234.23.1
-  - nameserver: 189.234.23.2
-```
-
 Template based resolver config:
 ```yaml
 manala_network_resolver_config_template: network/resolv.conf.j2
@@ -149,12 +69,6 @@ Routing tables:
 ```yaml
 manala_network_routing_tables:
   1: public
-```
-
-Dict's array based routing tables (deprecated):
-```yaml
-manala_network_routing_tables:
-  - 1: public
 ```
 
 #### Interfaces configurations
@@ -170,13 +84,6 @@ manala_network_interfaces_configs:
     config: |
       auto eth1
       iface eth1 inet dhcp
-  # Dicts array template based (deprecated)
-  - file: foo
-    config:
-      - auto eth0:0
-      - iface eth0:0 inet static:
-        - address: 0.0.0.0
-        - netmask: 255.255.255.255
   # Template based (file name based on template)
   - template: network/bar.j2
   # Template based (force file name)
@@ -196,13 +103,16 @@ manala_network_interfaces_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.network
+  tasks:
+    - import_role:  
+        name: manala.roles.network
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

@@ -2,10 +2,14 @@
 
 - name: sensu-backend restart
   service:
-    name: sensu-backend
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - sensu-backend
 
 - name: sensu-agent restart
   service:
-    name: sensu-agent
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - sensu-agent

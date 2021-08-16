@@ -1,17 +1,10 @@
 ---
 
-- name: sudoers > Directory
-  file:
-    path: "{{ manala_sudo_sudoers_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_sudo_sudoers|length
-
 - name: sudoers > Exclusive
   find:
     path: "{{ manala_sudo_sudoers_dir }}"
+    file_type: file
+    patterns: "*"
     excludes: README
   changed_when: false
   register: __manala_sudo_sudoers_exclusive_find
@@ -25,25 +18,23 @@
     group: root
     mode: "0440"
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_sudo_sudoers,
-      __manala_sudo_sudoers_exclusive_find.files|default([]),
-      manala_sudo_sudoers_dir,
-      manala_sudo_sudoers_defaults.template|default('sudoers/_default.j2', true),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_sudo_sudoers,
+    __manala_sudo_sudoers_exclusive_find.files|default([]),
+    manala_sudo_sudoers_dir,
+    manala_sudo_sudoers_defaults.template|default('sudoers/_default.j2', true),
+    wantstate='present'
+  ) }}"
 
 - name: sudoers > Files absent
   file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_sudo_sudoers,
-      __manala_sudo_sudoers_exclusive_find.files|default([]),
-      manala_sudo_sudoers_dir,
-      manala_sudo_sudoers_defaults.template|default('sudoers/_default.j2', true),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_sudo_sudoers,
+    __manala_sudo_sudoers_exclusive_find.files|default([]),
+    manala_sudo_sudoers_dir,
+    manala_sudo_sudoers_defaults.template|default('sudoers/_default.j2', true),
+    wantstate='absent'
+  ) }}"

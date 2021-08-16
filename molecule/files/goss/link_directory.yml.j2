@@ -1,0 +1,29 @@
+---
+
+file:
+  # Default - Default
+  {{ tests_dir }}/default/link_directory:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/directory
+  {{ tests_dir }}/default/directory:
+    exists: true
+    filetype: directory
+  # Default -  Sub directory
+  {{ tests_dir }}/default/link_directory_sub:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/directory_sub/directory
+  {{ tests_dir }}/default/directory_sub/directory:
+    exists: true
+    filetype: directory
+  # Default -  Permissions
+  {{ tests_dir }}/default/link_permissions:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/directory_permissions
+  {{ tests_dir }}/default/directory_permissions:
+    exists: true
+    filetype: directory
+    owner: backup
+    group: games

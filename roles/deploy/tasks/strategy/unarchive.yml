@@ -5,7 +5,7 @@
     - manala_deploy
   block:
 
-    - name: strategy/unarchive > Create dir
+    - name: strategy/unarchive > Create dir  # noqa risky-file-permissions
       file:
         path: "{{ deploy_helper.new_release_path }}/"
         state: directory

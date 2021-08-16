@@ -1,6 +1,0 @@
----
-
-- name: varnish restart
-  service:
-    name:  varnish
-    state: restarted

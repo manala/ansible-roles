@@ -17,5 +17,5 @@
         ) else
       'started'
     }}"
-  with_items:
+  loop:
     - bind9

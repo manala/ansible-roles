@@ -2,15 +2,19 @@
 
 - name: influxdb restart
   service:
-    name: influxdb
+    name: "{{ item }}"
     state: stopped
+  loop:
+    - influxdb
   notify: influxdb start
 
 - name: influxdb start
   service:
-    name: influxdb
+    name: "{{ item }}"
     state: started
-  register: _manala_influxdb_services_output
-  until: _manala_influxdb_services_output is not failed
+  loop:
+    - influxdb
+  register: __manala_influxdb_services
+  until: __manala_influxdb_services is not failed
   retries: 12
   delay: 1

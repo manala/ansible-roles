@@ -1,0 +1,13 @@
+---
+
+package:
+  bind9:
+    installed: true
+
+file:
+  {{ tests_dir }}/log:
+    exists: true
+    filetype: directory
+    owner: bind
+    group: bind
+    mode: "0755"

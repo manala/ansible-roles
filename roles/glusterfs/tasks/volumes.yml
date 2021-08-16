@@ -11,7 +11,7 @@
     options: "{{ item.options|default(omit) }}"
     host: "{{ item.host|default(omit) }}"
   loop: "{{
-    manala_glusterfs_volumes | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_glusterfs_volumes | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_glusterfs_volumes
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

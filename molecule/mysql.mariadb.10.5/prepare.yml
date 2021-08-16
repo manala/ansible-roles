@@ -1,0 +1,11 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - mariadb@mariadb_10_5

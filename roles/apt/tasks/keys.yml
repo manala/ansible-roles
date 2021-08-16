@@ -8,25 +8,24 @@
     validate_certs: "{{ item.validate_certs|default(omit) }}"
     state: "{{ item.state|default('present') }}"
   loop: "{{ query(
-      'manala_apt_keys',
-      manala_apt_keys,
-      manala_apt_keys_patterns,
+    'manala.roles.apt_keys',
+    manala_apt_keys,
+    manala_apt_keys_patterns,
+    query(
+      'manala.roles.apt_repositories',
+      manala_apt_repositories,
+      manala_apt_repositories_patterns,
       query(
-        'manala_apt_repositories',
-        manala_apt_repositories,
-        manala_apt_repositories_patterns,
-        query(
-            'manala_apt_preferences',
-            manala_apt_preferences,
-            manala_apt_preferences_patterns,
-            manala_apt_repositories_patterns,
-            [],
-            manala_apt_preferences_dir,
-            manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
-            wantstate='present'
-        ),
-        [],
-        wantstate='present'
+          'manala.roles.apt_preferences',
+          manala_apt_preferences,
+          manala_apt_preferences_patterns,
+          manala_apt_repositories_patterns,
+          [],
+          manala_apt_preferences_dir,
+          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+          wantstate='present'
       ),
-    )
-  }}"
+      [],
+      wantstate='present'
+    ),
+  ) }}"

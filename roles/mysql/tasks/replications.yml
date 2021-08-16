@@ -17,4 +17,4 @@
       master_ssl_cipher: "{{ item.master_ssl_cipher|default(omit) }}"
       master_ssl_key: "{{ item.master_ssl_key|default(omit) }}"
       master_user: "{{ item.master_user|default(omit) }}"
-  with_items: "{{ manala_mysql_replications }}"
+  loop: "{{ manala_mysql_replications }}"

@@ -1,0 +1,202 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/bind/default
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.bind
+          vars:
+            manala_bind_log_dir: "{{ tests_dir }}/log"
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+###########
+# Options #
+###########
+
+- name: Options
+  tags: [options]
+  hosts: debian
+  vars:
+    tests_file: /molecule/bind/options
+  tasks:
+    - name: Clean tests file  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_file }}"
+        state: "{{ item }}"
+      loop: [absent, touch]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.bind
+          vars:
+            manala_bind_options_file: "{{ tests_file }}"
+            manala_bind_options:
+              - -u {{ manala_bind_user }}
+              - -4  # IPv4 only
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/options.yml.j2') }}"
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/bind/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [state_absent_existing]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.bind
+          vars:
+            manala_bind_configs_dir: "{{ tests_dir }}"
+            manala_bind_configs:
+              - file: template
+                template: fixtures/template.j2
+              - file: content
+                content: |
+                  Content
+              - file: state_absent_existing
+                state: absent
+              - file: omit
+                content: |
+                  Omit
+                omit: true
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+
+#########
+# Zones #
+#########
+
+- name: Zones
+  tags: [zones]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/bind/zones
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [db.state_absent_existing, db.dynamic_existing]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.bind
+          vars:
+            manala_bind_zones_dir: "{{ tests_dir }}"
+            manala_bind_zones:
+              - zone: template
+                template: fixtures/template.j2
+              - zone: content
+                content: |
+                  Content
+              - zone: state_absent_existing
+                state: absent
+              - zone: omit
+                content: |
+                  Omit
+                omit: true
+              - zone: dynamic
+                content: |
+                  Dynamic
+                dynamic: true
+              - zone: dynamic_existing
+                content: |
+                  Dynamic existing
+                dynamic: true
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/zones.yml.j2') }}"
+
+#################
+# Zones Records #
+#################
+
+- name: Zones Records
+  tags: [zones_records]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.bind
+          vars:
+            manala_bind_configs:
+              - file: named.conf.local
+                content: |
+                  zone "foo.local" {
+                      type master;
+                      file "{{ 'foo.local'|manala.roles.bind_zone_file }}";
+                      allow-update { 127.0.0.1; };
+                  };
+            manala_bind_zones:
+              - zone: foo.local
+                dynamic: true
+                content: |
+                  @  IN SOA ns.foo.local. contact.foo.local. (
+                              1       ; serial
+                              604800  ; refresh (1 week)
+                              86400   ; retry (1 day)
+                              2419200 ; expire (4 weeks)
+                              86400   ; minimum (1 day)
+                              )
+                  @  IN NS  ns.foo.local.
+                  ns IN A   172.16.1.1
+                records:
+                  - {record: bar, value: 172.16.1.123}
+      always:
+        - name: Packages
+          apt:
+            name: [bind9-host]
+            install_recommends: false
+            update_cache: true
+            cache_valid_time: 3600
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/zones_records.yml.j2') }}"

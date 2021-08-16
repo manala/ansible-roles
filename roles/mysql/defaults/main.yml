@@ -15,9 +15,7 @@ manala_mysql_config: ~
 # Configs
 manala_mysql_configs_exclusive: false
 manala_mysql_configs_dir: /etc/mysql/conf.d
-manala_mysql_configs_template: ~ # Deprecated
-manala_mysql_configs_defaults:
-  template: "{{ manala_mysql_configs_template }}" # Ensure backward compatibility
+manala_mysql_configs_defaults: {}
 manala_mysql_configs: []
 
 # Data dir

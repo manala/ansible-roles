@@ -2,7 +2,7 @@
 {{ item.config }}
 {% else %}
 {% if 'env' in item %}
-{{ item.env|manala_environment }}
+{{ item.env|manala.roles.environment }}
 {% endif %}
 {% for job in item.jobs|default([]) %}
 {% if job.state|default('present') == 'present' %}
@@ -25,12 +25,7 @@
         )
       )
     )
-  }}
-  {#- Deprecated #}
-  {%- if 'job' in job %} {{ job.job }}
-  {%- else %} {{ job.command|mandatory }}
-  {%- endif %}
-
+  }} {{ job.command|mandatory }}
 {% endif %}
 {% endfor %}
 {% endif %}

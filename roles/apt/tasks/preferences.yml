@@ -1,16 +1,10 @@
 ---
 
-- name: preferences > Directory
-  file:
-    path: "{{ manala_apt_preferences_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
 - name: preferences > Exclusive
   find:
     path: "{{ manala_apt_preferences_dir }}"
+    file_type: file
+    patterns: "*"
   changed_when: false
   register: __manala_apt_preferences_exclusive_find
   when: manala_apt_preferences_exclusive
@@ -23,29 +17,27 @@
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_apt_preferences',
-      manala_apt_preferences,
-      manala_apt_preferences_patterns,
-      manala_apt_repositories_patterns,
-      __manala_apt_preferences_exclusive_find.files|default([]),
-      manala_apt_preferences_dir,
-      manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.apt_preferences',
+    manala_apt_preferences,
+    manala_apt_preferences_patterns,
+    manala_apt_repositories_patterns,
+    __manala_apt_preferences_exclusive_find.files|default([]),
+    manala_apt_preferences_dir,
+    manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+    wantstate='present'
+  ) }}"
 
 - name: preferences > Files absents
   file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_apt_preferences',
-      manala_apt_preferences,
-      manala_apt_preferences_patterns,
-      manala_apt_repositories_patterns,
-      __manala_apt_preferences_exclusive_find.files|default([]),
-      manala_apt_preferences_dir,
-      manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.apt_preferences',
+    manala_apt_preferences,
+    manala_apt_preferences_patterns,
+    manala_apt_repositories_patterns,
+    __manala_apt_preferences_exclusive_find.files|default([]),
+    manala_apt_preferences_dir,
+    manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+    wantstate='absent'
+  ) }}"

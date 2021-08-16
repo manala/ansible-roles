@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Shorewall [![Build Status](https://travis-ci.org/manala/ansible-role-shorewall.svg?branch=master)](https://travis-ci.org/manala/ansible-role-shorewall)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Shorewall
 
 This role will assume the setup of [Shorewall](http://shorewall.net/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,38 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.shorewall
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.shorewall
-```
-
-## Role Handlers
-
-| Name                | Type    | Description       |
-| ------------------- | ------- | ----------------- |
-| `shorewall restart` | Service | Restart shorewall |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                        | Default                         | Type    | Description                                                         |
-| ------------------------------------------- | ------------------------------- | ------- | ------------------------------------------------------------------- |
-| `manala_shorewall_install_packages`         | ~                               | Array   | Dependency packages to install                                      |
-| `manala_shorewall_install_packages_default` | ['shorewall']                   | Array   | Default dependency packages to install                              |
-| `manala_shorewall_config_file`              | '/etc/shorewall/shorewall.conf' | String  | Main configuration file path                                        |
-| `manala_shorewall_config`                   | {}                              | Array   | Main configuration directives                                       |
-| `manala_shorewall_configs_exclusive`        | false                           | Boolean | Exclusion of existing files additional configurations               |
-| `manala_shorewall_configs_dir`              | '/etc/shorewall'                | String  | Additional configurations directory path                            |
-| `manala_shorewall_configs_defaults`         | {}                              | Array   | Additional configurations defaults                                  |
-| `manala_shorewall_configs`                  | []                              | Array   | Additional configurations directives (zones, rules, interfaces,...) |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Configuration examples (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 
@@ -86,16 +47,6 @@ manala_shorewall_configs:
     template: policy_foo.j2
     config:
       foo: bar
-  # Dicts array template based (deprecated)
-  - file: policy
-    config:
-      # FW to internet
-      - fw:  all ACCEPT
-      # Default rule DROP
-      - net: all DROP   info
-      - dmz: all DROP   info
-      # Must be last
-      - all: all REJECT info
   # Ensure config is absent
   - file: policy
     state: absent # "present" by default
@@ -110,13 +61,16 @@ manala_shorewall_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.shorewall
+  tasks:
+    - import_role:  
+        name: manala.roles.shorewall
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

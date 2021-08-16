@@ -1,6 +1,0 @@
----
-
-service:
-  mongo-express:
-    enabled: true
-    running: true
