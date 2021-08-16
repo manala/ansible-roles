@@ -1,7 +1,0 @@
----
-
-package:
-  sensu-go-backend:
-    installed: true
-  sensu-go-agent:
-    installed: true

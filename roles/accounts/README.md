@@ -36,19 +36,14 @@ None
 
 ## Role Variables
 
-| Name                                      | Default | Type        | Description                                                 |
-| ----------------------------------------- | ------- | ----------- | ----------------------------------------------------------- |
-| `manala_accounts_users`                   | Array   | Array       | List of unix users.                                         |
-| `manala_accounts_users.user`              | -       | String      | Username.                                                   |
-| `manala_accounts_users.group`             | -       | String      | User's primary group.                                       |
-| `manala_accounts_users.groups`            | -       | Array       | Array of user's secondary groups.                           |
-| `manala_accounts_groups`                  | -       | Array       | Array of groups to be created.                              |
-| `manala_accounts_groups.name`             | -       | String      | Name of the group to manage.                                |
-| `manala_accounts_groups.system`           | -       | Boolean     | If yes, indicates that the group created is a system group. |
+| Name                     | Default | Type  | Description                    |
+| -------------------------| ------- | ----- | ------------------------------ |
+| `manala_accounts_users`  | Array   | Array | List of unix users.            |
+| `manala_accounts_groups` | Array   | Array | Array of groups to be created. |
 
 ### Defining users
 
-The `manala_accounts_users`key will allow to define our users by:
+The `manala_accounts_users` will allow to define our users by:
 
 - A user name
 - A main group
@@ -60,28 +55,30 @@ The `manala_accounts_users`key will allow to define our users by:
 
 ```yaml
 manala_accounts_users:
-  - user:   foo
-    group:  users
+  - foo # Short syntax
+  - user: foo
+    group: users
     groups: ['sudo']
     authorized_keys_file: authorized_keys2 # authorized_keys by default
     authorized_keys:
-      - "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-      - "no-port-forwarding,from=\"10.0.1.*\" {{ query('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}"
+      - "{{ lookup('file', 'files/users/keys/foo@example.com.pub') }}"
+      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', 'files/users/keys/bar@example.com.pub') }}"
     keys:
-      - name:    id_rsa
-        public:  "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-        private: "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com') }}"
+      - key: id_rsa
+        public: "{{ lookup('file', 'files/users/keys/foo@example.com.pub') }}"
+        private: "{{ lookup('file', 'files/users/keys/foo@example.com') }}"
     gpg_keys:
-      - key:    FOOOBAAR
-        public: "{{ query('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com.pub') }}"
-        secret: "{{ query('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com') }}"
+      - key: XXXXXXXXXXXXXXXX
+        public: "{{ lookup('file', 'files/users/gpg_keys/foo@example.com.pub') }}"
+        secret: "{{ lookup('file', 'files/users/gpg_keys/foo@example.com') }}"
+        trust: true # Trust gpg key
 ```
 #### Example: Ensure a user is not present
 
 ```yaml
 manala_accounts_users:
-  - user:   bar
-    state:  absent
+  - user: bar
+    state: absent
   # Flatten users
   - "{{ my_custom_users_array }}"
 ```
@@ -102,13 +99,20 @@ You can create your own group by using the `manala_accounts_groups` by specifyin
 
 - A group name
 - If the group is a "system group"
+- A state (present|absent|ignore)
 
 #### Example
 
 ```yaml
 manala_accounts_groups:
-  - group: ops
-    system: false
+  - foo # Short syntax
+  - group: foo
+  - group: foo
+    system: true
+  - group: foo
+    state: absent # Ensure group is absent
+  - group: foo
+    state: ignore # Ignore entry
   # Flatten groups
   - "{{ my_custom_groups_array }}"
 ```

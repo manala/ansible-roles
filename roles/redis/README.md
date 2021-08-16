@@ -83,13 +83,6 @@ manala_redis_server_config: |
   port 1234
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_redis_server_config:
-  - port: 1234
-```
-
-
 #### Redis sentinel
 
 ```yaml

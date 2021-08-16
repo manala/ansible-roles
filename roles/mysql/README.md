@@ -88,14 +88,6 @@ manala_mysql_config: |
   innodb_buffer_pool_size = 4G
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_mysql_config:
-  - mysqld:
-    - bind-address: 0.0.0.0
-    - innodb_buffer_pool_size: 4G
-```
-
 ### Configure `/etc/mysql/conf.d` example
 
 A state (present|absent|ignore) can be provided.
@@ -122,12 +114,6 @@ manala_mysql_configs:
     template: mysql/baz.cnf.j2
     config:
       foo: bar
-  # Dict's array (deprecated)
-  - file: qux.cnf
-    config:
-      - client:
-        - port: 3306
-        - socket: /var/run/mysqld/mysqld.sock
   # Ensure config is absent
   - file: absent.cnf
     state: absent # "present" by default

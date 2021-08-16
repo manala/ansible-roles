@@ -22,7 +22,7 @@
 - import_tasks: fpm_pools.yml
   when: |
     'fpm' in query(
-      'manala_php_sapis',
+      'manala.roles.php_sapis',
       manala_php_sapis|default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',

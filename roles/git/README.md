@@ -81,16 +81,6 @@ manala_git_config: |
       filemode = false
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_git_config:
-  - user:
-    - name: Foo Bar
-    - email: foo.bar@manala.io
-  - core:
-    - filemode: false
-```
-
 ### Auto-checkout of required repositories
 
 The `manala_git_repositories` key is a "special one", it's designed to allow automatic checkout of specified repositories:

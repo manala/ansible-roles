@@ -64,10 +64,6 @@ Using ansible galaxy requirements file:
       - file: content
         config: |
           user ALL=NOPASSWD:ALL
-      # Config based (deprecated)
-      - file: config
-        config:
-          - vagrant: ALL=NOPASSWD:ALL
       # Ensure sudoer is absent
       - file: absent
         state: absent # "present" by default

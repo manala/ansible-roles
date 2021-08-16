@@ -44,7 +44,7 @@ Using ansible galaxy requirements file:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.ntp }
+    - role: manala.ntp
 ```
 
 # Licence

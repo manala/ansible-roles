@@ -1,5 +1,0 @@
----
-
-package:
-  fail2ban:
-    installed: true

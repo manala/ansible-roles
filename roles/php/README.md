@@ -8,12 +8,11 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the [__sury__](https://deb.sury.org/) or [__dotdeb__](https://www.dotdeb.org/) php debian repositories. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle them properly.
+This role is made to work with the [__sury__](https://deb.sury.org/) php debian repositories. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle them properly.
 
 ```yaml
 manala_apt_preferences:
   - php@sury_php
-  # - php@dotdeb
 ```
 
 ## Dependencies
@@ -53,15 +52,13 @@ Using ansible galaxy requirements file:
 | `manala_php_sapis_default`                    | ['cli', 'fpm']                | Array                | Default list of PHP SAPIs                               |
 | `manala_php_extensions_exclusive`             | false                         | Boolean              | Should the extensions list be exclusive ?               |
 | `manala_php_extensions`                       | []                            | Array                | A list of PHP extensions                                |
-| `manala_php_configs_template`                 | 'configs/empty.j2'            | String               | Configs base template path                              |
 | `manala_php_configs_exclusive:`               | false                         | Boolean              | Should configs files be exclusive ?                     |
+| `manala_php_configs_defaults`                 | {}                            | Array                | Configs defaults                                        |
 | `manala_php_configs`                          | []                            | Array                | Configs files                                           |
 | `manala_php_cli_configs`                      | []                            | Array                | Configs files (cli SAPI only)                           |
 | `manala_php_fpm_configs`                      | []                            | Array                | Configs files (fpm SAPI only)                           |
-| `manala_php_cgi_configs`                      | []                            | Array                | Configs files (cgi SAPI only)                           |
-| `manala_php_phpdbg_configs`                   | []                            | Array                | Configs files (phpdbg SAPI only)                        |
-| `manala_php_fpm_pools_template`               | 'fpm_pools/empty.j2'          | String               | Fpm pools base template path                            |
 | `manala_php_fpm_pools_exclusive`              | false                         | Boolean              | Should fpm pools files be exclusive ?                   |
+| `manala_php_fpm_pools_defaults`               | {}                            | Array                | Fpm pools defaults                                      |
 | `manala_php_fpm_pools`                        | []                            | Array                | Fpm pools files                                         |
 | `manala_php_blackfire`                        | false                         | Boolean              | Install blackfire                                       |
 | `manala_php_blackfire_agent_config_file`      | '/etc/blackfire/agent'        | String               | Blackfire agent config file path                        |
@@ -75,25 +72,11 @@ Using ansible galaxy requirements file:
 
 ### Configuration example
 
-#### Version matrix
+#### Version
 
-| Version | Distribution | Repository | *manala_apt_preferences* | *manala_php_version* |
-| :---    | :---:        | :---:      | ---:                     | ---:                 |
-| **5.6** | Stretch      | Sury       | `php@sury_php`           | `5.6`                |
-| **5.6** | Buster       | Sury       | `php@sury_php`           | `5.6`                |
-| **7.0** | Jessie       | Dotdeb     | `php@dotdeb`             | `7.0`                |
-| **7.0** | Stretch      | Sury       | `php@sury_php`           | `7.0`                |
-| **7.0** | Buster       | Sury       | `php@sury_php`           | `7.0`                |
-| **7.1** | Stretch      | Sury       | `php@sury_php`           | `7.1`                |
-| **7.1** | Buster       | Sury       | `php@sury_php`           | `7.1`                |
-| **7.2** | Stretch      | Sury       | `php@sury_php`           | `7.2`                |
-| **7.2** | Buster       | Sury       | `php@sury_php`           | `7.2`                |
-| **7.3** | Stretch      | Sury       | `php@sury_php`           | `7.3`                |
-| **7.3** | Buster       | Sury       | `php@sury_php`           | `7.3`                |
-| **7.4** | Stretch      | Sury       | `php@sury_php`           | `7.4`                |
-| **7.4** | Buster       | Sury       | `php@sury_php`           | `7.4`                |
-| **8.0** | Stretch      | Sury       | `php@sury_php`           | `8.0`                |
-| **8.0** | Buster       | Sury       | `php@sury_php`           | `8.0`                |
+```yaml
+manala_php_version: 7.4
+```
 
 #### Sapis
 
@@ -142,10 +125,6 @@ manala_php_configs:
   - file: foo.ini
     config:
       date.timezone: UTC
-  # Dict's array config based (deprecated)
-  - file: foo.ini
-    config:
-      - date.timezone: UTC
   # Raw content based
   - file: foo_content.ini
     config: |
@@ -197,18 +176,6 @@ manala_php_fpm_pools:
           APP_ENV: prod
         php_flag:
           display_errors: true
-  # Dict's array based (deprecated)
-  - file: www.conf
-    config:
-      - www:
-        - pm.max_children: 5
-        - pm.start_servers: 2
-        - pm.min_spare_servers: 1
-        - pm.max_spare_servers: 3
-        - env:
-            FOO: bar
-            APP_ENV: prod
-        - php_flag[display_errors]: true
   # Content based
   - file: content.conf
     config: |

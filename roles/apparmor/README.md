@@ -38,12 +38,14 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default           | Type   | Description                            |
-| ------------------------------------------ | ----------------- | ------ | -------------------------------------- |
-| `manala_apparmor_install_packages`         | ~                 | Array  | Dependency packages to install         |
-| `manala_apparmor_install_packages_default` | ['apparmor']      | Array  | Default dependency packages to install |
-| `manala_apparmor_configs_dir`              | '/etc/apparmor.d' | String | Configurations directory path          |
-| `manala_apparmor_configs`                  | []                | Array  | Configurations templates               |
+| Name                                       | Default           | Type    | Description                            |
+| ------------------------------------------ | ----------------- | ------- | -------------------------------------- |
+| `manala_apparmor_install_packages`         | ~                 | Array   | Dependency packages to install         |
+| `manala_apparmor_install_packages_default` | ['apparmor']      | Array   | Default dependency packages to install |
+| `manala_apparmor_configs_exclusive`        | false             | Boolean | Configurations exclusivity             |
+| `manala_apparmor_configs_dir`              | '/etc/apparmor.d' | String  | Configurations directory path          |
+| `manala_apparmor_configs_defaults`         | {}                | String  | Configurations defaults                |
+| `manala_apparmor_configs`                  | []                | Array   | Configurations                         |
 
 ## Example playbook
 
@@ -52,13 +54,13 @@ Using ansible galaxy requirements file:
 
   vars:
     manala_apparmor_configs:
-      - file:     lxc/lxc-profile-a
+      - file: lxc/lxc-profile-a
         template: lxc-default.j2
-      - file:     lxc/lxc-old-profile
-        state:    absent
+      - file: lxc/lxc-old-profile
+        state: absent
 
   roles:
-    - { role: manala.apparmor }
+    - role: manala.apparmor
 ```
 
 # Licence

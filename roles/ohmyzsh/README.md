@@ -94,11 +94,6 @@ manala_ohmyzsh_users:
     config: |
       # Path to your oh-my-zsh installation.
       export ZSH=$HOME/.oh-my-zsh
-  # Dict's array parameters (deprecated):
-  - user: root
-    config:
-      - ZSH_THEME: default.prod
-      - plugins: (git debian common-aliases history history-substring-search)
   - user: bar
     state: ignore # Entry will be ignored
   # Flatten users

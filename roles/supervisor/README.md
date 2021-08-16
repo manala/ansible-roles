@@ -91,12 +91,6 @@ manala_supervisor_config: |
   ...
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_supervisor_config:
-  - loglevel: info
-```
-
 Enable http server:
 ```yaml
 manala_supervisor_configs:
@@ -130,13 +124,6 @@ manala_supervisor_configs:
     config: |
       [program:foo]
       command=/bin/foo
-  - file: foo_dicts_array.conf # Deprecated
-    config:
-      - foo:
-        - command: bar
-        - environment:
-            FOO: bar
-            BAR: 12
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default

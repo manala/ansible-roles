@@ -11,8 +11,7 @@
     state: "{{ item.state|default('present') }}"
     path: "{{ item.path|default('/etc/ssh/ssh_known_hosts') }}"
   loop: "{{ query(
-      'manala_ssh_known_hosts',
-      manala_ssh_known_hosts,
-      manala_ssh_known_hosts_patterns
-    )
-  }}"
+    'manala.roles.ssh_known_hosts',
+    manala_ssh_known_hosts,
+    manala_ssh_known_hosts_patterns
+  ) }}"

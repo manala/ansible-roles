@@ -76,16 +76,6 @@ manala_shorewall_configs:
     template: policy_foo.j2
     config:
       foo: bar
-  # Dicts array template based (deprecated)
-  - file: policy
-    config:
-      # FW to internet
-      - fw:  all ACCEPT
-      # Default rule DROP
-      - net: all DROP   info
-      - dmz: all DROP   info
-      # Must be last
-      - all: all REJECT info
   # Ensure config is absent
   - file: policy
     state: absent # "present" by default

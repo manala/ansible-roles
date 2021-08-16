@@ -1,9 +1,0 @@
-define docker_collection
-	docker run \
-		--rm \
-		--env COLLECTION_API_TOKEN \
-		--volume $(PWD):/srv/ \
-		--workdir /srv/ \
-		manala/ansible:edge \
-		$(1)
-endef

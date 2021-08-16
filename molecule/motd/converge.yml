@@ -1,0 +1,94 @@
+---
+
+###########
+# Scripts #
+###########
+
+- name: Scripts
+  tags: [scripts]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/motd/scripts
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.motd
+            tasks_from: scripts
+          vars:
+            manala_motd_scripts_exclusive: false
+            manala_motd_scripts_dir: "{{ tests_dir }}/default"
+            manala_motd_scripts_defaults: {}
+            manala_motd_scripts:
+              # Message
+              - file: message
+                message: I hope that someone gets my message in a bottle, yeah
+              # Content
+              - file: content
+                script: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.motd
+            tasks_from: scripts
+          vars:
+            manala_motd_scripts_exclusive: false
+            manala_motd_scripts_dir: "{{ tests_dir }}/defaults"
+            manala_motd_scripts_defaults:
+              template: fixtures/template.j2
+            manala_motd_scripts:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.motd
+            tasks_from: scripts
+          vars:
+            manala_motd_scripts_exclusive: true
+            manala_motd_scripts_dir: "{{ tests_dir }}/exclusive"
+            manala_motd_scripts_defaults: {}
+            manala_motd_scripts:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/scripts.yml.j2') }}"

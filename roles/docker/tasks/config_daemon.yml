@@ -1,5 +1,15 @@
 ---
 
+- name: config_daemon > Directory
+  file:
+    path: "{{ manala_docker_config_daemon_file|dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_docker_config_daemon_template
+    or manala_docker_config_daemon
+
 - name: config_daemon > Template
   template:
     src: "{{ manala_docker_config_daemon_template|default('config_daemon/_default.j2', true) }}"
@@ -8,6 +18,6 @@
     group: root
     mode: "0644"
   when: manala_docker_config_daemon_template
-        or manala_docker_config_daemon
+    or manala_docker_config_daemon
   notify:
     - docker restart

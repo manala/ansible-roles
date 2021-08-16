@@ -18,23 +18,6 @@ None.
 
 None.
 
-## Deprecations
-
-Version 3.0.0 introduces few deprecations, but remains fully backward compatible.
-
-**Variables**
-
-`manala_ssh_config_sshd_file` -> `manala_ssh_server_config_file`
-`manala_ssh_config_sshd_template` -> `manala_ssh_server_config_template`
-`manala_ssh_config_sshd` -> `manala_ssh_server_config`
-`manala_ssh_config_file` -> `manala_ssh_client_config_file`
-`manala_ssh_config_template` -> `manala_ssh_client_config_template`
-`manala_ssh_config` -> `manala_ssh_client_config`
-
-**Templates**
-`config/*.j2` -> `config/client/*.j2`
-`config/sshd/*.j2` -> `config/server/*.j2`
-
 ## Installation
 
 ### Ansible 2+
@@ -100,17 +83,6 @@ manala_ssh_server_config: |
   AcceptEnv LANG LC_* FOO
   Match User bar
       AcceptEnv LANG LC_* BAR
-```
-
-Use dict's array parameters (deprecated):
-```yaml
-manala_ssh_client_config:
-  - Host *:
-    - SendEnv: LANG LC_* FOO
-manala_ssh_server_config:
-  - AcceptEnv: LANG LC_* FOO
-  - Match User bar:
-    - AcceptEnv: LANG LC_* BAR
 ```
 
 Known hosts

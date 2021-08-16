@@ -1,138 +1,34 @@
 ---
 
-- name: install > Packages presents
+- name: install > Packages
   apt:
-    name: "{{
-      query(
-        'manala_php_packages',
-        (
-          query(
-            'manala_php_sapis',
-            manala_php_sapis|default(manala_php_sapis_default, True),
-            manala_php_sapis_available,
-            wantstate='present',
-            wantmap=true
-          )
-          + query(
-            'manala_php_extensions',
-            manala_php_extensions,
-            manala_php_extensions_available,
-            manala_php_sapis_available,
-            wantstate='present',
-            wantmap=true
-          )
-        ),
-        manala_php_version|string,
-        manala_php_extensions_pecl_available,
-        manala_php_extensions_pecl_versioned
-      )
-    }}"
+    name: "{{ item.packages }}"
+    state: "{{ item.state }}"
+    # Present
     install_recommends: false
     update_cache: true
     cache_valid_time: 3600
-
-- name: install > Packages absents
-  apt:
-    name: "{{
-      query(
-        'manala_php_packages',
-        (
-          query(
-            'manala_php_sapis',
-            manala_php_sapis|default(manala_php_sapis_default, True),
-            manala_php_sapis_available,
-            wantstate='absent',
-            wantmap=true
-          )
-          + query(
-            'manala_php_extensions',
-            manala_php_extensions,
-            manala_php_extensions_available,
-            manala_php_sapis_available,
-            wantstate='absent',
-            wantmap=true
-          )
-        ),
-        manala_php_version|string,
-        manala_php_extensions_pecl_available,
-        manala_php_extensions_pecl_versioned
-      )
-    }}"
-    state: absent
+    # Absent
     purge: true
     autoremove: true
-
-# Use dpkg-query to find out installed packages
-- name: install > Exclusive - Packages presents
-  command: dpkg-query --showformat "${Status}    ${binary:Package}\n" --show "php*"
-  register: __manala_php_install_packages_presents_result
-  check_mode: false
-  changed_when: false
-  when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
-
-# Ensure debfoster is presents if exclusive mode is set
-- name: install > Exclusive - Packages requirements
-  apt:
-    name:
-      - debfoster
-    install_recommends: false
-    update_cache: true
-    cache_valid_time: 3600
-  when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
-
-# Use debfoster to find out each package dependencies
-- name: install > Exclusive - Packages dependencies
-  shell: |
-    for package in {{
-      query(
-        'manala_php_packages',
-        (
-          query(
-            'manala_php_sapis',
-            manala_php_sapis|default(manala_php_sapis_default, True),
-            manala_php_sapis_available,
-            wantstate='present',
-            wantmap=true
-          )
-          + query(
-            'manala_php_extensions',
-            manala_php_extensions,
-            manala_php_extensions_available,
-            manala_php_sapis_available,
-            wantstate='present',
-            wantmap=true
-          )
-        ),
-        manala_php_version|string,
-        manala_php_extensions_pecl_available,
-        manala_php_extensions_pecl_versioned
-      )|join(' ')
-    }}
-    do
-       debfoster --quiet --option UseRecommends=no --show-depends $package
-    done
-  register: __manala_php_install_packages_dependencies_result
-  check_mode: false
-  changed_when: false
-  when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
-
-- name: install > Exclusive - Packages absents
-  apt:
-    name: "{{
-      query(
-        'manala_php_packages_exclusive',
+  when: item.packages|length
+  loop:
+    # Presents
+    # + Debfoster if one of exclusive mode is set
+    - state: present
+      packages: "{{
         query(
-          'manala_php_packages',
+          'manala.roles.php_packages',
           (
             query(
-              'manala_php_sapis',
+              'manala.roles.php_sapis',
               manala_php_sapis|default(manala_php_sapis_default, True),
               manala_php_sapis_available,
               wantstate='present',
               wantmap=true
             )
             + query(
-              'manala_php_extensions',
+              'manala.roles.php_extensions',
               manala_php_extensions,
               manala_php_extensions_available,
               manala_php_sapis_available,
@@ -140,24 +36,121 @@
               wantmap=true
             )
           ),
-          manala_php_version|string,
-          manala_php_extensions_pecl_available,
-          manala_php_extensions_pecl_versioned
-        ),
+          manala_php_version|string|escape
+        )
+        + (manala_php_sapis_exclusive or manala_php_extensions_exclusive) | ternary(['debfoster'], [])
+      }}"
+    # Absents
+    - state: absent
+      packages: "{{
         query(
-          'manala_php_packages',
-          manala_php_sapis_available,
-          manala_php_version|string,
-          manala_php_extensions_pecl_available,
-          manala_php_extensions_pecl_versioned
-        ),
-        __manala_php_install_packages_presents_result.stdout_lines|default([]),
-        __manala_php_install_packages_dependencies_result.stdout_lines|default([]),
-        manala_php_sapis_exclusive,
-        manala_php_extensions_exclusive
-      )
-    }}"
-    state: absent
-    purge: true
-    autoremove: true
-  when: manala_php_sapis_exclusive or manala_php_extensions_exclusive
+          'manala.roles.php_packages',
+          (
+            query(
+              'manala.roles.php_sapis',
+              manala_php_sapis|default(manala_php_sapis_default, True),
+              manala_php_sapis_available,
+              wantstate='absent',
+              wantmap=true
+            )
+            + query(
+              'manala.roles.php_extensions',
+              manala_php_extensions,
+              manala_php_extensions_available,
+              manala_php_sapis_available,
+              wantstate='absent',
+              wantmap=true
+            )
+          ),
+          manala_php_version|string|escape
+        )
+      }}"
+
+- when: manala_php_sapis_exclusive
+    or manala_php_extensions_exclusive
+  block:
+
+    # Use dpkg-query to find out installed packages
+    - name: install > Exclusive - Find packages
+      command: >
+        dpkg-query
+        --showformat "${Status}    ${binary:Package}\n"
+        --show "php*"
+      register: __manala_php_install_packages_presents
+      check_mode: false
+      changed_when: false
+
+    # Use debfoster to find out each package dependencies
+    - name: install > Exclusive - Find packages dependencies  # noqa risky-shell-pipe
+      shell: |
+        for package in {{
+          query(
+            'manala.roles.php_packages',
+            (
+              query(
+                'manala.roles.php_sapis',
+                manala_php_sapis|default(manala_php_sapis_default, True),
+                manala_php_sapis_available,
+                wantstate='present',
+                wantmap=true
+              )
+              + query(
+                'manala.roles.php_extensions',
+                manala_php_extensions,
+                manala_php_extensions_available,
+                manala_php_sapis_available,
+                wantstate='present',
+                wantmap=true
+              )
+            ),
+            manala_php_version|string|escape
+          )|join(' ')
+        }}
+        do
+           debfoster --quiet --option UseRecommends=no --show-depends $package
+        done
+      register: __manala_php_install_packages_dependencies
+      check_mode: false
+      changed_when: false
+
+    - name: install > Exclusive - Packages absents
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: true
+        autoremove: true
+      when: item|length
+      loop:
+        - "{{ query(
+          'manala.roles.php_packages_exclusive',
+          query(
+            'manala.roles.php_packages',
+            (
+              query(
+                'manala.roles.php_sapis',
+                manala_php_sapis|default(manala_php_sapis_default, True),
+                manala_php_sapis_available,
+                wantstate='present',
+                wantmap=true
+              )
+              + query(
+                'manala.roles.php_extensions',
+                manala_php_extensions,
+                manala_php_extensions_available,
+                manala_php_sapis_available,
+                wantstate='present',
+                wantmap=true
+              )
+            ),
+            manala_php_version|string|escape
+          ),
+          query(
+            'manala.roles.php_packages',
+            manala_php_sapis_available,
+            manala_php_version|string|escape
+          ),
+          __manala_php_install_packages_presents.stdout_lines|default([]),
+          __manala_php_install_packages_dependencies.stdout_lines|default([]),
+          manala_php_sapis_exclusive,
+          manala_php_extensions_exclusive
+        ) }}"

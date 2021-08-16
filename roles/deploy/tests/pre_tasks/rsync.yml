@@ -1,6 +1,0 @@
----
-
-- apt:
-    name:
-      - rsync
-    install_recommends: false

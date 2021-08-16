@@ -6,9 +6,9 @@
 # treat it as a shell script fragment.
 
 # Change the config file location if needed
-{{ environment | manala_environment_parameter('CONFIG', default='/etc/haproxy/haproxy.cfg', comment=True) }}
+{{ environment | manala.roles.environment_parameter('CONFIG', default='/etc/haproxy/haproxy.cfg', comment=True) }}
 
 # Add extra flags here, see haproxy(1) for a few options
-{{ environment | manala_environment_parameter('EXTRAOPTS', default='-de -m 16', comment=True) }}
+{{ environment | manala.roles.environment_parameter('EXTRAOPTS', default='-de -m 16', comment=True) }}
 
-{{ environment | manala_environment(exclude=['CONFIG', 'EXTRAOPTS']) }}
+{{ environment | manala.roles.environment(exclude=['CONFIG', 'EXTRAOPTS']) }}

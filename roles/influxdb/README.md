@@ -105,20 +105,6 @@ manala_influxdb_config: |
     database = "app"
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_influxdb_config:
-  - reporting-disabled: true
-  - meta:
-    - dir: /srv/db/influxdb/meta
-  - http:
-    - enabled: true
-  - udp:
-    - enabled: true
-    - bind-address: :8090
-    - database: app
-```
-
 Databases & Users & Privileges:
 ```yaml
 manala_influxdb_databases:

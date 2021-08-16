@@ -1,0 +1,14 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - nodejs@nodesource_16
+    - name: NodeJS
+      import_role:
+        name: manala.roles.nodejs

@@ -79,7 +79,7 @@ manala_sensu_go_agent_config:
 ```yaml
 - hosts: sensu
   roles:
-    - { role: manala.sensu_go }
+    - role: manala.sensu_go
 ```
 
 # Licence

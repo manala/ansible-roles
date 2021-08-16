@@ -2,8 +2,8 @@
 
 - name: parameters > Configure
   sysctl:
-    name:   "{{ item.parameter }}"
-    value:  "{{ item.value|default(omit) }}"
-    state:  "{{ item.state|default(omit) }}"
+    name: "{{ item.parameter }}"
+    value: "{{ item.value|default(omit) }}"
+    state: "{{ item.state|default(omit) }}"
     reload: "{{ item.reload|default(omit) }}"
-  with_items: "{{ manala_kernel_parameters }}"
+  loop: "{{ manala_kernel_parameters }}"

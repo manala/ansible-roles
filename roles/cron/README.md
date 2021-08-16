@@ -70,11 +70,6 @@ manala_cron_files:
         user: bar # Override default jobs user
         minute: 0
         hour: 7
-      # Deprecated
-      - name: foo-bar
-        job: php /srv/app/bin/console app:foo:bar
-        minute: 0
-        hour: 7
   # Template based
   - file: template
     template: my/cron.j2

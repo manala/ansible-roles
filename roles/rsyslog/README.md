@@ -67,19 +67,6 @@ Template based
 manala_rsyslog_config_template: my/rsyslog.conf.j2
 ```
 
-Dict's array parameters based (deprecated):
-```yaml
-manala_rsyslog_config_template: config/default.prod.j2
-manala_rsyslog_config:
-  - $ModLoad imklog: false
-  - $ModLoad immark: true
-  - |
-    *.=info;*.=notice;*.=warn;\
-        auth,authpriv.none;\
-        cron,daemon.none;\
-        mail,news.none    -/var/log/messages
-```
-
 ### Configs
 
 `manala_rsyslog_configs` allows you to define rsyslog configuration files using template and config, or raw content.
@@ -107,16 +94,6 @@ manala_rsyslog_configs:
     template: rsyslog/bar.conf.j2
     config:
       foo: bar
-  # Dicts array template based (deprecated)
-  - file: foo.conf
-    template: configs/rules.prod.j2
-    config:
-      - auth,authpriv.*           /var/log/auth.log
-      - '*.*;auth,authpriv.none   -/var/log/syslog'
-      - daemon.*                  -/var/log/daemon.log
-      - kern.*                    -/var/log/kern.log
-      - mail.*                    -/var/log/mail.log
-      - user.*                    -/var/log/user.log
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default

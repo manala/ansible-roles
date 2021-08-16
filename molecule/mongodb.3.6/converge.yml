@@ -1,0 +1,69 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.stretch
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mongodb
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts:
+    - debian.stretch
+  vars:
+    tests_dir: /molecule/mongodb/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Dict
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.mongodb
+          vars:
+            manala_mongodb_config_file: "{{ tests_dir }}/dict"
+            manala_mongodb_config_template: ~
+            manala_mongodb_config:
+              port: 12345
+        - name: Role - Content
+          import_role:
+            name: manala.roles.mongodb
+            tasks_from: config
+          vars:
+            manala_mongodb_config_file: "{{ tests_dir }}/content"
+            manala_mongodb_config_template: ~
+            manala_mongodb_config: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.mongodb
+            tasks_from: config
+          vars:
+            manala_mongodb_config_file: "{{ tests_dir }}/template"
+            manala_mongodb_config_template: fixtures/template.j2
+            manala_mongodb_config: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

@@ -157,7 +157,7 @@ manala_bind_zones:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.bind }
+    - role: manala.bind
 ```
 
 # Licence

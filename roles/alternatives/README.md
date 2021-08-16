@@ -44,6 +44,12 @@ Using ansible galaxy requirements file:
 manala_alternatives_selections:
   - selection: editor
     path: /usr/bin/vim.basic
+  # Ignore selection
+  - selection: foo
+    path: /bin/bar
+    state: ignore
+  # Flatten selections
+  - "{{ my_custom_selections_array }}"
 ```
 
 ## Example playbook
@@ -51,7 +57,7 @@ manala_alternatives_selections:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.alternatives }
+    - role: manala.alternatives
 ```
 
 # Licence

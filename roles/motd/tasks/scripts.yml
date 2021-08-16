@@ -1,17 +1,9 @@
 ---
 
-- name: scripts > Directory
-  file:
-    path: "{{ manala_motd_scripts_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_motd_scripts|length
-
 - name: scripts > Exclusive
   find:
     path: "{{ manala_motd_scripts_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_motd_scripts_exclusive_find
@@ -25,25 +17,23 @@
     group: root
     mode: "0755"
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_motd_scripts,
-      __manala_motd_scripts_exclusive_find.files|default([]),
-      manala_motd_scripts_dir,
-      manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_motd_scripts,
+    __manala_motd_scripts_exclusive_find.files|default([]),
+    manala_motd_scripts_dir,
+    manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
+    wantstate='present'
+  ) }}"
 
 - name: scripts > Files absent
   file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_motd_scripts,
-      __manala_motd_scripts_exclusive_find.files|default([]),
-      manala_motd_scripts_dir,
-      manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_motd_scripts,
+    __manala_motd_scripts_exclusive_find.files|default([]),
+    manala_motd_scripts_dir,
+    manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
+    wantstate='absent'
+  ) }}"

@@ -10,25 +10,19 @@ manala_network_hosts_file: /etc/hosts
 manala_network_hosts: {}
 
 # Resolver
-manala_network_resolver_file: /etc/resolv.conf # Deprecated
-manala_network_resolver_config_file: "{{ manala_network_resolver_file }}" # Ensure backward compatibility
-manala_network_resolver_template: ~ # Deprecated
-manala_network_resolver_config_template: "{{ manala_network_resolver_template }}" # Ensure backward compatibility
+manala_network_resolver_config_file: /etc/resolv.conf
+manala_network_resolver_config_template: ~
 manala_network_resolver_config: ~
 
 # Interfaces config
-manala_network_interfaces_file: /etc/network/interfaces # Deprecated
-manala_network_interfaces_config_file: "{{ manala_network_interfaces_file }}" # Ensure backward compatibility
-manala_network_interfaces_template: ~ # Deprecated
-manala_network_interfaces_config_template: "{{ manala_network_interfaces_template }}" # Ensure backward compatibility
+manala_network_interfaces_config_file: /etc/network/interfaces
+manala_network_interfaces_config_template: ~
 manala_network_interfaces_config: ~
 
 # Interfaces configs
 manala_network_interfaces_configs_exclusive: false
 manala_network_interfaces_configs_dir: /etc/network/interfaces.d
-manala_network_interfaces_configs_template: ~ # Deprecated
-manala_network_interfaces_configs_defaults:
-  template: "{{ manala_network_interfaces_configs_template }}" # Ensure backward compatibility
+manala_network_interfaces_configs_defaults: {}
 manala_network_interfaces_configs: []
 
 # Routing Tables

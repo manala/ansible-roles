@@ -1,0 +1,179 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.ohmyzsh
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+#################
+# Custom Themes #
+#################
+
+- name: Custom Themes
+  tags: [custom_themes]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ohmyzsh/custom_themes
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.ohmyzsh
+            tasks_from: custom_themes
+          vars:
+            manala_ohmyzsh_custom_themes_exclusive: false
+            manala_ohmyzsh_custom_themes_dir: "{{ tests_dir }}/default"
+            manala_ohmyzsh_custom_themes_defaults: {}
+            manala_ohmyzsh_custom_themes:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.ohmyzsh
+            tasks_from: custom_themes
+          vars:
+            manala_ohmyzsh_custom_themes_exclusive: false
+            manala_ohmyzsh_custom_themes_dir: "{{ tests_dir }}/defaults"
+            manala_ohmyzsh_custom_themes_defaults:
+              template: fixtures/template.j2
+            manala_ohmyzsh_custom_themes:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.ohmyzsh
+            tasks_from: custom_themes
+          vars:
+            manala_ohmyzsh_custom_themes_exclusive: true
+            manala_ohmyzsh_custom_themes_dir: "{{ tests_dir }}/exclusive"
+            manala_ohmyzsh_custom_themes_defaults: {}
+            manala_ohmyzsh_custom_themes:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/custom_themes.yml.j2') }}"
+
+#########
+# Users #
+#########
+
+- name: Users
+  tags: [users]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ohmyzsh/users
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{
+        ['dict', 'content', 'template', 'flatten', 'state_present_implicit', 'state_present', 'state_absent', 'state_ignore']
+        | product(['absent', 'directory'])
+      }}"
+    - name: Users
+      user:
+        name: "{{ item }}"
+      loop: [user_dict, user_content, user_template, user_flatten, user_state_present_implicit, user_state_present, user_state_absent, user_state_ignore]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.ohmyzsh
+            tasks_from: users
+          vars:
+            manala_ohmyzsh_users:
+              # Dict
+              - user: user_dict
+                dir: "{{ tests_dir }}/dict"
+                config:
+                  foo: ~
+                  bar: true
+                  baz: false
+                  qux: foo
+                  quux: 123
+                  corge: [foo, bar, baz]
+              # Content
+              - user: user_content
+                dir: "{{ tests_dir }}/content"
+                config: |
+                  Content
+              # Template
+              - user: user_template
+                dir: "{{ tests_dir }}/template"
+                template: fixtures/template.j2
+              # Flatten
+              -
+                - user: user_flatten
+                  dir: "{{ tests_dir }}/flatten"
+              # State
+              - user: user_state_present_implicit
+                dir: "{{ tests_dir }}/state_present_implicit"
+              - user: user_state_present
+                dir: "{{ tests_dir }}/state_present"
+                state: present
+              - user: user_state_absent
+                dir: "{{ tests_dir }}/state_absent"
+                state: absent
+              - user: user_state_ignore
+                dir: "{{ tests_dir }}/state_ignore"
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"

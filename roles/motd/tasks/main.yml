@@ -1,11 +1,5 @@
 ---
 
-# Template
-- import_tasks: template.yml
-  tags:
-    - manala_motd
-    - manala_motd.template
-
 # Scripts
 - import_tasks: scripts.yml
   tags:

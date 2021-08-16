@@ -21,23 +21,23 @@
 #############################################################
 
 # Where to store the archives
-{{ config | manala_backup_manager_config_parameter('BM_REPOSITORY_ROOT', default='/var/archives') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_REPOSITORY_ROOT', default='/var/archives') }}
 
 # Where to place temporary files
-{{ config | manala_backup_manager_config_parameter('BM_TEMP_DIR', default='/tmp') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TEMP_DIR', default='/tmp') }}
 
 # For security reasons, the archive repository and the generated
 # archives will be readable/writable by a given user/group.
 # This is recommended to set this to true.
-{{ config | manala_backup_manager_config_parameter('BM_REPOSITORY_SECURE', default=true) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_REPOSITORY_SECURE', default=true) }}
 
 # The repository will be readable/writable only by a specific
 # user:group pair if BM_REPOSITORY_SECURE is set to true.
-{{ config | manala_backup_manager_config_parameter('BM_REPOSITORY_USER', default='root') }}
-{{ config | manala_backup_manager_config_parameter('BM_REPOSITORY_GROUP', default='root') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_REPOSITORY_USER', default='root') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_REPOSITORY_GROUP', default='root') }}
 # You can also choose the permission to set the repository, default
 # is 770, pay attention to what you do there!
-{{ config | manala_backup_manager_config_parameter('BM_REPOSITORY_CHMOD', default=770) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_REPOSITORY_CHMOD', default=770) }}
 
 ##############################################################
 # Archives - let's focus on the precious tarballs...
@@ -45,30 +45,30 @@
 
 # Each archive generated will be chmoded for security reasons
 # (BM_REPOSITORY_SECURE should be enabled for this).
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_CHMOD', default=660) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_CHMOD', default=660) }}
 
 # Number of days we have to keep an archive (Time To Live)
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_TTL', default=5) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_TTL', default=5) }}
 
 # Do you want to purge only the top-level directory or all
 # directories under BM_REPOSITORY_ROOT?
-{{ config | manala_backup_manager_config_parameter('BM_REPOSITORY_RECURSIVEPURGE', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_REPOSITORY_RECURSIVEPURGE', default=False) }}
 
 # Do you want to replace duplicates by symlinks?
 # (archive-DAY is a duplicate of archive-(DAY - 1) if they
 # are both the same according to MD5 hashes).
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_PURGEDUPS', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_PURGEDUPS', default=True) }}
 
 # Prefix of every archive on that box (default is HOSTNAME)
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_PREFIX', default='$HOSTNAME') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_PREFIX', default='$HOSTNAME') }}
 
 # Should we purge only archives built with $BM_ARCHIVE_PREFIX
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_STRICTPURGE', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_STRICTPURGE', default=True) }}
 
 # You may want to nice the commands run for archive-creation
 # (Recommanded for desktop users.)
 # Choose a nice level from -20 (most favorable scheduling) to 19 (least favorable).
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_NICE_LEVEL', default=10) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_NICE_LEVEL', default=10) }}
 
 # The backup method to use.
 # Available methods are:
@@ -81,7 +81,7 @@
 # - none
 # If you don't want to use any backup method (you don't want to
 # build archives) then choose "none"
-{{ config | manala_backup_manager_config_parameter('BM_ARCHIVE_METHOD', default='tarball') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ARCHIVE_METHOD', default='tarball') }}
 
 ##############################################################
 # Encryption - because you cannot trust the place your
@@ -97,13 +97,13 @@
 
 # Uncomment the following line if you want to enable encryption
 # available method: gpg
-{{ config | manala_backup_manager_config_parameter('BM_ENCRYPTION_METHOD', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ENCRYPTION_METHOD', default=False) }}
 
 # The encryption will be made using a GPG ID
 # Examples:
 # export BM_ENCRYPTION_RECIPIENT=""
 # export BM_ENCRYPTION_RECIPIENT=""
-{{ config | manala_backup_manager_config_parameter('BM_ENCRYPTION_RECIPIENT', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_ENCRYPTION_RECIPIENT', default='') }}
 
 
 ##############################################################
@@ -114,14 +114,14 @@
 # Archive filename format
 # 	long  : host-full-path-to-folder.tar.gz
 # 	short : parentfolder.tar.gz
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_NAMEFORMAT', default='long') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_NAMEFORMAT', default='long') }}
 
 # Type of archives
 # Available types are:
 #     tar, tar.gz, tar.bz2, tar.xz, tar.lzma, dar, zip.
 # Make sure to satisfy the appropriate dependencies
 # (bzip2, dar, xz, lzma, ...).
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_FILETYPE', default='tar.gz') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_FILETYPE', default='tar.gz') }}
 
 # You can choose to build archives remotely over SSH.
 # You will then need to fill the BM_UPLOAD_SSH variables
@@ -130,11 +130,11 @@
 # BM_REPOSITORY_ROOT but will be built by the remote host).
 # Thus, BM_TARBALL_DIRECTORIES will be used to backup remote directories.
 # Those archive will be prefixed with the remote host name.
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_OVER_SSH', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_OVER_SSH', default=False) }}
 
 # Do you want to dereference the files pointed by symlinks ?
 # enter true or false (true can lead to huge archives, be careful).
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_DUMPSYMLINKS', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_DUMPSYMLINKS', default=False) }}
 
 # Targets to backup
 
@@ -149,7 +149,7 @@
 # NOTE: The Debian package will only update BM_TARBALL_DIRECTORIES
 
 # Paths without spaces in their name:
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_DIRECTORIES', default=['/etc', '/home']) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_DIRECTORIES', default=['/etc', '/home']) }}
 
 # If one or more of the targets contain a space, use the array:
 # declare -a BM_TARBALL_TARGETS
@@ -159,15 +159,15 @@
 
 # Files to exclude when generating tarballs, you can put absolute
 # or relative paths, Bash wildcards are possible.
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_BLACKLIST', default=['/var/archives']) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_BLACKLIST', default=['/var/archives']) }}
 
 # With the "dar" filetype, you can choose a maximum slice limit.
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_SLICESIZE', default='1000M') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_SLICESIZE', default='1000M') }}
 
 # Extra options to append to the tarball generation
 # (take care to what you do; this will be silently added to the
 # command line.)
-{{ config | manala_backup_manager_config_parameter('BM_TARBALL_EXTRA_OPTIONS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALL_EXTRA_OPTIONS', default='') }}
 
 ##############################################################
 # The tarball-incremental method uses the same keys as the
@@ -176,11 +176,11 @@
 
 # Which frequency to use for the master tarball?
 # possible values: weekly, monthly
-{{ config | manala_backup_manager_config_parameter('BM_TARBALLINC_MASTERDATETYPE', default='weekly') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALLINC_MASTERDATETYPE', default='weekly') }}
 
 # Number of the day, in the BM_TARBALLINC_MASTERDATETYPE frequency
 # when master tarballs should be made
-{{ config | manala_backup_manager_config_parameter('BM_TARBALLINC_MASTERDATEVALUE', default=1) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_TARBALLINC_MASTERDATEVALUE', default=1) }}
 
 # Examples: you want to make master tarballs every friday:
 # BM_TARBALLINC_MASTERDATETYPE="weekly"
@@ -199,40 +199,40 @@
 # directories or you may have corrupted archives.
 # Enter here the list of databases to backup.
 # Wildcard: __ALL__ (will dump all the databases in one archive)
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_DATABASES', default=['__ALL__']) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_DATABASES', default=['__ALL__']) }}
 
 # The best way to produce MySQL dump is done by using the "--opt" switch
 # of mysqldump. This make the dump directly usable with mysql (add the drop table
 # statements), lock the tables during the dump and other things.
 # This is recommended for full-clean-safe backups, but needs a
 # privileged user (for the lock permissions).
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_SAFEDUMPS', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_SAFEDUMPS', default=True) }}
 
 # The user who is allowed to read every databases filled in BM_MYSQL_DATABASES
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_ADMINLOGIN', default='root') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_ADMINLOGIN', default='root') }}
 
 # its password
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_ADMINPASS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_ADMINPASS', default='') }}
 
 # the host where the database is
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_HOST', default='localhost') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_HOST', default='localhost') }}
 
 # the port where MySQL listen to on the host
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_PORT', default=3306) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_PORT', default=3306) }}
 
 # which compression format to use? (gzip or bzip2)
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_FILETYPE', default='bzip2') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_FILETYPE', default='bzip2') }}
 
 # Extra options to append to mysqldump
 # (take care to what you do; this will be silently added to the
 # command line.)
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_EXTRA_OPTIONS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_EXTRA_OPTIONS', default='') }}
 
 # Make separate backups of each database?
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_SEPARATELY', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_SEPARATELY', default=True) }}
 
 # Specify DBs to exclude here (separated by space)
-{{ config | manala_backup_manager_config_parameter('BM_MYSQL_DBEXCLUDE', default=[]) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_MYSQL_DBEXCLUDE', default=[]) }}
 
 ##############################################################
 # Backup method: PostgreSQL
@@ -243,38 +243,38 @@
 # directories or you may have corrupted archives.
 # Enter here the list of databases to backup.
 # Wildcard: __ALL__ (will dump all the databases in one archive)
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_DATABASES', default=['__ALL__']) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_DATABASES', default=['__ALL__']) }}
 
 # The user who is allowed to read every databases filled in BM_PGSQL_DATABASES
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_ADMINLOGIN', default='root') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_ADMINLOGIN', default='root') }}
 
 # its password
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_ADMINPASS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_ADMINPASS', default='') }}
 
 # the host where the database is
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_HOST', default='localhost') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_HOST', default='localhost') }}
 
 # the port where PostgreSQL listen to on the host
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_PORT', default=5432) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_PORT', default=5432) }}
 
 # which compression format to use? (gzip or bzip2)
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_FILETYPE', default='bzip2') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_FILETYPE', default='bzip2') }}
 
 # Extra options to append to pg_dump
 # (take care to what you do; this will be silently added to the
 # command line.)
-{{ config | manala_backup_manager_config_parameter('BM_PGSQL_EXTRA_OPTIONS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PGSQL_EXTRA_OPTIONS', default='') }}
 
 ##############################################################
 # Backup method: svn
 #############################################################
 
 # Absolute paths to the svn repositories to archive
-{{ config | manala_backup_manager_config_parameter('BM_SVN_REPOSITORIES', default=[]) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_SVN_REPOSITORIES', default=[]) }}
 
 # You can compress the resulting XML files
 # Supported compressor are: bzip2 and gzip
-{{ config | manala_backup_manager_config_parameter('BM_SVN_COMPRESSWITH', default='bzip2') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_SVN_COMPRESSWITH', default='bzip2') }}
 
 ##############################################################
 # Backup method: pipe
@@ -291,7 +291,7 @@ declare -a BM_PIPE_NAME
 declare -a BM_PIPE_FILETYPE
 declare -a BM_PIPE_COMPRESS
 
-{{ config | manala_backup_manager_config_parameter('BM_PIPE', comment='# You can virtually implement whatever backup scenario you like
+{{ config | manala.roles.backup_manager_config_parameter('BM_PIPE', comment='# You can virtually implement whatever backup scenario you like
 # with this method.
 #
 # The resulting archives will be named like this:
@@ -338,13 +338,13 @@ export BM_PIPE_COMPRESS
 
 # If you don't want to use any upload method (you don't want to
 # upload files to remote hosts) then choose "none"
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_METHOD') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_METHOD', default=None) }}
 
 # where to upload (global to all methods. Not required to be set for S3)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_HOSTS', default=[]) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_HOSTS', default=[]) }}
 
 # Where to put archives on the remote hosts (global)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_DESTINATION', default='/var/archives/uploads') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_DESTINATION', default='/var/archives/uploads') }}
 
 # Uncomment the 'export ...' line below to activate the uploaded archives
 # database.
@@ -365,28 +365,28 @@ export BM_PIPE_COMPRESS
 #############################################################
 
 # the user to use for the SSH connections/transfers
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_USER', default='bmngr') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_USER', default='bmngr') }}
 
 # The private key to use for opening the connection
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_KEY', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_KEY', default='') }}
 
 # specific ssh hosts
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_HOSTS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_HOSTS', default='') }}
 
 # port to use for SSH connections (leave blank for default one)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_PORT', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_PORT', default='') }}
 
 # destination for ssh uploads (overrides BM_UPLOAD_DESTINATION)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_DESTINATION', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_DESTINATION', default='') }}
 
 # purge archives on remote hosts before uploading?
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_PURGE', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_PURGE', default=True) }}
 
 # If you set BM_UPLOAD_SSH_PURGE, you can specify a time to live
 # for archives uploaded with SSH.
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSH_TTL', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSH_TTL', default='') }}
 
 ##############################################################
 # The SSH-GPG method
@@ -397,7 +397,7 @@ export BM_PIPE_COMPRESS
 # The gpg public key used for encryption, this can be a short
 # or long key id, or a descriptive name. See gpg man page for
 # all possibilities how to specify a key.
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_SSHGPG_RECIPIENT', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_SSHGPG_RECIPIENT', default='') }}
 
 ##############################################################
 # The FTP method
@@ -406,41 +406,41 @@ export BM_PIPE_COMPRESS
 # Use FTP secured transfers (FTP over TLS)
 # User, password and data will be uploaded encrypted with SSL.
 # Passive mode will be automaticaly activated
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_SECURE', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_SECURE', default=False) }}
 
 # Do you want to use FTP passive mode?
 # This is mandatory for NATed/firewalled environments
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_PASSIVE', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_PASSIVE', default=True) }}
 
 # Timeout (in seconds) for FTP transfer
 # This setting only has effect when using FTP transfer with
 # secure mode disabled (BM_UPLOAD_FTP_SECURE to "false")
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_TIMEOUT', default=120) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_TIMEOUT', default=120) }}
 
 # Test the FTP connection before starting archives upload.
 # This will enable BM to try sending a 2MB test file before
 # sending any archive
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_TEST', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_TEST', default=False) }}
 
 # the user to use for the FTP connections/transfers
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_USER', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_USER', default='') }}
 
 # the FTP user's password
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_PASSWORD', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_PASSWORD', default='') }}
 
 # FTP specific remote hosts
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_HOSTS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_HOSTS', default='') }}
 
 # purge archives on remote hosts before uploading?
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_PURGE', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_PURGE', default=True) }}
 
 # You can specify a time to live for archives uploaded with FTP
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_TTL', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_TTL', default='') }}
 
 # destination for FTP uploads (overrides BM_UPLOAD_DESTINATION)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_FTP_DESTINATION', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_FTP_DESTINATION', default='') }}
 
 
 ##############################################################
@@ -451,56 +451,56 @@ export BM_PIPE_COMPRESS
 # account. See http://aws.amazon.com
 
 # The bucket to upload to. This bucket must be dedicated to backup-manager
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_S3_DESTINATION', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_S3_DESTINATION', default='') }}
 
 # the S3 access key provided to you
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_S3_ACCESS_KEY', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_S3_ACCESS_KEY', default='') }}
 
 # the S3 secret key provided to you
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_S3_SECRET_KEY', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_S3_SECRET_KEY', default='') }}
 
 # purge archives on remote hosts before uploading?
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_S3_PURGE', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_S3_PURGE', default=False) }}
 
 # You can specify a time to live for archives uploaded to S3
 # This can let you use different ttl's locally and remotely
 # By default, BM_ARCHIVE_TTL will be used.
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_S3_TTL', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_S3_TTL', default='') }}
 
 ##############################################################
 # The RSYNC method
 #############################################################
 
 # Which directories should be backuped with rsync
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_DIRECTORIES', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_DIRECTORIES', default='') }}
 
 # Destination for rsync uploads (overrides BM_UPLOAD_DESTINATION)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_DESTINATION', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_DESTINATION', default='') }}
 
 # The list of remote hosts, if you want to enable the upload
 # system, just put some remote hosts here (fqdn or IPs)
 # Leave it empty if you want to use the hosts that are defined in
 # BM_UPLOAD_HOSTS
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_HOSTS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_HOSTS', default='') }}
 
 # Do you want to dereference the files pointed by symlinks?
 # enter true or false (true can lead to huge archives, be careful).
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_DUMPSYMLINKS', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_DUMPSYMLINKS', default=False) }}
 
 # Files/folders to exclude when rsyncing. Warning: rsync will interpret
 # it as a mask, so will exclude any file/folder corresponding to it
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_BLACKLIST', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_BLACKLIST', default='') }}
 
 # Extra options to append to rsync
 # (take care to what you do; this will be silently added to the
 # command line.)
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_EXTRA_OPTIONS', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_EXTRA_OPTIONS', default='') }}
 
 # Do you want to limit the maximum available bandwidth rsync
 # can use ?
 # By default, no bandwidth limit is applied.
 # Example: 32M, 1024K, ...
-{{ config | manala_backup_manager_config_parameter('BM_UPLOAD_RSYNC_BANDWIDTH_LIMIT', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_UPLOAD_RSYNC_BANDWIDTH_LIMIT', default='') }}
 
 ##############################################################
 # Section "BURNING"
@@ -525,30 +525,30 @@ export BM_PIPE_COMPRESS
 # Note that if backup-manager is run from interactive prompt you
 # will be asked to insert disc(s) when needed
 
-{{ config | manala_backup_manager_config_parameter('BM_BURNING_METHOD') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_BURNING_METHOD', default=None) }}
 
 # When the CD is burnt, it is possible to check every file's
 # MD5 checksum to see if the CD is not corrupted.
-{{ config | manala_backup_manager_config_parameter('BM_BURNING_CHKMD5', default=False) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_BURNING_CHKMD5', default=False) }}
 
 # The device to use for mounting the cdrom
-{{ config | manala_backup_manager_config_parameter('BM_BURNING_DEVICE', default='/dev/cdrom') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_BURNING_DEVICE', default='/dev/cdrom') }}
 
 # You can force cdrecord to use a specific device
 # Fill in the full path to the device to use or even
 # e.g. BM_BURNING_DEVFORCED="/dev/cdrom"
 # If none specified, the default cdrecord device will be used.
-{{ config | manala_backup_manager_config_parameter('BM_BURNING_DEVFORCED', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_BURNING_DEVFORCED', default='') }}
 
 # By default backup-manager will make Joliet media (using the mkisofs switches
 # : "-R -J"). You can change these if you want to use non-Joliet disc images.
 # Change this only if you know what you're doing. Refer to mkisofs(8) for
 # details.
-{{ config | manala_backup_manager_config_parameter('BM_BURNING_ISO_FLAGS', default='-R -J') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_BURNING_ISO_FLAGS', default='-R -J') }}
 
 # enter here the max size of your media
 # (usal sizes are 4200 for DVD media and 700 or 800 for CDR media)
-{{ config | manala_backup_manager_config_parameter('BM_BURNING_MAXSIZE', default=650) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_BURNING_MAXSIZE', default=650) }}
 
 
 ##############################################################
@@ -557,21 +557,21 @@ export BM_PIPE_COMPRESS
 
 # Every output made can be sent to syslog
 # set this to "true" or "false"
-{{ config | manala_backup_manager_config_parameter('BM_LOGGER', default=True) }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_LOGGER', default=True) }}
 
 # Which level of messages do you want to log to syslog?
 # possible values are : debug,info,warning,error
-{{ config | manala_backup_manager_config_parameter('BM_LOGGER_LEVEL', default='warning') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_LOGGER_LEVEL', default='warning') }}
 
 # You can choose which facility to use
-{{ config | manala_backup_manager_config_parameter('BM_LOGGER_FACILITY', default='user') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_LOGGER_FACILITY', default='user') }}
 
 # Enter here some shell script.
 # It will be executed before the first action of backup-manager.
-{{ config | manala_backup_manager_config_parameter('BM_PRE_BACKUP_COMMAND', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_PRE_BACKUP_COMMAND', default='') }}
 
 # Enter here some shell script.
 # It will be executed after the last action of backup-manager.
-{{ config | manala_backup_manager_config_parameter('BM_POST_BACKUP_COMMAND', default='') }}
+{{ config | manala.roles.backup_manager_config_parameter('BM_POST_BACKUP_COMMAND', default='') }}
 
 {% endif -%}

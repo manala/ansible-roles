@@ -73,12 +73,6 @@ manala_mongodb_config:
   foo: bar
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_supervisor_config:
-  - port: 12345
-```
-
 Users:
 ```yaml
 manala_mongodb_users:

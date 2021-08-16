@@ -77,15 +77,6 @@ manala_proftpd_configs:
       AuthOrder: mod_auth_file.c
       AuthUserFile: /etc/ftpd.passwd
       RequireValidShell: false
-  # Dict's array based (deprecated)
-  - file: default_deprecated.conf
-    config:
-      - ServerName: Manala
-      - PassivePorts: 10000 10030
-      - DefaultRoot: "~"
-      - AuthOrder: mod_auth_file.c
-      - AuthUserFile: /etc/ftpd.passwd
-      - RequireValidShell: false
   # Content based
   - file: content.conf
     config: |

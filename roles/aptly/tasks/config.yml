@@ -8,4 +8,4 @@
     group: root
     mode: "0644"
   when: manala_aptly_config_template
-        or manala_aptly_config
+    or manala_aptly_config

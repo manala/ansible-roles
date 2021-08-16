@@ -56,18 +56,6 @@ manala_logrotate_configs:
         size: 200M
         missingok: true
         rotate: 0
-  # Dicts array config based (deprecated)
-  - file: config_deprecated.conf
-    config:
-      - /var/log/nginx/example/*.log:
-        - size: 200M
-        - missingok
-        - rotate: 0
-        - compress
-        - delaycompress
-        - notifempty
-        - create: 0640 www-data adm
-        - sharedscripts
   # Content based
   - file: content
     config: |

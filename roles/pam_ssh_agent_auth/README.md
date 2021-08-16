@@ -49,7 +49,7 @@ Using ansible galaxy requirements file:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.pam_ssh_agent_auth }
+    - role: manala.pam_ssh_agent_auth
 ```
 
 # Licence

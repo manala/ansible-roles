@@ -5,8 +5,7 @@
     name: "{{ item.code }}"
     state: "{{ item.state }}"
   loop: "{{ query(
-      'manala_locales_codes',
-      manala_locales_codes,
-      []
-    )
-  }}"
+    'manala.roles.locales_codes',
+    manala_locales_codes,
+    []
+  ) }}"

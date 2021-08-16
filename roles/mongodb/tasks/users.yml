@@ -14,7 +14,7 @@
     login_user: "{{ item.login_user|default(omit) }}"
     update_password: "{{ item.update_password|default('always') }}"
   loop: "{{
-    manala_mongodb_users | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_mongodb_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_mongodb_users
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

@@ -88,14 +88,6 @@ manala_telegraf_config: |
   ...
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_telegraf_config:
-  - agent:
-    - hostname: "{{ ansible_fqdn }}"
-    - quiet: true
-```
-
 Additionnal configurations:
 ```yaml
 manala_telegraf_configs:
@@ -133,17 +125,6 @@ manala_telegraf_configs:
     template: telegraf/bar.conf.j2
     config:
       foo: bar
-  # Dicts array template based (deprecated)
-  - file: template_deprecated.conf
-    template: configs/input_cpu.conf.j2
-    config:
-      - percpu: true
-      - totalcpu: false
-      - tags:
-        - tag-1: foo
-        - tag-2: bar
-      - tagdrop:
-        - cpu: [cpu6, cpu7]
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default

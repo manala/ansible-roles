@@ -1,5 +1,0 @@
----
-
-package:
-  heka:
-    installed: true

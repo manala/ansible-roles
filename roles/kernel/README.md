@@ -57,7 +57,7 @@ manala_kernel_modules:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.kernel }
+    - role: manala.kernel
 ```
 
 # Licence

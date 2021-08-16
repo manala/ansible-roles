@@ -1,6 +1,0 @@
----
-
-service:
-  dnsmasq:
-    enabled: true
-    running: true

@@ -4,19 +4,19 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           vim
-  author:              Manala
-  company:             Manala
-  description:         Handle vim
-  license:             MIT
+  role_name: vim
+  author: Manala
+  company: Manala
+  description: Handle vim
+  license: MIT
   min_ansible_version: 2.4.0
-  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:
-        - jessie
         - stretch
         - buster
+        - bullseye
   galaxy_tags:
     - system
     - vim

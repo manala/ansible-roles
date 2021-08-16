@@ -2,5 +2,7 @@
 
 - name: maxscale restart
   service:
-    name: maxscale
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - maxscale

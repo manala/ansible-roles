@@ -53,25 +53,12 @@ manala_environment_variables:
   BAR: true
 ```
 
-For legacy purposes, `manala_environment_variables` also accepts values as
-a dictionnary list.
-Note that in this mode (and only in this mode), some non-scalar values are
-interpreted to strings.
-
-```yaml
-manala_environment_variables:
-  - FOO: bar
-  - FOO_NULL: ~      # -> "null"
-  - FOO_TRUE: true   # -> "true"
-  - FOO_FALSE: false # -> "false"
-```
-
 ## Example playbook
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.environment }
+    - role: manala.environment
 ```
 
 # Licence

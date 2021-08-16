@@ -7,4 +7,4 @@
     db: "{{ item.database }}"
     login_host: "{{ manala_postgresql_login_host }}"
     priv: "{{ item.privileges|join(',') }}"
-  with_items: "{{ manala_postgresql_privileges }}"
+  loop: "{{ manala_postgresql_privileges }}"

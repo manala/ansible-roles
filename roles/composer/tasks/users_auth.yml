@@ -6,7 +6,7 @@
     state: directory
     owner: "{{ item.user }}"
     mode: "0755"
-  with_items: "{{ manala_composer_users_auth }}"
+  loop: "{{ manala_composer_users_auth }}"
 
 - name: users_auth > Template
   template:
@@ -14,4 +14,4 @@
     dest: "{{ item.home|default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer/auth.json"
     owner: "{{ item.user }}"
     mode: "0644"
-  with_items: "{{ manala_composer_users_auth }}"
+  loop: "{{ manala_composer_users_auth }}"

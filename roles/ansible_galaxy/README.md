@@ -64,7 +64,7 @@ manala:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.ansible_galaxy }
+    - role: manala.ansible_galaxy
 ```
 
 # Licence

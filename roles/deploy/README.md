@@ -118,7 +118,7 @@ manala_deploy_tasks:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.deploy }
+    - role: manala.deploy
 ```
 
 # Licence

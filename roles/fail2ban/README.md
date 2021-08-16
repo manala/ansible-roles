@@ -38,21 +38,21 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default           | Type   | Description                            |
-| ------------------------------------------ | ----------------- | ------ | -------------------------------------- |
-| `manala_fail2ban_install_packages`         | ~                 | Array  | Dependency packages to install         |
-| `manala_fail2ban_install_packages_default` | ['fail2ban']      | Array  | Default dependency packages to install |
-| `manala_fail2ban_config_template`          | 'config/empty.j2' | String | Main config template                   |
-| `manala_fail2ban_config`                   | []                | Array  | Main config                            |
+| Name                                       | Default              | Type   | Description                            |
+| ------------------------------------------ | -------------------- | ------ | -------------------------------------- |
+| `manala_fail2ban_install_packages`         | ~                    | Array  | Dependency packages to install         |
+| `manala_fail2ban_install_packages_default` | ['fail2ban']         | Array  | Default dependency packages to install |
+| `manala_fail2ban_config_template`          | 'config/_default.j2' | String | Main config template                   |
+| `manala_fail2ban_config`                   | ~                    | String | Main config                            |
 
 ### Configuration
 
 ```yaml
-manala_fail2ban_config:
-  - DEFAULT:
-    - maxretry: 5
-  - apache:
-    - enabled: true
+manala_fail2ban_config: |
+  [DEFAULT]
+  maxretry = 5
+  [apache]
+  enabled = true
 ```
 
 ## Example playbook
@@ -60,7 +60,7 @@ manala_fail2ban_config:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.fail2ban }
+    - role: manala.fail2ban
 ```
 
 # Licence

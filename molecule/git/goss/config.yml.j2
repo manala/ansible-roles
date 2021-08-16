@@ -1,0 +1,32 @@
+---
+
+file:
+  {{ tests_dir }}/dict:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[foo]"
+      - "    foo = true"
+      - "    bar = false"
+      - "[bar]"
+      - "    foo = bar"
+      - "    bar = 123"
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"

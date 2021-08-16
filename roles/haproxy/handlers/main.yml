@@ -2,10 +2,14 @@
 
 - name: haproxy reload
   service:
-    name: haproxy
+    name: "{{ item }}"
     state: reloaded
+  loop:
+    - haproxy
 
 - name: haproxy restart
   service:
-    name: haproxy
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - haproxy

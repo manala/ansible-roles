@@ -1,0 +1,17 @@
+---
+
+file:
+  # Fixed
+  {{ tests_dir }}/fixed:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+
+command:
+  # Fixed
+  {{ tests_dir }}/fixed -V --no-ansi:
+    exit-status: 0
+    stdout:
+      - Symfony CLI version v4.16

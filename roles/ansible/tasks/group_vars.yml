@@ -12,36 +12,37 @@
 - name: group_vars > Exclusive
   find:
     path: "{{ manala_ansible_group_vars_dir }}"
+    file_type: file
+    patterns: "*"
   changed_when: false
   register: __manala_ansible_group_vars_exclusive_find
   when: manala_ansible_group_vars_exclusive
 
 - name: group_vars > Templates presents
   template:
-    src:  "{{ item.template|default(manala_ansible_group_vars_template|ternary(manala_ansible_group_vars_template, 'group_vars/empty.j2')) }}"
+    src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_ansible_files',
-      manala_ansible_group_vars,
-      __manala_ansible_group_vars_exclusive_find.files|default([]),
-      manala_ansible_group_vars_dir,
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_ansible_group_vars,
+    __manala_ansible_group_vars_exclusive_find.files|default([]),
+    manala_ansible_group_vars_dir,
+    manala_ansible_group_vars_defaults.template|default('group_vars/_default.j2', true),
+    wantstate='present'
+  ) }}"
 
-# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
 - name: group_vars > Files absents
   file:
-    path:  "{{ item.file }}"
+    path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_ansible_files',
-      manala_ansible_group_vars,
-      __manala_ansible_group_vars_exclusive_find.files|default([]),
-      manala_ansible_group_vars_dir,
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_ansible_group_vars,
+    __manala_ansible_group_vars_exclusive_find.files|default([]),
+    manala_ansible_group_vars_dir,
+    manala_ansible_group_vars_defaults.template|default('group_vars/_default.j2', true),
+    wantstate='absent'
+  ) }}"

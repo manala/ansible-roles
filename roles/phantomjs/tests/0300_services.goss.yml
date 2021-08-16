@@ -1,6 +1,0 @@
----
-
-service:
-  phantomjs:
-    enabled: true
-    running: true

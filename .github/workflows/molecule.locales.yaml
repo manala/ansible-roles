@@ -1,0 +1,39 @@
+name: Molecule - Locales
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/molecule.locales.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/locales/**
+      - roles/locales/**
+      # Plugins
+      - plugins/lookup/locales_code.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/manala/roles
+      - name: Molecule
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && molecule converge --scenario-name locales \
+            "
+      - name: Debug
+        uses: mxschmitt/action-tmate@v3
+        if: github.event.inputs.debug && always()

@@ -38,7 +38,7 @@ Using ansible galaxy requirements file:
 | `manala_cloud_init_install_packages_default` | ['cloud-init']           | String | Default dependency packages to install |
 | `manala_cloud_init_configs_exclusive`        | false                    | String | Configs exclusivity                    |
 | `manala_cloud_init_configs_dir`              | '/etc/cloud/cloud.cfg.d' | String | Configs directory path                 |
-| `manala_cloud_init_configs_template`         | 'configs/empty.j2'       | Array  | Configs template path                  |
+| `manala_cloud_init_configs_defaults`         | {}                       | Array  | Configs defaults                       |
 | `manala_cloud_init_configs`                  | []                       | Array  | Configs collection                     |
 
 ### Configuration example
@@ -46,9 +46,9 @@ Using ansible galaxy requirements file:
 ```yaml
 manala_cloud_init_configs:
   - file: 99_hostname.cfg
-    config:
-      - fqdn: delicious.manala.io
-      - hostname: delicious
+    config: |
+      fqdn: foo.manala.io
+      hostname: foo
 ```
 
 ## Example playbook
@@ -56,7 +56,7 @@ manala_cloud_init_configs:
 ```yaml
 - hosts: all
   roles:
-    - { role: manala.cloud_init }
+    - role: manala.cloud_init
 ```
 
 # Licence

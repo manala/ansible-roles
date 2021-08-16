@@ -1,0 +1,19 @@
+---
+
+file:
+  /etc/apt/sources.list.d/deb_nodesource_com_node_10_x.list:
+    exists: false
+  /etc/apt/sources.list.d/deb_nodesource_com_node_12_x.list:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+  /etc/apt/sources.list.d/deb_nodesource_com_node_14_x.list:
+    exists: false
+  /etc/apt/sources.list.d/deb_nodesource_com_node_15_x.list:
+    exists: false
+  /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list:
+    exists: false

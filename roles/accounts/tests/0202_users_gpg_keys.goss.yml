@@ -1,9 +1,0 @@
----
-
-command:
-  export-keys:
-    exec: "su user_1 -c 'gpg --export-ownertrust'"
-    exit-status: 0
-    stdout:
-      - B71FEBC2AD2888C9A035372DC58B1DF869528F92
-      - 7D52C438085B5BB924460165BA0EECE4FA58F7BF

@@ -1,0 +1,15 @@
+---
+
+package:
+  ansible:
+    installed: true
+
+command:
+  dpkg -s ansible:
+    exit-status: 0
+    stdout:
+      - "/^Version: \\d+/"
+  ansible --version:
+    exit-status: 0
+    stdout:
+      - "/^ansible \\d+\\.\\d+\\.\\d+/"

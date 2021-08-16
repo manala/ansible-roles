@@ -30,12 +30,6 @@ Using ansible galaxy requirements file:
 - src: manala.timezone
 ```
 
-## Role Handlers
-
-|Name|Type|Description|
-|----|----|-----------|
-|dpkg-reconfigure tzdata|Command|Reconfigure tzdata|
-
 ## Role Variables
 
 |Name|Default|Type|Description|
@@ -53,7 +47,7 @@ manala_timezone_default: Europe/Paris
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.timezone }
+    - role: manala.timezone
 ```
 
 # Licence

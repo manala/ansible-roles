@@ -4,7 +4,7 @@
   copy:
     dest: /tmp/manala_ansible_galaxy_roles.yml
     content: |
-      {% for role in query('manala_ansible_galaxy_roles', manala_ansible_galaxy_roles) %}
+      {% for role in query('manala.roles.ansible_galaxy_roles', manala_ansible_galaxy_roles) %}
       - src: {{ role.src }}
       {% if role.scm is defined %}
         scm: {{ role.scm }}

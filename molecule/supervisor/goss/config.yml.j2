@@ -1,0 +1,32 @@
+---
+
+file:
+  {{ tests_dir }}/dict:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[unix_http_server]"
+      - "file=/tmp/supervisor.sock"
+      - "chmod=0700"
+      - "chown=nobody:nogroup"
+      - "[supervisord]"
+      - "logfile=/var/log/supervisord.log"
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"

@@ -1,0 +1,101 @@
+---
+
+file:
+  {{ tests_dir }}/app/shared/file_shared:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/app/shared/file_shared_existing:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/app/shared/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/app/shared/file_shared_existing
+  {{ tests_dir }}/app/current/file_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/file_shared
+  {{ tests_dir }}/app/current/file_shared_existing:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/file_shared_existing
+  {{ tests_dir }}/app/current/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/file_shared_existing_link
+
+  {{ tests_dir }}/app/shared/dir:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/shared/dir/file_shared:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/app/shared/dir/file_shared_existing:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/app/shared/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/app/shared/dir/file_shared_existing
+  {{ tests_dir }}/app/current/dir/file_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../shared/dir/file_shared
+  {{ tests_dir }}/app/current/dir/file_shared_existing:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../shared/dir/file_shared_existing
+  {{ tests_dir }}/app/current/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../shared/dir/file_shared_existing_link
+
+  {{ tests_dir }}/app/shared/dir/dir:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/shared/dir/dir/file_shared:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/app/shared/dir/dir/file_shared_existing:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/app/shared/dir/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/app/shared/dir/dir/file_shared_existing
+  {{ tests_dir }}/app/current/dir/dir/file_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/file_shared
+  {{ tests_dir }}/app/current/dir/dir/file_shared_existing:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/file_shared_existing
+  {{ tests_dir }}/app/current/dir/dir/file_shared_existing_link:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/file_shared_existing_link
+
+  {{ tests_dir }}/app/shared/dir_shared:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/current/dir_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../shared/dir_shared
+
+  {{ tests_dir }}/app/shared/dir/dir_shared:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/current/dir/dir_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../shared/dir/dir_shared
+
+  {{ tests_dir }}/app/shared/dir/dir/dir_shared:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/app/current/dir/dir/dir_shared:
+    exists: true
+    filetype: symlink
+    linked-to: ../../../../shared/dir/dir/dir_shared

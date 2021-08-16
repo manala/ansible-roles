@@ -1,6 +1,0 @@
----
-
-file:
-  /tmp/foo/bar:
-    exists: true
-    filetype: file

@@ -75,7 +75,7 @@ manala_dhcp_config_content: |
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.dhcp }
+    - role: manala.dhcp
 ```
 
 # Licence

@@ -1,0 +1,14 @@
+---
+
+file:
+  {{ manala_vault_cli_bin }}:
+    exists: true
+    mode: "0755"
+    owner: root
+    filetype: file
+
+command:
+  {{ manala_vault_cli_bin }} --version:
+    exit-status: 0
+    stdout:
+      - Vault v

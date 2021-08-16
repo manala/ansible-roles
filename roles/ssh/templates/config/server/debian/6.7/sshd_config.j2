@@ -4,80 +4,80 @@
 # See the sshd_config(5) manpage for details
 
 # What ports, IPs and protocols we listen for
-{{ config | manala_ssh_config_parameter('Port', default=22) }}
+{{ config | manala.roles.ssh_config_parameter('Port', default=22) }}
 # Use these options to restrict which interfaces/protocols sshd will bind to
-{{ config | manala_ssh_config_parameter('ListenAddress', default=['::', '0.0.0.0'], comment=True) }}
-{{ config | manala_ssh_config_parameter('Protocol', default=2) }}
+{{ config | manala.roles.ssh_config_parameter('ListenAddress', default=['::', '0.0.0.0'], comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('Protocol', default=2) }}
 # HostKeys for protocol version 2
-{{ config | manala_ssh_config_parameter('HostKey', default=[
+{{ config | manala.roles.ssh_config_parameter('HostKey', default=[
   '/etc/ssh/ssh_host_rsa_key',
   '/etc/ssh/ssh_host_dsa_key',
   '/etc/ssh/ssh_host_ecdsa_key',
   '/etc/ssh/ssh_host_ed25519_key',
 ]) }}
 #Privilege Separation is turned on for security
-{{ config | manala_ssh_config_parameter('UsePrivilegeSeparation', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('UsePrivilegeSeparation', default=True) }}
 
 # Lifetime and size of ephemeral version 1 server key
-{{ config | manala_ssh_config_parameter('KeyRegenerationInterval', default=3600) }}
-{{ config | manala_ssh_config_parameter('ServerKeyBits', default=1024) }}
+{{ config | manala.roles.ssh_config_parameter('KeyRegenerationInterval', default=3600) }}
+{{ config | manala.roles.ssh_config_parameter('ServerKeyBits', default=1024) }}
 
 # Logging
-{{ config | manala_ssh_config_parameter('SyslogFacility', default='AUTH') }}
-{{ config | manala_ssh_config_parameter('LogLevel', default='INFO') }}
+{{ config | manala.roles.ssh_config_parameter('SyslogFacility', default='AUTH') }}
+{{ config | manala.roles.ssh_config_parameter('LogLevel', default='INFO') }}
 
 # Authentication:
-{{ config | manala_ssh_config_parameter('LoginGraceTime', default=120) }}
-{{ config | manala_ssh_config_parameter('PermitRootLogin', default='without-password') }}
-{{ config | manala_ssh_config_parameter('StrictModes', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('LoginGraceTime', default=120) }}
+{{ config | manala.roles.ssh_config_parameter('PermitRootLogin', default='without-password') }}
+{{ config | manala.roles.ssh_config_parameter('StrictModes', default=True) }}
 
-{{ config | manala_ssh_config_parameter('RSAAuthentication', default=True) }}
-{{ config | manala_ssh_config_parameter('PubkeyAuthentication', default=True) }}
-{{ config | manala_ssh_config_parameter('AuthorizedKeysFile', comment='#AuthorizedKeysFile	%h/.ssh/authorized_keys') }}
+{{ config | manala.roles.ssh_config_parameter('RSAAuthentication', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('PubkeyAuthentication', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('AuthorizedKeysFile', comment='#AuthorizedKeysFile	%h/.ssh/authorized_keys') }}
 
 # Don't read the user's ~/.rhosts and ~/.shosts files
-{{ config | manala_ssh_config_parameter('IgnoreRhosts', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('IgnoreRhosts', default=True) }}
 # For this to work you will also need host keys in /etc/ssh_known_hosts
-{{ config | manala_ssh_config_parameter('RhostsRSAAuthentication', default=False) }}
+{{ config | manala.roles.ssh_config_parameter('RhostsRSAAuthentication', default=False) }}
 # similar for protocol version 2
-{{ config | manala_ssh_config_parameter('HostbasedAuthentication', default=False) }}
+{{ config | manala.roles.ssh_config_parameter('HostbasedAuthentication', default=False) }}
 # Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
-{{ config | manala_ssh_config_parameter('IgnoreUserKnownHosts', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('IgnoreUserKnownHosts', default=True, comment=True) }}
 
 # To enable empty passwords, change to yes (NOT RECOMMENDED)
-{{ config | manala_ssh_config_parameter('PermitEmptyPasswords', default=False) }}
+{{ config | manala.roles.ssh_config_parameter('PermitEmptyPasswords', default=False) }}
 
 # Change to yes to enable challenge-response passwords (beware issues with
 # some PAM modules and threads)
-{{ config | manala_ssh_config_parameter('ChallengeResponseAuthentication', default=False) }}
+{{ config | manala.roles.ssh_config_parameter('ChallengeResponseAuthentication', default=False) }}
 
 # Change to no to disable tunnelled clear text passwords
-{{ config | manala_ssh_config_parameter('PasswordAuthentication', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PasswordAuthentication', default=True, comment=True) }}
 
 # Kerberos options
-{{ config | manala_ssh_config_parameter('KerberosAuthentication', default=False, comment=True) }}
-{{ config | manala_ssh_config_parameter('KerberosGetAFSToken', default=False, comment=True) }}
-{{ config | manala_ssh_config_parameter('KerberosOrLocalPasswd', default=True, comment=True) }}
-{{ config | manala_ssh_config_parameter('KerberosTicketCleanup', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosAuthentication', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosGetAFSToken', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosOrLocalPasswd', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosTicketCleanup', default=True, comment=True) }}
 
 # GSSAPI options
-{{ config | manala_ssh_config_parameter('GSSAPIAuthentication', default=False, comment=True) }}
-{{ config | manala_ssh_config_parameter('GSSAPICleanupCredentials', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('GSSAPIAuthentication', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('GSSAPICleanupCredentials', default=True, comment=True) }}
 
-{{ config | manala_ssh_config_parameter('X11Forwarding', default=True) }}
-{{ config | manala_ssh_config_parameter('X11DisplayOffset', default=10) }}
-{{ config | manala_ssh_config_parameter('PrintMotd', default=False) }}
-{{ config | manala_ssh_config_parameter('PrintLastLog', default=True) }}
-{{ config | manala_ssh_config_parameter('TCPKeepAlive', default=True) }}
-{{ config | manala_ssh_config_parameter('UseLogin', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('X11Forwarding', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('X11DisplayOffset', default=10) }}
+{{ config | manala.roles.ssh_config_parameter('PrintMotd', default=False) }}
+{{ config | manala.roles.ssh_config_parameter('PrintLastLog', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('TCPKeepAlive', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('UseLogin', default=False, comment=True) }}
 
-{{ config | manala_ssh_config_parameter('MaxStartups', default='10:30:60', comment=True) }}
-{{ config | manala_ssh_config_parameter('Banner', default='/etc/issue.net', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('MaxStartups', default='10:30:60', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('Banner', default='/etc/issue.net', comment=True) }}
 
 # Allow client to pass locale environment variables
-{{ config | manala_ssh_config_parameter('AcceptEnv', default='LANG LC_*') }}
+{{ config | manala.roles.ssh_config_parameter('AcceptEnv', default='LANG LC_*') }}
 
-{{ config | manala_ssh_config_parameter('Subsystem', default='sftp /usr/lib/openssh/sftp-server') }}
+{{ config | manala.roles.ssh_config_parameter('Subsystem', default='sftp /usr/lib/openssh/sftp-server') }}
 
 # Set this to 'yes' to enable PAM authentication, account processing,
 # and session processing. If this is enabled, PAM authentication will
@@ -88,9 +88,9 @@
 # If you just want the PAM account and session checks to run without
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
-{{ config | manala_ssh_config_parameter('UsePAM', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('UsePAM', default=True) }}
 
-{{ config | manala_ssh_config(exclude=[
+{{ config | manala.roles.ssh_config(exclude=[
   'Port',
   'ListenAddress',
   'Protocol',

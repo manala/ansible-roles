@@ -5,6 +5,3 @@ manala_ssh_known_hosts_patterns:
   github.com:
     host: github.com
     file: files/keys/github.com
-  git.elao.com:
-    host: git.elao.com
-    file: files/keys/git.elao.com

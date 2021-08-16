@@ -77,56 +77,6 @@ manala_maxscale_config: |
   router = cli
 ```
 
-Dict's array based config (deprecated)
-```yaml
-manala_maxscale_config:
-  - maxscale:
-    - threads: auto #Dedicated container
-  - Splitter Service:
-    - type: service
-    - router: readwritesplit
-    - servers: mariadb-1, mariadb-2, mariadb-3
-    - user: maxscale
-    - passwd: XXXXXXXXXXXXXX
-  - Splitter Listener:
-    - type: listener
-    - address: "{{ ansible_eth0.ipv4.address }}" # Ip of the host, can be omit default is listen all interfaces
-    - port: 3306
-    - socket: /tmp/ClusterMaster
-    - service: Splitter Service
-    - protocol: MySQLClient
-  - mysql-1:
-    - type: server
-    - address: 172.16.X.XX
-    - port: 3306
-    - protocol: MySQLBackend
-  - mysql-2:
-    - type: server
-    - address: 172.16.X.XX
-    - port: 3306
-    - protocol: MySQLBackend
-  - mysql-3:
-    - type: server
-    - address: 172.16.X.XX
-    - port: 3306
-    - protocol: MySQLBackend
-  - Galera Monitor:
-    - type: monitor
-    - module: galeramon
-    - servers: mariadb-1, mariadb-1, mariadb-1
-    - user: maxscale
-    - passwd: XXXXXXXXXXX
-  - CLI:
-    - type: service
-    - router: cli
-  - CLI Listener:
-    - type: listener
-    - service: CLI
-    - protocol: maxscaled
-    - address: localhost
-    - port: 6603
-```
-
 Configs
 ```yaml
 manala_maxscale_configs_exclusive: true
@@ -139,22 +89,6 @@ manala_maxscale_configs:
       address = foo-1
       port = 3306
       protocol = MariaDBBackend
-  # Dict's array based (deprecated)
-  - file: bar.cnf
-    config:
-      - foo-1:
-        - type: server
-        - address: foo-1
-        - port: 3306
-        - protocol: MariaDBBackend
-  # Dict's array (deprecated)
-  - file: bar.cnf
-    config:
-      - foo-1:
-        - type: server
-        - address: foo-1
-        - port: 3306
-        - protocol: MariaDBBackend
   # Template cnf
   - file: template.cnf
     template: my_maxscale_template.cnf.j2

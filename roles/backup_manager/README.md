@@ -8,7 +8,7 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the backup-manager debian package, available on the __manala__ debian repository for jessie and stretch. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the backup-manager debian package, available on the __manala__ debian repository for stretch. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -156,18 +156,6 @@ manala_backup_manager_configs:
     template: my/backup_manager.conf.j2
     config:
       foo: bar
-  # Dict's array (deprecated)
-  - file: foo.conf
-    template: configs/mysql.j2
-    config:
-      - BM_REPOSITORY_CHMOD: 775
-      - BM_ARCHIVE_CHMOD: 664
-      - BM_REPOSITORY_ROOT: /srv/backup/mysql
-      # Flatten configs
-      - BM_TARBALL_DIRECTORIES:
-          - foo
-          - bar
-          - "{{ my_custom_configs_array }}"
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default

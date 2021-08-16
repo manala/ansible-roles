@@ -71,21 +71,18 @@ The `manala_nginx_config` key is made to allow you to alter main Nginx configura
 
 #### Examples:
 
+Use dict:
+```yaml
+manala_nginx_config:
+  user: nginx
+  worker_processes: 1
+```
+
 Use raw content:
 ```yaml
 manala_nginx_config: |
   user nginx;
   worker_processes 1;
-```
-
-Use dict's array (deprecated):
-```yaml
-manala_nginx_config:
-  - user: nginx
-  - load_module: modules/ngx_http_geoip_module.so
-  - load_module: modules/ngx_stream_geoip_module.so
-  - events:
-    - worker_connections: 1024
 ```
 
 ### Exclusivity
@@ -107,6 +104,11 @@ manala_nginx_configs:
   # Template based
   - file: template.conf
     template: my/template.conf.j2
+  # Dict based
+  - file: dict.conf
+    config:
+      listen: 80 default_server
+      server_name: example.com www.example.com
   # Raw content based
   - file: content.conf
     config: |
@@ -118,22 +120,6 @@ manala_nginx_configs:
           index index.html;
           try_files $uri /index.html;
       }
-  # Dict's array based (deprecated)
-  - file: symfony2.conf
-    config:
-      - server:
-        - server_name: symfony2.dev
-        - root: /srv/symfony2/web
-        - access_log: /var/log/nginx/app.access.log
-        - error_log: /var/log/nginx/app.error.log
-        - client_max_body_size: 8G
-        - include: conf.d/gzip
-        - location ^~ /sf/:
-          - alias: /usr/share/symfony/symfony-1.4/data/web/sf/
-        - location /:
-          - try_files: $uri /index.php$is_args$args
-        - location ~ ^/(index|frontend_dev)\.php(/|$):
-          - include: conf.d/php_fpm_params
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default

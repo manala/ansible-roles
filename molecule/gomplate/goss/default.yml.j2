@@ -1,0 +1,15 @@
+---
+
+file:
+  {{ manala_gomplate_bin }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+
+command:
+  {{ manala_gomplate_bin }} --version:
+    exit-status: 0
+    stdout:
+      - gomplate version

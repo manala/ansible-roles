@@ -1,0 +1,17 @@
+---
+
+file:
+  # Default
+  {{ tests_dir }}/default/humans.txt:
+    exists: true
+    filetype: file
+    contains:
+      - TEAM
+      - THANKS
+      - SITE
+  {{ tests_dir }}/default/alt-galaxy.tar.gz:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/default/alt-galaxy:
+    exists: true
+    filetype: file

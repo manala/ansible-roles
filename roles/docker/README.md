@@ -79,13 +79,6 @@ manala_docker_config_daemon: |
   }
 ```
 
-Daemon config using dict's array parameters (deprecated):
-
-```yaml
-manala_docker_config_daemon:
-  - storage-driver: vfs
-```
-
 ```yaml
 manala_docker_applications:
   - hello-world

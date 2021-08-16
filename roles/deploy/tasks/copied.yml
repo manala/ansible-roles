@@ -4,13 +4,15 @@
   stat:
     path: "{{ deploy_helper.previous_release_path ~ '/' ~ item }}"
   register: __manala_deploy_copied_stats_output
-  with_items: "{{ manala_deploy_copied }}"
+  loop: "{{ manala_deploy_copied }}"
 
 - name: copied > Copy
   command: >
     cp -R
-    {{ deploy_helper.previous_release_path ~ '/' ~ item.1 ~ (__manala_deploy_copied_stats_output.results[item.0].stat.isdir|ternary('/', '')) }}
-    {{ deploy_helper.new_release_path ~ '/' ~ item.1 }}
+    {{ deploy_helper.previous_release_path ~ '/' ~ item ~ (__manala_deploy_copied_stats_output.results[index].stat.isdir|ternary('/', '')) }}
+    {{ deploy_helper.new_release_path ~ '/' ~ item }}
   delegate_to: "{{ inventory_hostname }}"
-  with_indexed_items: "{{ manala_deploy_copied }}"
-  when: __manala_deploy_copied_stats_output.results[item.0].stat.exists
+  loop: "{{ manala_deploy_copied | flatten }}"
+  loop_control:
+    index_var: index
+  when: __manala_deploy_copied_stats_output.results[index].stat.exists

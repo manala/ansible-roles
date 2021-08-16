@@ -44,15 +44,15 @@ Using ansible galaxy requirements file:
 | `manala_dnsmasq_install_packages_default` | ['dnsmasq']      | Array   | Default dependency packages to install |
 | `manala_dnsmasq_configs_exclusive`        | false            | Boolean | Configurations exclusivity             |
 | `manala_dnsmasq_configs_dir`              | '/etc/dnsmasq.d' | String  | Configurations directory path          |
-| `manala_dnsmasq_configs_template`         |  ~               | String  | Configurations template                |
+| `manala_dnsmasq_configs_defaults`         | {}               | Array   | Configurations defaults                |
 | `manala_dnsmasq_configs`                  | []               | Array   | Configurations                         |
 
 ### Configuration example
 
 ```yaml
 manala_dnsmasq_configs:
-  - file:     dev.conf
-    template: configs/default.dev.j2
+  - file: dev.conf
+    template: my/config.j2
 ```
 
 ## Example playbook
@@ -60,7 +60,7 @@ manala_dnsmasq_configs:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.dnsmasq }
+    - role: manala.dnsmasq
 ```
 
 # Licence

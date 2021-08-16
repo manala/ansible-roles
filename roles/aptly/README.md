@@ -83,14 +83,6 @@ manala_aptly_config: |
   }
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_aptly_config:
-  - rootDir: /tmp/aptly
-  - architectures:
-    - amd64
-```
-
 Repositories:
 
 ```yaml

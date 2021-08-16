@@ -44,55 +44,53 @@ None
 | `manala_ansible_install_packages`         | ~                         | Array   | Dependency packages to install         |
 | `manala_ansible_install_packages_default` | ['ansible']               | Array   | Default dependency packages to install |
 | `manala_ansible_hosts_file`               | '/etc/ansible/hosts'      | String  | Hosts file path                        |
-| `manala_ansible_hosts_template`           | 'hosts/empty.j2'          | String  | Default hosts template path            |
-| `manala_ansible_hosts`                    | []                        | Array   | Hosts                                  |
+| `manala_ansible_hosts_template`           | 'hosts/_default.j2'       | String  | Default hosts template path            |
+| `manala_ansible_hosts`                    | ~                         | String  | Hosts                                  |
 | `manala_ansible_config_file`              | 'config/_base.j2'         | String  | Configuration file path                |
-| `manala_ansible_config_template`          | 'hosts/empty.j2'          | String  | Default configuration template path    |
-| `manala_ansible_config`                   | []                        | Array   | Configuration                          |
+| `manala_ansible_config_template`          | 'hosts/_default.j2'       | String  | Default configuration template path    |
+| `manala_ansible_config`                   | ~                         | Array   | Configuration                          |
 | `manala_ansible_host_vars_exclusive`      | false                     | Boolean | Host vars exclusivity                  |
 | `manala_ansible_host_vars_dir`            | '/etc/ansible/host_vars'  | String  | Host vars dir path                     |
-| `manala_ansible_host_vars_template`       | 'host_vars/empty.j2'      | String  | Default host vars template path        |
+| `manala_ansible_host_vars_defaults`       | {}                        | Array   | Default host vars template path        |
 | `manala_ansible_host_vars`                | []                        | Array   | Host vars                              |
 | `manala_ansible_group_vars_exclusive`     | false                     | Boolean | Group vars exclusivity                 |
 | `manala_ansible_group_vars_dir`           | '/etc/ansible/group_vars' | String  | Group vars dir path                    |
-| `manala_ansible_group_vars_template`      | 'group_vars/empty.j2'     | String  | Default group vars template path       |
+| `manala_ansible_group_vars_defaults`      | {}                        | Array   | Default group vars template path       |
 | `manala_ansible_group_vars`               | []                        | Array   | Group vars                             |
 
 ### Configuration example
 
 ```yaml
-manala_ansible_hosts:
-  - foo: >
-      ansible_host=foo.com
-      ansible_user=foo
-  - bar:
-    - foo
-  - bar:vars:
-    - bar=baz
+manala_ansible_hosts: |
+  foo ansible_host=foo.com ansible_user=foo
+  [bar]
+  foo
+  [bar:vars]
+  bar=baz
 
-manala_ansible_config:
-  - defaults:
-      - forks: 123
-      - ask_sudo_pass: false
-      - module_set_locale: true
+manala_ansible_config: |
+  [defaults]
+  forks = 123
+  ask_sudo_pass = False
+  module_set_locale =: True
 
 manala_ansible_host_vars_exclusive: true
 manala_ansible_host_vars:
   - file: foo.yml
-    vars:
-      - foo: ~
-      - bar: bar
-      - baz: 123
+    vars: |
+      foo: ~
+      bar: bar
+      baz: 123
   - file: bar.yml
     state: absent
 
 manala_ansible_group_vars_exclusive: true
 manala_ansible_group_vars:
   - file: foo.yml
-    vars:
-      - foo: ~
-      - bar: bar
-      - baz: 123
+    vars: |
+      foo: ~
+      bar: bar
+      baz: 123
   - file: bar.yml
     state: absent      
 ```

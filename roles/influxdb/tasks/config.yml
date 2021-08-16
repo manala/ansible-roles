@@ -8,6 +8,6 @@
     group: root
     mode: "0644"
   when: manala_influxdb_config_template
-        or manala_influxdb_config
+    or manala_influxdb_config
   notify:
     - influxdb restart

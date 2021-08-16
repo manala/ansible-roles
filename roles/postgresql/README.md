@@ -39,10 +39,12 @@ Using ansible galaxy requirements file:
 | `manala_postgresql_version`                  | ~                                                                                                    | String | REQUIRED - PostgreSQL version          |
 | `manala_postgresql_install_packages`         | ~                                                                                                    | Array  | Dependency packages to install         |
 | `manala_postgresql_install_packages_default` | ['postgresql-{{ manala_postgresql_version }}', 'postgresql-contrib-{{ manala_postgresql_version }}'] | Array  | Default dependency packages to install |
-| `manala_postgresql_config`                   | []                                                                                                   | Array  | Configuration parameters               |
+| `manala_postgresql_config_file`              | '/etc/postgresql/{{ manala_postgresql_version }}/main/postgresql.conf'                               | String | Configuration file path                |
 | `manala_postgresql_config_template`          | ~                                                                                                    | String | Configuration template path            |
-| `manala_postgresql_config_hba`               | []                                                                                                   | Array  | Hba configuration parameters           |
+| `manala_postgresql_config`                   | ~                                                                                                    | String String| Configuration parameters               |
+| `manala_postgresql_config_hba_file`          | '/etc/postgresql/{{ manala_postgresql_version }}/main/pg_hba.conf'                                   | String | Hba configuration file path            |
 | `manala_postgresql_config_hba_template`      | ~                                                                                                    | String | Hba configuration template path        |
+| `manala_postgresql_config_hba`               | ~                                                                                                    | String | Hba configuration parameters           |
 
 ### Configuration example
 
@@ -54,15 +56,15 @@ manala_postgresql_version: 9.4
 ## PostgreSQL with custom configuration files:
 
 ```yaml
-manala_postgresql_config_template: config/default.dev.j2
-manala_postgresql_config:
-  - max_connections: 123
-manala_postgresql_config_hba_template: config/hba/default.dev.j2
-manala_postgresql_config_hba:
-  - local   all             postgres                                peer
-  - local   all             all                                     peer
-  - host    all             all             127.0.0.1/32            md5
-  - host    all             all             ::1/128                 md5
+manala_postgresql_config_template: my/config.j2
+manala_postgresql_config: |
+  max_connections = 123
+manala_postgresql_config_hba_template: my/config_hba.j2
+manala_postgresql_config_hba: |
+  local   all             postgres                                peer
+  local   all             all                                     peer
+  host    all             all             127.0.0.1/32            md5
+  host    all             all             ::1/128                 md5
 ```
 
 ## Example playbook
@@ -70,7 +72,7 @@ manala_postgresql_config_hba:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.postgresql }
+    - role: manala.postgresql
 ```
 
 # Licence

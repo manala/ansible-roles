@@ -44,13 +44,6 @@ Using ansible galaxy requirements file:
 | `manala_systemd_tmpfiles_configs`           | []                    | Array   | Tmpfiles configs                             |
 | `manala_systemd_services`                   | []                    | Array   | Services                                     |
 
-
-| `manala_telegraf_configs_exclusive`        | false                      | Array        | Additional configurations exclusivity    |
-| `manala_telegraf_configs_dir`              | '/etc/telegraf/telegraf.d' | String       | Additional configurations directory path |
-| `manala_telegraf_configs_defaults`         | {}                         | Array        | Additional configurations defaults       |
-| `manala_telegraf_configs`                  | []                         | Array        | Additional configurations directives     |
-
-
 ### Configuration example
 
 ```yaml
@@ -73,10 +66,6 @@ manala_systemd_system_configs:
     template: systemd/system/bar.conf.j2
     config:
       foo: bar
-  # Dicts array based (deprecated)
-  - file: deprecated.conf
-    config:
-      - Description=OpenBSD Secure Shell session cleanup
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -112,10 +101,6 @@ manala_systemd_tmpfiles_configs:
     template: systemd/tmpfiles/bar.conf.j2
     config:
       foo: bar
-  # Dicts array based (deprecated)
-  - file: deprecated.conf
-    config:
-      - d: /var/run/mysqld 0755 mysql mysql -
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default

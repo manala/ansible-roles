@@ -75,8 +75,8 @@ None
       - contrib
     manala_apt_preferences:
       - git@backports
-      - dotdeb:100
-      - php@dotdeb_php56:300
+      - sury_php:100
+      - php@sury_php:300
       - nginx@nginx
     manala_apt_packages:
       - xfonts-75dpi
@@ -102,10 +102,6 @@ manala_apt_configs:
   - file: foo_content
     config: |
       APT::Install-Recommends "false";
-  # Dicts array config based (deprecated)
-  - file: foo
-    config:
-      - Acquire::Check-Valid-Until: true
   # Ensure config is absent
   - file: absent
     state: absent # "present" by default
@@ -153,14 +149,6 @@ manala_apt_sources_list: |
   deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
 ```
 
-Use dict's array (deprecated):
-
-```yaml
-manala_apt_sources_list:
-  - deb: http://deb.debian.org/debian {{ ansible_distribution_release }} main
-  - deb http://deb.debian.org/debian {{ ansible_distribution_release }} contrib
-```
-
 ### Repositories
 
 Concise, pattern based
@@ -172,7 +160,6 @@ manala_apt_repositories:
   - partner
   - backports
   - backports_sloppy
-  - dotdeb
   - nginx
   - bearstech
   - nodesource_0_10
@@ -217,7 +204,7 @@ Verbose, pattern based
 
 ```yaml
 manala_apt_repositories:
-  - pattern: backports
+  - repository: backports
     state: absent
 ```
 
@@ -228,7 +215,7 @@ manala_apt_repositories:
   - source: deb http://pkg.jenkins-ci.org/debian binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
-      id:  D50582E6
+      id: D50582E6
   - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
     state: absent
   # Ignore repository
@@ -255,9 +242,8 @@ Note that referenced repositories will automatically be include as present using
 ```yaml
 manala_apt_preferences:
   - git@backports         # "git*"" from debian backports repository, high priority
-  - dotdeb:100            # "*" from dotdeb repository, low priority
-  - php@dotdeb            # "php*" from dotdeb repository, high priority
-  - redis@dotdeb          # "redis*" from dotdeb repository, high priority
+  - sury_php:100            # "*" from sury_php repository, low priority
+  - php@sury_php            # "php*" from sury_php repository, high priority
   - libssl1.0.0@backports # "libssl1.0.0" from debian backports repository, high priority (in this case "libssl1.0.0" is not a pre-defined preference pattern; as a matter of consequence the package is directly used)
   # Pattern syntax
   - preference: ansible@ansible
@@ -268,15 +254,15 @@ Verbose
 
 ```yaml
 manala_apt_preferences:
-  - package:  '*'
-    pin:      release o=Debian,a=stable
+  - package: '*'
+    pin: release o=Debian,a=stable
     priority: 600
-    file:     dotdeb
-  - package:  'php-*'
-    pin:      release o=Debian,a=stable
-    priority: 900
-    file:     php
-    state:    absent
+    file: sury_php
+  - package: 'php-*'
+    pin: release o=Debian,a=stable
+    priority: 1000
+    file: php
+    state: absent
   # Ignore preference
   - file: foo
     state: ignore
@@ -298,9 +284,6 @@ manala_apt_holds:
   # Ignore hold
   - package: qux
     state: ignore
-  # Deprecated
-  - package: quux
-    hold: true # or false :)
   # Flatten holds
   - "{{ my_custom_holds_array }}"
 ```
@@ -324,7 +307,7 @@ Verbose
 
 ```yaml
 manala_apt_packages:
-  - package:  bzip2  # Name of package, required
+  - package: bzip2  # Name of package, required
     state: absent # State of package, optional, default "present"
     force: true   # Force installation, optional
   # Ignore package

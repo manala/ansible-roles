@@ -1,0 +1,164 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.elasticsearch
+          vars:
+            manala_elasticsearch_environment_template: environment/elasticsearch/elasticsearch.j2
+            manala_elasticsearch_environment:
+              # See: https://github.com/elastic/elasticsearch/issues/57018#issuecomment-694703398
+              ES_JAVA_OPTS: -Xms256m -Xmx256m -Djava.io.tmpdir=/var/log/elasticsearch
+            manala_elasticsearch_plugins:
+              - analysis-icu
+      always:
+        - name: Wait for pretty response
+          uri:
+            url: http://localhost:9200/?pretty
+          register: result
+          until: result.status == 200
+          retries: 60
+          delay: 1
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/elasticsearch/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.elasticsearch
+          vars:
+            manala_elasticsearch_environment_template: environment/elasticsearch/elasticsearch.j2
+            manala_elasticsearch_environment:
+              # See: https://github.com/elastic/elasticsearch/issues/57018#issuecomment-694703398
+              ES_JAVA_OPTS: -Xms256m -Xmx256m -Djava.io.tmpdir=/var/log/elasticsearch
+        - name: Role - Dict
+          import_role:
+            name: manala.roles.elasticsearch
+            tasks_from: config
+          vars:
+            manala_elasticsearch_config_file: "{{ tests_dir }}/dict"
+            manala_elasticsearch_config_template: ~
+            manala_elasticsearch_config:
+              cluster:
+                name: foo
+              path.data: /foo/bar
+        - name: Role - Content
+          import_role:
+            name: manala.roles.elasticsearch
+            tasks_from: config
+          vars:
+            manala_elasticsearch_config_file: "{{ tests_dir }}/content"
+            manala_elasticsearch_config_template: ~
+            manala_elasticsearch_config: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.elasticsearch
+            tasks_from: config
+          vars:
+            manala_elasticsearch_config_file: "{{ tests_dir }}/template"
+            manala_elasticsearch_config_template: fixtures/template.j2
+            manala_elasticsearch_config: ~
+      always:
+        - name: Wait for pretty response
+          uri:
+            url: http://localhost:9200/?pretty
+          register: result
+          until: result.status == 200
+          retries: 60
+          delay: 1
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+
+###############
+# Environment #
+###############
+
+- name: Environment
+  tags: [environment]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/elasticsearch/environment
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.elasticsearch
+          vars:
+            manala_elasticsearch_environment_template: environment/elasticsearch/elasticsearch.j2
+            manala_elasticsearch_environment:
+              # See: https://github.com/elastic/elasticsearch/issues/57018#issuecomment-694703398
+              ES_JAVA_OPTS: -Xms256m -Xmx256m -Djava.io.tmpdir=/var/log/elasticsearch
+        - name: Role - Dict
+          import_role:
+            name: manala.roles.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: "{{ tests_dir }}/dict"
+            manala_elasticsearch_environment_template: ~
+            manala_elasticsearch_environment:
+              ES_JAVA_OPTS: -Xms1g -Xmx1g
+              FOO: bar
+        - name: Role - Content
+          import_role:
+            name: manala.roles.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: "{{ tests_dir }}/content"
+            manala_elasticsearch_environment_template: ~
+            manala_elasticsearch_environment: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.elasticsearch
+            tasks_from: environment
+          vars:
+            manala_elasticsearch_environment_file: "{{ tests_dir }}/template"
+            manala_elasticsearch_environment_template: fixtures/template.j2
+            manala_elasticsearch_environment: ~
+      always:
+        - name: Wait for pretty response
+          uri:
+            url: http://localhost:9200/?pretty
+          register: result
+          until: result.status == 200
+          retries: 60
+          delay: 1
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/environment.yml.j2') }}"

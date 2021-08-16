@@ -79,17 +79,6 @@ manala_vim_config: |
   set expandtab
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_vim_config:
-  - syntax: "on"
-  - encoding: utf8
-  - expandtab: true   # Use spaces instead of tabs
-  - smarttab: true   # Be smart when using tabs ;)
-  - shiftwidth: 4      # 1 tab == 4 spaces
-  - tabstop: 4
-```
-
 ## Example playbook
 
 ```yaml

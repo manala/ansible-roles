@@ -1,0 +1,22 @@
+---
+
+file:
+  {{ tests_dir }}/ftpd.passwd:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "user-1:$1$Z4eVi1jp$IQJdkHh28GGFbq9oSQR/b0:108:100::{{ tests_dir }}/user1:/bin/false"
+      - "user-2:$1$Z4eVi1jp$o4qLQc670sqyO2CKWzYBm1:0:0::{{ tests_dir }}/user2:/bin/false"
+  {{ tests_dir }}/user1:
+    exists: true
+    filetype: directory
+    mode: "0700"
+  {{ tests_dir }}/user2:
+    exists: true
+    filetype: directory
+    mode: "0755"
+    owner: root
+    group: root

@@ -57,7 +57,7 @@ manala_locales_codes:
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.locales }
+    - role: manala.locales
 ```
 
 # Licence

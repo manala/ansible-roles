@@ -65,12 +65,6 @@ manala_network_hosts:
   189.234.23.35: bismuth.manala.local
 ```
 
-Dict's array based hosts (deprecated):
-```yaml
-manala_network_hosts:
-  - 189.234.23.35: bismuth.manala.local
-```
-
 Content based interfaces config:
 ```yaml
 manala_network_interfaces_config: |
@@ -90,25 +84,6 @@ manala_network_interfaces_config: |
     post-down ip link set dev $IFACE down
 ```
 
-Dict's array based interfaces config (deprecated):
-```yaml
-manala_network_interfaces_config:
-  # Loopback
-  - auto lo
-  - iface lo inet loopback
-  # Eth0
-  - auto eth0
-  - iface eth0 inet static:
-      - address: 189.234.23.30
-      - netmask: 255.255.255.0
-      - gateway: 189.234.23.20
-  # Eth1
-  - auto eth1
-  - iface eth1 inet manual:
-      - pre-up: ip link set dev $IFACE up
-      - post-down: ip link set dev $IFACE down
-```
-
 Template based interfaces config:
 ```yaml
 manala_network_interfaces_config_template: network/interfaces.j2
@@ -122,14 +97,6 @@ manala_network_resolver_config: |
   nameserver 189.234.23.2
 ```
 
-Dict's array based resolver config (deprecated):
-```yaml
-manala_network_resolver_config:
-  - search: manala.local
-  - nameserver: 189.234.23.1
-  - nameserver: 189.234.23.2
-```
-
 Template based resolver config:
 ```yaml
 manala_network_resolver_config_template: network/resolv.conf.j2
@@ -139,12 +106,6 @@ Routing tables:
 ```yaml
 manala_network_routing_tables:
   1: public
-```
-
-Dict's array based routing tables (deprecated):
-```yaml
-manala_network_routing_tables:
-  - 1: public
 ```
 
 #### Interfaces configurations
@@ -160,13 +121,6 @@ manala_network_interfaces_configs:
     config: |
       auto eth1
       iface eth1 inet dhcp
-  # Dicts array template based (deprecated)
-  - file: foo
-    config:
-      - auto eth0:0
-      - iface eth0:0 inet static:
-        - address: 0.0.0.0
-        - netmask: 255.255.255.255
   # Template based (file name based on template)
   - template: network/bar.j2
   # Template based (force file name)

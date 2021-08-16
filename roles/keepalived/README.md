@@ -82,21 +82,6 @@ manala_keepalived_config:
   foo: bar
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_keepalived_config:
-  - global_defs:
-    - router_id: LVS_DEVEL
-  - vrrp_instance VI_1:
-    - virtual_router_id: 50
-    - interface: eth0
-    - state: MASTER
-    - priority: 100
-    - virtual_ipaddress:
-      - 192.168.200.11/24 dev eth0
-      - 192.168.200.12/24 dev eth0
-```
-
 Start keepalived daemon with extra parameters...
 
 ...using debian default environment template (recommended):
@@ -119,13 +104,6 @@ manala_keepalived_environment:
 manala_keepalived_environment: |
   DAEMON_ARGS="--log-console --log-detail"
   FOO="bar"
-```
-
-...using dict's array parameters (deprecated):
-```yaml
-manala_keepalived_environment:
-  - DAEMON_ARGS: --log-console --log-detail
-  - FOO: bar
 ```
 
 ## Example playbook

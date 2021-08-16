@@ -49,7 +49,7 @@ manala_zsh_bin: /bin/zsh
 ```yaml
 - hosts: servers
   roles:
-    - { role: manala.zsh }
+    - role: manala.zsh
 ```
 
 # Licence

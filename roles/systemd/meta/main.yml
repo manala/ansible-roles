@@ -4,19 +4,19 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           systemd
-  author:              Manala
-  company:             Manala
-  description:         Configure systemd services
-  license:             MIT
+  role_name: systemd
+  author: Manala
+  company: Manala
+  description: Configure systemd services
+  license: MIT
   min_ansible_version: 2.5.0
-  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:
-        - jessie
         - stretch
         - buster
+        - bullseye
   galaxy_tags:
     - system
     - systemd

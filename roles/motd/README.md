@@ -42,8 +42,6 @@ None
 | `manala_motd_scripts_dir`       | '/etc/update-motd.d'   | String  | Scripts dir path           |
 | `manala_motd_scripts_defaults`  | {}                     | Array   | Default scripts parameters |
 | `manala_motd_scripts`           | []                     | Array   | Scripts                    |
-| `manala_motd_template`          | 'template/_default.j2' | String  | Template path              |
-| `manala_motd_message`           | ~                      | String  | Message                    |
 
 ### Configuration example
 
@@ -80,13 +78,6 @@ manala_motd_scripts:
     state: ignore
   # Flatten scripts
   - "{{ my_custom_scripts_array }}"
-```
-
-Static template (deprecated)
-
-```yaml
-manala_motd_template: template/turkey.j2 # Predefined template (cow|dragon|stegosaurus|turkey|yoda)
-manala_motd_message: My awesome message # Custom message
 ```
 
 ## Example playbook

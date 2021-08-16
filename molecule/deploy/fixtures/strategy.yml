@@ -1,0 +1,12 @@
+---
+
+- block:
+    - name: strategy > Create release dir
+      file:
+        path: "{{ deploy_helper.new_release_path }}/"
+        state: directory
+
+    - name: strategy > Touch file
+      file:
+        path: "{{ deploy_helper.new_release_path }}/{{ manala_deploy_strategy_include_options.filename }}"
+        state: touch

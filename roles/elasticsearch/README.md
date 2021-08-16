@@ -84,13 +84,6 @@ manala_elasticsearch_config: |
   path.data: /foo/bar
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_elasticsearch_config:
-  - cluster.name: foo
-  - path.data: /foo/bar
-```
-
 #### Environment
 
 Use elasticsearch default main environment template (recommended):
@@ -110,12 +103,6 @@ Use raw main config:
 ```yaml
 manala_elasticsearch_environment: |
   ES_JAVA_OPTS="-Xms1g -Xmx1g"
-```
-
-Use dict's array parameters (deprecated):
-```yaml
-manala_elasticsearch_environment:
-  - ES_JAVA_OPTS: -Xms1g -Xmx1g
 ```
 
 #### Plugins
