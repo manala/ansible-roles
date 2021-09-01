@@ -4,8 +4,8 @@
   template:
     src: "agent_config/empty_agent.j2"
     dest: "{{ manala_sensu_go_agent_config_file }}"
-    owner: root
-    group: root
-    mode: "0644"
+    owner: "{{ manala_sensu_go_agent_config_owner }}"
+    group: "{{ manala_sensu_go_agent_config_group }}"
+    mode: "{{ manala_sensu_go_agent_config_mode }}"
   notify:
     - sensu-agent restart
