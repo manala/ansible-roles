@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add file permissions variables
+
+### Changed
+- Change default file permissions to sensu:sensu - 0640
 
 ## [1.0.3] - 2020-08-28
 ### Changed

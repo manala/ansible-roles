@@ -15,11 +15,17 @@ manala_sensu_go_backend: false
 manala_sensu_go_backend_config_template: ~
 manala_sensu_go_backend_config_file: /etc/sensu/backend.yml
 manala_sensu_go_backend_config: {}
+manala_sensu_go_backend_owner: sensu
+manala_sensu_go_backend_group: sensu
+manala_sensu_go_backend_mode: "0640"
 
 # Agent Config
 manala_sensu_go_agent_config_template: ~
 manala_sensu_go_agent_config_file: /etc/sensu/agent.yml
 manala_sensu_go_agent_config: {}
+manala_sensu_go_agent_config_owner: sensu
+manala_sensu_go_agent_config_group: sensu
+manala_sensu_go_agent_config_mode: "0640"
 
 # Services
 manala_sensu_go_services: []

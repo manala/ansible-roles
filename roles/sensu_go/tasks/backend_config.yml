@@ -4,9 +4,9 @@
   template:
     src:  "backend_config/default_backend.j2"
     dest: "{{ manala_sensu_go_backend_config_file }}"
-    owner: root
-    group: root
-    mode: "0644"
+    owner: "{{ manala_sensu_go_backend_owner }}"
+    group: "{{ manala_sensu_go_backend_group }}"
+    mode: "{{ manala_sensu_go_backend_mode }}"
   when: manala_sensu_go_backend
   notify:
     - sensu-backend restart
