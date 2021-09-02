@@ -9,6 +9,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 collection_dir = 'collection'
+meta_dir = os.path.join(collection_dir, 'meta')
 
 #########
 # Clean #
@@ -24,6 +25,15 @@ if os.path.isdir(collection_dir):
 
 logging.info('Create collection dir "%s"', collection_dir)
 os.makedirs(collection_dir)
+
+logging.info('Create collection dir "%s"', meta_dir)
+os.makedirs(meta_dir)
+
+logging.info('Copy runtime file into "%s"', meta_dir)
+shutil.copyfile(
+	'runtime.yml',
+	os.path.join(meta_dir, 'runtime.yml')
+)
 
 logging.info('Copy galaxy file into "%s"', collection_dir)
 shutil.copyfile(
