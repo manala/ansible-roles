@@ -1,0 +1,28 @@
+---
+
+file:
+  tmp/users/default/default:
+    exists: true
+    filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
+    contains:
+      - '[{"account": "admin", "password": "$1$MXS$ilOCSZPnjmHjTz6B96SiJ1", "name": "foo"},{"account": "admin", "password": "$1$MXS$M.YZOr2pNTgW87l7KQWLU/", "name": "bar"}]'
+  tmp/users/default/empty:
+    exists: true
+    filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
+    size: 2
+    contains:
+      - '[]'
+  tmp/users/default/template:
+    exists: true
+    filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
+    contains:
+      - Users maxscale

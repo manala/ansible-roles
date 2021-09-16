@@ -1,0 +1,47 @@
+---
+
+file:
+  tmp/config/default:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tmp/config/default/default_deprecated.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[maxscale]"
+      - threads = auto
+      - "[Splitter Service]"
+      - type = service
+      - router = readwritesplit
+      - servers = mariadb-1, mariadb-2, mariadb-3
+      - user = maxscale
+      - passwd = XXXXXXXXXXXX
+  tmp/config/default/default_content.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[maxscale]"
+      - threads = auto
+      - "[Splitter Service]"
+      - type = service
+      - router = readwritesplit
+      - servers = mariadb-1, mariadb-2, mariadb-3
+      - user = maxscale
+      - passwd = XXXXXXXXXXXX
+  tmp/config/default/template.cnf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Config maxscale"
