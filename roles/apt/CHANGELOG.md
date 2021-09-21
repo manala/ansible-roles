@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Maxscale 2.5 support
+- Maxscale 6.1 support
 
 ## [2.0.31] - 2021-06-18
 ### Changed

@@ -1,0 +1,27 @@
+---
+
+package:
+  maxscale:
+    installed: true
+
+command:
+  maxscale --version:
+    exit-status: 0
+    stdout:
+      - "/^MaxScale 6.1.\\d+$/"
+  sudo maxctrl list users:
+    exit-status: 0
+    stdout:
+      - "/^│ admin │ inet │ admin      │$/"
+
+file:
+  /var/lib/maxscale/passwd:
+    exists: true
+    filetype: file
+    contains:
+      - '[{"name": "admin", "account": "admin", "password": "$6$MXS$RjtL0yWoXRIzkDGR6iwIAUHrQTWvqMizWYaGZKetqP2VDmWLgpgaT5YueeBoMKkoTMisvIy3sGEUMFa16UYDc."}]'
+
+service:
+  maxscale:
+    enabled: true
+    running: true

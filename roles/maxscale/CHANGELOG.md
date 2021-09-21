@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- MaxScale 2.5 support for Debian stretch and buster
+- MaxScale 6.1 support for Debian stretch and buster
 
 ## [2.0.6] - 2020-12-09
 ### Removed
@@ -26,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.0.3] - 2020-03-12
 ### Added
-- MaxScale 2.4 support for Debian jessie, stretch and buster
+- MaxScale 2.4 support for Debian stretch and buster
 
 ## [2.0.2] - 2020-02-13
 ### Added

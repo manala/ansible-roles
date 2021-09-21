@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Apt] Maxscale 2.5 support
+- [Apt] Maxscale 6.1 support
+- [Maxscale] MaxScale 2.5 support for Debian stretch and buster
+- [Maxscale] MaxScale 6.1 support for Debian stretch and buster
 
 ## [0.1.131] - 2021-09-02
 ### Added
