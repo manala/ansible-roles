@@ -5,23 +5,26 @@
     path: "{{ manala_ngrok_bin }}"
   register: __manala_ngrok_bin_stat_result
 
-- name: install > Get version url
+- name: install > Get version
   uri:
     url: https://dl.equinox.io/ngrok/ngrok/stable/archive
     return_content: true
-  register: __manala_ngrok_version_html
+  register: __manala_ngrok_version
   when: (not __manala_ngrok_bin_stat_result.stat.exists)
         and (manala_ngrok_version is not none)
 
 - name: install > Install
   unarchive:
     src: "{{ manala_ngrok_version|ternary(
-      __manala_ngrok_version_html.content|default|regex_search(
-        'https://[^\"]+ngrok-%(version)s-linux-amd64.tar.gz'|format(
-          version=manala_ngrok_version
+      __manala_ngrok_version.content|default|regex_search(
+        'https://[^\"]+ngrok-%(version)s-linux-%(architecture)s.tar.gz'|format(
+          version=manala_ngrok_version,
+          architecture=ansible_architecture|manala_ngrok_architecture,
         )
       ),
-      'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz'
+      'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-%(architecture)s.tgz'|format(
+        architecture=ansible_architecture|manala_ngrok_architecture,
+      )
     ) }}"
     dest: "{{ manala_ngrok_bin|dirname }}"
     remote_src: true

@@ -16,11 +16,12 @@
 - name: install > Install
   get_url:
     url: "{{
-      'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-amd64'|format(
+      'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-%(architecture)s'|format(
         version=manala_gomplate_version|ternary(
           manala_gomplate_version,
           __manala_gomplate_version_latest.url|default|regex_replace('.+/v(\\d+\\.\\d+\\.\\d+)$', '\\1')
-        )
+        ),
+        architecture=ansible_architecture|manala_gomplate_architecture,
       )
     }}"
     dest: "{{ manala_gomplate_bin }}"

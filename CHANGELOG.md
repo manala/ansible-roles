@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Gomplate] Add multi architecture support (amd64/arm64)
+- [Vault Cli] Add multi architecture support (amd64/arm64)
+- [Symfony Cli] Add multi architecture support (amd64/arm64)
+- [Ngrok] Add multi architecture support (amd64/arm64)
+- [Apt] Add multi architecture support (amd64/arm64/armhf)
+
+### Fixed
+- [Gomplate] Fix latest version url parsing when digits contains more than 1 character (just like `3.10.0`)
+- [Vault Cli] Fix latest version url parsing when digits contains more than 1 character (just like `3.10.0`)
+- [Vault Cli] Fix bin destination and permissions handling
 
 ## [0.1.134] - 2021-09-30
 ### Fixed

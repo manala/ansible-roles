@@ -13,16 +13,41 @@
   when: (not __manala_vault_cli_bin_stat_result.stat.exists)
         and (manala_vault_cli_version is none)
 
-- name: install > Install
-  unarchive:
-    src: "{{ manala_vault_cli_version is none|ternary(
-      __manala_vault_cli_version_latest.content|default|regex_search(
-        'https://releases.hashicorp.com/vault/\\d\\.\\d\\.\\d/vault_\\d\\.\\d\\.\\d_linux_amd64.zip'
-      ),
-      'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_amd64.zip'|format(version=manala_vault_cli_version)
-      )
-    }}"
-    dest: /usr/local/bin/
-    mode: 0755
-    remote_src: true
+- block:
+
+    - name: install > Create temporary directory
+      tempfile:
+        state: directory
+      register: __manala_vault_cli_temporary_directory
+
+    - name: install > Download to temporary directory
+      unarchive:
+        src: "{{ manala_vault_cli_version|ternary(
+          'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_%(architecture)s.zip'|format(
+            version=manala_vault_cli_version,
+            architecture=ansible_architecture|manala_vault_cli_architecture,
+          ),
+          __manala_vault_cli_version_latest.content|default|regex_search(
+            'https://releases.hashicorp.com/vault/\\d+\\.\\d+\\.\\d+/vault_\\d+\\.\\d+\\.\\d+_linux_%(architecture)s\\.zip'|format(
+              architecture=ansible_architecture|manala_vault_cli_architecture,
+            )
+          )
+        ) }}"
+        dest: "{{ __manala_vault_cli_temporary_directory.path }}"
+        remote_src: true
+
+    - name: install > Copy binary
+      copy:
+        src: "{{ __manala_vault_cli_temporary_directory.path }}/vault"
+        dest: "{{ manala_vault_cli_bin }}"
+        remote_src: true
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: install > Delete temporary directory
+      file:
+        path: "{{ __manala_vault_cli_temporary_directory.path }}"
+        state: absent
+
   when: (not __manala_vault_cli_bin_stat_result.stat.exists)
