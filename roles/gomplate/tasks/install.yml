@@ -19,7 +19,7 @@
       'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-amd64'|format(
         version=manala_gomplate_version|ternary(
           manala_gomplate_version,
-          __manala_gomplate_version_latest.url|default|regex_replace('.+\/v(\\d+\\.\\d+\\.\\d+)$', '\\1')
+          __manala_gomplate_version_latest.url|default|regex_replace('.+/v(\\d+\\.\\d+\\.\\d+)$', '\\1')
         )
       )
     }}"
