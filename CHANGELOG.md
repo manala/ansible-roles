@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.133] - 2021-09-21
 ### Fixed
 - [Gomplate] Fix latest version url parsing when digits contains more than 1 character (just like `3.10.0`)
 
