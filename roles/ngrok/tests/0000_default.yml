@@ -3,7 +3,6 @@
 - name: "{{ test }}"
   hosts: debian
   become: true
-  gather_facts: false
   tasks:
 
     - block:

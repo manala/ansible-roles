@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add multi architecture support (amd64/arm64/armhf)
 
 ## [2.0.32] - 2021-09-21
 ### Added

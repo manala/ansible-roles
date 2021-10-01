@@ -254,7 +254,7 @@ manala_apt_repositories_patterns:
     source: deb http://repo.aptly.info/ squeeze main
     key: aptly
   docker:
-    source: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    source: deb [arch={{ ansible_architecture|manala_apt_architecture }}] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
     key: docker
   manala:
     source: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main
@@ -263,7 +263,7 @@ manala_apt_repositories_patterns:
     source: deb http://apt.newrelic.com/debian/ newrelic non-free
     key: newrelic
   newrelic-infra:
-    source: deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main
+    source: deb [arch={{ ansible_architecture|manala_apt_architecture }}] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main
     key: newrelic-infra
   influxdata:
     source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
@@ -291,10 +291,10 @@ manala_apt_repositories_patterns:
     source: deb https://obiba.jfrog.io/artifactory/debian-local all main
     key: mica
   glusterfs_6:
-    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/amd64/apt {{ ansible_distribution_release }} main
+    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/{{ ansible_architecture|manala_apt_architecture }}/apt {{ ansible_distribution_release }} main
     key: glusterfs_6
   glusterfs_6_1:
-    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/amd64/apt {{ ansible_distribution_release }} main
+    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{ ansible_architecture|manala_apt_architecture }}/apt {{ ansible_distribution_release }} main
     key: glusterfs_6
   haproxy_1_8:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-1.8 main
