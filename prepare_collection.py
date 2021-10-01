@@ -125,6 +125,7 @@ for role_path in pathlib.Path('roles').glob('*'):
 	files = []
 	files.extend(pathlib.Path(role_dir, 'tasks').rglob('*.yml'))
 	files.extend(pathlib.Path(role_dir, 'templates').rglob('*.j2'))
+	files.extend(pathlib.Path(role_dir, 'vars').rglob('*.yml'))
 	regex = re.compile(r'(\|\s*)manala_', re.DOTALL)
 	for file_path in files:
 		with open(file_path, 'r+') as file:

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Fix collection preparing script (also looks fo filters in vars/ directory)
 
 ## [0.1.135] - 2021-10-01
 ### Added
