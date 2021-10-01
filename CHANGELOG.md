@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.135] - 2021-10-01
 ### Added
 - [Gomplate] Add multi architecture support (amd64/arm64)
 - [Vault Cli] Add multi architecture support (amd64/arm64)
