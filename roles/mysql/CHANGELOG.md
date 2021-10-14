@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Supports mariadb 10.6 for debian stretch and buster
 
 ## [2.0.11] - 2021-01-28
 ### Changed
