@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.137] - 2021-10-14
 ### Added
 - [MySQL] Supports mariadb 10.6 for debian stretch and buster
 - [Apt] MariaDB 10.6 repository pattern
