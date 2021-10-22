@@ -86,6 +86,16 @@ manala_accounts_users:
   - "{{ my_custom_users_array }}"
 ```
 
+#### Example: Trust GPG keys
+
+```yaml
+  - user: root
+    gpg_keys:
+      - key: foobar
+        public: "{{ query('file', playbook_dir ~ '/files/foobar.gpg.key') }}"
+        trust: true
+```
+
 ### Creating group
 
 You can create your own group by using the `manala_accounts_groups` by specifying:
