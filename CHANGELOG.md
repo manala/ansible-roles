@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- [Php] 8.1 support
+
+## [Unreleased]
+### Added
 - [All] Add debian bullseye support
 - [Accounts] `ignore` users state
 - [Accounts] users short syntax
