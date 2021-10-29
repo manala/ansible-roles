@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Accounts] Add trusted GPG public keys
 
 ## [0.1.137] - 2021-10-14
 ### Added
