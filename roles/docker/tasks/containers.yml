@@ -32,5 +32,5 @@
   loop: "{{
     manala_docker_containers
       | flatten
-      | manala.roles.staten(want='present')
+      | manala.roles.staten_ignore
   }}"
