@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] Don't ensure anymore that configs (`/etc/apt/apt.conf.d`) and preferences (`/etc/apt/preferences.d`) directory exists
 - [Apt] Switch default preferences pin priority from 900 to 1000
 - [Apt] Use regular expressions in preferences patterns when possible (such as `php`)
+- [OhMyZsh] Update users template (see: https://github.com/ohmyzsh/ohmyzsh/commits/master/templates/zshrc.zsh-template)
 - [Grafana] Group services handling and stop using handlers
 - [Shorewall] Explicit config file permissions
 - [Systemd] Use native systemd module for `daemon-reload`
