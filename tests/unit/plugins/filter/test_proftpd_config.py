@@ -23,6 +23,7 @@ class TestConfig(unittest.TestCase):
     def test(self):
         self.assertEqual('''bar 123
 baz baz''', config({
+            'foo': None,
             'bar': 123,
             'baz': 'baz',
         }))
@@ -84,6 +85,9 @@ class TestConfigParameter(unittest.TestCase):
         self.assertEqual('proftpd_config_parameter value of an unknown type <class \'NotImplementedType\'>', str(error.exception))
 
     def test(self):
+        self.assertEqual('''''', config_parameter({
+            'value': None,
+        }, 'value'))
         self.assertEqual('''value on''', config_parameter({
             'value': True,
         }, 'value'))

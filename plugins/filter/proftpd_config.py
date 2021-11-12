@@ -37,7 +37,9 @@ def config_parameter(parameters, key, required=False, comment=False, **kwargs):
             raise AnsibleFilterError('proftpd_config_parameter missing a default value for key %s' % key)
         value = kwargs.get('default')
 
-    if value is True:
+    if value is None:
+        result = ''
+    elif value is True:
         result = '%s on' % key
     elif value is False:
         result = '%s off' % key
