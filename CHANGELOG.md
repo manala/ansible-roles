@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - [Apt] Percona key url
+- [Cron] Remove empty lines between jobs
 - [MongoDB] `python-pymongo` or `python3-pymongo` apt package as requirements for users handling, depending of tha ansible python version
 - [ProFTPd] Remove useless leading spaces in users password file
 
