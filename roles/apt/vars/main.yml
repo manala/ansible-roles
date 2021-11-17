@@ -308,6 +308,9 @@ manala_apt_repositories_patterns:
   haproxy_2_2:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.2 main
     key: haproxy
+  haproxy_2_4:
+    source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.4 main
+    key: haproxy
   unifi:
     source: deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti
     key: unifi
