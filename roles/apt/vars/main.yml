@@ -299,6 +299,9 @@ manala_apt_repositories_patterns:
   glusterfs_6_1:
     source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{ ansible_architecture|manala_apt_architecture }}/apt {{ ansible_distribution_release }} main
     key: glusterfs_6
+  glusterfs_6_10:
+    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.10/Debian/{{ ansible_distribution_release }}/{{ ansible_architecture|manala_apt_architecture }}/apt {{ ansible_distribution_release }} main
+    key: glusterfs_6
   haproxy_1_8:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-1.8 main
     key: haproxy

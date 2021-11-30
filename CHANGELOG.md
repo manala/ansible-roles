@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Apt] Add GlusterFS 6.10 repository
 
 ## [0.1.139] - 2021-11-17
 ### Added
