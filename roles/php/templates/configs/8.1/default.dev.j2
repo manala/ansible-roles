@@ -1,0 +1,44 @@
+{#- Deprecated -#}
+
+{%- import '_macros.j2' as macros with context -%}
+
+{% set config = item.config|default([]) -%}
+{% set sapi = item.sapi -%}
+
+{# Upstream - [PHP] - Error handling and logging #}
+{{ macros.config_row(config, 'error_reporting', 'E_ALL') }}
+{{ macros.config_row(config, 'display_errors', true) }}
+{{ macros.config_row(config, 'display_startup_errors', true) }}
+
+{# Upstream - [Assertion] #}
+{{ macros.config_row(config, 'zend.assertions', 1) }}
+
+{# [PHP] - Miscellaneous #}
+{{ macros.config_row(config, 'expose_php', true) }}
+
+{# [PHP] - Resource Limits #}
+{{ macros.config_row(config, 'memory_limit', '512M') }}
+
+{# [PHP] - Error handling and logging #}
+{{ macros.config_row(config, 'error_log', '/var/log/php' ~ manala_php_version|string ~ '/error.log') }}
+
+{# Enable apc in cli as soon as apcu/apcu-bc extension is installed #}
+{{ macros.config_row(config, 'apc.enable_cli', true) }}
+
+{# [PHP] - Language Options - Dev #}
+{# See: http://stackoverflow.com/questions/12905404/symfony2-slow-initialization-time #}
+{{ macros.config_row(config, 'realpath_cache_size', '4096k') }}
+{{ macros.config_row(config, 'realpath_cache_ttl', 7200) }}
+
+{{ macros.config(config, [
+  'error_reporting',
+  'display_errors',
+  'display_startup_errors',
+  'zend.assertions',
+  'expose_php',
+  'memory_limit',
+  'error_log',
+  'apc.enable_cli',
+  'realpath_cache_size',
+  'realpath_cache_ttl'
+]) -}}

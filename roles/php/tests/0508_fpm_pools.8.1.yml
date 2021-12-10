@@ -1,0 +1,201 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian:!debian.jessie
+  become: true
+  tasks:
+
+    - tags: [always]
+      block:
+        - import_tasks: pre_tasks/disable_systemd.yml
+        - import_tasks: pre_tasks/sury_php.yml
+
+    # Default
+    - tags: [default]
+      block:
+        - file:
+            path: tmp/fpm_pools/default
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.php
+          vars:
+            manala_php_version: 8.1
+            manala_php_sapis:
+              - fpm
+            manala_php_fpm_pools_dir: tmp/fpm_pools/default
+            manala_php_fpm_pools:
+              # Default
+              - file: default.conf
+                config:
+                  www:
+                    user: foo
+                    group: foo
+                    env:
+                      FOO: bar
+                      BAR: 123
+                      BAZ: 1.2
+                      QUX: foo=bar
+                    php_admin_value:
+                      memory_limit: 123M
+                    php_value:
+                      display_errors: false
+                  bar:
+                    user: bar
+                    group: bar
+              # Default - Deprecated
+              - file: default_deprecated.conf
+                config:
+                  - www:
+                    - user: foo
+                    - group: foo
+                    - env[_FOO]: bar
+                    - env[_BAR]: 123
+                    - php_admin_value[memory_limit]: 123M
+                    - php_value[display_errors]: false
+                  - bar:
+                    - user: bar
+                    - group: bar
+              # Default - Content
+              - file: default_content.conf
+                config: |
+                  [www]
+                  user = foo
+                  group = foo
+                  env[BAR] = 123
+                  env[BAZ] = 1.2
+                  env[FOO] = bar
+                  env[QUX] = foo=bar
+                  php_admin_value[memory_limit] = 123M
+                  php_value[display_errors] = no
+                  [bar]
+                  user = bar
+                  group = bar
+              # Flatten
+              -
+                # Template
+                - file: template.conf
+                  template: fpm_pools/sury/pools.conf.j2
+                  config:
+                    www:
+                      user: foo
+                      group: foo
+                      env:
+                        FOO: bar
+                        BAR: 123
+                        BAZ: 1.2
+                        QUX: foo=bar
+                      php_admin_value:
+                        memory_limit: 123M
+                      php_value:
+                        display_errors: false
+                    bar:
+                      user: bar
+                      group: bar
+                # Template - Deprecated
+                - file: template_deprecated.conf
+                  template: fpm_pools/default.j2
+                  config:
+                    - www:
+                      - user: foo
+                      - group: foo
+                      - env[_FOO]: bar
+                      - env[_BAR]: 123
+                      - env:
+                          FOO: bar
+                          BAR: 123
+                          BAZ: 1.2
+                          QUX: foo=bar
+                      - php_admin_value[memory_limit]: 123M
+                      - php_value[display_errors]: false
+                    - bar:
+                      - user: bar
+                      - group: bar
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [default]}" validate
+
+    # State
+    - tags: [state]
+      block:
+        - file:
+            path: tmp/fpm_pools/state
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/fpm_pools/state/{{ item }}.conf
+            state: touch
+          loop: [bar, qux]
+        - import_role:
+            name: manala.php
+            tasks_from: fpm_pools
+          vars:
+            manala_php_fpm_pools_dir: tmp/fpm_pools/state
+            manala_php_fpm_pools:
+              - file: foo.conf
+              - file: bar.conf
+                state: absent
+              - file: baz.conf
+                state: present
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [state]}" validate
+
+    # Defaults
+    - tags: [defaults]
+      block:
+        - file:
+            path: tmp/fpm_pools/defaults
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - import_role:
+            name: manala.php
+            tasks_from: fpm_pools
+          vars:
+            manala_php_fpm_pools_dir: tmp/fpm_pools/defaults
+            manala_php_fpm_pools_defaults:
+              template: fpm_pools/foo.conf.j2
+            manala_php_fpm_pools:
+              - file: foo.conf
+              - template: fpm_pools/bar.conf.j2
+              - file: baz.conf
+                template: fpm_pools/bar.conf.j2
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [defaults]}" validate
+
+    # Exclusive
+    - tags: [exclusive]
+      block:
+        - file:
+            path: tmp/fpm_pools/exclusive
+            state: "{{ item }}"
+          loop: [absent, directory]
+        - file:
+            path: tmp/fpm_pools/exclusive/{{ item }}.conf
+            state: touch
+          loop: [foo, bar, baz, qux]
+        - import_role:
+            name: manala.php
+            tasks_from: fpm_pools
+          vars:
+            manala_php_fpm_pools_dir: tmp/fpm_pools/exclusive
+            manala_php_fpm_pools_exclusive: true
+            manala_php_fpm_pools:
+              - file: bar.conf
+              - file: qux.conf
+                state: ignore
+              - file: quux.conf
+                state: ignore
+      always:
+        - name: Goss
+          command: >
+            goss --gossfile {{ test }}.goss.yml --vars-inline "{tags: [exclusive]}" validate

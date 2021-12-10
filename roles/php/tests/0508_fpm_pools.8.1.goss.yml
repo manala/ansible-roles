@@ -1,0 +1,176 @@
+---
+
+# Default
+{{ if has "default" .Vars.tags }}
+file:
+  tmp/fpm_pools/default/default.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[www]"
+      - "user = foo"
+      - "group = foo"
+      - "env[BAR] = 123"
+      - "env[BAZ] = 1.2"
+      - "env[FOO] = bar"
+      - "env[QUX] = foo=bar"
+      - "php_admin_value[memory_limit] = 123M"
+      - "php_value[display_errors] = no"
+      - "[bar]"
+      - "user = bar"
+      - "group = bar"
+  tmp/fpm_pools/default/default_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[www]"
+      - "user = foo"
+      - "group = foo"
+      - "env[_FOO] = bar"
+      - "env[_BAR] = 123"
+      - "php_admin_value[memory_limit] = 123M"
+      - "php_value[display_errors] = no"
+      - "[bar]"
+      - "user = bar"
+      - "group = bar"
+  tmp/fpm_pools/default/default_content.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[www]"
+      - "user = foo"
+      - "group = foo"
+      - "env[BAR] = 123"
+      - "env[BAZ] = 1.2"
+      - "env[FOO] = bar"
+      - "env[QUX] = foo=bar"
+      - "php_admin_value[memory_limit] = 123M"
+      - "php_value[display_errors] = no"
+      - "[bar]"
+      - "user = bar"
+      - "group = bar"
+  tmp/fpm_pools/default/template.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[www]"
+      - "user = foo"
+      - "group = foo"
+      - "env[BAR] = \"123\""
+      - "env[BAZ] = \"1.2\""
+      - "env[FOO] = \"bar\""
+      - "env[QUX] = \"foo=bar\""
+      - "php_admin_value[memory_limit] = 123M"
+      - "php_value[display_errors] = no"
+      - "[bar]"
+      - "user = bar"
+      - "group = bar"
+  tmp/fpm_pools/default/template_deprecated.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[www]"
+      - "user = foo"
+      - "group = foo"
+      - "env[_FOO] = bar"
+      - "env[_BAR] = 123"
+      - "env[BAR] = \"123\""
+      - "env[BAZ] = \"1.2\""
+      - "env[FOO] = \"bar\""
+      - "env[QUX] = \"foo=bar\""
+      - "php_admin_value[memory_limit] = 123M"
+      - "php_value[display_errors] = no"
+      - "[bar]"
+      - "user = bar"
+      - "group = bar"
+{{ end }}
+
+# State
+{{ if has "state" .Vars.tags }}
+file:
+  tmp/fpm_pools/state/foo.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/fpm_pools/state/bar.conf:
+    exists: false
+  tmp/fpm_pools/state/baz.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/fpm_pools/state/qux.conf:
+    exists: true
+    filetype: file
+  tmp/fpm_pools/state/quux.conf:
+    exists: false
+{{ end }}
+
+# Defaults
+{{ if has "defaults" .Vars.tags }}
+file:
+  tmp/fpm_pools/defaults/foo.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Fpm Pools foo"
+  tmp/fpm_pools/defaults/bar.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Fpm Pools bar"
+  tmp/fpm_pools/defaults/baz.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "Fpm Pools bar"
+{{ end }}
+
+# Exclusive
+{{ if has "exclusive" .Vars.tags }}
+file:
+  tmp/fpm_pools/exclusive/foo.conf:
+    exists: false
+  tmp/fpm_pools/exclusive/bar.conf:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  tmp/fpm_pools/exclusive/baz.conf:
+    exists: false
+  tmp/fpm_pools/exclusive/qux.conf:
+    exists: false
+  tmp/fpm_pools/exclusive/quux.conf:
+    exists: false
+{{ end }}
