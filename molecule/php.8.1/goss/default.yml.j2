@@ -74,7 +74,7 @@ file:
     owner: root
     group: root
     mode: "0755"
-  /usr/local/bin/phpunit_9.5.1:
+  /usr/local/bin/phpunit_9.5.9:
     exists: true
     filetype: file
     owner: root
@@ -83,7 +83,7 @@ file:
   /usr/local/bin/phpunit:
     exists: true
     filetype: symlink
-    linked-to: phpunit_9.5.1
+    linked-to: phpunit_9.5.9
   /usr/local/bin/phpcbf:
     exists: false
   # Blackfire
@@ -112,7 +112,7 @@ command:
   phpunit --version:
     exit-status: 0
     stdout:
-      - PHPUnit 9.5.1
+      - PHPUnit 9.5.9 by Sebastian Bergmann and contributors.
   phpcbf --version:
     exit-status: 127
   # Blackfire

@@ -46,6 +46,8 @@
                   enabled: false
                 - extension: igbinary  # Pecl extension
                   enabled: true
+                - extension: mbstring  # Needed for phpunit
+                  state: present
                 - extension: xdebug  # Pecl extension
                   enabled: false
                 - extension: curl  # Native extension
@@ -62,7 +64,7 @@
               -
                 - phpunit@4.8.30
                 - application: phpunit
-                  version: 9.5.1
+                  version: 9.5.9
                 - application: phpcbf
                   state: ignore
             manala_php_blackfire: true
