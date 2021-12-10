@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Php] Supports php 8.1 for debian stretch and buster
+- [Apt] Php 8.1 repository pattern
 
 ## [0.1.140] - 2021-11-30
 ### Added
