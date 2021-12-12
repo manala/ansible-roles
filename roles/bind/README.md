@@ -152,6 +152,59 @@ manala_bind_zones:
       - { record: bar, value: 172.16.1.123 }
 ```
 
+#### Zones - Dynamic, records with key and secret
+
+`zone` parameter is mandatory, and `dynamic` parameter must be se to true.
+
+The zone configuration must allow update from (at least) localhost and you must specify `key_name` and `key_secret` parameters either on the zone level or record level.
+To generate the secrets, run `rndc-confgen` and manually copy out the values of the `secret` field.
+Alternatively, consider using `dnssec-keygen`. See [Debian Bind9 guide](https://wiki.debian.org/Bind9#TSIG_Signature).
+
+Considering the dynamic nature of the zone file, `content` or `template` parameters are only taken into account when the file does not exists yet. One can see this as a zone bootstraping.
+
+```yaml
+manala_bind_configs:
+  - file: named.conf.local
+    content: |
+      key "rndc-key" {
+        algorithm hmac-md5;
+        secret "T6WG7/V+N6LzrswVZbtQyQ=="; # DO NOT USE THIS SECRET.
+      };
+
+      controls {
+        inet 127.0.0.1 port 953
+        allow { 127.0.0.1; } keys { "rndc-test-key"; };
+      };
+
+      zone "foo.local" {
+        type master;
+        file "{{ 'foo.local'|manala_bind_zone_file }}";
+        allow-update { key rndc-key;}; 
+      };
+
+manala_bind_zones:
+  - zone: foo.local
+    zone_hostname: localhost
+    dynamic: true
+    content: |
+      @  IN SOA ns.foo.local. contact.foo.local. (
+                  1       ; serial
+                  604800  ; refresh (1 week)
+                  86400   ; retry (1 day)
+                  2419200 ; expire (4 weeks)
+                  86400   ; minimum (1 day)
+                  )
+      @  IN NS  ns.foo.local.
+      ns IN A   172.16.1.1
+    record_defaults:    # use either this format or specify the below directly on the records themselves.
+      key_name: rndc-key
+      key_secret: "T6WG7/V+N6LzrswVZbtQyQ=="
+      key_algorithm: hmac-md5
+    records:
+      - record: bar
+        value: 172.16.1.123
+```
+
 ## Example playbook
 
 ```yaml
