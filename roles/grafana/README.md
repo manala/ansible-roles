@@ -8,7 +8,7 @@ It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as
 
 ## Requirements
 
-This role is made to work with the __grafana__ official debian packages, available on the [__grafana__ debian repository](http://docs.grafana.org/installation/debian/#apt-repository). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the __grafana__ official debian packages, available on the [__grafana__ debian repository](http://docs.grafana.org/installation/debian/#apt-repository). Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:

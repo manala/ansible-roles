@@ -40,7 +40,7 @@ You can find all variables and default values used by this role in the [defaults
 
 ```yaml
 manala_ansible_galaxy_roles:
-  - manala.skeleton
+  - ansistrano.deploy
 ```
 
 ### Flags
