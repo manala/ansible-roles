@@ -109,9 +109,11 @@ manala_rsyslog_configs_exclusive: true
     - role: manala.rsyslog
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

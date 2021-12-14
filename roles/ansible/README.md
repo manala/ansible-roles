@@ -84,9 +84,11 @@ manala_ansible_group_vars:
     - role: manala.ansible
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

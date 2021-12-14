@@ -131,8 +131,7 @@ We strongly encourage you to generate SHA2 password hash
 On linux, it can be generated with:
 `echo -n yourpassword | mkpasswd --method=sha-512 -`
 
-Example playbook
-----------------
+## Example playbook
 
 ```yaml
 - hosts: servers
@@ -140,11 +139,12 @@ Example playbook
     - role: manala.proftpd
 ```
 
-Licence
--------
-MIT
+# Licencing
 
-Author information
-------------------
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
+
+# Author information
 
 Manala [**(http://www.manala.io/)**](http://www.manala.io) is an open source project supported by the french web agency [**(ELAO)**](http://www.elao.com)

@@ -212,9 +212,11 @@ manala_php_blackfire_client_config:
     - role: manala.php
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

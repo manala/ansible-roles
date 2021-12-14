@@ -65,9 +65,11 @@ manala_glusterfs_volumes:
 - "Options" are expecting strings only. Quotes are required.
 - To add bricks, use the same syntax on existent volume.
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

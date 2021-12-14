@@ -119,9 +119,11 @@ See InfluxDB documentation for more information about [databases](https://docs.i
      - role: manala.influxdb
  ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 
