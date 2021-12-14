@@ -39,14 +39,7 @@ None
 
 ## Role Variables
 
-| Name                                  | Default           | Type         | Description                            |
-| ------------------------------------- | ----------------- | ------------ | -------------------------------------- |
-| `manala_git_install_packages`         | ~                 | Array        | Dependency packages to install         |
-| `manala_git_install_packages_default` | ['git']           | Array        | Default dependency packages to install |
-| `manala_git_config_file`              | '/etc/gitconfig'  | String       | Configuration file path                |
-| `manala_git_config_template`          | 'config/empty.j2' | String       | Configuration template path            |
-| `manala_git_config`                   | ~                 | Array/String | Git config options                     |
-| `manala_git_repositories`             | []                | Array        | List of repositories to checkout       |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### GIT configuration
 

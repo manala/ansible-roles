@@ -43,21 +43,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default                    | Type    | Description                            |
-| ----------------------------------------- | -------------------------- | ------- | -------------------------------------- |
-| `manala_grafana_version`                  | ~                          | String  | Installed version                      |
-| `manala_grafana_install_packages`         | ~                          | Array   | Dependency packages to install         |
-| `manala_grafana_install_packages_default` | ['grafana']                | Array   | Default dependency packages to install |
-| `manala_grafana_config_file`              | '/etc/grafana/grafana.ini' | String  | Configuration file path                |
-| `manala_grafana_config_template`          | 'config/_default.j2'       | String  | Configuration base template path       |
-| `manala_grafana_config`                   | ~                          | String  | Configuration directives               |
-| `manala_grafana_api_url`                  | 'http://127.0.0.1:3000'    | String  | API endpoint                           |
-| `manala_grafana_api_user`                 | 'admin'                    | String  | API user                               |
-| `manala_grafana_api_password`             | 'admin'                    | String  | API password                           |
-| `manala_grafana_datasources_exclusive`    | false                      | Boolean | Remove old datasources                 |
-| `manala_grafana_datasources`              | []                         | Array   | Datasources                            |
-| `manala_grafana_dashboards_exclusive`     | false                      | Boolean | Remove old dashboards                  |
-| `manala_grafana_dashboards`               | []                         | Array   | Dashboards                             |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

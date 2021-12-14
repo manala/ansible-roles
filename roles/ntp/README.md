@@ -32,12 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                  | Default | Type  | Description                            |
-| ------------------------------------- | ------- | ----- | -------------------------------------- |
-| `manala_ntp_install_packages`         | ~       | Array | Dependency packages to install         |
-| `manala_ntp_install_packages_default` | ['ntp'] | Array | Default dependency packages to install |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 

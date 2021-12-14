@@ -40,12 +40,7 @@ None.
 
 ## Role Variables
 
-### Definition
-
-| Name                       | Default                  | Type   | Description                            |
-| -------------------------- | ------------------------ | ------ | -------------------------------------- |
-| `manala_vault_cli_version` | ~                        | String | Version to install, latest by default  |
-| `manala_vault_cli_bin`     | '/usr/local/bin/vault'   | String | Binary path                            |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 

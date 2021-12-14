@@ -32,17 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                        | Default               | Type    | Description                                  |
-| ------------------------------------------- | --------------------- | ------- | -------------------------------------------- |
-| `manala_systemd_system_configs_exclusive`   | false                 | Boolean | Exclusion of existings files                 |
-| `manala_systemd_system_configs_dir`         | '/etc/systemd/system' | String  | Path to the system configuration directory   |
-| `manala_systemd_system_configs_defaults`    | {}                    | Array   | System configs defaults                      |
-| `manala_systemd_system_configs`             | []                    | Array   | System configs                               |
-| `manala_systemd_tmpfiles_configs_exclusive` | false                 | Boolean | Exclusion of existings files                 |
-| `manala_systemd_tmpfiles_configs_dir`       | '/etc/tmpfiles.d'     | String  | Path to the tmpfiles configuration directory |
-| `manala_systemd_tmpfiles_configs_defaults`  | {}                    | Array   | Tmpfiles configs defaults                    |
-| `manala_systemd_tmpfiles_configs`           | []                    | Array   | Tmpfiles configs                             |
-| `manala_systemd_services`                   | []                    | Array   | Services                                     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

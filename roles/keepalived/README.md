@@ -44,16 +44,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                         | Default                           | Type         | Description                                       |
-| -------------------------------------------- | --------------------------------- | ------------ | ------------------------------------------------- |
-| `manala_keepalived_install_packages`         | ~                                 | Array        | Dependency packages to install directives         |
-| `manala_keepalived_install_packages_default` | ['keepalived']                    | Array        | Default dependency packages to install directives |
-| `manala_keepalived_config_file`              | '/etc/keepalived/keepalived.conf' | Array        | Configuration file path                           |
-| `manala_keepalived_config_template`          | 'config/_default.j2'              | String       | Configuration base template path                  |
-| `manala_keepalived_config`                   | ~                                 | Array/String | Configuration directives                          |
-| `manala_keepalived_environment_file`         | '/etc/default/keepalived'         | Array        | Environment file path                             |
-| `manala_keepalived_environment_template`     | 'environment/_default.j2'         | String       | Environment base template path                    |
-| `manala_keepalived_environment`              | ~                                 | Array/String | Environment directives                            |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

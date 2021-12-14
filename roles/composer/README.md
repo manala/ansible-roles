@@ -36,17 +36,7 @@ None.
 
 ## Role Variables
 
-### Definition
-
-| Name                                       | Default                        | Type   | Description                            |
-| ------------------------------------------ | ------------------------------ | ------ | -------------------------------------- |
-| `manala_composer_version`                  | ~                              | String | Version to install, latest by default  |
-| `manala_composer_install_packages`         | ~                              | Array  | Dependency packages to install         |
-| `manala_composer_install_packages_default` | ['openssl', 'ca-certificates'] | Array  | Default dependency packages to install |
-| `manala_composer_bin`                      | '/usr/local/bin/composer'      | String | Binary path                            |
-| `manala_composer_users_auth_template`      | ~                              | String | User auth template path                |
-| `manala_composer_users_auth`               | []                             | Array  | User auth config                       |
-| `manala_composer`                          | {}                             | Dict   | Use for custom flags                   |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

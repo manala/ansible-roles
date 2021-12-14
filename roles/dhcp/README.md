@@ -38,14 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                   | Default                | Type   | Description                            |
-| -------------------------------------- | ---------------------- | ------ | -------------------------------------- |
-| `manala_dhcp_install_packages`         | ~                      | Array  | Dependency packages to install         |
-| `manala_dhcp_install_packages_default` | ['isc-dhcp-server']    | Array  | Default dependency packages to install |
-| `manala_dhcp_interfaces`               | []                     | Array  | Network interfaces                     |
-| `manala_dhcp_config_file`              | '/etc/dhcp/dhcpd.conf' | String | Configuration destination path         |
-| `manala_dhcp_config_template`          | ~                      | String | Configuration template                 |
-| `manala_dhcp_config_content`           | ~                      | String | Configuration content                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

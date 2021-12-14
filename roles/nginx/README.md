@@ -43,17 +43,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                    | Default             | Type    | Description                                    |
-| --------------------------------------- | ------------------- | ------- | ---------------------------------------------- |
-| `manala_nginx_install_packages`         | 'config/default.j2' | String  | Dependency packages to install                 |
-| `manala_nginx_install_packages_default` | 'config/default.j2' | String  | Default dependency packages to install         |
-| `manala_nginx_config_template`          | 'config/default.j2' | String  | Main configuration template path               |
-| `manala_nginx_config`                   | []                  | Array   | Main configuration                             |
-| `manala_nginx_configs`                  | []                  | Array   | Configurations                                 |
-| `manala_nginx_configs_template`         | 'configs/empty.j2'  | String  | Configurations template path                   |
-| `manala_nginx_configs_exclusive`        | false               | Boolean | Exclusion of existings files                   |
-| `manala_nginx_configs_dir`              | '/etc/nginx/conf.d' | String  | Configurations directory path                  |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Nginx configuration
 

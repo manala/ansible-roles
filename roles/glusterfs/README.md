@@ -37,12 +37,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                        | Default                    | Type    | Description                            |
-| -----------------------------------------   | -------------------------- | ------- | -------------------------------------- |
-| `manala_glusterfs_install_packages`         | ~                          | Array   | Dependency packages to install         |
-| `manala_glusterfs_install_packages_default` | ['glusterfs-server']       | Array   | Default dependency packages to install |
-| `manala_glusterfs_volumes`                  | []                         | Array   | Volumes settings                       |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

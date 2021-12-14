@@ -38,24 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                           | Default                       | Type         | Description                                                      |
-| ---------------------------------------------- | ----------------------------- | ------------ | ---------------------------------------------------------------- |
-| `manala_network_hosts_file`                    | '/etc/hosts'                  | String       | Host file path                                                   |
-| `manala_network_hosts`                         | {}                            | Array        | Hosts                                                            |
-| `manala_network_resolver_config_file`          | '/etc/resolv.conf'            | String       | Resolver file path                                               |
-| `manala_network_resolver_config_template`      | ~                             | String       | Resolver file template                                           |
-| `manala_network_resolver_config`               | ~                             | String/Array | Resolver configuration                                           |
-| `manala_network_interfaces_config_file`        | '/etc/network/interfaces'     | String       | Interfaces file path                                             |
-| `manala_network_interfaces_config_template`    | ~                             | String       | Interfaces file template                                         |
-| `manala_network_interfaces_config`             | ~                             | String/Array | Interfaces configuration                                         |
-| `manala_network_interfaces_configs_exclusive`  | false                         | Boolean      | Exclusion of existing files additional interfaces configurations |
-| `manala_network_interfaces_configs_dir`        | '/etc/network/interfaces.d'   | String       | Additional interfaces configurations directory path              |
-| `manala_network_interfaces_configs_defaults`   | {}                            | Array        | Additional interfaces configurations defaults                    |
-| `manala_network_interfaces_configs`            | []                            | Array        | Additional interfaces configurations directives                  |
-| `manala_network_routing_tables_file`           | '/etc/iproute2/rt_tables'     | String       | Routing tables file path                                         |
-| `manala_network_routing_tables`                | {}                            | Array        | Routing tables                                                   |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration examples
 

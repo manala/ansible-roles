@@ -39,14 +39,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                     | Default       | Type    | Description                                        |
-| ---------------------------------------- | ------------- | ------- | -------------------------------------------------- |
-| `manala_gitlab_install_packages`         | ~             | Array   | Dependency packages to install                     |
-| `manala_gitlab_install_packages_default` | ['gitlab-ce'] | Array   | Default dependency packages to install             |
-| `manala_gitlab_configs_exclusive`        | false         | Boolean | If true, will delete any extra configuration files |
-| `manala_gitlab_configs_dir`              | '/etc/gitlab' | String  | Path to the main configuration directory           |
-| `manala_gitlab_configs_defaults`         | {}            | Array   | Configuration defaults                             |
-| `manala_gitlab_configs`                  | []            | Array   | Configuration files                                |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

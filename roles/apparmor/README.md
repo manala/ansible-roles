@@ -38,14 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default           | Type    | Description                            |
-| ------------------------------------------ | ----------------- | ------- | -------------------------------------- |
-| `manala_apparmor_install_packages`         | ~                 | Array   | Dependency packages to install         |
-| `manala_apparmor_install_packages_default` | ['apparmor']      | Array   | Default dependency packages to install |
-| `manala_apparmor_configs_exclusive`        | false             | Boolean | Configurations exclusivity             |
-| `manala_apparmor_configs_dir`              | '/etc/apparmor.d' | String  | Configurations directory path          |
-| `manala_apparmor_configs_defaults`         | {}                | String  | Configurations defaults                |
-| `manala_apparmor_configs`                  | []                | Array   | Configurations                         |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 

@@ -37,17 +37,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                             | Default                    | Type    | Description                            |
-| ------------------------------------------------ | -------------------------- | ------- | -------------------------------------- |
-| `manala_backup_manager_install_packages`         | ~                          | Array   | Dependency packages to install         |
-| `manala_backup_manager_install_packages_default` | ['backup-manager']         | Array   | Default dependency packages to install |
-| `manala_backup_manager_configs_exclusive`        | false                      | Boolean | Configs exclusivity                    |
-| `manala_backup_manager_configs_dir`              | '/etc/backup-manager.d'    | String  | Configs directory path                 |
-| `manala_backup_manager_configs_defaults`         | {}                         | String  | Configs defaults                       |
-| `manala_backup_manager_configs`                  | []                         | Array   | Collection of configs                  |
-| `manala_backup_manager_bin`                      | '/usr/sbin/backup-manager' | String  | Binary path                            |
-
-### Backup manager variable
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 #### Local Storage
 

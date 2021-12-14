@@ -36,10 +36,7 @@ None
 
 ## Role Variables
 
-| Name                     | Default | Type  | Description                    |
-| -------------------------| ------- | ----- | ------------------------------ |
-| `manala_accounts_users`  | Array   | Array | List of unix users.            |
-| `manala_accounts_groups` | Array   | Array | Array of groups to be created. |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Defining users
 

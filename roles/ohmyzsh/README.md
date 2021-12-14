@@ -36,17 +36,7 @@ None
 
 ## Role Variables
 
-| Name                                     | Default                      | Type    | Description                                                    |
-| ---------------------------------------- | ---------------------------- | ------- | -------------------------------------------------------------- |
-| `manala_ohmyzsh_dir`                     | '/usr/local/share/oh-my-zsh' | String  | Oh My Zsh installation directory                               |
-| `manala_ohmyzsh_users_defaults`          | []                           | Array   | Users config defaults                                          |
-| `manala_ohmyzsh_users`                   | []                           | Array   | Collection of users with ohMyZsh custom configurations.        |
-| `manala_ohmyzsh.update`                  | false                        | Boolean | Whether or not we should auto retrieve new revision of ohMyZsh |
-| `manala_ohmyzsh_custom_themes_exclusive` | false                        | Boolean | Exclusion of existing custom themes                            |
-| `manala_ohmyzsh_custom_themes_dir`       | '/etc/supervisor/conf.d'     | String  | Custom themes directory path                                   |
-| `manala_ohmyzsh_custom_themes_defaults`  | {}                           | Array   | Custom themes defaults                                         |
-| `manala_ohmyzsh_custom_themes`           | []                           | Array   | Custom themes                                                  |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Oh My Zsh configuration
 

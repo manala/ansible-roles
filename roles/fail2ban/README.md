@@ -38,12 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default              | Type   | Description                            |
-| ------------------------------------------ | -------------------- | ------ | -------------------------------------- |
-| `manala_fail2ban_install_packages`         | ~                    | Array  | Dependency packages to install         |
-| `manala_fail2ban_install_packages_default` | ['fail2ban']         | Array  | Default dependency packages to install |
-| `manala_fail2ban_config_template`          | 'config/_default.j2' | String | Main config template                   |
-| `manala_fail2ban_config`                   | ~                    | String | Main config                            |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration
 

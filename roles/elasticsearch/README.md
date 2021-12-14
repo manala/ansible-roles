@@ -38,20 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                            | Default                                | Type         | Description                            |
-| ----------------------------------------------- | -------------------------------------- | ------------ | -------------------------------------- |
-| `manala_elasticsearch_version`                  | ~                                      | String       | Version (autodetect if null)           |
-| `manala_elasticsearch_install_packages`         | ~                                      | Array        | Dependency packages to install         |
-| `manala_elasticsearch_install_packages_default` | ['elasticsearch']                      | Array        | Default dependency packages to install |
-| `manala_elasticsearch_config_file`              | '/etc/elasticsearch/elasticsearch.yml' | String       | Configuration file path                |
-| `manala_elasticsearch_config_template`          | ~                                      | String       | Configuration file template path       |
-| `manala_elasticsearch_config`                   | ~                                      | Array/String | Configuration                          |
-| `manala_elasticsearch_plugins`                  | []                                     | Array        | Plugins                                |
-| `manala_elasticsearch_environment_file`         | '/etc/default/elasticsearch'           | String       | Environment file path                  |
-| `manala_elasticsearch_environment_template`     | ~                                      | String       | Environment file template path         |
-| `manala_elasticsearch_environment`              | ~                                      | Array/String | Environment                            |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Example
 

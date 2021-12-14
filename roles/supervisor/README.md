@@ -43,18 +43,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                         | Default                            | Type         | Description                                           |
-| -------------------------------------------- | ---------------------------------- | ------------ | ----------------------------------------------------- |
-| `manala_supervisor_install_packages`         | ~                                  | Array        | Dependency packages to install                        |
-| `manala_supervisor_install_packages_default` | ['supervisor']                     | Array        | Default dependency packages to install                |
-| `manala_supervisor_config_file`              | '/etc/supervisor/supervisord.conf' | String       | Main configuration file path                          |
-| `manala_supervisor_config_template`          | 'config/_default.j2'               | String       | Main configuration template path                      |
-| `manala_supervisor_config`                   | ~                                  | Array/String | Main configuration directives                         |
-| `manala_supervisor_configs_exclusive`        | false                              | Boolean      | Exclusion of existing files additional configurations |
-| `manala_supervisor_configs_dir`              | '/etc/supervisor/conf.d'           | String       | Additional configurations directory path              |
-| `manala_supervisor_configs_defaults`         | {}                                 | Array        | Additional configurations defaults                    |
-| `manala_supervisor_configs`                  | []                                 | Array        | Additional configurations directives                  |
-| `manala_supervisor_log_dir`                  | '/var/log/supervisor'              | String       | Log directory path                                    |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

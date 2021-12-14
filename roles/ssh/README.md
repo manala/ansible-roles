@@ -42,18 +42,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                  | Default                                     | Type         | Description                                |
-| ------------------------------------- | ------------------------------------------- | ------------ | ------------------------------------------ |
-| `manala_ssh_install_packages`         | ~                                           | Array        | Dependency packages to install             |
-| `manala_ssh_install_packages_default` | ['openssh-server']                          | Array        | Default dependency packages to install     |
-| `manala_ssh_server`                   | true                                        | Boolean      | Enable server                              |
-| `manala_ssh_server_config_file`       | '/etc/ssh/sshd_config'                      | String       | Server configuration file path             |
-| `manala_ssh_server_config_template`   | 'config/server/[distribution]_[release].j2' | String       | Server default configuration template path |
-| `manala_ssh_server_config`            | ~                                           | Array/String | Server configuration directives            |
-| `manala_ssh_client_config_file`       | '/etc/ssh/ssh_config'                       | String       | Client configuration file path             |
-| `manala_ssh_client_config_template`   | 'config/client/[distribution]_[release].j2' | String       | Client default configuration template path |
-| `manala_ssh_client_config`            | ~                                           | Array/String | Client configuration directives            |
-| `manala_ssh_known_hosts`              | []                                          | Array        | Known hosts                                |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

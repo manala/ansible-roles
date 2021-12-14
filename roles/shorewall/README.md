@@ -38,16 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                        | Default                         | Type    | Description                                                         |
-| ------------------------------------------- | ------------------------------- | ------- | ------------------------------------------------------------------- |
-| `manala_shorewall_install_packages`         | ~                               | Array   | Dependency packages to install                                      |
-| `manala_shorewall_install_packages_default` | ['shorewall']                   | Array   | Default dependency packages to install                              |
-| `manala_shorewall_config_file`              | '/etc/shorewall/shorewall.conf' | String  | Main configuration file path                                        |
-| `manala_shorewall_config`                   | {}                              | Array   | Main configuration directives                                       |
-| `manala_shorewall_configs_exclusive`        | false                           | Boolean | Exclusion of existing files additional configurations               |
-| `manala_shorewall_configs_dir`              | '/etc/shorewall'                | String  | Additional configurations directory path                            |
-| `manala_shorewall_configs_defaults`         | {}                              | Array   | Additional configurations defaults                                  |
-| `manala_shorewall_configs`                  | []                              | Array   | Additional configurations directives (zones, rules, interfaces,...) |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Configuration examples (See [Shorewall documentation](http://shorewall.net/Documentation_Index.html) for further informations)
 

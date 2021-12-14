@@ -44,31 +44,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                          | Default                       | Type                 | Description                                             |
-| --------------------------------------------- | ----------------------------- | -------------------- | ------------------------------------------------------- |
-| `manala_php_version`                          | ~                             | String,Integer,Float | Php version                                             |
-| `manala_php_sapis_exclusive`                  | false                         | Boolean              | Should the SAPIs list be exclusive ?                    |
-| `manala_php_sapis`                            | ~                             | Array                | A list of PHP SAPIs                                     |
-| `manala_php_sapis_default`                    | ['cli', 'fpm']                | Array                | Default list of PHP SAPIs                               |
-| `manala_php_extensions_exclusive`             | false                         | Boolean              | Should the extensions list be exclusive ?               |
-| `manala_php_extensions`                       | []                            | Array                | A list of PHP extensions                                |
-| `manala_php_configs_exclusive:`               | false                         | Boolean              | Should configs files be exclusive ?                     |
-| `manala_php_configs_defaults`                 | {}                            | Array                | Configs defaults                                        |
-| `manala_php_configs`                          | []                            | Array                | Configs files                                           |
-| `manala_php_cli_configs`                      | []                            | Array                | Configs files (cli SAPI only)                           |
-| `manala_php_fpm_configs`                      | []                            | Array                | Configs files (fpm SAPI only)                           |
-| `manala_php_fpm_pools_exclusive`              | false                         | Boolean              | Should fpm pools files be exclusive ?                   |
-| `manala_php_fpm_pools_defaults`               | {}                            | Array                | Fpm pools defaults                                      |
-| `manala_php_fpm_pools`                        | []                            | Array                | Fpm pools files                                         |
-| `manala_php_blackfire`                        | false                         | Boolean              | Install blackfire                                       |
-| `manala_php_blackfire_agent_config_file`      | '/etc/blackfire/agent'        | String               | Blackfire agent config file path                        |
-| `manala_php_blackfire_agent_config_template`  | 'blackfire/agent/default.j2'  | String               | Blackfire agent config base template path               |
-| `manala_php_blackfire_agent_config`           | []                            | Array                | Blackfire agent config                                  |
-| `manala_php_blackfire_client_config_file`     | '~/.blackfire.ini'            | String               | Blackfire client config file path                       |
-| `manala_php_blackfire_client_config_template` | 'blackfire/client/default.j2' | String               | Blackfire client config base template path              |
-| `manala_php_blackfire_client_config`          | []                            | Array                | Blackfire client config                                 |
-| `manala_php_applications_dir`                 | '/usr/local/bin'              | String               | Applications directory path                             |
-| `manala_php_applications`                     | []                            | Array                | A list of php applications                              |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

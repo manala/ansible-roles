@@ -39,16 +39,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default              | Type         | Description                              |
-| ----------------------------------------- | -------------------- | ------------ | ---------------------------------------- |
-| `manala_rsyslog_install_packages`         | ~                    | Array        | Dependency packages to install           |
-| `manala_rsyslog_install_packages_default` | ['rsyslog']          | Array        | Default dependency packages to install   |
-| `manala_rsyslog_config_template`          | 'config/_default.j2' | String       | Configuration base template path         |
-| `manala_rsyslog_config`                   | ~                    | Array/String | Configuration directives                 |
-| `manala_rsyslog_configs_exclusive`        | false                | Array        | Additional configurations exclusivity    |
-| `manala_rsyslog_configs_dir`              | '/etc/rsyslog.d'     | String       | Additional configurations directory path |
-| `manala_rsyslog_configs_defaults`         | {}                   | Array        | Additional configurations defaults       |
-| `manala_rsyslog_configs`                  | []                   | Array        | Additional configurations directives     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

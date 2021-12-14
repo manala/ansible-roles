@@ -44,13 +44,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default                                                                         | Type         | Description                             |
-| ----------------------------------------- | ------------------------------------------------------------------------------- | ------------ | --------------------------------------- |
-| `manala_mongodb_install_packages`         | ~                                                                               | Array        |  Dependency packages to install         |
-| `manala_mongodb_install_packages_default` | ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-tools'] | Array        |  Default dependency packages to install |
-| `manala_mongodb_config_file`              | '/etc/mongod.conf'                                                              | String       |  Configuration file path                |
-| `manala_mongodb_config_template`          | 'config/_default.j2'                                                            | String       |  Configuration template path            |
-| `manala_mongodb_config`                   | ~                                                                               | Array/String |  Configuration                          |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

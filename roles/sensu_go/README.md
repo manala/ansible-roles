@@ -44,16 +44,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default                            | Type   | Description
-|--------------------------------------------|------------------------------------|--------|------------------------------------------------------------------|
-| `manala_sensu_go_install_packages`         | ~                                  | Array  | Dependency packages to install                                   |
-| `manala_sensu_go_install_packages_default` | ['sensu-go-backend', sensu-go-cli']| Array  | Default dependency packages to install                           |
-| `manala_sensu_go_backend`                  | false                              | Array  | Additional package to install ('sensu-go-backend' if set to true)|
-| `manala_sensu_go_backend_config_file`      | /etc/sensu/backend.yml             | String | Path to backend config file                                      |
-| `manala_sensu_go_backend_config`           | {}                                 | Array  | Configuration directives for sensu-backend                       |
-| `manala_sensu_go_agent_config_file`        | /etc/sensu/agent.yml               | String | Path to agent config file                                        |
-| `manala_sensu_go_agent_config`             | {}                                 | Array  | Configuration directives for sensu-agent                         |
-| `manala_sensu_go_services`                 | {}                                 | Array  | Enable and start sensu services (sensu-backend, sensu-agent)     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

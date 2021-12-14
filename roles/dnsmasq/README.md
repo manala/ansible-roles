@@ -38,14 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default          | Type    | Description                            |
-| ----------------------------------------- | ---------------- | ------- | -------------------------------------- |
-| `manala_dnsmasq_install_packages`         | ~                | Array   | Dependency packages to install         |
-| `manala_dnsmasq_install_packages_default` | ['dnsmasq']      | Array   | Default dependency packages to install |
-| `manala_dnsmasq_configs_exclusive`        | false            | Boolean | Configurations exclusivity             |
-| `manala_dnsmasq_configs_dir`              | '/etc/dnsmasq.d' | String  | Configurations directory path          |
-| `manala_dnsmasq_configs_defaults`         | {}               | Array   | Configurations defaults                |
-| `manala_dnsmasq_configs`                  | []               | Array   | Configurations                         |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

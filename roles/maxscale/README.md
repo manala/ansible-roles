@@ -44,20 +44,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default                               | Type         | Description                            |
-| ------------------------------------------ | ------------------------------------- | ------------ | -------------------------------------- |
-| `manala_maxscale_install_packages`         | ~                                     | Array        | Dependency packages to install         |
-| `manala_maxscale_install_packages_default` | ['maxscale']                          | Array        | Default dependency packages to install |
-| `manala_maxscale_config_file`              | '/etc/maxscale.cnf'                   | String       | Configuration file path                |
-| `manala_maxscale_config_template`          | 'config/_default.j2'                  | String       | Default configuration template path    |
-| `manala_maxscale_config`                   | ~                                     | Array/String | Configuration                          |
-| `manala_maxscale_configs_exclusive`        | false                                 | Boolean      | Configurations exclusivity             |
-| `manala_maxscale_configs_dir`              | '{{ manala_maxscale_config_file }}.d' | String       | Configurations dir path                |
-| `manala_maxscale_configs_defaults`         | {}                                    | Array        | Default configurations template path   |
-| `manala_maxscale_configs`                  | []                                    | Array        | Configurations                         |
-| `manala_maxscale_users_file`               | '/var/lib/maxscale/passwd'            | String       | Users file path                        |
-| `manala_maxscale_users_template`           | 'users/_default.j2'                   | String       | Default users template path            |
-| `manala_maxscale_network_users`            | ~                                     | Array        | Network users (untouched if null)      |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example (Galera cluster configuration)
 

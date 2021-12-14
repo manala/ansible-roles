@@ -36,10 +36,7 @@ None
 
 ## Role Variables
 
-| Name                       | Default | Type  | Description                              |
-| -------------------------- | ------- | ----- | ---------------------------------------- |
-| `manala_kernel_modules`    | []      | Array | Kernel modules to enable/disable         |
-| `manala_kernel_parameters` | []      | Array | Kernel parameters to configure           |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

@@ -38,23 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                    | Default                          | Type         | Description                                            |
-| --------------------------------------- | -------------------------------- | ------------ | ------------------------------------------------------ |
-| `manala_mysql_install_packages`         | ~                                | Array        | Dependency packages to install                         |
-| `manala_mysql_install_packages_default` | ['mysql-server', 'mysql-client'] | Array        | Default dependency packages to install                 |
-| `manala_mysql_config_file`              | /etc/mysql/my.cnf                | String       | Configuration file path                                |
-| `manala_mysql_config_alternative`       | ~                                | String       | Setup an alternative link on configuration file        |
-| `manala_mysql_config_template`          | 'config/empty.j2'                | String       | Default configuration template path                    |
-| `manala_mysql_config`                   | ~                                | Array/String | Configuration directives                               |
-| `manala_mysql_configs_dir`              | '/etc/mysql/conf.d'              | String       | Configurations directory path                          |
-| `manala_mysql_configs_exclusive`        | false                            | Boolean      | Whether to remove all other non-specified config files |
-| `manala_mysql_configs_defaults`         | {}                               | Array        | Configurations defaults                                |
-| `manala_mysql_configs`                  | []                               | Array        | Configurations files                                   |
-| `manala_mysql_data_dir`                 | ~                                | String       | Data directory path to create                          |
-| `manala_mysql_data_dir_user`            | mysql                            | String       | Data directory owner                                   |
-| `manala_mysql_data_dir_group`           | mysql                            | String       | Data directory group                                   |
-| `manala_mysql_data_dir_mode`            | 0750                             | String       | Data directory mode                                    |
-| `manala_mysql_data_dir_initialize`      | false                            | Boolean      | Initialize data directory with `mysqld_install_db`     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Configuration example
 

@@ -36,12 +36,7 @@ None
 
 ## Role Variables
 
-| Name                            | Default                | Type    | Description                |
-| ------------------------------- | ---------------------- | ------- | -------------------------- |
-| `manala_motd_scripts_exclusive` | false                  | Boolean | Scripts exclusivity        |
-| `manala_motd_scripts_dir`       | '/etc/update-motd.d'   | String  | Scripts dir path           |
-| `manala_motd_scripts_defaults`  | {}                     | Array   | Default scripts parameters |
-| `manala_motd_scripts`           | []                     | Array   | Scripts                    |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

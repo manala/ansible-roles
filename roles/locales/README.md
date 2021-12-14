@@ -36,10 +36,7 @@ None
 
 ## Role Variables
 
-| Name                           | Default  | Type   | Description                                    |
-| ------------------------------ | -------- | ------ | ---------------------------------------------- |
-| `manala_locales_codes`         | [ ]      | Array  | Locales to configure                           |
-| `manala_locales_codes_default` | nil      | String | Default locale, stored in /etc/default/locale  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

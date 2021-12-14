@@ -32,12 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                     | Default     | Type  | Description                            |
-| ---------------------------------------- | ----------- | ----- | -------------------------------------- |
-| `manala_sqlite_install_packages`         | ~           | Array | Dependency packages to install         |
-| `manala_sqlite_install_packages_default` | ['sqlite3'] | Array | Default dependency packages to install |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 

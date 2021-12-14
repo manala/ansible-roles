@@ -36,13 +36,7 @@ None
 
 ## Role Variables
 
-| Name                                  | Default                | Type         | Description                            |
-| ------------------------------------- | ---------------------- | ------------ | -------------------------------------- |
-| `manala_vim_install_packages`         | ~                      | Array        | Dependency packages to install         |
-| `manala_vim_install_packages_default` | ['vim']                | Array        | Default dependency packages to install |
-| `manala_vim_config_template`          | 'config/empty.j2'      | String       | `vimrc.local` template path            |
-| `manala_vim_config_file`              | '/etc/vim/vimrc.local' | String       | Configuration file path                |
-| `manala_vim_config`                   | ~                      | Array/String | Configuration directives               |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuring VIM
 

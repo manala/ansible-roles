@@ -32,11 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                  | Default    | Type   | Description                            |
-| ------------------------------------- | ---------- | ------ | -------------------------------------- |
-| `manala_zsh_install_packages`         | ~          | Array  | Dependency packages to install         |
-| `manala_zsh_install_packages_default` | ['zsh']    | Array  | Default dependency packages to install |
-| `manala_zsh_bin`                      | '/bin/zsh' | String | Path to zsh binary file                |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Example
 

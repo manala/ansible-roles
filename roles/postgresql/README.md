@@ -32,19 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                         | Default                                                                                              | Type   | Description                            |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------ | -------------------------------------- |
-| `manala_postgresql_version`                  | ~                                                                                                    | String | REQUIRED - PostgreSQL version          |
-| `manala_postgresql_install_packages`         | ~                                                                                                    | Array  | Dependency packages to install         |
-| `manala_postgresql_install_packages_default` | ['postgresql-{{ manala_postgresql_version }}', 'postgresql-contrib-{{ manala_postgresql_version }}'] | Array  | Default dependency packages to install |
-| `manala_postgresql_config_file`              | '/etc/postgresql/{{ manala_postgresql_version }}/main/postgresql.conf'                               | String | Configuration file path                |
-| `manala_postgresql_config_template`          | ~                                                                                                    | String | Configuration template path            |
-| `manala_postgresql_config`                   | ~                                                                                                    | String String| Configuration parameters               |
-| `manala_postgresql_config_hba_file`          | '/etc/postgresql/{{ manala_postgresql_version }}/main/pg_hba.conf'                                   | String | Hba configuration file path            |
-| `manala_postgresql_config_hba_template`      | ~                                                                                                    | String | Hba configuration template path        |
-| `manala_postgresql_config_hba`               | ~                                                                                                    | String | Hba configuration parameters           |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

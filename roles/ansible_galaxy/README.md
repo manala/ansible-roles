@@ -32,11 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                           | Default                        | Type    | Description  |
-| ------------------------------ | ------------------------------ | ------- | ------------ |
-| `manala_ansible_galaxy_roles`  | []                             | Array   | Roles        |
-| `manala_ansible_galaxy_force`  | `manala_ansible_galaxy.update` | Boolean | Force        |
-| `manala_ansible_galaxy.update` | false                          | Boolean | Update roles |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Roles
 

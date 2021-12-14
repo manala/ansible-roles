@@ -36,14 +36,7 @@ None
 
 ## Role Variables
 
-| Name                                        | Default            | Type    | Description                                |
-| ------------------------------------------- | ------------------ | ------- | ------------------------------------------ |
-| `manala_logrotate_install_packages`         | ~                  | Array   | Dependency packages to install             |
-| `manala_logrotate_install_packages_default` | ['logrotate']      | Array   | Default dependency packages to install     |
-| `manala_logrotate_configs_exclusive`        | false              | Boolean | Exclusion of existing files Configurations |
-| `manala_logrotate_configs_dir`              | '/etc/logrotate.d' | String  | Configurations directory path              |
-| `manala_logrotate_configs_defaults`         | {}                 | Array   | Configurations defaults                    |
-| `manala_logrotate_configs`                  | []                 | Array   | Configurations directives                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configurations examples
 

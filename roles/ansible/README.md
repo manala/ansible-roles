@@ -37,26 +37,7 @@ None
 
 ## Role Variables
 
-### Definition
-
-| Name                                      | Default                   | Type    | Description                            |
-| ----------------------------------------- | ------------------------- | ------- | -------------------------------------- |
-| `manala_ansible_install_packages`         | ~                         | Array   | Dependency packages to install         |
-| `manala_ansible_install_packages_default` | ['ansible']               | Array   | Default dependency packages to install |
-| `manala_ansible_hosts_file`               | '/etc/ansible/hosts'      | String  | Hosts file path                        |
-| `manala_ansible_hosts_template`           | 'hosts/_default.j2'       | String  | Default hosts template path            |
-| `manala_ansible_hosts`                    | ~                         | String  | Hosts                                  |
-| `manala_ansible_config_file`              | 'config/_base.j2'         | String  | Configuration file path                |
-| `manala_ansible_config_template`          | 'hosts/_default.j2'       | String  | Default configuration template path    |
-| `manala_ansible_config`                   | ~                         | Array   | Configuration                          |
-| `manala_ansible_host_vars_exclusive`      | false                     | Boolean | Host vars exclusivity                  |
-| `manala_ansible_host_vars_dir`            | '/etc/ansible/host_vars'  | String  | Host vars dir path                     |
-| `manala_ansible_host_vars_defaults`       | {}                        | Array   | Default host vars template path        |
-| `manala_ansible_host_vars`                | []                        | Array   | Host vars                              |
-| `manala_ansible_group_vars_exclusive`     | false                     | Boolean | Group vars exclusivity                 |
-| `manala_ansible_group_vars_dir`           | '/etc/ansible/group_vars' | String  | Group vars dir path                    |
-| `manala_ansible_group_vars_defaults`      | {}                        | Array   | Default group vars template path       |
-| `manala_ansible_group_vars`               | []                        | Array   | Group vars                             |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

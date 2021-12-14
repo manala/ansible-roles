@@ -32,10 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                               | Default | Type   | Description               |
-| ---------------------------------- | ------- | ------ | ------------------------- |
-| `manala_files_attributes`          | []      | Array  | Files attributes          |
-| `manala_files_attributes_defaults` | []      | Array  | Files attributes defaults |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

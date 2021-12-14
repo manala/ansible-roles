@@ -39,16 +39,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                       | Default                    | Type         | Description                              |
-| ------------------------------------------ | -------------------------- | ------------ | ---------------------------------------- |
-| `manala_telegraf_install_packages`         | ~                          | String       | Dependency packages to install           |
-| `manala_telegraf_install_packages_default` | ['telegraf']               | String       | Default dependency packages to install   |
-| `manala_telegraf_config_template`          | 'config/_default.j2'       | String       | Main configuration base template path    |
-| `manala_telegraf_config`                   | ~                          | Array/String | Main configuration directives            |
-| `manala_telegraf_configs_exclusive`        | false                      | Array        | Additional configurations exclusivity    |
-| `manala_telegraf_configs_dir`              | '/etc/telegraf/telegraf.d' | String       | Additional configurations directory path |
-| `manala_telegraf_configs_defaults`         | {}                         | Array        | Additional configurations defaults       |
-| `manala_telegraf_configs`                  | []                         | Array        | Additional configurations directives     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

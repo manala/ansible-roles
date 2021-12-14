@@ -32,11 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                  | Default | Type    | Description                |
-| --------------------- | ------- | ------- | -------------------------- |
-| `manala_npm_packages` | []      | Array   | Global npm packages list   |
-| `manala_npm.update`   | false   | Boolean | Update global npm packages |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

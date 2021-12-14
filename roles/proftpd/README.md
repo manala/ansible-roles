@@ -31,28 +31,15 @@ Using ansible galaxy requirements file:
 - src: manala.proftpd
 ```
 
-Role Handlers
--------------
+## Role Handlers
 
 | Name              | Type    | Description            |
 | ----------------- | ------- | ---------------------- |
 | `proftpd restart` | Service | Restart proftpd server |
 
-Role Variables
---------------
+## Role Variables
 
-| Name                                      | Default               | Type    | Description                            |
-| ----------------------------------------- | --------------------- | ------- | -------------------------------------- |
-| `manala_proftpd_install_packages`         | ~                     | Array   | Dependency packages to install         |
-| `manala_proftpd_install_packages_default` | ['proftpd-basic']     | Array   | Default dependency packages to install |
-| `manala_proftpd_configs_exclusive`        | false                 | Boolean | Configurations exclusivity             |
-| `manala_proftpd_configs_dir`              | '/etc/proftpd/conf.d' | String  | Configurations directory path          |
-| `manala_proftpd_configs_defaults`         | {}                    | String  | Configurations defaults                |
-| `manala_proftpd_configs`                  | []                    | Array   | Configurations                         |
-| `manala_proftpd_users_file`               | '/etc/ftpd.passwd'    | String  | User accounts definition file path     |
-| `manala_proftpd_users_template`           | 'users/_default.j2    | String  | User accounts definition template path |
-| `manala_proftpd_users_defaults`           | {...}                 | Array   | ProFTPd user accounts defaults         |
-| `manala_proftpd_users`                    | []                    | Array   | ProFTPd user accounts                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

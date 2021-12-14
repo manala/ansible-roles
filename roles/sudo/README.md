@@ -38,16 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                   | Default          | Type    | Description                            |
-| -------------------------------------- | ---------------- | ------- | -------------------------------------- |
-| `manala_sudo_install_packages`         | ~                | Boolean | Dependency packages to install         |
-| `manala_sudo_install_packages_default` | ['sudo']         | Boolean | Default dependency packages to install |
-| `manala_sudo_sudoers_exclusive`        | false            | Boolean | Sudoers files exclusivity              |
-| `manala_sudo_sudoers_dir`              | '/etc/sudoers.d' | String  | Sudoers files directory path           |
-| `manala_sudo_sudoers_defaults`         | {}               | Array   | Sudoers files defaults                 |
-| `manala_sudo_sudoers`                  | []               | Array   | Sudoers files directives               |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Example
 

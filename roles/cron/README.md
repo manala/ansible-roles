@@ -38,14 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                   | Default       | Type    | Description                            |
-| -------------------------------------- | ------------- | ------- | -------------------------------------- |
-| `manala_cron_install_packages`         | ~             | Array   | Dependency packages to install         |
-| `manala_cron_install_packages_default` | ['cron']      | Array   | Default dependency packages to install |
-| `manala_cron_files_exclusive`          | false         | Boolean | Files exclusivity                      |
-| `manala_cron_files_dir`                | '/etc/cron.d' | String  | Files dir path                         |
-| `manala_cron_files_defaults`           | {}            | Array   | Defaults cron files parameters         |
-| `manala_cron_files`                    | []            | Array   | Cron files collection                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

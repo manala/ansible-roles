@@ -39,18 +39,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                    | Default                             | Type         | Description                            |
-| --------------------------------------- | ----------------------------------- | ------------ | -------------------------------------- |
-| `manala_redis_version`                  | ~                                   | String       | Version (autodetect if null)           |
-| `manala_redis_install_packages`         | ~                                   | Array        | Dependency packages to install         |
-| `manala_redis_install_packages_default` | ['redis-server']/['redis-sentinel'] | Array        | Default dependency packages to install |
-| `manala_redis_server`                   | true                                | Boolean      | Install and configure "redis-server"   |
-| `manala_redis_server_config_file`       | '/etc/redis/redis.conf'             | String       | Configuration file path                |
-| `manala_redis_server_config_template`   | ~                                   | String       | Configuration template path            |
-| `manala_redis_server_config`            | ~                                   | Array/String | Configuration directives               |
-| `manala_redis_sentinel`                 | false                               | Boolean      | Install and configure "redis-sentinel" |
-| `manala_redis_sentinel_config_file`     | '/etc/redis/sentinel.conf'          | String       | Sentinel configuration file path       |
-| `manala_redis_sentinel_config`          | {}                                  | Array        | Sentinel configuration directives      |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

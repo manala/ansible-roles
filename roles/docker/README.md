@@ -38,20 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                     | Default                   | Type    | Description                                |
-| ---------------------------------------- | ------------------------- | ------- | ------------------------------------------ |
-| `manala_docker_install_packages`         | ~                         | Array   | Dependency packages to install             |
-| `manala_docker_install_packages_default` | ['docker-ce']             | Array   | Default dependency packages to install     |
-| `manala_docker_applications_dir`         | '/usr/local/bin'          | String  | Applications dir path                      |
-| `manala_docker_applications_template`    | 'applications/_default.j2' | String  | Applications default template path         |
-| `manala_docker_applications`             | []                        | Array   | Applications                               |
-| `manala_docker_containers`               | []                        | Array   | Containers                                 |
-| `manala_docker_config_daemon_file`       | '/etc/docker/daemon.json' | String  | Daemon configuration file path             |
-| `manala_docker_config_daemon_template`   | 'config_daemon/empty.j2'  | String  | Daemon configuration default template path |
-| `manala_docker_config_daemon`            | ~                         | Array   | Daemon configuration                       |
-| `manala_docker.update`                   | false                     | Boolean | Update images                              |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

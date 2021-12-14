@@ -38,23 +38,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                      | Default                      | Type         | Description                            |
-| ----------------------------------------- | ---------------------------- | ------------ | -------------------------------------- |
-| `manala_haproxy_install_packages`         | ~                            | Array        | Dependency packages to install         |
-| `manala_haproxy_install_packages_default` | []                           | Array        | Default dependency packages to install |
-| `manala_haproxy_errorfiles_exclusive`     | false                        | Boolean      | Errorfiles exclusivity                 |
-| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String       | Errorfiles directory path              |
-| `manala_haproxy_errorfiles_defaults`      | {}                           | Array        | Errorfiles defaults                    |
-| `manala_haproxy_errorfiles`               | []                           | Array        | Errorfiles                             |
-| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String       | Configuration file path                |
-| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String       | Configuration template                 |
-| `manala_haproxy_configs_exclusive`        | false                        | Boolean      | Configurations exclusivity             |
-| `manala_haproxy_configs_dir`              | '/etc/haproxy/conf.d'        | String       | Configurations dir path                |
-| `manala_haproxy_configs_defaults`         | {}                           | Array        | Configuration defaults                 |
-| `manala_haproxy_configs`                  | []                           | Array        | Configurations                         |
-| `manala_haproxy_environment_file`         | '/etc/default/haproxy'       | String       | Environment file path                  |
-| `manala_haproxy_environment_template`     | 'environment/_default.j2'    | String       | Environment base template              |
-| `manala_haproxy_environment`              | ~                            | Array/String | Environment directives                 |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 

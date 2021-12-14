@@ -32,13 +32,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-### Definition
-
-| Name                                      | Default                                                                         | Type   | Description                            |
-| ----------------------------------------- | ------------------------------------------------------------------------------- | ------ | -------------------------------------- |
-| `manala_java_version`                     | ~                                                                               | String | Version                                |
-| `manala_ansible_install_packages`         | ~                                                                               | Array  | Dependency packages to install         |
-| `manala_ansible_install_packages_default` | ['default-jre-headless'] / ['openjdk-' ~ manala_java_version ~ '-jre-headless'] | Array  | Default dependency packages to install |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 
