@@ -10,7 +10,7 @@ None.
 
 ## Installation
 
-### Ansible 2+
+### Ansible 2.9+
 
 Using ansible galaxy cli:
 

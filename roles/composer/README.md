@@ -14,7 +14,7 @@ This role requires php-cli >=5.3.2. You can use [manala.php](https://github.com/
 
 ## Installation
 
-### Ansible 2+
+### Ansible 2.9+
 
 Using ansible galaxy cli:
 

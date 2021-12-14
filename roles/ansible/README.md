@@ -15,7 +15,7 @@ manala_apt_preferences:
 
 ## Installation
 
-### Ansible 2+
+### Ansible 2.9+
 
 Using ansible galaxy cli:
 
