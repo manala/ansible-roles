@@ -22,6 +22,7 @@ You can also include it in a `requirements.yml` file and install it with `ansibl
 ```yaml
 ---
 collections:
+
   - name: manala.roles
 ```
 
@@ -36,6 +37,21 @@ You can also install a specific version of the collection, for example, if you n
 ansible-galaxy collection install manala.roles:==1.0.0
 ```
 
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method
+
+```bash
+ansible-galaxy collection install https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+```
+
+```yaml
+collections:
+
+  - name: https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+    type: url
+```
+
 See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ## Release notes
@@ -43,7 +59,7 @@ See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guid
 See the [changelog](https://github.com/manala/ansible-roles/blob/master/CHANGELOG.md).
 
 ## Contributing to this collection
-Found a bug ? Please open an [issue]((https://github.com/manala/ansible-roles/issues)
+Found a bug ? Please open an [issue](https://github.com/manala/ansible-roles/issues)
 
 You can contact us [here](contact@manala.io)
 

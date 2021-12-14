@@ -30,6 +30,25 @@ Using ansible galaxy requirements file:
 - src: manala.docker
 ```
 
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method:
+
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+    ```
+
+    - requirements.yaml:
+    ```yaml
+    collections:
+
+      - name: https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
+
+See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
+
 ## Role Handlers
 
 | Name             | Type    | Description            |
@@ -120,8 +139,9 @@ manala:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.docker
+  tasks:
+        - import_role: 
+            name: manala.roles.
 ```
 
 # Licencing

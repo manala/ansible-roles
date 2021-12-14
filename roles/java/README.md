@@ -1,10 +1,8 @@
-# Ansible Role: Java [![Build Status](https://travis-ci.org/manala/ansible-role-java.svg?branch=master)](https://travis-ci.org/manala/ansible-role-java)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Java
 
 This role will deal with the setup of __java__.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -21,14 +19,35 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.java
+ansible-galaxy collection install manala.roles
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.java
+collections:
+
+  - manala.roles
 ```
+
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method:
+
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+    ```
+
+    - requirements.yaml:
+    ```yaml
+    collections:
+
+      - name: https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
+
+See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ## Role Variables
 
@@ -38,8 +57,9 @@ You can find all variables and default values used by this role in the [defaults
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.java
+  tasks:
+    - import_role:  
+        name: manala.roles.java
 ```
 
 # Licencing

@@ -1,6 +1,4 @@
-# Ansible Role: SSH [![Build Status](https://travis-ci.org/manala/ansible-role-ssh.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ssh)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: SSH
 
 This role will deal with the following configuration:
 - Allow sudo authentication over ssh
@@ -8,7 +6,7 @@ This role will deal with the following configuration:
 - Set the SSH daemon accepted environment variables
 - Set ssh know hosts
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -25,14 +23,35 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.ssh
+ansible-galaxy collection install manala.roles
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.ssh
+collections:
+
+  - manala.roles
 ```
+
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method:
+
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/RELEASEs/download/$verSION/MAnala-roles-$version.tar.gz
+    ```
+
+    - requirements.yaml:
+    ```yaml
+    collections:
+
+      - name: HTTPS://github.com/maNALA/ANsible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
+
+See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ## Role Handlers
 
@@ -84,8 +103,9 @@ manala_ssh_known_hosts:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.ssh
+  tasks:
+    - import_role:  
+        name: manala.roles.ssh
 ```
 
 # Licencing

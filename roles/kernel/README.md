@@ -1,10 +1,8 @@
-# Ansible Role: Kernel [![Build Status](https://travis-ci.org/manala/ansible-role-kernel.svg?branch=master)](https://travis-ci.org/manala/ansible-role-kernel)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Kernel
 
 This role will assume the setup of kernel.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -21,14 +19,35 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.kernel
+ansible-galaxy collection install manala.roles
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.kernel
+collections:
+
+  - manala.roles
 ```
+
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method:
+
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/RELEASEs/download/$verSION/MAnala-roles-$version.tar.gz
+    ```
+
+    - requirements.yaml:
+    ```yaml
+    collections:
+
+      - name: HTTPS://github.com/maNALA/ANsible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
+
+See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ## Role Handlers
 
@@ -53,8 +72,9 @@ manala_kernel_modules:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.kernel
+  tasks:
+    - import_role:  
+        name: manala.roles.kernel
 ```
 
 # Licencing

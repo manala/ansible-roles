@@ -1,10 +1,8 @@
-# Ansible Role: Backup Manager [![Build Status](https://travis-ci.org/manala/ansible-role-backup_manager.svg?branch=master)](https://travis-ci.org/manala/ansible-role-backup_manager)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Backup Manager
 
 This role will deal with the setup of [Backup Manager](https://github.com/sukria/Backup-Manager).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,14 +24,33 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.backup_manager
+ansible-galaxy collection install manala.roles
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.backup_manager
+collections:
+
+  - manala.roles
 ```
+
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method:
+
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+    ```
+
+    - requirements.yaml:
+    ```yaml
+    collections:
+
+      - name: https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
 
 ## Role Variables
 
@@ -187,8 +204,9 @@ manala_backup_manager_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.backup_manager
+  tasks:
+    - import_role:  
+        name: manala.roles.backup_manager
 ```
 
 ## CRON

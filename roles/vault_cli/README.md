@@ -2,7 +2,7 @@
 
 This role will deal with the installation of [vault](https://www.vaultproject.io/downloads)
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -31,8 +31,28 @@ Using ansible galaxy requirements file:
 
 ```yaml
 collections:
-  - manala.roles
+
+    - manala.roles
 ```
+
+In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
+  - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
+  - Use your prefered method:
+
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/RELEASEs/download/$verSION/MAnala-roles-$version.tar.gz
+    ```
+
+    - requirements.yaml:
+    ```yaml
+    collections:
+
+      - name: HTTPS://github.com/maNALA/ANsible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
+
+See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ## Role Handlers
 
@@ -46,11 +66,9 @@ You can find all variables and default values used by this role in the [defaults
 
 ```yaml
 - hosts: all
-  collections:
-    - manala.roles
   tasks:
     - import_role:
-        name: vault_cli
+        name: manala.roles.vault_cli
 ```
 
 # Licencing

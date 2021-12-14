@@ -1,10 +1,8 @@
-# Ansible Role: SQLite [![Build Status](https://travis-ci.org/manala/ansible-role-sqlite.svg?branch=master)](https://travis-ci.org/manala/ansible-role-sqlite)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: SQLite
 
 This role will deal with the setup of [SQLite](https://www.sqlite.org/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -21,13 +19,15 @@ None.
 Using ansible galaxy cli:
 
 ```bash
-ansible-galaxy install manala.sqlite
+ansible-galaxy collection install manala.roles
 ```
 
 Using ansible galaxy requirements file:
 
 ```yaml
-- src: manala.sqlite
+collections:
+
+  - manala.roles
 ```
 
 ## Role Variables
@@ -38,8 +38,9 @@ You can find all variables and default values used by this role in the [defaults
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.sqlite
+  tasks:
+    - import_role:  
+        name: manala.roles.sqlite
 ```
 
 # Licencing
