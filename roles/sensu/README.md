@@ -2,13 +2,13 @@
 
 # :exclamation: DEPRECATION :exclamation:
 
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
+## This repository and the role associated are deprecated in favor of the [Manala Sensu go](https://github.com/manala/ansible-roles/tree/master/roles/sensu_go) role
 
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
+### You can find it in the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles). You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
 
 #######################################################################################################
 
-# Ansible Role: Sensu [ [![Build Status](https://travis-ci.org/manala/ansible-role-sensu.svg?branch=master)](https://travis-ci.org/manala/ansible-role-sensu)
+# Ansible Role: Sensu [![Build Status](https://travis-ci.org/manala/ansible-role-sensu.svg?branch=master)](https://travis-ci.org/manala/ansible-role-sensu)
 
 :exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
 
