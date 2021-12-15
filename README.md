@@ -36,21 +36,24 @@ You can also install a specific version of the collection, for example, if you n
 ```bash
 ansible-galaxy collection install manala.roles:==1.0.0
 ```
+### Installing the Collection from Github
 
 In case of unavailability of ansible-galaxy, we host a tar.gz of every version of our collection on github:
   - Check latest version available [here](https://github.com/manala/ansible-roles/releases)
-  - Use your prefered method
+  - Use your prefered method:
 
-```bash
-ansible-galaxy collection install https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
-```
+    - cli:
+    ```bash
+    ansible-galaxy collection install https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+    ```
 
-```yaml
-collections:
+    - requirements.yaml:
+    ```yaml
+    collections:
 
-  - name: https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
-    type: url
-```
+      - name: https://github.com/manala/ansible-roles/releases/download/$VERSION/manala-roles-$VERSION.tar.gz
+        type: url
+    ```
 
 See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
@@ -61,7 +64,7 @@ See the [changelog](https://github.com/manala/ansible-roles/blob/master/CHANGELO
 ## Contributing to this collection
 Found a bug ? Please open an [issue](https://github.com/manala/ansible-roles/issues)
 
-You can contact us [here](contact@manala.io)
+You can contact us [here](manala-io.slack.com)
 
 Any kind of contribution is very welcome, you can submit pull requests [here](https://github.com/manala/ansible-roles/pulls)
 
@@ -76,3 +79,7 @@ All of these tools are available through the excellent [ansible-toolset](https:/
 This collection is distributed under the MIT license.
 
 See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
+
+# Author information
+
+Manala [**(http://www.manala.io/)**](http://www.manala.io)
