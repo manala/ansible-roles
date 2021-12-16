@@ -27,10 +27,6 @@ description: The flexible, robust, and web oriented toolbox for Ansible
 license:
   - MIT
 
-# The path to the license file for the collection. This path is relative to the root of the collection. This key is
-# mutually exclusive with 'license'
-license_file: ''
-
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
 tags: []
@@ -57,4 +53,12 @@ issues: https://github.com/manala/ansible-roles/issues
 # artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This
 # uses 'fnmatch' to match the files or directories. Some directories and files like 'galaxy.yml', '*.pyc', '*.retry',
 # and '.git' are always filtered
-build_ignore: []
+build_ignore:
+  - .config
+  - .github
+  - .env
+  - .env.dist
+  - .gitignore
+  - .DS_Store
+  - molecule
+  - tests
