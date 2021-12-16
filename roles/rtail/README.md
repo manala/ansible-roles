@@ -1,3 +1,13 @@
+#######################################################################################################
+
+# :exclamation: DEPRECATION :exclamation:
+
+## This repository and the role associated are deprecated.
+
+### You can find our other roles in the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles). You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
+
+#######################################################################################################
+
 # Ansible Role: RTail [![Build Status](https://travis-ci.org/manala/ansible-role-rtail.svg?branch=master)](https://travis-ci.org/manala/ansible-role-rtail)
 
 :exclamation: **This role is deprecated** :exclamation:

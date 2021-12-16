@@ -1,3 +1,13 @@
+#######################################################################################################
+
+# :exclamation: DEPRECATION :exclamation:
+
+## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
+
+## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
+
+#######################################################################################################
+
 # Ansible Role: Symfony Cli
 
 This role will deal with the setup of [Symfony Cli](https://symfony.com/download)
