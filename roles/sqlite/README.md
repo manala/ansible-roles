@@ -14,21 +14,7 @@ None.
 
 ## Installation
 
-### Ansible 2.9+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy collection install manala.roles
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-collections:
-
-  - manala.roles
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
