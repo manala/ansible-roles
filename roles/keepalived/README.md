@@ -21,13 +21,6 @@ None.
 
 Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
-## Role Handlers
-
-| Name                 | Type    | Description            |
-| -------------------- | ------- | ---------------------- |
-| `keepalived restart` | Service | Restart keepalived     |
-| `keepalived reload`  | Service | Reload keepalived      |
-
 ## Role Variables
 
 You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file

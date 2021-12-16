@@ -33,7 +33,7 @@ To setup where and how store backups
 | ---------------------  | ----------------------------- | ------- | ------------------------------------ |
 | `BM_REPOSITORY_ROOT`   | '/srv/backup'                 | String  | Path where local backups are stored  |
 | `BM_REPOSITORY_CHMOD`  | 755                           | Octal   | Backup directory mode                |
-| `BM_ARCHIVE_TTL'       | 5                             | Integer | Number of backup to keep             |
+| `BM_ARCHIVE_TTL`       | 5                             | Integer | Number of backup to keep             |
 | `BM_ARCHIVE_METHOD`    | 'tarball tarball-incremental' | String  | How backups are stored (you can mix) |
 | `BM_ARCHIVE_CHMOD`     | 644                           | Octal   | Backup files mode                    |
 | `BM_ARCHIVE_PREFIX`    | 'backup_'                     | String  | Prefix of the backup files           |

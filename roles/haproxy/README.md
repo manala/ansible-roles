@@ -16,12 +16,6 @@ None.
 
 Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
-## Role Handlers
-| Name              | Type    | Description             |
-| ----------------- | ------- | ----------------------- |
-| `haproxy reload`  | Service | Reload haproxy service  |
-| `haproxy restart` | Service | Restart haproxy service |
-
 ## Role Variables
 
 You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
