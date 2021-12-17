@@ -9,13 +9,15 @@ package:
     installed: false
   php{{ manala_php_version }}-phpdbg:
     installed: false
+  # Extensions
   php{{ manala_php_version }}-xml:
+    installed: true
+  php{{ manala_php_version }}-mbstring:
     installed: true
   php-memcached:
     installed: false
   php{{ manala_php_version }}-memcached:
     installed: true
-  # Extensions
   php{{ manala_php_version }}-gd:
     installed: true
   php{{ manala_php_version }}-bz2:
@@ -51,6 +53,10 @@ file:
     exists: true
     filetype: symlink
     linked-to: /etc/php/{{ manala_php_version }}/mods-available/xml.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-mbstring.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/mbstring.ini
   /etc/php/{{ manala_php_version }}/cli/conf.d/25-memcached.ini:
     exists: true
     filetype: symlink
@@ -74,7 +80,7 @@ file:
     owner: root
     group: root
     mode: "0755"
-  /usr/local/bin/phpunit_5.7.25:
+  /usr/local/bin/phpunit_6.5.14:
     exists: true
     filetype: file
     owner: root
@@ -83,7 +89,7 @@ file:
   /usr/local/bin/phpunit:
     exists: true
     filetype: symlink
-    linked-to: phpunit_5.7.25
+    linked-to: phpunit_6.5.14
   /usr/local/bin/phpcbf:
     exists: false
   # Blackfire
@@ -112,7 +118,7 @@ command:
   phpunit --version:
     exit-status: 0
     stdout:
-      - PHPUnit 5.7.25
+      - PHPUnit 6.5.14
   phpcbf --version:
     exit-status: 127
   # Blackfire

@@ -6,7 +6,7 @@ on:
       - .github/workflows/molecule.mysql.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
-      - molecule/mysql/**
+      - molecule/mysql.*/**
       - roles/mysql/**
       # Plugins
       - plugins/filter/mysql_config.py

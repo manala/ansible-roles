@@ -6,7 +6,7 @@ on:
       - .github/workflows/molecule.postgresql.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
-      - molecule/postgresql/**
+      - molecule/postgresql.*/**
       - roles/postgresql/**
   workflow_dispatch:
     inputs:

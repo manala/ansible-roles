@@ -6,7 +6,7 @@ on:
       - .github/workflows/molecule.glusterfs.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
-      - molecule/glusterfs/**
+      - molecule/glusterfs.*/**
       - roles/glusterfs/**
       # Plugins
       - plugins/filter/staten.py

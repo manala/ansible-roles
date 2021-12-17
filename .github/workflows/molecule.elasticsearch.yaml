@@ -6,7 +6,7 @@ on:
       - .github/workflows/molecule.elasticsearch.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
-      - molecule/elasticsearch/**
+      - molecule/elasticsearch.*/**
       - roles/elasticsearch/**
       # Plugins
       - plugins/filter/environment.py

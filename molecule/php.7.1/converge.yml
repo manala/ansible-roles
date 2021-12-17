@@ -37,6 +37,7 @@
               - date  # Embedded extension
               - calendar  # Common extension
               - xml  # Native extension
+              - mbstring  # Native extension
               - memcached  # Pecl extension
               # Flatten
               -
@@ -60,9 +61,9 @@
               - phpcs
               # Flatten
               -
-                - phpunit@4.8.30
+                - phpunit@4.8.36
                 - application: phpunit
-                  version: 4.8.31
+                  version: 6.5.14
                 - application: phpcbf
                   state: ignore
             manala_php_blackfire: true

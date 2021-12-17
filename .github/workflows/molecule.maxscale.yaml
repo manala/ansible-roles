@@ -6,7 +6,7 @@ on:
       - .github/workflows/molecule.maxscale.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
-      - molecule/maxscale/**
+      - molecule/maxscale.*/**
       - roles/maxscale/**
       # Plugins
       - plugins/lookup/templates_exclusive.py

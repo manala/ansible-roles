@@ -6,7 +6,7 @@ on:
       - .github/workflows/molecule.php.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
-      - molecule/php/**
+      - molecule/php.*/**
       - roles/php/**
       # Plugins
       - plugins/filter/php_blackfire_config.py
