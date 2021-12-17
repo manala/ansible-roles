@@ -8,14 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.0] - 2021-12-17
 ### Added
-- [Php] 8.1 support
-
-## [Unreleased]
-### Added
 - [All] Add debian bullseye support
 - [Accounts] `ignore` users state
 - [Accounts] users short syntax
 - [Accounts] `ignore` groups state
+- [Php] 8.1 support
 
 ### Fixed
 - [Apt] Percona key url
