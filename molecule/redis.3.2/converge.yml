@@ -1,0 +1,22 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.stretch
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.redis
+          vars:
+            manala_redis_sentinel: true
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

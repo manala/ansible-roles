@@ -1,0 +1,21 @@
+---
+
+file:
+  # Default - Default
+  {{ tests_dir }}/default/link_file:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/file
+  {{ tests_dir }}/default/file:
+    exists: true
+    filetype: file
+  # Default -  Permissions
+  {{ tests_dir }}/default/link_permissions:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/default/file_permissions
+  {{ tests_dir }}/default/file_permissions:
+    exists: true
+    filetype: file
+    owner: backup
+    group: games

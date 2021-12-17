@@ -7,4 +7,4 @@
     password: "{{ item.password|default(omit) }}"
     role_attr_flags: "{{ (omit) if (item.attributes is not defined) else item.attributes|join(',') }}"
     login_host: "{{ manala_postgresql_login_host }}"
-  with_items: "{{ manala_postgresql_roles }}"
+  loop: "{{ manala_postgresql_roles }}"

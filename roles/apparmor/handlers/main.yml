@@ -2,5 +2,7 @@
 
 - name: apparmor reload
   service:
-    name: apparmor
+    name: "{{ item }}"
     state: reloaded
+  loop:
+    - apparmor

@@ -2,5 +2,7 @@
 
 - name: networking restart
   service:
-    name: networking
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - networking

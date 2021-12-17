@@ -10,8 +10,9 @@
     url: https://github.com/hairyhenderson/gomplate/releases/latest
     return_content: false
   register: __manala_gomplate_version_latest
-  when: (not __manala_gomplate_bin_stat_result.stat.exists)
-        and (manala_gomplate_version is none)
+  when:
+    - not __manala_gomplate_bin_stat_result.stat.exists
+    - manala_gomplate_version is none
 
 - name: install > Install
   get_url:
@@ -21,11 +22,11 @@
           manala_gomplate_version,
           __manala_gomplate_version_latest.url|default|regex_replace('.+/v(\\d+\\.\\d+\\.\\d+)$', '\\1')
         ),
-        architecture=ansible_architecture|manala_gomplate_architecture,
+        architecture=ansible_architecture|manala.roles.gomplate_architecture,
       )
     }}"
     dest: "{{ manala_gomplate_bin }}"
     owner: root
     group: root
     mode: "0755"
-  when: (not __manala_gomplate_bin_stat_result.stat.exists)
+  when: not __manala_gomplate_bin_stat_result.stat.exists

@@ -5,5 +5,5 @@
     name: "{{ item }}"
     state: started
     enabled: true
-  with_items:
+  loop:
     - mongod

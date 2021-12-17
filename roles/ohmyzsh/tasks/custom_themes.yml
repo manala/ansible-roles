@@ -12,6 +12,7 @@
 - name: custom themes > Exclusive
   find:
     path: "{{ manala_ohmyzsh_custom_themes_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_ohmyzsh_custom_themes_exclusive_find
@@ -25,25 +26,23 @@
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_ohmyzsh_custom_themes,
-      __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
-      manala_ohmyzsh_custom_themes_dir,
-      manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_ohmyzsh_custom_themes,
+    __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
+    manala_ohmyzsh_custom_themes_dir,
+    manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
+    wantstate='present'
+  ) }}"
 
 - name: custom themes > Files absent
   file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_ohmyzsh_custom_themes,
-      __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
-      manala_ohmyzsh_custom_themes_dir,
-      manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_ohmyzsh_custom_themes,
+    __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
+    manala_ohmyzsh_custom_themes_dir,
+    manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
+    wantstate='absent'
+  ) }}"

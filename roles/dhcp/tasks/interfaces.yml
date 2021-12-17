@@ -2,7 +2,7 @@
 
 - name: interfaces > Default
   lineinfile:
-    path: /etc/default/isc-dhcp-server
+    path: "{{ manala_dhcp_interfaces_file }}"
     regexp: '^INTERFACESv4='
     line: INTERFACESv4="{{ manala_dhcp_interfaces|join(' ') }}"
   notify:

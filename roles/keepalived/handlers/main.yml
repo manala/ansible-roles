@@ -2,10 +2,14 @@
 
 - name: keepalived restart
   service:
-    name: keepalived
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - keepalived
 
 - name: keepalived reload
   service:
-    name: keepalived
+    name: "{{ item }}"
     state: reloaded
+  loop:
+    - keepalived

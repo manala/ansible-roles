@@ -1,6 +1,0 @@
----
-
-# Install
-manala_hugo_install_packages: ~
-manala_hugo_install_packages_default:
-  - hugo

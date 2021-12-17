@@ -2,14 +2,7 @@
 
 {%- if config is mapping -%}
 
-{{ config | manala_backup_manager_config }}
-
-{%- elif config is iterable and config is not string -%}
-
-{#- Deprecated -#}
-{%- set config_default = {} -%}
-
-{% include '_base.j2' %}
+{{ config | manala.roles.backup_manager_config }}
 
 {%- else -%}
 

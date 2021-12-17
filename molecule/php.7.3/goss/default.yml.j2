@@ -1,0 +1,143 @@
+---
+
+package:
+  php{{ manala_php_version }}-cli:
+    installed: true
+  php{{ manala_php_version }}-fpm:
+    installed: true
+  php{{ manala_php_version }}-cgi:
+    installed: false
+  php{{ manala_php_version }}-phpdbg:
+    installed: false
+# Extensions
+  php{{ manala_php_version }}-xml:
+    installed: true
+  php{{ manala_php_version }}-mbstring:
+    installed: true
+  php-memcached:
+    installed: false
+  php{{ manala_php_version }}-memcached:
+    installed: true
+  php{{ manala_php_version }}-gd:
+    installed: true
+  php{{ manala_php_version }}-bz2:
+    installed: true
+  php{{ manala_php_version }}-igbinary:
+    installed: true
+  php{{ manala_php_version }}-xdebug:
+    installed: true
+  # State
+  php{{ manala_php_version }}-curl:
+    installed: true
+  php{{ manala_php_version }}-tidy:
+    installed: false
+  php-apcu:
+    installed: false
+  php-bcmath:
+    installed: false
+  # Blackfire
+  blackfire-agent:
+    installed: true
+  blackfire-php:
+    installed: true
+
+file:
+  # Extensions
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-date.ini:
+    exists: false
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-calendar.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/calendar.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/15-xml.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/xml.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-mbstring.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/mbstring.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/25-memcached.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/memcached.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-gd.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/gd.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-bz2.ini:
+    exists: false
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-igbinary.ini:
+    exists: true
+    filetype: symlink
+    linked-to: /etc/php/{{ manala_php_version }}/mods-available/igbinary.ini
+  /etc/php/{{ manala_php_version }}/cli/conf.d/20-xdebug.ini:
+    exists: false
+  # Applications
+  /usr/local/bin/phpcs:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/phpunit_6.5.14:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  /usr/local/bin/phpunit:
+    exists: true
+    filetype: symlink
+    linked-to: phpunit_6.5.14
+  /usr/local/bin/phpcbf:
+    exists: false
+  # Blackfire
+  /etc/blackfire/agent:
+    exists: true
+    contains:
+      - server-id=c74906db-43d3-4c96-ab27-010600321b89
+      - server-token=5b78cc7fea3b766ff4ea470178b502c829c09d58ebdc20252e0337db804000e2
+  ~/.blackfire.ini:
+    exists: true
+    contains:
+      - client-id=b7bf7d2d-c8c1-4354-82bf-aa403afbc3b3
+      - client-token=e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
+
+command:
+  # Install
+  php --version:
+    exit-status: 0
+    stdout:
+      - PHP {{ manala_php_version }}.
+  # Applications
+  phpcs --version:
+    exit-status: 0
+    stdout:
+      - PHP_CodeSniffer version
+  phpunit --version:
+    exit-status: 0
+    stdout:
+      - PHPUnit 6.5.14
+  phpcbf --version:
+    exit-status: 127
+  # Blackfire
+  blackfire status:
+    exit-status: 0
+  php -m:
+    exit-status: 0
+    stdout:
+      - blackfire
+  php-fpm{{ manala_php_version }} -m:
+    exit-status: 0
+    stdout:
+      - blackfire
+
+service:
+  php{{ manala_php_version }}-fpm:
+    enabled: true
+    running: true
+  # Blackfire
+  blackfire-agent:
+    enabled: true
+    running: true

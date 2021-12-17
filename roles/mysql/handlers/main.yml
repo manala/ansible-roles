@@ -4,5 +4,5 @@
   service:
     name: "{{ item }}"
     state: restarted
-  with_items:
+  loop:
     - mysql

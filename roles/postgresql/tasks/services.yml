@@ -1,19 +1,16 @@
 ---
 
-# Need to restart postgresql immediately to properly
-# handle the next tasks who may need the latest changes.
-- name: services > Restart postgresql on config change
+- name: services > Ensure service is started or restarted
   service:
     name: "{{ item }}"
-    state: restarted
-  with_items:
-    - postgresql
-  when: __manala_postgresql_config_result is changed or __manala_postgresql_config_hba_result is changed
-
-- name: services > Ensure postgresql is running
-  service:
-    name: "{{ item }}"
-    state: started
+    state: "{{
+      'restarted'
+        if (
+          __manala_postgresql_config_template_result|default({}) is changed
+          or __manala_postgresql_config_hba_template_result|default({}) is changed
+        ) else
+      'started'
+    }}"
     enabled: true
-  with_items:
+  loop:
     - postgresql

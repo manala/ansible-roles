@@ -1,0 +1,27 @@
+---
+
+############
+# Packages #
+############
+
+- name: Packages
+  tags: [packages]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.npm
+          vars:
+            manala_npm_packages:
+              - is-positive
+              - user-home
+              - package: negative-zero
+                state: absent
+              - package: negative-zero
+                state: present
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/packages.yml.j2') }}"

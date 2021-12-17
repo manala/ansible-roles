@@ -1,0 +1,57 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/environment/default
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: Pam file   # noqa risky-file-permissions
+      copy:
+        dest: /etc/environment
+        content: |
+          _FOO="bar"
+          _BAR="123"
+    - name: Zsh directory   # noqa risky-file-permissions
+      file:
+        path: /etc/zsh
+        state: directory
+    - name: Zsh file   # noqa risky-file-permissions
+      copy:
+        dest: /etc/zsh/zshenv
+        content: |
+          # /etc/zsh/zshenv
+    - name: File   # noqa risky-file-permissions
+      copy:
+        dest: "{{ tests_dir }}/file"
+        content: |
+          # {{ tests_dir }}/file
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.environment
+          vars:
+            manala_environment_files:
+              - pam
+              - zsh
+              - file: "{{ tests_dir }}/file"
+                export: true
+            manala_environment_variables:
+              FOO: bar
+              BAR: 123
+              BAZ: 1.2
+              QUX: foo=bar
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

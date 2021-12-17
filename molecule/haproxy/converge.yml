@@ -1,0 +1,287 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.haproxy
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+##############
+# Errorfiles #
+##############
+
+- name: Errorfiles
+  tags: [errorfiles]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/haproxy/errorfiles
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: errorfiles
+          vars:
+            manala_haproxy_errorfiles_exclusive: false
+            manala_haproxy_errorfiles_dir: "{{ tests_dir }}/default"
+            manala_haproxy_errorfiles_defaults: {}
+            manala_haproxy_errorfiles:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: errorfiles
+          vars:
+            manala_haproxy_errorfiles_exclusive: false
+            manala_haproxy_errorfiles_dir: "{{ tests_dir }}/defaults"
+            manala_haproxy_errorfiles_defaults:
+              template: fixtures/template.j2
+            manala_haproxy_errorfiles:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: errorfiles
+          vars:
+            manala_haproxy_errorfiles_exclusive: true
+            manala_haproxy_errorfiles_dir: "{{ tests_dir }}/exclusive"
+            manala_haproxy_errorfiles_defaults: {}
+            manala_haproxy_errorfiles:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/errorfiles.yml.j2') }}"
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/haproxy/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Content
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.haproxy
+          vars:
+            manala_haproxy_config_file: "{{ tests_dir }}/content"
+            manala_haproxy_config_template: ~
+            manala_haproxy_config: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: config
+          vars:
+            manala_haproxy_config_file: "{{ tests_dir }}/template"
+            manala_haproxy_config_template: fixtures/template.j2
+            manala_haproxy_config: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/haproxy/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: configs
+          vars:
+            manala_haproxy_configs_exclusive: false
+            manala_haproxy_configs_dir: "{{ tests_dir }}/default"
+            manala_haproxy_configs_defaults: {}
+            manala_haproxy_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: configs
+          vars:
+            manala_haproxy_configs_exclusive: false
+            manala_haproxy_configs_dir: "{{ tests_dir }}/defaults"
+            manala_haproxy_configs_defaults:
+              template: fixtures/template.j2
+            manala_haproxy_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: configs
+          vars:
+            manala_haproxy_configs_exclusive: true
+            manala_haproxy_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_haproxy_configs_defaults: {}
+            manala_haproxy_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+
+###############
+# Environment #
+###############
+
+- name: Environment
+  tags: [environment]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/haproxy/environment
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Dict
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.haproxy
+          vars:
+            manala_haproxy_environment_file: "{{ tests_dir }}/dict"
+            manala_haproxy_environment_template: ~
+            manala_haproxy_environment:
+              CONFIG: /etc/haproxy/conf.d.test
+              FOO: bar
+        - name: Role - Content
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: environment
+          vars:
+            manala_haproxy_environment_file: "{{ tests_dir }}/content"
+            manala_haproxy_environment_template: ~
+            manala_haproxy_environment: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.haproxy
+            tasks_from: environment
+          vars:
+            manala_haproxy_environment_file: "{{ tests_dir }}/template"
+            manala_haproxy_environment_template: fixtures/template.j2
+            manala_haproxy_environment: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/environment.yml.j2') }}"

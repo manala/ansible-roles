@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Yarn [![Build Status](https://travis-ci.org/manala/ansible-role-yarn.svg?branch=master)](https://travis-ci.org/manala/ansible-role-yarn)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Yarn
 
 This role will deal with the setup of [Yarn](https://yarnpkg.com/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,40 +14,26 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.yarn
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.yarn
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-### Definition
-
-| Name                                   | Default  | Type  | Description                            |
-| -------------------------------------- | -------- | ----- | -------------------------------------- |
-| `manala_yarn_install_packages`         | ~        | Array | Dependency packages to install         |
-| `manala_yarn_install_packages_default` | ['yarn'] | Array | Default dependency packages to install |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.yarn }
+  tasks:
+    - import_role:  
+        name: manala.roles.yarn
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

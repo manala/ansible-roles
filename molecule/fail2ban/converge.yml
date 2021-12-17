@@ -1,0 +1,64 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.fail2ban
+          vars:
+            manala_fail2ban_config: |
+              [ssh]
+              enabled = false
+              [sshd]
+              enabled = false
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/fail2ban/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Content
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.fail2ban
+          vars:
+            manala_fail2ban_config_file: "{{ tests_dir }}/content"
+            manala_fail2ban_config_template: ~
+            manala_fail2ban_config: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.fail2ban
+            tasks_from: config
+          vars:
+            manala_fail2ban_config_file: "{{ tests_dir }}/template"
+            manala_fail2ban_config_template: fixtures/template.j2
+            manala_fail2ban_config: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

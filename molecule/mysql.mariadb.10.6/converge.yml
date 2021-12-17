@@ -1,0 +1,238 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_install_packages:
+              - mariadb-server
+              - mariadb-client
+            manala_mysql_users:
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+              - name: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  host: localhost
+                  priv: "*.*:ALL,GRANT"
+            manala_mysql_databases:
+              - name: foo
+              - name: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mysql/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role - Dict
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_install_packages:
+              - mariadb-server
+              - mariadb-client
+            manala_mysql_config_file: "{{ tests_dir }}/dict"
+            manala_mysql_config_template: ~
+            manala_mysql_config:
+              mysqld:
+                bind-address: 1.2.3.4
+                pid-file: /var/run/mysqld/mysqld.pid
+        - name: Role - Content
+          import_role:
+            name: manala.roles.mysql
+            tasks_from: config
+          vars:
+            manala_mysql_config_file: "{{ tests_dir }}/content"
+            manala_mysql_config_template: ~
+            manala_mysql_config: |
+              Content
+        - name: Role - Template
+          import_role:
+            name: manala.roles.mysql
+            tasks_from: config
+          vars:
+            manala_mysql_config_file: "{{ tests_dir }}/template"
+            manala_mysql_config_template: fixtures/template.j2
+            manala_mysql_config: ~
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mysql/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:
+        - name: Role - Default
+          import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_install_packages:
+              - mariadb-server
+              - mariadb-client
+            manala_mysql_configs_exclusive: false
+            manala_mysql_configs_dir: "{{ tests_dir }}/default"
+            manala_mysql_configs_defaults: {}
+            manala_mysql_configs:
+              # Dict
+              - file: dict
+                config:
+                  mysqld:
+                    user: mysql
+                    query_cache_size: 0
+                    gtid_mode: true
+                    enforce_gtid_consistency: false
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          import_role:
+            name: manala.roles.mysql
+            tasks_from: configs
+          vars:
+            manala_mysql_configs_exclusive: false
+            manala_mysql_configs_dir: "{{ tests_dir }}/defaults"
+            manala_mysql_configs_defaults:
+              template: fixtures/template.j2
+            manala_mysql_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          import_role:
+            name: manala.roles.mysql
+            tasks_from: configs
+          vars:
+            manala_mysql_configs_exclusive: true
+            manala_mysql_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_mysql_configs_defaults: {}
+            manala_mysql_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+
+############
+# Data Dir #
+############
+
+- name: Data Dir
+  tags: [data_dir]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mysql/data_dir
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_install_packages:
+              - mariadb-server
+              - mariadb-client
+            manala_mysql_configs_dir: /etc/mysql/mariadb.conf.d
+            manala_mysql_configs:
+              - file: 90-datadir.cnf
+                config: |
+                  [mysqld]
+                  datadir = {{ tests_dir }}/data
+            manala_mysql_data_dir: "{{ tests_dir }}/data"
+            manala_mysql_data_dir_user: mysql
+            manala_mysql_data_dir_group: mysql
+            manala_mysql_data_dir_mode: "0750"
+            manala_mysql_data_dir_initialize: true
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/data_dir.yml.j2') }}"

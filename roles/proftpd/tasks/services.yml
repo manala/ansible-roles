@@ -4,5 +4,6 @@
   service:
     name: "{{ item }}"
     state: started
-  with_items:
+    enabled: true
+  loop:
     - proftpd

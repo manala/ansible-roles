@@ -13,7 +13,5 @@ manala_telegraf_config: ~
 # Configs
 manala_telegraf_configs_exclusive: false
 manala_telegraf_configs_dir: /etc/telegraf/telegraf.d
-manala_telegraf_configs_template: ~ # Deprecated
-manala_telegraf_configs_defaults:
-  template: "{{ manala_telegraf_configs_template }}" # Ensure backward compatibility
+manala_telegraf_configs_defaults: {}
 manala_telegraf_configs: []

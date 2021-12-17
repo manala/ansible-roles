@@ -1,24 +1,12 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Telegraf [![Build Status](https://travis-ci.org/manala/ansible-role-telegraf.svg?branch=master)](https://travis-ci.org/manala/ansible-role-telegraf)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Telegraf
 
 This role will deal with the setup and the config of [influxdata Telegraf](https://github.com/influxdata/telegraf).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
-This role is made to work with the __telegraf__ official debian packages, available on the [__influxdata__ debian repository](https://www.influxdata.com/package-repository-for-linux/). Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the __telegraf__ official debian packages, available on the [__influxdata__ debian repository](https://www.influxdata.com/package-repository-for-linux/). Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -27,38 +15,11 @@ manala_apt_preferences:
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.telegraf
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.telegraf
-```
-
-## Role Handlers
-
-| Name               | Type    | Description            |
-| ------------------ | ------- | ---------------------- |
-| `telegraf restart` | Service | Restart telegraf agent |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                       | Default                    | Type         | Description                              |
-| ------------------------------------------ | -------------------------- | ------------ | ---------------------------------------- |
-| `manala_telegraf_install_packages`         | ~                          | String       | Dependency packages to install           |
-| `manala_telegraf_install_packages_default` | ['telegraf']               | String       | Default dependency packages to install   |
-| `manala_telegraf_config_template`          | 'config/_default.j2'       | String       | Main configuration base template path    |
-| `manala_telegraf_config`                   | ~                          | Array/String | Main configuration directives            |
-| `manala_telegraf_configs_exclusive`        | false                      | Array        | Additional configurations exclusivity    |
-| `manala_telegraf_configs_dir`              | '/etc/telegraf/telegraf.d' | String       | Additional configurations directory path |
-| `manala_telegraf_configs_defaults`         | {}                         | Array        | Additional configurations defaults       |
-| `manala_telegraf_configs`                  | []                         | Array        | Additional configurations directives     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -98,14 +59,6 @@ manala_telegraf_config: |
   ...
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_telegraf_config:
-  - agent:
-    - hostname: "{{ ansible_fqdn }}"
-    - quiet: true
-```
-
 Additionnal configurations:
 ```yaml
 manala_telegraf_configs:
@@ -143,17 +96,6 @@ manala_telegraf_configs:
     template: telegraf/bar.conf.j2
     config:
       foo: bar
-  # Dicts array template based (deprecated)
-  - file: template_deprecated.conf
-    template: configs/input_cpu.conf.j2
-    config:
-      - percpu: true
-      - totalcpu: false
-      - tags:
-        - tag-1: foo
-        - tag-2: bar
-      - tagdrop:
-        - cpu: [cpu6, cpu7]
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -174,13 +116,16 @@ manala_telegraf_configs_exclusive: true
 
 ```yaml
 - hosts: all
-  roles:
-    - role: manala.telegraf
+  tasks:
+    - import_role:  
+        name: manala.roles.telegraf
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

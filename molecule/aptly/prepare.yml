@@ -1,0 +1,23 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - aptly@aptly
+    - name: Packages
+      apt:
+        name: [gnupg1]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+    - name: Gpg key
+      command:
+        cmd: gpg1 --allow-secret-key-import --import
+        stdin: "{{ lookup('file', 'fixtures/gpg/private.asc') }}"
+      args:
+        creates: ~/.gnupg/trustdb.gpg

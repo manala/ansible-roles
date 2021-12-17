@@ -2,5 +2,7 @@
 
 - name: ssh reload
   service:
-    name: ssh
+    name: "{{ item }}"
     state: reloaded
+  loop:
+    - ssh

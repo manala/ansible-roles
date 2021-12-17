@@ -6,5 +6,7 @@ manala_apparmor_install_packages_default:
   - apparmor
 
 # Configs
+manala_apparmor_configs_exclusive: false
 manala_apparmor_configs_dir: /etc/apparmor.d
+manala_apparmor_configs_defaults: {}
 manala_apparmor_configs: []

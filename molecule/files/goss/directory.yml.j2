@@ -1,0 +1,31 @@
+---
+
+file:
+  # Default
+  {{ tests_dir }}/default/default:
+    exists: true
+    filetype: directory
+  # Directory already exists as file
+  {{ tests_dir }}/directory_file/directory_force:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/directory_file/directory:
+    exists: true
+    filetype: file
+  # Directory already exists as link to file
+  {{ tests_dir }}/directory_link_file/directory_force:
+    exists: true
+    filetype: directory
+  {{ tests_dir }}/directory_link_file/directory:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/directory_link_file/link_file
+  # Directory already exists as link to directory
+  {{ tests_dir }}/directory_link_directory/directory_force:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/directory_link_directory/link_directory
+  {{ tests_dir }}/directory_link_directory/directory:
+    exists: true
+    filetype: symlink
+    linked-to: {{ tests_dir }}/directory_link_directory/link_directory

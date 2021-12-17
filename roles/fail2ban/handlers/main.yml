@@ -2,5 +2,7 @@
 
 - name: fail2ban restart
   service:
-    name: fail2ban
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - fail2ban

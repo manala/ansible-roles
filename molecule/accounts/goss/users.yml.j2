@@ -1,0 +1,37 @@
+---
+
+user:
+
+  # Short syntax
+  user_short_syntax:
+    exists: true
+    home: /home/user_short_syntax
+    groups:
+      - user_short_syntax
+  # Simple
+  user_simple:
+    exists: true
+    home: /home/user_simple
+    groups:
+      - user_simple
+  # Verbose syntax
+  user_verbose_syntax:
+    exists: true
+    groups:
+      - users_group
+  # Flatten
+  user_flatten:
+    exists: true
+  # State
+  user_state_present_implicit:
+    exists: true
+  user_state_present:
+    exists: true
+  user_state_absent:
+    exists: false
+  user_state_absent_existing:
+    exists: false
+  user_state_ignore:
+    exists: false
+  user_state_ignore_existing:
+    exists: true

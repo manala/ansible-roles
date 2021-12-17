@@ -1,0 +1,840 @@
+---
+
+############
+# Defaults #
+############
+
+- name: Defaults
+  tags: [defaults]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/defaults
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes_defaults:
+                  - user: nobody
+                  - path: ^{{ tests_dir }}/default/root
+                    user: root
+                    group: root
+                  - path: ^{{ tests_dir }}/default/nobody
+                    group: nogroup
+                  - path: ^{{ tests_dir }}/default/mail
+                    user: mail
+                    group: mail
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/root"
+                    state: touch
+                  # Flatten
+                  -
+                    - path: "{{ tests_dir }}/default/nobody"
+                      state: touch
+                    - path: "{{ tests_dir }}/default/mail"
+                      state: touch
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/defaults.yml.j2') }}"
+
+########
+# File #
+########
+
+- name: File
+  tags: [file]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/file
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/default"
+        # Parents
+        - block:
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^{{ tests_dir }}/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/parents/file"
+                    parents: true
+                  - path: "{{ tests_dir }}/parents_defaults/file"
+                  - path: "{{ tests_dir }}/parents_unexisting/file"
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # File already exists as empty directory
+        - block:
+            - name: Directories  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: directory
+              loop:
+                - file_directory_empty
+                - file_directory_empty/file_force
+                - file_directory_empty/file
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/file_directory_empty/file_force"
+                    force: true
+                  - path: "{{ tests_dir }}/file_directory_empty/file"
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # File already exists as full directory
+        - block:
+            - name: Directories  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: directory
+              loop:
+                - file_directory_full
+                - file_directory_full/file_force
+                - file_directory_full/file
+            - name: Files  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: touch
+              loop:
+                - file_directory_full/file_force/file
+                - file_directory_full/file/file
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/file_directory_full/file_force"
+                    force: true
+                  - path: "{{ tests_dir }}/file_directory_full/file"
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # File already exists as link to file
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/file_link_file"
+                state: directory
+            - name: File  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/file_link_file/link_file"
+                state: touch
+            - name: Links  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                src: "{{ tests_dir }}/file_link_file/link_file"
+                state: link
+              loop:
+                - file_link_file/file_force
+                - file_link_file/file
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/file_link_file/file_force"
+                    force: true
+                  - path: "{{ tests_dir }}/file_link_file/file"
+        # File already exists as link to directory
+        - block:
+            - name: Directories  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: directory
+              loop:
+                - file_link_directory
+                - file_link_directory/link_file
+            - name: Links  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                src: "{{ tests_dir }}/file_link_directory/link_file"
+                state: link
+              loop:
+                - file_link_directory/file_force
+                - file_link_directory/file
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/file_link_directory/file_force"
+                    force: true
+                  - path: "{{ tests_dir }}/file_link_directory/file"
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/file.yml.j2') }}"
+
+########
+# Link #
+########
+
+- name: Link
+  tags: [link]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/link
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: File  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/file"
+        state: touch
+    - name: Directory  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}/directory"
+        state: directory
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  # Link to file
+                  - path: "{{ tests_dir }}/default/link_file"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+                  # Link to link to file
+                  - path: "{{ tests_dir }}/default/link_link_file"
+                    src: "{{ tests_dir }}/default/link_file"
+                    state: link
+                  # Flatten
+                  -
+                    # Link to directory
+                    - path: "{{ tests_dir }}/default/link_directory"
+                      src: "{{ tests_dir }}/directory"
+                      state: link
+                    # Link to link to directory
+                    - path: "{{ tests_dir }}/default/link_link_directory"
+                      src: "{{ tests_dir }}/default/link_directory"
+                      state: link
+        # Parents
+        - block:
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^{{ tests_dir }}/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/parents/link"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+                    parents: true
+                  - path: "{{ tests_dir }}/parents_defaults/link"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+                  - path: "{{ tests_dir }}/parents_unexisting/link"
+                    src: "{{ tests_dir }}/file"
+                    state: link_directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Wrong
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/wrong"
+                state: directory
+            - name: Link  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/wrong/link"
+                src: "{{ tests_dir }}/file"
+                state: link
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/wrong/link"
+                    src: "{{ tests_dir }}/directory"
+                    state: link
+        # Link already exists as file
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/link_file"
+                state: directory
+            - name: Files  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: touch
+              loop:
+                - link_file/link_force
+                - link_file/link
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/link_file/link_force"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+                    force: true
+                  - path: "{{ tests_dir }}/link_file/link"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Link already exists as empty directory
+        - block:
+            - name: Directories  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: directory
+              loop:
+                - link_directory_empty
+                - link_directory_empty/link_force
+                - link_directory_empty/link
+            - import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/link_directory_empty/link_force"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+                    force: true
+                  - path: "{{ tests_dir }}/link_directory_empty/link"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Link already exists as full directory
+        - block:
+            - name: Directories  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: directory
+              loop:
+                - link_directory_full
+                - link_directory_full/link_force
+                - link_directory_full/link
+            - name: Files  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: touch
+              loop:
+                - link_directory_full/link_force/file
+                - link_directory_full/link/file
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/link_directory_full/link_force"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+                    force: true
+                  - path: "{{ tests_dir }}/link_directory_full/link"
+                    src: "{{ tests_dir }}/file"
+                    state: link
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/link.yml.j2') }}"
+
+#############
+# Directory #
+#############
+
+- name: Directory
+  tags: [directory]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/directory
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: File  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/default"
+                    state: directory
+        # Directory already exists as file
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/directory_file"
+                state: directory
+            - name: Files  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: touch
+              loop:
+                - directory_file/directory_force
+                - directory_file/directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/directory_file/directory_force"
+                    state: directory
+                    force: true
+                  - path: "{{ tests_dir }}/directory_file/directory"
+                    state: directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Directory already exists as link to file
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/directory_link_file"
+                state: directory
+            - name: File  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/directory_link_file/link_file"
+                state: touch
+            - name: Link  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                src: "{{ tests_dir }}/directory_link_file/link_file"
+                state: link
+              loop:
+                - directory_link_file/directory_force
+                - directory_link_file/directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/directory_link_file/directory_force"
+                    state: directory
+                    force: true
+                  - path: /"tmp/directory/directory_link_file/directory"
+                    state: directory
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+        # Directory already exists as link to directory
+        - block:
+            - name: Directories  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                state: directory
+              loop:
+                - directory_link_directory
+                - directory_link_directory/link_directory
+            - name: Links  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/{{ item }}"
+                src: "{{ tests_dir }}/directory_link_directory/link_directory"
+                state: link
+              loop:
+                - directory_link_directory/directory_force
+                - directory_link_directory/directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/directory_link_directory/directory_force"
+                    state: directory
+                    force: true
+                  - path: "{{ tests_dir }}/directory_link_directory/directory"
+                    state: directory
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/directory.yml.j2') }}"
+
+########
+# Copy #
+########
+
+- name: Copy
+  tags: [copy]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/copy
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - name: Directory  # noqa risky-file-permissions
+          file:
+            path: "{{ tests_dir }}/default"
+            state: directory
+        - name: File  # noqa risky-file-permissions
+          file:
+            path: "{{ tests_dir }}/default/absent"
+            state: touch
+        - block:
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/default"
+                    copy: fixtures/file
+                  # Flatten
+                  -
+                    - path: "{{ tests_dir }}/default/present"
+                      copy: fixtures/file
+                      state: present
+                    - path: "{{ tests_dir }}/default/absent"
+                      state: absent
+                    - path: "{{ tests_dir }}/default/ignore"
+                      state: ignore
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/copy.yml.j2') }}"
+
+#######
+# Url #
+#######
+
+- name: Url
+  tags: [url]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/url
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/perdu"
+                    url: http://www.perdu.com/
+                  # Flatten
+                  -
+                    - path: "{{ tests_dir }}/default/alt-galaxy.tar.gz"
+                      url: https://github.com/gantsign/alt-galaxy/releases/download/1.4.1/alt-galaxy_darwin_amd64.tar.gz
+                      unarchive: true
+                      creates: "{{ tests_dir }}/default/alt-galaxy"
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/url.yml.j2') }}"
+
+###########
+# Content #
+###########
+
+- name: Content
+  tags: [content]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/content
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: File  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default/absent"
+                state: touch
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/default"
+                    content: |
+                      Content default
+                  # Flatten
+                  -
+                    - path: "{{ tests_dir }}/default/present"
+                      content: |
+                        Content present
+                      state: present
+                    - path: "{{ tests_dir }}/default/absent"
+                      state: absent
+                    - path: "{{ tests_dir }}/default/ignore"
+                      state: ignore
+        # Parents
+        - block:
+            - name: Roles
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^{{ tests_dir }}/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/parents/content"
+                    content: |
+                      Content parents default
+                    parents: true
+                  - path: "{{ tests_dir }}/parents_defaults/content"
+                    content: |
+                      Content defaults parents
+                  - path: "{{ tests_dir }}/parents_unexisting/content"
+                    content: |
+                      Content defaults parents
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/content.yml.j2') }}"
+
+############
+# Template #
+############
+
+- name: Template
+  tags: [template]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/template
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: File  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default/absent"
+                state: touch
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/default/default"
+                    template: fixtures/template.j2
+                  # Flatten
+                  -
+                    - path: "{{ tests_dir }}/default/present"
+                      template: fixtures/template.j2
+                      state: present
+                    - path: "{{ tests_dir }}/default/absent"
+                      state: absent
+                    - path: "{{ tests_dir }}/default/ignore"
+                      state: ignore
+        # Parents
+        - block:
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes_defaults:
+                  - path: ^{{ tests_dir }}/parents_defaults
+                    parents: true
+                manala_files_attributes:
+                  - path: "{{ tests_dir }}/parents/template"
+                    template: fixtures/template.j2
+                    parents: true
+                  - path: "{{ tests_dir }}/parents_defaults/template"
+                    template: fixtures/template.j2
+                  - path: "{{ tests_dir }}/parents_unexisting/template"
+                    template: fixtures/template.j2
+          rescue:
+            - debug:
+                msg: A planned error has been caught...
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/template.yml.j2') }}"
+
+##################
+# Link Directory #
+##################
+
+- name: Link Directory
+  tags: [link_directory]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/link_directory
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  # Default
+                  - path: "{{ tests_dir }}/default/link_directory"
+                    src: "{{ tests_dir }}/default/directory"
+                    state: link_directory
+                  # Sub directory
+                  - path: "{{ tests_dir }}/default/link_directory_sub"
+                    src: "{{ tests_dir }}/default/directory_sub/directory"
+                    state: link_directory
+                  # Permissions
+                  - path: "{{ tests_dir }}/default/link_permissions"
+                    src: "{{ tests_dir }}/default/directory_permissions"
+                    state: link_directory
+                    user: backup
+                    group: games
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/link_directory.yml.j2') }}"
+
+#############
+# Link File #
+#############
+
+- name: Link File
+  tags: [link_file]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/files/link_file
+  gather_facts: false
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions
+      file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:
+        # Default
+        - block:
+            - name: Directory  # noqa risky-file-permissions
+              file:
+                path: "{{ tests_dir }}/default"
+                state: directory
+            - name: Role
+              import_role:
+                name: manala.roles.files
+              vars:
+                manala_files_attributes:
+                  # Default
+                  - path: "{{ tests_dir }}/default/link_file"
+                    src: "{{ tests_dir }}/default/file"
+                    state: link_file
+                  # Permissions
+                  - path: "{{ tests_dir }}/default/link_permissions"
+                    src: "{{ tests_dir }}/default/file_permissions"
+                    state: link_file
+                    user: backup
+                    group: games
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/link_file.yml.j2') }}"

@@ -8,6 +8,6 @@
     group: maxscale
     mode: "0600"
   when: manala_maxscale_users_template
-        or manala_maxscale_network_users|type_debug == "list"
+    or manala_maxscale_network_users|type_debug == "list"
   notify:
     - maxscale restart

@@ -10,7 +10,7 @@
   when:
     - manala_redis_server
     - manala_redis_server_config_template
-      or manala_redis_server_config
+        or manala_redis_server_config
   notify:
     - redis restart
 
@@ -22,6 +22,6 @@
   when:
     - manala_redis_sentinel
     - manala_redis_sentinel_config|length
-  with_dict: "{{ manala_redis_sentinel_config }}"
+  loop: "{{ manala_redis_sentinel_config | dict2items }}"
   notify:
     - redis-sentinel restart

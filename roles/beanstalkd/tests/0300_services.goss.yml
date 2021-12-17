@@ -1,6 +1,0 @@
----
-
-service:
-  beanstalkd:
-    enabled: true
-    running: true

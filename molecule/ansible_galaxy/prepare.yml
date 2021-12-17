@@ -1,0 +1,15 @@
+---
+
+- hosts: debian
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - ansible@backports
+      when: ansible_distribution_release in ['stretch']
+    - name: Ansible
+      import_role:
+        name: manala.roles.ansible

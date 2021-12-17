@@ -1,7 +1,0 @@
----
-
-command:
-  update-alternatives --query editor:
-    exit-status: 0
-    stdout:
-      - "Value: /bin/ed"

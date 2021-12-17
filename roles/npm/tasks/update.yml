@@ -1,6 +1,6 @@
 ---
 
-- name: update > Packages
+- name: update > Packages  # noqa package-latest
   npm:
     global: true
-    state: latest # noqa 403
+    state: latest

@@ -1,6 +1,0 @@
----
-
-service:
-  ntp:
-    enabled: true
-    running: true

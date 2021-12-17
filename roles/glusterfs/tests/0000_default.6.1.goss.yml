@@ -1,9 +1,0 @@
----
-
-package:
-  glusterfs-server:
-    installed: true
-
-service:
-  glusterd:
-    running: true

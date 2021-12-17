@@ -5,16 +5,12 @@
     src: "{{ manala_elasticsearch_config_template|default('config/_default.j2', true) }}"
     dest: "{{ manala_elasticsearch_config_file }}"
     owner: root
-    group: "{{
-      'root' if (manala_elasticsearch_version is version('1.7', '=')) else
-      'elasticsearch'
-    }}"
+    group: elasticsearch
     mode: "{{
-      '0644' if (manala_elasticsearch_version is version('1.7', '=')) else
       '0750' if (manala_elasticsearch_version is version('2', '=')) else
       '0660'
     }}"
   when: manala_elasticsearch_config_template
-        or manala_elasticsearch_config
+    or manala_elasticsearch_config
   notify:
     - elasticsearch restart

@@ -1,8 +1,0 @@
-{%- import '_macros.j2' as macros with context -%}
-
-{% set config = item.config|default([]) -%}
-
-{{ macros.config_row(config, 'ALLOW_UNSAFE_URL', false) }}
-{{ macros.config(config, [
-  'ALLOW_UNSAFE_URL'
-]) -}}

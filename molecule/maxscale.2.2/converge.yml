@@ -1,0 +1,15 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.stretch
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.maxscale

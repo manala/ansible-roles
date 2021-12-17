@@ -1,0 +1,21 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.timezone
+          vars:
+            manala_timezone_default: Africa/Bamako
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

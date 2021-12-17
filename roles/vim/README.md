@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Vim [![Build Status](https://travis-ci.org/manala/ansible-role-vim.svg?branch=master)](https://travis-ci.org/manala/ansible-role-vim)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Vim
 
 This role will deal with the setup and configuration of Vim.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,33 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.vim
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.vim
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                  | Default                | Type         | Description                            |
-| ------------------------------------- | ---------------------- | ------------ | -------------------------------------- |
-| `manala_vim_install_packages`         | ~                      | Array        | Dependency packages to install         |
-| `manala_vim_install_packages_default` | ['vim']                | Array        | Default dependency packages to install |
-| `manala_vim_config_template`          | 'config/empty.j2'      | String       | `vimrc.local` template path            |
-| `manala_vim_config_file`              | '/etc/vim/vimrc.local' | String       | Configuration file path                |
-| `manala_vim_config`                   | ~                      | Array/String | Configuration directives               |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuring VIM
 
@@ -89,28 +55,20 @@ manala_vim_config: |
   set expandtab
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_vim_config:
-  - syntax: "on"
-  - encoding: utf8
-  - expandtab: true   # Use spaces instead of tabs
-  - smarttab: true   # Be smart when using tabs ;)
-  - shiftwidth: 4      # 1 tab == 4 spaces
-  - tabstop: 4
-```
-
 ## Example playbook
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.vim
+  tasks:
+    - import_role:  
+        name: manala.roles.vim
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

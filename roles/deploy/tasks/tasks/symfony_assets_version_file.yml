@@ -13,10 +13,10 @@
           deploy_helper.new_release
         }}"
 
-    - name: tasks/symfony_assets_version_file > Generate assets_version.yml
+    - name: tasks/symfony_assets_version_file > Generate assets_version.yml  # noqa risky-file-permissions
       copy:
         dest: "{{ item.dir }}/app/config/assets_version.yml"
-        force: yes
+        force: true
         content: |
           parameters:
             assets_version: {{ __manala_deploy_symfony_assets_version }}

@@ -18,4 +18,4 @@
         dest: "{{ item.dir }}/app/config/parameters.yml"
         regexp: "^(\\s*)assets_version:"
         line: "\\1assets_version: {{ __manala_deploy_symfony_assets_version }}"
-        backrefs: yes
+        backrefs: true

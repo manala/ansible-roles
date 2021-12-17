@@ -1,0 +1,32 @@
+---
+
+file:
+  {{ tests_dir }}/dict:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[global_tags]"
+      - 'foo = "bar"'
+      - "[agent]"
+      - 'hostname = "test.manala.dev"'
+      - "quiet = true"
+      - "metric_batch_size = 1234"
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"

@@ -3,6 +3,7 @@
 - name: repositories > Exclusive
   find:
     path: /etc/apt/sources.list.d
+    file_type: file
     patterns: "*.list"
   changed_when: false
   register: __manala_apt_repositories_exclusive_find
@@ -15,23 +16,22 @@
     update_cache: false
     mode: "0644"
   loop: "{{ query(
-      'manala_apt_repositories',
-      manala_apt_repositories,
-      manala_apt_repositories_patterns,
-      query(
-          'manala_apt_preferences',
-          manala_apt_preferences,
-          manala_apt_preferences_patterns,
-          manala_apt_repositories_patterns,
-          [],
-          manala_apt_preferences_dir,
-          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
-          wantstate='present'
-      ),
-      __manala_apt_repositories_exclusive_find.files|default([]),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.apt_repositories',
+    manala_apt_repositories,
+    manala_apt_repositories_patterns,
+    query(
+        'manala.roles.apt_preferences',
+        manala_apt_preferences,
+        manala_apt_preferences_patterns,
+        manala_apt_repositories_patterns,
+        [],
+        manala_apt_preferences_dir,
+        manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+        wantstate='present'
+    ),
+    __manala_apt_repositories_exclusive_find.files|default([]),
+    wantstate='present'
+  ) }}"
   register: __manala_apt_repositories_presents_results
 
 - name: repositories > Repositories absents
@@ -39,26 +39,26 @@
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_apt_repositories',
-      manala_apt_repositories,
-      manala_apt_repositories_patterns,
-      query(
-          'manala_apt_preferences',
-          manala_apt_preferences,
-          manala_apt_preferences_patterns,
-          manala_apt_repositories_patterns,
-          [],
-          manala_apt_preferences_dir,
-          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
-          wantstate='present'
-      ),
-      __manala_apt_repositories_exclusive_find.files|default([]),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.apt_repositories',
+    manala_apt_repositories,
+    manala_apt_repositories_patterns,
+    query(
+        'manala.roles.apt_preferences',
+        manala_apt_preferences,
+        manala_apt_preferences_patterns,
+        manala_apt_repositories_patterns,
+        [],
+        manala_apt_preferences_dir,
+        manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+        wantstate='present'
+    ),
+    __manala_apt_repositories_exclusive_find.files|default([]),
+    wantstate='absent'
+  ) }}"
   register: __manala_apt_repositories_absents_results
 
-- name: repositories > Update cache
+- name: repositories > Update cache  # noqa no-handler
   apt:
     update_cache: true
-  when: __manala_apt_repositories_presents_results is changed or __manala_apt_repositories_absents_results is changed
+  when: __manala_apt_repositories_presents_results is changed
+    or __manala_apt_repositories_absents_results is changed

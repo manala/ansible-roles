@@ -1,0 +1,33 @@
+---
+
+file:
+  {{ tests_dir }}/hello-world:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  {{ tests_dir }}/npm:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+    contains:
+      - "/^Template$/"
+
+command:
+  {{ tests_dir }}/hello-world:
+    exit-status: 0
+    timeout: 60000
+    stdout:
+      - Hello from Docker!
+  {{ tests_dir }}/npm --version:
+    exit-status: 0
+    timeout: 60000

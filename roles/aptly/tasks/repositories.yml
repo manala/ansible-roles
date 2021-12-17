@@ -15,6 +15,11 @@
   failed_when: false
   changed_when: false
   register: __manala_aptly_repositories_find_output
+  when: |
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
+      | length
 
 - name: repositories > Create
   command: "{{
@@ -29,9 +34,9 @@
   }}"
   when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
   loop: "{{
-    manala_aptly_repositories | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_aptly_repositories | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
   }}"
 
 - name: repositories > Publish
@@ -43,7 +48,7 @@
   }}"
   when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
   loop: "{{
-    manala_aptly_repositories | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_aptly_repositories | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

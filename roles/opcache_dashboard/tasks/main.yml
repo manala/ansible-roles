@@ -1,7 +1,0 @@
----
-
-# Install
-- import_tasks: install.yml
-  tags:
-    - manala_opcache_dashboard
-    - manala_opcache_dashboard.install

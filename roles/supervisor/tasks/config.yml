@@ -8,6 +8,6 @@
     group: root
     mode: "0644"
   when: manala_supervisor_config_template
-        or manala_supervisor_config
+    or manala_supervisor_config
   notify:
     - supervisor restart

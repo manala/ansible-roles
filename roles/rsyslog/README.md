@@ -1,20 +1,8 @@
-#######################################################################################################
-
-# :exclamation: DEPRECATION :exclamation:
-
-## This repository and the role associated are deprecated in favor of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles)
-
-## You will find informations on its usage on the [collection repository](https://github.com/manala/ansible-roles)
-
-#######################################################################################################
-
-# Ansible Role: Rsyslog [![Build Status](https://travis-ci.org/manala/ansible-role-rsyslog.svg?branch=master)](https://travis-ci.org/manala/ansible-role-rsyslog)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Rsyslog
 
 This role will deal with the setup of [Rsyslog](http://www.rsyslog.com/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -26,39 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.rsyslog
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.rsyslog
-```
-
-## Role Handlers
-
-| Name              | Type    | Description             |
-| ----------------- | ------- | ----------------------- |
-| `rsyslog restart` | Service | Restart rsyslog service |
-
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                      | Default              | Type         | Description                              |
-| ----------------------------------------- | -------------------- | ------------ | ---------------------------------------- |
-| `manala_rsyslog_install_packages`         | ~                    | Array        | Dependency packages to install           |
-| `manala_rsyslog_install_packages_default` | ['rsyslog']          | Array        | Default dependency packages to install   |
-| `manala_rsyslog_config_template`          | 'config/_default.j2' | String       | Configuration base template path         |
-| `manala_rsyslog_config`                   | ~                    | Array/String | Configuration directives                 |
-| `manala_rsyslog_configs_exclusive`        | false                | Array        | Additional configurations exclusivity    |
-| `manala_rsyslog_configs_dir`              | '/etc/rsyslog.d'     | String       | Additional configurations directory path |
-| `manala_rsyslog_configs_defaults`         | {}                   | Array        | Additional configurations defaults       |
-| `manala_rsyslog_configs`                  | []                   | Array        | Additional configurations directives     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -75,19 +35,6 @@ manala_rsyslog_config: |
 Template based
 ```yaml
 manala_rsyslog_config_template: my/rsyslog.conf.j2
-```
-
-Dict's array parameters based (deprecated):
-```yaml
-manala_rsyslog_config_template: config/default.prod.j2
-manala_rsyslog_config:
-  - $ModLoad imklog: false
-  - $ModLoad immark: true
-  - |
-    *.=info;*.=notice;*.=warn;\
-        auth,authpriv.none;\
-        cron,daemon.none;\
-        mail,news.none    -/var/log/messages
 ```
 
 ### Configs
@@ -117,16 +64,6 @@ manala_rsyslog_configs:
     template: rsyslog/bar.conf.j2
     config:
       foo: bar
-  # Dicts array template based (deprecated)
-  - file: foo.conf
-    template: configs/rules.prod.j2
-    config:
-      - auth,authpriv.*           /var/log/auth.log
-      - '*.*;auth,authpriv.none   -/var/log/syslog'
-      - daemon.*                  -/var/log/daemon.log
-      - kern.*                    -/var/log/kern.log
-      - mail.*                    -/var/log/mail.log
-      - user.*                    -/var/log/user.log
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -147,13 +84,16 @@ manala_rsyslog_configs_exclusive: true
 
 ```yaml
 - hosts: all
-  roles:
-    - role: manala.rsyslog
+  tasks:
+    - import_role:  
+        name: manala.roles.rsyslog
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

@@ -2,7 +2,7 @@
 
 - name: zones_records > Records
   nsupdate:
-    server: localhost
+    server: 127.0.0.1
     zone: "{{ item.0.zone }}"
     record: "{{ item.1.record }}"
     value: "{{ item.1.value|default(omit) }}"
@@ -17,10 +17,12 @@
         (item.0.records_default|default({})).ttl|default(omit)
       )
     }}"
-  with_subelements:
-     - "{{ manala_bind_zones }}"
-     - records
-     - skip_missing: true
-  when: (item.0.dynamic|default(False))
-        and (item.0.state|default('present') == 'present')
-        and (not item.0.omit|default(False))
+  loop: "{{
+    manala_bind_zones
+      | subelements('records', skip_missing=True)
+  }}"
+
+  when:
+    - item.0.dynamic|default(False)
+    - item.0.state|default('present') == 'present'
+    - not item.0.omit|default(False)

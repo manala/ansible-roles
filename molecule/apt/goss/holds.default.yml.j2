@@ -1,0 +1,13 @@
+---
+
+command:
+  apt-mark showhold:
+    exit-status: 0
+    stdout:
+      # Short syntax
+      - apt
+      # State
+      - "!dpkg"
+      - python3
+      - "!grep"
+      - tar

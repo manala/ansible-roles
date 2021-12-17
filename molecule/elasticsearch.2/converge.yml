@@ -1,0 +1,30 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.stretch
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.elasticsearch
+          vars:
+            manala_elasticsearch_plugins:
+              - mobz/elasticsearch-head
+      always:
+        - name: Wait for pretty response
+          uri:
+            url: http://localhost:9200/?pretty
+          register: result
+          until: result.status == 200
+          retries: 60
+          delay: 1
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

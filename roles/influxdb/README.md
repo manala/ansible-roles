@@ -1,14 +1,12 @@
-# Ansible Role : InfluxDB [![Build Status](https://travis-ci.org/manala/ansible-role-influxdb.svg?branch=master)](https://travis-ci.org/manala/ansible-role-influxdb)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role : InfluxDB
 
 This role will assume the setup of [InfluxDB](https://www.influxdata.com/time-series-platform/influxdb/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
-This role is made to work with the __influxdata__ influxDB debian packages. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the __influxdata__ influxDB debian packages. Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -25,39 +23,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.influxdb
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.influxdb
-```
-
-## Role Handlers
-
-| Name               | Type    | Description             |
-| ------------------ | ------- | ----------------------- |
-| `influxdb restart` | Service | Restart influxdb server |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                       | Default                       | Type         | Description                            |
-| ------------------------------------------ | ----------------------------- | ------------ | -------------------------------------- |
-| `manala_influxdb_install_packages`         | ~                             | Array        | Dependency packages to install         |
-| `manala_influxdb_install_packages_default` | ['influxdb']                  | Array        | Default dependency packages to install |
-| `manala_influxdb_dir`:                     | []                            | Array        | Directories used by Influxdb           |
-| `manala_influxdb_databases`                | []                            | Array        | Databases                              |
-| `manala_influxdb_users`                    | []                            | Array        | Users                                  |
-| `manala_influxdb_privileges`               | []                            | Array        | Privileges                             |
-| `manala_influxdb_config`                   | ~                             | Array/String | Configuration                          |
-| `manala_influxdb_config_file`              | '/etc/influxdb/influxdb.conf' | String       | Configuration file path                |
-| `manala_influxdb_config_template`          | 'config/base.conf.j2'         | String       | Configuration template path            |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -105,20 +75,6 @@ manala_influxdb_config: |
     database = "app"
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_influxdb_config:
-  - reporting-disabled: true
-  - meta:
-    - dir: /srv/db/influxdb/meta
-  - http:
-    - enabled: true
-  - udp:
-    - enabled: true
-    - bind-address: :8090
-    - database: app
-```
-
 Databases & Users & Privileges:
 ```yaml
 manala_influxdb_databases:
@@ -139,13 +95,16 @@ See InfluxDB documentation for more information about [databases](https://docs.i
 
  ```yaml
  - hosts: servers
-   roles:
-     - role: manala.influxdb
+   tasks:
+     - import_role:  
+        name: manala.roles.influxdb
  ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

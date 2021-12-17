@@ -4,5 +4,5 @@
   service:
     name: "{{ item }}"
     state: started
-  with_items:
+  loop:
     - isc-dhcp-server

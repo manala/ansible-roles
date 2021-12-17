@@ -8,8 +8,7 @@
     group: root
     mode: "0755"
   loop: "{{ query(
-      'manala_docker_applications',
-      manala_docker_applications,
-      manala_docker_applications_patterns
-    )
-  }}"
+    'manala.roles.docker_applications',
+    manala_docker_applications,
+    manala_docker_applications_patterns
+  ) }}"

@@ -1,17 +1,9 @@
 ---
 
-- name: errorfiles > Directory
-  file:
-    path: "{{ manala_haproxy_errorfiles_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_haproxy_errorfiles|length
-
 - name: errorfiles > Exclusive
   find:
     path: "{{ manala_haproxy_errorfiles_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_haproxy_errorfiles_exclusive_find
@@ -25,14 +17,13 @@
     group: root
     mode: "0644"
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_haproxy_errorfiles,
-      __manala_haproxy_errorfiles_exclusive_find.files|default([]),
-      manala_haproxy_errorfiles_dir,
-      manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_haproxy_errorfiles,
+    __manala_haproxy_errorfiles_exclusive_find.files|default([]),
+    manala_haproxy_errorfiles_dir,
+    manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
+    wantstate='present'
+  ) }}"
   notify:
     - haproxy reload
 
@@ -41,13 +32,12 @@
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
-      'manala_templates_exclusive',
-      manala_haproxy_errorfiles,
-      __manala_haproxy_errorfiles_exclusive_find.files|default([]),
-      manala_haproxy_errorfiles_dir,
-      manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
-      wantstate='absent'
-    )
-  }}"
+    'manala.roles.templates_exclusive',
+    manala_haproxy_errorfiles,
+    __manala_haproxy_errorfiles_exclusive_find.files|default([]),
+    manala_haproxy_errorfiles_dir,
+    manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
+    wantstate='absent'
+  ) }}"
   notify:
     - haproxy reload

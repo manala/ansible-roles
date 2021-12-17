@@ -30,7 +30,7 @@
     etc_hosts: "{{ item.etc_hosts|default(omit) }}"
     labels: "{{ item.labels|default(omit) }}"
   loop: "{{
-    manala_docker_containers | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_docker_containers | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_docker_containers
+      | flatten
+      | manala.roles.staten_ignore
   }}"

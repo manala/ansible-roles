@@ -16,14 +16,12 @@
 - import_tasks: resolver_config.yml
   tags:
     - manala_network
-    - manala_network.resolver # Deprecated
     - manala_network.resolver_config
 
 # Interfaces config
 - import_tasks: interfaces_config.yml
   tags:
     - manala_network
-    - manala_network.interfaces # Deprecated
     - manala_network.interfaces_config
 
 # Interfaces configs

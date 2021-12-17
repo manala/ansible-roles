@@ -1,0 +1,47 @@
+name: Molecule - MaxScale
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/molecule.maxscale.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/maxscale.*/**
+      - roles/maxscale/**
+      # Plugins
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        version:
+          - 2.2
+          - 2.3
+          - 2.4
+          - 2.5
+          - 6.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/manala/roles
+      - name: Molecule
+        uses: docker://quay.io/ansible/toolset:3.5.0
+        with:
+          args: |
+            sh -c " \
+              cd ansible_collections/manala/roles \
+              && molecule converge --scenario-name maxscale.${{ matrix.version }} \
+            "
+      - name: Debug
+        uses: mxschmitt/action-tmate@v3
+        if: github.event.inputs.debug && always()

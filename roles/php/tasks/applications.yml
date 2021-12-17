@@ -9,26 +9,24 @@
     mode: "0755"
     validate_certs: "{{ item.validate_certs|default(omit) }}"
   loop: "{{ query(
-      'manala_php_applications',
-      manala_php_applications,
-      manala_php_applications_patterns,
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.php_applications',
+    manala_php_applications,
+    manala_php_applications_patterns,
+    wantstate='present'
+  ) }}"
 
 - name: applications > Link versions
   file:
     state: link
-    force: yes
+    force: true
     src: "{{ item.application ~ '_' ~ item.version }}"
     dest: "{{ manala_php_applications_dir }}/{{ item.application }}"
     owner: root
     group: root
   when: item.version
   loop: "{{ query(
-      'manala_php_applications',
-      manala_php_applications,
-      manala_php_applications_patterns,
-      wantstate='present'
-    )
-  }}"
+    'manala.roles.php_applications',
+    manala_php_applications,
+    manala_php_applications_patterns,
+    wantstate='present'
+  ) }}"

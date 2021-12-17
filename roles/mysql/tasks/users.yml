@@ -10,7 +10,7 @@
     sql_log_bin: "{{ item.sql_log_bin|default(omit) }}"
     state: "{{ item.state|default(omit) }}"
   loop: "{{
-    manala_mysql_users | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_mysql_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_mysql_users
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

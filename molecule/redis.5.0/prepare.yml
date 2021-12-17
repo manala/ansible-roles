@@ -1,0 +1,14 @@
+---
+
+- hosts:
+    - debian.stretch
+    - debian.buster
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - redis@backports
+      when: ansible_distribution_release in ['stretch']
