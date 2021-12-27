@@ -430,7 +430,7 @@ manala_apt_keys_patterns:
     id: 06E85760C0A52C50
   kopia:
     url: https://kopia.io/signing-key
-    id: 7713E6D88ED70D9D
+    id: FD56A556
 
 # Preferences
 manala_apt_preferences_patterns:
