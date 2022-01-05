@@ -21,22 +21,8 @@
                 password: foo
                 host: localhost
                 priv: "*.*:ALL,GRANT"
-              - name: bar
-                state: ignore
-              # Flatten
-              -
-                - name: baz
-                  password: baz
-                  host: localhost
-                  priv: "*.*:ALL,GRANT"
             manala_mysql_databases:
               - name: foo
-              - name: bar
-                state: ignore
-              # Flatten
-              -
-                - name: baz
-      always:
         - name: Goss
           command:
             cmd: goss --gossfile - validate
@@ -236,3 +222,116 @@
           command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/data_dir.yml.j2') }}"
+
+#########
+# Users #
+#########
+
+- name: Users
+  tags: [users]
+  hosts: debian
+  tasks:
+    - name: Role - Default
+      import_role:
+        # Play role fully on first run, to install python modules
+        name: manala.roles.mysql
+      vars:
+        manala_mysql_install_packages:
+          - mariadb-server
+          - mariadb-client
+        manala_mysql_users:
+          - name: bar
+    - name: Create users to absent/ignore later
+      mysql_user:
+        user: "{{ item }}"
+        state: present
+      loop: [
+        state_absent_existing, state_ignore_existing,
+      ]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_users:
+              # Privileges and password
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+              # States
+              - name: state_present_implicit
+              - name: state_present
+                state: present
+              - name: state_absent
+                state: absent
+              - name: state_absent_existing
+                state: absent
+              - name: state_ignored
+                state: ignore
+              - name: state_ignore_existing
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  host: localhost
+                  priv: "*.*:ALL,GRANT"
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
+
+#############
+# Databases #
+#############
+
+- name: Databases
+  tags: [databases]
+  hosts: debian
+  tasks:
+    - name: Role - Default
+      import_role:
+        # Play role fully on first run, to install python modules
+        name: manala.roles.mysql
+      vars:
+        manala_mysql_install_packages:
+          - mariadb-server
+          - mariadb-client
+        manala_mysql_databases:
+          - name: bar
+            state: absent
+    - name: Create databases to absent/ignore later
+      mysql_db:
+        name: "{{ item }}"
+        state: present
+      loop: [
+        state_absent_existing, state_ignore_existing,
+      ]
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_databases:
+              # States
+              - name: state_present_implicit
+              - name: state_present
+                state: present
+              - name: state_absent
+                state: absent
+              - name: state_absent_existing
+                state: absent
+              - name: state_ignored
+                state: ignore
+              - name: state_ignore_existing
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/databases.yml.j2') }}"
