@@ -12,5 +12,5 @@
   loop: "{{
     manala_mysql_users
       | flatten
-      | manala.roles.staten(want='present')
+      | manala.roles.staten
   }}"
