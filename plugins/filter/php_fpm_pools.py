@@ -3,6 +3,7 @@ __metaclass__ = type
 
 from ansible.errors import AnsibleFilterError
 from ansible.module_utils.six import iteritems, string_types
+from ansible.plugins.filter.core import flatten
 
 from numbers import Number
 
@@ -73,6 +74,11 @@ def pools_parameter(parameters, key, required=False, comment=False, quote=False,
             k = '%s[%s]' % (key, k)
             result += pools_parameter({k: v}, k, quote=quote) + '\n'
         result = result.rsplit('\n', 1)[0]
+    elif isinstance(value, list):
+        value = flatten(value)
+        result = '\n'.join(
+            pools_parameter({key: v}, key, quote=quote) for v in value
+        )
     else:
         raise AnsibleFilterError('php_fpm_pools_parameter value of an unknown type %s' % type(value))
 
