@@ -155,3 +155,6 @@ class TestPoolsParameter(unittest.TestCase):
         self.assertEqual('''value = 4.56''', pools_parameter({
             'value': 4.56,
         }, 'value'))
+        self.assertEqual('''value = foo\nvalue = bar''', pools_parameter({
+            'value': ['foo', 'bar'],
+        }, 'value'))

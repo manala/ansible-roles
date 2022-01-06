@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Php] Support multiple `include` in fpm pool configs.
 
 ## [1.0.2] - 2022-01-05
 ### Fixed

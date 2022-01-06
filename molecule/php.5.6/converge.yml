@@ -302,6 +302,9 @@
                       memory_limit: 123M
                     php_value:
                       display_errors: false
+                    include:
+                      - /include-1
+                      - /include-2
                   bar:
                     user: bar
                     group: bar
