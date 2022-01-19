@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Composer] No interaction on install check to prevent blocking root warning
 
 ## [1.0.3] - 2022-01-10
 ### Fixed

@@ -11,7 +11,7 @@
 
 - name: install > Check
   command: >
-    {{ manala_composer_bin }} --version
+    {{ manala_composer_bin }} --version --no-interaction
   register: __manala_composer_bin_check_result
   changed_when: false
   failed_when: false
