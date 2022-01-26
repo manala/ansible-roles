@@ -78,13 +78,13 @@ manala_apt_repositories_patterns:
     key: nodesource
   mysql_5_6:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
-    key: mysql
+    key: "{{ (ansible_distribution_release in ['stretch'])|ternary('mysql_legacy', 'mysql')}}"
   mysql_5_7:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
-    key: mysql
+    key: "{{ (ansible_distribution_release in ['stretch'])|ternary('mysql_legacy', 'mysql')}}"
   mysql_8_0:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-8.0
-    key: mysql
+    key: "{{ (ansible_distribution_release in ['stretch'])|ternary('mysql_legacy', 'mysql')}}"
   mariadb_10_1:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
     key: mariadb
@@ -312,6 +312,9 @@ manala_apt_keys_patterns:
     url: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
     id: 68576280
   mysql:
+    url: https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+    id: 3A79BD29
+  mysql_legacy:
     url: https://repo.mysql.com/RPM-GPG-KEY-mysql
     id: 5072E1F5
   mariadb:

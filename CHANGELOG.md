@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Apt] Add new Mysql key id and rename the old one `mysql_legacy`
 
 ## [1.0.4] - 2022-01-19
 ### Fixed
