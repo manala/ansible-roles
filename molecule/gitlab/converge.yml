@@ -6,7 +6,7 @@
 
 - name: Default
   tags: [default]
-  hosts: debian:!debian.bullseye
+  hosts: debian
   tasks:
     - block:
         - name: Role
@@ -24,7 +24,7 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian!debian.bullseye
+  hosts: debian
   vars:
     tests_dir: /molecule/gitlab/configs
   tasks:
