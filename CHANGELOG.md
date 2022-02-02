@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [MySQL] Support server/client handling via `manala_mysql_server` flag
 
 ## [1.0.5] - 2022-01-26
 ### Changed

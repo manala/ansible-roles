@@ -18,3 +18,4 @@
       master_ssl_key: "{{ item.master_ssl_key|default(omit) }}"
       master_user: "{{ item.master_user|default(omit) }}"
   loop: "{{ manala_mysql_replications }}"
+  when: manala_mysql_server

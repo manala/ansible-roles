@@ -17,3 +17,4 @@
     enabled: true
   loop:
     - mysql
+  when: manala_mysql_server

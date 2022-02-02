@@ -22,6 +22,11 @@ You can find all variables and default values used by this role in the [defaults
 
 ## Configuration example
 
+Install client only
+```yaml
+manala_mysql_server: false  # Default true
+```
+
 ### Configure `my.cnf` example
 
 Create an alternative link for debian MySQL official packages
