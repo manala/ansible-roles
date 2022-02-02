@@ -11,3 +11,4 @@
       | flatten
       | manala.roles.staten
   }}"
+  when: manala_mysql_server

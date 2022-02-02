@@ -26,6 +26,11 @@ You can find all variables and default values used by this role in the [defaults
 
 ### Configuration example
 
+Install client only
+```yaml
+manala_ssh_server: false  # Default true
+```
+
 Use default debian templates (recommended)
 ```yaml
 manala_ssh_server_config_template: config/server/debian/sshd_config.j2

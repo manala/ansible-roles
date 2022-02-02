@@ -8,7 +8,9 @@
     group: "{{ manala_mysql_data_dir_group }}"
     mode: "{{ manala_mysql_data_dir_mode }}"
   register: __manala_mysql_data_dir_create_result
-  when: manala_mysql_data_dir|default(false)
+  when:
+    - manala_mysql_server
+    - manala_mysql_data_dir|default(false)
 
 - name: data_dir > Initialize data directory
   command: >
@@ -16,5 +18,6 @@
     --user={{ manala_mysql_data_dir_user }}
     --datadir={{ manala_mysql_data_dir }}
   when:
+    - manala_mysql_server
     - manala_mysql_data_dir_initialize
     - __manala_mysql_data_dir_create_result is changed

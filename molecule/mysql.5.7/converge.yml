@@ -29,6 +29,34 @@
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
 ##########
+# Client #
+##########
+
+- name: Client
+  tags: [client]
+  hosts:
+    - debian.stretch
+    - debian.buster
+  tasks:
+    - name: Packages absent
+      apt:
+        name:
+          - mysql-server
+          - mysql-client
+        state: absent
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_server: false
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/client.yml.j2') }}"
+
+##########
 # Config #
 ##########
 

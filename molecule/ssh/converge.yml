@@ -24,7 +24,7 @@
 # Client #
 ##########
 
-- name: Default
+- name: Client
   tags: [client]
   hosts: debian
   tasks:
