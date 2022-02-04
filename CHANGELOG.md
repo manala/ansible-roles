@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Php] Ensure extensions idempotence
 
 ## [1.0.6] - 2022-02-02
 ### Added

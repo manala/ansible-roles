@@ -18,6 +18,7 @@ on:
       - plugins/lookup/php_packages.py
       - plugins/lookup/php_sapis.py
       - plugins/lookup/templates_exclusive.py
+      - plugins/modules/php_extension.py
   workflow_dispatch:
     inputs:
       debug:
