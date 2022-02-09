@@ -296,6 +296,9 @@ manala_apt_repositories_patterns:
   kopia:
     source: deb http://packages.kopia.io/apt/ stable main
     key: kopia
+  symfony:
+    source: deb [trusted=yes] https://repo.symfony.com/apt/ /
+    file: symfony.list
 
 # Keys
 manala_apt_keys_patterns:
