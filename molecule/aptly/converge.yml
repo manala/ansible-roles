@@ -96,6 +96,7 @@
                 distribution: stretch
                 origin: Foo
                 label: Foo
+                architectures: arm64,amd64
               # Flatten
               -
                 - name: bar
@@ -104,6 +105,7 @@
                   distribution: buster
                   origin: Bar
                   label: Bar
+                  architectures: arm64,amd64
       always:
         - name: Goss
           command:

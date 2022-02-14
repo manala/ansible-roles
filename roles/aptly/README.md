@@ -65,12 +65,14 @@ manala_aptly_repositories:
     distribution: stretch
     origin: Foo
     label: Bar
+    architectures: amd64,arm64
   - name: buster
     comment: Buster
     component: main
     distribution: buster
     origin: Foo
     label: Bar
+    architectures: amd64
   # Ignore repository
   - name: ignore
     state: ignore
