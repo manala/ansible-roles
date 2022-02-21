@@ -1,6 +1,6 @@
 ---
 
-- name: repositories > List
+- name: repositories local > List
   command: "{{
     manala_aptly_user|ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
@@ -14,7 +14,28 @@
   check_mode: false
   failed_when: false
   changed_when: false
-  register: __manala_aptly_repositories_find_output
+  register: __manala_aptly_repositories_local_find_output
+  when: |
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
+      | length
+
+- name: repositories published > List
+  command: "{{
+    manala_aptly_user|ternary(
+      'su ' ~ manala_aptly_user ~ ' -c \"',
+      ''
+    ) }}aptly publish list --raw | cut -f2 -d ' '{{
+    manala_aptly_user|ternary(
+      '\"',
+      ''
+    )
+  }}"
+  check_mode: false
+  failed_when: false
+  changed_when: false
+  register: __manala_aptly_repositories_published_find_output
   when: |
     manala_aptly_repositories
       | flatten
@@ -32,7 +53,7 @@
       ''
     )
   }}"
-  when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
+  when: item.name not in __manala_aptly_repositories_local_find_output.stdout_lines
   loop: "{{
     manala_aptly_repositories
       | flatten
@@ -44,9 +65,10 @@
     manala_aptly_user|ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
-    ) }}aptly publish repo -origin={{ item.origin }} -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '')
+    ) }}aptly publish repo -architectures={{ item.architectures }} -origin={{ item.origin }} \
+        -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '')
   }}"
-  when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
+  when: item.name not in __manala_aptly_repositories_published_find_output.stdout_lines
   loop: "{{
     manala_aptly_repositories
       | flatten
