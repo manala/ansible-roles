@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Added
 - [Aptly] `Repositories` task now handle `architecture` when publishing
 
+## [1.0.9] - 2022-02-21
+## Changed
+- [Aptly] Publishing is now conditionned on existing published repositories instead of locals
+- [Apt] Remove explicit architecture on Manala repository pattern
+## Added
+- [Aptly] `Repositories` task now handle `architecture` when publishing
+
 ## [1.0.8] - 2022-02-09
 ### Added
 - [Apt] Symfony repository
