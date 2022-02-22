@@ -28,8 +28,9 @@ class LookupModule(LookupBase):
 
         # Handle repositories defined as reversed preferences
         for repository in repositories[::-1]:
-            if 'key' in repository:
-                keys.insert(0, repository.get('key'))
+            key = repository.get('key')
+            if key:
+                keys.insert(0, key)
 
         for key in keys:
 
