@@ -5,11 +5,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-## Changed
-- [Aptly] Publishing is now conditionned on existing published repositories instead of locals
-- [Apt] Remove explicit architecture on Manala repository pattern
-## Added
-- [Aptly] `Repositories` task now handle `architecture` when publishing
 
 ## [1.0.9] - 2022-02-21
 ## Changed
