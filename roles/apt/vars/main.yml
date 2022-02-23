@@ -77,14 +77,20 @@ manala_apt_repositories_patterns:
     source: deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main
     key: nodesource
   mysql_5_6:
-    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
-    key: "{{ (ansible_distribution_release in ['stretch'])|ternary('mysql_legacy', 'mysql')}}"
+    source: >-
+      {{ (ansible_distribution_release in ['stretch'])|ternary('deb [trusted=yes]', 'deb') }}
+      http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
+    key: "{{ (ansible_distribution_release in ['stretch'])|ternary(None, 'mysql')}}"
   mysql_5_7:
-    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
-    key: "{{ (ansible_distribution_release in ['stretch'])|ternary('mysql_legacy', 'mysql')}}"
+    source: >-
+      {{ (ansible_distribution_release in ['stretch'])|ternary('deb [trusted=yes]', 'deb') }}
+      http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
+    key: "{{ (ansible_distribution_release in ['stretch'])|ternary(None, 'mysql')}}"
   mysql_8_0:
-    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-8.0
-    key: "{{ (ansible_distribution_release in ['stretch'])|ternary('mysql_legacy', 'mysql')}}"
+    source: >-
+      {{ (ansible_distribution_release in ['stretch'])|ternary('deb [trusted=yes]', 'deb') }}
+      http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-8.0
+    key: "{{ (ansible_distribution_release in ['stretch'])|ternary(None, 'mysql')}}"
   mariadb_10_1:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
     key: mariadb
@@ -317,9 +323,6 @@ manala_apt_keys_patterns:
   mysql:
     url: https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
     id: 3A79BD29
-  mysql_legacy:
-    url: https://repo.mysql.com/RPM-GPG-KEY-mysql
-    id: 5072E1F5
   mariadb:
     url: https://raw.githubusercontent.com/MariaDB/mariadb.org-tools/master/release/create_package_tarballs/deb_files/MariaDB-C74CD1D8-public.asc
     id: C74CD1D8

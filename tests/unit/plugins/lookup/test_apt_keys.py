@@ -86,3 +86,16 @@ class Test(unittest.TestCase):
                 {'key': 'foo'}
             ]
         ]))
+
+    def test_no_key(self):
+        self.assertListEqual([
+        ], self.lookup.run([
+            [],
+            {
+                'foo': {'id': 'foo'},
+            },
+            [
+                {'key': None},
+                {'key': ''},
+            ]
+        ]))
