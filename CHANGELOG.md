@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ## Changed
 - [Apt] Trust MySQL repository on stretch
+### Added
+- [MySQL] Add `login_*` parameters in `users` and `databases` tasks.
 
 ## [1.0.9] - 2022-02-21
 ## Changed
