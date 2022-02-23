@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ## Changed
 - [Apt] Trust MySQL repository on stretch
+## Added
+- [Apt] Add Galera 4.10 and MySQL wsrep 8.0.26 repositories
 
 ## [1.0.9] - 2022-02-21
 ## Changed
