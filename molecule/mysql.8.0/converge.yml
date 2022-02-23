@@ -22,10 +22,11 @@
             manala_mysql_users:
               - name: foo
                 password: foo
-                host: localhost
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 priv: "*.*:ALL,GRANT"
             manala_mysql_databases:
               - name: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           command:
@@ -265,6 +266,7 @@
                 default-authentication-plugin: mysql_native_password
         manala_mysql_users:
           - name: bar
+            login_unix_socket: /var/run/mysqld/mysqld.sock
             state: absent
     - name: Create users to absent/ignore later
       mysql_user:
@@ -282,25 +284,31 @@
               # Privileges and password
               - name: foo
                 password: foo
-                host: localhost
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 priv: "*.*:ALL,GRANT"
               # States
               - name: state_present_implicit
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_present
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: present
               - name: state_absent
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: absent
               - name: state_absent_existing
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: absent
               - name: state_ignored
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: ignore
               - name: state_ignore_existing
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: ignore
               # Flatten
               -
                 - name: baz
                   password: baz
-                  host: localhost
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
                   priv: "*.*:ALL,GRANT"
       always:
         - name: Goss
@@ -329,6 +337,7 @@
                 default-authentication-plugin: mysql_native_password
         manala_mysql_databases:
           - name: bar
+            login_unix_socket: /var/run/mysqld/mysqld.sock
             state: absent
     - name: Create databases to absent/ignore later
       mysql_db:
@@ -345,19 +354,26 @@
             manala_mysql_databases:
               # States
               - name: state_present_implicit
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_present
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: present
               - name: state_absent
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: absent
               - name: state_absent_existing
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: absent
               - name: state_ignored
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: ignore
               - name: state_ignore_existing
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: ignore
               # Flatten
               -
                 - name: baz
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           command:

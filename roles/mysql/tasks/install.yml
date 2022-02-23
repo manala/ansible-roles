@@ -15,8 +15,8 @@
         or (manala_mysql_replications|length > 0)
       )|ternary(
         (ansible_python.version.major == 2)|ternary(
-          ['python-mysqldb'],
-          ['python3-mysqldb']
+          ['python-pymysql'],
+          ['python3-pymysql']
         ),
         []
       )

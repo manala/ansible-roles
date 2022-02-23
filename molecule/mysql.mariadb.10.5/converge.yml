@@ -19,7 +19,7 @@
             manala_mysql_users:
               - name: foo
                 password: foo
-                host: localhost
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 priv: "*.*:ALL,GRANT"
               - name: bar
                 state: ignore
@@ -27,15 +27,18 @@
               -
                 - name: baz
                   password: baz
-                  host: localhost
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
                   priv: "*.*:ALL,GRANT"
             manala_mysql_databases:
               - name: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: bar
+                login_unix_socket: /var/run/mysqld/mysqld.sock
                 state: ignore
               # Flatten
               -
                 - name: baz
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           command:
