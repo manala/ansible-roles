@@ -1,0 +1,14 @@
+---
+
+- hosts:
+    - debian.buster
+    - debian.bullseye
+  tags: [always]
+  tasks:
+    - name: Apt
+      import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - galera@galera_4_10
+          - mysql@mysql_wsrep_8_0_26

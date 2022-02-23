@@ -1,0 +1,47 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.buster
+    - debian.bullseye
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_install_packages:
+              - galera-4
+              - galera-arbitrator-4
+              - mysql-wsrep-server
+              - mysql-wsrep-client
+            manala_mysql_users:
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+              - name: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  host: localhost
+                  priv: "*.*:ALL,GRANT"
+            manala_mysql_databases:
+              - name: foo
+              - name: bar
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+      always:
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

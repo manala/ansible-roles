@@ -30,6 +30,7 @@ jobs:
           - 5.7
           - "8.0"
           - galera.3.mysql_wsrep.5.6
+          - galera.4.10.mysql_wsrep.8.0.26
           - mariadb.10.3
           - mariadb.10.4
           - mariadb.10.5
