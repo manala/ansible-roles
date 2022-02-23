@@ -5,6 +5,11 @@
     name: "{{ item.name }}"
     encoding: "{{ item.encoding|default('utf8') }}"
     collation: "{{ item.collation|default('utf8_general_ci') }}"
+    login_host: "{{ item.login_host|default(omit) }}"
+    login_port: "{{ item.login_port|default(omit) }}"
+    login_unix_socket: "{{ item.login_unix_socket|default(omit) }}"
+    login_user: "{{ item.login_user|default(omit) }}"
+    login_password: "{{ item.login_password|default(omit) }}"
     state: "{{ item.state|default(omit) }}"
   loop: "{{
     manala_mysql_databases
