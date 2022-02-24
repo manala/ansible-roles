@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Added
 - [Apt] Add Galera 4.10 and MySQL wsrep 8.0.26 repositories
 - [MySQL] Add `login_*` parameters in `users` and `databases` tasks.
+- [MySQL] Python installed package is configurable.
 
 ## [1.0.9] - 2022-02-21
 ## Changed

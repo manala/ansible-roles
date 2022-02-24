@@ -8,6 +8,12 @@ manala_mysql_install_packages_default: "{{
     ['mysql-client']
   )
 }}"
+manala_mysql_install_python_packages: "{{
+  (ansible_python.version.major == 2)|ternary(
+    ['python-mysqldb'],
+    ['python3-mysqldb']
+  )
+}}"
 
 # Server
 manala_mysql_server: true
