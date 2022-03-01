@@ -28,6 +28,45 @@
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
+###################
+# Default pymysql #
+###################
+
+- name: Default PyMySQL
+  tags: [default, default.pymysql]
+  hosts: debian
+  tasks:
+    - block:
+        - name: Role
+          import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_install_python_packages: "{{
+              (ansible_python.version.major == 2)|ternary(
+                ['python-pymysql'],
+                ['python3-pymysql']
+              )
+            }}"
+            manala_mysql_install_packages:
+              - mariadb-server
+              - mariadb-client
+            manala_mysql_users:
+              - name: foo
+                password: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
+                priv: "*.*:ALL,GRANT"
+            manala_mysql_databases:
+              - name: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
+        - name: Goss
+          command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+        - name: Cleanup
+          apt:
+            name: "{{ manala_mysql_install_python_packages }}"
+            state: absent
+
 ##########
 # Client #
 ##########
