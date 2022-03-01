@@ -1,0 +1,42 @@
+---
+
+package:
+  galera-4:
+    installed: true
+  galera-arbitrator-4:
+    installed: true
+  mysql-wsrep-server:
+    installed: true
+  mysql-wsrep-client:
+    installed: true
+
+command:
+  mysql --version:
+    exit-status: 0
+    stdout:
+      - "/mysql(.)*Ver 8.0.26/"
+  mysql -u root --execute "select user from mysql.user":
+    exit-status: 0
+    stdout:
+      - foo
+      - "!bar"
+      - baz
+  mysqladmin  --user=foo --password=foo ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
+  mysqladmin  --user=baz --password=baz ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
+  mysql -u root --execute "show databases":
+    exit-status: 0
+    stdout:
+      - foo
+      - "!bar"
+      - baz
+
+service:
+  mysql:
+    enabled: true
+    running: true
