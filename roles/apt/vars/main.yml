@@ -311,6 +311,10 @@ manala_apt_repositories_patterns:
   symfony:
     source: deb [trusted=yes] https://repo.symfony.com/apt/ /
     file: symfony.list
+  github_cli:
+    source: deb https://cli.github.com/packages stable main
+    key: github_cli
+    file: github_cli.list
 
 # Keys
 manala_apt_keys_patterns:
@@ -446,6 +450,9 @@ manala_apt_keys_patterns:
   kopia:
     url: https://kopia.io/signing-key
     id: FD56A556
+  github_cli:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    id: B97541F0
 
 # Preferences
 manala_apt_preferences_patterns:
