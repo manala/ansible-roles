@@ -4,6 +4,7 @@
   service:
     name: "{{ item }}"
     state: started
+    enabled: "{{ manala_redis_service_enabled }}"
   loop: "{{
     []
     + (manala_redis_server)|ternary(['redis-server'], [])

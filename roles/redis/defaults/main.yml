@@ -12,6 +12,9 @@ manala_redis_install_packages_default: "{{
   + (manala_redis_sentinel)|ternary(['redis-sentinel'], [])
 }}"
 
+# Service
+manala_redis_service_enabled: true
+
 # Server
 manala_redis_server: true
 manala_redis_server_config_file: /etc/redis/redis.conf
