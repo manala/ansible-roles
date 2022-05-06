@@ -1,0 +1,11 @@
+---
+
+# Install
+manala_aptly_api_install_packages: ~
+manala_aptly_api_install_packages_default:
+  - aptly-api
+
+# Config
+manala_aptly_api_config_file: /etc/aptly-api.conf
+manala_aptly_api_config_template: ~
+manala_aptly_api_config: ~

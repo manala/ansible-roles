@@ -1,0 +1,13 @@
+---
+
+# Install
+- import_tasks: install.yml
+  tags:
+    - manala_aptly
+    - manala_aptly.install
+
+# Config
+- import_tasks: config.yml
+  tags:
+    - manala_aptly
+    - manala_aptly.config
