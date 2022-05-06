@@ -1,6 +1,6 @@
-# Ansible Role: Aptly
+# Ansible Role: Aptly Api
 
-This role will deal with the setup of [Aptly](https://www.aptly.info/).
+This role will deal with the setup of [Aptly Api](https://www.aptly.info/doc/api/).
 
 It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
@@ -22,23 +22,17 @@ You can find all variables and default values used by this role in the [defaults
 
 ### Configuration example
 
-User:
-
-```yaml
-manala_aptly_user: aptly
-```
-
 Use template:
 
 ```yaml
-manala_aptly_config_template: my/aptly.conf.j2
-manala_aptly_config:
+manala_aptly_api_config_template: my/aptly.conf.j2
+manala_aptly_api_config:
   foo: bar
 ```
 
 Use dict parameters:
 ```yaml
-manala_aptly_config:
+manala_aptly_api_config:
   rootDir: /tmp/aptly
   architectures:
     - amd64
@@ -46,7 +40,7 @@ manala_aptly_config:
 
 Use raw config:
 ```yaml
-manala_aptly_config: |
+manala_aptly_api_config: |
   {
       "rootDir": "/tmp/aptly",
       "architectures": [
@@ -55,38 +49,13 @@ manala_aptly_config: |
   }
 ```
 
-Repositories:
-
-```yaml
-manala_aptly_repositories:
-  - name: stretch
-    comment: Stretch
-    component: main
-    distribution: stretch
-    origin: Foo
-    label: Bar
-    architectures: amd64,arm64
-  - name: buster
-    comment: Buster
-    component: main
-    distribution: buster
-    origin: Foo
-    label: Bar
-    architectures: amd64
-  # Ignore repository
-  - name: ignore
-    state: ignore
-  # Flatten repositories
-  - "{{ my_custom_repositories_array }}"
-```
-
 ## Example playbook
 
  ```yaml
  - hosts: servers
    tasks:
      - import_role:  
-        name: manala.roles.aptly
+        name: manala.roles.aptly_api
  ```
 
 # Licencing
