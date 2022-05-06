@@ -54,7 +54,7 @@ manala_aptly_api_config: |
  ```yaml
  - hosts: servers
    tasks:
-     - import_role:  
+     - import_role:
         name: manala.roles.aptly_api
  ```
 
