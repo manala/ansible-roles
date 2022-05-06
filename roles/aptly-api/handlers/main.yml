@@ -1,0 +1,6 @@
+---
+
+- name: 'restart aptly-api'
+  ansible.builtin.systemd:
+    name: aptly-api
+    state: restarted
