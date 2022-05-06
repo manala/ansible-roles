@@ -9,3 +9,7 @@ manala_aptly_api_install_packages_default:
 manala_aptly_api_config_file: /etc/aptly-api.conf
 manala_aptly_api_config_template: ~
 manala_aptly_api_config: ~
+
+# default config
+manala_aptly_api_listen_host: 127.0.0.1
+manala_aptly_api_listen_port: 8080
