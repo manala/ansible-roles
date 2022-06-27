@@ -1,0 +1,45 @@
+---
+
+- name: prometheus restart
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_service }}"
+
+#################
+# Node Exporter #
+#################
+
+- name: prometheus node exporter restart
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_node_exporter_service }}"
+
+##################
+# Nginx Exporter #
+##################
+
+- name: prometheus nginx exporter restart
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_nginx_exporter_service }}"
+
+####################
+# Php Fpm Exporter #
+####################
+
+- name: prometheus php fpm exporter restart
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_php_fpm_exporter_service }}"

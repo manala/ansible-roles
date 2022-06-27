@@ -1,0 +1,122 @@
+---
+
+- name: services > Facts
+  ansible.builtin.service_facts:
+
+- name: services > Template
+  ansible.builtin.template:
+    src: "{{ manala_prometheus_service_template | default('services/_default.j2', true) }}"
+    dest: "{{ manala_prometheus_service_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - prometheus restart
+
+- name: services > Services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_service }}"
+
+#################
+# Node Exporter #
+#################
+
+- name: services > Node Exporter > Template
+  ansible.builtin.template:
+    src: "{{ manala_prometheus_node_exporter_service_template | default('services/node_exporter/_default.j2', true) }}"
+    dest: "{{ manala_prometheus_node_exporter_service_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: manala_prometheus_node_exporter
+  notify:
+    - prometheus node exporter restart
+
+- name: services > Node Exporter > Services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: "{{ manala_prometheus_node_exporter | ternary('started', 'stopped') }}"
+    enabled: "{{ manala_prometheus_node_exporter | ternary(True, False) }}"
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_node_exporter_service }}"
+  when: >
+    manala_prometheus_node_exporter
+    or (not manala_prometheus_node_exporter and manala_prometheus_node_exporter_service ~ '.service' in ansible_facts.services)
+
+- name: services > Node Exporter > Remove
+  ansible.builtin.file:
+    path: "{{ manala_prometheus_node_exporter_service_file }}"
+    state: absent
+  when: not manala_prometheus_node_exporter
+
+##################
+# Nginx Exporter #
+##################
+
+- name: services > Nginx Exporter > Template
+  ansible.builtin.template:
+    src: "{{ manala_prometheus_nginx_exporter_service_template | default('services/nginx_exporter/_default.j2', true) }}"
+    dest: "{{ manala_prometheus_nginx_exporter_service_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: manala_prometheus_nginx_exporter
+  notify:
+    - prometheus nginx exporter restart
+
+- name: services > Nginx Exporter > Services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: "{{ manala_prometheus_nginx_exporter | ternary('started', 'stopped') }}"
+    enabled: "{{ manala_prometheus_nginx_exporter | ternary(True, False) }}"
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_nginx_exporter_service }}"
+  when: >
+    manala_prometheus_nginx_exporter
+    or (not manala_prometheus_nginx_exporter and manala_prometheus_nginx_exporter_service ~ '.service' in ansible_facts.services)
+
+- name: services > Nginx Exporter > Remove
+  ansible.builtin.file:
+    path: "{{ manala_prometheus_nginx_exporter_service_file }}"
+    state: absent
+  when: not manala_prometheus_nginx_exporter
+
+####################
+# Php Fpm Exporter #
+####################
+
+- name: services > Php Fpm Exporter > Template
+  ansible.builtin.template:
+    src: "{{ manala_prometheus_php_fpm_exporter_service_template | default('services/php_fpm_exporter/_default.j2', true) }}"
+    dest: "{{ manala_prometheus_php_fpm_exporter_service_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: manala_prometheus_php_fpm_exporter
+  notify:
+    - prometheus php fpm exporter restart
+
+- name: services > Php Fpm Exporter > Services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: "{{ manala_prometheus_php_fpm_exporter | ternary('started', 'stopped') }}"
+    enabled: "{{ manala_prometheus_php_fpm_exporter | ternary(True, False) }}"
+    daemon_reload: true
+  loop:
+    - "{{ manala_prometheus_php_fpm_exporter_service }}"
+  when: >
+    manala_prometheus_php_fpm_exporter
+    or (not manala_prometheus_php_fpm_exporter and manala_prometheus_php_fpm_exporter_service ~ '.service' in ansible_facts.services)
+
+- name: services > Php Fpm Exporter > Remove
+  ansible.builtin.file:
+    path: "{{ manala_prometheus_php_fpm_exporter_service_file }}"
+    state: absent
+  when: not manala_prometheus_php_fpm_exporter

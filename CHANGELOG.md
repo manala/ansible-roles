@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] Install gnupg package
 ### Fixed
 - [Apt] Update aptly key
+### Added
+- [Prometheus] Introduce role
 
 ## [1.0.11] - 2022-03-04
 ### Added

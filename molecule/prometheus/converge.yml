@@ -1,0 +1,22 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa unnamed-task
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.prometheus
+          vars:
+            manala_prometheus_node_exporter: true
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
