@@ -1,7 +1,7 @@
 ---
 
 - name: repositories > Setup git repositories
-  git:
+  ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
     accept_hostkey: "{{ item.accept_hostkey|default(omit) }}"
@@ -12,7 +12,7 @@
   when: item.user is undefined
 
 - name: repositories > Setup git repositories as specified user
-  git:
+  ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
     accept_hostkey: "{{ item.accept_hostkey|default(omit) }}"

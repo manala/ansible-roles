@@ -1,7 +1,7 @@
 ---
 
 - name: install > Packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     install_recommends: false
     update_cache: true

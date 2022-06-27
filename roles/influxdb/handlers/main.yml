@@ -1,7 +1,7 @@
 ---
 
 - name: influxdb restart
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: stopped
   loop:
@@ -9,7 +9,7 @@
   notify: influxdb start
 
 - name: influxdb start
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
   loop:

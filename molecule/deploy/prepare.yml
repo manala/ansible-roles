@@ -4,7 +4,7 @@
   tags: [always]
   tasks:
     - name: Packages
-      apt:
+      ansible.builtin.apt:
         name: [rsync]
         install_recommends: false
         update_cache: true
@@ -15,7 +15,7 @@
   tags: [always]
   tasks:
     - name: Packages local
-      apt:
+      ansible.builtin.apt:
         name: [rsync]
         install_recommends: false
         update_cache: true

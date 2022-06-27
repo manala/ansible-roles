@@ -1,7 +1,7 @@
 ---
 
 - name: group_vars > Directory
-  file:
+  ansible.builtin.file:
     path: "{{ manala_ansible_group_vars_dir }}"
     state: directory
     owner: root
@@ -10,7 +10,7 @@
   when: manala_ansible_group_vars|length
 
 - name: group_vars > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_ansible_group_vars_dir }}"
     file_type: file
     patterns: "*"
@@ -19,7 +19,7 @@
   when: manala_ansible_group_vars_exclusive
 
 - name: group_vars > Templates presents
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -35,7 +35,7 @@
   ) }}"
 
 - name: group_vars > Files absents
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

@@ -1,7 +1,7 @@
 ---
 
 - name: users > Users configuration
-  user:
+  ansible.builtin.user:
     name: "{{ (item) if (item is string) else (item.user) }}"
     password: "{{ item.password|default(omit) }}"
     group: "{{ item.group|default(omit) }}"
@@ -43,7 +43,7 @@
 
 # Find the primary group of users whose group has not been manually defined
 - name: users > Find primary groups
-  command: >
+  ansible.builtin.command: >
     id -g -n {{ item.user }}
   loop: "{{
     manala_accounts_users
@@ -62,7 +62,7 @@
   changed_when: false
 
 - name: users > Keys directory
-  file:
+  ansible.builtin.file:
     path: "~{{ item.user }}/.ssh"
     state: directory
     owner: "{{ item.user }}"
@@ -81,7 +81,7 @@
     } }}"
 
 - name: users > Keys
-  copy:
+  ansible.builtin.copy:
     dest: "~{{ item.0.0.user }}/.ssh/{{ item.0.1.key|default('id_rsa') ~ {'private': '', 'public': '.pub'}[item.1] }}"
     content: "{{ item.0.1[item.1] }}"
     owner: "{{ item.0.0.user }}"
@@ -106,7 +106,7 @@
     } }}"
 
 - name: users > Gpg keys
-  command: >
+  ansible.builtin.command: >
     su {{ item.0.0.user }} -c '
       {%- if item.1 == 'public' -%}
         gpg --list-keys {{ item.0.1.key }} || echo "{{ item.0.1.public }}" \

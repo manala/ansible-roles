@@ -75,7 +75,7 @@ manala_logrotate_configs_exclusive: true
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.logrotate
 ```
 

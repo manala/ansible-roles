@@ -1,7 +1,7 @@
 ---
 
 - name: environment > Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_elasticsearch_environment_template|default('environment/_default.j2', true) }}"
     dest: "{{ manala_elasticsearch_environment_file }}"
     owner: root

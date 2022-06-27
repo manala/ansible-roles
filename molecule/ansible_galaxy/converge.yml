@@ -10,7 +10,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible_galaxy
             tasks_from: roles
           vars:
@@ -21,6 +21,6 @@
                 version: v1.11.4
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/roles.yml.j2') }}"

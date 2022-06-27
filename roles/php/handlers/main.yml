@@ -1,7 +1,7 @@
 ---
 
 - name: php fpm restart
-  command: >
+  ansible.builtin.command: >
     /usr/sbin/php-fpm{{ manala_php_version|string }} -t
   when: |
     'fpm' in query(
@@ -17,7 +17,7 @@
     - do php fpm restart
 
 - name: do php fpm restart
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
@@ -32,7 +32,7 @@
     )
 
 - name: php blackfire agent restart
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:

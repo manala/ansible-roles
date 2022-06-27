@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## Changed
+- [All] Update minimum version of ansible to 2.10
+- [All] Use fqcn for builtin components
 
 ## [1.0.11] - 2022-03-04
 ### Added

@@ -1,7 +1,7 @@
 ---
 
 - name: zones > Templates
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala.roles.bind_zone_file) }}"
     owner: "{{ manala_bind_user }}"
@@ -16,7 +16,7 @@
   register: __manala_bind_zones_templates
 
 - name: zones > Contents
-  copy:
+  ansible.builtin.copy:
     content: "{{ item.content }}"
     dest: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala.roles.bind_zone_file) }}"
     owner: "{{ manala_bind_user }}"
@@ -31,7 +31,7 @@
   register: __manala_bind_zones_contents
 
 - name: zones > Absents
-  file:
+  ansible.builtin.file:
     path: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala.roles.bind_zone_file) }}"
     state: absent
   loop: "{{ manala_bind_zones }}"

@@ -1,7 +1,7 @@
 ---
 
 - name: config > Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_influxdb_config_template|default('config/_default.j2', true) }}"
     dest: "{{ manala_influxdb_config_file }}"
     owner: root

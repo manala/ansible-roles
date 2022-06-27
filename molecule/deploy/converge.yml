@@ -11,13 +11,13 @@
     tests_dir: /molecule/deploy/default
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/app"
@@ -25,7 +25,7 @@
             manala_deploy_strategy_synchronize_src: fixtures/app/
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -40,13 +40,13 @@
     tests_dir: /molecule/deploy/strategy
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Synchronize
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/synchronize"
@@ -55,7 +55,7 @@
             manala_deploy_strategy_include_name: ~
             manala_deploy_strategy_include_options: []
         - name: Role - Include
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/include"
@@ -66,7 +66,7 @@
               filename: file
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/strategy.yml.j2') }}"
 
@@ -81,29 +81,29 @@
     tests_dir: /molecule/deploy/shared
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Directories  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/app/{{ item }}"
         state: directory
       loop: [shared, shared/dir, shared/dir/dir]
     - name: Files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/app/{{ item }}"
         state: touch
       loop: [shared/file_shared_existing, shared/dir/file_shared_existing, shared/dir/dir/file_shared_existing]
     - name: Links  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/app/{{ item }}_link"
         src: "{{ tests_dir }}/app/{{ item }}"
         state: link
       loop: [shared/file_shared_existing, shared/dir/file_shared_existing, shared/dir/dir/file_shared_existing]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/app"
@@ -125,7 +125,7 @@
               - dir/dir/dir_shared
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/shared.yml.j2') }}"
 
@@ -140,22 +140,22 @@
     tests_dir: /molecule/deploy/copied
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Directory  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/app/releases/20170520092302/vendor"
         state: directory
     - name: Link  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/app/current"
         src: "{{ tests_dir }}/app/releases/20170520092302"
         state: link
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/app"
@@ -165,7 +165,7 @@
               - vendor
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/copied.yml.j2') }}"
 
@@ -180,13 +180,13 @@
     tests_dir: /molecule/deploy/writable
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/app"
@@ -200,7 +200,7 @@
               - dir
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/writable.yml.j2') }}"
 
@@ -215,13 +215,13 @@
     tests_dir: /molecule/deploy/tasks
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Raw
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/raw"
@@ -231,7 +231,7 @@
               - raw: touch {{ tests_dir }}/raw/file
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/tasks.yml.j2') }}"
 
@@ -246,13 +246,13 @@
     tests_dir: /molecule/deploy/removed
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/app"
@@ -263,7 +263,7 @@
               - dir
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/removed.yml.j2') }}"
 
@@ -278,18 +278,18 @@
     tests_dir: /molecule/deploy/clean
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Directories  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/app/releases/{{ item }}"
         state: directory
       loop: [20170520092302, 20170520092413, 20170520092714, 20170520092738, 20170520093012, 20170520093234]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/app"
@@ -298,7 +298,7 @@
             manala_deploy_releases: 2
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/clean.yml.j2') }}"
 
@@ -313,13 +313,13 @@
     tests_dir: /molecule/deploy/post_tasks
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Raw
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.deploy
           vars:
             manala_deploy_dir: "{{ tests_dir }}/raw"
@@ -329,6 +329,6 @@
               - raw: touch {{ tests_dir }}/raw/file
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/post_tasks.yml.j2') }}"

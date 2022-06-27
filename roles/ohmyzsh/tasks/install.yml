@@ -1,7 +1,7 @@
 ---
 
 - name: install > Directory
-  file:
+  ansible.builtin.file:
     path: "{{ manala_ohmyzsh_dir }}"
     state: directory
     owner: root
@@ -9,7 +9,7 @@
     mode: "0755"
 
 - name: install > Git repository
-  git:
+  ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     version: master
     dest: "{{ manala_ohmyzsh_dir }}"

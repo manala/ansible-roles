@@ -44,7 +44,7 @@ You can find all variables and default values used by this role in the [defaults
       # Flatten sudoers
       - "{{ my_custom_sudoers_array }}"
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.sudo
 
 ```

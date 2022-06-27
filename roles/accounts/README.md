@@ -101,7 +101,7 @@ manala_accounts_groups:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:
+    - ansible.builtin.import_role:
         name: manala.roles.accounts
 ```
 

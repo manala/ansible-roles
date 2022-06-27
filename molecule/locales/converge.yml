@@ -10,11 +10,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.locales
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -28,7 +28,7 @@
   tasks:
     - block:
         - name: Role - 1
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.locales
           vars:
             manala_locales_codes:
@@ -53,7 +53,7 @@
               - code: the_NP
                 state: absent
         - name: Role - 2
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.locales
           vars:
             manala_locales_codes:
@@ -69,7 +69,7 @@
                 state: present
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/codes_codes.yml.j2') }}"
 
@@ -79,7 +79,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.locales
           vars:
             manala_locales_codes:
@@ -87,6 +87,6 @@
             manala_locales_codes_default: fr_FR.UTF-8
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/codes_default.yml.j2') }}"

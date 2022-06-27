@@ -66,7 +66,7 @@ manala_mongodb_users:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:
+    - ansible.builtin.import_role:
         name: manala.roles.mongodb
 ```
 

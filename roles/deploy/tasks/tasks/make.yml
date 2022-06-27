@@ -6,6 +6,6 @@
   block:
 
     - name: tasks/make > "{{ item.options }}" in "{{ item.dir }}"
-      command: "make {{ item.options }}"
+      ansible.builtin.command: "make {{ item.options }}"
       args:
         chdir: "{{ item.dir }}"

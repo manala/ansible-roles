@@ -1,7 +1,7 @@
 ---
 
 - name: preferences > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_apt_preferences_dir }}"
     file_type: file
     patterns: "*"
@@ -10,7 +10,7 @@
   when: manala_apt_preferences_exclusive
 
 - name: preferences > Templates presents
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -28,7 +28,7 @@
   ) }}"
 
 - name: preferences > Files absents
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

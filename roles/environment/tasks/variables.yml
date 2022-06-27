@@ -1,7 +1,7 @@
 ---
 
 - name: variables > File
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: "{{ item.file }}"
     block: |
       {% for key, value in manala_environment_variables.items() %}

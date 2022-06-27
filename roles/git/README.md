@@ -86,7 +86,7 @@ manala_git_repositories:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.git
 ```
 

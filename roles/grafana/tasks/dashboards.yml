@@ -3,7 +3,7 @@
 # Import dashboards
 - name: dashboards > List dashboards
   register: __manala_grafana_dashboards_list_output
-  uri:
+  ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/search"
     method: GET
     force_basic_auth: true
@@ -21,7 +21,7 @@
 - name: dashboards > Delete dashboards
   register: __manala_grafana_dashboards_delete_output
   failed_when: "'Dashboard not found' in __manala_grafana_dashboards_delete_output|to_json"
-  uri:
+  ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/dashboards/{{ item.uri }}"
     method: DELETE
     force_basic_auth: true
@@ -36,7 +36,7 @@
 # Import dashboards
 - name: dashboards > Import dashboards
   register: __manala_grafana_dashboards_import_output
-  uri:
+  ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/dashboards/import"
     method: POST
     body: "{{

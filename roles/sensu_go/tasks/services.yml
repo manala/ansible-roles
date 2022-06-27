@@ -1,7 +1,7 @@
 ---
 
 - name: services > Services
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
     enabled: true
@@ -9,7 +9,7 @@
     - sensu-agent
 
 - name: services > Services
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
     enabled: true

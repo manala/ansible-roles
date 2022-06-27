@@ -1,7 +1,7 @@
 ---
 
 - name: apparmor reload
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: reloaded
   loop:

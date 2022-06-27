@@ -103,8 +103,8 @@ manala:
 ```yaml
 - hosts: servers
   tasks:
-        - import_role: 
-            name: manala.roles.
+    - ansible.builtin.import_role:
+        name: manala.roles.docker
 ```
 
 # Licencing

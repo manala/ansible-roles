@@ -1,7 +1,7 @@
 ---
 
 - name: sudoers > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_sudo_sudoers_dir }}"
     file_type: file
     patterns: "*"
@@ -11,7 +11,7 @@
   when: manala_sudo_sudoers_exclusive
 
 - name: sudoers > Templates present
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -27,7 +27,7 @@
   ) }}"
 
 - name: sudoers > Files absent
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

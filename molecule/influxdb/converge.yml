@@ -11,13 +11,13 @@
     tests_dir: /molecule/influxdb/default
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.influxdb
           vars:
             manala_influxdb_dir:
@@ -36,7 +36,7 @@
                 grant: ALL
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -51,13 +51,13 @@
     tests_dir: /molecule/influxdb/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Dict
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.influxdb
           vars:
@@ -66,7 +66,7 @@
             manala_influxdb_config:
               reporting-disabled: true
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.influxdb
             tasks_from: config
           vars:
@@ -75,7 +75,7 @@
             manala_influxdb_config: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.influxdb
             tasks_from: config
           vars:
@@ -84,6 +84,6 @@
             manala_influxdb_config: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

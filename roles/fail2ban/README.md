@@ -35,7 +35,7 @@ manala_fail2ban_config: |
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.fail2ban
 ```
 

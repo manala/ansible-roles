@@ -1,7 +1,7 @@
 ---
 
 - name: files > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_cron_files_dir }}"
     file_type: file
     patterns: "*"
@@ -10,7 +10,7 @@
   when: manala_cron_files_exclusive
 
 - name: configs > Templates present
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -28,7 +28,7 @@
     - cron restart
 
 - name: configs > Files absent
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

@@ -8,7 +8,7 @@
     tests_dir: /integration/files_attributes/touch
   block:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -18,11 +18,11 @@
         state: touch
   always:
     - name: Stat
-      stat:
+      ansible.builtin.stat:
         path: "{{ tests_dir }}/file"
       register: stat
     - name: Assert
-      assert:
+      ansible.builtin.assert:
         that:
           - stat is not changed
           - stat is not failed

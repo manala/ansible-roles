@@ -10,14 +10,14 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
           vars:
             manala_docker_config_daemon:
               storage-driver: vfs
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -32,20 +32,20 @@
     tests_dir: /molecule/docker/config_daemon
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.docker
           vars:
             manala_docker_config_daemon:
               storage-driver: vfs
         - name: Role - Dict
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
             tasks_from: config_daemon
           vars:
@@ -55,7 +55,7 @@
               storage-driver: vfs
               experimental: false
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
             tasks_from: config_daemon
           vars:
@@ -64,7 +64,7 @@
             manala_docker_config_daemon: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
             tasks_from: config_daemon
           vars:
@@ -73,7 +73,7 @@
             manala_docker_config_daemon: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config_daemon.yml.j2') }}"
 
@@ -88,13 +88,13 @@
     tests_dir: /molecule/docker/applications
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
           vars:
             manala_docker_config_daemon:
@@ -110,7 +110,7 @@
                 template: fixtures/template.j2
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/applications.yml.j2') }}"
 
@@ -124,7 +124,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
           vars:
             manala_docker_config_daemon:
@@ -141,7 +141,7 @@
                   image: alpine
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/containers.yml.j2') }}"
 
@@ -155,7 +155,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.docker
           vars:
             manala_docker_config_daemon:

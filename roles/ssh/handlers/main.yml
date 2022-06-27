@@ -1,7 +1,7 @@
 ---
 
 - name: ssh reload
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: reloaded
   loop:

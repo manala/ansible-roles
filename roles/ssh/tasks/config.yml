@@ -1,7 +1,7 @@
 ---
 
 - name: config > Server - Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_ssh_server_config_template|default('config/server/_default.j2', true) }}"
     dest: "{{ manala_ssh_server_config_file }}"
     owner: root
@@ -15,7 +15,7 @@
     - ssh reload
 
 - name: config > Client - Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_ssh_client_config_template|default('config/client/_default.j2', true) }}"
     dest: "{{ manala_ssh_client_config_file }}"
     owner: root

@@ -1,7 +1,7 @@
 ---
 
 - name: config > Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_mysql_config_template|default('config/_default.j2', true) }}"
     dest: "{{ manala_mysql_config_alternative|default(manala_mysql_config_file, true) }}"
     owner: root

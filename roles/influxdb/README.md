@@ -96,7 +96,7 @@ See InfluxDB documentation for more information about [databases](https://docs.i
  ```yaml
  - hosts: servers
    tasks:
-     - import_role:  
+     - ansible.builtin.import_role:  
         name: manala.roles.influxdb
  ```
 

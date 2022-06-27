@@ -188,7 +188,7 @@ manala_php_blackfire_client_config:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.php
 ```
 

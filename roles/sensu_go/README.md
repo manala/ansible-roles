@@ -49,7 +49,7 @@ manala_sensu_go_agent_config:
 ```yaml
 - hosts: sensu
   tasks:
-    - import_role:
+    - ansible.builtin.import_role:
         name: manala.roles.sensu_go
 ```
 

@@ -1,7 +1,7 @@
 ---
 
 - name: config > Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_dhcp_config_template }}"
     dest: "{{ manala_dhcp_config_file }}"
     owner: root
@@ -12,7 +12,7 @@
     - dhcp restart
 
 - name: config > Content
-  copy:
+  ansible.builtin.copy:
     content: "{{ manala_dhcp_config_content }}"
     dest: "{{ manala_dhcp_config_file }}"
     owner: root

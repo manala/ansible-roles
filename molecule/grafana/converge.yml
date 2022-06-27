@@ -10,11 +10,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.grafana
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -29,13 +29,13 @@
     tests_dir: /molecule/grafana/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.grafana
             tasks_from: config
           vars:
@@ -44,7 +44,7 @@
             manala_grafana_config: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.grafana
             tasks_from: config
           vars:
@@ -53,7 +53,7 @@
             manala_grafana_config: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
 
@@ -67,7 +67,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.grafana
           vars:
             manala_grafana_datasources_exclusive: true
@@ -83,7 +83,7 @@
                 password: ""
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/datasources.yml.j2') }}"
 
@@ -97,7 +97,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.grafana
           vars:
             manala_grafana_dashboards_exclusive: true
@@ -106,6 +106,6 @@
                 overwrite: true
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/dashboards.yml.j2') }}"

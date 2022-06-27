@@ -1,7 +1,7 @@
 ---
 
 - name: config > Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_grafana_config_template|ternary(manala_grafana_config_template, 'config/_default.j2') }}"
     dest: "{{ manala_grafana_config_file }}"
     owner: root

@@ -70,7 +70,7 @@ manala_grafana_dashboards:
 ```yaml
 - hosts: grafana
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.grafana
 ```
 

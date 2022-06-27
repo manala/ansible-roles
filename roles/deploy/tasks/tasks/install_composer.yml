@@ -6,35 +6,35 @@
   block:
 
     - name: tasks/install_composer > Stat bin
-      stat:
+      ansible.builtin.stat:
         path: "{{ item.shared_dir }}/composer"
       register: __manala_deploy_composer_bin_stat_result
 
     - name: tasks/install_composer > Download installer
-      get_url:
+      ansible.builtin.get_url:
         url: https://getcomposer.org/installer
         dest: /tmp
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: tasks/install_composer > Install
-      command: "php /tmp/installer --install-dir=\"{{ item.shared_dir }}\" --filename=\"composer\" --disable-tls"
+      ansible.builtin.command: "php /tmp/installer --install-dir=\"{{ item.shared_dir }}\" --filename=\"composer\" --disable-tls"
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: tasks/install_composer > Remove installer
-      file:
+      ansible.builtin.file:
         path: /tmp/installer
         state: absent
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: tasks/install_composer > Self update
-      command: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
+      ansible.builtin.command: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
       when: __manala_deploy_composer_bin_stat_result.stat.exists
       register: __manala_deploy_composer_self_update_result
       changed_when: __manala_deploy_composer_self_update_result.stderr | search('Updating')
       failed_when: false
 
     - name: tasks/install_composer > Link to current release
-      file:
+      ansible.builtin.file:
         src: "{{ item.shared_dir }}/composer"
         dest: "{{ item.dir }}/composer"
         state: link

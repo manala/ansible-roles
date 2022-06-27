@@ -67,7 +67,7 @@ manala_redis_sentinel_config:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.redis
 ```
 

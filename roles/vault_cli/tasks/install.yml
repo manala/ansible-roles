@@ -1,12 +1,12 @@
 ---
 
 - name: install > Stat bin
-  stat:
+  ansible.builtin.stat:
     path: "{{ manala_vault_cli_bin }}"
   register: __manala_vault_cli_bin_stat_result
 
 - name: install > Get latest version
-  uri:
+  ansible.builtin.uri:
     url: https://www.vaultproject.io/downloads
     return_content: true
   register: __manala_vault_cli_version_latest
@@ -17,12 +17,12 @@
 - block:
 
     - name: install > Create temporary directory
-      tempfile:
+      ansible.builtin.tempfile:
         state: directory
       register: __manala_vault_cli_temporary_directory
 
     - name: install > Download to temporary directory
-      unarchive:
+      ansible.builtin.unarchive:
         src: "{{ manala_vault_cli_version|ternary(
           'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_%(architecture)s.zip'|format(
             version=manala_vault_cli_version,
@@ -38,7 +38,7 @@
         remote_src: true
 
     - name: install > Copy binary
-      copy:
+      ansible.builtin.copy:
         src: "{{ __manala_vault_cli_temporary_directory.path }}/vault"
         dest: "{{ manala_vault_cli_bin }}"
         remote_src: true
@@ -47,7 +47,7 @@
         mode: "0755"
 
     - name: install > Delete temporary directory
-      file:
+      ansible.builtin.file:
         path: "{{ __manala_vault_cli_temporary_directory.path }}"
         state: absent
 

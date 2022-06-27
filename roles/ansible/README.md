@@ -63,7 +63,7 @@ manala_ansible_group_vars:
 ```yaml
 - hosts: all
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.ansible
 ```
 

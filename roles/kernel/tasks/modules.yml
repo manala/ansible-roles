@@ -8,7 +8,7 @@
   loop: "{{ manala_kernel_modules }}"
 
 - name: modules > Enable/disable kernel modules on boot.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/modules
     line: "{{ item if (item is string) else item.module }}"
     state: "{{ item.state|default(omit) }}"

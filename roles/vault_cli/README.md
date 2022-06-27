@@ -30,7 +30,7 @@ You can find all variables and default values used by this role in the [defaults
 ```yaml
 - hosts: all
   tasks:
-    - import_role:
+    - ansible.builtin.import_role:
         name: manala.roles.vault_cli
 ```
 

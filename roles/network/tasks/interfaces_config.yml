@@ -1,7 +1,7 @@
 ---
 
 - name: interfaces_config > Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_network_interfaces_config_template|default('interfaces_config/_default.j2', true) }}"
     dest: "{{ manala_network_interfaces_config_file }}"
     owner: root
