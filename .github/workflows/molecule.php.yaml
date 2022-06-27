@@ -22,38 +22,15 @@ on:
   workflow_dispatch:
     inputs:
       debug:
+        type: boolean
         description: Run with tmate debugging
         required: false
         default: false
 
 jobs:
-  molecule:
-    name: Molecule
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        version:
-          - 5.6
-          - "7.0"
-          - 7.1
-          - 7.2
-          - 7.3
-          - 7.4
-          - "8.0"
-          - 8.1
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: ansible_collections/manala/roles
-      - name: Molecule
-        uses: docker://quay.io/ansible/toolset:3.5.0
-        with:
-          args: |
-            sh -c " \
-              cd ansible_collections/manala/roles \
-              && molecule converge --scenario-name php.${{ matrix.version }} \
-            "
-      - name: Debug
-        uses: mxschmitt/action-tmate@v3
-        if: github.event.inputs.debug && always()
+  php:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: php
+      versions: '[5.6, "7.0", 7.1, 7.2, 7.3, 7.4, "8.0", 8.1]'

@@ -5,7 +5,7 @@
 #########
 
 - vars:
-    tests_dir: /integration/files_attributes/touch
+    tests_dir: /tmp/integration/files_attributes/touch
   block:  # noqa unnamed-task
     - name: Clean tests dir  # noqa risky-file-permissions
       ansible.builtin.file:
@@ -29,6 +29,6 @@
           - stat.stat.exists
           - stat.stat.isreg
           - stat.stat.mode == '0644'
-          - stat.stat.gr_name == 'root'
-          - stat.stat.pw_name == 'root'
+          - stat.stat.gr_name == 'lazy'
+          - stat.stat.pw_name == 'lazy'
           - stat.stat.size == 0

@@ -14,34 +14,15 @@ on:
   workflow_dispatch:
     inputs:
       debug:
+        type: boolean
         description: Run with tmate debugging
         required: false
         default: false
 
 jobs:
-  molecule:
-    name: Molecule
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        version:
-          - 2
-          - 5
-          - 6
-          - 7
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: ansible_collections/manala/roles
-      - name: Molecule
-        uses: docker://quay.io/ansible/toolset:3.5.0
-        with:
-          args: |
-            sh -c " \
-              cd ansible_collections/manala/roles \
-              && molecule converge --scenario-name elasticsearch.${{ matrix.version }} \
-            "
-      - name: Debug
-        uses: mxschmitt/action-tmate@v3
-        if: github.event.inputs.debug && always()
+  elasticsearch:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: elasticsearch
+      versions: '[2, 5, 6, 7]'

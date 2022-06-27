@@ -1,7 +1,7 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-from ansible_collections.community.general.tests.unit.compat import unittest
+from ansible_collections.manala.roles.tests.unit.compat import unittest
 from ansible_collections.manala.roles.plugins.filter.yaml import yaml, yaml_parameter, yaml_flatten
 
 from ansible.errors import AnsibleFilterError

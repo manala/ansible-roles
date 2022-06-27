@@ -1,0 +1,33 @@
+####################################################################
+# !!! REMINDER !!!                                                 #
+# Don't forget to run `manala up` each time you update this file ! #
+####################################################################
+
+manala:
+    recipe: lazy.ansible
+
+###########
+# Project #
+###########
+
+project:
+    name: manala-ansible-roles
+
+##########
+# System #
+##########
+
+system:
+    dir: /srv/ansible_collections/manala/roles
+    env_file:
+        - .env.dist
+        - .env
+    docker: true
+    ansible:
+        version: 2.11.12
+    ansible_lint:
+        version: 6.3.0
+    molecule:
+        version: 4.0.0
+        docker:
+            version: 1.1.0
