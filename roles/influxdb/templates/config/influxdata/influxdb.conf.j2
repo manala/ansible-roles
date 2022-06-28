@@ -14,7 +14,7 @@
   'udp': [{}],
   'continuous_queries': {},
   'tls': {},
-} | combine(manala_influxdb_config|default({}, true)) -%}
+} | combine(manala_influxdb_config | default({}, true)) -%}
 
 ### Welcome to the InfluxDB configuration file.
 

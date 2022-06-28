@@ -4,8 +4,8 @@
 __manala_npm: "{{
   {
     'update': False
-  }|combine(
-    manala|default({}),
+  } | combine(
+    manala | default({}),
     manala_npm
   )
 }}"

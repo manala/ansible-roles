@@ -5,11 +5,11 @@
     name: "{{ item }}"
     state: started
   loop:
-    - php{{ manala_php_version|string }}-fpm
+    - php{{ manala_php_version | string }}-fpm
   when: |
     'fpm' in query(
       'manala.roles.php_sapis',
-      manala_php_sapis|default(manala_php_sapis_default, True),
+      manala_php_sapis | default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
       wantmap=true

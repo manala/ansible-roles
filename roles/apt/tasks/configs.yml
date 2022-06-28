@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_apt_configs,
-    __manala_apt_configs_exclusive_find.files|default([]),
+    __manala_apt_configs_exclusive_find.files | default([]),
     manala_apt_configs_dir,
-    manala_apt_configs_defaults.template|default('configs/_default.j2', true),
+    manala_apt_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='present'
   ) }}"
 
@@ -32,8 +32,8 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_apt_configs,
-    __manala_apt_configs_exclusive_find.files|default([]),
+    __manala_apt_configs_exclusive_find.files | default([]),
     manala_apt_configs_dir,
-    manala_apt_configs_defaults.template|default('configs/_default.j2', true),
+    manala_apt_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='absent'
   ) }}"

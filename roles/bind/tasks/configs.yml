@@ -10,8 +10,8 @@
   loop: "{{ manala_bind_configs }}"
   when:
     - item.template is defined
-    - item.state|default('present') == 'present'
-    - not item.omit|default(False)
+    - item.state | default('present') == 'present'
+    - not item.omit | default(False)
   register: __manala_bind_configs_templates
 
 - name: configs > Contents
@@ -24,8 +24,8 @@
   loop: "{{ manala_bind_configs }}"
   when:
     - item.content is defined
-    - item.state|default('present') == 'present'
-    - not item.omit|default(False)
+    - item.state | default('present') == 'present'
+    - not item.omit | default(False)
   register: __manala_bind_configs_contents
 
 - name: configs > Absents
@@ -34,6 +34,6 @@
     state: absent
   loop: "{{ manala_bind_configs }}"
   when:
-    - item.state|default('present') == 'absent'
-    - not item.omit|default(False)
+    - item.state | default('present') == 'absent'
+    - not item.omit | default(False)
   register: __manala_bind_configs_absents

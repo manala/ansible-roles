@@ -8,8 +8,8 @@ manala_redis_version: ~
 manala_redis_install_packages: ~
 manala_redis_install_packages_default: "{{
   []
-  + (manala_redis_server)|ternary(['redis-server'], [])
-  + (manala_redis_sentinel)|ternary(['redis-sentinel'], [])
+  + (manala_redis_server) | ternary(['redis-server'], [])
+  + (manala_redis_sentinel) | ternary(['redis-sentinel'], [])
 }}"
 
 # Server

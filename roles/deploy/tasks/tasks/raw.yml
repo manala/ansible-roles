@@ -7,3 +7,4 @@
 
     - name: tasks/raw > "{{ item.options }}"
       ansible.builtin.raw: "{{ item.options }}"
+      changed_when: true

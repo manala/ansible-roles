@@ -8,7 +8,7 @@
 
 # Codes
 - import_tasks: codes.yml
-  when: manala_locales_codes|length
+  when: manala_locales_codes | length
   tags:
     - manala_locales
     - manala_locales.codes

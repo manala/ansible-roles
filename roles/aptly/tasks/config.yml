@@ -2,7 +2,7 @@
 
 - name: config > Template
   ansible.builtin.template:
-    src: "{{ manala_aptly_config_template|default('config/_default.j2', true) }}"
+    src: "{{ manala_aptly_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_aptly_config_file }}"
     owner: root
     group: root

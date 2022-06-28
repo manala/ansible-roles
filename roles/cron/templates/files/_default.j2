@@ -2,30 +2,30 @@
 {{ item.config }}
 {% else %}
 {% if 'env' in item %}
-{{ item.env|manala.roles.environment }}
+{{ item.env | manala.roles.environment }}
 {% endif %}
-{% for job in item.jobs|default([]) %}
-{% if job.state|default('present') == 'present' %}
+{% for job in item.jobs | default([]) %}
+{% if job.state | default('present') == 'present' %}
   {{-
-    job.minute|default('*')
+    job.minute | default('*')
   }} {{
-    job.hour|default('*')
+    job.hour | default('*')
   }} {{
-    job.day|default('*')
+    job.day | default('*')
   }} {{
-    job.month|default('*')
+    job.month | default('*')
   }} {{
-    job.weekday|default('*')
+    job.weekday | default('*')
   }} {{
-    job.user|default(
-      item.user|default(
-        manala_cron_files_defaults.user|default(
+    job.user | default(
+      item.user | default(
+        manala_cron_files_defaults.user | default(
           'root',
           true
         )
       )
     )
-  }} {{ job.command|mandatory }}
+  }} {{ job.command | mandatory }}
 {% endif %}
 {% endfor %}
 {% endif %}

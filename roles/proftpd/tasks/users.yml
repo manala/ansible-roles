@@ -2,19 +2,19 @@
 
 - name: users > Template config
   ansible.builtin.template:
-    src: "{{ manala_proftpd_users_template|default('users/_default.j2', true) }}"
+    src: "{{ manala_proftpd_users_template | default('users/_default.j2', true) }}"
     dest: "{{ manala_proftpd_users_file }}"
     owner: root
     group: root
     mode: "0600"
   when: manala_proftpd_users_template
-    or manala_proftpd_users|length
+    or manala_proftpd_users | length
 
 - name: users > Home directories
   ansible.builtin.file:
-    path: "{{ item.home|default(manala_proftpd_users_defaults.home) }}"
+    path: "{{ item.home | default(manala_proftpd_users_defaults.home) }}"
     state: directory
-    owner: "{{ item.uid|default(manala_proftpd_users_defaults.uid) }}"
-    group: "{{ item.gid|default(manala_proftpd_users_defaults.gid) }}"
-    mode: "{{ item.mode|default(manala_proftpd_users_defaults.mode) }}"
+    owner: "{{ item.uid | default(manala_proftpd_users_defaults.uid) }}"
+    group: "{{ item.gid | default(manala_proftpd_users_defaults.gid) }}"
+    mode: "{{ item.mode | default(manala_proftpd_users_defaults.mode) }}"
   loop: "{{ manala_proftpd_users }}"

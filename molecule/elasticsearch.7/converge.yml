@@ -8,7 +8,7 @@
   tags: [default]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.elasticsearch
@@ -31,6 +31,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Config #
@@ -47,7 +48,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -97,6 +98,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+          changed_when: false
 
 ###############
 # Environment #
@@ -113,7 +115,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -162,3 +164,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/environment.yml.j2') }}"
+          changed_when: false

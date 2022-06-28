@@ -16,7 +16,7 @@
         state: "{{ item }}"
         mode: "0777"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.git
@@ -32,6 +32,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Config #
@@ -48,7 +49,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Dict
           ansible.builtin.import_role:
             name: manala.roles.git
@@ -85,3 +86,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+          changed_when: false

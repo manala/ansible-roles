@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_motd_scripts,
-    __manala_motd_scripts_exclusive_find.files|default([]),
+    __manala_motd_scripts_exclusive_find.files | default([]),
     manala_motd_scripts_dir,
-    manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
+    manala_motd_scripts_defaults.template | default('scripts/_default.j2', true),
     wantstate='present'
   ) }}"
 
@@ -32,8 +32,8 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_motd_scripts,
-    __manala_motd_scripts_exclusive_find.files|default([]),
+    __manala_motd_scripts_exclusive_find.files | default([]),
     manala_motd_scripts_dir,
-    manala_motd_scripts_defaults.template|default('scripts/_default.j2', true),
+    manala_motd_scripts_defaults.template | default('scripts/_default.j2', true),
     wantstate='absent'
   ) }}"

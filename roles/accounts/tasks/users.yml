@@ -3,16 +3,16 @@
 - name: users > Users configuration
   ansible.builtin.user:
     name: "{{ (item) if (item is string) else (item.user) }}"
-    password: "{{ item.password|default(omit) }}"
-    group: "{{ item.group|default(omit) }}"
-    groups: "{{ item.groups|default([])|join(',') }}"
+    password: "{{ item.password | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    groups: "{{ item.groups | default([]) | join(',') }}"
     append: "{{ not manala_accounts_users_groups_exclusive }}"
-    shell: "{{ item.shell|default(omit) }}"
-    createhome: "{{ item.createhome|default(true)|bool }}"
-    system: "{{ item.system|default(false)|bool }}"
-    uid: "{{ item.uid|default(omit) }}"
-    comment: "{{ item.comment|default(omit) }}"
-    state: "{{ item.state|default('present') }}"
+    shell: "{{ item.shell | default(omit) }}"
+    createhome: "{{ item.createhome | default(true) | bool }}"
+    system: "{{ item.system | default(false) | bool }}"
+    uid: "{{ item.uid | default(omit) }}"
+    comment: "{{ item.comment | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
   loop: "{{
     manala_accounts_users
       | flatten
@@ -21,14 +21,14 @@
   loop_control:
     label: "{{ {
       'user': (item) if (item is string) else (item.user),
-      'state': item.state|default('present'),
+      'state': item.state | default('present'),
     } }}"
 
 - name: users > Authorized keys
   authorized_key:
     user: "{{ item.user }}"
     key: "{{ item.authorized_keys }}"
-    path: "{{ item.authorized_keys_file|default(omit) }}"
+    path: "{{ item.authorized_keys_file | default(omit) }}"
     exclusive: true
   loop: "{{ query(
     'manala.roles.accounts_users_authorized_keys',
@@ -66,7 +66,7 @@
     path: "~{{ item.user }}/.ssh"
     state: directory
     owner: "{{ item.user }}"
-    group: "{{ item.group|default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
     mode: "0700"
   loop: "{{
     manala_accounts_users
@@ -82,10 +82,10 @@
 
 - name: users > Keys
   ansible.builtin.copy:
-    dest: "~{{ item.0.0.user }}/.ssh/{{ item.0.1.key|default('id_rsa') ~ {'private': '', 'public': '.pub'}[item.1] }}"
+    dest: "~{{ item.0.0.user }}/.ssh/{{ item.0.1.key | default('id_rsa') ~ {'private': '', 'public': '.pub'}[item.1] }}"
     content: "{{ item.0.1[item.1] }}"
     owner: "{{ item.0.0.user }}"
-    group: "{{ item.0.0.group|default(omit) }}"
+    group: "{{ item.0.0.group | default(omit) }}"
     mode: "{{ {'private': '0600', 'public': '0644'}[item.1] }}"
   when: item.0.1[item.1] is defined
   loop: "{{
@@ -101,7 +101,7 @@
   loop_control:
     label: "{{ {
       'user': item.0.0.user,
-      'key': item.0.1.key|default('id_rsa'),
+      'key': item.0.1.key | default('id_rsa'),
       'type': item.1,
     } }}"
 
@@ -111,7 +111,7 @@
       {%- if item.1 == 'public' -%}
         gpg --list-keys {{ item.0.1.key }} || echo "{{ item.0.1.public }}" \
           | gpg --import
-        {%- if item.0.1.trust|default(False) -%}{{- ' ' -}}
+        {%- if item.0.1.trust | default(False) -%}{{- ' ' -}}
           && echo "{{ item.0.1.public }}" \
             | gpg --keyid-format long --with-fingerprint --with-colons - \
             | sed -E -n -e "s/^fpr:::::::::([0-9A-F]+):$/\\1:6:/p" \
@@ -143,6 +143,6 @@
     label: "{{ {
       'user': item.0.0.user,
       'key': item.0.1.key,
-      'trust': item.0.1.trust|default(False),
+      'trust': item.0.1.trust | default(False),
       'type': item.1,
     } }}"

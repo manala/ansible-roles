@@ -1,4 +1,4 @@
-{%- set config = item.config|default({'www': {}}) -%}
+{%- set config = item.config | default({'www': {}}) -%}
 
 {% for pool, config in config.items() %}
 ; Start a new pool named '{{ pool }}'.

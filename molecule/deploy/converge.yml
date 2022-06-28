@@ -15,7 +15,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -28,6 +28,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 ############
 # Strategy #
@@ -44,7 +45,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Synchronize
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -69,6 +70,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/strategy.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Shared #
@@ -101,7 +103,7 @@
         src: "{{ tests_dir }}/app/{{ item }}"
         state: link
       loop: [shared/file_shared_existing, shared/dir/file_shared_existing, shared/dir/dir/file_shared_existing]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -128,6 +130,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/shared.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Copied #
@@ -153,7 +156,7 @@
         path: "{{ tests_dir }}/app/current"
         src: "{{ tests_dir }}/app/releases/20170520092302"
         state: link
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -168,6 +171,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/copied.yml.j2') }}"
+          changed_when: false
 
 ############
 # Writable #
@@ -184,7 +188,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -203,6 +207,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/writable.yml.j2') }}"
+          changed_when: false
 
 #########
 # Tasks #
@@ -219,7 +224,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Raw
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -234,6 +239,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/tasks.yml.j2') }}"
+          changed_when: false
 
 ###########
 # Removed #
@@ -250,7 +256,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -266,6 +272,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/removed.yml.j2') }}"
+          changed_when: false
 
 #########
 # Clean #
@@ -287,7 +294,7 @@
         path: "{{ tests_dir }}/app/releases/{{ item }}"
         state: directory
       loop: [20170520092302, 20170520092413, 20170520092714, 20170520092738, 20170520093012, 20170520093234]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -301,6 +308,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/clean.yml.j2') }}"
+          changed_when: false
 
 ##############
 # Post Tasks #
@@ -317,7 +325,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Raw
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -332,3 +340,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/post_tasks.yml.j2') }}"
+          changed_when: false

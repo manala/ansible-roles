@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_haproxy_errorfiles,
-    __manala_haproxy_errorfiles_exclusive_find.files|default([]),
+    __manala_haproxy_errorfiles_exclusive_find.files | default([]),
     manala_haproxy_errorfiles_dir,
-    manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
+    manala_haproxy_errorfiles_defaults.template | default('errorfiles/_default.j2', true),
     wantstate='present'
   ) }}"
   notify:
@@ -34,9 +34,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_haproxy_errorfiles,
-    __manala_haproxy_errorfiles_exclusive_find.files|default([]),
+    __manala_haproxy_errorfiles_exclusive_find.files | default([]),
     manala_haproxy_errorfiles_dir,
-    manala_haproxy_errorfiles_defaults.template|default('errorfiles/_default.j2', true),
+    manala_haproxy_errorfiles_defaults.template | default('errorfiles/_default.j2', true),
     wantstate='absent'
   ) }}"
   notify:

@@ -14,7 +14,8 @@
     - not __manala_vault_cli_bin_stat_result.stat.exists
     - manala_vault_cli_version is none
 
-- block:
+- name: install > Binary
+  block:
 
     - name: install > Create temporary directory
       ansible.builtin.tempfile:
@@ -23,14 +24,14 @@
 
     - name: install > Download to temporary directory
       ansible.builtin.unarchive:
-        src: "{{ manala_vault_cli_version|ternary(
-          'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_%(architecture)s.zip'|format(
+        src: "{{ manala_vault_cli_version | ternary(
+          'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_%(architecture)s.zip' | format(
             version=manala_vault_cli_version,
-            architecture=ansible_architecture|manala.roles.vault_cli_architecture,
+            architecture=ansible_architecture | manala.roles.vault_cli_architecture,
           ),
-          __manala_vault_cli_version_latest.content|default|regex_search(
-            'https://releases.hashicorp.com/vault/\\d+\\.\\d+\\.\\d+/vault_\\d+\\.\\d+\\.\\d+_linux_%(architecture)s\\.zip'|format(
-              architecture=ansible_architecture|manala.roles.vault_cli_architecture,
+          __manala_vault_cli_version_latest.content | default | regex_search(
+            'https://releases.hashicorp.com/vault/\\d+\\.\\d+\\.\\d+/vault_\\d+\\.\\d+\\.\\d+_linux_%(architecture)s\\.zip' | format(
+              architecture=ansible_architecture | manala.roles.vault_cli_architecture,
             )
           )
         ) }}"

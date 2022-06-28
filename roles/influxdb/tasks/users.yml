@@ -1,6 +1,9 @@
 ---
 
 - name: users > Create Influx users
-  ansible.builtin.command: "{{ manala_influxdb_influx_bin }} -database '{{ item.database }}' -execute \"CREATE USER {{ item.name }} WITH PASSWORD '{{ item.password }}'\""
+  ansible.builtin.command: >
+    {{ manala_influxdb_influx_bin }}
+    -database '{{ item.database }}'
+    -execute "CREATE USER {{ item.name }} WITH PASSWORD '{{ item.password }}'"
   loop: "{{ manala_influxdb_users }}"
   changed_when: false

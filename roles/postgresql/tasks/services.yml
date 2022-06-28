@@ -6,8 +6,8 @@
     state: "{{
       'restarted'
         if (
-          __manala_postgresql_config_template_result|default({}) is changed
-          or __manala_postgresql_config_hba_template_result|default({}) is changed
+          __manala_postgresql_config_template_result | default({}) is changed
+          or __manala_postgresql_config_hba_template_result | default({}) is changed
         ) else
       'started'
     }}"

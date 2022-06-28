@@ -3,9 +3,9 @@
 - name: groups > Groups configuration
   ansible.builtin.group:
     name: "{{ (item) if (item is string) else (item.group) }}"
-    system: "{{ item.system|default(omit) }}"
-    state: "{{ item.state|default('present') }}"
-    gid: "{{ item.gid|default(omit) }}"
+    system: "{{ item.system | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    gid: "{{ item.gid | default(omit) }}"
   loop: "{{
     manala_accounts_groups
       | flatten

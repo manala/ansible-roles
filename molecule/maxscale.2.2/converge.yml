@@ -9,7 +9,7 @@
   hosts:
     - debian.stretch
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.maxscale

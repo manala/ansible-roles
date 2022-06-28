@@ -10,7 +10,7 @@
   register: __manala_mysql_data_dir_create_result
   when:
     - manala_mysql_server
-    - manala_mysql_data_dir|default(false)
+    - manala_mysql_data_dir | default(false)
 
 - name: data_dir > Initialize data directory
   ansible.builtin.command: >

@@ -8,7 +8,7 @@
   tags: [default]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.docker
@@ -20,6 +20,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 #################
 # Config Daemon #
@@ -36,7 +37,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -76,6 +77,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config_daemon.yml.j2') }}"
+          changed_when: false
 
 ################
 # Applications #
@@ -92,7 +94,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.docker
@@ -113,6 +115,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/applications.yml.j2') }}"
+          changed_when: false
 
 ##############
 # Containers #
@@ -122,7 +125,7 @@
   tags: [containers]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.docker
@@ -144,6 +147,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/containers.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Update #
@@ -153,7 +157,7 @@
   tags: [update]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.docker

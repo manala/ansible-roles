@@ -10,7 +10,7 @@
     - debian.stretch
     - debian.buster
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -27,6 +27,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Client #
@@ -44,7 +45,7 @@
           - mysql-server
           - mysql-client
         state: absent
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -55,6 +56,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/client.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Config #
@@ -73,7 +75,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Dict
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -107,6 +109,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+          changed_when: false
 
 ###########
 # Configs #
@@ -133,7 +136,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Default
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -207,6 +210,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+          changed_when: false
 
 ############
 # Data Dir #
@@ -225,7 +229,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -245,6 +249,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/data_dir.yml.j2') }}"
+          changed_when: false
 
 #########
 # Users #
@@ -271,7 +276,7 @@
       loop: [
         state_absent_existing, state_ignore_existing,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -305,6 +310,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
+          changed_when: false
 
 #############
 # Databases #
@@ -331,7 +337,7 @@
       loop: [
         state_absent_existing, state_ignore_existing,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -357,3 +363,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/databases.yml.j2') }}"
+          changed_when: false

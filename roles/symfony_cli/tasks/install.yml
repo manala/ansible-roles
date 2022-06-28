@@ -17,12 +17,12 @@
 - name: install > Install
   ansible.builtin.get_url:
     url: "{{
-      'https://github.com/symfony/cli/releases/download/v%(version)s/symfony_linux_%(architecture)s'|format(
-        version=manala_symfony_cli_version|ternary(
+      'https://github.com/symfony/cli/releases/download/v%(version)s/symfony_linux_%(architecture)s' | format(
+        version=manala_symfony_cli_version | ternary(
           manala_symfony_cli_version,
-          __manala_symfony_cli_version_latest.content|default
+          __manala_symfony_cli_version_latest.content | default
         ),
-        architecture=ansible_architecture|manala.roles.symfony_cli_architecture,
+        architecture=ansible_architecture | manala.roles.symfony_cli_architecture,
       )
     }}"
     dest: "{{ manala_symfony_cli_bin }}"

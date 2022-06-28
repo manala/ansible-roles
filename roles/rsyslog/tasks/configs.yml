@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: "0755"
-  when: manala_rsyslog_configs|length
+  when: manala_rsyslog_configs | length
 
 - name: configs > Exclusive
   ansible.builtin.find:
@@ -28,9 +28,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_rsyslog_configs,
-    __manala_rsyslog_configs_exclusive_find.files|default([]),
+    __manala_rsyslog_configs_exclusive_find.files | default([]),
     manala_rsyslog_configs_dir,
-    manala_rsyslog_configs_defaults.template|default('configs/_default.j2', true),
+    manala_rsyslog_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='present'
   ) }}"
   notify:
@@ -43,9 +43,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_rsyslog_configs,
-    __manala_rsyslog_configs_exclusive_find.files|default([]),
+    __manala_rsyslog_configs_exclusive_find.files | default([]),
     manala_rsyslog_configs_dir,
-    manala_rsyslog_configs_defaults.template|default('configs/_default.j2', true),
+    manala_rsyslog_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='absent'
   ) }}"
   notify:

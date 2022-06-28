@@ -21,9 +21,9 @@
     manala_apt_preferences,
     manala_apt_preferences_patterns,
     manala_apt_repositories_patterns,
-    __manala_apt_preferences_exclusive_find.files|default([]),
+    __manala_apt_preferences_exclusive_find.files | default([]),
     manala_apt_preferences_dir,
-    manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+    manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
     wantstate='present'
   ) }}"
 
@@ -36,8 +36,8 @@
     manala_apt_preferences,
     manala_apt_preferences_patterns,
     manala_apt_repositories_patterns,
-    __manala_apt_preferences_exclusive_find.files|default([]),
+    __manala_apt_preferences_exclusive_find.files | default([]),
     manala_apt_preferences_dir,
-    manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+    manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
     wantstate='absent'
   ) }}"

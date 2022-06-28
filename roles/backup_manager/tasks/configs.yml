@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: "0700"
-  when: manala_backup_manager_configs|length
+  when: manala_backup_manager_configs | length
 
 - name: configs > Exclusive
   ansible.builtin.find:
@@ -28,9 +28,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_backup_manager_configs,
-    __manala_backup_manager_configs_exclusive_find.files|default([]),
+    __manala_backup_manager_configs_exclusive_find.files | default([]),
     manala_backup_manager_configs_dir,
-    manala_backup_manager_configs_defaults.template|default('configs/_default.j2', true),
+    manala_backup_manager_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='present'
   ) }}"
 
@@ -41,8 +41,8 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_backup_manager_configs,
-    __manala_backup_manager_configs_exclusive_find.files|default([]),
+    __manala_backup_manager_configs_exclusive_find.files | default([]),
     manala_backup_manager_configs_dir,
-    manala_backup_manager_configs_defaults.template|default('configs/_default.j2', true),
+    manala_backup_manager_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='absent'
   ) }}"

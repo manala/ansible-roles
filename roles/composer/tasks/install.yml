@@ -7,7 +7,7 @@
     update_cache: true
     cache_valid_time: 3600
   loop:
-    - "{{ manala_composer_install_packages|default(manala_composer_install_packages_default, True) }}"
+    - "{{ manala_composer_install_packages | default(manala_composer_install_packages_default, True) }}"
 
 - name: install > Check
   ansible.builtin.command: >
@@ -20,26 +20,26 @@
 - name: install > Download
   ansible.builtin.get_url:
     url: "{{
-      'https://getcomposer.org/download/%(version)s/composer.phar'|format(version=manala_composer_version)
-        if (manala_composer_version|string is match('^\\d+\\.\\d+\\.\\d+$')) else
-      'https://getcomposer.org/composer-%(version)s.phar'|format(version=manala_composer_version|default('stable', True))
+      'https://getcomposer.org/download/%(version)s/composer.phar' | format(version=manala_composer_version)
+        if (manala_composer_version | string is match('^\\d+\\.\\d+\\.\\d+$')) else
+      'https://getcomposer.org/composer-%(version)s.phar' | format(version=manala_composer_version | default('stable', True))
     }}"
     dest: "{{ manala_composer_bin }}"
     owner: root
-    group: "{{ (ansible_distribution_release in ['stretch'])|ternary('staff', 'root') }}"
+    group: "{{ (ansible_distribution_release in ['stretch']) | ternary('staff', 'root') }}"
     mode: "0755"
     force: true
   when: (__manala_composer_bin_check_result.rc == 2)
     or (
-      manala_composer_version|string is match('^\\d+\\.\\d+\\.\\d+$')
+      manala_composer_version | string is match('^\\d+\\.\\d+\\.\\d+$')
       and (
-        manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+\\.\\d+\\.\\d+)(.*)', '\\2')
+        manala_composer_version | string != __manala_composer_bin_check_result.stdout | regex_replace('(.*)(\\d+\\.\\d+\\.\\d+)(.*)', '\\2')
       )
     )
     or (
-      manala_composer_version|string is match('^\\d+$')
+      manala_composer_version | string is match('^\\d+$')
       and (
-        manala_composer_version|string != __manala_composer_bin_check_result.stdout|regex_replace('(.*)(\\d+)(\\.\\d+\\.\\d+.*)', '\\2')
+        manala_composer_version | string != __manala_composer_bin_check_result.stdout | regex_replace('(.*)(\\d+)(\\.\\d+\\.\\d+.*)', '\\2')
       )
     )
     or (

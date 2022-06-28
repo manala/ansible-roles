@@ -12,7 +12,7 @@
       ansible.builtin.group:
         name: "{{ item }}"
       loop: [group_state_absent_existing, group_state_ignore_existing]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -46,6 +46,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/groups.yml.j2') }}"
+          changed_when: false
 
 #########
 # Users #
@@ -63,7 +64,7 @@
       ansible.builtin.user:
         name: "{{ item }}"
       loop: [user_state_absent_existing, user_state_ignore_existing]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -97,6 +98,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
+          changed_when: false
 
 #########################
 # Users Authorized Keys #
@@ -106,7 +108,7 @@
   tags: [users_authorized_keys]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -146,6 +148,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users_authorized_keys.yml.j2') }}"
+          changed_when: false
 
 ##############
 # Users Keys #
@@ -155,7 +158,7 @@
   tags: [users_keys]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -212,6 +215,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users_keys.yml.j2') }}"
+          changed_when: false
 
 ##################
 # Users Gpg Keys #
@@ -221,7 +225,7 @@
   tags: [users_gpg_keys]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -287,3 +291,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users_gpg_keys.yml.j2') }}"
+          changed_when: false

@@ -6,10 +6,10 @@
     key: "{{
       lookup('file', item.file)
         if (item.file is defined) else
-      item.key|default(omit)
+      item.key | default(omit)
     }}"
-    state: "{{ item.state|default('present') }}"
-    path: "{{ item.path|default('/etc/ssh/ssh_known_hosts') }}"
+    state: "{{ item.state | default('present') }}"
+    path: "{{ item.path | default('/etc/ssh/ssh_known_hosts') }}"
   loop: "{{ query(
     'manala.roles.ssh_known_hosts',
     manala_ssh_known_hosts,

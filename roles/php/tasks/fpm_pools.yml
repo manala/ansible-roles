@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_php_fpm_pools,
-    __manala_php_fpm_pools_exclusive_find.files|default([]),
+    __manala_php_fpm_pools_exclusive_find.files | default([]),
     manala_php_fpm_pools_dir,
-    manala_php_fpm_pools_defaults.template|default('fpm_pools/_default.j2', true),
+    manala_php_fpm_pools_defaults.template | default('fpm_pools/_default.j2', true),
     wantstate='present'
   ) }}"
   notify:
@@ -34,9 +34,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_php_fpm_pools,
-    __manala_php_fpm_pools_exclusive_find.files|default([]),
+    __manala_php_fpm_pools_exclusive_find.files | default([]),
     manala_php_fpm_pools_dir,
-    manala_php_fpm_pools_defaults.template|default('fpm_pools/_default.j2', true),
+    manala_php_fpm_pools_defaults.template | default('fpm_pools/_default.j2', true),
     wantstate='absent'
   ) }}"
   notify:

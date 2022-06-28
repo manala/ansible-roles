@@ -2,7 +2,7 @@
 
 - name: environment > Template
   ansible.builtin.template:
-    src: "{{ manala_keepalived_environment_template|default('environment/_default.j2', true) }}"
+    src: "{{ manala_keepalived_environment_template | default('environment/_default.j2', true) }}"
     dest: "{{ manala_keepalived_environment_file }}"
     owner: root
     group: root

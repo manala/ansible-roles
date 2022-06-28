@@ -10,7 +10,7 @@
     - debian.stretch
     - debian.buster
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.maxscale
@@ -19,6 +19,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 ##########
 # Config #
@@ -37,7 +38,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Content
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -60,6 +61,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+          changed_when: false
 
 ###########
 # Configs #
@@ -86,7 +88,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.maxscale
@@ -152,6 +154,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+          changed_when: false
 
 #########
 # Users #
@@ -170,7 +173,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Array
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -204,3 +207,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
+          changed_when: false

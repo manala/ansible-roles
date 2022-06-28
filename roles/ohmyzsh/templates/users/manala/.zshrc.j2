@@ -1,4 +1,4 @@
-{%- set config = item.config|default({}) -%}
+{%- set config = item.config | default({}) -%}
 
 # If you come from bash you might have to change your $PATH.
 {{ config | manala.roles.zsh_config_parameter('export PATH', comment='# export PATH=$HOME/bin:/usr/local/bin:$PATH') }}

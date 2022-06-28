@@ -17,10 +17,10 @@
 
 - name: users > Zshrc templates
   ansible.builtin.template:
-    src: "{{ item.template|default(manala_ohmyzsh_users_defaults.template|default('users/_default.j2', true), true) }}"
-    dest: "{{ item.dir|default('~' ~ item.user, true) }}/.zshrc"
+    src: "{{ item.template | default(manala_ohmyzsh_users_defaults.template | default('users/_default.j2', true), true) }}"
+    dest: "{{ item.dir | default('~' ~ item.user, true) }}/.zshrc"
     owner: "{{ item.user }}"
-    group: "{{ item.group|default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
     mode: "0644"
   loop: "{{
     manala_ohmyzsh_users

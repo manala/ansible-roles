@@ -18,6 +18,7 @@
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
       register: __manala_deploy_strategy_git_head_result
+      changed_when: false
 
     - name: strategy/git > Set head
       ansible.builtin.set_fact:
@@ -27,3 +28,4 @@
       ansible.builtin.command: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
+      changed_when: true

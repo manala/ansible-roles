@@ -11,7 +11,7 @@
     # Absent
     purge: true
     autoremove: true
-  when: item.packages|length
+  when: item.packages | length
   loop:
     # Presents
     # + Debfoster if one of exclusive mode is set
@@ -22,7 +22,7 @@
           (
             query(
               'manala.roles.php_sapis',
-              manala_php_sapis|default(manala_php_sapis_default, True),
+              manala_php_sapis | default(manala_php_sapis_default, True),
               manala_php_sapis_available,
               wantstate='present',
               wantmap=true
@@ -36,7 +36,7 @@
               wantmap=true
             )
           ),
-          manala_php_version|string|escape
+          manala_php_version | string | escape
         )
         + (manala_php_sapis_exclusive or manala_php_extensions_exclusive) | ternary(['debfoster'], [])
       }}"
@@ -48,7 +48,7 @@
           (
             query(
               'manala.roles.php_sapis',
-              manala_php_sapis|default(manala_php_sapis_default, True),
+              manala_php_sapis | default(manala_php_sapis_default, True),
               manala_php_sapis_available,
               wantstate='absent',
               wantmap=true
@@ -62,11 +62,12 @@
               wantmap=true
             )
           ),
-          manala_php_version|string|escape
+          manala_php_version | string | escape
         )
       }}"
 
-- when: manala_php_sapis_exclusive
+- name: install > Exclusive - Packages
+  when: manala_php_sapis_exclusive
     or manala_php_extensions_exclusive
   block:
 
@@ -89,7 +90,7 @@
             (
               query(
                 'manala.roles.php_sapis',
-                manala_php_sapis|default(manala_php_sapis_default, True),
+                manala_php_sapis | default(manala_php_sapis_default, True),
                 manala_php_sapis_available,
                 wantstate='present',
                 wantmap=true
@@ -103,8 +104,8 @@
                 wantmap=true
               )
             ),
-            manala_php_version|string|escape
-          )|join(' ')
+            manala_php_version | string | escape
+          ) | join(' ')
         }}
         do
            debfoster --quiet --option UseRecommends=no --show-depends $package
@@ -119,7 +120,7 @@
         state: absent
         purge: true
         autoremove: true
-      when: item|length
+      when: item | length
       loop:
         - "{{ query(
           'manala.roles.php_packages_exclusive',
@@ -128,7 +129,7 @@
             (
               query(
                 'manala.roles.php_sapis',
-                manala_php_sapis|default(manala_php_sapis_default, True),
+                manala_php_sapis | default(manala_php_sapis_default, True),
                 manala_php_sapis_available,
                 wantstate='present',
                 wantmap=true
@@ -142,15 +143,15 @@
                 wantmap=true
               )
             ),
-            manala_php_version|string|escape
+            manala_php_version | string | escape
           ),
           query(
             'manala.roles.php_packages',
             manala_php_sapis_available,
-            manala_php_version|string|escape
+            manala_php_version | string | escape
           ),
-          __manala_php_install_packages_presents.stdout_lines|default([]),
-          __manala_php_install_packages_dependencies.stdout_lines|default([]),
+          __manala_php_install_packages_presents.stdout_lines | default([]),
+          __manala_php_install_packages_dependencies.stdout_lines | default([]),
           manala_php_sapis_exclusive,
           manala_php_extensions_exclusive
         ) }}"

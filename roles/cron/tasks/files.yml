@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_cron_files,
-    __manala_cron_files_exclusive_find.files|default([]),
+    __manala_cron_files_exclusive_find.files | default([]),
     manala_cron_files_dir,
-    manala_cron_files_defaults.template|default('files/_default.j2', true),
+    manala_cron_files_defaults.template | default('files/_default.j2', true),
     wantstate='present'
   ) }}"
   notify:
@@ -34,9 +34,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_cron_files,
-    __manala_cron_files_exclusive_find.files|default([]),
+    __manala_cron_files_exclusive_find.files | default([]),
     manala_cron_files_dir,
-    manala_cron_files_defaults.template|default('files/_default.j2', true),
+    manala_cron_files_defaults.template | default('files/_default.j2', true),
     wantstate='absent'
   ) }}"
   notify:

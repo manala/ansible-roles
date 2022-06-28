@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_network_interfaces_configs,
-    __manala_network_interfaces_configs_exclusive_find.files|default([]),
+    __manala_network_interfaces_configs_exclusive_find.files | default([]),
     manala_network_interfaces_configs_dir,
-    manala_network_interfaces_configs_defaults.template|default('interfaces_configs/_default.j2', true),
+    manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
     wantstate='present'
   ) }}"
   notify:
@@ -34,9 +34,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_network_interfaces_configs,
-    __manala_network_interfaces_configs_exclusive_find.files|default([]),
+    __manala_network_interfaces_configs_exclusive_find.files | default([]),
     manala_network_interfaces_configs_dir,
-    manala_network_interfaces_configs_defaults.template|default('interfaces_configs/_default.j2', true),
+    manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
     wantstate='absent'
   ) }}"
   notify:

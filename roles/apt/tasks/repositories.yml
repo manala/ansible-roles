@@ -12,7 +12,7 @@
 - name: repositories > Repositories presents
   ansible.builtin.apt_repository:
     repo: "{{ item.source }}"
-    filename: "{{ (item.file|basename|splitext)[0] }}"
+    filename: "{{ (item.file | basename | splitext)[0] }}"
     update_cache: false
     mode: "0644"
   loop: "{{ query(
@@ -26,10 +26,10 @@
         manala_apt_repositories_patterns,
         [],
         manala_apt_preferences_dir,
-        manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+        manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
         wantstate='present'
     ),
-    __manala_apt_repositories_exclusive_find.files|default([]),
+    __manala_apt_repositories_exclusive_find.files | default([]),
     wantstate='present'
   ) }}"
   register: __manala_apt_repositories_presents_results
@@ -49,10 +49,10 @@
         manala_apt_repositories_patterns,
         [],
         manala_apt_preferences_dir,
-        manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+        manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
         wantstate='present'
     ),
-    __manala_apt_repositories_exclusive_find.files|default([]),
+    __manala_apt_repositories_exclusive_find.files | default([]),
     wantstate='absent'
   ) }}"
   register: __manala_apt_repositories_absents_results
