@@ -6,7 +6,7 @@
   block:
 
     - name: strategy/synchronize > Synchronize
-      synchronize:
+      ansible.posix.synchronize:
         src: "{{ manala_deploy_strategy_synchronize_src }}"
         dest: "{{ deploy_helper.new_release_path }}/"
         rsync_opts: "{{ manala_deploy_strategy_synchronize_rsync_options }}"

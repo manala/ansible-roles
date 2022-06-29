@@ -1,7 +1,7 @@
 ---
 
 - name: selections > Alternatives
-  alternatives:
+  community.general.alternatives:
     name: "{{ item.selection }}"
     path: "{{ item.path }}"
   loop: "{{

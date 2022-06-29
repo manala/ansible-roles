@@ -1,7 +1,7 @@
 ---
 
 - name: replications > Create mysql replications
-  mysql_replication:
+  community.mysql.mysql_replication:
       mode: "{{ item.mode }}"
       master_auto_position: "{{ item.master_auto_position | default(omit) }}"
       master_connect_retry: "{{ item.master_connect_retry | default(omit) }}"

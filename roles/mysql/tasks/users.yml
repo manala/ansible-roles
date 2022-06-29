@@ -1,7 +1,7 @@
 ---
 
 - name: users > Create mysql users
-  mysql_user:
+  community.mysql.mysql_user:
     name: "{{ item.name }}"
     password: "{{ item.password | default(omit) }}"
     host: "{{ item.host | default('localhost') }}"

@@ -1,7 +1,7 @@
 ---
 
 - name: privileges > Handle
-  postgresql_user:
+  community.postgresql.postgresql_user:
     name: "{{ item.role }}"
     state: "{{ item.state | default('present') }}"
     db: "{{ item.database }}"

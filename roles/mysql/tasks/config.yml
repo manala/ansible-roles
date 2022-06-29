@@ -12,7 +12,7 @@
   register: __manala_mysql_config_template_result
 
 - name: config > Alternative
-  alternatives:
+  community.general.alternatives:
     name: my.cnf
     link: "{{ manala_mysql_config_file }}"
     path: "{{ manala_mysql_config_alternative }}"

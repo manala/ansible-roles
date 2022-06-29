@@ -41,7 +41,7 @@
     method: POST
     body: "{{
       {
-        'dashboard': lookup('file', item.template) | from_json,
+        'dashboard': lookup('ansible.builtin.file', item.template) | from_json,
         'overwrite': item.overwrite | default(true),
         'inputs': item.inputs | default([])
       } | to_json

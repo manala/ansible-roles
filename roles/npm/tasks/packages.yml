@@ -1,7 +1,7 @@
 ---
 
 - name: packages > Manage
-  npm:
+  community.general.npm:
     name: "{{ item.package }}"
     global: true
     state: "{{ item.state | default(omit) }}"

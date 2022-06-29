@@ -88,7 +88,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/configs.yml.j2') }}"
           changed_when: false
 
 ################
@@ -128,7 +128,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/sources_list.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/sources_list.yml.j2') }}"
           changed_when: false
 
 ###############
@@ -261,7 +261,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/preferences.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/preferences.yml.j2') }}"
           changed_when: false
 
 ########
@@ -303,7 +303,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/keys.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/keys.yml.j2') }}"
           changed_when: false
 
 ################
@@ -363,7 +363,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/repositories.default.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.default.yml.j2') }}"
           changed_when: false
 
 - name: Repositories - Exclusive
@@ -402,7 +402,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/repositories.exclusive.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.exclusive.yml.j2') }}"
           changed_when: false
 
 ############
@@ -454,7 +454,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/packages.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/packages.yml.j2') }}"
           changed_when: false
 
 #########
@@ -499,7 +499,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/holds.default.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/holds.default.yml.j2') }}"
           changed_when: false
 
 - name: Holds - Exclusive
@@ -528,7 +528,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/holds.exclusive.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/holds.exclusive.yml.j2') }}"
           changed_when: false
 
 ##########

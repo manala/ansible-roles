@@ -40,16 +40,16 @@ manala_accounts_users:
     groups: ['sudo']
     authorized_keys_file: authorized_keys2 # authorized_keys by default
     authorized_keys:
-      - "{{ lookup('file', 'files/users/keys/foo@example.com.pub') }}"
-      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('file', 'files/users/keys/bar@example.com.pub') }}"
+      - "{{ lookup('ansible.builtin.file', 'files/users/keys/foo@example.com.pub') }}"
+      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('ansible.builtin.file', 'files/users/keys/bar@example.com.pub') }}"
     keys:
       - key: id_rsa
-        public: "{{ lookup('file', 'files/users/keys/foo@example.com.pub') }}"
-        private: "{{ lookup('file', 'files/users/keys/foo@example.com') }}"
+        public: "{{ lookup('ansible.builtin.file', 'files/users/keys/foo@example.com.pub') }}"
+        private: "{{ lookup('ansible.builtin.file', 'files/users/keys/foo@example.com') }}"
     gpg_keys:
       - key: XXXXXXXXXXXXXXXX
-        public: "{{ lookup('file', 'files/users/gpg_keys/foo@example.com.pub') }}"
-        secret: "{{ lookup('file', 'files/users/gpg_keys/foo@example.com') }}"
+        public: "{{ lookup('ansible.builtin.file', 'files/users/gpg_keys/foo@example.com.pub') }}"
+        secret: "{{ lookup('ansible.builtin.file', 'files/users/gpg_keys/foo@example.com') }}"
         trust: true # Trust gpg key
 ```
 #### Example: Ensure a user is not present
@@ -68,7 +68,7 @@ manala_accounts_users:
   - user: root
     gpg_keys:
       - key: foobar
-        public: "{{ query('file', playbook_dir ~ '/files/foobar.gpg.key') }}"
+        public: "{{ query('ansible.builtin.file', playbook_dir ~ '/files/foobar.gpg.key') }}"
         trust: true
 ```
 

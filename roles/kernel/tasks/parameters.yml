@@ -1,7 +1,7 @@
 ---
 
 - name: parameters > Configure
-  sysctl:
+  ansible.posix.sysctl:
     name: "{{ item.parameter }}"
     value: "{{ item.value | default(omit) }}"
     state: "{{ item.state | default(omit) }}"

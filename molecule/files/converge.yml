@@ -50,7 +50,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/defaults.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/defaults.yml.j2') }}"
           changed_when: false
 
 ########
@@ -206,7 +206,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/file.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/file.yml.j2') }}"
           changed_when: false
 
 ########
@@ -394,7 +394,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/link.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/link.yml.j2') }}"
           changed_when: false
 
 #############
@@ -515,7 +515,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/directory.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/directory.yml.j2') }}"
           changed_when: false
 
 ########
@@ -565,7 +565,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/copy.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/copy.yml.j2') }}"
           changed_when: false
 
 #######
@@ -608,7 +608,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/url.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/url.yml.j2') }}"
           changed_when: false
 
 ###########
@@ -683,7 +683,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/content.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/content.yml.j2') }}"
           changed_when: false
 
 ############
@@ -753,7 +753,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/template.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/template.yml.j2') }}"
           changed_when: false
 
 ##################
@@ -802,7 +802,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/link_directory.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/link_directory.yml.j2') }}"
           changed_when: false
 
 #############
@@ -847,5 +847,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/link_file.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/link_file.yml.j2') }}"
           changed_when: false

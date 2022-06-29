@@ -18,6 +18,6 @@
     - name: Gpg key
       ansible.builtin.command:
         cmd: gpg1 --allow-secret-key-import --import
-        stdin: "{{ lookup('file', 'fixtures/gpg/private.asc') }}"
+        stdin: "{{ lookup('ansible.builtin.file', 'fixtures/gpg/private.asc') }}"
       args:
         creates: ~/.gnupg/trustdb.gpg
