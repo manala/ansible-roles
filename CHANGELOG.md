@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Changed
 - [All] Update minimum version of ansible to 2.10
 - [All] Use fqcn
+### Fixed
+- [Apt] Update aptly key
 
 ## [1.0.11] - 2022-03-04
 ### Added
