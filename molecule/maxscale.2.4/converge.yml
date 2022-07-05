@@ -10,7 +10,7 @@
     - debian.stretch
     - debian.buster
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.maxscale
@@ -19,3 +19,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false

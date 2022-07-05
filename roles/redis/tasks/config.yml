@@ -2,7 +2,7 @@
 
 - name: config > Server - Template
   ansible.builtin.template:
-    src: "{{ manala_redis_server_config_template|default('config/_default.j2', true) }}"
+    src: "{{ manala_redis_server_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_redis_server_config_file }}"
     owner: redis
     group: redis
@@ -21,7 +21,7 @@
     line: "{{ item.key }} {{ item.value }}"
   when:
     - manala_redis_sentinel
-    - manala_redis_sentinel_config|length
+    - manala_redis_sentinel_config | length
   loop: "{{ manala_redis_sentinel_config | dict2items }}"
   notify:
     - redis-sentinel restart

@@ -3,7 +3,7 @@
 - name: config > File
   ansible.builtin.lineinfile:
     dest: "{{ manala_shorewall_config_file }}"
-    regexp: "^{{ item.key|regex_escape() ~ '=' }}"
+    regexp: "^{{ item.key | regex_escape() ~ '=' }}"
     line: "{{ item.key ~ '=' ~ item.value }}"
     create: true
     owner: root

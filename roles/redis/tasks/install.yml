@@ -7,13 +7,14 @@
     update_cache: true
     cache_valid_time: 3600
   loop:
-    - "{{ manala_redis_install_packages|default(manala_redis_install_packages_default, True) }}"
+    - "{{ manala_redis_install_packages | default(manala_redis_install_packages_default, True) }}"
 
-- block:
+- name: install > Version
+  block:
     - name: install > Parse version
       ansible.builtin.command: >
         dpkg -s
-        {{ manala_redis_install_packages|default(manala_redis_install_packages_default, True) | first }}
+        {{ manala_redis_install_packages | default(manala_redis_install_packages_default, True) | first }}
       register: __manala_redis_version
       changed_when: false
     - name: install > Set version

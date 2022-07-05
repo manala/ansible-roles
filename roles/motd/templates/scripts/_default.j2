@@ -2,5 +2,5 @@
 #!/bin/sh
 printf "{{ item.message }}\n"
 {%- else -%}
-{{ item.script|default('') }}
+{{ item.script | default('') }}
 {%- endif -%}

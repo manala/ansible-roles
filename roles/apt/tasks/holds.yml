@@ -10,9 +10,9 @@
 - name: holds > Set selections
   ansible.builtin.dpkg_selections:
     name: "{{ item.package }}"
-    selection: "{{ (item.state == 'present')|ternary('hold', 'install') }}"
+    selection: "{{ (item.state == 'present') | ternary('hold', 'install') }}"
   loop: "{{ query(
     'manala.roles.apt_holds',
     manala_apt_holds,
-    __manala_apt_holds_exclusive_find.stdout_lines|default([]),
+    __manala_apt_holds_exclusive_find.stdout_lines | default([]),
   ) }}"

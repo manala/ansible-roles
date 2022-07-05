@@ -3,11 +3,11 @@
 - name: applications > Download
   ansible.builtin.get_url:
     url: "{{ item.source }}"
-    dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
+    dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version | ternary('_' ~ item.version, '') }}"
     owner: root
     group: root
     mode: "0755"
-    validate_certs: "{{ item.validate_certs|default(omit) }}"
+    validate_certs: "{{ item.validate_certs | default(omit) }}"
   loop: "{{ query(
     'manala.roles.php_applications',
     manala_php_applications,

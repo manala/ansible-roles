@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: "0755"
-  when: manala_ohmyzsh_custom_themes|length
+  when: manala_ohmyzsh_custom_themes | length
 
 - name: custom themes > Exclusive
   ansible.builtin.find:
@@ -28,9 +28,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_ohmyzsh_custom_themes,
-    __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
+    __manala_ohmyzsh_custom_themes_exclusive_find.files | default([]),
     manala_ohmyzsh_custom_themes_dir,
-    manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
+    manala_ohmyzsh_custom_themes_defaults.template | default('custom/themes/_default.j2', true),
     wantstate='present'
   ) }}"
 
@@ -41,8 +41,8 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_ohmyzsh_custom_themes,
-    __manala_ohmyzsh_custom_themes_exclusive_find.files|default([]),
+    __manala_ohmyzsh_custom_themes_exclusive_find.files | default([]),
     manala_ohmyzsh_custom_themes_dir,
-    manala_ohmyzsh_custom_themes_defaults.template|default('custom/themes/_default.j2', true),
+    manala_ohmyzsh_custom_themes_defaults.template | default('custom/themes/_default.j2', true),
     wantstate='absent'
   ) }}"

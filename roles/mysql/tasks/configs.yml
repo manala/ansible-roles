@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: "0755"
-  when: manala_mysql_configs|length
+  when: manala_mysql_configs | length
 
 - name: configs > Exclusive
   ansible.builtin.find:
@@ -28,9 +28,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_mysql_configs,
-    __manala_mysql_configs_exclusive_find.files|default([]),
+    __manala_mysql_configs_exclusive_find.files | default([]),
     manala_mysql_configs_dir,
-    manala_mysql_configs_defaults.template|default('configs/_default.j2', true),
+    manala_mysql_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='present'
   ) }}"
   register: __manala_mysql_configs_templates_present_result
@@ -42,9 +42,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_mysql_configs,
-    __manala_mysql_configs_exclusive_find.files|default([]),
+    __manala_mysql_configs_exclusive_find.files | default([]),
     manala_mysql_configs_dir,
-    manala_mysql_configs_defaults.template|default('configs/_default.j2', true),
+    manala_mysql_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='absent'
   ) }}"
   register: __manala_mysql_configs_files_absent_result

@@ -1,6 +1,6 @@
 ---
 
-- name: configs > {{ __manala_php_configs_sapi|capitalize }} - Exclusive
+- name: configs > {{ __manala_php_configs_sapi | capitalize }} - Exclusive
   ansible.builtin.find:
     path: "{{ manala_php_configs_dir }}/{{ __manala_php_configs_sapi }}/conf.d"
     file_type: file
@@ -9,7 +9,7 @@
   register: __manala_php_configs_exclusive_find
   when: manala_php_configs_exclusive
 
-- name: configs > {{ __manala_php_configs_sapi|capitalize }} - Templates present
+- name: configs > {{ __manala_php_configs_sapi | capitalize }} - Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
@@ -19,23 +19,23 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_php_configs + vars['manala_php_' ~ __manala_php_configs_sapi ~ '_configs'],
-    __manala_php_configs_exclusive_find.files|default([]),
+    __manala_php_configs_exclusive_find.files | default([]),
     manala_php_configs_dir ~ '/' ~ __manala_php_configs_sapi ~ '/conf.d',
-    manala_php_configs_defaults.template|default('configs/_default.j2', true),
+    manala_php_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='present'
   ) }}"
-  notify: "{{ (__manala_php_configs_sapi == 'fpm')|ternary(['php fpm restart'], []) }}"
+  notify: "{{ (__manala_php_configs_sapi == 'fpm') | ternary(['php fpm restart'], []) }}"
 
-- name: configs > {{ __manala_php_configs_sapi|capitalize }} - Files absent
+- name: configs > {{ __manala_php_configs_sapi | capitalize }} - Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_php_configs + vars['manala_php_' ~ __manala_php_configs_sapi ~ '_configs'],
-    __manala_php_configs_exclusive_find.files|default([]),
+    __manala_php_configs_exclusive_find.files | default([]),
     manala_php_configs_dir ~ '/' ~ __manala_php_configs_sapi ~ '/conf.d',
-    manala_php_configs_defaults.template|default('configs/_default.j2', true),
+    manala_php_configs_defaults.template | default('configs/_default.j2', true),
     wantstate='absent'
   ) }}"
-  notify: "{{ (__manala_php_configs_sapi == 'fpm')|ternary(['php fpm restart'], []) }}"
+  notify: "{{ (__manala_php_configs_sapi == 'fpm') | ternary(['php fpm restart'], []) }}"

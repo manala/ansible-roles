@@ -27,7 +27,7 @@ docker run
   {%- endfor -%}
 {% endif -%}
 {%- if item.workdir %} --workdir {{ item.workdir }}{% endif -%}
-{{ ' ' }}{{ item.image|mandatory }}
+{{ ' ' }}{{ item.image | mandatory }}
 {%- if item.tag %}:{{ item.tag }}{% endif -%}
 {%- if item.command %} {{ item.command }}{% endif -%}
 {{ ' ' }}"$@"

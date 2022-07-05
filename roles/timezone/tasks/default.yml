@@ -12,7 +12,7 @@
   ansible.builtin.copy:
     dest: /etc/timezone
     content: >
-      {{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
+      {{ manala_timezone_default | ternary(manala_timezone_default, 'Etc/UTC') }}
     owner: root
     group: root
     mode: "0644"
@@ -24,7 +24,7 @@
 # ...on the contrary, if it's a link, we need to update it before reconfiguring tzdata
 - name: default > Localtime link
   ansible.builtin.file:
-    src: /usr/share/zoneinfo/{{ manala_timezone_default|ternary(manala_timezone_default, 'Etc/UTC') }}
+    src: /usr/share/zoneinfo/{{ manala_timezone_default | ternary(manala_timezone_default, 'Etc/UTC') }}
     dest: /etc/localtime
     state: link
     force: true
@@ -37,5 +37,5 @@
 
 - name: default > Reconfigure tzdata  # noqa no-handler
   ansible.builtin.command: dpkg-reconfigure --frontend noninteractive tzdata
-  when: __manala_timezone_default_content_result|default({}) is changed
-    or __manala_timezone_default_link_result|default({}) is changed
+  when: __manala_timezone_default_content_result | default({}) is changed
+    or __manala_timezone_default_link_result | default({}) is changed

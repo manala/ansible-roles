@@ -1,9 +1,9 @@
 #!/bin/sh
 
 MOTD=$(cat <<'EOF'
- -{% for i in range(item.message|length) %}-{% endfor %}-
+ -{% for i in range(item.message | length) %}-{% endfor %}-
 < {{ item.message }} >
- -{% for i in range(item.message|length) %}-{% endfor %}-
+ -{% for i in range(item.message | length) %}-{% endfor %}-
 \                                                /===-_---~~~~~~~~~------____
  \                                              |===-~___                _,-'
   \              -==\\                         `//~\\   ~~~~`---.___.-~~

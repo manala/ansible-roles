@@ -14,7 +14,7 @@
 
 - name: shared > Ensure shared directories files are present  # noqa risky-file-permissions
   ansible.builtin.file:
-    path: "{{ (deploy_helper.shared_path ~ '/' ~ item)|dirname }}"
+    path: "{{ (deploy_helper.shared_path ~ '/' ~ item) | dirname }}"
     state: directory
   loop: "{{ manala_deploy_shared_files | flatten }}"
   loop_control:
@@ -40,6 +40,6 @@
 - name: shared > Links
   ansible.builtin.file:
     path: "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
-    src: "{{ (deploy_helper.shared_path ~ '/' ~ item)|relpath((deploy_helper.new_release_path ~ '/' ~ item)|dirname) }}"
+    src: "{{ (deploy_helper.shared_path ~ '/' ~ item) | relpath((deploy_helper.new_release_path ~ '/' ~ item) | dirname) }}"
     state: link
   loop: "{{ manala_deploy_shared_files + manala_deploy_shared_dirs }}"

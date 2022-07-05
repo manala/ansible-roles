@@ -16,22 +16,22 @@
 
 - name: install > Install
   ansible.builtin.unarchive:
-    src: "{{ manala_ngrok_version|ternary(
-      __manala_ngrok_version.content|default|regex_search(
-        'https://[^\"]+ngrok-%(version)s-linux-%(architecture)s.tar.gz'|format(
+    src: "{{ manala_ngrok_version | ternary(
+      __manala_ngrok_version.content | default | regex_search(
+        'https://[^\"]+ngrok-%(version)s-linux-%(architecture)s.tar.gz' | format(
           version=manala_ngrok_version,
-          architecture=ansible_architecture|manala.roles.ngrok_architecture,
+          architecture=ansible_architecture | manala.roles.ngrok_architecture,
         )
       ),
-      'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-%(architecture)s.tgz'|format(
-        architecture=ansible_architecture|manala.roles.ngrok_architecture,
+      'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-%(architecture)s.tgz' | format(
+        architecture=ansible_architecture | manala.roles.ngrok_architecture,
       )
     ) }}"
-    dest: "{{ manala_ngrok_bin|dirname }}"
+    dest: "{{ manala_ngrok_bin | dirname }}"
     remote_src: true
     extra_opts:
       - --transform
-      - s/^ngrok/{{ manala_ngrok_bin|basename }}/
+      - s/^ngrok/{{ manala_ngrok_bin | basename }}/
     owner: root
     group: root
     mode: "0755"

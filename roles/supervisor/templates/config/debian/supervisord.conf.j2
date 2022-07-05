@@ -4,7 +4,7 @@
   'rpcinterface:supervisor': {},
   'supervisorctl': {},
   'include': {},
-} | combine(manala_supervisor_config|default({}, true)) -%}
+} | combine(manala_supervisor_config | default({}, true)) -%}
 
 ; supervisor config file
 

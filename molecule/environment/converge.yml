@@ -35,7 +35,7 @@
         dest: "{{ tests_dir }}/file"
         content: |
           # {{ tests_dir }}/file
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.environment
@@ -55,3 +55,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false

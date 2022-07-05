@@ -17,7 +17,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -80,6 +80,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+          changed_when: false
 
 #############
 # Exclusive #
@@ -98,7 +99,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -120,6 +121,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/exclusive.yml.j2') }}"
+          changed_when: false
 
 ###########
 # Configs #
@@ -151,7 +153,7 @@
         exclusive/fpm/conf.d/existing, exclusive/fpm/conf.d/existing_present, exclusive/fpm/conf.d/existing_ignore,
         exclusive/fpm/conf.d/existing_fpm, exclusive/fpm/conf.d/existing_present_fpm, exclusive/fpm/conf.d/existing_ignore_fpm,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -250,6 +252,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+          changed_when: false
 
 #############
 # Fpm Pools #
@@ -274,7 +277,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -370,3 +373,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/fpm_pools.yml.j2') }}"
+          changed_when: false

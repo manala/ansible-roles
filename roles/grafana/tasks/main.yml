@@ -21,7 +21,7 @@
 
 # Datasources
 - import_tasks: datasources.yml
-  when: manala_grafana_datasources|length
+  when: manala_grafana_datasources | length
     or manala_grafana_datasources_exclusive
   tags:
     - manala_grafana
@@ -29,7 +29,7 @@
 
 # Dashboards
 - import_tasks: dashboards.yml
-  when: manala_grafana_dashboards|length
+  when: manala_grafana_dashboards | length
     or manala_grafana_dashboards_exclusive
   tags:
     - manala_grafana

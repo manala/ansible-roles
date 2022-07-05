@@ -8,7 +8,7 @@
   tags: [parameters]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.kernel
@@ -21,3 +21,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/parameters.yml.j2') }}"
+          changed_when: false

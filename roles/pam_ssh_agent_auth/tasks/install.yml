@@ -7,4 +7,4 @@
     update_cache: true
     cache_valid_time: 3600
   loop:
-    - "{{ manala_pam_ssh_agent_auth_install_packages|default(manala_pam_ssh_agent_auth_install_packages_default, True) }}"
+    - "{{ manala_pam_ssh_agent_auth_install_packages | default(manala_pam_ssh_agent_auth_install_packages_default, True) }}"

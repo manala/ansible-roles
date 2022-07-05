@@ -16,7 +16,7 @@ manala_php_extensions: []
 
 # Configs
 manala_php_configs_exclusive: false
-manala_php_configs_dir: /etc/php/{{ manala_php_version|string }}
+manala_php_configs_dir: /etc/php/{{ manala_php_version | string }}
 manala_php_configs_defaults: {}
 manala_php_configs: []
 manala_php_cli_configs: []
@@ -24,7 +24,7 @@ manala_php_fpm_configs: []
 
 # Fpm pools
 manala_php_fpm_pools_exclusive: false
-manala_php_fpm_pools_dir: /etc/php/{{ manala_php_version|string }}/fpm/pool.d
+manala_php_fpm_pools_dir: /etc/php/{{ manala_php_version | string }}/fpm/pool.d
 manala_php_fpm_pools_defaults: {}
 manala_php_fpm_pools: []
 

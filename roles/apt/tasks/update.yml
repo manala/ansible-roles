@@ -19,7 +19,7 @@
   loop: "{{
     manala_apt_update_holds
       | zip(
-        __manala_apt_update_marks_results.results|map(attribute='stdout')|list
+        __manala_apt_update_marks_results.results | map(attribute='stdout') | list
       )
       | list
   }}"
@@ -37,7 +37,7 @@
   loop: "{{
     manala_apt_update_holds
       | zip(
-        __manala_apt_update_marks_results.results|map(attribute='stdout')|list
+        __manala_apt_update_marks_results.results | map(attribute='stdout') | list
       )
       | list
   }}"

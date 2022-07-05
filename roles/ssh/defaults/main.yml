@@ -7,7 +7,7 @@ manala_ssh_version: ~
 # Note: First package name in list is used for version autodetection
 manala_ssh_install_packages: ~
 manala_ssh_install_packages_default: "{{
-  manala_ssh_server|ternary(
+  manala_ssh_server | ternary(
     ['openssh-server'],
     ['openssh-client']
   )

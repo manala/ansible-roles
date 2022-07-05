@@ -8,9 +8,9 @@
     cache_valid_time: 3600
   loop:
     - "{{
-      manala_docker_install_packages|default(manala_docker_install_packages_default, True)
-      + (manala_docker_containers|length > 0)|ternary(
-          (ansible_python.version.major == 2)|ternary(
+      manala_docker_install_packages | default(manala_docker_install_packages_default, True)
+      + (manala_docker_containers | length > 0) | ternary(
+          (ansible_python.version.major == 2) | ternary(
             ['python-docker'],
             ['python3-docker']
           ),

@@ -2,11 +2,11 @@
 
 - name: repositories local > List
   ansible.builtin.command: "{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
     ) }}aptly repo list --raw{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       '\"',
       ''
     )
@@ -23,11 +23,11 @@
 
 - name: repositories published > List
   ansible.builtin.command: "{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
     ) }}aptly publish list --raw | cut -f2 -d ' '{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       '\"',
       ''
     )
@@ -44,11 +44,11 @@
 
 - name: repositories > Create
   ansible.builtin.command: "{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
     ) }}aptly repo create -comment={{ item.comment }} -component={{ item.component }} -distribution={{ item.distribution }} {{ item.name }}{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       '\"',
       ''
     )
@@ -62,11 +62,11 @@
 
 - name: repositories > Publish
   ansible.builtin.command: "{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
     ) }}aptly publish repo -architectures={{ item.architectures }} -origin={{ item.origin }} \
-        -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '')
+        -label={{ item.label }} {{ item.name }}{{ manala_aptly_user | ternary('\"', '')
   }}"
   when: item.name not in __manala_aptly_repositories_published_find_output.stdout_lines
   loop: "{{

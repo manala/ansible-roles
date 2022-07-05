@@ -6,7 +6,7 @@
     state: "{{
       'restarted'
         if (
-          __manala_grafana_config_template_result|default({}) is changed
+          __manala_grafana_config_template_result | default({}) is changed
         ) else
       'started'
     }}"

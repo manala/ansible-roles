@@ -3,13 +3,13 @@
 - name: volumes > Handling
   gluster_volume:
     name: "{{ item.name }}"
-    state: "{{ item.state|default('present') }}"
-    cluster: "{{ item.cluster|default(omit) }}"
-    bricks: "{{ item.bricks|default(omit) }}"
-    replicas: "{{ item.replicas|default(omit) }}"
-    force: "{{ item.force|default(omit) }}"
-    options: "{{ item.options|default(omit) }}"
-    host: "{{ item.host|default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    cluster: "{{ item.cluster | default(omit) }}"
+    bricks: "{{ item.bricks | default(omit) }}"
+    replicas: "{{ item.replicas | default(omit) }}"
+    force: "{{ item.force | default(omit) }}"
+    options: "{{ item.options | default(omit) }}"
+    host: "{{ item.host | default(omit) }}"
   loop: "{{
     manala_glusterfs_volumes
       | flatten

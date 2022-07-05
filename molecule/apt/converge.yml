@@ -23,7 +23,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -89,6 +89,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+          changed_when: false
 
 ################
 # Sources List #
@@ -105,7 +106,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Content
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -128,6 +129,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/sources_list.yml.j2') }}"
+          changed_when: false
 
 ###############
 # Preferences #
@@ -152,7 +154,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -260,6 +262,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/preferences.yml.j2') }}"
+          changed_when: false
 
 ########
 # Keys #
@@ -269,7 +272,7 @@
   tags: [keys]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -301,6 +304,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/keys.yml.j2') }}"
+          changed_when: false
 
 ################
 # Repositories #
@@ -322,7 +326,7 @@
       loop:
         - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             # Play role fully, because of "keys" tasks dependency
@@ -360,6 +364,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/repositories.default.yml.j2') }}"
+          changed_when: false
 
 - name: Repositories - Exclusive
   tags: [repositories, repositories.exclusive]
@@ -379,7 +384,7 @@
         - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             # Play role fully, because of "keys" tasks dependency
@@ -398,6 +403,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/repositories.exclusive.yml.j2') }}"
+          changed_when: false
 
 ############
 # Packages #
@@ -420,7 +426,7 @@
     - name: Packages apt
       ansible.builtin.apt:
         deb: http://snapshot.debian.org/archive/debian-archive/20120328T092752Z/debian/pool/main/p/pscan/pscan_1.2-9_amd64.deb
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -449,6 +455,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/packages.yml.j2') }}"
+          changed_when: false
 
 #########
 # Holds #
@@ -468,7 +475,7 @@
         name: "{{ item }}"
         selection: hold
       loop: [dpkg, tar]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -493,6 +500,7 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/holds.default.yml.j2') }}"
+          changed_when: false
 
 - name: Holds - Exclusive
   tags: [holds, holds.exclusive]
@@ -503,7 +511,7 @@
         name: "{{ item }}"
         selection: hold
       loop: [python3, tar]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -521,6 +529,8 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/holds.exclusive.yml.j2') }}"
+          changed_when: false
+
 ##########
 # Update #
 ##########
@@ -529,7 +539,7 @@
   tags: [update]
   hosts: debian
   tasks:
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt

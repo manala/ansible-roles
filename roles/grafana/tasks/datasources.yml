@@ -16,11 +16,11 @@
 # Update existing datasources
 - name: datasources > Update datasources
   register: __manala_grafana_datasources_update_output
-  failed_when: "'Datasource updated' not in __manala_grafana_datasources_update_output|to_json"
+  failed_when: "'Datasource updated' not in __manala_grafana_datasources_update_output | to_json"
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/datasources/{{ item[0].id }}"
     method: PUT
-    body: "{{ item[1]|to_json }}"
+    body: "{{ item[1] | to_json }}"
     force_basic_auth: true
     user: "{{ manala_grafana_api_user }}"
     password: "{{ manala_grafana_api_password }}"
@@ -28,7 +28,7 @@
     headers:
       Content-Type: application/json
   loop: "{{
-    __manala_grafana_datasources_output.json|default([])
+    __manala_grafana_datasources_output.json | default([])
       | product(manala_grafana_datasources)
       | list
     }}"
@@ -37,11 +37,11 @@
 # Create non existing datasources
 - name: datasources > Create datasources
   register: __manala_grafana_datasources_create_output
-  failed_when: "'Datasource added' not in __manala_grafana_datasources_create_output|to_json"
+  failed_when: "'Datasource added' not in __manala_grafana_datasources_create_output | to_json"
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/datasources"
     method: POST
-    body: '{{ item|to_json }}'
+    body: '{{ item | to_json }}'
     force_basic_auth: true
     user: "{{ manala_grafana_api_user }}"
     password: "{{ manala_grafana_api_password }}"
@@ -49,7 +49,7 @@
     headers:
       Content-Type: application/json
   loop: "{{ manala_grafana_datasources }}"
-  when: item.name not in __manala_grafana_datasources_output.json|map(attribute='name')|list
+  when: item.name not in __manala_grafana_datasources_output.json | map(attribute='name') | list
 
 # Delete non added datasources
 - name: datasources > Delete datasources
@@ -64,7 +64,7 @@
     status_code: 200
     headers:
       Content-Type: application/json
-  loop: "{{ __manala_grafana_datasources_output.json|default([]) }}"
+  loop: "{{ __manala_grafana_datasources_output.json | default([]) }}"
   when:
     - manala_grafana_datasources_exclusive
-    - item.name not in manala_grafana_datasources|map(attribute='name')|list
+    - item.name not in manala_grafana_datasources | map(attribute='name') | list

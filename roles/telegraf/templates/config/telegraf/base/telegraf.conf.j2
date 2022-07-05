@@ -1,7 +1,7 @@
 {%- set config = {
   'global_tags': {},
   'agent': {},
-} | combine(manala_telegraf_config|default({}, true)) -%}
+} | combine(manala_telegraf_config | default({}, true)) -%}
 
 # Telegraf Configuration
 #

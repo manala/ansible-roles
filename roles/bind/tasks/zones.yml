@@ -3,39 +3,39 @@
 - name: zones > Templates
   ansible.builtin.template:
     src: "{{ item.template }}"
-    dest: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala.roles.bind_zone_file) }}"
+    dest: "{{ manala_bind_zones_dir }}/{{ item.file | default(item.zone | manala.roles.bind_zone_file) }}"
     owner: "{{ manala_bind_user }}"
     group: "{{ manala_bind_group }}"
     mode: "0644"
-    force: "{{ not item.dynamic|default(False) }}"
+    force: "{{ not item.dynamic | default(False) }}"
   loop: "{{ manala_bind_zones }}"
   when:
     - item.template is defined
-    - item.state|default('present') == 'present'
-    - not item.omit|default(False)
+    - item.state | default('present') == 'present'
+    - not item.omit | default(False)
   register: __manala_bind_zones_templates
 
 - name: zones > Contents
   ansible.builtin.copy:
     content: "{{ item.content }}"
-    dest: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala.roles.bind_zone_file) }}"
+    dest: "{{ manala_bind_zones_dir }}/{{ item.file | default(item.zone | manala.roles.bind_zone_file) }}"
     owner: "{{ manala_bind_user }}"
     group: "{{ manala_bind_group }}"
     mode: "0644"
-    force: "{{ not item.dynamic|default(False) }}"
+    force: "{{ not item.dynamic | default(False) }}"
   loop: "{{ manala_bind_zones }}"
   when:
     - item.content is defined
-    - item.state|default('present') == 'present'
-    - not item.omit|default(False)
+    - item.state | default('present') == 'present'
+    - not item.omit | default(False)
   register: __manala_bind_zones_contents
 
 - name: zones > Absents
   ansible.builtin.file:
-    path: "{{ manala_bind_zones_dir }}/{{ item.file|default(item.zone|manala.roles.bind_zone_file) }}"
+    path: "{{ manala_bind_zones_dir }}/{{ item.file | default(item.zone | manala.roles.bind_zone_file) }}"
     state: absent
   loop: "{{ manala_bind_zones }}"
   when:
-    - item.state|default('present') == 'absent'
-    - not item.omit|default(False)
+    - item.state | default('present') == 'absent'
+    - not item.omit | default(False)
   register: __manala_bind_zones_absents

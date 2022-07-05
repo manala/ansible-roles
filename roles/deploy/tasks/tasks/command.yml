@@ -9,3 +9,4 @@
       ansible.builtin.command: "{{ item.options }}"
       args:
         chdir: "{{ item.dir }}"
+      changed_when: true

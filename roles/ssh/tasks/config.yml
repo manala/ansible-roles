@@ -2,7 +2,7 @@
 
 - name: config > Server - Template
   ansible.builtin.template:
-    src: "{{ manala_ssh_server_config_template|default('config/server/_default.j2', true) }}"
+    src: "{{ manala_ssh_server_config_template | default('config/server/_default.j2', true) }}"
     dest: "{{ manala_ssh_server_config_file }}"
     owner: root
     group: root
@@ -16,7 +16,7 @@
 
 - name: config > Client - Template
   ansible.builtin.template:
-    src: "{{ manala_ssh_client_config_template|default('config/client/_default.j2', true) }}"
+    src: "{{ manala_ssh_client_config_template | default('config/client/_default.j2', true) }}"
     dest: "{{ manala_ssh_client_config_file }}"
     owner: root
     group: root

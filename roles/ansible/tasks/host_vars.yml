@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: "0755"
-  when: manala_ansible_host_vars|length
+  when: manala_ansible_host_vars | length
 
 - name: host_vars > Exclusive
   ansible.builtin.find:
@@ -28,9 +28,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_ansible_host_vars,
-    __manala_ansible_host_vars_exclusive_find.files|default([]),
+    __manala_ansible_host_vars_exclusive_find.files | default([]),
     manala_ansible_host_vars_dir,
-    manala_ansible_host_vars_defaults.template|default('host_vars/_default.j2', true),
+    manala_ansible_host_vars_defaults.template | default('host_vars/_default.j2', true),
     wantstate='present'
   ) }}"
 
@@ -41,8 +41,8 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_ansible_host_vars,
-    __manala_ansible_host_vars_exclusive_find.files|default([]),
+    __manala_ansible_host_vars_exclusive_find.files | default([]),
     manala_ansible_host_vars_dir,
-    manala_ansible_host_vars_defaults.template|default('host_vars/_default.j2', true),
+    manala_ansible_host_vars_defaults.template | default('host_vars/_default.j2', true),
     wantstate='absent'
   ) }}"

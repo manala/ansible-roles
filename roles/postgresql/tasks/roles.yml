@@ -3,8 +3,8 @@
 - name: roles > Handle
   postgresql_user:
     name: "{{ item.role }}"
-    state: "{{ item.state|default('present') }}"
-    password: "{{ item.password|default(omit) }}"
-    role_attr_flags: "{{ (omit) if (item.attributes is not defined) else item.attributes|join(',') }}"
+    state: "{{ item.state | default('present') }}"
+    password: "{{ item.password | default(omit) }}"
+    role_attr_flags: "{{ (omit) if (item.attributes is not defined) else item.attributes | join(',') }}"
     login_host: "{{ manala_postgresql_login_host }}"
   loop: "{{ manala_postgresql_roles }}"

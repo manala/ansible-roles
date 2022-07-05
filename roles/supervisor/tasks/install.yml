@@ -7,4 +7,4 @@
     update_cache: true
     cache_valid_time: 3600
   loop:
-    - "{{ manala_supervisor_install_packages|default(manala_supervisor_install_packages_default, True) }}"
+    - "{{ manala_supervisor_install_packages | default(manala_supervisor_install_packages_default, True) }}"

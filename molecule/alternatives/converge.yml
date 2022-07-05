@@ -19,7 +19,7 @@
         name: "{{ item[0] }}"
         path: "{{ item[1] }}"
       loop: [[editor, /bin/nano], [pico, /bin/nano], [pager, /bin/more]]
-    - block:
+    - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.alternatives
@@ -40,3 +40,4 @@
           ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/selections.yml.j2') }}"
+          changed_when: false

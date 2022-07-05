@@ -19,9 +19,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_systemd_system_configs,
-    __manala_systemd_system_configs_exclusive_find.files|default([]),
+    __manala_systemd_system_configs_exclusive_find.files | default([]),
     manala_systemd_system_configs_dir,
-    manala_systemd_system_configs_defaults.template|default('system_configs/_default.j2', true),
+    manala_systemd_system_configs_defaults.template | default('system_configs/_default.j2', true),
     wantstate='present'
   ) }}"
   notify:
@@ -34,9 +34,9 @@
   loop: "{{ query(
     'manala.roles.templates_exclusive',
     manala_systemd_system_configs,
-    __manala_systemd_system_configs_exclusive_find.files|default([]),
+    __manala_systemd_system_configs_exclusive_find.files | default([]),
     manala_systemd_system_configs_dir,
-    manala_systemd_system_configs_defaults.template|default('system_configs/_default.j2', true),
+    manala_systemd_system_configs_defaults.template | default('system_configs/_default.j2', true),
     wantstate='absent'
   ) }}"
   notify:

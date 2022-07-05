@@ -6,11 +6,11 @@
     state: "{{
       'restarted'
         if (
-          __manala_mysql_config_template_result|default({}) is changed
-          or __manala_mysql_config_alternative_result|default({}) is changed
-          or __manala_mysql_configs_templates_present_result|default({}) is changed
-          or __manala_mysql_configs_files_absent_result|default({}) is changed
-          or __manala_mysql_data_dir_create_result|default({}) is changed
+          __manala_mysql_config_template_result | default({}) is changed
+          or __manala_mysql_config_alternative_result | default({}) is changed
+          or __manala_mysql_configs_templates_present_result | default({}) is changed
+          or __manala_mysql_configs_files_absent_result | default({}) is changed
+          or __manala_mysql_data_dir_create_result | default({}) is changed
         ) else
       'started'
     }}"
