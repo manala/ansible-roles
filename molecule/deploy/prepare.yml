@@ -12,6 +12,7 @@
 
 - hosts: 127.0.0.1
   connection: local
+  become: true
   tags: [always]
   tasks:
     - name: Packages local

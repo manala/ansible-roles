@@ -50,21 +50,19 @@ def main():
     enabled = module.params['enabled']
 
     # Get versions
-    cmd = 'phpquery -V'
-    rc, out, err = module.run_command(cmd, check_rc=True)
+    rc, out, err = run_phpquery(module, '-V')
     php_versions = out.splitlines()
 
     for php_version in php_versions:
         # Get sapis by version
-        cmd = 'phpquery -v %s -S' % php_version
-        rc, out, err = module.run_command(cmd, check_rc=True)
+        rc, out, err = run_phpquery(module, '-v %s -S' % php_version)
         php_sapis = out.splitlines()
 
         for php_sapi in php_sapis:
-            cmd = 'phpquery -v %s -s %s -m %s' % (php_version, php_sapi, name)
-            rc, out, err = module.run_command(cmd)
+            args = '-v %s -s %s -m %s' % (php_version, php_sapi, name)
+            rc, out, err = run_phpquery(module, args)
             if rc not in [0, 32]:
-                module.fail_json(msg='Unable to query php extension state', cmd=cmd, rc=rc, stdout=out, stderr=err)
+                module.fail_json(msg='Unable to query php extension state', args=args, rc=rc, stdout=out, stderr=err)
 
             # rc 0 -> extension already enabled
             # rc 32 -> extension already disabled
@@ -72,10 +70,25 @@ def main():
                 if module.check_mode:
                     module.exit_json(**result)
                 result['changed'] = True
-                cmd = 'php%smod -v %s -s %s %s' % ('en' if enabled else 'dis', php_version, php_sapi, name)
-                module.run_command(cmd)
+                args = '-v %s -s %s %s' % (php_version, php_sapi, name)
+                if enabled:
+                    run_phpenmod(module, args)
+                else:
+                    run_phpdismod(module, args)
 
     module.exit_json(**result)
+
+
+def run_phpquery(module, args):
+    return module.run_command('phpquery %s' % args, check_rc=True)
+
+
+def run_phpenmod(module, args):
+    return module.run_command('phpenmod %s' % args)
+
+
+def run_phpdismod(module, args):
+    return module.run_command('phpdismod %s' % args)
 
 
 if __name__ == '__main__':

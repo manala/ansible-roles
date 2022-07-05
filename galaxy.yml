@@ -61,6 +61,7 @@ build_ignore:
   - .gitignore
   - .DS_Store
   - .ansible-lint
+  - .manala
   - Makefile
   - molecule
   - tests

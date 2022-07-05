@@ -1,13 +1,12 @@
----
-
 name: Collection Release
+
 on:
   push:
     branches:
       - master
 
 jobs:
-  build:
+  collection-release:
     runs-on: ubuntu-20.04
     if: "contains(github.event.head_commit.message, 'Release')"
     steps:
@@ -19,7 +18,20 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Docker cache
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
+          restore-keys: |
+            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
+
+      - name: Env
+        run: |
+          cp .env.dist .env
 
       - name: Build Collection
         run: make collection.build

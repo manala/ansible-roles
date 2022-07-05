@@ -1,95 +1,110 @@
 .SILENT:
 
-ANSIBLE_COLLECTION=roles
-ANSIBLE_NAMESPACE=manala
-ANSIBLE_IMAGE=quay.io/ansible/toolset:3.5.0
-
--include \
-	./.env
-
-##########
-# Docker #
-##########
-
-define docker_run
-	docker run \
-		--rm \
-		--tty \
-		--interactive \
-		--hostname ansible \
-		--mount 'type=bind,source=$(CURDIR),target=/srv/ansible_collections/$(ANSIBLE_NAMESPACE)/$(ANSIBLE_COLLECTION)' \
-		--mount 'type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock' \
-		--workdir /srv/ansible_collections/$(ANSIBLE_NAMESPACE)/$(ANSIBLE_COLLECTION) \
-		$(ANSIBLE_IMAGE) \
-		$(strip $(1))
-endef
-
-define docker_collection
-	docker run \
-		--rm \
-		--env COLLECTION_API_TOKEN \
-		--volume $(PWD):/srv/ \
-		--workdir /srv/ \
-		$(ANSIBLE_IMAGE) \
-		$(1)
-endef
-
-######
-# Sh #
-######
-
-sh:
-	$(call docker_run)
-.PHONY: sh
+-include .manala/Makefile
 
 ########
 # Lint #
 ########
 
+## Lint - Lint collection [VERBOSE]
 lint:
-	$(call docker_run, ansible-lint)
+	$(call docker_run, ansible-lint \
+		$(if $(VERBOSE), -v) \
+		--force-color \
+	)
 .PHONY: lint
 
 ########
 # Test #
 ########
 
-test: test.sanity test.units
+## Test - Run all tests (but coverage)
+test: test.sanity test.units test.integration
 .PHONY: test
 
+## Test - Run sanity tests [VERBOSE]
 test.sanity:
-	$(call docker_run, ansible-test sanity --python 3.8 --requirements --verbose --color)
+	$(call docker_run, ansible-test sanity \
+		--requirements \
+		--python 3.9 \
+		$(if $(VERBOSE), --verbose) \
+		--color \
+		--exclude .github/ \
+		--exclude .manala/ \
+	)
 .PHONY: test.sanity
 
+## Test - Run units tests [VERBOSE|COVERAGE]
 test.units:
-	$(call docker_run, ansible-test units --python 3.8 --requirements --verbose --color)
+	$(call docker_run, ansible-test units \
+		--requirements \
+		--python 3.9 \
+		$(if $(VERBOSE), --verbose) \
+		$(if $(COVERAGE), --coverage) \
+		--color \
+	)
 .PHONY: test.units
+
+## Test - Run integration tests [VERBOSE|COVERAGE]
+test.integration:
+	$(call docker_run, ansible-test integration \
+		--requirements \
+		--python 3.9 \
+		$(if $(VERBOSE), --verbose) \
+		$(if $(COVERAGE), --coverage) \
+		--color \
+	)
+.PHONY: test.integration
+
+## Test - Run coverage [VERBOSE]
+test.coverage:
+	$(call docker_run, ansible-test coverage xml \
+		--requirements \
+		--python 3.9 \
+		--group-by command \
+		--group-by version \
+		$(if $(VERBOSE), --verbose) \
+		--color \
+	)
+.PHONY: test.coverage
 
 ############
 # Molecule #
 ############
 
-molecule:
-	$(call docker_run, molecule test --all)
-	$(call docker_run, molecule test \
-		$(if $(ROLE),--scenario-name $(ROLE),--all))
-.PHONY: molecule
+## Molecule - Run molecule test [SCENARIO]
+molecule.test:
+	$(call docker_run, PY_COLORS=1 molecule test \
+		$(if $(SCENARIO), --scenario-name $(SCENARIO), --all) \
+	)
+.PHONY: molecule.test
+
+## Molecule - Rune molecule converge [SCENARIO]
+molecule.converge:
+	$(call error_if_not, $(SCENARIO), SCENARIO has not been specified)
+	$(call docker_run, PY_COLORS=1 molecule converge \
+		--scenario-name $(SCENARIO) \
+	)
+.PHONY: molecule.converge
 
 ##############
 # Collection #
 ##############
 
-MANALA_COLLECTION = $(ANSIBLE_NAMESPACE)-$(ANSIBLE_COLLECTION)-*.tar.gz
+MANALA_COLLECTION = manala-roles-*.tar.gz
 
 define collection
-	$(call docker_collection, ansible-galaxy collection $(1))
+	$(call docker_run, ansible-galaxy collection $(1))
 endef
 
+## Collection - Build collection
 collection.build:
 	rm -rf $(MANALA_COLLECTION)
-	$(call collection,build --force --verbose)
+	$(call collection, build --force --verbose)
 .PHONY: collection.build
 
+## Collection - Publish collection [COLLECTION_API_TOKEN]
 collection.publish:
-	$(call collection,publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN))
+	$(call error_if_not, $(COLLECTION_API_TOKEN), COLLECTION_API_TOKEN has not been specified)
+	$(call collection, publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN))
 .PHONY: collection.publish

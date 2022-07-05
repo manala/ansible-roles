@@ -1,0 +1,12 @@
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        volumes:
+            - ${SSH_AUTH_SOCK}:${MANALA_SSH_AUTH_SOCK_BIND:-${SSH_AUTH_SOCK}}
+        environment:
+            SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}
+            MANALA_SSH_AUTH_SOCK_BIND: ${MANALA_SSH_AUTH_SOCK_BIND:-}

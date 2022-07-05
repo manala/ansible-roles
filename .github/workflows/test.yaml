@@ -10,42 +10,30 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Docker cache
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
         with:
-          path: ansible_collections/manala/roles
+          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
+          restore-keys: |
+            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
+      - name: Env
+        run: |
+          cp .env.dist .env
       - name: Sanity
-        uses: docker://quay.io/ansible/toolset:3.5.0
-        with:
-          args: |
-            sh -c " \
-              cd ansible_collections/manala/roles \
-              && ansible-test sanity --python 3.8 --requirements --verbose --color \
-            "
+        run: |
+          make test.sanity VERBOSE=1
       - name: Units
-        uses: docker://quay.io/ansible/toolset:3.5.0
-        with:
-          args: |
-            sh -c " \
-              cd ansible_collections/manala/roles \
-              && ansible-test units --python 3.8 --requirements --coverage --verbose --color \
-            "
+        run: |
+          make test.units VERBOSE=1 COVERAGE=1
       - name: Integration
-        uses: docker://quay.io/ansible/toolset:3.5.0
-        with:
-          args: |
-            sh -c " \
-              cd ansible_collections/manala/roles \
-              && ansible-test integration --python 3.8 --requirements --coverage --verbose --color \
-            "
+        run: |
+          make test.integration VERBOSE=1 COVERAGE=1
       - name: Coverage
-        uses: docker://quay.io/ansible/toolset:3.5.0
-        with:
-          args: |
-            sh -c " \
-              cd ansible_collections/manala/roles \
-              && ansible-test coverage xml --python 3.8 --requirements --group-by command --group-by version --verbose --color \
-            "
+        run: |
+          make test.coverage VERBOSE=1
       - name: Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         with:
           fail_ci_if_error: false

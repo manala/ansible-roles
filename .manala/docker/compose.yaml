@@ -1,0 +1,26 @@
+name: manala-ansible-roles
+
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        hostname: manala-ansible-roles
+        build:
+            context: .
+            target: system
+        image: manala-ansible-roles:20220701071905
+        volumes:
+            - ../..:${DIR}
+        environment:
+            DIR: ${DIR}
+            CACHE_DIR: ${CACHE_DIR}
+        env_file:
+            - ../../.env.dist
+            - ../../.env
+        working_dir: ${DIR}
+        entrypoint: .manala/docker/entrypoint.sh
+        # Use default docker bridge network
+        network_mode: bridge

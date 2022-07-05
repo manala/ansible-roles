@@ -14,6 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       debug:
+        type: boolean
         description: Run with tmate debugging
         required: false
         default: false
