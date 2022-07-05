@@ -41,7 +41,7 @@
             tasks_from: install
           vars:
             manala_ngrok_bin: "{{ tests_dir }}/fixed"
-            manala_ngrok_version: 2.2.2
+            manala_ngrok_version: 3.0.1
       always:
         - name: Goss
           ansible.builtin.command:
