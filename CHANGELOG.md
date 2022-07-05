@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [All] Use fqcn
 - [Ngrok] Switch to v3 stable
 - [Symfony CLI] Switch to open source version
+- [Gomplate] Use github api to get latest version
+- [Vault CLI] Use github api to get latest version
 ### Fixed
 - [Apt] Update aptly key
 

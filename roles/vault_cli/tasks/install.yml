@@ -7,14 +7,32 @@
 
 - name: install > Get latest version
   ansible.builtin.uri:
-    url: https://www.vaultproject.io/downloads
-    return_content: true
+    url: https://api.github.com/repos/hashicorp/vault/releases/latest
   register: __manala_vault_cli_version_latest
   when:
     - not __manala_vault_cli_bin_stat_result.stat.exists
     - manala_vault_cli_version is none
 
 - name: install > Binary
+  when: not __manala_vault_cli_bin_stat_result.stat.exists
+  vars:
+    __manala_vault_cli_version: "{{
+      manala_vault_cli_version
+        if (manala_vault_cli_version) else
+      __manala_vault_cli_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
+    }}"
+    __manala_vault_cli_archive: "{{
+      'vault_%(version)s_linux_%(architecture)s' | format(
+        version=__manala_vault_cli_version,
+        architecture=ansible_architecture | manala.roles.vault_cli_architecture,
+      )
+    }}"
+    __manala_vault_cli_archive_url: "{{
+      'https://releases.hashicorp.com/vault/%(version)s/%(archive)s.zip' | format(
+        version=__manala_vault_cli_version,
+        archive=__manala_vault_cli_archive,
+      )
+    }}"
   block:
 
     - name: install > Create temporary directory
@@ -24,25 +42,15 @@
 
     - name: install > Download to temporary directory
       ansible.builtin.unarchive:
-        src: "{{ manala_vault_cli_version | ternary(
-          'https://releases.hashicorp.com/vault/%(version)s/vault_%(version)s_linux_%(architecture)s.zip' | format(
-            version=manala_vault_cli_version,
-            architecture=ansible_architecture | manala.roles.vault_cli_architecture,
-          ),
-          __manala_vault_cli_version_latest.content | default | regex_search(
-            'https://releases.hashicorp.com/vault/\\d+\\.\\d+\\.\\d+/vault_\\d+\\.\\d+\\.\\d+_linux_%(architecture)s\\.zip' | format(
-              architecture=ansible_architecture | manala.roles.vault_cli_architecture,
-            )
-          )
-        ) }}"
-        dest: "{{ __manala_vault_cli_temporary_directory.path }}"
+        src: "{{ __manala_vault_cli_archive_url }}"
         remote_src: true
+        dest: "{{ __manala_vault_cli_temporary_directory.path }}"
 
     - name: install > Copy binary
       ansible.builtin.copy:
         src: "{{ __manala_vault_cli_temporary_directory.path }}/vault"
-        dest: "{{ manala_vault_cli_bin }}"
         remote_src: true
+        dest: "{{ manala_vault_cli_bin }}"
         owner: root
         group: root
         mode: "0755"
@@ -51,5 +59,3 @@
       ansible.builtin.file:
         path: "{{ __manala_vault_cli_temporary_directory.path }}"
         state: absent
-
-  when: not __manala_vault_cli_bin_stat_result.stat.exists

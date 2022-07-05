@@ -7,26 +7,32 @@
 
 - name: install > Get latest version
   ansible.builtin.uri:
-    url: https://github.com/hairyhenderson/gomplate/releases/latest
-    return_content: false
+    url: https://api.github.com/repos/hairyhenderson/gomplate/releases/latest
   register: __manala_gomplate_version_latest
   when:
     - not __manala_gomplate_bin_stat_result.stat.exists
     - manala_gomplate_version is none
 
-- name: install > Install
-  ansible.builtin.get_url:
-    url: "{{
+- name: install > Binary
+  when: not __manala_gomplate_bin_stat_result.stat.exists
+  vars:
+    __manala_gomplate_version: "{{
+      manala_gomplate_version
+        if (manala_gomplate_version) else
+      __manala_gomplate_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
+    }}"
+    __manala_gomplate_url: "{{
       'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-%(architecture)s' | format(
-        version=manala_gomplate_version | ternary(
-          manala_gomplate_version,
-          __manala_gomplate_version_latest.url | default | regex_replace('.+/v(\\d+\\.\\d+\\.\\d+)$', '\\1')
-        ),
+        version=__manala_gomplate_version,
         architecture=ansible_architecture | manala.roles.gomplate_architecture,
       )
     }}"
-    dest: "{{ manala_gomplate_bin }}"
-    owner: root
-    group: root
-    mode: "0755"
-  when: not __manala_gomplate_bin_stat_result.stat.exists
+  block:
+
+    - name: install > Install
+      ansible.builtin.get_url:
+        url: "{{ __manala_gomplate_url }}"
+        dest: "{{ manala_gomplate_bin }}"
+        owner: root
+        group: root
+        mode: "0755"
