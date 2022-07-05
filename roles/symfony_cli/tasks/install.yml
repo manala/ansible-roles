@@ -7,26 +7,43 @@
 
 - name: install > Get latest version
   ansible.builtin.uri:
-    url: https://get.symfony.com/cli/LATEST
-    return_content: true
+    url: https://api.github.com/repos/symfony-cli/symfony-cli/releases/latest
   register: __manala_symfony_cli_version_latest
   when:
     - not __manala_symfony_cli_bin_stat_result.stat.exists
     - manala_symfony_cli_version is none
 
-- name: install > Install
-  ansible.builtin.get_url:
-    url: "{{
-      'https://github.com/symfony/cli/releases/download/v%(version)s/symfony_linux_%(architecture)s' | format(
-        version=manala_symfony_cli_version | ternary(
-          manala_symfony_cli_version,
-          __manala_symfony_cli_version_latest.content | default
-        ),
+- name: install > Binary
+  when: not __manala_symfony_cli_bin_stat_result.stat.exists
+  vars:
+    __manala_symfony_cli_version: "{{
+      manala_symfony_cli_version
+        if (manala_symfony_cli_version) else
+      __manala_symfony_cli_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
+    }}"
+    __manala_symfony_cli_archive: "{{
+      'symfony-cli_linux_%(architecture)s' | format(
         architecture=ansible_architecture | manala.roles.symfony_cli_architecture,
       )
     }}"
-    dest: "{{ manala_symfony_cli_bin }}"
-    owner: root
-    group: root
-    mode: "0755"
-  when: not __manala_symfony_cli_bin_stat_result.stat.exists
+    __manala_symfony_cli_archive_url: "{{
+      'https://github.com/symfony-cli/symfony-cli/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
+        version=__manala_symfony_cli_version,
+        archive=__manala_symfony_cli_archive,
+      )
+    }}"
+  block:
+
+    - name: install > Install
+      ansible.builtin.unarchive:
+        src: "{{ __manala_symfony_cli_archive_url }}"
+        remote_src: true
+        dest: "{{ manala_symfony_cli_bin | dirname }}"
+        extra_opts:
+          - --transform
+          - s,^symfony,{{ manala_symfony_cli_bin | basename }},
+        include:
+          - symfony
+        owner: root
+        group: root
+        mode: "0755"
