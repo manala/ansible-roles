@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [All] Update minimum version of ansible to 2.10
 - [All] Use fqcn
 - [Ngrok] Switch to v3 stable
+- [Symfony CLI] Switch to open source version
 ### Fixed
 - [Apt] Update aptly key
 

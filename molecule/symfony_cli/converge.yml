@@ -41,7 +41,7 @@
             tasks_from: install
           vars:
             manala_symfony_cli_bin: "{{ tests_dir }}/fixed"
-            manala_symfony_cli_version: 4.16.0
+            manala_symfony_cli_version: 5.3.4
       always:
         - name: Goss
           ansible.builtin.command:
