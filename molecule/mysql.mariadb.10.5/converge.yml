@@ -10,7 +10,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_install_packages:
@@ -38,6 +38,6 @@
                 - name: baz
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

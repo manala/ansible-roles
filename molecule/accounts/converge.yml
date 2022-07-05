@@ -9,12 +9,12 @@
   hosts: debian
   tasks:
     - name: Groups
-      group:
+      ansible.builtin.group:
         name: "{{ item }}"
       loop: [group_state_absent_existing, group_state_ignore_existing]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.accounts
             tasks_from: groups
           vars:
@@ -43,7 +43,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/groups.yml.j2') }}"
 
@@ -56,16 +56,16 @@
   hosts: debian
   tasks:
     - name: Groups
-      group:
+      ansible.builtin.group:
         name: "{{ item }}"
       loop: [users_group]
     - name: Users
-      user:
+      ansible.builtin.user:
         name: "{{ item }}"
       loop: [user_state_absent_existing, user_state_ignore_existing]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.accounts
             tasks_from: users
           vars:
@@ -94,7 +94,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
 
@@ -108,7 +108,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.accounts
             tasks_from: users
           vars:
@@ -143,7 +143,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users_authorized_keys.yml.j2') }}"
 
@@ -157,7 +157,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.accounts
             tasks_from: users
           vars:
@@ -209,7 +209,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users_keys.yml.j2') }}"
 
@@ -223,7 +223,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.accounts
             tasks_from: users
           vars:
@@ -284,6 +284,6 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users_gpg_keys.yml.j2') }}"

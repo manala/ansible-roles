@@ -1,7 +1,7 @@
 ---
 
 - name: install > Packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item.packages }}"
     state: "{{ item.state }}"
     # Present
@@ -72,7 +72,7 @@
 
     # Use dpkg-query to find out installed packages
     - name: install > Exclusive - Find packages
-      command: >
+      ansible.builtin.command: >
         dpkg-query
         --showformat "${Status}    ${binary:Package}\n"
         --show "php*"
@@ -82,7 +82,7 @@
 
     # Use debfoster to find out each package dependencies
     - name: install > Exclusive - Find packages dependencies  # noqa risky-shell-pipe
-      shell: |
+      ansible.builtin.shell: |
         for package in {{
           query(
             'manala.roles.php_packages',
@@ -114,7 +114,7 @@
       changed_when: false
 
     - name: install > Exclusive - Packages absents
-      apt:
+      ansible.builtin.apt:
         name: "{{ item }}"
         state: absent
         purge: true

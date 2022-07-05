@@ -1,7 +1,7 @@
 ---
 
 - name: known_hosts > Known hosts
-  known_hosts:
+  ansible.builtin.known_hosts:
     host: "{{ item.host }}"
     key: "{{
       lookup('file', item.file)

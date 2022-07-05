@@ -33,7 +33,7 @@ You can find all variables and default values used by this role in the [defaults
         state: absent
 
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.apparmor
 ```
 

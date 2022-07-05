@@ -10,11 +10,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -29,13 +29,13 @@
     tests_dir: /molecule/ansible/hosts
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: hosts
           vars:
@@ -44,7 +44,7 @@
             manala_ansible_hosts: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: hosts
           vars:
@@ -53,7 +53,7 @@
             manala_ansible_hosts: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/hosts.yml.j2') }}"
 
@@ -68,13 +68,13 @@
     tests_dir: /molecule/ansible/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: config
           vars:
@@ -83,7 +83,7 @@
             manala_ansible_config: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: config
           vars:
@@ -92,7 +92,7 @@
             manala_ansible_config: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
 
@@ -107,12 +107,12 @@
     tests_dir: /molecule/ansible/host_vars
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -121,7 +121,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: host_vars
           vars:
@@ -153,7 +153,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: host_vars
           vars:
@@ -167,7 +167,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: host_vars
           vars:
@@ -182,7 +182,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/host_vars.yml.j2') }}"
 
@@ -197,12 +197,12 @@
     tests_dir: /molecule/ansible/group_vars
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -211,7 +211,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: group_vars
           vars:
@@ -243,7 +243,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: group_vars
           vars:
@@ -257,7 +257,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.ansible
             tasks_from: group_vars
           vars:
@@ -272,6 +272,6 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/group_vars.yml.j2') }}"

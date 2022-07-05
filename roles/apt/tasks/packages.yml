@@ -1,7 +1,7 @@
 ---
 
 - name: packages > Apt
-  apt:
+  ansible.builtin.apt:
     deb: "{{ item.package if (item.deb) else omit }}"
     name: "{{ item.package if (not item.deb) else omit }}"
     state: "{{ item.state }}"

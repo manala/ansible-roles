@@ -12,7 +12,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -20,11 +20,11 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes_defaults:
@@ -48,7 +48,7 @@
                       state: touch
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/defaults.yml.j2') }}"
 
@@ -64,7 +64,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -72,11 +72,11 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -84,7 +84,7 @@
         # Parents
         - block:
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes_defaults:
@@ -96,12 +96,12 @@
                   - path: "{{ tests_dir }}/parents_defaults/file"
                   - path: "{{ tests_dir }}/parents_unexisting/file"
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # File already exists as empty directory
         - block:
             - name: Directories  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
@@ -109,7 +109,7 @@
                 - file_directory_empty/file_force
                 - file_directory_empty/file
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -117,12 +117,12 @@
                     force: true
                   - path: "{{ tests_dir }}/file_directory_empty/file"
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # File already exists as full directory
         - block:
             - name: Directories  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
@@ -130,14 +130,14 @@
                 - file_directory_full/file_force
                 - file_directory_full/file
             - name: Files  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
                 - file_directory_full/file_force/file
                 - file_directory_full/file/file
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -145,20 +145,20 @@
                     force: true
                   - path: "{{ tests_dir }}/file_directory_full/file"
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # File already exists as link to file
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/file_link_file"
                 state: directory
             - name: File  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/file_link_file/link_file"
                 state: touch
             - name: Links  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/file_link_file/link_file"
                 state: link
@@ -166,7 +166,7 @@
                 - file_link_file/file_force
                 - file_link_file/file
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -176,14 +176,14 @@
         # File already exists as link to directory
         - block:
             - name: Directories  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - file_link_directory
                 - file_link_directory/link_file
             - name: Links  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/file_link_directory/link_file"
                 state: link
@@ -191,7 +191,7 @@
                 - file_link_directory/file_force
                 - file_link_directory/file
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -199,11 +199,11 @@
                     force: true
                   - path: "{{ tests_dir }}/file_link_directory/file"
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/file.yml.j2') }}"
 
@@ -219,27 +219,27 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: File  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/file"
         state: touch
     - name: Directory  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/directory"
         state: directory
     - block:
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -264,7 +264,7 @@
         # Parents
         - block:
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes_defaults:
@@ -282,21 +282,21 @@
                     src: "{{ tests_dir }}/file"
                     state: link_directory
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # Wrong
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/wrong"
                 state: directory
             - name: Link  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/wrong/link"
                 src: "{{ tests_dir }}/file"
                 state: link
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -306,18 +306,18 @@
         # Link already exists as file
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/link_file"
                 state: directory
             - name: Files  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
                 - link_file/link_force
                 - link_file/link
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -329,19 +329,19 @@
                     src: "{{ tests_dir }}/file"
                     state: link
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # Link already exists as empty directory
         - block:
             - name: Directories  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - link_directory_empty
                 - link_directory_empty/link_force
                 - link_directory_empty/link
-            - import_role:
+            - ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -353,12 +353,12 @@
                     src: "{{ tests_dir }}/file"
                     state: link
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # Link already exists as full directory
         - block:
             - name: Directories  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
@@ -366,14 +366,14 @@
                 - link_directory_full/link_force
                 - link_directory_full/link
             - name: Files  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
                 - link_directory_full/link_force/file
                 - link_directory_full/link/file
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -385,11 +385,11 @@
                     src: "{{ tests_dir }}/file"
                     state: link
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/link.yml.j2') }}"
 
@@ -405,7 +405,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -413,11 +413,11 @@
         # Default
         - block:
             - name: File  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -426,18 +426,18 @@
         # Directory already exists as file
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/directory_file"
                 state: directory
             - name: Files  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
                 - directory_file/directory_force
                 - directory_file/directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -447,20 +447,20 @@
                   - path: "{{ tests_dir }}/directory_file/directory"
                     state: directory
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # Directory already exists as link to file
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/directory_link_file"
                 state: directory
             - name: File  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/directory_link_file/link_file"
                 state: touch
             - name: Link  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/directory_link_file/link_file"
                 state: link
@@ -468,7 +468,7 @@
                 - directory_link_file/directory_force
                 - directory_link_file/directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -478,19 +478,19 @@
                   - path: /"tmp/directory/directory_link_file/directory"
                     state: directory
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
         # Directory already exists as link to directory
         - block:
             - name: Directories  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - directory_link_directory
                 - directory_link_directory/link_directory
             - name: Links  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/directory_link_directory/link_directory"
                 state: link
@@ -498,7 +498,7 @@
                 - directory_link_directory/directory_force
                 - directory_link_directory/directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -509,7 +509,7 @@
                     state: directory
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/directory.yml.j2') }}"
 
@@ -525,23 +525,23 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         # Default
         - name: Directory  # noqa risky-file-permissions
-          file:
+          ansible.builtin.file:
             path: "{{ tests_dir }}/default"
             state: directory
         - name: File  # noqa risky-file-permissions
-          file:
+          ansible.builtin.file:
             path: "{{ tests_dir }}/default/absent"
             state: touch
         - block:
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -558,7 +558,7 @@
                       state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/copy.yml.j2') }}"
 
@@ -574,7 +574,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -582,11 +582,11 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -600,7 +600,7 @@
                       creates: "{{ tests_dir }}/default/alt-galaxy"
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/url.yml.j2') }}"
 
@@ -616,7 +616,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -624,15 +624,15 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: File  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default/absent"
                 state: touch
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -652,7 +652,7 @@
         # Parents
         - block:
             - name: Roles
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes_defaults:
@@ -670,11 +670,11 @@
                     content: |
                       Content defaults parents
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/content.yml.j2') }}"
 
@@ -690,7 +690,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -698,15 +698,15 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: File  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default/absent"
                 state: touch
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -724,7 +724,7 @@
         # Parents
         - block:
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes_defaults:
@@ -739,11 +739,11 @@
                   - path: "{{ tests_dir }}/parents_unexisting/template"
                     template: fixtures/template.j2
           rescue:
-            - debug:
+            - ansible.builtin.debug:
                 msg: A planned error has been caught...
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/template.yml.j2') }}"
 
@@ -759,7 +759,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -767,11 +767,11 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -791,7 +791,7 @@
                     group: games
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/link_directory.yml.j2') }}"
 
@@ -807,7 +807,7 @@
   gather_facts: false
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -815,11 +815,11 @@
         # Default
         - block:
             - name: Directory  # noqa risky-file-permissions
-              file:
+              ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
-              import_role:
+              ansible.builtin.import_role:
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
@@ -835,6 +835,6 @@
                     group: games
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/link_file.yml.j2') }}"

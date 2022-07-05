@@ -10,11 +10,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.sudo
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -29,12 +29,12 @@
     tests_dir: /molecule/sudo/sudoers
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -43,7 +43,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.sudo
             tasks_from: sudoers
           vars:
@@ -75,7 +75,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.sudo
             tasks_from: sudoers
           vars:
@@ -89,7 +89,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.sudo
             tasks_from: sudoers
           vars:
@@ -104,6 +104,6 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/sudoers.yml.j2') }}"

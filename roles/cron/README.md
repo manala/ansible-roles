@@ -65,7 +65,7 @@ manala_cron_files:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.cron
 ```
 

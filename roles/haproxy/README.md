@@ -109,7 +109,7 @@ manala_haproxy_configs:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.haproxy
 ```
 

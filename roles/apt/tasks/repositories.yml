@@ -1,7 +1,7 @@
 ---
 
 - name: repositories > Exclusive
-  find:
+  ansible.builtin.find:
     path: /etc/apt/sources.list.d
     file_type: file
     patterns: "*.list"
@@ -10,7 +10,7 @@
   when: manala_apt_repositories_exclusive
 
 - name: repositories > Repositories presents
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item.source }}"
     filename: "{{ (item.file|basename|splitext)[0] }}"
     update_cache: false
@@ -35,7 +35,7 @@
   register: __manala_apt_repositories_presents_results
 
 - name: repositories > Repositories absents
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(
@@ -58,7 +58,7 @@
   register: __manala_apt_repositories_absents_results
 
 - name: repositories > Update cache  # noqa no-handler
-  apt:
+  ansible.builtin.apt:
     update_cache: true
   when: __manala_apt_repositories_presents_results is changed
     or __manala_apt_repositories_absents_results is changed

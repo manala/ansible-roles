@@ -1,7 +1,7 @@
 ---
 
 - name: applications > Templates
-  template:
+  ansible.builtin.template:
     src: "{{ item.template|default(manala_docker_applications_template|default('applications/_default.j2', True)) }}"
     dest: "{{ manala_docker_applications_dir }}/{{ item.application }}"
     owner: root

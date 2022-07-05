@@ -37,7 +37,7 @@ manala_mount_points:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.mount
 ```
 

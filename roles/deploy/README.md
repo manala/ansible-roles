@@ -40,7 +40,7 @@ manala_deploy_strategy_include_options:
 - name: strategy/s3
   block:
     - name: strategy/s3 > Create tmp dir
-      tempfile:
+      ansible.builtin.tempfile:
         state: directory
         suffix: manala_deploy
       register: deploy_tmp
@@ -53,12 +53,12 @@ manala_deploy_strategy_include_options:
         mode: get
 
     - name: strategy/s3 > Create release dir
-      file:
+      ansible.builtin.file:
         path: "{{ deploy_helper.new_release_path }}/"
         state: directory
 
     - name: strategy/s3 > Unarchive
-      unarchive:
+      ansible.builtin.unarchive:
         src: "{{ deploy_tmp.path }}/archive.tar.gz"
         dest: "{{ deploy_helper.new_release_path }}"
         remote_src: yes
@@ -102,7 +102,7 @@ manala_deploy_tasks:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.deploy
 ```
 

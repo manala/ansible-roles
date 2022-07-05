@@ -1,13 +1,13 @@
 ---
 
 - name: copied > Stat
-  stat:
+  ansible.builtin.stat:
     path: "{{ deploy_helper.previous_release_path ~ '/' ~ item }}"
   register: __manala_deploy_copied_stats_output
   loop: "{{ manala_deploy_copied }}"
 
 - name: copied > Copy
-  command: >
+  ansible.builtin.command: >
     cp -R
     {{ deploy_helper.previous_release_path ~ '/' ~ item ~ (__manala_deploy_copied_stats_output.results[index].stat.isdir|ternary('/', '')) }}
     {{ deploy_helper.new_release_path ~ '/' ~ item }}

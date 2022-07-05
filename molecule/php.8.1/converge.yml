@@ -9,7 +9,7 @@
   hosts: debian
   tasks:
     - name: Packages
-      apt:
+      ansible.builtin.apt:
         name:
           - php8.1-cgi  # Sapi
           - php8.1-tidy  # Native extension
@@ -19,7 +19,7 @@
         cache_valid_time: 3600
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
           vars:
             manala_php_version: 8.1
@@ -77,7 +77,7 @@
               client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -90,7 +90,7 @@
   hosts: debian
   tasks:
     - name: Packages
-      apt:
+      ansible.builtin.apt:
         name:
           - php8.1-cgi  # Sapi
           - php8.1-tidy  # Native extension
@@ -100,7 +100,7 @@
         cache_valid_time: 3600
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: install
           vars:
@@ -117,7 +117,7 @@
               - memcached  # Pecl extension
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/exclusive.yml.j2') }}"
 
@@ -132,7 +132,7 @@
     tests_dir: /molecule/php/configs
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ [
@@ -140,7 +140,7 @@
         'default/fpm/conf.d', 'defaults/fpm/conf.d', 'exclusive/fpm/conf.d'
       ] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -153,7 +153,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: configs
           vars:
@@ -200,7 +200,7 @@
                 config:
                   memory_limit: 257M
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: configs
           vars:
@@ -219,7 +219,7 @@
             manala_php_fpm_configs:
               - file: template_fpm
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: configs
           vars:
@@ -247,7 +247,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
 
@@ -262,12 +262,12 @@
     tests_dir: /molecule/php/fpm_pools
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -276,7 +276,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: fpm_pools
           vars:
@@ -332,7 +332,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: fpm_pools
           vars:
@@ -349,7 +349,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
             tasks_from: fpm_pools
           vars:
@@ -367,6 +367,6 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/fpm_pools.yml.j2') }}"

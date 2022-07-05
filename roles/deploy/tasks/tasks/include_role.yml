@@ -6,5 +6,5 @@
   block:
 
     - name: tasks/include_role > "{{ item.options }}"
-      include_role:
+      ansible.builtin.include_role:
         name: "{{ item.options }}"

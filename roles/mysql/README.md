@@ -178,7 +178,7 @@ manala_mysql_install_packages_default:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.mysql
 ```
 

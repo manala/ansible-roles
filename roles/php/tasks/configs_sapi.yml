@@ -1,7 +1,7 @@
 ---
 
 - name: configs > {{ __manala_php_configs_sapi|capitalize }} - Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_php_configs_dir }}/{{ __manala_php_configs_sapi }}/conf.d"
     file_type: file
     patterns: "*"
@@ -10,7 +10,7 @@
   when: manala_php_configs_exclusive
 
 - name: configs > {{ __manala_php_configs_sapi|capitalize }} - Templates present
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -27,7 +27,7 @@
   notify: "{{ (__manala_php_configs_sapi == 'fpm')|ternary(['php fpm restart'], []) }}"
 
 - name: configs > {{ __manala_php_configs_sapi|capitalize }} - Files absent
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

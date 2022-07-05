@@ -9,7 +9,7 @@
   hosts: debian
   tasks:
     - name: Packages
-      apt:
+      ansible.builtin.apt:
         name:
           - php7.1-cgi  # Sapi
           - php7.1-tidy  # Native extension
@@ -19,7 +19,7 @@
         cache_valid_time: 3600
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.php
           vars:
             manala_php_version: 7.1
@@ -77,6 +77,6 @@
               client-token: e7d9ca7e486b67d1f2d9b764fb383340fbd374e20daefa747e8a4fd690d83e7b
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

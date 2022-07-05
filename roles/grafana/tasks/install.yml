@@ -1,7 +1,7 @@
 ---
 
 - name: install > Packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     install_recommends: false
     update_cache: true
@@ -11,13 +11,13 @@
 
 - block:
     - name: install > Parse version
-      command: >
+      ansible.builtin.command: >
         dpkg -s
         {{ manala_grafana_install_packages|default(manala_grafana_install_packages_default, True) | first }}
       register: __manala_grafana_version
       changed_when: false
     - name: install > Set version
-      set_fact:
+      ansible.builtin.set_fact:
         manala_grafana_version: "{{
           __manala_grafana_version.stdout
             | regex_search('Version: (\\d+:)?(?P<version>\\d+\\.\\d+)', '\\g<version>')

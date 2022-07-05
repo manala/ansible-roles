@@ -1,14 +1,14 @@
 ---
 
 - name: holds > Apt show holds
-  command: apt-mark showhold
+  ansible.builtin.command: apt-mark showhold
   when: manala_apt_holds_exclusive
   register: __manala_apt_holds_exclusive_find
   changed_when: false
   check_mode: false
 
 - name: holds > Set selections
-  dpkg_selections:
+  ansible.builtin.dpkg_selections:
     name: "{{ item.package }}"
     selection: "{{ (item.state == 'present')|ternary('hold', 'install') }}"
   loop: "{{ query(

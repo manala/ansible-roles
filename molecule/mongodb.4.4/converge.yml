@@ -12,11 +12,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mongodb
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -33,13 +33,13 @@
     tests_dir: /molecule/mongodb/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Dict
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.mongodb
           vars:
@@ -48,7 +48,7 @@
             manala_mongodb_config:
               port: 12345
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mongodb
             tasks_from: config
           vars:
@@ -57,7 +57,7 @@
             manala_mongodb_config: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mongodb
             tasks_from: config
           vars:
@@ -66,7 +66,7 @@
             manala_mongodb_config: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
 
@@ -82,7 +82,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mongodb
           vars:
             manala_mongodb_users:
@@ -108,6 +108,6 @@
                   state: present
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"

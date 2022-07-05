@@ -11,19 +11,19 @@
     tests_dir: /molecule/bind/default
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.bind
           vars:
             manala_bind_log_dir: "{{ tests_dir }}/log"
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -38,13 +38,13 @@
     tests_file: /molecule/bind/options
   tasks:
     - name: Clean tests file  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_file }}"
         state: "{{ item }}"
       loop: [absent, touch]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.bind
           vars:
             manala_bind_options_file: "{{ tests_file }}"
@@ -53,7 +53,7 @@
               - -4  # IPv4 only
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/options.yml.j2') }}"
 
@@ -68,18 +68,18 @@
     tests_dir: /molecule/bind/configs
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [state_absent_existing]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.bind
           vars:
             manala_bind_configs_dir: "{{ tests_dir }}"
@@ -97,7 +97,7 @@
                 omit: true
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
 
@@ -112,18 +112,18 @@
     tests_dir: /molecule/bind/zones
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [db.state_absent_existing, db.dynamic_existing]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.bind
           vars:
             manala_bind_zones_dir: "{{ tests_dir }}"
@@ -149,7 +149,7 @@
                 dynamic: true
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/zones.yml.j2') }}"
 
@@ -163,7 +163,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.bind
           vars:
             manala_bind_configs:
@@ -191,12 +191,12 @@
                   - {record: bar, value: 172.16.1.123}
       always:
         - name: Packages
-          apt:
+          ansible.builtin.apt:
             name: [bind9-host]
             install_recommends: false
             update_cache: true
             cache_valid_time: 3600
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/zones_records.yml.j2') }}"

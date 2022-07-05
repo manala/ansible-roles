@@ -1,7 +1,7 @@
 ---
 
 - name: update > Backup package marks  # noqa risky-shell-pipe no-tabs
-  shell: >
+  ansible.builtin.shell: >
     dpkg --get-selections {{ item }}
     | cut -f 2-
     | tr -d '\t'
@@ -10,7 +10,7 @@
   register: __manala_apt_update_marks_results
 
 - name: update > Hold packages  # noqa risky-shell-pipe
-  shell: >
+  ansible.builtin.shell: >
     echo '{{ item.0 }} hold'
     | dpkg --set-selections
   when:
@@ -25,12 +25,12 @@
   }}"
 
 - name: update > Upgrade dist
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
     update_cache: true
 
 - name: update > Restore package marks  # noqa risky-shell-pipe
-  shell: >
+  ansible.builtin.shell: >
     echo '{{ item.0 }} {{ item.1 }}'
     | dpkg --set-selections
   when: item.1

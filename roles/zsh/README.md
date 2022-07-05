@@ -31,7 +31,7 @@ manala_zsh_bin: /bin/zsh
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.zsh
 ```
 

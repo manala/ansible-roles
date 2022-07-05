@@ -1,7 +1,7 @@
 ---
 
 - name: fpm_pools > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_php_fpm_pools_dir }}"
     file_type: file
     patterns: "*"
@@ -10,7 +10,7 @@
   when: manala_php_fpm_pools_exclusive
 
 - name: fpm_pools > Templates present
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -28,7 +28,7 @@
     - php fpm restart
 
 - name: fpm_pools > Files absent
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

@@ -174,7 +174,7 @@ manala_files_attributes_defaults:
 ```yaml
 - hosts: all
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.files
 ```
 

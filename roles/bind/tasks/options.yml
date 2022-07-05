@@ -1,7 +1,7 @@
 ---
 
 - name: options > Default
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ manala_bind_options_file }}"
     regexp: '^OPTIONS='
     line: OPTIONS="{{ manala_bind_options|join(' ') }}"

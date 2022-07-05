@@ -1,7 +1,7 @@
 ---
 
 - name: Backend config > Template
-  template:
+  ansible.builtin.template:
     src: "backend_config/default_backend.j2"
     dest: "{{ manala_sensu_go_backend_config_file }}"
     owner: "{{ manala_sensu_go_backend_owner }}"

@@ -1,7 +1,7 @@
 ---
 
 - name: repositories local > List
-  command: "{{
+  ansible.builtin.command: "{{
     manala_aptly_user|ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
@@ -22,7 +22,7 @@
       | length
 
 - name: repositories published > List
-  command: "{{
+  ansible.builtin.command: "{{
     manala_aptly_user|ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
@@ -43,7 +43,7 @@
       | length
 
 - name: repositories > Create
-  command: "{{
+  ansible.builtin.command: "{{
     manala_aptly_user|ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
@@ -61,7 +61,7 @@
   }}"
 
 - name: repositories > Publish
-  command: "{{
+  ansible.builtin.command: "{{
     manala_aptly_user|ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''

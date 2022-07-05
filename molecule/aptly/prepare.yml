@@ -4,19 +4,19 @@
   tags: [always]
   tasks:
     - name: Apt
-      import_role:
+      ansible.builtin.import_role:
         name: manala.roles.apt
       vars:
         manala_apt_preferences:
           - aptly@aptly
     - name: Packages
-      apt:
+      ansible.builtin.apt:
         name: [gnupg1]
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
     - name: Gpg key
-      command:
+      ansible.builtin.command:
         cmd: gpg1 --allow-secret-key-import --import
         stdin: "{{ lookup('file', 'fixtures/gpg/private.asc') }}"
       args:

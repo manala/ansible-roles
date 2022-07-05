@@ -1,7 +1,7 @@
 ---
 
 - name: Agent config > Template
-  template:
+  ansible.builtin.template:
     src: "agent_config/empty_agent.j2"
     dest: "{{ manala_sensu_go_agent_config_file }}"
     owner: "{{ manala_sensu_go_agent_config_owner }}"

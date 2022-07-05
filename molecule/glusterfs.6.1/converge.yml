@@ -12,11 +12,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.glusterfs
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -33,13 +33,13 @@
     tests_dir: /molecule/glusterfs/volumes
   tasks:
     - name: Directories  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: directory
       loop: [absent, present, test_1, test_2, test_3]
     - block:
         - name: Role - 1
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.glusterfs
           vars:
@@ -68,7 +68,7 @@
                     nfs.disable: "off"
                   force: true
         - name: Role - 2
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.glusterfs
             tasks_from: volumes
           vars:
@@ -82,6 +82,6 @@
                 force: true
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/volumes.yml.j2') }}"

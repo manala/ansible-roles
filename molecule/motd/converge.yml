@@ -11,12 +11,12 @@
     tests_dir: /molecule/motd/scripts
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -25,7 +25,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.motd
             tasks_from: scripts
           vars:
@@ -60,7 +60,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.motd
             tasks_from: scripts
           vars:
@@ -74,7 +74,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.motd
             tasks_from: scripts
           vars:
@@ -89,6 +89,6 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/scripts.yml.j2') }}"

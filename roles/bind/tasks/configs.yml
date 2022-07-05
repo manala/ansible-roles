@@ -1,7 +1,7 @@
 ---
 
 - name: configs > Templates
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     owner: root
@@ -15,7 +15,7 @@
   register: __manala_bind_configs_templates
 
 - name: configs > Contents
-  copy:
+  ansible.builtin.copy:
     content: "{{ item.content }}"
     dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     owner: root
@@ -29,7 +29,7 @@
   register: __manala_bind_configs_contents
 
 - name: configs > Absents
-  file:
+  ansible.builtin.file:
     path: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     state: absent
   loop: "{{ manala_bind_configs }}"

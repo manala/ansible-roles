@@ -6,7 +6,7 @@
   block:
 
     - name: tasks/symfony_assets_version_file > Set assets version
-      set_fact:
+      ansible.builtin.set_fact:
         __manala_deploy_symfony_assets_version: "{{
           manala_deploy_strategy_git_head
             if (item.options == 'git_head' and manala_deploy_strategy_git_head) else
@@ -14,7 +14,7 @@
         }}"
 
     - name: tasks/symfony_assets_version_file > Generate assets_version.yml  # noqa risky-file-permissions
-      copy:
+      ansible.builtin.copy:
         dest: "{{ item.dir }}/app/config/assets_version.yml"
         force: true
         content: |

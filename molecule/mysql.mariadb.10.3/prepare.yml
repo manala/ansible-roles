@@ -6,7 +6,7 @@
   tags: [always]
   tasks:
     - name: Apt
-      import_role:
+      ansible.builtin.import_role:
         name: manala.roles.apt
       vars:
         manala_apt_preferences:

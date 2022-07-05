@@ -62,7 +62,7 @@ manala_motd_scripts:
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.motd
 ```
 

@@ -10,11 +10,11 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.vim
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -29,13 +29,13 @@
     tests_dir: /molecule/vim/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Dict
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.vim
             tasks_from: config
           vars:
@@ -45,7 +45,7 @@
               encoding: utf8
               expandtab: true
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.vim
             tasks_from: config
           vars:
@@ -54,7 +54,7 @@
             manala_vim_config: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.vim
             tasks_from: config
           vars:
@@ -63,6 +63,6 @@
             manala_vim_config: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

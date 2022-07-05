@@ -6,6 +6,6 @@
   block:
 
     - name: tasks/service_restart > "{{ item.options }}"
-      service:
+      ansible.builtin.service:
         name: "{{ item.options }}"
         state: restarted

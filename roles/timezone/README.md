@@ -31,7 +31,7 @@ manala_timezone_default: Europe/Paris
 ```yaml
 - hosts: servers
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.timezone
 ```
 

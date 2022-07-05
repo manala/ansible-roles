@@ -40,7 +40,7 @@ You can find all variables and default values used by this role in the [defaults
       - xfonts-75dpi
       - http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-{{ ansible_distribution_release }}-amd64.deb
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.apt
 ```
 

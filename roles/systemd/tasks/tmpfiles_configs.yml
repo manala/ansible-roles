@@ -1,7 +1,7 @@
 ---
 
 - name: tmpfiles_configs > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_systemd_tmpfiles_configs_dir }}"
     file_type: file
     patterns: "*"
@@ -10,7 +10,7 @@
   when: manala_systemd_tmpfiles_configs_exclusive
 
 - name: tmpfiles_configs > Templates present
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -26,7 +26,7 @@
   ) }}"
 
 - name: tmpfiles_configs > Files absent
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

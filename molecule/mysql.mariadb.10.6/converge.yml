@@ -10,7 +10,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_install_packages:
@@ -24,7 +24,7 @@
             manala_mysql_databases:
               - name: foo
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -38,7 +38,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_install_python_packages: "{{
@@ -59,11 +59,11 @@
               - name: foo
                 login_unix_socket: /var/run/mysqld/mysqld.sock
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
         - name: Cleanup
-          apt:
+          ansible.builtin.apt:
             name: "{{ manala_mysql_install_python_packages }}"
             state: absent
 
@@ -76,14 +76,14 @@
   hosts: debian
   tasks:
     - name: Packages absent
-      apt:
+      ansible.builtin.apt:
         name:
           - mariadb-server
           - mariadb-client
         state: absent
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_server: false
@@ -91,7 +91,7 @@
               - mariadb-client
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/client.yml.j2') }}"
 
@@ -106,13 +106,13 @@
     tests_dir: /molecule/mysql/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role - Dict
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.mysql
           vars:
@@ -126,7 +126,7 @@
                 bind-address: 1.2.3.4
                 pid-file: /var/run/mysqld/mysqld.pid
         - name: Role - Content
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
             tasks_from: config
           vars:
@@ -135,7 +135,7 @@
             manala_mysql_config: |
               Content
         - name: Role - Template
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
             tasks_from: config
           vars:
@@ -144,7 +144,7 @@
             manala_mysql_config: ~
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
 
@@ -159,12 +159,12 @@
     tests_dir: /molecule/mysql/configs
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -173,7 +173,7 @@
       ]
     - block:
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.mysql
           vars:
@@ -216,7 +216,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
             tasks_from: configs
           vars:
@@ -230,7 +230,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
             tasks_from: configs
           vars:
@@ -245,7 +245,7 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
 
@@ -260,13 +260,13 @@
     tests_dir: /molecule/mysql/data_dir
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_install_packages:
@@ -285,7 +285,7 @@
             manala_mysql_data_dir_initialize: true
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/data_dir.yml.j2') }}"
 
@@ -298,7 +298,7 @@
   hosts: debian
   tasks:
     - name: Role - Default
-      import_role:
+      ansible.builtin.import_role:
         # Play role fully on first run, to install python modules
         name: manala.roles.mysql
       vars:
@@ -316,7 +316,7 @@
       ]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_users:
@@ -345,7 +345,7 @@
                   priv: "*.*:ALL,GRANT"
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
 
@@ -358,7 +358,7 @@
   hosts: debian
   tasks:
     - name: Role - Default
-      import_role:
+      ansible.builtin.import_role:
         # Play role fully on first run, to install python modules
         name: manala.roles.mysql
       vars:
@@ -377,7 +377,7 @@
       ]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
             manala_mysql_databases:
@@ -398,6 +398,6 @@
                 - name: baz
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/databases.yml.j2') }}"

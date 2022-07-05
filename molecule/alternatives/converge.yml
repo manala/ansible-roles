@@ -9,7 +9,7 @@
   hosts: debian
   tasks:
     - name: Packages
-      apt:
+      ansible.builtin.apt:
         name: [nano, ed, less]
         install_recommends: false
         update_cache: true
@@ -21,7 +21,7 @@
       loop: [[editor, /bin/nano], [pico, /bin/nano], [pager, /bin/more]]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.alternatives
           vars:
             manala_alternatives_selections:
@@ -37,6 +37,6 @@
                 state: ignore
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/selections.yml.j2') }}"

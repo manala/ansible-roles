@@ -1,12 +1,12 @@
 ---
 
 - name: install > Stat bin
-  stat:
+  ansible.builtin.stat:
     path: "{{ manala_ngrok_bin }}"
   register: __manala_ngrok_bin_stat_result
 
 - name: install > Get version
-  uri:
+  ansible.builtin.uri:
     url: https://dl.equinox.io/ngrok/ngrok/stable/archive
     return_content: true
   register: __manala_ngrok_version
@@ -15,7 +15,7 @@
     - manala_ngrok_version is not none
 
 - name: install > Install
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ manala_ngrok_version|ternary(
       __manala_ngrok_version.content|default|regex_search(
         'https://[^\"]+ngrok-%(version)s-linux-%(architecture)s.tar.gz'|format(

@@ -1,7 +1,7 @@
 ---
 
 - name: data_dir > Create data directory
-  file:
+  ansible.builtin.file:
     path: "{{ manala_mysql_data_dir }}"
     state: directory
     owner: "{{ manala_mysql_data_dir_user }}"
@@ -13,7 +13,7 @@
     - manala_mysql_data_dir|default(false)
 
 - name: data_dir > Initialize data directory
-  command: >
+  ansible.builtin.command: >
     mysql_install_db
     --user={{ manala_mysql_data_dir_user }}
     --datadir={{ manala_mysql_data_dir }}

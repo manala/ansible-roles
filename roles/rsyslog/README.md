@@ -85,7 +85,7 @@ manala_rsyslog_configs_exclusive: true
 ```yaml
 - hosts: all
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.rsyslog
 ```
 

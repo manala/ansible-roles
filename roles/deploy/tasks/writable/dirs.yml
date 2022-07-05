@@ -1,7 +1,7 @@
 ---
 
 - name: writable/dirs > "{{ item.dir }}"
-  file:
+  ansible.builtin.file:
     path: "{{ deploy_helper.new_release_path ~ '/' ~ item.dir }}"
     recurse: "{{ item.recurse|default(omit) }}"
     follow: "{{ item.follow|default(omit) }}"
@@ -14,7 +14,7 @@
   ) }}"
 
 - name: writable/dirs > Raw "{{ item.dir }}"
-  raw: "{{ item.raw|format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
+  ansible.builtin.raw: "{{ item.raw|format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
   when: item.raw is defined
   loop: "{{ query(
     'manala.roles.deploy_writable_dirs',

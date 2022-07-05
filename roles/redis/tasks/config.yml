@@ -1,7 +1,7 @@
 ---
 
 - name: config > Server - Template
-  template:
+  ansible.builtin.template:
     src: "{{ manala_redis_server_config_template|default('config/_default.j2', true) }}"
     dest: "{{ manala_redis_server_config_file }}"
     owner: redis
@@ -15,7 +15,7 @@
     - redis restart
 
 - name: config > Sentinel - File
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ manala_redis_sentinel_config_file }}"
     regexp: "^{{ item.key }} (.*)$"
     line: "{{ item.key }} {{ item.value }}"

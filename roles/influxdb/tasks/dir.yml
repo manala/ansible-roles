@@ -1,7 +1,7 @@
 ---
 
 - name: dir > Create directory
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ manala_influxdb_dir_user }}"

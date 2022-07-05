@@ -10,7 +10,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.elasticsearch
           vars:
             manala_elasticsearch_environment_template: environment/elasticsearch/elasticsearch.j2
@@ -20,13 +20,13 @@
               - analysis-icu
       always:
         - name: Wait for pretty response
-          uri:
+          ansible.builtin.uri:
             url: http://localhost:9200/?pretty
           register: result
           until: result.status == 200
           retries: 60
           delay: 1
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"

@@ -1,7 +1,7 @@
 ---
 
 - name: keys > Keys
-  apt_key:
+  ansible.builtin.apt_key:
     id: "{{ item.id }}"
     url: "{{ item.url|default(omit) }}"
     keyserver: "{{ item.keyserver|default(omit) }}"

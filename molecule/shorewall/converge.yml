@@ -10,7 +10,7 @@
   tasks:
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.shorewall
           vars:
             manala_shorewall_configs:
@@ -27,9 +27,9 @@
                   fw firewall
       always:
         - name: Flush handlers
-          meta: flush_handlers
+          ansible.builtin.meta: flush_handlers
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
 
@@ -44,12 +44,12 @@
     tests_dir: /molecule/shorewall/configs
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -58,7 +58,7 @@
       ]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.shorewall
           vars:
@@ -75,7 +75,7 @@
                   net ipv4
                   fw firewall
         - name: Role - Default
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.shorewall
             tasks_from: configs
           vars:
@@ -107,7 +107,7 @@
               - file: state_ignore_existing
                 state: ignore
         - name: Role - Defaults
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.shorewall
             tasks_from: configs
           vars:
@@ -121,7 +121,7 @@
               - file: template_overwrite
                 template: fixtures/template_file.j2
         - name: Role - Exclusive
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.shorewall
             tasks_from: configs
           vars:
@@ -136,9 +136,9 @@
                 state: ignore
       always:
         - name: Flush handlers
-          meta: flush_handlers
+          ansible.builtin.meta: flush_handlers
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
 
@@ -153,13 +153,13 @@
     tests_dir: /molecule/shorewall/config
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
             name: manala.roles.shorewall
           vars:
@@ -176,7 +176,7 @@
                   net ipv4
                   fw firewall
         - name: Role - Dict
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.shorewall
             tasks_from: config
           vars:
@@ -187,8 +187,8 @@
               MULTICAST: "Yes"
       always:
         - name: Flush handlers
-          meta: flush_handlers
+          ansible.builtin.meta: flush_handlers
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"

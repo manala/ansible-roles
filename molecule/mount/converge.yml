@@ -11,16 +11,16 @@
     tests_dir: /molecule/mount/points
   tasks:
     - name: Directory  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/directory"
         state: directory
     - name: File  # noqa risky-file-permissions
-      file:
+      ansible.builtin.file:
         path: "{{ tests_dir }}/directory/file"
         state: touch
     - block:
         - name: Role
-          import_role:
+          ansible.builtin.import_role:
             name: manala.roles.mount
             tasks_from: points
           vars:
@@ -35,6 +35,6 @@
                   opts: bind
       always:
         - name: Goss
-          command:
+          ansible.builtin.command:
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('template', 'goss/points.yml.j2') }}"

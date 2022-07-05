@@ -1,7 +1,7 @@
 ---
 
 - name: applications > Download
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item.source }}"
     dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
     owner: root
@@ -16,7 +16,7 @@
   ) }}"
 
 - name: applications > Link versions
-  file:
+  ansible.builtin.file:
     state: link
     force: true
     src: "{{ item.application ~ '_' ~ item.version }}"

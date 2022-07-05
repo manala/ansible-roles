@@ -1,7 +1,7 @@
 ---
 
 - name: services > Ensure service is started or restarted
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: "{{
       'restarted'

@@ -35,7 +35,7 @@ manala_cloud_init_configs:
 ```yaml
 - hosts: all
   tasks:
-    - import_role:  
+    - ansible.builtin.import_role:  
         name: manala.roles.cloud_init
 ```
 

@@ -1,7 +1,7 @@
 ---
 
 - name: custom themes > Directory
-  file:
+  ansible.builtin.file:
     path: "{{ manala_ohmyzsh_custom_themes_dir }}"
     state: directory
     owner: root
@@ -10,7 +10,7 @@
   when: manala_ohmyzsh_custom_themes|length
 
 - name: custom themes > Exclusive
-  find:
+  ansible.builtin.find:
     path: "{{ manala_ohmyzsh_custom_themes_dir }}"
     file_type: file
     patterns: "*"
@@ -19,7 +19,7 @@
   when: manala_ohmyzsh_custom_themes_exclusive
 
 - name: custom themes > Templates present
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
@@ -35,7 +35,7 @@
   ) }}"
 
 - name: custom themes > Files absent
-  file:
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
   loop: "{{ query(

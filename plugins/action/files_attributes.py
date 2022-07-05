@@ -24,7 +24,7 @@ class ActionModule(ActionBase):
             if key in self._task.args:
                 args[key] = self._task.args[key]
         # Action
-        if name in ['template', 'copy']:
+        if name in ['ansible.builtin.template', 'ansible.builtin.copy']:
             task = self._task.copy()
             task.args = args
             action = self._shared_loader_obj.action_loader.get(
@@ -66,7 +66,7 @@ class ActionModule(ActionBase):
                     or 'content' in self._task.args
                     or 'copy' in self._task.args)):
                 return self._run_module(
-                    'file',
+                    'ansible.builtin.file',
                     {'path': path, 'state': 'absent'},
                     task_vars=task_vars)
 
@@ -77,7 +77,7 @@ class ActionModule(ActionBase):
                     or state == 'link'
                     or state == 'file')):
                 parents_result = self._run_module(
-                    'file',
+                    'ansible.builtin.file',
                     {'path': os.path.dirname(path), 'state': 'directory'},
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -92,7 +92,7 @@ class ActionModule(ActionBase):
 
                 # Template
                 template_result = self._run_module(
-                    'template',
+                    'ansible.builtin.template',
                     {'dest': path, 'src': self._task.args.get('template')},
                     task_args=['force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -107,7 +107,7 @@ class ActionModule(ActionBase):
 
                 # Content
                 content_result = self._run_module(
-                    'copy',
+                    'ansible.builtin.copy',
                     {'dest': path, 'content': self._task.args.get('content')},
                     task_args=['force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -121,7 +121,7 @@ class ActionModule(ActionBase):
             elif 'copy' in self._task.args:
 
                 result = self._run_module(
-                    'copy',
+                    'ansible.builtin.copy',
                     {'dest': path, 'src': self._task.args.get('copy')},
                     task_args=['force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -134,7 +134,7 @@ class ActionModule(ActionBase):
 
                 # Url
                 url_result = self._run_module(
-                    'get_url',
+                    'ansible.builtin.get_url',
                     {'dest': path, 'url': self._task.args.get('url')},
                     task_args=['validate_certs', 'force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -143,7 +143,7 @@ class ActionModule(ActionBase):
                 # Unarchive
                 if self._task.args.get('unarchive', False) and not self._play_context.check_mode:
                     unarchive_result = self._run_module(
-                        'unarchive',
+                        'ansible.builtin.unarchive',
                         {'src': path, 'dest': os.path.dirname(path), 'remote_src': True},
                         task_args=['creates'],
                         task_vars=task_vars)
@@ -160,7 +160,7 @@ class ActionModule(ActionBase):
 
                     if link_stat['exists'] and not link_stat['islnk']:
                         absent_result = self._run_module(
-                            'file',
+                            'ansible.builtin.file',
                             {'path': path, 'state': 'absent'},
                             task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
@@ -168,7 +168,7 @@ class ActionModule(ActionBase):
 
                 # Link
                 link_result = self._run_module(
-                    'file',
+                    'ansible.builtin.file',
                     {'path': path, 'src': self._task.args.get('src'), 'state': 'link'},
                     task_args=['owner', 'group'],
                     task_vars=task_vars)
@@ -187,7 +187,7 @@ class ActionModule(ActionBase):
 
                     if link_stat['exists'] and not link_stat['isdir']:
                         absent_result = self._run_module(
-                            'file',
+                            'ansible.builtin.file',
                             {'path': path, 'state': 'absent'},
                             task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
@@ -195,7 +195,7 @@ class ActionModule(ActionBase):
 
                 # Directory
                 directory_result = self._run_module(
-                    'file',
+                    'ansible.builtin.file',
                     {'path': path, 'state': 'directory'},
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -214,7 +214,7 @@ class ActionModule(ActionBase):
 
                     if link_stat['exists'] and not link_stat['isreg']:
                         absent_result = self._run_module(
-                            'file',
+                            'ansible.builtin.file',
                             {'path': path, 'state': 'absent'},
                             task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
@@ -222,7 +222,7 @@ class ActionModule(ActionBase):
 
                 # Create
                 create_result = self._run_module(
-                    'copy',
+                    'ansible.builtin.copy',
                     {'dest': path, 'content': '', 'force': False},
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -230,7 +230,7 @@ class ActionModule(ActionBase):
 
                 # File
                 file_result = self._run_module(
-                    'file',
+                    'ansible.builtin.file',
                     {'path': path, 'state': 'file'},
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
@@ -241,7 +241,7 @@ class ActionModule(ActionBase):
             else:
 
                 result = self._run_module(
-                    'file',
+                    'ansible.builtin.file',
                     {'path': path},
                     task_args=['state', 'follow', 'recurse', 'src', 'force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
