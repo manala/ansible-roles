@@ -1,6 +1,8 @@
 ---
 
-- hosts: debian
+- hosts:
+    - debian
+    - "!debian.stretch"
   tags: [always]
   tasks:
     - name: Apt
@@ -9,5 +11,3 @@
       vars:
         manala_apt_preferences:
           - php@sury_php
-        manala_apt_repositories:
-          - blackfire
