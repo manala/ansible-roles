@@ -1,7 +1,7 @@
 ---
 
 - name: points > Mounts
-  mount:
+  ansible.posix.mount:
    name: "{{ item.path }}"
    fstype: "{{ item.fstype }}"
    src: "{{ item.src }}"

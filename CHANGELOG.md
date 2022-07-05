@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ## Changed
 - [All] Update minimum version of ansible to 2.10
-- [All] Use fqcn for builtin components
+- [All] Use fqcn
 
 ## [1.0.11] - 2022-03-04
 ### Added

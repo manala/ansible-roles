@@ -1,7 +1,7 @@
 ---
 
 - name: zones_records > Records
-  nsupdate:
+  community.general.nsupdate:
     server: 127.0.0.1
     zone: "{{ item.0.zone }}"
     record: "{{ item.1.record }}"

@@ -88,7 +88,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/tmpfiles_configs.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/tmpfiles_configs.yml.j2') }}"
           changed_when: false
 
 ##################
@@ -179,5 +179,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/system_configs.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/system_configs.yml.j2') }}"
           changed_when: false

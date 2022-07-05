@@ -16,7 +16,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
           changed_when: false
 
 #########
@@ -54,7 +54,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/hosts.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/hosts.yml.j2') }}"
           changed_when: false
 
 ###################
@@ -94,7 +94,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/resolver_config.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/resolver_config.yml.j2') }}"
           changed_when: false
 
 #####################
@@ -134,7 +134,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/interfaces_config.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/interfaces_config.yml.j2') }}"
           changed_when: false
 
 ######################
@@ -225,7 +225,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/interfaces_configs.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/interfaces_configs.yml.j2') }}"
           changed_when: false
 
 ##################
@@ -264,5 +264,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/routing_tables.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/routing_tables.yml.j2') }}"
           changed_when: false

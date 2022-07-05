@@ -1,7 +1,7 @@
 ---
 
 - name: volumes > Handling
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
     cluster: "{{ item.cluster | default(omit) }}"

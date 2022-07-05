@@ -30,7 +30,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
           changed_when: false
 
 ##########
@@ -57,7 +57,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/client.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/client.yml.j2') }}"
           changed_when: false
 
 ##########
@@ -108,7 +108,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/config.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
           changed_when: false
 
 ###########
@@ -207,7 +207,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/configs.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/configs.yml.j2') }}"
           changed_when: false
 
 ############
@@ -246,7 +246,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/data_dir.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/data_dir.yml.j2') }}"
           changed_when: false
 
 #########
@@ -272,7 +272,7 @@
           - name: bar
             state: absent
     - name: Create users to absent/ignore later
-      mysql_user:
+      community.mysql.mysql_user:
         user: "{{ item }}"
         state: present
       loop: [
@@ -311,7 +311,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/users.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users.yml.j2') }}"
           changed_when: false
 
 #############
@@ -337,7 +337,7 @@
           - name: bar
             state: absent
     - name: Create databases to absent/ignore later
-      mysql_db:
+      community.mysql.mysql_db:
         name: "{{ item }}"
         state: present
       loop: [
@@ -368,5 +368,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/databases.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/databases.yml.j2') }}"
           changed_when: false

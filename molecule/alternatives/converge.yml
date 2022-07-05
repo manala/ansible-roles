@@ -15,7 +15,7 @@
         update_cache: true
         cache_valid_time: 3600
     - name: Alternatives
-      alternatives:
+      community.general.alternatives:
         name: "{{ item[0] }}"
         path: "{{ item[1] }}"
       loop: [[editor, /bin/nano], [pico, /bin/nano], [pager, /bin/more]]
@@ -39,5 +39,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/selections.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/selections.yml.j2') }}"
           changed_when: false

@@ -25,7 +25,7 @@
     } }}"
 
 - name: users > Authorized keys
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ item.user }}"
     key: "{{ item.authorized_keys }}"
     path: "{{ item.authorized_keys_file | default(omit) }}"

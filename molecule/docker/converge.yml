@@ -19,7 +19,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/default.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
           changed_when: false
 
 #################
@@ -76,7 +76,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/config_daemon.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config_daemon.yml.j2') }}"
           changed_when: false
 
 ################
@@ -114,7 +114,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/applications.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/applications.yml.j2') }}"
           changed_when: false
 
 ##############
@@ -146,7 +146,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('template', 'goss/containers.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/containers.yml.j2') }}"
           changed_when: false
 
 ##########

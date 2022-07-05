@@ -4,7 +4,7 @@
   ansible.builtin.known_hosts:
     host: "{{ item.host }}"
     key: "{{
-      lookup('file', item.file)
+      lookup('ansible.builtin.file', item.file)
         if (item.file is defined) else
       item.key | default(omit)
     }}"

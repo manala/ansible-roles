@@ -1,7 +1,7 @@
 ---
 
 - name: containers > Create docker containers
-  docker_container:
+  community.docker.docker_container:
     name: "{{ item.name }}"
     image: "{{ item.image | default(omit) }}"
     pull: "{{ item.pull | default(omit) }}"

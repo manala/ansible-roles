@@ -1,7 +1,7 @@
 ---
 
 - name: roles > Handle
-  postgresql_user:
+  community.postgresql.postgresql_user:
     name: "{{ item.role }}"
     state: "{{ item.state | default('present') }}"
     password: "{{ item.password | default(omit) }}"
