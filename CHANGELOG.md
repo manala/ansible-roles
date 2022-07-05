@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Changed
 - [All] Update minimum version of ansible to 2.10
 - [All] Use fqcn
+- [Ngrok] Switch to v3 stable
 ### Fixed
 - [Apt] Update aptly key
 
