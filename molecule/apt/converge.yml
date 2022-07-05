@@ -6,7 +6,9 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/apt/configs
   tasks:
@@ -97,7 +99,9 @@
 
 - name: Sources List
   tags: [sources_list]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/apt/sources_list
   tasks:
@@ -137,7 +141,9 @@
 
 - name: Preferences
   tags: [preferences]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/apt/preferences
   tasks:
@@ -270,7 +276,9 @@
 
 - name: Keys
   tags: [keys]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role
@@ -312,7 +320,9 @@
 
 - name: Repositories - Default
   tags: [repositories, repositories.default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Apt keys
       ansible.builtin.apt_key:
@@ -368,7 +378,9 @@
 
 - name: Repositories - Exclusive
   tags: [repositories, repositories.exclusive]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Apt keys
       ansible.builtin.apt_key:
@@ -411,7 +423,9 @@
 
 - name: Packages
   tags: [packages]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Packages absent
       ansible.builtin.apt:
@@ -425,7 +439,11 @@
         cache_valid_time: 3600
     - name: Packages apt
       ansible.builtin.apt:
-        deb: http://snapshot.debian.org/archive/debian-archive/20120328T092752Z/debian/pool/main/p/pscan/pscan_1.2-9_amd64.deb
+        deb: "{{ {
+          'x86_64': 'https://snapshot.debian.org/archive/debian/20080726T000000Z/pool/main/p/pscan/pscan_1.2-9_amd64.deb',
+          'aarch64': 'https://snapshot.debian.org/archive/debian/20140820T100258Z/pool/main/p/pscan/pscan_1.2-9_arm64.deb',
+          'armv7l': 'https://snapshot.debian.org/archive/debian/20111201T234959Z/pool/main/p/pscan/pscan_1.2-9_armhf.deb',
+        }[ansible_architecture] }}"
     - block:  # noqa unnamed-task
         - name: Role
           ansible.builtin.import_role:
@@ -435,7 +453,11 @@
             manala_apt_packages:
               # Short syntax
               - asciijump
-              - http://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb
+              - "{{ {
+                'x86_64': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb',
+                'aarch64': 'https://snapshot.debian.org/archive/debian/20140819T040912Z/pool/main/s/spinner/spinner_1.2.4-3_arm64.deb',
+                'armv7l': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_armhf.deb',
+              }[ansible_architecture] }}"
               # Verbose syntax
               - package: freesweep
               # Flatten
@@ -463,7 +485,9 @@
 
 - name: Holds - Default
   tags: [holds, holds.default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Dpkg selections install
       ansible.builtin.dpkg_selections:
@@ -504,7 +528,9 @@
 
 - name: Holds - Exclusive
   tags: [holds, holds.exclusive]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Dpkg selections holds
       ansible.builtin.dpkg_selections:
@@ -537,7 +563,9 @@
 
 - name: Update
   tags: [update]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role

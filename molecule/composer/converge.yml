@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role
@@ -25,7 +27,9 @@
 
 - name: Version
   tags: [version]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/composer/version
   tasks:
@@ -103,7 +107,9 @@
 
 - name: Users Auth
   tags: [users_auth]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role
