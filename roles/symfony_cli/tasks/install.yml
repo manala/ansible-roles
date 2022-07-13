@@ -40,8 +40,11 @@
         remote_src: true
         dest: "{{ manala_symfony_cli_bin | dirname }}"
         extra_opts:
-          - --transform
-          - s,^symfony,{{ manala_symfony_cli_bin | basename }},
+          - "{{
+              '--transform=s,^symfony,%(file)s,' | format(
+                file=manala_symfony_cli_bin | basename,
+              )
+            }}"
         include:
           - symfony
         owner: root

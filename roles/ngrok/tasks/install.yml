@@ -37,8 +37,11 @@
         remote_src: true
         dest: "{{ manala_ngrok_bin | dirname }}"
         extra_opts:
-          - --transform
-          - s,^ngrok,{{ manala_ngrok_bin | basename }},
+          - "{{
+              '--transform=s,^ngrok,%(file)s,' | format(
+                file=manala_ngrok_bin | basename,
+              )
+            }}"
         owner: root
         group: root
         mode: "0755"
