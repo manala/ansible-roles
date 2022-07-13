@@ -8,6 +8,7 @@
 - name: install > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/hashicorp/vault/releases/latest
+  check_mode: false
   register: __manala_vault_cli_version_latest
   when:
     - not __manala_vault_cli_bin_stat_result.stat.exists
