@@ -212,17 +212,17 @@
             stdin: "{{ lookup('ansible.builtin.template', 'goss/configs.yml.j2') }}"
           changed_when: false
 
-############
-# Data Dir #
-############
+########
+# Data #
+########
 
-- name: Data Dir
-  tags: [data_dir]
+- name: Data
+  tags: [data]
   hosts:
     - debian.stretch
     - debian.buster
   vars:
-    tests_dir: /molecule/mysql/data_dir
+    tests_dir: /molecule/mysql/data
   tasks:
     - name: Clean tests dir  # noqa risky-file-permissions
       ansible.builtin.file:
@@ -248,7 +248,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/data_dir.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/data.yml.j2') }}"
           changed_when: false
 
 #########
