@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Symfony CLI] Switch to open source version
 - [Gomplate] Use github api to get latest version
 - [Vault CLI] Use github api to get latest version
+### Added
+- [Apt] Install gnupg package
 ### Fixed
 - [Apt] Update aptly key
 
