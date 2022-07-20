@@ -16,10 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Vault CLI] Use github api to get latest version
 ### Added
 - [Apt] Install gnupg package
+- [Prometheus] Introduce role
 ### Fixed
 - [Apt] Update aptly key
-### Added
-- [Prometheus] Introduce role
 
 ## [1.0.11] - 2022-03-04
 ### Added
