@@ -14,7 +14,7 @@
     - not __manala_vault_cli_bin_stat_result.stat.exists
     - manala_vault_cli_version is none
 
-- name: install > Binary
+- name: install > Install
   when: not __manala_vault_cli_bin_stat_result.stat.exists
   vars:
     __manala_vault_cli_version: "{{
