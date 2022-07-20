@@ -1,0 +1,90 @@
+---
+
+group:
+  # Accounts
+  {{ manala_prometheus_group }}:
+    exists: true
+
+user:
+  # Accounts
+  {{ manala_prometheus_user }}:
+    exists: true
+    groups:
+      - {{ manala_prometheus_group }}
+    home: {{ manala_prometheus_data_dir }}
+    shell: /usr/sbin/nologin
+
+file:
+  # Install
+  {{ manala_prometheus_bin }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  {{ manala_prometheus_node_exporter_bin }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  # Config
+  {{ manala_prometheus_config_file | dirname }}:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  {{ manala_prometheus_config_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    size: 1
+  # Data
+  {{ manala_prometheus_data_dir }}:
+    exists: true
+    filetype: directory
+    owner: {{ manala_prometheus_user }}
+    group: {{ manala_prometheus_group }}
+    mode: "0755"
+  # Services
+  {{ manala_prometheus_service_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[Unit]"
+      - "Description=Prometheus"
+  {{ manala_prometheus_node_exporter_service_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[Unit]"
+      - "Description=Prometheus Node Exporter"
+
+command:
+# Install
+  {{ manala_prometheus_bin }} --version:
+    exit-status: 0
+    stdout:
+      - prometheus, version
+  {{ manala_prometheus_node_exporter_bin }} --version:
+    exit-status: 0
+    stdout:
+      - node_exporter, version
+
+service:
+  # Services
+  prometheus:
+    enabled: true
+    running: true
+  prometheus-node-exporter:
+    enabled: true
+    running: true

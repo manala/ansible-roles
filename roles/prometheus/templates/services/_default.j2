@@ -1,0 +1,20 @@
+[Unit]
+Description=Prometheus
+
+[Service]
+Restart=on-failure
+User={{ manala_prometheus_user }}
+Group={{ manala_prometheus_group }}
+WorkingDirectory={{ manala_prometheus_data_dir }}
+ExecStart={{ manala_prometheus_bin }} \
+  --config.file={{ manala_prometheus_config_file }}{% if manala_prometheus_service_args %} \
+{% for arg in manala_prometheus_service_args %}
+  {{ arg }}{% if not loop.last %} \{% endif %}
+
+{% endfor %}
+{% endif %}
+
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,79 @@
+---
+
+# Version
+manala_prometheus_version: ~
+
+# Accounts
+manala_prometheus_user: prometheus
+manala_prometheus_group: prometheus
+
+# Bin
+manala_prometheus_bin: /usr/local/bin/prometheus
+
+# Config
+manala_prometheus_config_file: /etc/prometheus/prometheus.yml
+manala_prometheus_config_template: ~
+manala_prometheus_config: ~
+
+# Data
+manala_prometheus_data_dir: /var/lib/prometheus
+
+# Services
+manala_prometheus_service: prometheus
+manala_prometheus_service_file: /etc/systemd/system/{{ manala_prometheus_service }}.service
+manala_prometheus_service_template: ~
+manala_prometheus_service_args: []
+
+#################
+# Node Exporter #
+#################
+
+manala_prometheus_node_exporter: false
+
+# Version
+manala_prometheus_node_exporter_version: ~
+
+# Bin
+manala_prometheus_node_exporter_bin: /usr/local/bin/prometheus-node-exporter
+
+# Services
+manala_prometheus_node_exporter_service: prometheus-node-exporter
+manala_prometheus_node_exporter_service_file: /etc/systemd/system/{{ manala_prometheus_node_exporter_service }}.service
+manala_prometheus_node_exporter_service_template: ~
+manala_prometheus_node_exporter_service_args: []
+
+##################
+# Nginx Exporter #
+##################
+
+manala_prometheus_nginx_exporter: false
+
+# Version
+manala_prometheus_nginx_exporter_version: ~
+
+# Bin
+manala_prometheus_nginx_exporter_bin: /usr/local/bin/prometheus-nginx-exporter
+
+# Services
+manala_prometheus_nginx_exporter_service: prometheus-nginx-exporter
+manala_prometheus_nginx_exporter_service_file: /etc/systemd/system/{{ manala_prometheus_nginx_exporter_service }}.service
+manala_prometheus_nginx_exporter_service_template: ~
+manala_prometheus_nginx_exporter_service_args: []
+
+####################
+# Php Fpm Exporter #
+####################
+
+manala_prometheus_php_fpm_exporter: false
+
+# Version
+manala_prometheus_php_fpm_exporter_version: ~
+
+# Bin
+manala_prometheus_php_fpm_exporter_bin: /usr/local/bin/prometheus-php-fpm-exporter
+
+# Services
+manala_prometheus_php_fpm_exporter_service: prometheus-php-fpm-exporter
+manala_prometheus_php_fpm_exporter_service_file: /etc/systemd/system/{{ manala_prometheus_php_fpm_exporter_service }}.service
+manala_prometheus_php_fpm_exporter_service_template: ~
+manala_prometheus_php_fpm_exporter_service_args: []
