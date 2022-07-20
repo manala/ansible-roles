@@ -1,19 +1,19 @@
 ---
 
 # Install
-- import_tasks: install.yml
+- ansible.builtin.import_tasks: install.yml
   tags:
     - manala_shorewall
     - manala_shorewall.install
 
 # Configs
-- import_tasks: configs.yml
+- ansible.builtin.import_tasks: configs.yml
   tags:
     - manala_shorewall
     - manala_shorewall.configs
 
 # Config
-- import_tasks: config.yml
+- ansible.builtin.import_tasks: config.yml
   tags:
     - manala_shorewall
     - manala_shorewall.config

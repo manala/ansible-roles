@@ -1,32 +1,32 @@
 ---
 
 # Install
-- import_tasks: install.yml
+- ansible.builtin.import_tasks: install.yml
   tags:
     - manala_elasticsearch
     - manala_elasticsearch.install
 
 # Config
-- import_tasks: config.yml
+- ansible.builtin.import_tasks: config.yml
   tags:
     - manala_elasticsearch
     - manala_elasticsearch.config
 
 # Environment
-- import_tasks: environment.yml
+- ansible.builtin.import_tasks: environment.yml
   tags:
     - manala_elasticsearch
     - manala_elasticsearch.environment
 
 # Services
-- import_tasks: services.yml
+- ansible.builtin.import_tasks: services.yml
   tags:
     - manala_elasticsearch
     - manala_elasticsearch.services
     - manala.services
 
 # Plugins
-- import_tasks: plugins.yml
+- ansible.builtin.import_tasks: plugins.yml
   tags:
     - manala_elasticsearch
     - manala_elasticsearch.plugins

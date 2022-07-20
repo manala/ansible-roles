@@ -2,7 +2,7 @@
 
 # Tasks
 - name: tasks
-  include_tasks: tasks/{{ item.task }}.yml
+  ansible.builtin.include_tasks: tasks/{{ item.task }}.yml
   loop: "{{ query(
     'manala.roles.deploy_tasks',
     __manala_deploy_tasks

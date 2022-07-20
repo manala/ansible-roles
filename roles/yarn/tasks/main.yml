@@ -1,7 +1,7 @@
 ---
 
 # Install
-- import_tasks: install.yml
+- ansible.builtin.import_tasks: install.yml
   tags:
     - manala_yarn
     - manala_yarn.install
