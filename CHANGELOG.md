@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ## [2.0.0] - 2022-07-20
-## Changed
+### Changed
 - [All] Update minimum version of ansible to 2.10
 - [All] Use fqcn
 - [Ngrok] Switch to v3 stable
@@ -26,18 +26,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] GitHub cli repository
 
 ## [1.0.10] - 2022-03-01
-## Changed
+### Changed
 - [Apt] Trust MySQL repository on stretch
-## Added
+### Added
 - [Apt] Add Galera 4.10 and MySQL wsrep 8.0.26 repositories
 - [MySQL] Add `login_*` parameters in `users` and `databases` tasks.
 - [MySQL] Python installed package is configurable.
 
 ## [1.0.9] - 2022-02-21
-## Changed
+### Changed
 - [Aptly] Publishing is now conditionned on existing published repositories instead of locals
 - [Apt] Remove explicit architecture on Manala repository pattern
-## Added
+### Added
 - [Aptly] `Repositories` task now handle `architecture` when publishing
 
 ## [1.0.8] - 2022-02-09
