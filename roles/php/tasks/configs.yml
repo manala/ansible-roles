@@ -1,7 +1,7 @@
 ---
 
 # Configs - Sapi Cli
-- import_tasks: configs_sapi.yml
+- ansible.builtin.import_tasks: configs_sapi.yml
   vars:
     __manala_php_configs_sapi: cli
   tags:
@@ -16,7 +16,7 @@
     )
 
 # Configs - Sapi Fpm
-- import_tasks: configs_sapi.yml
+- ansible.builtin.import_tasks: configs_sapi.yml
   vars:
     __manala_php_configs_sapi: fpm
   tags:

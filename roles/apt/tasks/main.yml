@@ -1,55 +1,55 @@
 ---
 
 # Configs
-- import_tasks: configs.yml
+- ansible.builtin.import_tasks: configs.yml
   tags:
     - manala_apt
     - manala_apt.configs
 
 # Install
-- import_tasks: install.yml
+- ansible.builtin.import_tasks: install.yml
   tags:
     - manala_apt
     - manala_apt.install
 
 # Sources list
-- import_tasks: sources_list.yml
+- ansible.builtin.import_tasks: sources_list.yml
   tags:
     - manala_apt
     - manala_apt.sources_list
 
 # Preferences
-- import_tasks: preferences.yml
+- ansible.builtin.import_tasks: preferences.yml
   tags:
     - manala_apt
     - manala_apt.preferences
 
 # Keys
-- import_tasks: keys.yml
+- ansible.builtin.import_tasks: keys.yml
   tags:
     - manala_apt
     - manala_apt.keys
 
 # Repositories
-- import_tasks: repositories.yml
+- ansible.builtin.import_tasks: repositories.yml
   tags:
     - manala_apt
     - manala_apt.repositories
 
 # Packages
-- import_tasks: packages.yml
+- ansible.builtin.import_tasks: packages.yml
   tags:
     - manala_apt
     - manala_apt.packages
 
 # Holds
-- import_tasks: holds.yml
+- ansible.builtin.import_tasks: holds.yml
   tags:
     - manala_apt
     - manala_apt.holds
 
 # Update
-- import_tasks: update.yml
+- ansible.builtin.import_tasks: update.yml
   when: __manala_apt['update']
   tags:
     - manala_apt

@@ -1,13 +1,13 @@
 ---
 
 # Groups
-- import_tasks: groups.yml
+- ansible.builtin.import_tasks: groups.yml
   tags:
     - manala_accounts
     - manala_accounts.groups
 
 # Users
-- import_tasks: users.yml
+- ansible.builtin.import_tasks: users.yml
   tags:
     - manala_accounts
     - manala_accounts.users

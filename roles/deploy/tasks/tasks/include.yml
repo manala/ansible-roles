@@ -6,4 +6,4 @@
   block:
 
     - name: tasks/include > "{{ item.options }}"
-      include_tasks: "{{ item.options }}"
+      ansible.builtin.include_tasks: "{{ item.options }}"

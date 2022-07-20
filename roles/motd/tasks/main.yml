@@ -1,7 +1,7 @@
 ---
 
 # Scripts
-- import_tasks: scripts.yml
+- ansible.builtin.import_tasks: scripts.yml
   tags:
     - manala_motd
     - manala_motd.scripts

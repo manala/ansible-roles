@@ -1,19 +1,19 @@
 ---
 
 # Install
-- import_tasks: install.yml
+- ansible.builtin.import_tasks: install.yml
   tags:
     - manala_aptly
     - manala_aptly.install
 
 # Config
-- import_tasks: config.yml
+- ansible.builtin.import_tasks: config.yml
   tags:
     - manala_aptly
     - manala_aptly.config
 
 # Repositories
-- import_tasks: repositories.yml
+- ansible.builtin.import_tasks: repositories.yml
   tags:
     - manala_aptly
     - manala_aptly.repositories
