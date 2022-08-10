@@ -25,7 +25,7 @@ system:
     docker: true
     ansible:
         version: 2.11.12
-    ansible_lint:
+    ansible-lint:
         version: 6.3.0
     molecule:
         version: 4.0.0

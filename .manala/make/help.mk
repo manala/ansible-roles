@@ -24,7 +24,7 @@ help:
 			sectionsName[1] = "Commands" ; \
 			sectionsCount = 1 ; \
 		} \
-		/^[-a-zA-Z0-9_.@%\/]+:/ { \
+		/^[-a-zA-Z0-9_.@%\/+]+:/ { \
 			if (match(lastLine, /^## (.*)/)) { \
 				command = substr($$1, 1, index($$1, ":") - 1) ; \
 				section = substr(lastLine, RSTART + 3, index(lastLine, " - ") - 4) ; \
