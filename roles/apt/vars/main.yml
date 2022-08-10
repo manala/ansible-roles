@@ -290,6 +290,13 @@ manala_apt_repositories_patterns:
       }}/apt
       {{ ansible_distribution_release }} main
     key: glusterfs_6
+  glusterfs_10_2:
+    source: >-
+      deb https://download.gluster.org/pub/gluster/glusterfs/10/10.2/Debian/{{ ansible_distribution_release }}/{{
+        ansible_architecture | manala.roles.apt_architecture
+      }}/apt
+      {{ ansible_distribution_release }} main
+    key: glusterfs_10
   haproxy_1_8:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-1.8 main
     key: haproxy
@@ -437,6 +444,9 @@ manala_apt_keys_patterns:
     id: 7B0A831B
   glusterfs_6:
     url: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
+    id: C2F8238C
+  glusterfs_10:
+    url: https://download.gluster.org/pub/gluster/glusterfs/10/rsa.pub
     id: C2F8238C
   ansible:
     keyserver: hkp://keyserver.ubuntu.com:80
