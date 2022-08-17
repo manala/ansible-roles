@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.13] - 2022-08-22
+## Changed
+- [Apt] Update Symfony repository
+
+## [1.0.12] - 2022-08-22
+> **Warning**
+> Bugged Version **DO NOT USE**
+
 ## [1.0.11] - 2022-03-04
 ### Added
 - [Apt] GitHub cli repository
