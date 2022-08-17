@@ -5,19 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-## Changed
-- [All] Update minimum version of ansible to 2.10
-- [All] Use fqcn
-- [Ngrok] Switch to v3 stable
-- [Symfony CLI] Switch to open source version
-- [Gomplate] Use github api to get latest version
-- [Vault CLI] Use github api to get latest version
-### Added
-- [Apt] Install gnupg package
-### Fixed
-- [Apt] Update aptly key
-### Added
-- [Prometheus] Introduce role
+
+## [1.0.12] - 2022-03-04
+### Changed
+- [Apt] Update Symfony repository
 
 ## [1.0.11] - 2022-03-04
 ### Added

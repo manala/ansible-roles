@@ -309,7 +309,8 @@ manala_apt_repositories_patterns:
     source: deb http://packages.kopia.io/apt/ stable main
     key: kopia
   symfony:
-    source: deb [trusted=yes] https://repo.symfony.com/apt/ /
+    source: deb https://dl.cloudsmith.io/public/symfony/stable/deb/debian {{ ansible_distribution_release }} main
+    key: symfony
     file: symfony.list
   github_cli:
     source: deb https://cli.github.com/packages stable main
@@ -453,6 +454,9 @@ manala_apt_keys_patterns:
   github_cli:
     url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
     id: B97541F0
+  symfony:
+    url: https://dl.cloudsmith.io/public/symfony/stable/gpg.99CEF8A62216B73D.key
+    id: 2216B73D
 
 # Preferences
 manala_apt_preferences_patterns:
