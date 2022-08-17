@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.1] - 2022-08-17
 ### Added
 - [Apt] Add GlusterFS 10.2 repository
 - [Apt] Add HAProxy 2.6 repository
+### Changed
 - [Apt] Update Symfony repository
 
 ## [2.0.0] - 2022-07-20
