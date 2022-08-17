@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [Apt] Add GlusterFS 10.2 repository
 - [Apt] Add HAProxy 2.6 repository
+- [Apt] Update Symfony repository
 
 ## [2.0.0] - 2022-07-20
 ### Changed
