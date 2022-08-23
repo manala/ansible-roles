@@ -94,6 +94,22 @@ ansible-test units --python 3.8
 ansible-test units --python 3.8 tests/unit/plugins/lookup/test_foo.py
 ```
 
+## Testing locally with ansible for v1
+
+Run
+```shell
+docker run -v $PWD:/srv -v $PWD:/root/.ansible/collections/ansible_collections/manala/roles -ti --rm debian /bin/bash
+```
+Then
+```shell
+apt update && apt install ansible -y
+```
+
+You can test with
+```shell
+ansible-playbook /srv/molecule/$ROLE_NAME/converge.yml
+```
+
 ## Licensing
 
 This collection is distributed under the MIT license.

@@ -8,7 +8,7 @@
 - name: install > Get latest version
   uri:
     url: https://github.com/symfony-cli/symfony-cli/releases/latest
-    return_content: true
+    return_content: false
   register: __manala_symfony_cli_version_latest
   when:
     - not __manala_symfony_cli_bin_stat_result.stat.exists
@@ -17,16 +17,20 @@
 - name: install > Install
   unarchive:
     src: "{{
-        'https://github.com/symfony-cli/symfony-cli/releases/download/v%(version)s/symfony-cli_linux_%(architecture)s.tar.gz'|format(
-          version=manala_symfony_cli_version,
-          architecture=ansible_architecture|manala.roles.symfony_cli_architecture,
-        )
+      'https://github.com/symfony-cli/symfony-cli/releases/download/v%(version)s/symfony-cli_linux_%(architecture)s.tar.gz'|format(
+        version=manala_symfony_cli_version|ternary(
+          manala_symfony_cli_version,
+          __manala_symfony_cli_version_latest.url|default|regex_replace('.+/v(\\d+\\.\\d+\\.\\d+)$', '\\1')
+        ),
+        architecture=ansible_architecture|manala.roles.symfony_cli_architecture,
+      )
     }}"
     dest: "{{ manala_symfony_cli_bin|dirname }}"
     remote_src: true
     extra_opts:
       - --transform
-      - s/^symfony_cli/{{ manala_symfony_cli_bin|basename }}/
+      - s/^symfony/{{ manala_symfony_cli_bin|basename }}/
+      - symfony
     owner: root
     group: root
     mode: "0755"
