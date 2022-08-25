@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [Php] Fix extension handling when extension is already disabled
 
 ## [2.0.1] - 2022-08-17
 ### Added

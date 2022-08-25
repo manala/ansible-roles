@@ -80,15 +80,15 @@ def main():
 
 
 def run_phpquery(module, args):
-    return module.run_command('phpquery %s' % args, check_rc=True)
+    return module.run_command('phpquery %s' % args, check_rc=False)
 
 
 def run_phpenmod(module, args):
-    return module.run_command('phpenmod %s' % args)
+    return module.run_command('phpenmod %s' % args, check_rc=True)
 
 
 def run_phpdismod(module, args):
-    return module.run_command('phpdismod %s' % args)
+    return module.run_command('phpdismod %s' % args, check_rc=True)
 
 
 if __name__ == '__main__':
