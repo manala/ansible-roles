@@ -466,7 +466,7 @@ manala_apt_keys_patterns:
     id: FD56A556
   github_cli:
     url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
-    id: B97541F0
+    id: 75716059
   symfony:
     url: https://dl.cloudsmith.io/public/symfony/stable/gpg.99CEF8A62216B73D.key
     id: 2216B73D
