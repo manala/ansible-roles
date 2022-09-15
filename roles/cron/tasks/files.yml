@@ -1,6 +1,6 @@
 ---
 
-- name: files > Exclusive
+- name: Files > Exclusive
   ansible.builtin.find:
     path: "{{ manala_cron_files_dir }}"
     file_type: file
@@ -9,35 +9,37 @@
   register: __manala_cron_files_exclusive_find
   when: manala_cron_files_exclusive
 
-- name: configs > Templates present
+- name: Files > Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_cron_files,
-    __manala_cron_files_exclusive_find.files | default([]),
-    manala_cron_files_dir,
-    manala_cron_files_defaults.template | default('files/_default.j2', true),
-    wantstate='present'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_cron_files,
+      __manala_cron_files_exclusive_find.files | default([]),
+      manala_cron_files_dir,
+      manala_cron_files_defaults.template | default('files/_default.j2', true),
+      wantstate='present'
+    ) }}
   notify:
     - Restart cron
 
-- name: configs > Files absent
+- name: Files > Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_cron_files,
-    __manala_cron_files_exclusive_find.files | default([]),
-    manala_cron_files_dir,
-    manala_cron_files_defaults.template | default('files/_default.j2', true),
-    wantstate='absent'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_cron_files,
+      __manala_cron_files_exclusive_find.files | default([]),
+      manala_cron_files_dir,
+      manala_cron_files_defaults.template | default('files/_default.j2', true),
+      wantstate='absent'
+    ) }}
   notify:
     - Restart cron

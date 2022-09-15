@@ -1,6 +1,6 @@
 ---
 
-- name: roles > Handle
+- name: Roles > Handle
   community.postgresql.postgresql_user:
     name: "{{ item.role }}"
     state: "{{ item.state | default('present') }}"

@@ -1,6 +1,6 @@
 ---
 
-- name: interfaces > Default
+- name: Interfaces > Default
   ansible.builtin.lineinfile:
     path: "{{ manala_dhcp_interfaces_file }}"
     regexp: '^INTERFACESv4='

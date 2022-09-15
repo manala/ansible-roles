@@ -1,6 +1,6 @@
 ---
 
-- name: replications > Create mysql replications
+- name: Replications > Create mysql replications
   community.mysql.mysql_replication:
       mode: "{{ item.mode }}"
       master_auto_position: "{{ item.master_auto_position | default(omit) }}"

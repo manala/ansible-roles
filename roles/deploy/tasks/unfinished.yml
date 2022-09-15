@@ -1,6 +1,6 @@
 ---
 
-- name: unfinished > Add an unfinished file, to allow cleanup on successful finalize  # noqa risky-file-permissions
+- name: Unfinished > Add an unfinished file, to allow cleanup on successful finalize  # noqa risky-file-permissions
   ansible.builtin.file:
     path: "{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}"
     state: touch

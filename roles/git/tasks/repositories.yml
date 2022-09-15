@@ -1,6 +1,6 @@
 ---
 
-- name: repositories > Setup git repositories
+- name: Repositories > Setup git repositories
   ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
@@ -11,7 +11,7 @@
   loop: "{{ manala_git_repositories }}"
   when: item.user is undefined
 
-- name: repositories > Setup git repositories as specified user
+- name: Repositories > Setup git repositories as specified user
   ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"

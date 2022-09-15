@@ -1,4 +1,4 @@
 ---
 
-- name: strategy
+- name: Strategy
   ansible.builtin.include_tasks: "strategy/{{ manala_deploy_strategy }}.yml"

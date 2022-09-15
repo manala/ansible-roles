@@ -1,6 +1,6 @@
 ---
 
-- name: points > Mounts
+- name: Points > Mounts
   ansible.posix.mount:
    name: "{{ item.path }}"
    fstype: "{{ item.fstype }}"

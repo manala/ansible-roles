@@ -1,6 +1,6 @@
 ---
 
-- name: logs > Directory
+- name: Logs > Directory
   ansible.builtin.file:
     path: "{{ manala_bind_log_dir }}"
     state: directory

@@ -25,7 +25,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -110,7 +110,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Content
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -160,7 +160,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -280,7 +280,7 @@
     - debian
     - "!debian.stretch"
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -336,7 +336,7 @@
       loop:
         - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             # Play role fully, because of "keys" tasks dependency
@@ -396,7 +396,7 @@
         - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             # Play role fully, because of "keys" tasks dependency
@@ -439,12 +439,13 @@
         cache_valid_time: 3600
     - name: Packages apt
       ansible.builtin.apt:
-        deb: "{{ {
-          'x86_64': 'https://snapshot.debian.org/archive/debian/20080726T000000Z/pool/main/p/pscan/pscan_1.2-9_amd64.deb',
-          'aarch64': 'https://snapshot.debian.org/archive/debian/20140820T100258Z/pool/main/p/pscan/pscan_1.2-9_arm64.deb',
-          'armv7l': 'https://snapshot.debian.org/archive/debian/20111201T234959Z/pool/main/p/pscan/pscan_1.2-9_armhf.deb',
-        }[ansible_architecture] }}"
-    - block:  # noqa unnamed-task
+        deb: |-
+          {{ {
+            'x86_64': 'https://snapshot.debian.org/archive/debian/20080726T000000Z/pool/main/p/pscan/pscan_1.2-9_amd64.deb',
+            'aarch64': 'https://snapshot.debian.org/archive/debian/20140820T100258Z/pool/main/p/pscan/pscan_1.2-9_arm64.deb',
+            'armv7l': 'https://snapshot.debian.org/archive/debian/20111201T234959Z/pool/main/p/pscan/pscan_1.2-9_armhf.deb',
+          }[ansible_architecture] }}
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -453,11 +454,12 @@
             manala_apt_packages:
               # Short syntax
               - asciijump
-              - "{{ {
-                'x86_64': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb',
-                'aarch64': 'https://snapshot.debian.org/archive/debian/20140819T040912Z/pool/main/s/spinner/spinner_1.2.4-3_arm64.deb',
-                'armv7l': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_armhf.deb',
-              }[ansible_architecture] }}"
+              - |-
+                {{ {
+                  'x86_64': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb',
+                  'aarch64': 'https://snapshot.debian.org/archive/debian/20140819T040912Z/pool/main/s/spinner/spinner_1.2.4-3_arm64.deb',
+                  'armv7l': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_armhf.deb',
+                }[ansible_architecture] }}
               # Verbose syntax
               - package: freesweep
               # Flatten
@@ -499,7 +501,7 @@
         name: "{{ item }}"
         selection: hold
       loop: [dpkg, tar]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -537,7 +539,7 @@
         name: "{{ item }}"
         selection: hold
       loop: [python3, tar]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -567,7 +569,7 @@
     - debian
     - "!debian.stretch"
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt

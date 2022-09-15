@@ -1,6 +1,6 @@
 ---
 
-- name: users_auth > Directory
+- name: Users Auth > Directory
   ansible.builtin.file:
     path: "{{ item.home | default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer"
     state: directory
@@ -8,7 +8,7 @@
     mode: "0755"
   loop: "{{ manala_composer_users_auth }}"
 
-- name: users_auth > Template
+- name: Users Auth > Template
   ansible.builtin.template:
     src: "{{ item.template | default(manala_composer_users_auth_template | default('users/auth/_default.j2', true)) }}"
     dest: "{{ item.home | default('/root' if item.user == 'root' else '/home/' ~ item.user) }}/.composer/auth.json"

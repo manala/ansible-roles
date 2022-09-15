@@ -1,6 +1,6 @@
 ---
 
-- name: codes_default > Configure
+- name: Codes Default > Configure
   ansible.builtin.lineinfile:
     dest: "{{ manala_locales_codes_default_file }}"
     regexp: "LANG="

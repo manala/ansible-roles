@@ -1,8 +1,9 @@
 ---
 
-- hosts:
-    - debian.stretch
+- name: Prepare
   tags: [always]
+  hosts:
+    - debian.stretch
   tasks:
     - name: Apt
       ansible.builtin.import_role:

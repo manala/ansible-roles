@@ -1,6 +1,6 @@
 ---
 
-- name: volumes > Handling
+- name: Volumes > Handling
   gluster.gluster.gluster_volume:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"

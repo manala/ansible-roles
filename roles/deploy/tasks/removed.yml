@@ -1,6 +1,6 @@
 ---
 
-- name: removed > Files
+- name: Removed > Files
   ansible.builtin.file:
     path: "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
     state: absent

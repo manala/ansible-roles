@@ -1,6 +1,6 @@
 ---
 
-- name: config > Template
+- name: Config > Template
   ansible.builtin.template:
     src: "{{ manala_postgresql_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_postgresql_config_file }}"
@@ -11,7 +11,7 @@
     or manala_postgresql_config
   register: __manala_postgresql_config_template_result
 
-- name: config > Host-based authentication (hba) template
+- name: Config > Host-based authentication (hba) template
   ansible.builtin.template:
     src: "{{ manala_postgresql_config_hba_template | default('config_hba/_default.j2', true) }}"
     dest: "{{ manala_postgresql_config_hba_file }}"

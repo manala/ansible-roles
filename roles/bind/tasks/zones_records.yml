@@ -1,6 +1,6 @@
 ---
 
-- name: zones_records > Records
+- name: Zones Records > Records
   community.general.nsupdate:
     server: 127.0.0.1
     zone: "{{ item.0.zone }}"

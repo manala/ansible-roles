@@ -1,6 +1,6 @@
 ---
 
-- name: resolver_config > Template
+- name: Resolver Config > Template
   ansible.builtin.template:
     src: "{{ manala_network_resolver_config_template | default('resolver_config/_default.j2', true) }}"
     dest: "{{ manala_network_resolver_config_file }}"

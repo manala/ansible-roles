@@ -6,12 +6,13 @@ manala_ssh_version: ~
 # Install
 # Note: First package name in list is used for version autodetection
 manala_ssh_install_packages: ~
-manala_ssh_install_packages_default: "{{
-  manala_ssh_server | ternary(
-    ['openssh-server'],
-    ['openssh-client']
-  )
-}}"
+manala_ssh_install_packages_default: |
+  {{
+    manala_ssh_server | ternary(
+      ['openssh-server'],
+      ['openssh-client']
+    )
+  }}
 
 # Server
 manala_ssh_server: true

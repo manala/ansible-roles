@@ -19,7 +19,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -94,7 +94,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -134,10 +134,11 @@
       ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
-      loop: "{{ [
-        'default/cli/conf.d', 'defaults/cli/conf.d', 'exclusive/cli/conf.d',
-        'default/fpm/conf.d', 'defaults/fpm/conf.d', 'exclusive/fpm/conf.d'
-      ] | product(['absent', 'directory']) }}"
+      loop: |
+        {{ [
+          'default/cli/conf.d', 'defaults/cli/conf.d', 'exclusive/cli/conf.d',
+          'default/fpm/conf.d', 'defaults/fpm/conf.d', 'exclusive/fpm/conf.d',
+        ] | product(['absent', 'directory']) }}
     - name: Touch existing files  # noqa risky-file-permissions
       ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item }}"
@@ -150,7 +151,7 @@
         exclusive/fpm/conf.d/existing, exclusive/fpm/conf.d/existing_present, exclusive/fpm/conf.d/existing_ignore,
         exclusive/fpm/conf.d/existing_fpm, exclusive/fpm/conf.d/existing_present_fpm, exclusive/fpm/conf.d/existing_ignore_fpm,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -276,7 +277,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.php

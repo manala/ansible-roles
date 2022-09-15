@@ -1,6 +1,6 @@
 ---
 
-- name: setup > Create structure
+- name: Setup > Create structure
   community.general.deploy_helper:
     path: "{{ manala_deploy_dir }}"
     current_path: "{{ manala_deploy_current_dir }}"

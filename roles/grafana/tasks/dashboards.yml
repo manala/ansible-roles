@@ -1,7 +1,6 @@
 ---
 
-# Import dashboards
-- name: dashboards > List dashboards
+- name: Dashboards > List dashboards
   register: __manala_grafana_dashboards_list_output
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/search"
@@ -17,8 +16,7 @@
   retries: 12
   delay: 1
 
-# Delete dashboards
-- name: dashboards > Delete dashboards
+- name: Dashboards > Delete dashboards
   register: __manala_grafana_dashboards_delete_output
   failed_when: "'Dashboard not found' in __manala_grafana_dashboards_delete_output | to_json"
   ansible.builtin.uri:
@@ -33,19 +31,19 @@
   loop: "{{ __manala_grafana_dashboards_list_output.json | default([]) }}"
   when: manala_grafana_dashboards_exclusive
 
-# Import dashboards
-- name: dashboards > Import dashboards
+- name: Dashboards > Import dashboards
   register: __manala_grafana_dashboards_import_output
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/dashboards/import"
     method: POST
-    body: "{{
-      {
-        'dashboard': lookup('ansible.builtin.file', item.template) | from_json,
-        'overwrite': item.overwrite | default(true),
-        'inputs': item.inputs | default([])
-      }
-    }}"
+    body: |-
+      {{
+        {
+          'dashboard': lookup('ansible.builtin.file', item.template) | from_json,
+          'overwrite': item.overwrite | default(true),
+          'inputs': item.inputs | default([])
+        }
+      }}
     body_format: json
     force_basic_auth: true
     user: "{{ manala_grafana_api_user }}"

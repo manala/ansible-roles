@@ -1,6 +1,6 @@
 ---
 
-- name: repositories local > List
+- name: Repositories (local) > List
   ansible.builtin.command: "{{
     manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
@@ -21,7 +21,7 @@
       | manala.roles.staten(want='present')
       | length
 
-- name: repositories published > List
+- name: Repositories (published) > List
   ansible.builtin.command: "{{
     manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
@@ -42,7 +42,7 @@
       | manala.roles.staten(want='present')
       | length
 
-- name: repositories > Create
+- name: Repositories > Create
   ansible.builtin.command: "{{
     manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
@@ -60,7 +60,7 @@
       | manala.roles.staten(want='present')
   }}"
 
-- name: repositories > Publish
+- name: Repositories > Publish
   ansible.builtin.command: "{{
     manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',

@@ -1,9 +1,9 @@
 ---
 
-- name: strategy/include
+- name: Strategy / Include
   tags:
     - manala_deploy
   block:
 
-    - name: strategy/include > "{{ manala_deploy_strategy_include_name }}"
+    - name: Strategy / Include > "{{ manala_deploy_strategy_include_name }}"
       ansible.builtin.include_tasks: "{{ manala_deploy_strategy_include_name }}"

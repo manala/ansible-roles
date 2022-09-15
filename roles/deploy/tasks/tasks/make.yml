@@ -1,11 +1,11 @@
 ---
 
-- name: tasks/make
+- name: Tasks / Make
   tags:
     - manala_deploy
   block:
 
-    - name: tasks/make > "{{ item.options }}" in "{{ item.dir }}"
+    - name: Tasks / Make > "{{ item.options }}" in "{{ item.dir }}"
       ansible.builtin.command: "make {{ item.options }}"
       args:
         chdir: "{{ item.dir }}"

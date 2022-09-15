@@ -1,6 +1,6 @@
 ---
 
-- name: config > Template
+- name: Config > Template
   ansible.builtin.template:
     src: "{{ manala_mysql_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_mysql_config_alternative | default(manala_mysql_config_file, true) }}"
@@ -11,7 +11,7 @@
     or manala_mysql_config
   register: __manala_mysql_config_template_result
 
-- name: config > Alternative
+- name: Config > Alternative
   community.general.alternatives:
     name: my.cnf
     link: "{{ manala_mysql_config_file }}"

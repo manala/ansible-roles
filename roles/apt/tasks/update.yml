@@ -1,6 +1,6 @@
 ---
 
-- name: update > Backup package marks  # noqa risky-shell-pipe no-tabs
+- name: Update > Backup package marks  # noqa risky-shell-pipe no-tabs
   ansible.builtin.shell: >
     dpkg --get-selections {{ item }}
     | cut -f 2-
@@ -9,35 +9,37 @@
   loop: "{{ manala_apt_update_holds }}"
   register: __manala_apt_update_marks_results
 
-- name: update > Hold packages  # noqa risky-shell-pipe
+- name: Update > Hold packages  # noqa risky-shell-pipe
   ansible.builtin.shell: >
     echo '{{ item.0 }} hold'
     | dpkg --set-selections
   when:
     - item.1
     - item.1 != 'hold'
-  loop: "{{
-    manala_apt_update_holds
-      | zip(
-        __manala_apt_update_marks_results.results | map(attribute='stdout') | list
-      )
-      | list
-  }}"
+  loop: |
+    {{
+      manala_apt_update_holds
+        | zip(
+          __manala_apt_update_marks_results.results | map(attribute='stdout') | list
+        )
+        | list
+    }}
 
-- name: update > Upgrade dist
+- name: Update > Upgrade dist
   ansible.builtin.apt:
     upgrade: dist
     update_cache: true
 
-- name: update > Restore package marks  # noqa risky-shell-pipe
+- name: Update > Restore package marks  # noqa risky-shell-pipe
   ansible.builtin.shell: >
     echo '{{ item.0 }} {{ item.1 }}'
     | dpkg --set-selections
   when: item.1
-  loop: "{{
-    manala_apt_update_holds
-      | zip(
-        __manala_apt_update_marks_results.results | map(attribute='stdout') | list
-      )
-      | list
-  }}"
+  loop: |
+    {{
+      manala_apt_update_holds
+        | zip(
+          __manala_apt_update_marks_results.results | map(attribute='stdout') | list
+        )
+        | list
+    }}

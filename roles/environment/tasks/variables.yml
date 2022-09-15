@@ -1,14 +1,15 @@
 ---
 
-- name: variables > File
+- name: Variables > File
   ansible.builtin.blockinfile:
     dest: "{{ item.file }}"
     block: |
       {% for key, value in manala_environment_variables.items() %}
       {{ (item.export) | ternary('export ', '') }}{{ key }}="{{ value }}"
       {% endfor %}
-  loop: "{{ query(
-    'manala.roles.environment_files',
-    manala_environment_files,
-    manala_environment_files_patterns
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.environment_files',
+      manala_environment_files,
+      manala_environment_files_patterns
+    ) }}

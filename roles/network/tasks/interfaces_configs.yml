@@ -1,6 +1,6 @@
 ---
 
-- name: interfaces_configs > Exclusive
+- name: Interfaces Configs > Exclusive
   ansible.builtin.find:
     path: "{{ manala_network_interfaces_configs_dir }}"
     file_type: file
@@ -9,35 +9,37 @@
   register: __manala_network_interfaces_configs_exclusive_find
   when: manala_network_interfaces_configs_exclusive
 
-- name: interfaces_configs > Templates present
+- name: Interfaces Configs > Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_network_interfaces_configs,
-    __manala_network_interfaces_configs_exclusive_find.files | default([]),
-    manala_network_interfaces_configs_dir,
-    manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
-    wantstate='present'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_network_interfaces_configs,
+      __manala_network_interfaces_configs_exclusive_find.files | default([]),
+      manala_network_interfaces_configs_dir,
+      manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
+      wantstate='present'
+    ) }}
   notify:
     - Restart networking
 
-- name: interfaces_configs > Files absent
+- name: Interfaces Configs > Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_network_interfaces_configs,
-    __manala_network_interfaces_configs_exclusive_find.files | default([]),
-    manala_network_interfaces_configs_dir,
-    manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
-    wantstate='absent'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_network_interfaces_configs,
+      __manala_network_interfaces_configs_exclusive_find.files | default([]),
+      manala_network_interfaces_configs_dir,
+      manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
+      wantstate='absent'
+    ) }}
   notify:
     - Restart networking

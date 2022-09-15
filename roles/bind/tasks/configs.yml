@@ -1,6 +1,6 @@
 ---
 
-- name: configs > Templates
+- name: Configs > Templates
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
@@ -14,7 +14,7 @@
     - not item.omit | default(False)
   register: __manala_bind_configs_templates
 
-- name: configs > Contents
+- name: Configs > Contents
   ansible.builtin.copy:
     content: "{{ item.content }}"
     dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
@@ -28,7 +28,7 @@
     - not item.omit | default(False)
   register: __manala_bind_configs_contents
 
-- name: configs > Absents
+- name: Configs > Absents
   ansible.builtin.file:
     path: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     state: absent

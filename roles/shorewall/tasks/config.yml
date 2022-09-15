@@ -1,6 +1,6 @@
 ---
 
-- name: config > File
+- name: Config > File
   ansible.builtin.lineinfile:
     dest: "{{ manala_shorewall_config_file }}"
     regexp: "^{{ item.key | regex_escape() ~ '=' }}"

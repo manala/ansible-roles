@@ -1,13 +1,14 @@
 ---
 
-- name: packages > Manage
+- name: Packages > Manage
   community.general.npm:
     name: "{{ item.package }}"
     global: true
     state: "{{ item.state | default(omit) }}"
     version: "{{ item.version | default(omit) }}"
     registry: "{{ item.registry | default(omit) }}"
-  loop: "{{ query(
-    'manala.roles.npm_packages',
-    manala_npm_packages
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.npm_packages',
+      manala_npm_packages
+    ) }}

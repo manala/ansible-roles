@@ -1,6 +1,6 @@
 ---
 
-- name: install > Packages
+- name: Install > Packages
   ansible.builtin.apt:
     name: "{{ item.packages }}"
     state: "{{ item.state }}"
@@ -16,63 +16,65 @@
     # Presents
     # + Debfoster if one of exclusive mode is set
     - state: present
-      packages: "{{
-        query(
-          'manala.roles.php_packages',
-          (
-            query(
-              'manala.roles.php_sapis',
-              manala_php_sapis | default(manala_php_sapis_default, True),
-              manala_php_sapis_available,
-              wantstate='present',
-              wantmap=true
-            )
-            + query(
-              'manala.roles.php_extensions',
-              manala_php_extensions,
-              manala_php_extensions_available,
-              manala_php_sapis_available,
-              wantstate='present',
-              wantmap=true
-            )
-          ),
-          manala_php_version | string | escape
-        )
-        + (manala_php_sapis_exclusive or manala_php_extensions_exclusive) | ternary(['debfoster'], [])
-      }}"
+      packages: |
+        {{
+          query(
+            'manala.roles.php_packages',
+            (
+              query(
+                'manala.roles.php_sapis',
+                manala_php_sapis | default(manala_php_sapis_default, True),
+                manala_php_sapis_available,
+                wantstate='present',
+                wantmap=true
+              )
+              + query(
+                'manala.roles.php_extensions',
+                manala_php_extensions,
+                manala_php_extensions_available,
+                manala_php_sapis_available,
+                wantstate='present',
+                wantmap=true
+              )
+            ),
+            manala_php_version | string | escape
+          )
+          + (manala_php_sapis_exclusive or manala_php_extensions_exclusive) | ternary(['debfoster'], [])
+        }}
     # Absents
     - state: absent
-      packages: "{{
-        query(
-          'manala.roles.php_packages',
-          (
-            query(
-              'manala.roles.php_sapis',
-              manala_php_sapis | default(manala_php_sapis_default, True),
-              manala_php_sapis_available,
-              wantstate='absent',
-              wantmap=true
-            )
-            + query(
-              'manala.roles.php_extensions',
-              manala_php_extensions,
-              manala_php_extensions_available,
-              manala_php_sapis_available,
-              wantstate='absent',
-              wantmap=true
-            )
-          ),
-          manala_php_version | string | escape
-        )
-      }}"
+      packages: |
+        {{
+          query(
+            'manala.roles.php_packages',
+            (
+              query(
+                'manala.roles.php_sapis',
+                manala_php_sapis | default(manala_php_sapis_default, True),
+                manala_php_sapis_available,
+                wantstate='absent',
+                wantmap=true
+              )
+              + query(
+                'manala.roles.php_extensions',
+                manala_php_extensions,
+                manala_php_extensions_available,
+                manala_php_sapis_available,
+                wantstate='absent',
+                wantmap=true
+              )
+            ),
+            manala_php_version | string | escape
+          )
+        }}
 
-- name: install > Exclusive - Packages
+- name: Install > Exclusive - Packages
   when: manala_php_sapis_exclusive
     or manala_php_extensions_exclusive
   block:
 
     # Use dpkg-query to find out installed packages
-    - name: install > Exclusive - Find packages
+    - name: Install > Exclusive - Find packages
       ansible.builtin.command: >
         dpkg-query
         --showformat "${Status}    ${binary:Package}\n"
@@ -82,7 +84,7 @@
       changed_when: false
 
     # Use debfoster to find out each package dependencies
-    - name: install > Exclusive - Find packages dependencies  # noqa risky-shell-pipe
+    - name: Install > Exclusive - Find packages dependencies  # noqa risky-shell-pipe
       ansible.builtin.shell: |
         for package in {{
           query(
@@ -114,7 +116,7 @@
       check_mode: false
       changed_when: false
 
-    - name: install > Exclusive - Packages absents
+    - name: Install > Exclusive - Packages absents
       ansible.builtin.apt:
         name: "{{ item }}"
         state: absent
@@ -122,36 +124,37 @@
         autoremove: true
       when: item | length
       loop:
-        - "{{ query(
-          'manala.roles.php_packages_exclusive',
-          query(
-            'manala.roles.php_packages',
-            (
-              query(
-                'manala.roles.php_sapis',
-                manala_php_sapis | default(manala_php_sapis_default, True),
-                manala_php_sapis_available,
-                wantstate='present',
-                wantmap=true
-              )
-              + query(
-                'manala.roles.php_extensions',
-                manala_php_extensions,
-                manala_php_extensions_available,
-                manala_php_sapis_available,
-                wantstate='present',
-                wantmap=true
-              )
+        - |
+          {{ query(
+            'manala.roles.php_packages_exclusive',
+            query(
+              'manala.roles.php_packages',
+              (
+                query(
+                  'manala.roles.php_sapis',
+                  manala_php_sapis | default(manala_php_sapis_default, True),
+                  manala_php_sapis_available,
+                  wantstate='present',
+                  wantmap=true
+                )
+                + query(
+                  'manala.roles.php_extensions',
+                  manala_php_extensions,
+                  manala_php_extensions_available,
+                  manala_php_sapis_available,
+                  wantstate='present',
+                  wantmap=true
+                )
+              ),
+              manala_php_version | string | escape
             ),
-            manala_php_version | string | escape
-          ),
-          query(
-            'manala.roles.php_packages',
-            manala_php_sapis_available,
-            manala_php_version | string | escape
-          ),
-          __manala_php_install_packages_presents.stdout_lines | default([]),
-          __manala_php_install_packages_dependencies.stdout_lines | default([]),
-          manala_php_sapis_exclusive,
-          manala_php_extensions_exclusive
-        ) }}"
+            query(
+              'manala.roles.php_packages',
+              manala_php_sapis_available,
+              manala_php_version | string | escape
+            ),
+            __manala_php_install_packages_presents.stdout_lines | default([]),
+            __manala_php_install_packages_dependencies.stdout_lines | default([]),
+            manala_php_sapis_exclusive,
+            manala_php_extensions_exclusive
+          ) }}

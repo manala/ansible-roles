@@ -1,6 +1,6 @@
 ---
 
-- name: databases > Create postgresql databases
+- name: Databases > Create postgresql databases
   community.postgresql.postgresql_db:
     name: "{{ (item) if (item is string) else (item.database) }}"
     state: "{{ item.state | default('present') }}"

@@ -1,14 +1,15 @@
 ---
 
 # Flags
-__manala_docker: "{{
-  {
-    'update': False
-  } | combine(
-    manala | default({}),
-    manala_docker
-  )
-}}"
+__manala_docker: |
+  {{
+    {
+      'update': False
+    } | combine(
+      manala | default({}),
+      manala_docker
+    )
+  }}
 
 # Applications
 manala_docker_applications_patterns:

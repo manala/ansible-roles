@@ -1,15 +1,16 @@
 ---
 
-- name: services > Services
+- name: Services > Services
   ansible.builtin.service:
     name: "{{ item }}"
-    state: "{{
-      'restarted'
-        if (
-          __manala_grafana_config_template_result | default({}) is changed
-        ) else
-      'started'
-    }}"
+    state: |-
+      {{
+        'restarted'
+          if (
+            __manala_grafana_config_template_result | default({}) is changed
+          ) else
+        'started'
+      }}
     enabled: true
   loop:
     - grafana-server

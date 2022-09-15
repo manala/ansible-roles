@@ -1,6 +1,6 @@
 ---
 
-- name: databases > Create mysql databases
+- name: Databases > Create mysql databases
   community.mysql.mysql_db:
     name: "{{ item.name }}"
     encoding: "{{ item.encoding | default('utf8') }}"

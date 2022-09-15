@@ -1,6 +1,6 @@
 ---
 
-- name: fpm_pools > Exclusive
+- name: Fpm Pools > Exclusive
   ansible.builtin.find:
     path: "{{ manala_php_fpm_pools_dir }}"
     file_type: file
@@ -9,35 +9,37 @@
   register: __manala_php_fpm_pools_exclusive_find
   when: manala_php_fpm_pools_exclusive
 
-- name: fpm_pools > Templates present
+- name: Fpm Pools > Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_php_fpm_pools,
-    __manala_php_fpm_pools_exclusive_find.files | default([]),
-    manala_php_fpm_pools_dir,
-    manala_php_fpm_pools_defaults.template | default('fpm_pools/_default.j2', true),
-    wantstate='present'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_php_fpm_pools,
+      __manala_php_fpm_pools_exclusive_find.files | default([]),
+      manala_php_fpm_pools_dir,
+      manala_php_fpm_pools_defaults.template | default('fpm_pools/_default.j2', true),
+      wantstate='present'
+    ) }}
   notify:
     - Restart php fpm
 
-- name: fpm_pools > Files absent
+- name: Fpm Pools > Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_php_fpm_pools,
-    __manala_php_fpm_pools_exclusive_find.files | default([]),
-    manala_php_fpm_pools_dir,
-    manala_php_fpm_pools_defaults.template | default('fpm_pools/_default.j2', true),
-    wantstate='absent'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_php_fpm_pools,
+      __manala_php_fpm_pools_exclusive_find.files | default([]),
+      manala_php_fpm_pools_dir,
+      manala_php_fpm_pools_defaults.template | default('fpm_pools/_default.j2', true),
+      wantstate='absent'
+    ) }}
   notify:
     - Restart php fpm

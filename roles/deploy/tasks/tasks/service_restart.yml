@@ -1,11 +1,11 @@
 ---
 
-- name: tasks/service_restart
+- name: Tasks / Service Restart
   tags:
     - manala_deploy
   block:
 
-    - name: tasks/service_restart > "{{ item.options }}"
+    - name: Tasks / Service Restart > "{{ item.options }}"
       ansible.builtin.service:
         name: "{{ item.options }}"
         state: restarted

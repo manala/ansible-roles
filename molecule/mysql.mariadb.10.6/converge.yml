@@ -10,7 +10,7 @@
     - debian
     - "!debian.stretch"
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -41,17 +41,18 @@
     - debian
     - "!debian.stretch"
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
           vars:
-            manala_mysql_install_python_packages: "{{
-              (ansible_python.version.major == 2) | ternary(
-                ['python-pymysql'],
-                ['python3-pymysql']
-              )
-            }}"
+            manala_mysql_install_python_packages: |
+              {{
+                (ansible_python.version.major == 2) | ternary(
+                  ['python-pymysql'],
+                  ['python3-pymysql']
+                )
+              }}
             manala_mysql_install_packages:
               - mariadb-server
               - mariadb-client
@@ -79,7 +80,9 @@
 
 - name: Client
   tags: [client]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Packages absent
       ansible.builtin.apt:
@@ -87,7 +90,7 @@
           - mariadb-server
           - mariadb-client
         state: absent
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -108,7 +111,9 @@
 
 - name: Config
   tags: [config]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/mysql/config
   tasks:
@@ -117,7 +122,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Dict
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -162,7 +167,9 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/mysql/configs
   tasks:
@@ -179,7 +186,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks
@@ -264,7 +271,9 @@
 
 - name: Data
   tags: [data]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/mysql/data
   tasks:
@@ -273,7 +282,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -305,7 +314,9 @@
 
 - name: Users
   tags: [users]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Role - Default
       ansible.builtin.import_role:
@@ -324,7 +335,7 @@
       loop: [
         state_absent_existing, state_ignore_existing,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
@@ -366,7 +377,9 @@
 
 - name: Databases
   tags: [databases]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - name: Role - Default
       ansible.builtin.import_role:
@@ -386,7 +399,7 @@
       loop: [
         state_absent_existing, state_ignore_existing,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql

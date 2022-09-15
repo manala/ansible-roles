@@ -1,14 +1,15 @@
 ---
 
 # Flags
-__manala_apt: "{{
-  {
-    'update': False
-  } | combine(
-    manala | default({}),
-    manala_apt
-  )
-}}"
+__manala_apt: |
+  {{
+    {
+      'update': False
+    } | combine(
+      manala | default({}),
+      manala_apt
+    )
+  }}
 
 # Repositories
 manala_apt_repositories_patterns:
@@ -220,7 +221,7 @@ manala_apt_repositories_patterns:
   ansible:
     source: >-
       deb http://ppa.launchpad.net/ansible/ansible/ubuntu
-      {{ {'stretch':'xenial', 'buster':'bionic', 'bullseye':'focal'}[ansible_distribution_release] }}
+      {{ {'stretch': 'xenial', 'buster': 'bionic', 'bullseye': 'focal'}[ansible_distribution_release] }}
       main
     key: ansible
   blackfire:
@@ -512,13 +513,14 @@ manala_apt_preferences_patterns:
   thumbor: thumbor python-libthumbor
   mica: mica
   sensu-go: sensu-go-*
-  ffmpeg: "ffmpeg {{
-    {
-      'stretch': 'libavcodec57 libavdevice57 libavfilter6 libavformat57 libavresample3 libavutil55 libpostproc54 libswresample2 libswscale4',
-      'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
-      'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
-    }[ansible_distribution_release]
-  }}"
+  ffmpeg: |-
+    ffmpeg {{
+      {
+        'stretch': 'libavcodec57 libavdevice57 libavfilter6 libavformat57 libavresample3 libavutil55 libpostproc54 libswresample2 libswscale4',
+        'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
+        'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
+      }[ansible_distribution_release]
+    }}
   glusterfs: glusterfs-*
   newrelic-infra: newrelic-infra
   filebeat: filebeat*

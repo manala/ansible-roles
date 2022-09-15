@@ -1,6 +1,6 @@
 ---
 
-- name: users > Create mysql users
+- name: Users > Create mysql users
   community.mysql.mysql_user:
     name: "{{ item.name }}"
     password: "{{ item.password | default(omit) }}"

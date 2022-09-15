@@ -1,11 +1,11 @@
 ---
 
-- name: tasks/symfony_assets_version
+- name: Tasks / Symfony Assets Version
   tags:
     - manala_deploy
   block:
 
-    - name: tasks/symfony_assets_version > Set assets version
+    - name: Tasks / Symfony Assets Version > Set assets version
       ansible.builtin.set_fact:
         __manala_deploy_symfony_assets_version: "{{
           manala_deploy_strategy_git_head
@@ -13,7 +13,7 @@
           deploy_helper.new_release
         }}"
 
-    - name: tasks/symfony_assets_version > Replace assets_version in parameters.yml
+    - name: Tasks / Symfony Assets Version > Replace assets_version in parameters.yml
       ansible.builtin.lineinfile:
         dest: "{{ item.dir }}/app/config/parameters.yml"
         regexp: "^(\\s*)assets_version:"

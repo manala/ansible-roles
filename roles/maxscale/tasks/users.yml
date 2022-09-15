@@ -1,6 +1,6 @@
 ---
 
-- name: users > Template
+- name: Users > Template
   ansible.builtin.template:
     src: "{{ manala_maxscale_users_template | default('users/_default.j2', true) }}"
     dest: "{{ manala_maxscale_users_file }}"

@@ -1,9 +1,9 @@
 ---
 
-- name: services > Facts
+- name: Services > Facts
   ansible.builtin.service_facts:
 
-- name: services > Template
+- name: Services > Template
   ansible.builtin.template:
     src: "{{ manala_prometheus_service_template | default('services/_default.j2', true) }}"
     dest: "{{ manala_prometheus_service_file }}"
@@ -13,7 +13,7 @@
   notify:
     - Restart prometheus
 
-- name: services > Services
+- name: Services > Services
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: started
@@ -26,7 +26,7 @@
 # Node Exporter #
 #################
 
-- name: services > Node Exporter > Template
+- name: Services > Node Exporter > Template
   ansible.builtin.template:
     src: "{{ manala_prometheus_node_exporter_service_template | default('services/node_exporter/_default.j2', true) }}"
     dest: "{{ manala_prometheus_node_exporter_service_file }}"
@@ -37,7 +37,7 @@
   notify:
     - Restart prometheus node exporter
 
-- name: services > Node Exporter > Services
+- name: Services > Node Exporter > Services
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: "{{ manala_prometheus_node_exporter | ternary('started', 'stopped') }}"
@@ -49,7 +49,7 @@
     manala_prometheus_node_exporter
     or (not manala_prometheus_node_exporter and manala_prometheus_node_exporter_service ~ '.service' in ansible_facts.services)
 
-- name: services > Node Exporter > Remove
+- name: Services > Node Exporter > Remove
   ansible.builtin.file:
     path: "{{ manala_prometheus_node_exporter_service_file }}"
     state: absent
@@ -59,7 +59,7 @@
 # Nginx Exporter #
 ##################
 
-- name: services > Nginx Exporter > Template
+- name: Services > Nginx Exporter > Template
   ansible.builtin.template:
     src: "{{ manala_prometheus_nginx_exporter_service_template | default('services/nginx_exporter/_default.j2', true) }}"
     dest: "{{ manala_prometheus_nginx_exporter_service_file }}"
@@ -70,7 +70,7 @@
   notify:
     - Restart prometheus nginx exporter
 
-- name: services > Nginx Exporter > Services
+- name: Services > Nginx Exporter > Services
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: "{{ manala_prometheus_nginx_exporter | ternary('started', 'stopped') }}"
@@ -82,7 +82,7 @@
     manala_prometheus_nginx_exporter
     or (not manala_prometheus_nginx_exporter and manala_prometheus_nginx_exporter_service ~ '.service' in ansible_facts.services)
 
-- name: services > Nginx Exporter > Remove
+- name: Services > Nginx Exporter > Remove
   ansible.builtin.file:
     path: "{{ manala_prometheus_nginx_exporter_service_file }}"
     state: absent
@@ -92,7 +92,7 @@
 # Php Fpm Exporter #
 ####################
 
-- name: services > Php Fpm Exporter > Template
+- name: Services > Php Fpm Exporter > Template
   ansible.builtin.template:
     src: "{{ manala_prometheus_php_fpm_exporter_service_template | default('services/php_fpm_exporter/_default.j2', true) }}"
     dest: "{{ manala_prometheus_php_fpm_exporter_service_file }}"
@@ -103,7 +103,7 @@
   notify:
     - Restart prometheus php fpm exporter
 
-- name: services > Php Fpm Exporter > Services
+- name: Services > Php Fpm Exporter > Services
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: "{{ manala_prometheus_php_fpm_exporter | ternary('started', 'stopped') }}"
@@ -115,7 +115,7 @@
     manala_prometheus_php_fpm_exporter
     or (not manala_prometheus_php_fpm_exporter and manala_prometheus_php_fpm_exporter_service ~ '.service' in ansible_facts.services)
 
-- name: services > Php Fpm Exporter > Remove
+- name: Services > Php Fpm Exporter > Remove
   ansible.builtin.file:
     path: "{{ manala_prometheus_php_fpm_exporter_service_file }}"
     state: absent

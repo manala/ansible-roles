@@ -1,6 +1,6 @@
 ---
 
-- name: custom themes > Directory
+- name: Custom Themes > Directory
   ansible.builtin.file:
     path: "{{ manala_ohmyzsh_custom_themes_dir }}"
     state: directory
@@ -9,7 +9,7 @@
     mode: "0755"
   when: manala_ohmyzsh_custom_themes | length
 
-- name: custom themes > Exclusive
+- name: Custom Themes > Exclusive
   ansible.builtin.find:
     path: "{{ manala_ohmyzsh_custom_themes_dir }}"
     file_type: file
@@ -18,31 +18,33 @@
   register: __manala_ohmyzsh_custom_themes_exclusive_find
   when: manala_ohmyzsh_custom_themes_exclusive
 
-- name: custom themes > Templates present
+- name: Custom Themes > Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_ohmyzsh_custom_themes,
-    __manala_ohmyzsh_custom_themes_exclusive_find.files | default([]),
-    manala_ohmyzsh_custom_themes_dir,
-    manala_ohmyzsh_custom_themes_defaults.template | default('custom/themes/_default.j2', true),
-    wantstate='present'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_ohmyzsh_custom_themes,
+      __manala_ohmyzsh_custom_themes_exclusive_find.files | default([]),
+      manala_ohmyzsh_custom_themes_dir,
+      manala_ohmyzsh_custom_themes_defaults.template | default('custom/themes/_default.j2', true),
+      wantstate='present'
+    ) }}
 
-- name: custom themes > Files absent
+- name: Custom Themes > Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_ohmyzsh_custom_themes,
-    __manala_ohmyzsh_custom_themes_exclusive_find.files | default([]),
-    manala_ohmyzsh_custom_themes_dir,
-    manala_ohmyzsh_custom_themes_defaults.template | default('custom/themes/_default.j2', true),
-    wantstate='absent'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_ohmyzsh_custom_themes,
+      __manala_ohmyzsh_custom_themes_exclusive_find.files | default([]),
+      manala_ohmyzsh_custom_themes_dir,
+      manala_ohmyzsh_custom_themes_defaults.template | default('custom/themes/_default.j2', true),
+      wantstate='absent'
+    ) }}

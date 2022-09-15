@@ -1,6 +1,6 @@
 ---
 
-- name: install > Packages
+- name: Install > Packages
   ansible.builtin.apt:
     name: "{{ item }}"
     install_recommends: false
@@ -9,7 +9,7 @@
   loop:
     - "{{ manala_composer_install_packages | default(manala_composer_install_packages_default, True) }}"
 
-- name: install > Check
+- name: Install > Check
   ansible.builtin.command: >
     {{ manala_composer_bin }} --version --no-interaction
   register: __manala_composer_bin_check_result
@@ -17,7 +17,7 @@
   failed_when: false
   check_mode: false
 
-- name: install > Download
+- name: Install > Download
   ansible.builtin.get_url:
     url: "{{
       'https://getcomposer.org/download/%(version)s/composer.phar' | format(version=manala_composer_version)
@@ -29,7 +29,8 @@
     group: "{{ (ansible_distribution_release in ['stretch']) | ternary('staff', 'root') }}"
     mode: "0755"
     force: true
-  when: (__manala_composer_bin_check_result.rc == 2)
+  when: |
+    (__manala_composer_bin_check_result.rc == 2)
     or (
       manala_composer_version | string is match('^\\d+\\.\\d+\\.\\d+$')
       and (

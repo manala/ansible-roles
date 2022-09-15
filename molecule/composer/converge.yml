@@ -10,7 +10,7 @@
     - debian
     - "!debian.stretch"
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.composer
@@ -38,7 +38,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Fixed
           ansible.builtin.import_role:
             name: manala.roles.composer
@@ -111,7 +111,7 @@
     - debian
     - "!debian.stretch"
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.composer

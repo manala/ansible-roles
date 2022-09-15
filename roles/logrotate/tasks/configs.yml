@@ -1,6 +1,6 @@
 ---
 
-- name: configs > Exclusive
+- name: Configs > Exclusive
   ansible.builtin.find:
     path: "{{ manala_logrotate_configs_dir }}"
     file_type: file
@@ -9,31 +9,33 @@
   register: __manala_logrotate_configs_exclusive_find
   when: manala_logrotate_configs_exclusive
 
-- name: configs > Templates present
+- name: Configs > Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_logrotate_configs,
-    __manala_logrotate_configs_exclusive_find.files | default([]),
-    manala_logrotate_configs_dir,
-    manala_logrotate_configs_defaults.template | default('configs/_default.j2', true),
-    wantstate='present'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_logrotate_configs,
+      __manala_logrotate_configs_exclusive_find.files | default([]),
+      manala_logrotate_configs_dir,
+      manala_logrotate_configs_defaults.template | default('configs/_default.j2', true),
+      wantstate='present'
+    ) }}
 
-- name: configs > Files absent
+- name: Configs > Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_logrotate_configs,
-    __manala_logrotate_configs_exclusive_find.files | default([]),
-    manala_logrotate_configs_dir,
-    manala_logrotate_configs_defaults.template | default('configs/_default.j2', true),
-    wantstate='absent'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_logrotate_configs,
+      __manala_logrotate_configs_exclusive_find.files | default([]),
+      manala_logrotate_configs_dir,
+      manala_logrotate_configs_defaults.template | default('configs/_default.j2', true),
+      wantstate='absent'
+    ) }}
