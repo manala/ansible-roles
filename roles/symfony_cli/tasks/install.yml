@@ -1,11 +1,11 @@
 ---
 
-- name: install > Stat bin
+- name: Install > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_symfony_cli_bin }}"
   register: __manala_symfony_cli_bin_stat_result
 
-- name: install > Get latest version
+- name: Install > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/symfony-cli/symfony-cli/releases/latest
   check_mode: false
@@ -14,40 +14,47 @@
     - not __manala_symfony_cli_bin_stat_result.stat.exists
     - manala_symfony_cli_version is none
 
-- name: install > Install
+- name: Install > Install
   when: not __manala_symfony_cli_bin_stat_result.stat.exists
   vars:
-    __manala_symfony_cli_version: "{{
-      manala_symfony_cli_version
-        if (manala_symfony_cli_version) else
-      __manala_symfony_cli_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
-    }}"
-    __manala_symfony_cli_archive: "{{
-      'symfony-cli_linux_%(architecture)s' | format(
-        architecture=ansible_architecture | manala.roles.symfony_cli_architecture,
-      )
-    }}"
-    __manala_symfony_cli_archive_url: "{{
-      'https://github.com/symfony-cli/symfony-cli/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
-        version=__manala_symfony_cli_version,
-        archive=__manala_symfony_cli_archive,
-      )
-    }}"
+    __manala_symfony_cli_version: |-
+      {{
+        manala_symfony_cli_version
+          if (manala_symfony_cli_version) else
+        __manala_symfony_cli_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_symfony_cli_archive: |-
+      {{
+        'symfony-cli_linux_%(architecture)s' | format(
+          architecture=ansible_architecture | manala.roles.symfony_cli_architecture,
+        )
+      }}
+    __manala_symfony_cli_archive_url: |-
+      {{
+        'https://github.com/symfony-cli/symfony-cli/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
+          version=__manala_symfony_cli_version,
+          archive=__manala_symfony_cli_archive,
+        )
+      }}
+    __manala_symfony_cli_archive_bin: symfony
+
   block:
 
-    - name: install > Download binary
+    - name: Install > Download binary
       ansible.builtin.unarchive:
         src: "{{ __manala_symfony_cli_archive_url }}"
         remote_src: true
         dest: "{{ manala_symfony_cli_bin | dirname }}"
         extra_opts:
-          - "{{
-              '--transform=s,^symfony,%(file)s,' | format(
+          - |-
+            {{
+              '--transform=s,^%(bin)s,%(file)s,' | format(
+                bin=__manala_symfony_cli_archive_bin,
                 file=manala_symfony_cli_bin | basename,
               )
-            }}"
+            }}
         include:
-          - symfony
+          - "{{ __manala_symfony_cli_archive_bin }}"
         owner: root
         group: root
         mode: "0755"

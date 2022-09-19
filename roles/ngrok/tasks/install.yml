@@ -1,11 +1,11 @@
 ---
 
-- name: install > Stat bin
+- name: Install > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_ngrok_bin }}"
   register: __manala_ngrok_bin_stat_result
 
-- name: install > Get version
+- name: Install > Get version
   ansible.builtin.uri:
     url: https://dl.equinox.io/ngrok/ngrok-v3/stable/archive
     return_content: true
@@ -15,34 +15,38 @@
     - not __manala_ngrok_bin_stat_result.stat.exists
     - manala_ngrok_version is not none
 
-- name: install > Install
+- name: Install > Install
   when: not __manala_ngrok_bin_stat_result.stat.exists
   vars:
-    __manala_ngrok_archive_url: "{{
-      __manala_ngrok_version.content | default | regex_search(
-        'https://[^\"]+ngrok-v3-%(version)s-linux-%(architecture)s.tar.gz' | format(
-          version=manala_ngrok_version,
+    __manala_ngrok_archive_url: |-
+      {{
+        __manala_ngrok_version.content | default | regex_search(
+          'https://[^"]+ngrok-v3-%(version)s-linux-%(architecture)s.tar.gz' | format(
+            version=manala_ngrok_version,
+            architecture=ansible_architecture | manala.roles.ngrok_architecture,
+          )
+        )
+          if (manala_ngrok_version) else
+        'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-%(architecture)s.tgz' | format(
           architecture=ansible_architecture | manala.roles.ngrok_architecture,
         )
-      )
-        if (manala_ngrok_version) else
-      'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-%(architecture)s.tgz' | format(
-        architecture=ansible_architecture | manala.roles.ngrok_architecture,
-      )
-    }}"
+      }}
+    __manala_ngrok_archive_bin: ngrok
   block:
 
-    - name: install > Download binary
+    - name: Install > Download binary
       ansible.builtin.unarchive:
         src: "{{ __manala_ngrok_archive_url }}"
         remote_src: true
         dest: "{{ manala_ngrok_bin | dirname }}"
         extra_opts:
-          - "{{
-              '--transform=s,^ngrok,%(file)s,' | format(
+          - |-
+            {{
+              '--transform=s,^%(bin)s,%(file)s,' | format(
+                bin=__manala_ngrok_archive_bin,
                 file=manala_ngrok_bin | basename,
               )
-            }}"
+            }}
         owner: root
         group: root
         mode: "0755"
