@@ -15,7 +15,7 @@
       always:
         - name: Goss
           ansible.builtin.command:
-            cmd: goss --gossfile - validate
+            cmd: goss --gossfile - validate --retry-timeout 10s
             stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
           changed_when: false
 

@@ -44,8 +44,9 @@
         'dashboard': lookup('ansible.builtin.file', item.template) | from_json,
         'overwrite': item.overwrite | default(true),
         'inputs': item.inputs | default([])
-      } | to_json
+      }
     }}"
+    body_format: json
     force_basic_auth: true
     user: "{{ manala_grafana_api_user }}"
     password: "{{ manala_grafana_api_password }}"

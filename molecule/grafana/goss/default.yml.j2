@@ -13,8 +13,7 @@ process:
   grafana-server:
     running: true
 
-port:
-  tcp6:3000:
-    listening: true
-    ip:
-      - '::'
+http:
+  http://admin:admin@127.0.0.1:3000:
+    status: 200
+    timeout: 1000

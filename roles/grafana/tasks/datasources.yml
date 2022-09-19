@@ -20,7 +20,8 @@
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/datasources/{{ item[0].id }}"
     method: PUT
-    body: "{{ item[1] | to_json }}"
+    body: "{{ item[1] }}"
+    body_format: json
     force_basic_auth: true
     user: "{{ manala_grafana_api_user }}"
     password: "{{ manala_grafana_api_password }}"
@@ -41,7 +42,8 @@
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/datasources"
     method: POST
-    body: '{{ item | to_json }}'
+    body: "{{ item }}"
+    body_format: json
     force_basic_auth: true
     user: "{{ manala_grafana_api_user }}"
     password: "{{ manala_grafana_api_password }}"
