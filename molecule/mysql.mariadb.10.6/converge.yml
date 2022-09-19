@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role
@@ -35,7 +37,9 @@
 
 - name: Default PyMySQL
   tags: [default, default.pymysql]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role
