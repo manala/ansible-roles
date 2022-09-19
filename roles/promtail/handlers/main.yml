@@ -1,0 +1,9 @@
+---
+
+- name: Restart promtail
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: true
+  loop:
+    - "{{ manala_promtail_service }}"

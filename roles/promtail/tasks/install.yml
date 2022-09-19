@@ -1,0 +1,71 @@
+---
+
+- name: Install > Stat bin
+  ansible.builtin.stat:
+    path: "{{ manala_promtail_bin }}"
+  register: __manala_promtail_bin_stat_result
+
+- name: Install > Get latest version
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/grafana/loki/releases/latest
+  check_mode: false
+  register: __manala_promtail_version_latest
+  when:
+    - not __manala_promtail_bin_stat_result.stat.exists
+    - manala_promtail_version is none
+
+- name: Install > Install
+  when: not __manala_promtail_bin_stat_result.stat.exists
+  vars:
+    __manala_promtail_version: |-
+      {{
+        manala_promtail_version
+          if (manala_promtail_version) else
+        __manala_promtail_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_promtail_archive: |-
+      {{
+        'promtail-linux-%(architecture)s' | format(
+          architecture=ansible_architecture | manala.roles.promtail_architecture,
+        )
+      }}
+    __manala_promtail_archive_url: |-
+      {{
+        'https://github.com/grafana/loki/releases/download/v%(version)s/%(archive)s.zip' | format(
+          version=__manala_promtail_version,
+          archive=__manala_promtail_archive,
+        )
+      }}
+    __manala_promtail_archive_bin: |-
+      {{
+        'promtail-linux-%(architecture)s' | format(
+          architecture=ansible_architecture | manala.roles.promtail_architecture,
+        )
+      }}
+
+  block:
+
+    - name: Install > Create temporary directory
+      ansible.builtin.tempfile:
+        state: directory
+      register: __manala_promtail_temporary_directory
+
+    - name: Install > Download to temporary directory
+      ansible.builtin.unarchive:
+        src: "{{ __manala_promtail_archive_url }}"
+        remote_src: true
+        dest: "{{ __manala_promtail_temporary_directory.path }}"
+
+    - name: Install > Copy binary
+      ansible.builtin.copy:
+        src: "{{ __manala_promtail_temporary_directory.path }}/{{ __manala_promtail_archive_bin }}"
+        remote_src: true
+        dest: "{{ manala_promtail_bin }}"
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Install > Delete temporary directory
+      ansible.builtin.file:
+        path: "{{ __manala_promtail_temporary_directory.path }}"
+        state: absent

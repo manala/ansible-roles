@@ -1,0 +1,9 @@
+---
+
+- name: Data > Directory
+  ansible.builtin.file:
+    path: "{{ manala_promtail_data_dir }}"
+    state: directory
+    owner: "{{ manala_promtail_user }}"
+    group: "{{ manala_promtail_group }}"
+    mode: "0755"

@@ -1,0 +1,11 @@
+{%- set config = manala_promtail_config -%}
+
+{%- if config is mapping -%}
+
+{{ config | manala.roles.yaml }}
+
+{%- else -%}
+
+{{ config }}
+
+{%- endif -%}

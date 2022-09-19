@@ -1,0 +1,22 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name: promtail
+  author: Manala
+  company: Manala
+  description: Handle promtail
+  license: MIT
+  min_ansible_version: 2.10.0
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+        - bullseye
+  galaxy_tags:
+    - log
+    - promtail

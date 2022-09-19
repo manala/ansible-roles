@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- [Promtail] Introduce role
 ### Changed
 - [Apparmor] Deprecate handler "apparmor reload" in favor of "Reload apparmor"
 - [Cron] Deprecate handler "cron restart" in favor of "Restart cron"

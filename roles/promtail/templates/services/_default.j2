@@ -1,0 +1,21 @@
+[Unit]
+Description=Promtail
+
+[Service]
+Restart=on-failure
+User={{ manala_promtail_user }}
+Group={{ manala_promtail_group }}
+WorkingDirectory={{ manala_promtail_data_dir }}
+ExecStart={{ manala_promtail_bin }} \
+  -config.file={{ manala_promtail_config_file }} \
+  -positions.file=positions.yaml{% if manala_promtail_service_args %} \
+{% for arg in manala_promtail_service_args %}
+  {{ arg }}{% if not loop.last %} \{% endif %}
+
+{% endfor %}
+{% endif %}
+
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
