@@ -1,0 +1,67 @@
+---
+
+group:
+  # Accounts
+  {{ manala_promtail_group }}:
+    exists: true
+
+user:
+  # Accounts
+  {{ manala_promtail_user }}:
+    exists: true
+    groups:
+      - {{ manala_promtail_group }}
+    home: {{ manala_promtail_data_dir }}
+    shell: /usr/sbin/nologin
+
+file:
+  # Install
+  {{ manala_promtail_bin }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+  # Config
+  {{ manala_promtail_config_file | dirname }}:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  {{ manala_promtail_config_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  # Data
+  {{ manala_promtail_data_dir }}:
+    exists: true
+    filetype: directory
+    owner: {{ manala_promtail_user }}
+    group: {{ manala_promtail_group }}
+    mode: "0755"
+  # Services
+  {{ manala_promtail_service_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "[Unit]"
+      - "Description=Promtail"
+
+command:
+# Install
+  {{ manala_promtail_bin }} --version:
+    exit-status: 0
+    stdout:
+      - promtail, version
+
+service:
+  # Services
+  promtail:
+    enabled: true
+    running: true
