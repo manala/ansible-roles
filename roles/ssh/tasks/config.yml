@@ -1,6 +1,6 @@
 ---
 
-- name: config > Server - Template
+- name: Config > Server - Template
   ansible.builtin.template:
     src: "{{ manala_ssh_server_config_template | default('config/server/_default.j2', true) }}"
     dest: "{{ manala_ssh_server_config_file }}"
@@ -14,7 +14,7 @@
   notify:
     - Reload ssh
 
-- name: config > Client - Template
+- name: Config > Client - Template
   ansible.builtin.template:
     src: "{{ manala_ssh_client_config_template | default('config/client/_default.j2', true) }}"
     dest: "{{ manala_ssh_client_config_file }}"

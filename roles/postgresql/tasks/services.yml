@@ -1,16 +1,17 @@
 ---
 
-- name: services > Ensure service is started or restarted
+- name: Services > Ensure service is started or restarted
   ansible.builtin.service:
     name: "{{ item }}"
-    state: "{{
-      'restarted'
-        if (
-          __manala_postgresql_config_template_result | default({}) is changed
-          or __manala_postgresql_config_hba_template_result | default({}) is changed
-        ) else
-      'started'
-    }}"
+    state: |-
+      {{
+        'restarted'
+          if (
+            __manala_postgresql_config_template_result | default({}) is changed
+            or __manala_postgresql_config_hba_template_result | default({}) is changed
+          ) else
+        'started'
+      }}
     enabled: true
   loop:
     - postgresql

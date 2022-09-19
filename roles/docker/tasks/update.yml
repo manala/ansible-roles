@@ -1,6 +1,6 @@
 ---
 
-- name: update > Pull  # noqa risky-shell-pipe
+- name: Update > Pull  # noqa risky-shell-pipe
   ansible.builtin.shell: |
     docker images \
       | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \

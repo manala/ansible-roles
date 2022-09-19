@@ -1,6 +1,6 @@
 ---
 
-- name: known_hosts > Known hosts
+- name: Known Hosts > Known hosts
   ansible.builtin.known_hosts:
     host: "{{ item.host }}"
     key: "{{
@@ -10,8 +10,9 @@
     }}"
     state: "{{ item.state | default('present') }}"
     path: "{{ item.path | default('/etc/ssh/ssh_known_hosts') }}"
-  loop: "{{ query(
-    'manala.roles.ssh_known_hosts',
-    manala_ssh_known_hosts,
-    manala_ssh_known_hosts_patterns
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.ssh_known_hosts',
+      manala_ssh_known_hosts,
+      manala_ssh_known_hosts_patterns
+    ) }}

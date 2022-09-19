@@ -18,7 +18,7 @@
       ansible.builtin.file:
         path: "{{ tests_dir }}/directory/file"
         state: touch
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mount

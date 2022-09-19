@@ -2,13 +2,14 @@
 
 # Install
 manala_sensu_go_install_packages: ~
-manala_sensu_go_install_packages_default: "{{
-  ['sensu-go-agent', 'sensu-go-cli']
-  + (manala_sensu_go_backend) | ternary(
-    ['sensu-go-backend'],
-    []
-  )
-}}"
+manala_sensu_go_install_packages_default: |
+  {{
+    ['sensu-go-agent', 'sensu-go-cli']
+    + (manala_sensu_go_backend) | ternary(
+      ['sensu-go-backend'],
+      []
+    )
+  }}
 
 # Backend Config
 manala_sensu_go_backend: false

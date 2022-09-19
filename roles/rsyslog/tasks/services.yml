@@ -1,6 +1,6 @@
 ---
 
-- name: services > Ensure rsyslog is running
+- name: Services > Ensure rsyslog is running
   ansible.builtin.service:
     name: "{{ item }}"
     state: started

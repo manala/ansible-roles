@@ -15,7 +15,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.bind
@@ -43,7 +43,7 @@
         path: "{{ tests_file }}"
         state: "{{ item }}"
       loop: [absent, touch]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.bind
@@ -79,7 +79,7 @@
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [state_absent_existing]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.bind
@@ -124,7 +124,7 @@
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [db.state_absent_existing, db.dynamic_existing]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.bind
@@ -165,7 +165,7 @@
   tags: [zones_records]
   hosts: debian
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.bind

@@ -10,7 +10,7 @@
     - debian.buster
     - debian.bullseye
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.redis
@@ -44,7 +44,7 @@
       ansible.builtin.file:
         path: "{{ tests_dir }}/dict-sentinel"
         state: touch
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks

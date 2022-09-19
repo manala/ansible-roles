@@ -1,6 +1,6 @@
 ---
 
-- name: users > Create Mongo users
+- name: Users > Create Mongo users
   community.mongodb.mongodb_user:
     name: "{{ item.name }}"
     password: "{{ item.password | default(omit) }}"

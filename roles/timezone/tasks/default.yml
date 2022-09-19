@@ -1,6 +1,6 @@
 ---
 
-- name: default > Localtime stat
+- name: Default > Localtime stat
   ansible.builtin.stat:
     path: /etc/localtime
   when: manala_timezone_default is not none
@@ -8,7 +8,7 @@
 
 # If "/etc/localtime" is a regular file, the good old strategy consists in
 # editing "/etc/timezone" and reconfiguring tzdata package...
-- name: default > Timezone content
+- name: Default > Timezone content
   ansible.builtin.copy:
     dest: /etc/timezone
     content: >
@@ -22,7 +22,7 @@
   register: __manala_timezone_default_content_result
 
 # ...on the contrary, if it's a link, we need to update it before reconfiguring tzdata
-- name: default > Localtime link
+- name: Default > Localtime link
   ansible.builtin.file:
     src: /usr/share/zoneinfo/{{ manala_timezone_default | ternary(manala_timezone_default, 'Etc/UTC') }}
     dest: /etc/localtime
@@ -35,7 +35,7 @@
     - __manala_timezone_default_localtime.stat.islnk
   register: __manala_timezone_default_link_result
 
-- name: default > Reconfigure tzdata  # noqa no-handler
+- name: Default > Reconfigure tzdata  # noqa no-handler
   ansible.builtin.command: dpkg-reconfigure --frontend noninteractive tzdata
   when: __manala_timezone_default_content_result | default({}) is changed
     or __manala_timezone_default_link_result | default({}) is changed

@@ -1,6 +1,6 @@
 ---
 
-- name: errorfiles > Exclusive
+- name: Errorfiles > Exclusive
   ansible.builtin.find:
     path: "{{ manala_haproxy_errorfiles_dir }}"
     file_type: file
@@ -9,35 +9,37 @@
   register: __manala_haproxy_errorfiles_exclusive_find
   when: manala_haproxy_errorfiles_exclusive
 
-- name: errorfiles > Templates present
+- name: Errorfiles > Templates present
   ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_haproxy_errorfiles,
-    __manala_haproxy_errorfiles_exclusive_find.files | default([]),
-    manala_haproxy_errorfiles_dir,
-    manala_haproxy_errorfiles_defaults.template | default('errorfiles/_default.j2', true),
-    wantstate='present'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_haproxy_errorfiles,
+      __manala_haproxy_errorfiles_exclusive_find.files | default([]),
+      manala_haproxy_errorfiles_dir,
+      manala_haproxy_errorfiles_defaults.template | default('errorfiles/_default.j2', true),
+      wantstate='present'
+    ) }}
   notify:
     - Reload haproxy
 
-- name: errorfiles > Files absent
+- name: Errorfiles > Files absent
   ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-    'manala.roles.templates_exclusive',
-    manala_haproxy_errorfiles,
-    __manala_haproxy_errorfiles_exclusive_find.files | default([]),
-    manala_haproxy_errorfiles_dir,
-    manala_haproxy_errorfiles_defaults.template | default('errorfiles/_default.j2', true),
-    wantstate='absent'
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_haproxy_errorfiles,
+      __manala_haproxy_errorfiles_exclusive_find.files | default([]),
+      manala_haproxy_errorfiles_dir,
+      manala_haproxy_errorfiles_defaults.template | default('errorfiles/_default.j2', true),
+      wantstate='absent'
+    ) }}
   notify:
     - Reload haproxy

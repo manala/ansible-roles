@@ -1,6 +1,6 @@
 ---
 
-- name: config_daemon > Directory
+- name: Config Daemon > Directory
   ansible.builtin.file:
     path: "{{ manala_docker_config_daemon_file | dirname }}"
     state: directory
@@ -10,7 +10,7 @@
   when: manala_docker_config_daemon_template
     or manala_docker_config_daemon
 
-- name: config_daemon > Template
+- name: Config Daemon > Template
   ansible.builtin.template:
     src: "{{ manala_docker_config_daemon_template | default('config_daemon/_default.j2', true) }}"
     dest: "{{ manala_docker_config_daemon_file }}"

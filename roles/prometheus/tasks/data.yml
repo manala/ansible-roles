@@ -1,6 +1,6 @@
 ---
 
-- name: data > Directory
+- name: Data > Directory
   ansible.builtin.file:
     path: "{{ manala_prometheus_data_dir }}"
     state: directory

@@ -1,23 +1,25 @@
 ---
 
-- name: writable/dirs > "{{ item.dir }}"
+- name: Writable / Dirs > "{{ item.dir }}"
   ansible.builtin.file:
     path: "{{ deploy_helper.new_release_path ~ '/' ~ item.dir }}"
     recurse: "{{ item.recurse | default(omit) }}"
     follow: "{{ item.follow | default(omit) }}"
     mode: "{{ item.mode | default(omit) }}"
     state: directory
-  loop: "{{ query(
-    'manala.roles.deploy_writable_dirs',
-    manala_deploy_writable_dirs,
-    manala_deploy_writable_dirs_default
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.deploy_writable_dirs',
+      manala_deploy_writable_dirs,
+      manala_deploy_writable_dirs_default
+    ) }}
 
-- name: writable/dirs > Raw "{{ item.dir }}"
+- name: Writable / Dirs > Raw "{{ item.dir }}"
   ansible.builtin.raw: "{{ item.raw | format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
   when: item.raw is defined
-  loop: "{{ query(
-    'manala.roles.deploy_writable_dirs',
-    manala_deploy_writable_dirs,
-    manala_deploy_writable_dirs_default
-  ) }}"
+  loop: |
+    {{ query(
+      'manala.roles.deploy_writable_dirs',
+      manala_deploy_writable_dirs,
+      manala_deploy_writable_dirs_default
+    ) }}

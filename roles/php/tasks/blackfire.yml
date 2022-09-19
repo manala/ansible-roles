@@ -1,6 +1,6 @@
 ---
 
-- name: blackfire > Install packages
+- name: Blackfire > Install packages
   ansible.builtin.apt:
     name: "{{ item }}"
     install_recommends: false
@@ -13,7 +13,7 @@
   notify:
     - Restart php fpm
 
-- name: blackfire > Agent config template
+- name: Blackfire > Agent config template
   ansible.builtin.template:
     src: "{{ manala_php_blackfire_agent_config_template | default('blackfire/agent/_default.j2', true) }}"
     dest: "{{ manala_php_blackfire_agent_config_file }}"
@@ -25,7 +25,7 @@
   notify:
     - Restart php blackfire agent
 
-- name: blackfire > Client config template
+- name: Blackfire > Client config template
   ansible.builtin.template:
     src: "{{ manala_php_blackfire_client_config_template | default('blackfire/client/_default.j2', true) }}"
     dest: "{{ manala_php_blackfire_client_config_file }}"
@@ -33,7 +33,7 @@
   when: manala_php_blackfire_client_config_template
     or manala_php_blackfire_client_config
 
-- name: blackfire > Services
+- name: Blackfire > Services
   ansible.builtin.service:
     name: "{{ item }}"
     state: started

@@ -1,6 +1,6 @@
 ---
 
-- name: selections > Alternatives
+- name: Selections > Alternatives
   community.general.alternatives:
     name: "{{ item.selection }}"
     path: "{{ item.path }}"

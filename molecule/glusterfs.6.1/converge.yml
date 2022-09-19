@@ -10,7 +10,7 @@
     - debian.stretch
     - debian.buster
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.glusterfs
@@ -38,7 +38,7 @@
         path: "{{ tests_dir }}/{{ item }}"
         state: directory
       loop: [absent, present, test_1, test_2, test_3]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - 1
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks

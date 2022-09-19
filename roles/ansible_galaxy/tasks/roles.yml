@@ -1,6 +1,6 @@
 ---
 
-- name: roles > Requirements
+- name: Roles > Requirements
   ansible.builtin.copy:
     dest: /tmp/manala_ansible_galaxy_roles.yml
     content: |
@@ -22,7 +22,7 @@
   when: manala_ansible_galaxy_roles | length
   changed_when: false
 
-- name: roles > Install
+- name: Roles > Install
   ansible.builtin.command: >
     {{ manala_ansible_galaxy_bin | ternary(manala_ansible_galaxy_bin, 'ansible-galaxy') }} install
     --role-file=/tmp/manala_ansible_galaxy_roles.yml
@@ -30,7 +30,7 @@
     {{ manala_ansible_galaxy_force | ternary('--force', '') }}
   when: manala_ansible_galaxy_roles | length
 
-- name: roles > Clean requirements
+- name: Roles > Clean requirements
   ansible.builtin.file:
     path: /tmp/manala_ansible_galaxy_roles.yml
     state: absent

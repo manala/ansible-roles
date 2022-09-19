@@ -16,9 +16,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -69,9 +69,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -83,7 +83,7 @@
                 manala_files_attributes:
                   - path: "{{ tests_dir }}/default/default"
         # Parents
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Role
               ansible.builtin.import_role:
                 name: manala.roles.files
@@ -97,10 +97,10 @@
                   - path: "{{ tests_dir }}/parents_defaults/file"
                   - path: "{{ tests_dir }}/parents_unexisting/file"
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # File already exists as empty directory
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directories  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
@@ -118,10 +118,10 @@
                     force: true
                   - path: "{{ tests_dir }}/file_directory_empty/file"
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # File already exists as full directory
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directories  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
@@ -146,10 +146,10 @@
                     force: true
                   - path: "{{ tests_dir }}/file_directory_full/file"
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # File already exists as link to file
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/file_link_file"
@@ -175,7 +175,7 @@
                     force: true
                   - path: "{{ tests_dir }}/file_link_file/file"
         # File already exists as link to directory
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directories  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
@@ -200,7 +200,7 @@
                     force: true
                   - path: "{{ tests_dir }}/file_link_directory/file"
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
       always:
         - name: Goss
@@ -233,9 +233,9 @@
       ansible.builtin.file:
         path: "{{ tests_dir }}/directory"
         state: directory
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -264,7 +264,7 @@
                       src: "{{ tests_dir }}/default/link_directory"
                       state: link
         # Parents
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Role
               ansible.builtin.import_role:
                 name: manala.roles.files
@@ -284,10 +284,10 @@
                     src: "{{ tests_dir }}/file"
                     state: link_directory
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # Wrong
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/wrong"
@@ -306,7 +306,7 @@
                     src: "{{ tests_dir }}/directory"
                     state: link
         # Link already exists as file
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/link_file"
@@ -331,10 +331,10 @@
                     src: "{{ tests_dir }}/file"
                     state: link
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # Link already exists as empty directory
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directories  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
@@ -356,10 +356,10 @@
                     src: "{{ tests_dir }}/file"
                     state: link
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # Link already exists as full directory
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directories  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
@@ -388,7 +388,7 @@
                     src: "{{ tests_dir }}/file"
                     state: link
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
       always:
         - name: Goss
@@ -413,9 +413,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: File  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -428,7 +428,7 @@
                   - path: "{{ tests_dir }}/default/default"
                     state: directory
         # Directory already exists as file
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/directory_file"
@@ -451,10 +451,10 @@
                   - path: "{{ tests_dir }}/directory_file/directory"
                     state: directory
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # Directory already exists as link to file
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/directory_link_file"
@@ -482,10 +482,10 @@
                   - path: /"tmp/directory/directory_link_file/directory"
                     state: directory
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
         # Directory already exists as link to directory
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directories  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/{{ item }}"
@@ -534,7 +534,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
         - name: Directory  # noqa risky-file-permissions
           ansible.builtin.file:
@@ -544,7 +544,7 @@
           ansible.builtin.file:
             path: "{{ tests_dir }}/default/absent"
             state: touch
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Role
               ansible.builtin.import_role:
                 name: manala.roles.files
@@ -584,9 +584,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -627,9 +627,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -657,7 +657,7 @@
                     - path: "{{ tests_dir }}/default/ignore"
                       state: ignore
         # Parents
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Roles
               ansible.builtin.import_role:
                 name: manala.roles.files
@@ -677,7 +677,7 @@
                     content: |
                       Content defaults parents
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
       always:
         - name: Goss
@@ -702,9 +702,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -730,7 +730,7 @@
                     - path: "{{ tests_dir }}/default/ignore"
                       state: ignore
         # Parents
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Role
               ansible.builtin.import_role:
                 name: manala.roles.files
@@ -747,7 +747,7 @@
                   - path: "{{ tests_dir }}/parents_unexisting/template"
                     template: fixtures/template.j2
           rescue:
-            - ansible.builtin.debug:  # noqa unnamed-task
+            - ansible.builtin.debug:  # noqa name[missing]
                 msg: A planned error has been caught...
       always:
         - name: Goss
@@ -772,9 +772,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"
@@ -821,9 +821,9 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         # Default
-        - block:  # noqa unnamed-task
+        - block:  # noqa name[missing]
             - name: Directory  # noqa risky-file-permissions
               ansible.builtin.file:
                 path: "{{ tests_dir }}/default"

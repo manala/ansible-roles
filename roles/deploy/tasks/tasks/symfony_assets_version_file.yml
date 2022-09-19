@@ -1,11 +1,11 @@
 ---
 
-- name: tasks/symfony_assets_version_file
+- name: Tasks / Symfony Assets Version File
   tags:
     - manala_deploy
   block:
 
-    - name: tasks/symfony_assets_version_file > Set assets version
+    - name: Tasks / Symfony Assets Version File > Set assets version
       ansible.builtin.set_fact:
         __manala_deploy_symfony_assets_version: "{{
           manala_deploy_strategy_git_head
@@ -13,7 +13,7 @@
           deploy_helper.new_release
         }}"
 
-    - name: tasks/symfony_assets_version_file > Generate assets_version.yml  # noqa risky-file-permissions
+    - name: Tasks / Symfony Assets Version File > Generate assets_version.yml  # noqa risky-file-permissions
       ansible.builtin.copy:
         dest: "{{ item.dir }}/app/config/assets_version.yml"
         force: true

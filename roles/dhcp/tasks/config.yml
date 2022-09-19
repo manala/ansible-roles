@@ -1,6 +1,6 @@
 ---
 
-- name: config > Template
+- name: Config > Template
   ansible.builtin.template:
     src: "{{ manala_dhcp_config_template }}"
     dest: "{{ manala_dhcp_config_file }}"
@@ -11,7 +11,7 @@
   notify:
     - Restart dhcp
 
-- name: config > Content
+- name: Config > Content
   ansible.builtin.copy:
     content: "{{ manala_dhcp_config_content }}"
     dest: "{{ manala_dhcp_config_file }}"

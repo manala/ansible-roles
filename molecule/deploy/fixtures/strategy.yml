@@ -1,6 +1,6 @@
 ---
 
-- block:  # noqa unnamed-task
+- block:  # noqa name[missing]
     - name: strategy > Create release dir
       ansible.builtin.file:
         path: "{{ deploy_helper.new_release_path }}/"

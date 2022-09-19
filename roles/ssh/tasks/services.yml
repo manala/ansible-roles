@@ -1,6 +1,6 @@
 ---
 
-- name: services > Services
+- name: Services > Services
   ansible.builtin.service:
     name: "{{ item }}"
     state: started

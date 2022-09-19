@@ -1,11 +1,11 @@
 ---
 
-- name: accounts > Group
+- name: Accounts > Group
   ansible.builtin.group:
     name: "{{ manala_prometheus_group }}"
     system: true
 
-- name: accounts > User
+- name: Accounts > User
   ansible.builtin.user:
     name: "{{ manala_prometheus_user }}"
     comment: Prometheus

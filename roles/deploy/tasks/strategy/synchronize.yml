@@ -1,11 +1,11 @@
 ---
 
-- name: strategy/synchronize
+- name: Strategy / Synchronize
   tags:
     - manala_deploy
   block:
 
-    - name: strategy/synchronize > Synchronize
+    - name: Strategy / Synchronize > Synchronize
       ansible.posix.synchronize:
         src: "{{ manala_deploy_strategy_synchronize_src }}"
         dest: "{{ deploy_helper.new_release_path }}/"

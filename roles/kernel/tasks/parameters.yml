@@ -1,6 +1,6 @@
 ---
 
-- name: parameters > Configure
+- name: Parameters > Configure
   ansible.posix.sysctl:
     name: "{{ item.parameter }}"
     value: "{{ item.value | default(omit) }}"

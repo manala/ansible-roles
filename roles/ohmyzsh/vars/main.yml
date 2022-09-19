@@ -1,11 +1,12 @@
 ---
 
 # Flags
-__manala_ohmyzsh: "{{
-  {
-    'update': False
-  } | combine(
-    manala | default({}),
-    manala_ohmyzsh
-  )
-}}"
+__manala_ohmyzsh: |
+  {{
+    {
+      'update': False
+    } | combine(
+      manala | default({}),
+      manala_ohmyzsh
+    )
+  }}

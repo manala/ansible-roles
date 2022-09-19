@@ -1,11 +1,12 @@
 ---
 
 # Flags
-__manala_ansible_galaxy: "{{
-  {
-    'update': False
-  } | combine(
-    manala | default({}),
-    manala_ansible_galaxy
-  )
-}}"
+__manala_ansible_galaxy: |
+  {{
+    {
+      'update': False
+    } | combine(
+      manala | default({}),
+      manala_ansible_galaxy
+    )
+  }}

@@ -1,7 +1,6 @@
 ---
 
-# Get existing datasources
-- name: datasources > Retrieve datasources
+- name: Datasources > Retrieve datasources
   ansible.builtin.uri:
     url: "{{ manala_grafana_api_url }}/api/datasources"
     force_basic_auth: true
@@ -13,8 +12,7 @@
   retries: 12
   delay: 1
 
-# Update existing datasources
-- name: datasources > Update datasources
+- name: Datasources > Update datasources
   register: __manala_grafana_datasources_update_output
   failed_when: "'Datasource updated' not in __manala_grafana_datasources_update_output | to_json"
   ansible.builtin.uri:
@@ -35,8 +33,7 @@
     }}"
   when: item[0].name == item[1].name
 
-# Create non existing datasources
-- name: datasources > Create datasources
+- name: Datasources > Create datasources
   register: __manala_grafana_datasources_create_output
   failed_when: "'Datasource added' not in __manala_grafana_datasources_create_output | to_json"
   ansible.builtin.uri:
@@ -53,8 +50,7 @@
   loop: "{{ manala_grafana_datasources }}"
   when: item.name not in __manala_grafana_datasources_output.json | map(attribute='name') | list
 
-# Delete non added datasources
-- name: datasources > Delete datasources
+- name: Datasources > Delete datasources
   register: __manala_grafana_datasources_delete_output
   failed_when: "'Data source deleted' not in __manala_grafana_datasources_delete_output.json.message"
   ansible.builtin.uri:

@@ -15,7 +15,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -45,7 +45,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Synchronize
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -103,7 +103,7 @@
         src: "{{ tests_dir }}/app/{{ item }}"
         state: link
       loop: [shared/file_shared_existing, shared/dir/file_shared_existing, shared/dir/dir/file_shared_existing]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -156,7 +156,7 @@
         path: "{{ tests_dir }}/app/current"
         src: "{{ tests_dir }}/app/releases/20170520092302"
         state: link
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -188,7 +188,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -224,7 +224,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Raw
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -256,7 +256,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -294,7 +294,7 @@
         path: "{{ tests_dir }}/app/releases/{{ item }}"
         state: directory
       loop: [20170520092302, 20170520092413, 20170520092714, 20170520092738, 20170520093012, 20170520093234]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -325,7 +325,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Raw
           ansible.builtin.import_role:
             name: manala.roles.deploy

@@ -1,6 +1,6 @@
 ---
 
-- name: config > Template
+- name: Config > Template
   ansible.builtin.template:
     src: "{{ manala_haproxy_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_haproxy_config_file }}"

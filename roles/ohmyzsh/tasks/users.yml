@@ -1,7 +1,7 @@
 ---
 
 # Find the primary group of users whose group has not been manually defined
-- name: users > Find primary groups
+- name: Users > Find primary groups
   ansible.builtin.command: >
     id -g -n {{ item.user }}
   loop: "{{
@@ -15,7 +15,7 @@
   register: __manala_ohmyzsh_users_groups
   changed_when: false
 
-- name: users > Zshrc templates
+- name: Users > Zshrc templates
   ansible.builtin.template:
     src: "{{ item.template | default(manala_ohmyzsh_users_defaults.template | default('users/_default.j2', true), true) }}"
     dest: "{{ item.dir | default('~' ~ item.user, true) }}/.zshrc"
@@ -29,7 +29,7 @@
       | manala.roles.users_groups(__manala_ohmyzsh_users_groups.results)
   }}"
 
-- name: users > Shells
+- name: Users > Shells
   ansible.builtin.user:
     name: "{{ item.user }}"
     shell: /bin/zsh

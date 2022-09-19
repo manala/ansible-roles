@@ -9,7 +9,7 @@
   hosts:
     - debian.stretch
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mongodb
@@ -36,7 +36,7 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Dict
           ansible.builtin.import_role:
             # Play role fully on first run, so that handlers don't breaks

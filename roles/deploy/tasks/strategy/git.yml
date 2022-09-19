@@ -1,11 +1,11 @@
 ---
 
-- name: strategy/git
+- name: Strategy / Git
   tags:
     - manala_deploy
   block:
 
-    - name: strategy/git > Cached repository
+    - name: Strategy / Git > Cached repository
       ansible.builtin.git:
         repo: "{{ manala_deploy_strategy_git_repo }}"
         dest: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
@@ -13,18 +13,18 @@
         accept_hostkey: true
         update: true
 
-    - name: strategy/git > Get head  # noqa command-instead-of-module
+    - name: Strategy / Git > Get head  # noqa command-instead-of-module
       ansible.builtin.command: git rev-parse --short HEAD
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
       register: __manala_deploy_strategy_git_head_result
       changed_when: false
 
-    - name: strategy/git > Set head
+    - name: Strategy / Git > Set head
       ansible.builtin.set_fact:
         manala_deploy_strategy_git_head: "{{ __manala_deploy_strategy_git_head_result.stdout }}"
 
-    - name: strategy/git > Export repository  # noqa command-instead-of-module
+    - name: Strategy / Git > Export repository  # noqa command-instead-of-module
       ansible.builtin.command: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"

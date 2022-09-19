@@ -1,6 +1,6 @@
 ---
 
-- name: finalize > Remove the unfinished file and create a symlink to the newly deployed release
+- name: Finalize > Remove the unfinished file and create a symlink to the newly deployed release
   community.general.deploy_helper:
     path: "{{ manala_deploy_dir }}"
     current_path: "{{ manala_deploy_current_dir }}"

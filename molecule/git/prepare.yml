@@ -1,7 +1,8 @@
 ---
 
-- hosts: debian
+- name: Prepare
   tags: [always]
+  hosts: debian
   tasks:
     - name: Packages
       ansible.builtin.apt:

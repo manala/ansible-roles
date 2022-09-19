@@ -1,6 +1,6 @@
 ---
 
-- name: options > Default
+- name: Options > Default
   ansible.builtin.lineinfile:
     path: "{{ manala_bind_options_file }}"
     regexp: '^OPTIONS='

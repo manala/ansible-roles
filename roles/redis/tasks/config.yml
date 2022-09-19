@@ -1,6 +1,6 @@
 ---
 
-- name: config > Server - Template
+- name: Config > Server - Template
   ansible.builtin.template:
     src: "{{ manala_redis_server_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_redis_server_config_file }}"
@@ -14,7 +14,7 @@
   notify:
     - Restart redis
 
-- name: config > Sentinel - File
+- name: Config > Sentinel - File
   ansible.builtin.lineinfile:
     dest: "{{ manala_redis_sentinel_config_file }}"
     regexp: "^{{ item.key }} (.*)$"

@@ -1,13 +1,13 @@
 ---
 
-- name: requirements > Sudo check
+- name: Requirements > Sudo check
   ansible.builtin.command: sudo --version
   check_mode: false
   failed_when: false
   changed_when: false
   register: __manala_sudo_check_output
 
-- name: requirements > Sudo check fail
+- name: Requirements > Sudo check fail
   ansible.builtin.fail:
     msg: Need sudo, you can use manala.roles.sudo
   when: __manala_sudo_check_output.rc != 0

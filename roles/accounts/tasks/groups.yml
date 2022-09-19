@@ -1,6 +1,6 @@
 ---
 
-- name: groups > Groups configuration
+- name: Groups > Groups configuration
   ansible.builtin.group:
     name: "{{ (item) if (item is string) else (item.group) }}"
     system: "{{ item.system | default(omit) }}"

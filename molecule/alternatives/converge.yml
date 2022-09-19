@@ -19,7 +19,7 @@
         name: "{{ item[0] }}"
         path: "{{ item[1] }}"
       loop: [[editor, /bin/nano], [pico, /bin/nano], [pager, /bin/more]]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.alternatives

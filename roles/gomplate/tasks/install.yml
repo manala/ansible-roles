@@ -1,11 +1,11 @@
 ---
 
-- name: install > Stat bin
+- name: Install > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_gomplate_bin }}"
   register: __manala_gomplate_bin_stat_result
 
-- name: install > Get latest version
+- name: Install > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/hairyhenderson/gomplate/releases/latest
   check_mode: false
@@ -14,23 +14,25 @@
     - not __manala_gomplate_bin_stat_result.stat.exists
     - manala_gomplate_version is none
 
-- name: install > Install
+- name: Install > Install
   when: not __manala_gomplate_bin_stat_result.stat.exists
   vars:
-    __manala_gomplate_version: "{{
-      manala_gomplate_version
-        if (manala_gomplate_version) else
-      __manala_gomplate_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
-    }}"
-    __manala_gomplate_url: "{{
-      'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-%(architecture)s' | format(
-        version=__manala_gomplate_version,
-        architecture=ansible_architecture | manala.roles.gomplate_architecture,
-      )
-    }}"
+    __manala_gomplate_version: |-
+      {{
+        manala_gomplate_version
+          if (manala_gomplate_version) else
+        __manala_gomplate_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_gomplate_url: |-
+      {{
+        'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-%(architecture)s' | format(
+          version=__manala_gomplate_version,
+          architecture=ansible_architecture | manala.roles.gomplate_architecture,
+        )
+      }}
   block:
 
-    - name: install > Download binary
+    - name: Install > Download binary
       ansible.builtin.get_url:
         url: "{{ __manala_gomplate_url }}"
         dest: "{{ manala_gomplate_bin }}"

@@ -1,6 +1,6 @@
 ---
 
-- name: sources_list > Template
+- name: Sources List > Template
   ansible.builtin.template:
     src: "{{ manala_apt_sources_list_template | default('sources_list/_default.j2', true) }}"
     dest: "{{ manala_apt_sources_list_file }}"

@@ -1,6 +1,6 @@
 ---
 
-- name: install > Packages
+- name: Install > Packages
   ansible.builtin.apt:
     name: "{{ item }}"
     install_recommends: false
@@ -9,15 +9,15 @@
   loop:
     - "{{ manala_grafana_install_packages | default(manala_grafana_install_packages_default, True) }}"
 
-- name: install > Version
+- name: Install > Version
   block:
-    - name: install > Parse version
+    - name: Install > Parse version
       ansible.builtin.command: >
         dpkg -s
         {{ manala_grafana_install_packages | default(manala_grafana_install_packages_default, True) | first }}
       register: __manala_grafana_version
       changed_when: false
-    - name: install > Set version
+    - name: Install > Set version
       ansible.builtin.set_fact:
         manala_grafana_version: "{{
           __manala_grafana_version.stdout

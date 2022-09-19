@@ -35,7 +35,7 @@
         dest: "{{ tests_dir }}/file"
         content: |
           # {{ tests_dir }}/file
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.environment

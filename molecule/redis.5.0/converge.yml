@@ -10,7 +10,7 @@
     - debian.stretch
     - debian.buster
   tasks:
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.redis

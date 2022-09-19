@@ -91,9 +91,9 @@ RUN \
     && apt-get install --yes --no-install-recommends \
       ${BUILD_PACKAGES} \
     # Ansible Lint
-    && pipx install ansible-lint==6.3.0 \
+    && pipx install ansible-lint==6.5.2 \
     # Molecule
-    && pipx install molecule==4.0.0 \
+    && pipx install molecule==4.0.1 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
     && pipx inject molecule molecule-docker==1.1.0 \
     && apt-get purge --yes --autoremove ${BUILD_PACKAGES}

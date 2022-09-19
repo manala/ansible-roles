@@ -23,7 +23,7 @@
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa unnamed-task
+    - block:  # noqa name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.motd

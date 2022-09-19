@@ -1,12 +1,12 @@
 ---
 
-- name: sudo > Sudoers
+- name: Sudo > Sudoers
   ansible.builtin.blockinfile:
     dest: /etc/sudoers
     block: |
       Defaults env_keep += SSH_AUTH_SOCK
 
-- name: sudo > Pam
+- name: Sudo > Pam
   ansible.builtin.blockinfile:
     dest: /etc/pam.d/sudo
     insertbefore: '^@include common-auth'

@@ -1,6 +1,6 @@
 ---
 
-- name: config > Directory
+- name: Config > Directory
   ansible.builtin.file:
     path: "{{ manala_prometheus_config_file | dirname }}"
     state: directory
@@ -8,7 +8,7 @@
     group: root
     mode: "0755"
 
-- name: config > Template
+- name: Config > Template
   ansible.builtin.template:
     src: "{{ manala_prometheus_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_prometheus_config_file }}"

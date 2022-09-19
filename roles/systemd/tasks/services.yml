@@ -1,6 +1,6 @@
 ---
 
-- name: services > Services
+- name: Services > Services
   ansible.builtin.systemd:
     name: "{{ item.name }}"
     enabled: "{{ item.enabled | default(omit) }}"
