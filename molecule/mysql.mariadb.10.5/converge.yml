@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa unnamed-task
         - name: Role
