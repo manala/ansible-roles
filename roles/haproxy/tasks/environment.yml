@@ -10,4 +10,4 @@
   when: manala_haproxy_environment_template
     or manala_haproxy_environment
   notify:
-    - haproxy restart
+    - Restart haproxy

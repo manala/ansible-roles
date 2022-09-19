@@ -10,4 +10,4 @@
   when: manala_maxscale_config_template
     or manala_maxscale_config
   notify:
-    - maxscale restart
+    - Restart maxscale

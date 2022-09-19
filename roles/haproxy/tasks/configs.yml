@@ -34,7 +34,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - haproxy reload
+    - Reload haproxy
 
 - name: configs > Files absent
   ansible.builtin.file:
@@ -49,4 +49,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - haproxy reload
+    - Reload haproxy

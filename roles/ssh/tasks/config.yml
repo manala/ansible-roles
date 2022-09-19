@@ -12,7 +12,7 @@
     - manala_ssh_server_config_template
         or manala_ssh_server_config
   notify:
-    - ssh reload
+    - Reload ssh
 
 - name: config > Client - Template
   ansible.builtin.template:

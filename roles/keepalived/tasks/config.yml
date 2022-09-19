@@ -10,4 +10,4 @@
   when: manala_keepalived_config_template
     or manala_keepalived_config
   notify:
-    - keepalived reload
+    - Reload keepalived

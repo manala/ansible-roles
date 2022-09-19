@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - gitlab reconfigure
+    - Reconfigure gitlab
 
 - name: configs > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - gitlab reconfigure
+    - Reconfigure gitlab

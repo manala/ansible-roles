@@ -1,8 +1,10 @@
 ---
 
-- name: fail2ban restart
+- name: Restart fail2ban
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - fail2ban
+  # Deprecated
+  listen: fail2ban restart

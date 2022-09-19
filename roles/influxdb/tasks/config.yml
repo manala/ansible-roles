@@ -10,4 +10,4 @@
   when: manala_influxdb_config_template
     or manala_influxdb_config
   notify:
-    - influxdb restart
+    - Restart influxdb

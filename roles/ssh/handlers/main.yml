@@ -1,8 +1,10 @@
 ---
 
-- name: ssh reload
+- name: Reload ssh
   ansible.builtin.service:
     name: "{{ item }}"
     state: reloaded
   loop:
     - ssh
+  # Deprecated
+  listen: ssh reload

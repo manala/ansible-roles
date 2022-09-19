@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - cron restart
+    - Restart cron
 
 - name: configs > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - cron restart
+    - Restart cron

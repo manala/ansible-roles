@@ -10,4 +10,4 @@
   when: manala_telegraf_config_template
     or manala_telegraf_config
   notify:
-    - telegraf restart
+    - Restart telegraf

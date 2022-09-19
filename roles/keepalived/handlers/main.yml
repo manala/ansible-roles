@@ -1,15 +1,19 @@
 ---
 
-- name: keepalived restart
+- name: Restart keepalived
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - keepalived
+  # Deprecated
+  listen: keepalived restart
 
-- name: keepalived reload
+- name: Reload keepalived
   ansible.builtin.service:
     name: "{{ item }}"
     state: reloaded
   loop:
     - keepalived
+  # Deprecated
+  listen: keepalived reload

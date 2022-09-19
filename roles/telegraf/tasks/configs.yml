@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - telegraf restart
+    - Restart telegraf
 
 - name: configs > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - telegraf restart
+    - Restart telegraf

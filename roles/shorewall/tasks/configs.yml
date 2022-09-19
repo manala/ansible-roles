@@ -30,7 +30,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - shorewall restart
+    - Restart shorewall
 
 - name: configs > Files absent
   ansible.builtin.file:
@@ -45,4 +45,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - shorewall restart
+    - Restart shorewall

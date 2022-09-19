@@ -10,4 +10,4 @@
   when: manala_network_interfaces_config_template
     or manala_network_interfaces_config
   notify:
-    - networking restart
+    - Restart networking

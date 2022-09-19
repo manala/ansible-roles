@@ -11,4 +11,4 @@
     mode: "0644"
   loop: "{{ manala_shorewall_config | dict2items }}"
   notify:
-    - shorewall restart
+    - Restart shorewall

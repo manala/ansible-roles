@@ -8,4 +8,4 @@
     group: "{{ manala_sensu_go_agent_config_group }}"
     mode: "{{ manala_sensu_go_agent_config_mode }}"
   notify:
-    - sensu-agent restart
+    - Restart sensu-agent

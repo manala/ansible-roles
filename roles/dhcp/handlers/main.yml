@@ -1,8 +1,10 @@
 ---
 
-- name: dhcp restart
+- name: Restart dhcp
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - isc-dhcp-server
+  # Deprecated
+  listen: dhcp restart

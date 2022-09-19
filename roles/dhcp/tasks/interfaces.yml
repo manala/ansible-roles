@@ -6,4 +6,4 @@
     regexp: '^INTERFACESv4='
     line: INTERFACESv4="{{ manala_dhcp_interfaces | join(' ') }}"
   notify:
-    - dhcp restart
+    - Restart dhcp

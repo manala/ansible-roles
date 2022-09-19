@@ -1,14 +1,18 @@
 ---
 
-- name: nginx restart
+- name: Restart nginx
   ansible.builtin.command: nginx -t
   changed_when: true
   notify:
-    - do nginx restart
+    - Do restart nginx
+  # Deprecated
+  listen: nginx restart
 
-- name: do nginx restart
+- name: Do restart nginx
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - nginx
+  # Deprecated
+  listen: do nginx restart
