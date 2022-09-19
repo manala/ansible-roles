@@ -1,11 +1,11 @@
 ---
 
-- name: install > Stat bin
+- name: Install > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_prometheus_bin }}"
   register: __manala_prometheus_bin_stat_result
 
-- name: install > Get latest version
+- name: Install > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/prometheus/prometheus/releases/latest
   check_mode: false
@@ -14,44 +14,50 @@
     - not __manala_prometheus_bin_stat_result.stat.exists
     - manala_prometheus_version is none
 
-- name: install > Install
+- name: Install > Install
   when: not __manala_prometheus_bin_stat_result.stat.exists
   vars:
-    __manala_prometheus_version: "{{
-      manala_prometheus_version
-        if (manala_prometheus_version) else
-      __manala_prometheus_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
-    }}"
-    __manala_prometheus_archive: "{{
-      'prometheus-%(version)s.linux-%(architecture)s' | format(
-        version=__manala_prometheus_version,
-        architecture=ansible_architecture | manala.roles.prometheus_architecture,
-      )
-    }}"
-    __manala_prometheus_archive_url: "{{
-      'https://github.com/prometheus/prometheus/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
-        version=__manala_prometheus_version,
-        archive=__manala_prometheus_archive,
-      )
-    }}"
+    __manala_prometheus_version: |-
+      {{
+        manala_prometheus_version
+          if (manala_prometheus_version) else
+        __manala_prometheus_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_prometheus_archive: |-
+      {{
+        'prometheus-%(version)s.linux-%(architecture)s' | format(
+          version=__manala_prometheus_version,
+          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+        )
+      }}
+    __manala_prometheus_archive_url: |-
+      {{
+        'https://github.com/prometheus/prometheus/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
+          version=__manala_prometheus_version,
+          archive=__manala_prometheus_archive,
+        )
+      }}
+    __manala_prometheus_archive_bin: "{{ __manala_prometheus_archive }}/prometheus"
 
   block:
 
-    - name: install > Download binary
+    - name: Install > Download binary
       ansible.builtin.unarchive:
         src: "{{ __manala_prometheus_archive_url }}"
         remote_src: true
         dest: "{{ manala_prometheus_bin | dirname }}"
         extra_opts:
           - --strip-components=1
-          - "{{
-              '--transform=s,^%(archive)s/prometheus,%(archive)s/%(file)s,' | format(
+          - |-
+            {{
+              '--transform=s,^%(bin)s,%(archive)s/%(file)s,' | format(
+                bin=__manala_prometheus_archive_bin,
                 archive=__manala_prometheus_archive,
                 file=manala_prometheus_bin | basename,
               )
-            }}"
+            }}
         include:
-          - "{{ __manala_prometheus_archive }}/prometheus"
+          - "{{ __manala_prometheus_archive_bin }}"
         owner: root
         group: root
         mode: "0755"
@@ -60,14 +66,14 @@
 # Node Exporter #
 #################
 
-- name: install > Node Exporter > Stat bin
+- name: Install > Node Exporter > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_prometheus_node_exporter_bin }}"
   register: __manala_prometheus_node_exporter_bin_stat_result
   when:
     - manala_prometheus_node_exporter
 
-- name: install > Node Exporter > Get latest version
+- name: Install > Node Exporter > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/prometheus/node_exporter/releases/latest
   check_mode: false
@@ -77,51 +83,57 @@
     - not __manala_prometheus_node_exporter_bin_stat_result.stat.exists
     - manala_prometheus_node_exporter_version is none
 
-- name: install > Node Exporter > Install
+- name: Install > Node Exporter > Install
   when:
     - manala_prometheus_node_exporter
     - not __manala_prometheus_node_exporter_bin_stat_result.stat.exists
   vars:
-    __manala_prometheus_node_exporter_version: "{{
-      manala_prometheus_node_exporter_version
-        if (manala_prometheus_node_exporter_version) else
-      __manala_prometheus_node_exporter_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
-    }}"
-    __manala_prometheus_node_exporter_archive: "{{
-      'node_exporter-%(version)s.linux-%(architecture)s' | format(
-        version=__manala_prometheus_node_exporter_version,
-        architecture=ansible_architecture | manala.roles.prometheus_architecture,
-      )
-    }}"
-    __manala_prometheus_node_exporter_archive_url: "{{
-      'https://github.com/prometheus/node_exporter/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
-        version=__manala_prometheus_node_exporter_version,
-        archive=__manala_prometheus_node_exporter_archive,
-      )
-    }}"
+    __manala_prometheus_node_exporter_version: |-
+      {{
+        manala_prometheus_node_exporter_version
+          if (manala_prometheus_node_exporter_version) else
+        __manala_prometheus_node_exporter_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_prometheus_node_exporter_archive: |-
+      {{
+        'node_exporter-%(version)s.linux-%(architecture)s' | format(
+          version=__manala_prometheus_node_exporter_version,
+          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+        )
+      }}
+    __manala_prometheus_node_exporter_archive_url: |-
+      {{
+        'https://github.com/prometheus/node_exporter/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
+          version=__manala_prometheus_node_exporter_version,
+          archive=__manala_prometheus_node_exporter_archive,
+        )
+      }}
+    __manala_prometheus_node_exporter_archive_bin: "{{ __manala_prometheus_node_exporter_archive }}/node_exporter"
 
   block:
 
-    - name: install > Node Exporter > Download binary
+    - name: Install > Node Exporter > Download binary
       ansible.builtin.unarchive:
         src: "{{ __manala_prometheus_node_exporter_archive_url }}"
         remote_src: true
         dest: "{{ manala_prometheus_node_exporter_bin | dirname }}"
         extra_opts:
           - --strip-components=1
-          - "{{
-              '--transform=s,^%(archive)s/node_exporter,%(archive)s/%(file)s,' | format(
+          - |-
+            {{
+              '--transform=s,^%(bin)s,%(archive)s/%(file)s,' | format(
+                bin=__manala_prometheus_node_exporter_archive_bin,
                 archive=__manala_prometheus_node_exporter_archive,
                 file=manala_prometheus_node_exporter_bin | basename,
               )
-            }}"
+            }}
         include:
-          - "{{ __manala_prometheus_node_exporter_archive }}/node_exporter"
+          - "{{ __manala_prometheus_node_exporter_archive_bin }}"
         owner: root
         group: root
         mode: "0755"
 
-- name: install > Node Exporter > Remove
+- name: Install > Node Exporter > Remove
   ansible.builtin.file:
     path: "{{ manala_prometheus_node_exporter_bin }}"
     state: absent
@@ -131,14 +143,14 @@
 # Nginx Exporter #
 ##################
 
-- name: install > Nginx Exporter > Stat bin
+- name: Install > Nginx Exporter > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_prometheus_nginx_exporter_bin }}"
   register: __manala_prometheus_nginx_exporter_bin_stat_result
   when:
     - manala_prometheus_nginx_exporter
 
-- name: install > Nginx Exporter > Get latest version
+- name: Install > Nginx Exporter > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/nginxinc/nginx-prometheus-exporter/releases/latest
   check_mode: false
@@ -148,49 +160,55 @@
     - not __manala_prometheus_nginx_exporter_bin_stat_result.stat.exists
     - manala_prometheus_nginx_exporter_version is none
 
-- name: install > Nginx Exporter > Install
+- name: Install > Nginx Exporter > Install
   when:
     - manala_prometheus_nginx_exporter
     - not __manala_prometheus_nginx_exporter_bin_stat_result.stat.exists
   vars:
-    __manala_prometheus_nginx_exporter_version: "{{
-      manala_prometheus_nginx_exporter_version
-        if (manala_prometheus_nginx_exporter_version) else
-      __manala_prometheus_nginx_exporter_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
-    }}"
-    __manala_prometheus_nginx_exporter_archive: "{{
-      'nginx-prometheus-exporter_%(version)s_linux_%(architecture)s' | format(
-        version=__manala_prometheus_nginx_exporter_version,
-        architecture=ansible_architecture | manala.roles.prometheus_architecture,
-      )
-    }}"
-    __manala_prometheus_nginx_exporter_archive_url: "{{
-      'https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
-        version=__manala_prometheus_nginx_exporter_version,
-        archive=__manala_prometheus_nginx_exporter_archive,
-      )
-    }}"
+    __manala_prometheus_nginx_exporter_version: |-
+      {{
+        manala_prometheus_nginx_exporter_version
+          if (manala_prometheus_nginx_exporter_version) else
+        __manala_prometheus_nginx_exporter_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_prometheus_nginx_exporter_archive: |-
+      {{
+        'nginx-prometheus-exporter_%(version)s_linux_%(architecture)s' | format(
+          version=__manala_prometheus_nginx_exporter_version,
+          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+        )
+      }}
+    __manala_prometheus_nginx_exporter_archive_url: |-
+      {{
+        'https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
+          version=__manala_prometheus_nginx_exporter_version,
+          archive=__manala_prometheus_nginx_exporter_archive,
+        )
+      }}
+    __manala_prometheus_nginx_exporter_archive_bin: nginx-prometheus-exporter
 
   block:
 
-    - name: install > Nginx Exporter > Download binary
+    - name: Install > Nginx Exporter > Download binary
       ansible.builtin.unarchive:
         src: "{{ __manala_prometheus_nginx_exporter_archive_url }}"
         remote_src: true
         dest: "{{ manala_prometheus_nginx_exporter_bin | dirname }}"
         extra_opts:
-          - "{{
-              '--transform=s,^nginx-prometheus-exporter,%(file)s,' | format(
+          - |-
+            {{
+              '--transform=s,^%(bin)s,%(file)s,' | format(
+                bin=__manala_prometheus_nginx_exporter_archive_bin,
                 file=manala_prometheus_nginx_exporter_bin | basename,
               )
-            }}"
+            }}
         include:
-          - "nginx-prometheus-exporter"
+          - "{{ __manala_prometheus_nginx_exporter_archive_bin }}"
         owner: root
         group: root
         mode: "0755"
 
-- name: install > Nginx Exporter > Remove
+- name: Install > Nginx Exporter > Remove
   ansible.builtin.file:
     path: "{{ manala_prometheus_nginx_exporter_bin }}"
     state: absent
@@ -200,14 +218,14 @@
 # Php Fpm Exporter #
 ####################
 
-- name: install > Php Fpm Exporter > Stat bin
+- name: Install > Php Fpm Exporter > Stat bin
   ansible.builtin.stat:
     path: "{{ manala_prometheus_php_fpm_exporter_bin }}"
   register: __manala_prometheus_php_fpm_exporter_bin_stat_result
   when:
     - manala_prometheus_php_fpm_exporter
 
-- name: install > Php Fpm Exporter > Get latest version
+- name: Install > Php Fpm Exporter > Get latest version
   ansible.builtin.uri:
     url: https://api.github.com/repos/hipages/php-fpm_exporter/releases/latest
   check_mode: false
@@ -217,49 +235,55 @@
     - not __manala_prometheus_php_fpm_exporter_bin_stat_result.stat.exists
     - manala_prometheus_php_fpm_exporter_version is none
 
-- name: install > Php Fpm Exporter > Install
+- name: Install > Php Fpm Exporter > Install
   when:
     - manala_prometheus_php_fpm_exporter
     - not __manala_prometheus_php_fpm_exporter_bin_stat_result.stat.exists
   vars:
-    __manala_prometheus_php_fpm_exporter_version: "{{
-      manala_prometheus_php_fpm_exporter_version
-        if (manala_prometheus_php_fpm_exporter_version) else
-      __manala_prometheus_php_fpm_exporter_version_latest.json.tag_name | regex_replace('v(.+)$', '\\1')
-    }}"
-    __manala_prometheus_php_fpm_exporter_archive: "{{
-      'php-fpm_exporter_%(version)s_linux_%(architecture)s' | format(
-        version=__manala_prometheus_php_fpm_exporter_version,
-        architecture=ansible_architecture | manala.roles.prometheus_architecture,
-      )
-    }}"
-    __manala_prometheus_php_fpm_exporter_archive_url: "{{
-      'https://github.com/hipages/php-fpm_exporter/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
-        version=__manala_prometheus_php_fpm_exporter_version,
-        archive=__manala_prometheus_php_fpm_exporter_archive,
-      )
-    }}"
+    __manala_prometheus_php_fpm_exporter_version: |-
+      {{
+        manala_prometheus_php_fpm_exporter_version
+          if (manala_prometheus_php_fpm_exporter_version) else
+        __manala_prometheus_php_fpm_exporter_version_latest.json.tag_name | regex_replace('v(.+)$', '\1')
+      }}
+    __manala_prometheus_php_fpm_exporter_archive: |-
+      {{
+        'php-fpm_exporter_%(version)s_linux_%(architecture)s' | format(
+          version=__manala_prometheus_php_fpm_exporter_version,
+          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+        )
+      }}
+    __manala_prometheus_php_fpm_exporter_archive_url: |-
+      {{
+        'https://github.com/hipages/php-fpm_exporter/releases/download/v%(version)s/%(archive)s.tar.gz' | format(
+          version=__manala_prometheus_php_fpm_exporter_version,
+          archive=__manala_prometheus_php_fpm_exporter_archive,
+        )
+      }}
+    __manala_prometheus_php_fpm_exporter_archive_bin: php-fpm_exporter
 
   block:
 
-    - name: install > Php Fpm Exporter > Download binary
+    - name: Install > Php Fpm Exporter > Download binary
       ansible.builtin.unarchive:
         src: "{{ __manala_prometheus_php_fpm_exporter_archive_url }}"
         remote_src: true
         dest: "{{ manala_prometheus_php_fpm_exporter_bin | dirname }}"
         extra_opts:
-          - "{{
-              '--transform=s,^php-fpm_exporter,%(file)s,' | format(
+          - |-
+            {{
+              '--transform=s,^%(bin)s,%(file)s,' | format(
+                bin=__manala_prometheus_php_fpm_exporter_archive_bin,
                 file=manala_prometheus_php_fpm_exporter_bin | basename,
               )
-            }}"
+            }}
         include:
-          - "php-fpm_exporter"
+          - "{{ __manala_prometheus_php_fpm_exporter_archive_bin }}"
         owner: root
         group: root
         mode: "0755"
 
-- name: install > Php Fpm Exporter > Remove
+- name: Install > Php Fpm Exporter > Remove
   ansible.builtin.file:
     path: "{{ manala_prometheus_php_fpm_exporter_bin }}"
     state: absent
