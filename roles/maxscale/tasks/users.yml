@@ -10,4 +10,4 @@
   when: manala_maxscale_users_template
     or manala_maxscale_network_users | type_debug == "list"
   notify:
-    - maxscale restart
+    - Restart maxscale

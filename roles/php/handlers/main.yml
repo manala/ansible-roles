@@ -1,6 +1,6 @@
 ---
 
-- name: php fpm restart
+- name: Restart php fpm
   ansible.builtin.command: >
     /usr/sbin/php-fpm{{ manala_php_version | string }} -t
   when: |
@@ -12,11 +12,14 @@
       wantmap=true
     )
   changed_when: true
-  listen: php restart
   notify:
-    - do php fpm restart
+    - Do restart php fpm
+  # Deprecated
+  listen:
+    - php restart
+    - php fpm restart
 
-- name: do php fpm restart
+- name: Do restart php fpm
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
@@ -30,10 +33,14 @@
       wantstate='present',
       wantmap=true
     )
+  # Deprecated
+  listen: do php fpm restart
 
-- name: php blackfire agent restart
+- name: Restart php blackfire agent
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - blackfire-agent
+  # Deprecated
+  listen: php blackfire agent restart

@@ -1,14 +1,16 @@
 ---
 
-- name: influxdb restart
+- name: Restart influxdb
   ansible.builtin.service:
     name: "{{ item }}"
     state: stopped
   loop:
     - influxdb
-  notify: influxdb start
+  notify: Start influxdb
+  # Deprecated
+  listen: influxdb restart
 
-- name: influxdb start
+- name: Start influxdb
   ansible.builtin.service:
     name: "{{ item }}"
     state: started
@@ -18,3 +20,5 @@
   until: __manala_influxdb_services is not failed
   retries: 12
   delay: 1
+  # Deprecated
+  listen: influxdb start

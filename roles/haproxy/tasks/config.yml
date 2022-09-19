@@ -10,4 +10,4 @@
   when: manala_haproxy_config_template
     or manala_haproxy_config
   notify:
-    - haproxy reload
+    - Reload haproxy

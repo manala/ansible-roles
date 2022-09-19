@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - networking restart
+    - Restart networking
 
 - name: interfaces_configs > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - networking restart
+    - Restart networking

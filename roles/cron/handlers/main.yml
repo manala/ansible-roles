@@ -1,8 +1,10 @@
 ---
 
-- name: cron restart
+- name: Restart cron
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - cron
+  # Deprecated
+  listen: cron restart

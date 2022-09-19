@@ -10,4 +10,4 @@
   when: manala_supervisor_config_template
     or manala_supervisor_config
   notify:
-    - supervisor restart
+    - Restart supervisor

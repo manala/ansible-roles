@@ -10,4 +10,4 @@
   when: manala_fail2ban_config_template
     or manala_fail2ban_config
   notify:
-    - fail2ban restart
+    - Restart fail2ban

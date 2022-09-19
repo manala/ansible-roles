@@ -10,4 +10,4 @@
   when: manala_keepalived_environment_template
     or manala_keepalived_environment
   notify:
-    - keepalived restart
+    - Restart keepalived

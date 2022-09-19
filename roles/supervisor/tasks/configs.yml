@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - supervisor restart
+    - Restart supervisor
 
 - name: configs > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - supervisor restart
+    - Restart supervisor

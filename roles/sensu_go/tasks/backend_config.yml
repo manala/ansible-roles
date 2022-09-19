@@ -9,4 +9,4 @@
     mode: "{{ manala_sensu_go_backend_mode }}"
   when: manala_sensu_go_backend
   notify:
-    - sensu-backend restart
+    - Restart sensu-backend

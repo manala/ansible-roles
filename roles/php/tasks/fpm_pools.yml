@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - php fpm restart
+    - Restart php fpm
 
 - name: fpm_pools > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - php fpm restart
+    - Restart php fpm

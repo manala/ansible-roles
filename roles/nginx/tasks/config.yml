@@ -10,4 +10,4 @@
   when: manala_nginx_config_template
     or manala_nginx_config
   notify:
-    - nginx restart
+    - Restart nginx

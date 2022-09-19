@@ -16,4 +16,4 @@
   when: manala_elasticsearch_environment_template
     or manala_elasticsearch_environment
   notify:
-    - elasticsearch restart
+    - Restart elasticsearch

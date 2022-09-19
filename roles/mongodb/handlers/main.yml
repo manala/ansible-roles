@@ -1,8 +1,10 @@
 ---
 
-- name: mongodb restart
+- name: Restart mongodb
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - mongod
+  # Deprecated
+  listen: mongodb restart

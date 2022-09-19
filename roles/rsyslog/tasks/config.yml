@@ -10,4 +10,4 @@
   when: manala_rsyslog_config_template
     or manala_rsyslog_config
   notify:
-    - rsyslog restart
+    - Restart rsyslog

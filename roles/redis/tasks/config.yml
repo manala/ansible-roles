@@ -12,7 +12,7 @@
     - manala_redis_server_config_template
         or manala_redis_server_config
   notify:
-    - redis restart
+    - Restart redis
 
 - name: config > Sentinel - File
   ansible.builtin.lineinfile:
@@ -24,4 +24,4 @@
     - manala_redis_sentinel_config | length
   loop: "{{ manala_redis_sentinel_config | dict2items }}"
   notify:
-    - redis-sentinel restart
+    - Restart redis-sentinel

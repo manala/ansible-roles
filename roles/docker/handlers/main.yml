@@ -1,8 +1,10 @@
 ---
 
-- name: docker restart
+- name: Restart docker
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - docker
+  # Deprecated
+  listen: docker restart

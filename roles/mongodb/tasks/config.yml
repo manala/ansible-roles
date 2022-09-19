@@ -10,4 +10,4 @@
   when: manala_mongodb_config_template
     or manala_mongodb_config
   notify:
-    - mongodb restart
+    - Restart mongodb

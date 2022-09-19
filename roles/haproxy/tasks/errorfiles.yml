@@ -25,7 +25,7 @@
     wantstate='present'
   ) }}"
   notify:
-    - haproxy reload
+    - Reload haproxy
 
 - name: errorfiles > Files absent
   ansible.builtin.file:
@@ -40,4 +40,4 @@
     wantstate='absent'
   ) }}"
   notify:
-    - haproxy reload
+    - Reload haproxy

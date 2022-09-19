@@ -11,7 +11,7 @@
     group: root
     mode: "0644"
   notify:
-    - prometheus restart
+    - Restart prometheus
 
 - name: services > Services
   ansible.builtin.systemd:
@@ -35,7 +35,7 @@
     mode: "0644"
   when: manala_prometheus_node_exporter
   notify:
-    - prometheus node exporter restart
+    - Restart prometheus node exporter
 
 - name: services > Node Exporter > Services
   ansible.builtin.systemd:
@@ -68,7 +68,7 @@
     mode: "0644"
   when: manala_prometheus_nginx_exporter
   notify:
-    - prometheus nginx exporter restart
+    - Restart prometheus nginx exporter
 
 - name: services > Nginx Exporter > Services
   ansible.builtin.systemd:
@@ -101,7 +101,7 @@
     mode: "0644"
   when: manala_prometheus_php_fpm_exporter
   notify:
-    - prometheus php fpm exporter restart
+    - Restart prometheus php fpm exporter
 
 - name: services > Php Fpm Exporter > Services
   ansible.builtin.systemd:

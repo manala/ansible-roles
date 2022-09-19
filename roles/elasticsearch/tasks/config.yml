@@ -13,4 +13,4 @@
   when: manala_elasticsearch_config_template
     or manala_elasticsearch_config
   notify:
-    - elasticsearch restart
+    - Restart elasticsearch

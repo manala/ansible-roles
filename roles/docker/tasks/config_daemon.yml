@@ -20,4 +20,4 @@
   when: manala_docker_config_daemon_template
     or manala_docker_config_daemon
   notify:
-    - docker restart
+    - Restart docker

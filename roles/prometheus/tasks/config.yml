@@ -16,4 +16,4 @@
     group: root
     mode: "0644"
   notify:
-    - prometheus restart
+    - Restart prometheus

@@ -9,7 +9,7 @@
     mode: "0644"
   when: manala_dhcp_config_template is not none
   notify:
-    - dhcp restart
+    - Restart dhcp
 
 - name: config > Content
   ansible.builtin.copy:
@@ -20,4 +20,4 @@
     mode: "0644"
   when: manala_dhcp_config_content is not none
   notify:
-    - dhcp restart
+    - Restart dhcp

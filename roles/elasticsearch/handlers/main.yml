@@ -1,8 +1,10 @@
 ---
 
-- name: elasticsearch restart
+- name: Restart elasticsearch
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
   loop:
     - elasticsearch
+  # Deprecated
+  listen: elasticsearch restart

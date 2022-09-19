@@ -11,7 +11,7 @@
       - blackfire-agent
       - blackfire-php
   notify:
-    - php fpm restart
+    - Restart php fpm
 
 - name: blackfire > Agent config template
   ansible.builtin.template:
@@ -23,7 +23,7 @@
   when: manala_php_blackfire_agent_config_template
     or manala_php_blackfire_agent_config
   notify:
-    - php blackfire agent restart
+    - Restart php blackfire agent
 
 - name: blackfire > Client config template
   ansible.builtin.template:
