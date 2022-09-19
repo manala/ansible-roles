@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.0] - 2022-09-19
 ### Added
 - [Promtail] Introduce role
 ### Changed
