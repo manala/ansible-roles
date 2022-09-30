@@ -1,0 +1,7 @@
+---
+
+# Install
+- ansible.builtin.import_tasks: install.yml
+  tags:
+    - manala_python
+    - manala_python.install

@@ -1,0 +1,11 @@
+---
+
+command:
+  pytest --version:
+    exit-status: 0
+    stdout:
+      - "/^pytest /"
+  pipenv --version:
+    exit-status: 0
+    stdout:
+      - "/^pipenv, version 11.9.0/"

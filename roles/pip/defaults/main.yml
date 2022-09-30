@@ -1,0 +1,12 @@
+---
+
+# Install
+manala_pip_install_packages: ~
+manala_pip_install_packages_default:
+  - python3-pkg-resources
+  - python3-setuptools
+  - python3-wheel
+  - python3-pip
+
+# Packages
+manala_pip_packages: []

@@ -1,0 +1,9 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts: debian
+  tasks:
+    - name: Python
+      ansible.builtin.import_role:
+        name: manala.roles.python

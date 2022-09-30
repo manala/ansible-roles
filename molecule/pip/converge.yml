@@ -1,0 +1,27 @@
+---
+
+############
+# Packages #
+############
+
+- name: Packages
+  tags: [packages]
+  hosts:
+    - debian
+    - "!debian.stretch"
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.pip
+          vars:
+            manala_pip_packages:
+              - pytest
+              - package: pipenv
+                version: 11.9.0
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/packages.yml.j2') }}"
+          changed_when: false

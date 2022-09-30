@@ -1,0 +1,13 @@
+---
+
+# Python version. Available values are '~' (autodetect), '3.5', '3.7', '3.9', '3.10', ...
+manala_python_version: ~
+
+# Install
+manala_python_install_packages: ~
+manala_python_install_packages_default:
+  - "{{
+      'python' ~ manala_python_version
+        if (manala_python_version) else
+      'python3'
+  }}"

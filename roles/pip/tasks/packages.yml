@@ -1,0 +1,12 @@
+---
+
+- name: Packages > Manage
+  ansible.builtin.pip:
+    name: "{{ item.package }}"
+    state: "{{ item.state | default(omit) }}"
+    version: "{{ item.version | default(omit) }}"
+  loop: |
+    {{ query(
+      'manala.roles.pip_packages',
+      manala_pip_packages
+    ) }}

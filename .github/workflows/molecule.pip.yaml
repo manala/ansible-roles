@@ -1,0 +1,24 @@
+name: Molecule - Pip
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/molecule.pip.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/pip/**
+      - roles/pip/**
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  pip:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: pip

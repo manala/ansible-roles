@@ -1,0 +1,13 @@
+---
+
+# Install
+- ansible.builtin.import_tasks: install.yml
+  tags:
+    - manala_pip
+    - manala_pip.install
+
+# Packages
+- ansible.builtin.import_tasks: packages.yml
+  tags:
+    - manala_pip
+    - manala_pip.packages
