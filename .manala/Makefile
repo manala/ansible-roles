@@ -16,7 +16,8 @@ include $(_DIR)/.manala/docker/make.mk
 # System #
 ##########
 
-ifneq ($(container),docker)
+# Docker commands only available *OUTSIDE* docker environment
+ifndef DOCKER
 
 HELP += $(call help_section, System)
 
