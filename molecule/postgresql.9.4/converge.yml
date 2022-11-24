@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   tasks:
     - block:  # noqa name[missing]
         - name: Role
@@ -43,7 +45,9 @@
 
 - name: Config
   tags: [config]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.stretch"
   vars:
     tests_dir: /molecule/postgresql/config
   tasks:
