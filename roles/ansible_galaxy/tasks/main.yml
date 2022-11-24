@@ -1,7 +1,7 @@
 ---
 
-# Roles
-- ansible.builtin.import_tasks: roles.yml
+- name: Roles
+  ansible.builtin.import_tasks: roles.yml
   tags:
     - manala_ansible_galaxy
     - manala_ansible_galaxy.roles

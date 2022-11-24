@@ -5,6 +5,6 @@
     - manala_deploy
   block:
 
-    - name: Tasks / Include Role > "{{ item.options }}"
+    - name: Tasks / Include Role > {{ item.options | quote }}
       ansible.builtin.include_role:
         name: "{{ item.options }}"

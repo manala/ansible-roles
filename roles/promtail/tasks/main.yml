@@ -1,31 +1,31 @@
 ---
 
-# Accounts
-- ansible.builtin.import_tasks: accounts.yml
+- name: Accounts
+  ansible.builtin.import_tasks: accounts.yml
   tags:
     - manala_promtail
     - manala_promtail.accounts
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_promtail
     - manala_promtail.install
 
-# Config
-- ansible.builtin.import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_promtail
     - manala_promtail.config
 
-# Data
-- ansible.builtin.import_tasks: data.yml
+- name: Data
+  ansible.builtin.import_tasks: data.yml
   tags:
     - manala_promtail
     - manala_promtail.data
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_promtail
     - manala_promtail.services

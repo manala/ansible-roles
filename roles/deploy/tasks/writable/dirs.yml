@@ -1,6 +1,6 @@
 ---
 
-- name: Writable / Dirs > "{{ item.dir }}"
+- name: Writable / Dirs > {{ item.dir | quote }}
   ansible.builtin.file:
     path: "{{ deploy_helper.new_release_path ~ '/' ~ item.dir }}"
     recurse: "{{ item.recurse | default(omit) }}"
@@ -14,7 +14,7 @@
       manala_deploy_writable_dirs_default
     ) }}
 
-- name: Writable / Dirs > Raw "{{ item.dir }}"
+- name: Writable / Dirs > Raw {{ item.dir | quote }}
   ansible.builtin.raw: "{{ item.raw | format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
   when: item.raw is defined
   loop: |

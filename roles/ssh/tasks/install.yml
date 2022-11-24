@@ -10,6 +10,8 @@
     - "{{ manala_ssh_install_packages | default(manala_ssh_install_packages_default, True) }}"
 
 - name: Install > Version
+  when: manala_ssh_version is none
+  check_mode: false
   block:
     - name: Install > Parse version
       ansible.builtin.command: >
@@ -25,5 +27,3 @@
             | first
         }}"
       changed_when: false
-  when: manala_ssh_version is none
-  check_mode: false

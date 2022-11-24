@@ -5,6 +5,6 @@
     - manala_deploy
   block:
 
-    - name: Tasks / Raw > "{{ item.options }}"
+    - name: Tasks / Raw > {{ item.options | quote }}
       ansible.builtin.raw: "{{ item.options }}"
       changed_when: true

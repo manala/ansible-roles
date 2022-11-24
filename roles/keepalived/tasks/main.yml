@@ -1,25 +1,25 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_keepalived
     - manala_keepalived.install
 
-# Config
-- ansible.builtin.import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_keepalived
     - manala_keepalived.config
 
-# Environment
-- ansible.builtin.import_tasks: environment.yml
+- name: Environment
+  ansible.builtin.import_tasks: environment.yml
   tags:
     - manala_keepalived
     - manala_keepalived.environment
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_keepalived
     - manala_keepalived.services

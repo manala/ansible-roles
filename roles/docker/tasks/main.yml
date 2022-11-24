@@ -1,38 +1,38 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_docker
     - manala_docker.install
 
-# Config - Daemon
-- ansible.builtin.import_tasks: config_daemon.yml
+- name: Config - Daemon
+  ansible.builtin.import_tasks: config_daemon.yml
   tags:
     - manala_docker
     - manala_docker.config_daemon
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_docker
     - manala_docker.services
     - manala.services
 
-# Applications
-- ansible.builtin.import_tasks: applications.yml
+- name: Applications
+  ansible.builtin.import_tasks: applications.yml
   tags:
     - manala_docker
     - manala_docker.applications
 
-# Containers
-- ansible.builtin.import_tasks: containers.yml
+- name: Containers
+  ansible.builtin.import_tasks: containers.yml
   tags:
     - manala_docker
     - manala_docker.containers
 
-# Update
-- ansible.builtin.import_tasks: update.yml
+- name: Update
+  ansible.builtin.import_tasks: update.yml
   when: __manala_docker['update']
   tags:
     - manala_docker

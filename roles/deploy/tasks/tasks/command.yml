@@ -5,7 +5,7 @@
     - manala_deploy
   block:
 
-    - name: Tasks / Command > "{{ item.options }}" in "{{ item.dir }}"
+    - name: Tasks / Command > {{ '"%(cmd)s" in "%(dir)s"' | format(cmd=item.options, dir=item.dir) }}
       ansible.builtin.command: "{{ item.options }}"
       args:
         chdir: "{{ item.dir }}"

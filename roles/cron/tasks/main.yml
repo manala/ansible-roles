@@ -1,19 +1,19 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_cron
     - manala_cron.install
 
-# Files
-- ansible.builtin.import_tasks: files.yml
+- name: Files
+  ansible.builtin.import_tasks: files.yml
   tags:
     - manala_cron
     - manala_cron.files
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_cron
     - manala_cron.services

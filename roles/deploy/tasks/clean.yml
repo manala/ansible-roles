@@ -1,6 +1,6 @@
 ---
 
-- name: Clean > Remove failed and old releases, keeping "{{ manala_deploy_releases }}" releases
+- name: Clean > Remove failed and old releases, keeping {{ manala_deploy_releases | quote }}
   community.general.deploy_helper:
     path: "{{ manala_deploy_dir }}"
     current_path: "{{ manala_deploy_current_dir }}"

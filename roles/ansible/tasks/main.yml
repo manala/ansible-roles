@@ -1,31 +1,31 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_ansible
     - manala_ansible.install
 
-# Hosts
-- ansible.builtin.import_tasks: hosts.yml
+- name: Hosts
+  ansible.builtin.import_tasks: hosts.yml
   tags:
     - manala_ansible
     - manala_ansible.hosts
 
-# Config
-- ansible.builtin.import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_ansible
     - manala_ansible.config
 
-# Host vars
-- ansible.builtin.import_tasks: host_vars.yml
+- name: Host vars
+  ansible.builtin.import_tasks: host_vars.yml
   tags:
     - manala_ansible
     - manala_ansible.hosts_vars
 
-# Group vars
-- ansible.builtin.import_tasks: group_vars.yml
+- name: Group vars
+  ansible.builtin.import_tasks: group_vars.yml
   tags:
     - manala_ansible
     - manala_ansible.group_vars

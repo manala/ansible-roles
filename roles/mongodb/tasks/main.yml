@@ -1,25 +1,25 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_mongodb
     - manala_mongodb.install
 
-# Config
-- ansible.builtin.import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_mongodb
     - manala_mongodb.config
 
-# Users
-- ansible.builtin.import_tasks: users.yml
+- name: Users
+  ansible.builtin.import_tasks: users.yml
   tags:
     - manala_mongodb
     - manala_mongodb.users
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_mongodb
     - manala_mongodb.services

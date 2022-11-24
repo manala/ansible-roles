@@ -1,13 +1,13 @@
 ---
 
-# # Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_backup_manager
     - manala_backup_manager.install
 
-# Configs
-- ansible.builtin.import_tasks: configs.yml
+- name: Configs
+  ansible.builtin.import_tasks: configs.yml
   tags:
     - manala_backup_manager
     - manala_backup_manager.configs

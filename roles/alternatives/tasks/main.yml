@@ -1,7 +1,7 @@
 ---
 
-# Selections
-- ansible.builtin.import_tasks: selections.yml
+- name: Selections
+  ansible.builtin.import_tasks: selections.yml
   tags:
     - manala_alternatives
     - manala_alternatives.selections

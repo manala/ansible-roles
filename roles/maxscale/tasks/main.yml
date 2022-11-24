@@ -1,31 +1,31 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_maxscale
     - manala_maxscale.install
 
-# Config
-- ansible.builtin.import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_maxscale
     - manala_maxscale.config
 
-# Configs
-- ansible.builtin.import_tasks: configs.yml
+- name: Configs
+  ansible.builtin.import_tasks: configs.yml
   tags:
     - manala_maxscale
     - manala_maxscale.configs
 
-# Users
-- ansible.builtin.import_tasks: users.yml
+- name: Users
+  ansible.builtin.import_tasks: users.yml
   tags:
     - manala_maxscale
     - manala_maxscale.users
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_maxscale
     - manala_maxscale.services

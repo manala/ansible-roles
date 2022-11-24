@@ -5,7 +5,7 @@
     - manala_deploy
   block:
 
-    - name: Tasks / Service Restart > "{{ item.options }}"
+    - name: Tasks / Service Restart > {{ item.options | quote }}
       ansible.builtin.service:
         name: "{{ item.options }}"
         state: restarted

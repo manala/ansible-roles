@@ -1,19 +1,19 @@
 ---
 
-# Requirements
-- ansible.builtin.import_tasks: requirements.yml
+- name: Requirements
+  ansible.builtin.import_tasks: requirements.yml
   tags:
     - manala_pam_ssh_agent_auth
     - manala_pam_ssh_agent_auth.requirements
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_pam_ssh_agent_auth
     - manala_pam_ssh_agent_auth.install
 
-# Sudo
-- ansible.builtin.import_tasks: sudo.yml
+- name: Sudo
+  ansible.builtin.import_tasks: sudo.yml
   tags:
     - manala_pam_ssh_agent_auth
     - manala_pam_ssh_agent_auth.sudo

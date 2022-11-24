@@ -1,25 +1,25 @@
 ---
 
-# Install
-- ansible.builtin.import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_php
     - manala_php.install
 
-# Extensions
-- ansible.builtin.import_tasks: extensions.yml
+- name: Extensions
+  ansible.builtin.import_tasks: extensions.yml
   tags:
     - manala_php
     - manala_php.extensions
 
-# Configs
-- ansible.builtin.import_tasks: configs.yml
+- name: Configs
+  ansible.builtin.import_tasks: configs.yml
   tags:
     - manala_php
     - manala_php.configs
 
-# Fpm pools
-- ansible.builtin.import_tasks: fpm_pools.yml
+- name: Fpm pools
+  ansible.builtin.import_tasks: fpm_pools.yml
   when: |
     'fpm' in query(
       'manala.roles.php_sapis',
@@ -32,22 +32,22 @@
     - manala_php
     - manala_php.fpm_pools
 
-# Blackfire
-- ansible.builtin.import_tasks: blackfire.yml
+- name: Blackfire
+  ansible.builtin.import_tasks: blackfire.yml
   when: manala_php_blackfire
   tags:
     - manala_php
     - manala_php.blackfire
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_php
     - manala_php.services
     - manala.services
 
-# Applications
-- ansible.builtin.import_tasks: applications.yml
+- name: Applications
+  ansible.builtin.import_tasks: applications.yml
   tags:
     - manala_php
     - manala_php.applications

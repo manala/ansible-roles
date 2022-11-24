@@ -5,5 +5,5 @@
     - manala_deploy
   block:
 
-    - name: Tasks / Include > "{{ item.options }}"
+    - name: Tasks / Include > {{ item.options | quote }}
       ansible.builtin.include_tasks: "{{ item.options }}"

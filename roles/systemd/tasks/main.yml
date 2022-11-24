@@ -1,20 +1,19 @@
 ---
 
-
-# Configs - Tmpfiles
-- ansible.builtin.import_tasks: tmpfiles_configs.yml
+- name: Configs - Tmpfiles
+  ansible.builtin.import_tasks: tmpfiles_configs.yml
   tags:
     - manala_systemd
     - manala_systemd.tmpfiles_configs
 
-# Configs - System
-- ansible.builtin.import_tasks: system_configs.yml
+- name: Configs - System
+  ansible.builtin.import_tasks: system_configs.yml
   tags:
     - manala_systemd
     - manala_systemd.system_configs
 
-# Services
-- ansible.builtin.import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_systemd
     - manala_systemd.services
