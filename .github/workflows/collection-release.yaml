@@ -11,7 +11,7 @@ jobs:
     if: "contains(github.event.head_commit.message, 'Release')"
     steps:
       - name: Notify Slack of starting
-        uses: act10ns/slack@v1
+        uses: act10ns/slack@v2
         with:
           status: starting
           channel: '#collection_release'
@@ -79,7 +79,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Notify Slack of action status
-        uses: act10ns/slack@v1
+        uses: act10ns/slack@v2
         with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}

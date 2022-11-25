@@ -10,7 +10,7 @@ ARG DEBIAN
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 ARG GOSU_VERSION=1.14
-ARG GOMPLATE_VERSION=3.11.1
+ARG GOMPLATE_VERSION=3.11.3
 
 # The 'container' environment variable tells systemd that it's running inside a
 # Docker container environment.
@@ -91,9 +91,9 @@ RUN \
     && apt-get install --yes --no-install-recommends \
       ${BUILD_PACKAGES} \
     # Ansible Lint
-    && pipx install ansible-lint==6.5.2 \
+    && pipx install ansible-lint==6.9.0 \
     # Molecule
-    && pipx install molecule==4.0.1 \
+    && pipx install molecule==4.0.3 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
     && pipx inject molecule molecule-docker==1.1.0 \
     && apt-get purge --yes --autoremove ${BUILD_PACKAGES}

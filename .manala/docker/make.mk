@@ -2,10 +2,14 @@
 # Docker #
 ##########
 
+ifeq ($(container),docker)
+DOCKER := 1
+endif
+
 # Internal usage:
 #   $(_docker) [COMMAND] [ARGS...]
 
-ifneq ($(container),docker)
+ifndef DOCKER
 define _docker
 	docker
 endef
@@ -56,7 +60,7 @@ _DOCKER_COMPOSE_ENV += MANALA_DOCKER_SOCK_BIND=/var/run/docker.sock.bind
 # Internal usage:
 #   $(_docker_compose) [COMMAND] [ARGS...]
 
-ifneq ($(container),docker)
+ifndef DOCKER
 define _docker_compose
 	$(_DOCKER_COMPOSE_ENV) \
 	$(_DOCKER_COMPOSE) \
@@ -79,7 +83,7 @@ endif
 #   $(call docker_run, COMMAND [ARGS...])
 #   $(call docker_run, OPTIONS, COMMAND [ARGS...])
 
-ifneq ($(container),docker)
+ifndef DOCKER
 define docker_run
 	$(_docker_compose) run \
 		--rm \
@@ -100,7 +104,7 @@ endif
 # Usage:
 #   $(docker_exec) [COMMAND] [ARGS...]
 
-ifneq ($(container),docker)
+ifndef DOCKER
 define docker_exec
 	$(_docker_compose) exec \
 		$(if $(_DOCKER_COMPOSE_USER),--user $(_DOCKER_COMPOSE_USER)) \
