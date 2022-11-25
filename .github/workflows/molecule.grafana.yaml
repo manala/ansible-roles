@@ -3,6 +3,7 @@ name: Molecule - Grafana
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.grafana.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

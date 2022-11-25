@@ -3,6 +3,7 @@ name: Molecule - Prometheus
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.prometheus.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

@@ -3,6 +3,7 @@ name: Molecule - Git
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.git.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

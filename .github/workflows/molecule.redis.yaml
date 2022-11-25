@@ -3,6 +3,7 @@ name: Molecule - Redis
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.redis.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

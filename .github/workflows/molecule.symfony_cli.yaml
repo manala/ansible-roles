@@ -3,6 +3,7 @@ name: Molecule - Symfony cli
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.symfony_cli.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

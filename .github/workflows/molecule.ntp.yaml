@@ -3,6 +3,7 @@ name: Molecule - Ntp
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.ntp.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

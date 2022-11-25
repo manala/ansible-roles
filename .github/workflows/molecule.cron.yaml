@@ -3,6 +3,7 @@ name: Molecule - Cron
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.cron.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

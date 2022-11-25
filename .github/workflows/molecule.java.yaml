@@ -3,6 +3,7 @@ name: Molecule - Java
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.java.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

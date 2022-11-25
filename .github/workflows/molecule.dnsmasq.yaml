@@ -3,6 +3,7 @@ name: Molecule - Dnsmasq
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.dnsmasq.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

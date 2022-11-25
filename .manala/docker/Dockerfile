@@ -82,7 +82,7 @@ RUN \
 
 # Ansible
 RUN \
-    pip3 install ansible-core==2.11.12
+    pip3 install ansible-core==2.14.0
 
 RUN \
     BUILD_PACKAGES="pipx python3-dev gcc" \
@@ -95,6 +95,6 @@ RUN \
     # Molecule
     && pipx install molecule==4.0.3 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
-    && pipx inject molecule molecule-docker==1.1.0 \
+    && pipx inject molecule molecule-docker==2.0.0 \
     && apt-get purge --yes --autoremove ${BUILD_PACKAGES}
 

@@ -3,6 +3,7 @@ name: Molecule - Ansible Galaxy
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.ansible_galaxy.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

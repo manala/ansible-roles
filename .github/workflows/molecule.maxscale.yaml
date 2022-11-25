@@ -3,6 +3,7 @@ name: Molecule - MaxScale
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.maxscale.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

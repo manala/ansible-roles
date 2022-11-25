@@ -3,6 +3,7 @@ name: Molecule - Promtail
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.promtail.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

@@ -3,6 +3,7 @@ name: Molecule - Fail2ban
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.fail2ban.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

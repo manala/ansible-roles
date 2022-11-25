@@ -3,6 +3,7 @@ name: Molecule - Oh My Zsh
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.ohmyzsh.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

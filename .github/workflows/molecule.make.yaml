@@ -3,6 +3,7 @@ name: Molecule - Make
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.make.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
