@@ -6,9 +6,7 @@
 
 - name: Configs
   tags: [configs]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   vars:
     tests_dir: /molecule/apt/configs
   tasks:
@@ -99,9 +97,7 @@
 
 - name: Sources List
   tags: [sources_list]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   vars:
     tests_dir: /molecule/apt/sources_list
   tasks:
@@ -141,9 +137,7 @@
 
 - name: Preferences
   tags: [preferences]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   vars:
     tests_dir: /molecule/apt/preferences
   tasks:
@@ -276,9 +270,7 @@
 
 - name: Keys
   tags: [keys]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - block:  # noqa name[missing]
         - name: Role
@@ -320,9 +312,7 @@
 
 - name: Repositories - Default
   tags: [repositories, repositories.default]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Apt keys
       ansible.builtin.apt_key:
@@ -378,9 +368,7 @@
 
 - name: Repositories - Exclusive
   tags: [repositories, repositories.exclusive]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Apt keys
       ansible.builtin.apt_key:
@@ -423,9 +411,7 @@
 
 - name: Packages
   tags: [packages]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Packages absent
       ansible.builtin.apt:
@@ -487,9 +473,7 @@
 
 - name: Holds - Default
   tags: [holds, holds.default]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Dpkg selections install
       ansible.builtin.dpkg_selections:
@@ -530,9 +514,7 @@
 
 - name: Holds - Exclusive
   tags: [holds, holds.exclusive]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Dpkg selections holds
       ansible.builtin.dpkg_selections:
@@ -565,9 +547,7 @@
 
 - name: Update
   tags: [update]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - block:  # noqa name[missing]
         - name: Role

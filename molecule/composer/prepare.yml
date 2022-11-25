@@ -2,9 +2,7 @@
 
 - name: Prepare
   tags: [always]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Packages
       ansible.builtin.apt:

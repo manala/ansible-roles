@@ -4,13 +4,6 @@
   tags: [always]
   hosts: debian
   tasks:
-    - name: Apt
-      ansible.builtin.import_role:
-        name: manala.roles.apt
-      vars:
-        manala_apt_preferences:
-          - ansible@backports
-      when: ansible_distribution_release in ['stretch']
     - name: Ansible
       ansible.builtin.import_role:
         name: manala.roles.ansible

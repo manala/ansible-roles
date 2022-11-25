@@ -6,9 +6,7 @@
 
 - name: Default
   tags: [default]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - name: Packages
       ansible.builtin.apt:

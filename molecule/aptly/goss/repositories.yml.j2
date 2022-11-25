@@ -13,7 +13,7 @@ command:
     stdout:
       - "Name: foo"
       - "Comment: Foo"
-      - "Default Distribution: stretch"
+      - "Default Distribution: buster"
       - "Default Component: main"
       - "Number of packages: 0"
   aptly repo show bar:
@@ -22,18 +22,18 @@ command:
     stdout:
       - "Name: bar"
       - "Comment: Bar"
-      - "Default Distribution: buster"
+      - "Default Distribution: bullseye"
       - "Default Component: main"
       - "Number of packages: 0"
 
 file:
-  {{ tests_dir }}/public/dists/buster/Release:
+  {{ tests_dir }}/public/dists/bullseye/Release:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-  {{ tests_dir }}/public/dists/buster/main/binary-amd64/Packages:
+  {{ tests_dir }}/public/dists/bullseye/main/binary-amd64/Packages:
     exists: true
     filetype: file
     owner: root

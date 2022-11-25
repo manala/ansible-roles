@@ -4,13 +4,6 @@
   tags: [always]
   hosts: debian
   tasks:
-    - name: Apt
-      ansible.builtin.import_role:
-        name: manala.roles.apt
-      vars:
-        manala_apt_preferences:
-          - pam-ssh-agent-auth@manala
-      when: ansible_distribution_release in ['stretch']
     - name: Packages
       ansible.builtin.apt:
         name: [sudo]

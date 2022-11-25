@@ -7,7 +7,6 @@
 - name: Default
   tags: [default]
   hosts:
-    - debian.stretch
     - debian.buster
   tasks:
     - block:  # noqa name[missing]
@@ -36,7 +35,6 @@
 - name: Client
   tags: [client]
   hosts:
-    - debian.stretch
     - debian.buster
   tasks:
     - name: Packages absent
@@ -65,7 +63,6 @@
 - name: Config
   tags: [config]
   hosts:
-    - debian.stretch
     - debian.buster
   vars:
     tests_dir: /molecule/mysql/config
@@ -118,7 +115,6 @@
 - name: Configs
   tags: [configs]
   hosts:
-    - debian.stretch
     - debian.buster
   vars:
     tests_dir: /molecule/mysql/configs
@@ -219,7 +215,6 @@
 - name: Data
   tags: [data]
   hosts:
-    - debian.stretch
     - debian.buster
   vars:
     tests_dir: /molecule/mysql/data
@@ -258,7 +253,6 @@
 - name: Users
   tags: [users]
   hosts:
-    - debian.stretch
     - debian.buster
   tasks:
     - name: Role - Default
@@ -319,7 +313,6 @@
 - name: Databases
   tags: [databases]
   hosts:
-    - debian.stretch
     - debian.buster
   tasks:
     - name: Role - Default

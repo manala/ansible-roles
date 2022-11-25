@@ -6,9 +6,7 @@
 
 - name: Default
   tags: [default]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   tasks:
     - block:  # noqa name[missing]
         - name: Role
@@ -27,9 +25,7 @@
 
 - name: Configs
   tags: [configs]
-  hosts:
-    - debian
-    - "!debian.stretch"
+  hosts: debian
   vars:
     tests_dir: /molecule/gitlab/configs
   tasks:

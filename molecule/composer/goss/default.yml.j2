@@ -13,11 +13,7 @@ file:
     exists: true
     filetype: file
     owner: root
-{% if ansible_distribution_release in ['stretch'] %}
-    group: staff
-{% else %}
     group: root
-{% endif %}
     mode: "0755"
   /tmp/installer:
     exists: false

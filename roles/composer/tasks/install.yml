@@ -26,7 +26,7 @@
     }}"
     dest: "{{ manala_composer_bin }}"
     owner: root
-    group: "{{ (ansible_distribution_release in ['stretch']) | ternary('staff', 'root') }}"
+    group: root
     mode: "0755"
     force: true
   when: |

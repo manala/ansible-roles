@@ -133,13 +133,8 @@ manala_apt_repositories:
   - nodesource_14
   - nodesource_16
   - postgresql
-  - maxscale_2_2
-  - mongodb_3_0
-  - mongodb_3_2
-  - mongodb_3_4
-  - mongodb_3_6
-  - mongodb_4_0
   - mongodb_4_2
+  - mongodb_4_4
   - varnish_4_0
   - jenkins
   - sensu
@@ -149,8 +144,6 @@ manala_apt_repositories:
   - logentries
   - galera_3
   - grafana
-  - elasticsearch_1_7
-  - elasticsearch_2
   - elasticsearch_5
   - elasticsearch_6
   - elasticsearch_7
