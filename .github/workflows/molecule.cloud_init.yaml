@@ -3,6 +3,7 @@ name: Molecule - Clound Init
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.cloud_init.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

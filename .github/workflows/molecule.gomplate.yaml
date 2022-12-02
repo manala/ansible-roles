@@ -3,6 +3,7 @@ name: Molecule - Gomplate
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.gomplate.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

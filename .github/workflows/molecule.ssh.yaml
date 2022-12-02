@@ -3,6 +3,7 @@ name: Molecule - Ssh
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.ssh.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

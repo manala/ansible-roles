@@ -3,6 +3,7 @@ name: Molecule - Dhcp
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.dhcp.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

@@ -3,6 +3,7 @@ name: Molecule - Environment
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.environment.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

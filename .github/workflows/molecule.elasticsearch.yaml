@@ -3,6 +3,7 @@ name: Molecule - Elasticsearch
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.elasticsearch.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

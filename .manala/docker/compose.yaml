@@ -11,7 +11,7 @@ services:
         build:
             context: .
             target: system
-        image: manala-ansible-roles:20221124132946
+        image: manala-ansible-roles:20221125100030
         volumes:
             - ../..:${DIR}
         environment:

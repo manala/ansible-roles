@@ -3,6 +3,7 @@ name: Molecule - Telegraf
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.telegraf.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

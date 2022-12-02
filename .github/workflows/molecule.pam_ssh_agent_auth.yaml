@@ -3,6 +3,7 @@ name: Molecule - Pam ssh agent auth
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.pam_ssh_agent_auth.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*

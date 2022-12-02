@@ -3,6 +3,7 @@ name: Molecule - Sensu Go
 on:
   pull_request:
     paths:
+      - .manala.yaml
       - .github/workflows/molecule.sensu_go.yml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
