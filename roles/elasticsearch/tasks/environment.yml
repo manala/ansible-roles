@@ -9,10 +9,7 @@
       'root' if (manala_elasticsearch_version is version('5', '<=')) else
       'elasticsearch'
     }}"
-    mode: "{{
-      '0644' if (manala_elasticsearch_version is version('2', '<=')) else
-      '0660'
-    }}"
+    mode: "0660"
   when: manala_elasticsearch_environment_template
     or manala_elasticsearch_environment
   notify:

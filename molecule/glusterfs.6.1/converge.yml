@@ -7,7 +7,6 @@
 - name: Default
   tags: [default]
   hosts:
-    - debian.stretch
     - debian.buster
   tasks:
     - block:  # noqa name[missing]
@@ -28,7 +27,6 @@
 - name: Volumes
   tags: [volumes]
   hosts:
-    - debian.stretch
     - debian.buster
   vars:
     tests_dir: /molecule/glusterfs/volumes

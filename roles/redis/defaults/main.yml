@@ -1,6 +1,6 @@
 ---
 
-# Available values: '~' (autodetect), 3.2, '5.0', '6.0', ...
+# Available values: '~' (autodetect), '5.0', '6.0', ...
 manala_redis_version: ~
 
 # Install

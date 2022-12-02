@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- [All] Remove debian stretch support
+- [Apt] Remove debian stretch related `elasticsearch_2`, `maxscale_2_2`, `mongodb_3_2`, `mongodb_3_4`, `mongodb_3_6`, `mongodb_4_0`, `mysql_5_6`, `mysql_wsrep_5_6`, `galera_3`, `galera_3_31` repositories patterns
+- [Elasticsearch] debian stretch related version 2 support
+- [Redis] debian stretch related version 3.2 support
 
 ## [2.1.0] - 2022-09-19
 ### Added

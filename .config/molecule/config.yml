@@ -4,16 +4,6 @@ driver:
   name: docker
 
 platforms:
-  - name: debian.stretch
-    groups: [debian]
-    image: jrei/systemd-debian:stretch
-    dockerfile: ../Dockerfile.debian.stretch.j2
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /tmp
-    override_command: false
   - name: debian.buster
     groups: [debian]
     image: jrei/systemd-debian:buster
@@ -44,11 +34,6 @@ provisioner:
       fact_caching: jsonfile
       fact_caching_connection: facts.json
       fact_caching_timeout: 3600
-  inventory:
-    host_vars:
-      debian.stretch:
-        # Force python version on debian stretch
-        ansible_python_interpreter: /usr/bin/python3
 
 scenario:
   create_sequence:

@@ -59,17 +59,17 @@ Repositories:
 
 ```yaml
 manala_aptly_repositories:
-  - name: stretch
-    comment: Stretch
-    component: main
-    distribution: stretch
-    origin: Foo
-    label: Bar
-    architectures: amd64,arm64
   - name: buster
     comment: Buster
     component: main
     distribution: buster
+    origin: Foo
+    label: Bar
+    architectures: amd64,arm64
+  - name: bullseye
+    comment: Bullseye
+    component: main
+    distribution: bullseye
     origin: Foo
     label: Bar
     architectures: amd64

@@ -1,6 +1,6 @@
 # Ansible Role: Mysql
 
-This role will deal with the setup of [Mysql](https://www.mysql.com/) (>= 5.6).
+This role will deal with the setup of [Mysql](https://www.mysql.com/) (>= 5.7).
 
 It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 

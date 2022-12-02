@@ -25,4 +25,4 @@ jobs:
     with:
       debug: ${{ inputs.debug == true }}
       scenario: elasticsearch
-      versions: '[2, 5, 6, 7]'
+      versions: '[5, 6, 7]'

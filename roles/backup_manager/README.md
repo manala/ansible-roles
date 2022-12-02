@@ -6,7 +6,7 @@ It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/r
 
 ## Requirements
 
-This role is made to work with the backup-manager debian package, available on the __manala__ debian repository for stretch. Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
+This role is made to work with the backup-manager debian package. Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:

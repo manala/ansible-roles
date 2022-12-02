@@ -3,7 +3,6 @@
 - name: Prepare
   tags: [always]
   hosts:
-    - debian.stretch
     - debian.buster
   tasks:
     - name: Apt
