@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [Apt] Variabilize docker repository address to dynamically match distribution
+### Removed
+- [Ssh] debian jessie related version 6.7 support
+- [Ssh] debian stretch related version 7.4 support
 
 ## [3.0.0] - 2022-12-02
 ### Removed
