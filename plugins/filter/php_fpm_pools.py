@@ -76,9 +76,18 @@ def pools_parameter(parameters, key, required=False, comment=False, quote=False,
         result = result.rsplit('\n', 1)[0]
     elif isinstance(value, list):
         value = flatten(value)
-        result = '\n'.join(
-            pools_parameter({key: v}, key, quote=quote) for v in value
-        )
+        if key == 'access.suppress_path':
+            # 'access.suppress_path' is a particular option which is internally handled by fpm
+            # as a dict with null keys. Such a structure is unavailabl both in yaml and python,
+            # so, as a consequence, we handle it as a list.
+            # See: https://github.com/php/php-src/pull/8214
+            result = '\n'.join(
+                pools_parameter({'%s[]' % key: v}, '%s[]' % key, quote=quote) for v in value
+            )
+        else:
+            result = '\n'.join(
+                pools_parameter({key: v}, key, quote=quote) for v in value
+            )
     else:
         raise AnsibleFilterError('php_fpm_pools_parameter value of an unknown type %s' % type(value))
 
