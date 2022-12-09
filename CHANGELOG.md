@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Apt] Variabilize docker repository address to dynamically match distribution
 
 ## [3.0.0] - 2022-12-02
 ### Removed
