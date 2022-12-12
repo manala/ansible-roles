@@ -1,6 +1,6 @@
 ---
 
-# Available values: '~' (autodetect), 6.7, 7.4, 7.9, 8.4, ...
+# Available values: '~' (autodetect), 7.9, 8.4, ...
 manala_ssh_version: ~
 
 # Install
