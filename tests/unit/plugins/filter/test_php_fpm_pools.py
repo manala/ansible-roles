@@ -158,3 +158,7 @@ class TestPoolsParameter(unittest.TestCase):
         self.assertEqual('''value = foo\nvalue = bar''', pools_parameter({
             'value': ['foo', 'bar'],
         }, 'value'))
+        # Particular options
+        self.assertEqual('''access.suppress_path[] = foo\naccess.suppress_path[] = bar''', pools_parameter({
+            'access.suppress_path': ['foo', 'bar'],
+        }, 'access.suppress_path'))
