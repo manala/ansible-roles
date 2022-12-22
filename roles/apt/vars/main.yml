@@ -171,7 +171,7 @@ manala_apt_repositories_patterns:
     source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.26-26.8/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
-    source: deb https://packages.grafana.com/oss/deb stable main
+    source: deb https://apt.grafana.com stable main
     key: grafana
   elasticsearch_5:
     source: deb https://artifacts.elastic.co/packages/5.x/apt stable main
@@ -391,7 +391,7 @@ manala_apt_keys_patterns:
     url: https://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/Release.key
     id: 479BC94B
   grafana:
-    url: https://packages.grafana.com/gpg.key
+    url: https://apt.grafana.com/gpg.key
     id: 24098CB6
   blackfire:
     url: https://packages.blackfire.io/gpg.key
