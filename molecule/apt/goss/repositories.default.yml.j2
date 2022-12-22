@@ -20,14 +20,14 @@ file:
     contains:
       - "deb http://repo.percona.com/apt {{ ansible_distribution_release }} main"
   # Pattern syntax
-  /etc/apt/sources.list.d/packages_grafana_com_oss_deb.list:
+  /etc/apt/sources.list.d/apt_grafana_com.list:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contains:
-      - "deb https://packages.grafana.com/oss/deb stable main"
+      - "deb https://apt.grafana.com stable main"
   # Verbose syntax
   /etc/apt/sources.list.d/dl_yarnpkg_com_debian.list:
     exists: true
