@@ -1,0 +1,11 @@
+---
+
+# Install
+manala_grafana_agent_install_packages: ~
+manala_grafana_agent_install_packages_default:
+  - grafana-agent
+
+# Config
+manala_grafana_agent_config_file: /etc/grafana-agent.yaml
+manala_grafana_agent_config_template: ~
+manala_grafana_agent_config: ~

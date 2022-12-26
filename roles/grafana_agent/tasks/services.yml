@@ -1,0 +1,20 @@
+---
+
+- name: Services > Services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: |-
+      {{
+        'restarted'
+          if (
+            __manala_grafana_agent_config_template_result | default({}) is changed
+          ) else
+        'started'
+      }}
+    enabled: true
+    # Ensure `systemctl daemon-reload` is run, even if package post-install script
+    # does not handle it properly.
+    # See: https://github.com/grafana/agent/issues/2653
+    daemon_reload: true
+  loop:
+    - grafana-agent

@@ -1,0 +1,12 @@
+---
+
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_grafana_agent_config_template | ternary(manala_grafana_agent_config_template, 'config/_default.j2') }}"
+    dest: "{{ manala_grafana_agent_config_file }}"
+    owner: root
+    group: grafana-agent
+    mode: "0640"
+  when: manala_grafana_agent_config_template
+    or manala_grafana_agent_config
+  register: __manala_grafana_agent_config_template_result

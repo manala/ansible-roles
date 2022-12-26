@@ -1,0 +1,10 @@
+---
+
+- name: Install > Packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    install_recommends: false
+    update_cache: true
+    cache_valid_time: 3600
+  loop:
+    - "{{ manala_grafana_agent_install_packages | default(manala_grafana_agent_install_packages_default, True) }}"

@@ -1,0 +1,20 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yml
+  tags:
+    - manala_grafana_agent
+    - manala_grafana_agent.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yml
+  tags:
+    - manala_grafana_agent
+    - manala_grafana_agent.config
+
+- name: Services
+  ansible.builtin.import_tasks: services.yml
+  tags:
+    - manala_grafana_agent
+    - manala_grafana_agent.services
+    - manala.services
