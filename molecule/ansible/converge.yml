@@ -29,7 +29,7 @@
   vars:
     tests_dir: /molecule/ansible/hosts
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -69,7 +69,7 @@
   vars:
     tests_dir: /molecule/ansible/config
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -109,7 +109,7 @@
   vars:
     tests_dir: /molecule/ansible/host_vars
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
@@ -200,7 +200,7 @@
   vars:
     tests_dir: /molecule/ansible/group_vars
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"

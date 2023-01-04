@@ -11,7 +11,7 @@
     tests_dir: /molecule/files/defaults
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -64,7 +64,7 @@
     tests_dir: /molecule/files/file
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -220,7 +220,7 @@
     tests_dir: /molecule/files/link
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -408,7 +408,7 @@
     tests_dir: /molecule/files/directory
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -529,7 +529,7 @@
     tests_dir: /molecule/files/copy
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -579,7 +579,7 @@
     tests_dir: /molecule/files/url
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -622,7 +622,7 @@
     tests_dir: /molecule/files/content
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -697,7 +697,7 @@
     tests_dir: /molecule/files/template
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -767,7 +767,7 @@
     tests_dir: /molecule/files/link_directory
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -816,7 +816,7 @@
     tests_dir: /molecule/files/link_file
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"

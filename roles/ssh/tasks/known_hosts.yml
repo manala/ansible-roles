@@ -1,6 +1,6 @@
 ---
 
-- name: Known Hosts > Known hosts
+- name: Known Hosts > Known hosts  # noqa args[module]
   ansible.builtin.known_hosts:
     host: "{{ item.host }}"
     key: "{{

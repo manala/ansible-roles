@@ -1,13 +1,13 @@
 ---
 
-- name: Modules > Enable/disable kernel modules.
+- name: Modules > Enable/disable kernel modules
   community.general.modprobe:
     name: "{{ item if (item is string) else item.module }}"
     params: "{{ item.params | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   loop: "{{ manala_kernel_modules }}"
 
-- name: Modules > Enable/disable kernel modules on boot.
+- name: Modules > Enable/disable kernel modules on boot  # noqa args[module]
   ansible.builtin.lineinfile:
     dest: /etc/modules
     line: "{{ item if (item is string) else item.module }}"

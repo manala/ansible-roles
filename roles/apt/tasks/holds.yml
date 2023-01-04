@@ -7,7 +7,7 @@
   changed_when: false
   check_mode: false
 
-- name: Holds > Set selections
+- name: Holds > Set selections  # noqa args[module]
   ansible.builtin.dpkg_selections:
     name: "{{ item.package }}"
     selection: "{{ (item.state == 'present') | ternary('hold', 'install') }}"

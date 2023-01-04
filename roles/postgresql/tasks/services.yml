@@ -1,6 +1,6 @@
 ---
 
-- name: Services > Ensure service is started or restarted
+- name: Services > Ensure service is started or restarted  # noqa args[module]
   ansible.builtin.service:
     name: "{{ item }}"
     state: |-
