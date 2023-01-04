@@ -9,7 +9,7 @@ FROM debian:${DEBIAN}-slim as base
 ARG DEBIAN
 ARG USER_ID=1000
 ARG GROUP_ID=1000
-ARG GOSU_VERSION=1.14
+ARG GOSU_VERSION=1.16
 ARG GOMPLATE_VERSION=3.11.3
 
 # The 'container' environment variable tells systemd that it's running inside a
@@ -29,6 +29,7 @@ RUN \
         gnupg \
         libarchive-tools bzip2 \
         bash-completion \
+        rsync \
         git \
         make \
         less \
@@ -82,7 +83,7 @@ RUN \
 
 # Ansible
 RUN \
-    pip3 install ansible-core==2.14.0
+    pip3 install ansible-core==2.14.1
 
 RUN \
     BUILD_PACKAGES="pipx python3-dev gcc" \
@@ -91,10 +92,11 @@ RUN \
     && apt-get install --yes --no-install-recommends \
       ${BUILD_PACKAGES} \
     # Ansible Lint
-    && pipx install ansible-lint==6.9.0 \
+    && pipx install ansible-lint==6.10.2 \
     # Molecule
-    && pipx install molecule==4.0.3 \
+    && pipx install molecule==4.0.4 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
-    && pipx inject molecule molecule-docker==2.0.0 \
+    && pipx inject molecule molecule-plugins==22.0.0 \
+    && pipx inject molecule molecule-plugins[docker]==22.0.0 \
     && apt-get purge --yes --autoremove ${BUILD_PACKAGES}
 
