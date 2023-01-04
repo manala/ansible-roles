@@ -12,6 +12,18 @@
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.telegraf
+          vars:
+            manala_telegraf_configs:
+              - file: outputs.conf
+                config:
+                  outputs:
+                    file:
+                      - files: [/dev/null]
+              - file: inputs.conf
+                config:
+                  inputs:
+                    mock:
+                      - metric_name: mock
       always:
         - name: Goss
           ansible.builtin.command:
