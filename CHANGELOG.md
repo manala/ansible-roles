@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [Telegraf] Update base config template
+- [All] Update minimum version of ansible to 2.11
 
 ## [3.1.1] - 2022-12-22
 ### Changed
