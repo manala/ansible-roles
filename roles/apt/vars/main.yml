@@ -200,7 +200,7 @@ manala_apt_repositories_patterns:
   docker:
     source: >-
       deb [arch={{ ansible_architecture | manala.roles.apt_architecture }}]
-      https://download.docker.com/linux/{{ ansible_lsb.id|default(ansible_distribution)|lower }} {{ ansible_distribution_release }} stable
+      https://download.docker.com/linux/{{ ansible_lsb.id | default(ansible_distribution) | lower }} {{ ansible_distribution_release }} stable
     key: docker
   manala:
     source: deb http://debian.manala.io {{ ansible_distribution_release }} main
@@ -361,7 +361,7 @@ manala_apt_keys_patterns:
     url: https://www.aptly.info/pubkey.txt
     id: 624A8331
   docker:
-    url: https://download.docker.com/linux/{{ ansible_lsb.id|default(ansible_distribution)|lower }}/gpg
+    url: https://download.docker.com/linux/{{ ansible_lsb.id | default(ansible_distribution) | lower }}/gpg
     id: 0EBFCD88
   manala:
     keyserver: hkp://keyserver.ubuntu.com:80
