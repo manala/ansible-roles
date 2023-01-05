@@ -27,7 +27,6 @@
   # user = "$USER"
   {{- config.global_tags | manala.roles.toml_section }}
 
-
 # Configuration for telegraf agent
 [agent]
   ## Default data collection interval for all inputs
@@ -52,6 +51,11 @@
   ## same time, which can have a measurable effect on the system.
   {{ config.agent | manala.roles.toml_parameter('collection_jitter', default='0s') }}
 
+  ## Collection offset is used to shift the collection by the given amount.
+  ## This can be be used to avoid many plugins querying constraint devices
+  ## at the same time by manually scheduling them in time.
+  {{ config.agent | manala.roles.toml_parameter('collection_offset', default='0s', comment=true) }}
+
   ## Default flushing interval for all outputs. Maximum flush_interval will be
   ## flush_interval + flush_jitter
   {{ config.agent | manala.roles.toml_parameter('flush_interval', default='10s') }}
@@ -60,14 +64,18 @@
   ## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s
   {{ config.agent | manala.roles.toml_parameter('flush_jitter', default='0s') }}
 
+  ## Collected metrics are rounded to the precision specified. Precision is
+  ## specified as an interval with an integer + unit (e.g. 0s, 10ms, 2us, 4s).
+  ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
+  ##
   ## By default or when set to "0s", precision will be set to the same
-  ## timestamp order as the collection interval, with the maximum being 1s.
+  ## timestamp order as the collection interval, with the maximum being 1s:
   ##   ie, when interval = "10s", precision will be "1s"
   ##       when interval = "250ms", precision will be "1ms"
+  ##
   ## Precision will NOT be used for service inputs. It is up to each individual
   ## service input to set the timestamp at the appropriate precision.
-  ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
-  {{ config.agent | manala.roles.toml_parameter('precision', default='') }}
+  {{ config.agent | manala.roles.toml_parameter('precision', default='0s') }}
 
   ## Log at debug level.
   {{ config.agent | manala.roles.toml_parameter('debug', default=false, comment=true) }}
@@ -86,7 +94,7 @@
   ## The logfile will be rotated after the time interval specified.  When set
   ## to 0 no time based rotation is performed.  Logs are rotated only when
   ## written to, if there is no log activity rotation may be delayed.
-  {{ config.agent | manala.roles.toml_parameter('logfile_rotation_interval', default='0d', comment=true) }}
+  {{ config.agent | manala.roles.toml_parameter('logfile_rotation_interval', default='0h', comment=true) }}
 
   ## The logfile will be rotated when it becomes larger than the specified
   ## size.  When set to 0 no size based rotation is performed.
@@ -96,7 +104,16 @@
   ## If set to -1, no archives are removed.
   {{ config.agent | manala.roles.toml_parameter('logfile_rotation_max_archives', default=5, comment=true) }}
 
+  ## Pick a timezone to use when logging or type 'local' for local time.
+  ## Example: America/Chicago
+  {{ config.agent | manala.roles.toml_parameter('log_with_timezone', default='', comment=true) }}
+
   ## Override default hostname, if empty use os.Hostname()
   {{ config.agent | manala.roles.toml_parameter('hostname', default='') }}
   ## If set to true, do no set the "host" tag in the telegraf agent.
   {{ config.agent | manala.roles.toml_parameter('omit_hostname', default=false) }}
+
+  ## Method of translating SNMP objects. Can be "netsnmp" which
+  ## translates by calling external programs snmptranslate and snmptable,
+  ## or "gosmi" which translates using the built-in gosmi library.
+  {{ config.agent | manala.roles.toml_parameter('snmp_translator', default='netsnmp', comment=true) }}
