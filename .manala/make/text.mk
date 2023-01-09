@@ -14,8 +14,10 @@ COLOR_COMMENT := \033[36m
 
 # Usage:
 #   $(call message, Foo$(,) bar) = Foo, bar
+#   $(call message, Foo$(rp) bar) = Foo) bar
 
 , := ,
+rp := )
 
 ########
 # Time #
@@ -81,11 +83,16 @@ endef
 
 # Usage:
 #   $(call confirm, Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
+#   $(call confirm, Bar foo, y) = ༼ つ ◕_◕ ༽つ Foo bar (Y/n):
 
 define confirm
 	$(if $(CONFIRM),, \
-		printf "$(COLOR_INFO) ༼ つ ◕_◕ ༽つ $(COLOR_WARNING)$(strip $(1)) $(COLOR_RESET)$(COLOR_WARNING)(y/N)$(COLOR_RESET): "; \
-		read CONFIRM ; if [ "$$CONFIRM" != "y" ]; then printf "\n"; exit 1; fi; \
+		printf "$(COLOR_INFO) ༼ つ ◕_◕ ༽つ $(COLOR_WARNING)$(strip $(1)) $(COLOR_RESET)$(COLOR_WARNING)$(if $(filter y,$(2)),(Y/n),(y/N))$(COLOR_RESET): " ; \
+		read CONFIRM ; \
+		case $$CONFIRM in $(if $(filter y,$(2)), \
+			[nN]$(rp) printf "\n" ; exit 1 ;; *$(rp) ;;, \
+			[yY]$(rp) ;; *$(rp) printf "\n" ; exit 1 ;; \
+		) esac \
 	)
 endef
 
