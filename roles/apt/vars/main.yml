@@ -50,27 +50,6 @@ manala_apt_repositories_patterns:
   bearstech:
     source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
     key: bearstech
-  nodesource_4:
-    source: deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_6:
-    source: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_7:
-    source: deb https://deb.nodesource.com/node_7.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_8:
-    source: deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_9:
-    source: deb https://deb.nodesource.com/node_9.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_10:
-    source: deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_12:
-    source: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
-    key: nodesource
   nodesource_14:
     source: deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
     key: nodesource

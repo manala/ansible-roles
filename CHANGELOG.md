@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [Telegraf] Update base config template
+### Removed
+- [Apt] Unsupported versions (4, 6, 7, 8, 9, 10, 12)
 
 ## [3.1.1] - 2022-12-22
 ### Changed
