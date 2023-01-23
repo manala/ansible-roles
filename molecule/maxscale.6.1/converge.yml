@@ -29,8 +29,8 @@
   vars:
     tests_dir: /molecule/maxscale/config
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -69,13 +69,13 @@
   vars:
     tests_dir: /molecule/maxscale/configs
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
-    - name: Touch existing files  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -160,8 +160,8 @@
   vars:
     tests_dir: /molecule/maxscale/users
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]

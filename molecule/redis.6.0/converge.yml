@@ -35,13 +35,13 @@
   vars:
     tests_dir: /molecule/redis/config
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - name: Create sentinel_config_dir  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Create sentinel_config_dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/dict-sentinel"
         state: touch
     - block:  # noqa name[missing]

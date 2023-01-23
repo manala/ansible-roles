@@ -1,27 +1,30 @@
-ARG DEBIAN=bullseye
-
 ########
 # Base #
 ########
 
-FROM debian:${DEBIAN}-slim as base
+FROM debian:bullseye-slim
 
-ARG DEBIAN
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-ARG GOSU_VERSION=1.16
-ARG GOMPLATE_VERSION=3.11.3
+ARG DEBIAN_FRONTEND="noninteractive"
+
+ARG USER_ID="1000"
+ARG GROUP_ID="1000"
+
+ARG GOSU_VERSION="1.16"
+ARG GOMPLATE_VERSION="3.11.3"
 
 # The 'container' environment variable tells systemd that it's running inside a
 # Docker container environment.
 # It's also internally used for checking we're running inside a container.
 ENV container="docker"
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN \
     # Backports
-    printf "deb http://deb.debian.org/debian ${DEBIAN}-backports main" > /etc/apt/sources.list.d/backports.list \
-    && apt-get update \
-    && apt-get install --yes --no-install-recommends \
+    echo "deb http://deb.debian.org/debian $(. /etc/os-release; echo "${VERSION_CODENAME}")-backports main" > /etc/apt/sources.list.d/backports.list \
+    && apt-get --quiet update \
+    && apt-get --quiet --yes --purge --autoremove upgrade \
+    && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
         s6 \
         sudo \
         curl \
@@ -35,68 +38,86 @@ RUN \
         less \
         vim \
         socat \
+    # Apt keyrings (debian < bookworm)
+    && mkdir --verbose --parents /etc/apt/keyrings \
     # User
     && addgroup --gid ${GROUP_ID} lazy \
     && adduser --home /home/lazy --shell /bin/bash --uid ${USER_ID} --gecos lazy --ingroup lazy --disabled-password lazy \
-    && mkdir -p /run/user/${USER_ID} && chown lazy:lazy /run/user/${USER_ID} \
-    && printf "lazy ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/lazy \
+    && mkdir --verbose --parents /run/user/${USER_ID} && chown lazy:lazy /run/user/${USER_ID} \
+    && echo "lazy ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/lazy \
     # Gosu
-    && curl -sSL https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(case $(dpkg --print-architecture) in "amd64") echo "amd64" ;; "arm64") echo "arm64" ;; esac) \
-        -o /usr/local/bin/gosu \
+    && curl -sSL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(case $(dpkg --print-architecture) in "amd64") echo "amd64" ;; "arm64") echo "arm64" ;; esac)" \
+        --output /usr/local/bin/gosu \
     && chmod +x /usr/local/bin/gosu \
     # Gomplate
-    && curl -sSL https://github.com/hairyhenderson/gomplate/releases/download/v${GOMPLATE_VERSION}/gomplate_linux-$(case $(dpkg --print-architecture) in "amd64") echo "amd64" ;; "arm64") echo "arm64" ;; esac) \
-        -o /usr/local/bin/gomplate \
+    && curl -sSL "https://github.com/hairyhenderson/gomplate/releases/download/v${GOMPLATE_VERSION}/gomplate_linux-$(case $(dpkg --print-architecture) in "amd64") echo "amd64" ;; "arm64") echo "arm64" ;; esac)" \
+        --output /usr/local/bin/gomplate \
     && chmod +x /usr/local/bin/gomplate \
     # Bash completion
-    && mkdir -p /etc/bash_completion.d \
+    && mkdir --verbose --parents /etc/bash_completion.d \
     # Oh My Bash
-    && git clone https://github.com/ohmybash/oh-my-bash.git /usr/local/share/oh-my-bash
+    && git clone https://github.com/ohmybash/oh-my-bash.git /usr/local/share/oh-my-bash \
+    # Clean
+    && rm -rf /var/lib/apt/lists/*
 
 ##########
 # System #
 ##########
 
-FROM base AS system
-
-ARG DEBIAN
+ARG PIPX_HOME="/usr/local"
+ARG PIPX_BIN_DIR="/usr/local/bin"
 
 RUN \
-    apt-get install --yes --no-install-recommends \
-      openssh-client \
-      sshpass \
-      python3 python3-pip \
-      python3-argcomplete \
-      python3-apt python3-docker \
-      shellcheck \
+    apt-get --quiet update \
+    && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
+        openssh-client \
+        sshpass \
+        python3 python3-pip \
+        python3-argcomplete \
+        python3-apt python3-docker \
+        shellcheck \
     # Bash completion
-    && activate-global-python-argcomplete3 --dest /etc/bash_completion.d
+    && activate-global-python-argcomplete3 --dest /etc/bash_completion.d \
+    # Clean
+    && rm -rf /var/lib/apt/lists/*
 
 # Docker
 RUN \
-    printf "deb https://download.docker.com/linux/debian ${DEBIAN} stable" > /etc/apt/sources.list.d/docker.list \
-    && curl -sSL https://download.docker.com/linux/debian/gpg \
-        | apt-key add - \
-    && apt-get update \
-    && apt-get install --yes --no-install-recommends \
-        docker-ce-cli
+    curl -sSL https://download.docker.com/linux/debian/gpg \
+        | gpg --dearmor --output /etc/apt/keyrings/docker.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release; echo "${VERSION_CODENAME}") stable" > /etc/apt/sources.list.d/docker.list \
+    && apt-get --quiet update \
+    && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
+        docker-ce-cli \
+    # Clean
+    && rm -rf /var/lib/apt/lists/*
 
 # Ansible
 RUN \
-    pip3 install ansible-core==2.14.1
+    pip3 --no-cache-dir install \
+        ansible-core==2.14.2
 
 RUN \
-    BUILD_PACKAGES="pipx python3-dev gcc" \
-    export PIPX_HOME="/usr/local" \
-    export PIPX_BIN_DIR="/usr/local/bin" \
-    && apt-get install --yes --no-install-recommends \
-      ${BUILD_PACKAGES} \
+    BUILD_PACKAGES=( \
+        pipx \
+        libpython3-dev gcc \
+    ) \
+    && apt-get --quiet update \
+    && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
+        "${BUILD_PACKAGES[@]}" \
     # Ansible Lint
-    && pipx install ansible-lint==6.10.2 \
+    && pipx install ansible-lint==6.12.1 \
     # Molecule
     && pipx install molecule==4.0.4 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
-    && pipx inject molecule molecule-plugins==22.0.0 \
-    && pipx inject molecule molecule-plugins[docker]==22.0.0 \
-    && apt-get purge --yes --autoremove ${BUILD_PACKAGES}
+    && pipx inject molecule molecule-plugins==23.0.0 \
+    && pipx inject molecule molecule-plugins[docker]==23.0.0 \
+    # Clean
+    && apt-get --quiet --yes --autoremove purge \
+        "${BUILD_PACKAGES[@]}" \
+    && rm -rf /var/lib/apt/lists/*
 
+# Run
+COPY docker/entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bash"]

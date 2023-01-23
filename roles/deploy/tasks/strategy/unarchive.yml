@@ -5,8 +5,8 @@
     - manala_deploy
   block:
 
-    - name: Strategy / Unarchive > Create dir  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Strategy / Unarchive > Create dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ deploy_helper.new_release_path }}/"
         state: directory
 

@@ -24,11 +24,11 @@ system:
         - .env
     docker: true
     ansible:
-        version: 2.14.1
+        version: 2.14.2
     ansible-lint:
-        version: 6.10.2
+        version: 6.12.1
     molecule:
         version: 4.0.4
         plugins:
-            version: 22.0.0
+            version: 23.0.0
             docker: true

@@ -13,8 +13,8 @@
           deploy_helper.new_release
         }}"
 
-    - name: Tasks / Symfony Assets Version File > Generate assets_version.yml  # noqa risky-file-permissions
-      ansible.builtin.copy:
+    - name: Tasks / Symfony Assets Version File > Generate assets_version.yml
+      ansible.builtin.copy:  # noqa risky-file-permissions
         dest: "{{ item.dir }}/app/config/assets_version.yml"
         force: true
         content: |

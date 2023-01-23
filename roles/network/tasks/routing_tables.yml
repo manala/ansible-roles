@@ -1,7 +1,7 @@
 ---
 
-- name: Routing Tables > File  # noqa no-tabs
-  ansible.builtin.lineinfile:
+- name: Routing Tables > File
+  ansible.builtin.lineinfile:  # noqa no-tabs
     path: "{{ manala_network_routing_tables_file }}"
     regexp: "^{{ item.key }}\\s+"
     line: "{{ item.key ~ '\t' ~ item.value }}"

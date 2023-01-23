@@ -12,8 +12,6 @@ platforms:
     cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    tmpfs:
-      - /tmp
     override_command: false
   - name: debian.bullseye
     groups: [debian]
@@ -23,8 +21,6 @@ platforms:
     cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    tmpfs:
-      - /tmp
     override_command: false
 
 provisioner:

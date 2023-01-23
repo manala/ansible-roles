@@ -31,8 +31,8 @@
   vars:
     tests_dir: /molecule/glusterfs/volumes
   tasks:
-    - name: Directories  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Directories
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: directory
       loop: [absent, present, test_1, test_2, test_3]

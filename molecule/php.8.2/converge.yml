@@ -124,8 +124,8 @@
   vars:
     tests_dir: /molecule/php/configs
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: |
@@ -133,8 +133,8 @@
           'default/cli/conf.d', 'defaults/cli/conf.d', 'exclusive/cli/conf.d',
           'default/fpm/conf.d', 'defaults/fpm/conf.d', 'exclusive/fpm/conf.d'
         ] | product(['absent', 'directory']) }}
-    - name: Touch existing files  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -256,13 +256,13 @@
   vars:
     tests_dir: /molecule/php/fpm_pools
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
-    - name: Touch existing files  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
