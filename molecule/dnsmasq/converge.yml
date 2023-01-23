@@ -29,7 +29,7 @@
   vars:
     tests_dir: /molecule/dnsmasq/configs
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"

@@ -67,7 +67,7 @@
   vars:
     tests_dir: /molecule/mysql/config
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"
@@ -119,7 +119,7 @@
   vars:
     tests_dir: /molecule/mysql/configs
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
@@ -219,7 +219,7 @@
   vars:
     tests_dir: /molecule/mysql/data
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"

@@ -47,7 +47,7 @@
   vars:
     tests_dir: /molecule/postgresql/config
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
       ansible.builtin.file:
         path: "{{ tests_dir }}"
         state: "{{ item }}"

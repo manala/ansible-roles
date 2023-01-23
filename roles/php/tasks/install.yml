@@ -1,6 +1,6 @@
 ---
 
-- name: Install > Packages
+- name: Install > Packages  # noqa args[module]
   ansible.builtin.apt:
     name: "{{ item.packages }}"
     state: "{{ item.state }}"
