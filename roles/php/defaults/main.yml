@@ -13,24 +13,19 @@ manala_php_sapis_default:
 # Extensions
 manala_php_extensions_exclusive: false
 manala_php_extensions: []
-manala_php_extensions_pecl_versioned: true # Deprecated
 
 # Configs
 manala_php_configs_exclusive: false
-manala_php_configs_dir: /etc/php/{{ manala_php_version|string }}
-manala_php_configs_template: ~ # Deprecated
-manala_php_configs_defaults:
-  template: "{{ manala_php_configs_template }}" # Ensure backward compatibility
+manala_php_configs_dir: /etc/php/{{ manala_php_version | string }}
+manala_php_configs_defaults: {}
 manala_php_configs: []
 manala_php_cli_configs: []
 manala_php_fpm_configs: []
 
 # Fpm pools
 manala_php_fpm_pools_exclusive: false
-manala_php_fpm_pools_dir: /etc/php/{{ manala_php_version|string }}/fpm/pool.d
-manala_php_fpm_pools_template: ~ # Deprecated
-manala_php_fpm_pools_defaults:
-  template: "{{ manala_php_fpm_pools_template }}" # Ensure backward compatibility
+manala_php_fpm_pools_dir: /etc/php/{{ manala_php_version | string }}/fpm/pool.d
+manala_php_fpm_pools_defaults: {}
 manala_php_fpm_pools: []
 
 # Blackfire

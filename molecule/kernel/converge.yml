@@ -1,0 +1,24 @@
+---
+
+##############
+# Parameters #
+##############
+
+- name: Parameters
+  tags: [parameters]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.kernel
+          vars:
+            manala_kernel_parameters:
+              - parameter: net.ipv4.ip_nonlocal_bind
+                value: 3
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/parameters.yml.j2') }}"
+          changed_when: false

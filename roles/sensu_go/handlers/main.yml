@@ -1,11 +1,19 @@
 ---
 
-- name: sensu-backend restart
-  service:
-    name: sensu-backend
+- name: Restart sensu-backend
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - sensu-backend
+  # Deprecated
+  listen: sensu-backend restart
 
-- name: sensu-agent restart
-  service:
-    name: sensu-agent
+- name: Restart sensu-agent
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - sensu-agent
+  # Deprecated
+  listen: sensu-agent restart

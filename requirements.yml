@@ -1,0 +1,8 @@
+collections:
+  - ansible.posix
+  - community.general
+  - community.docker
+  - community.mysql
+  - community.postgresql
+  - community.mongodb
+  - gluster.gluster

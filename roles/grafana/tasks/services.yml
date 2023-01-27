@@ -1,12 +1,16 @@
 ---
 
-- name: services > Services
-  service:
-    name:    "{{ item }}"
-    state:   started
+- name: Services > Services
+  ansible.builtin.service:  # noqa args[module]
+    name: "{{ item }}"
+    state: |-
+      {{
+        'restarted'
+          if (
+            __manala_grafana_config_template_result | default({}) is changed
+          ) else
+        'started'
+      }}
     enabled: true
-    # Keep legacy sysvinit services handling in ansible 2.6+
-    # See: https://github.com/ansible/ansible/pull/48724
-    use:     "{{ (ansible_service_mgr == 'sysvinit')|ternary('service', omit) }}"
-  with_items:
+  loop:
     - grafana-server

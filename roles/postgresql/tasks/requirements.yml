@@ -1,7 +1,7 @@
 ---
 
-- name: requirements > Check if version is defined.
-  fail:
+- name: Requirements > Check if version is defined
+  ansible.builtin.fail:
     msg: Please define manala_postgresql_version variable
   when: not manala_postgresql_version
   check_mode: false

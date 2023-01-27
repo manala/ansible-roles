@@ -1,0 +1,17 @@
+---
+
+file:
+  # Fixed
+  {{ tests_dir }}/fixed:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0755"
+
+command:
+  # Fixed
+  {{ tests_dir }}/fixed --version:
+    exit-status: 0
+    stdout:
+      - Vault v1.4.3

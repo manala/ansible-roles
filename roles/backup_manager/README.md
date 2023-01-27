@@ -1,14 +1,12 @@
-# Ansible Role: Backup Manager [![Build Status](https://travis-ci.org/manala/ansible-role-backup_manager.svg?branch=master)](https://travis-ci.org/manala/ansible-role-backup_manager)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Backup Manager
 
 This role will deal with the setup of [Backup Manager](https://github.com/sukria/Backup-Manager).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
-This role is made to work with the backup-manager debian package, available on the __manala__ debian repository for jessie and stretch. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the backup-manager debian package. Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -21,33 +19,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.backup_manager
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.backup_manager
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                             | Default                    | Type    | Description                            |
-| ------------------------------------------------ | -------------------------- | ------- | -------------------------------------- |
-| `manala_backup_manager_install_packages`         | ~                          | Array   | Dependency packages to install         |
-| `manala_backup_manager_install_packages_default` | ['backup-manager']         | Array   | Default dependency packages to install |
-| `manala_backup_manager_configs_exclusive`        | false                      | Boolean | Configs exclusivity                    |
-| `manala_backup_manager_configs_dir`              | '/etc/backup-manager.d'    | String  | Configs directory path                 |
-| `manala_backup_manager_configs_defaults`         | {}                         | String  | Configs defaults                       |
-| `manala_backup_manager_configs`                  | []                         | Array   | Collection of configs                  |
-| `manala_backup_manager_bin`                      | '/usr/sbin/backup-manager' | String  | Binary path                            |
-
-### Backup manager variable
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 #### Local Storage
 
@@ -57,7 +33,7 @@ To setup where and how store backups
 | ---------------------  | ----------------------------- | ------- | ------------------------------------ |
 | `BM_REPOSITORY_ROOT`   | '/srv/backup'                 | String  | Path where local backups are stored  |
 | `BM_REPOSITORY_CHMOD`  | 755                           | Octal   | Backup directory mode                |
-| `BM_ARCHIVE_TTL'       | 5                             | Integer | Number of backup to keep             |
+| `BM_ARCHIVE_TTL`       | 5                             | Integer | Number of backup to keep             |
 | `BM_ARCHIVE_METHOD`    | 'tarball tarball-incremental' | String  | How backups are stored (you can mix) |
 | `BM_ARCHIVE_CHMOD`     | 644                           | Octal   | Backup files mode                    |
 | `BM_ARCHIVE_PREFIX`    | 'backup_'                     | String  | Prefix of the backup files           |
@@ -156,18 +132,6 @@ manala_backup_manager_configs:
     template: my/backup_manager.conf.j2
     config:
       foo: bar
-  # Dict's array (deprecated)
-  - file: foo.conf
-    template: configs/mysql.j2
-    config:
-      - BM_REPOSITORY_CHMOD: 775
-      - BM_ARCHIVE_CHMOD: 664
-      - BM_REPOSITORY_ROOT: /srv/backup/mysql
-      # Flatten configs
-      - BM_TARBALL_DIRECTORIES:
-          - foo
-          - bar
-          - "{{ my_custom_configs_array }}"
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -209,8 +173,9 @@ manala_backup_manager_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.backup_manager
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.backup_manager
 ```
 
 ## CRON
@@ -228,9 +193,11 @@ manala_cron_files:
         hour: 6
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

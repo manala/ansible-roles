@@ -1,53 +1,45 @@
 ---
 
-- name: interfaces_configs > Directory
-  file:
+- name: Interfaces Configs > Exclusive
+  ansible.builtin.find:
     path: "{{ manala_network_interfaces_configs_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_network_interfaces_configs|length
-
-- name: interfaces_configs > Exclusive
-  find:
-    path: "{{ manala_network_interfaces_configs_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_network_interfaces_configs_exclusive_find
   when: manala_network_interfaces_configs_exclusive
 
-- name: interfaces_configs > Templates present
-  template:
+- name: Interfaces Configs > Templates present
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-      'manala_templates_exclusive',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_network_interfaces_configs,
-      __manala_network_interfaces_configs_exclusive_find.files|default([]),
+      __manala_network_interfaces_configs_exclusive_find.files | default([]),
       manala_network_interfaces_configs_dir,
-      manala_network_interfaces_configs_defaults.template|default('interfaces_configs/_default.j2', true),
+      manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
       wantstate='present'
-    )
-  }}"
+    ) }}
   notify:
-    - networking restart
+    - Restart networking
 
-- name: interfaces_configs > Files absent
-  file:
+- name: Interfaces Configs > Files absent
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-      'manala_templates_exclusive',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_network_interfaces_configs,
-      __manala_network_interfaces_configs_exclusive_find.files|default([]),
+      __manala_network_interfaces_configs_exclusive_find.files | default([]),
       manala_network_interfaces_configs_dir,
-      manala_network_interfaces_configs_defaults.template|default('interfaces_configs/_default.j2', true),
+      manala_network_interfaces_configs_defaults.template | default('interfaces_configs/_default.j2', true),
       wantstate='absent'
-    )
-  }}"
+    ) }}
   notify:
-    - networking restart
+    - Restart networking

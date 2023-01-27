@@ -1,51 +1,45 @@
 ---
 
-- name: preferences > Directory
-  file:
+- name: Preferences > Exclusive
+  ansible.builtin.find:
     path: "{{ manala_apt_preferences_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: preferences > Exclusive
-  find:
-    path: "{{ manala_apt_preferences_dir }}"
+    file_type: file
+    patterns: "*"
   changed_when: false
   register: __manala_apt_preferences_exclusive_find
   when: manala_apt_preferences_exclusive
 
-- name: preferences > Templates presents
-  template:
+- name: Preferences > Templates presents
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-      'manala_apt_preferences',
+  loop: |
+    {{ query(
+      'manala.roles.apt_preferences',
       manala_apt_preferences,
       manala_apt_preferences_patterns,
       manala_apt_repositories_patterns,
-      __manala_apt_preferences_exclusive_find.files|default([]),
+      __manala_apt_preferences_exclusive_find.files | default([]),
       manala_apt_preferences_dir,
-      manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+      manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
       wantstate='present'
-    )
-  }}"
+    ) }}
 
-- name: preferences > Files absents
-  file:
+- name: Preferences > Files absents
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-      'manala_apt_preferences',
+  loop: |
+    {{ query(
+      'manala.roles.apt_preferences',
       manala_apt_preferences,
       manala_apt_preferences_patterns,
       manala_apt_repositories_patterns,
-      __manala_apt_preferences_exclusive_find.files|default([]),
+      __manala_apt_preferences_exclusive_find.files | default([]),
       manala_apt_preferences_dir,
-      manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+      manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
       wantstate='absent'
-    )
-  }}"
+    ) }}

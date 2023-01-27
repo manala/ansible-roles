@@ -1,13 +1,13 @@
 ---
 
-- name: requirements > Node check
-  command: "node --version"
+- name: Requirements > Node check
+  ansible.builtin.command: node --version
   check_mode: false
   failed_when: false
   changed_when: false
   register: __manala_node_check_output
 
-- name: requirements > Node check fail
-  fail:
-    msg: Need node, you can use https://github.com/manala/ansible-role-nodejs
-  when: __manala_node_check_output.stdout is not defined
+- name: Requirements > Node check fail
+  ansible.builtin.fail:
+    msg: Need node, you can use manala.roles.nodejs
+  when: __manala_node_check_output.rc != 0

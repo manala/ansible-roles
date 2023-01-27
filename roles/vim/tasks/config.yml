@@ -1,11 +1,11 @@
 ---
 
-- name: config > Config
-  template:
-    src: "{{ manala_vim_config_template|default('config/_default.j2', true) }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_vim_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_vim_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_vim_config_template
-        or manala_vim_config
+    or manala_vim_config

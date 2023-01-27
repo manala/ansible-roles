@@ -1,9 +1,9 @@
 ---
 
-- name: tasks/include
+- name: Tasks / Include
   tags:
     - manala_deploy
   block:
 
-    - name: tasks/include > "{{ item.options }}"
-      include_tasks: "{{ item.options }}"
+    - name: Tasks / Include > {{ item.options | quote }}
+      ansible.builtin.include_tasks: "{{ item.options }}"

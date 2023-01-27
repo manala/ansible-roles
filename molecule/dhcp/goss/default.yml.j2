@@ -1,0 +1,38 @@
+---
+
+package:
+  isc-dhcp-server:
+    installed: true
+
+service:
+  isc-dhcp-server:
+    enabled: true
+    running: true
+
+file:
+  # Interfaces
+  {{ manala_dhcp_interfaces_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - INTERFACESv4="{{ ansible_default_ipv4.interface }}"
+  # Config
+  {{ manala_dhcp_config_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "subnet {{ ansible_default_ipv4.network }} netmask {{ ansible_default_ipv4.netmask }} {"
+      - "}"
+
+command:
+  # Interfaces
+  ps aux:
+    exit-status: 0
+    stdout:
+      - /usr/sbin/dhcpd -4 -q -cf {{ manala_dhcp_config_file }} {{ ansible_default_ipv4.interface }}

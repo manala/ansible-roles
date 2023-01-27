@@ -1,10 +1,8 @@
-# Ansible Role: Locales [![Build Status](https://travis-ci.org/manala/ansible-role-locales.svg?branch=master)](https://travis-ci.org/manala/ansible-role-locales)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Locales
 
 This role will deal with the configuration of system __locales__.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,30 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.locales
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.locales
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                           | Default  | Type   | Description                                    |
-| ------------------------------ | -------- | ------ | ---------------------------------------------- |
-| `manala_locales_codes`         | [ ]      | Array  | Locales to configure                           |
-| `manala_locales_codes_default` | nil      | String | Default locale, stored in /etc/default/locale  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -56,13 +35,16 @@ manala_locales_codes:
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.locales }
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.locales
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

@@ -1,10 +1,8 @@
-# Ansible Role: Bind [![Build Status](https://travis-ci.org/manala/ansible-role-bind.svg?branch=master)](https://travis-ci.org/manala/ansible-role-bind)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Bind
 
 This role will deal with the setup of [Bind](https://www.isc.org/downloads/bind/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,19 +14,7 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.bind
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.bind
-```
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Filters
 
@@ -38,18 +24,7 @@ Using ansible galaxy requirements file:
 
 ## Role Variables
 
-| Name                                   | Default                       | Type   | Description                            |
-| -------------------------------------- | ----------------------------- | ------ | -------------------------------------- |
-| `manala_bind_install_packages`         | ~                             | Array  | Dependency packages to install         |
-| `manala_bind_install_packages_default` | ['bind9']                     | Array  | Default dependency packages to install |
-| `manala_bind_user`                     | 'bind'                        | String | User                                   |
-| `manala_bind_group`                    | 'bind'                        | String | Group                                  |
-| `manala_bind_options`                  | ['-u {{ manala_bind_user }}'] | Array  | Options                                |
-| `manala_bind_log_dir`                  | '/var/log/bind'               | String | Log dir                                |
-| `manala_bind_configs`                  | []                            | Array  | List of config files                   |
-| `manala_bind_configs_dir`              | '/etc/bind'                   | String | Config files directory                 |
-| `manala_bind_zones_dir`                | '/var/cache/bind'             | String | Zone files directory                   |
-| `manala_bind_zones`                    | []                            | Array  | List of zone files                     |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -131,7 +106,7 @@ manala_bind_configs:
     content: |
       zone "foo.local" {
           type master;
-          file "{{ 'foo.local'|manala_bind_zone_file }}";
+          file "{{ 'foo.local' | manala_bind_zone_file }}";
           allow-update { localhost; };
       };
 
@@ -156,13 +131,16 @@ manala_bind_zones:
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.bind }
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.bind
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

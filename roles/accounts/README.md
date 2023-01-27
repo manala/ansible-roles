@@ -1,10 +1,8 @@
-# Ansible Role: Accounts [![Build Status](https://travis-ci.org/manala/ansible-role-accounts.svg?branch=master)](https://travis-ci.org/manala/ansible-role-accounts)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Accounts
 
 This role will deal with the setup of users and groups accounts and ssh keys.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,39 +14,15 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.accounts
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.accounts
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                      | Default | Type        | Description                                                 |
-| ----------------------------------------- | ------- | ----------- | ----------------------------------------------------------- |
-| `manala_accounts_users`                   | Array   | Array       | List of unix users.                                         |
-| `manala_accounts_users.user`              | -       | String      | Username.                                                   |
-| `manala_accounts_users.group`             | -       | String      | User's primary group.                                       |
-| `manala_accounts_users.groups`            | -       | Array       | Array of user's secondary groups.                           |
-| `manala_accounts_groups`                  | -       | Array       | Array of groups to be created.                              |
-| `manala_accounts_groups.name`             | -       | String      | Name of the group to manage.                                |
-| `manala_accounts_groups.system`           | -       | Boolean     | If yes, indicates that the group created is a system group. |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Defining users
 
-The `manala_accounts_users`key will allow to define our users by:
+The `manala_accounts_users` will allow to define our users by:
 
 - A user name
 - A main group
@@ -60,28 +34,30 @@ The `manala_accounts_users`key will allow to define our users by:
 
 ```yaml
 manala_accounts_users:
-  - user:   foo
-    group:  users
+  - foo # Short syntax
+  - user: foo
+    group: users
     groups: ['sudo']
     authorized_keys_file: authorized_keys2 # authorized_keys by default
     authorized_keys:
-      - "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-      - "no-port-forwarding,from=\"10.0.1.*\" {{ query('file', playbook_dir ~ '/files/users/keys/bar@example.com.pub') }}"
+      - "{{ lookup('ansible.builtin.file', 'files/users/keys/foo@example.com.pub') }}"
+      - "no-port-forwarding,from=\"10.0.1.*\" {{ lookup('ansible.builtin.file', 'files/users/keys/bar@example.com.pub') }}"
     keys:
-      - name:    id_rsa
-        public:  "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com.pub') }}"
-        private: "{{ query('file', playbook_dir ~ '/files/users/keys/foo@example.com') }}"
+      - key: id_rsa
+        public: "{{ lookup('ansible.builtin.file', 'files/users/keys/foo@example.com.pub') }}"
+        private: "{{ lookup('ansible.builtin.file', 'files/users/keys/foo@example.com') }}"
     gpg_keys:
-      - key:    FOOOBAAR
-        public: "{{ query('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com.pub') }}"
-        secret: "{{ query('file', playbook_dir ~ '/files/users/gpg_keys/foo@example.com') }}"
+      - key: XXXXXXXXXXXXXXXX
+        public: "{{ lookup('ansible.builtin.file', 'files/users/gpg_keys/foo@example.com.pub') }}"
+        secret: "{{ lookup('ansible.builtin.file', 'files/users/gpg_keys/foo@example.com') }}"
+        trust: true # Trust gpg key
 ```
 #### Example: Ensure a user is not present
 
 ```yaml
 manala_accounts_users:
-  - user:   bar
-    state:  absent
+  - user: bar
+    state: absent
   # Flatten users
   - "{{ my_custom_users_array }}"
 ```
@@ -92,7 +68,7 @@ manala_accounts_users:
   - user: root
     gpg_keys:
       - key: foobar
-        public: "{{ query('file', playbook_dir ~ '/files/foobar.gpg.key') }}"
+        public: "{{ query('ansible.builtin.file', playbook_dir ~ '/files/foobar.gpg.key') }}"
         trust: true
 ```
 
@@ -102,13 +78,20 @@ You can create your own group by using the `manala_accounts_groups` by specifyin
 
 - A group name
 - If the group is a "system group"
+- A state (present|absent|ignore)
 
 #### Example
 
 ```yaml
 manala_accounts_groups:
-  - group: ops
-    system: false
+  - foo # Short syntax
+  - group: foo
+  - group: foo
+    system: true
+  - group: foo
+    state: absent # Ensure group is absent
+  - group: foo
+    state: ignore # Ignore entry
   # Flatten groups
   - "{{ my_custom_groups_array }}"
 ```
@@ -117,13 +100,16 @@ manala_accounts_groups:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.accounts
+  tasks:
+    - ansible.builtin.import_role:
+        name: manala.roles.accounts
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

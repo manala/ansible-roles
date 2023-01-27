@@ -1,6 +1,0 @@
----
-
-service:
-  sensu-agent:
-    enabled: true
-    running: true

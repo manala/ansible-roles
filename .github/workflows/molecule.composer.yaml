@@ -1,0 +1,27 @@
+name: Molecule - Composer
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.composer.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/composer/**
+      - roles/composer/**
+      # Plugins
+      - plugins/filter/json.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  composer:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: composer

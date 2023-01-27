@@ -1,0 +1,117 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.ssh
+          vars:
+            manala_ssh_known_hosts: "{{ manala_ssh_known_hosts_patterns }}"
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Client #
+##########
+
+- name: Client
+  tags: [client]
+  hosts: debian
+  tasks:
+    - name: Packages absent
+      ansible.builtin.apt:
+        name:
+          - openssh-server
+          - openssh-client
+        state: absent
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.ssh
+          vars:
+            manala_ssh_server: false
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/client.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ssh/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.ssh
+          vars:
+            manala_ssh_server_config_file: "{{ tests_dir }}/dict-server"
+            manala_ssh_server_config_template: ~
+            manala_ssh_server_config:
+              foo: ~
+              bar: true
+              baz: false
+              qux: foo
+              quux: 123
+              corge: [foo, bar, baz]
+              grault:
+                foo: bar
+                bar: 123
+            manala_ssh_client_config_file: "{{ tests_dir }}/dict-client"
+            manala_ssh_client_config_template: ~
+            manala_ssh_client_config:
+              foo: bar
+        - name: Role - Content
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.ssh
+          vars:
+            manala_ssh_server_config_file: "{{ tests_dir }}/content-server"
+            manala_ssh_server_config_template: ~
+            manala_ssh_server_config: |
+              Content
+            manala_ssh_client_config_file: "{{ tests_dir }}/content-client"
+            manala_ssh_client_config_template: ~
+            manala_ssh_client_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.ssh
+            tasks_from: config
+          vars:
+            manala_ssh_server_config_file: "{{ tests_dir }}/template-server"
+            manala_ssh_server_config_template: fixtures/template.j2
+            manala_ssh_server_config: ~
+            manala_ssh_client_config_file: "{{ tests_dir }}/template-client"
+            manala_ssh_client_config_template: fixtures/template.j2
+            manala_ssh_client_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false

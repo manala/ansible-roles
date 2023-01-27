@@ -1,10 +1,10 @@
 ---
 
-- name: privileges > Handle
-  postgresql_user:
+- name: Privileges > Handle
+  community.postgresql.postgresql_user:
     name: "{{ item.role }}"
-    state: "{{ item.state|default('present') }}"
+    state: "{{ item.state | default('present') }}"
     db: "{{ item.database }}"
     login_host: "{{ manala_postgresql_login_host }}"
-    priv: "{{ item.privileges|join(',') }}"
-  with_items: "{{ manala_postgresql_privileges }}"
+    priv: "{{ item.privileges | join(',') }}"
+  loop: "{{ manala_postgresql_privileges }}"

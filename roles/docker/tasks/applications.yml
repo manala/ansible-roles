@@ -1,15 +1,15 @@
 ---
 
-- name: applications > Templates
-  template:
-    src: "{{ item.template|default(manala_docker_applications_template|default('applications/_default.j2', True)) }}"
+- name: Applications > Templates
+  ansible.builtin.template:
+    src: "{{ item.template | default(manala_docker_applications_template | default('applications/_default.j2', True)) }}"
     dest: "{{ manala_docker_applications_dir }}/{{ item.application }}"
     owner: root
     group: root
     mode: "0755"
-  loop: "{{ query(
-      'manala_docker_applications',
+  loop: |
+    {{ query(
+      'manala.roles.docker_applications',
       manala_docker_applications,
       manala_docker_applications_patterns
-    )
-  }}"
+    ) }}

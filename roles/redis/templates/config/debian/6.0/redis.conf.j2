@@ -1,4 +1,4 @@
-{%- set config = manala_redis_server_config|default({}, true) -%}
+{%- set config = manala_redis_server_config | default({}, true) -%}
 
 # Redis configuration file example.
 #
@@ -34,14 +34,14 @@
 # If instead you are interested in using includes to override configuration
 # options, it is better to use include as the last line.
 #
-{{ config | manala_redis_config_parameter('include', default=['/path/to/local.conf', '/path/to/other.conf'], comment=True) }}
+{{ config | manala.roles.redis_config_parameter('include', default=['/path/to/local.conf', '/path/to/other.conf'], comment=True) }}
 
 ################################## MODULES #####################################
 
 # Load modules at startup. If the server is not able to load modules
 # it will abort. It is possible to use multiple loadmodule directives.
 #
-{{ config | manala_redis_config_parameter('loadmodule', default=['/path/to/my_module.so', '/path/to/other_module.so'], comment=True) }}
+{{ config | manala.roles.redis_config_parameter('loadmodule', default=['/path/to/my_module.so', '/path/to/other_module.so'], comment=True) }}
 
 ################################## NETWORK #####################################
 
@@ -65,7 +65,7 @@
 # IF YOU ARE SURE YOU WANT YOUR INSTANCE TO LISTEN TO ALL THE INTERFACES
 # JUST COMMENT OUT THE FOLLOWING LINE.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{{ config | manala_redis_config_parameter('bind', default=['127.0.0.1 ::1']) }}
+{{ config | manala.roles.redis_config_parameter('bind', default=['127.0.0.1 ::1']) }}
 
 # Protected mode is a layer of security protection, in order to avoid that
 # Redis instances left open on the internet are accessed and exploited.
@@ -84,11 +84,11 @@
 # you are sure you want clients from other hosts to connect to Redis
 # even if no authentication is configured, nor a specific set of interfaces
 # are explicitly listed using the "bind" directive.
-{{ config | manala_redis_config_parameter('protected-mode', default=True) }}
+{{ config | manala.roles.redis_config_parameter('protected-mode', default=True) }}
 
 # Accept connections on the specified port, default is 6379 (IANA #815344).
 # If port 0 is specified Redis will not listen on a TCP socket.
-{{ config | manala_redis_config_parameter('port', default=6379) }}
+{{ config | manala.roles.redis_config_parameter('port', default=6379) }}
 
 # TCP listen() backlog.
 #
@@ -97,7 +97,7 @@
 # will silently truncate it to the value of /proc/sys/net/core/somaxconn so
 # make sure to raise both the value of somaxconn and tcp_max_syn_backlog
 # in order to get the desired effect.
-{{ config | manala_redis_config_parameter('tcp-backlog', default=511) }}
+{{ config | manala.roles.redis_config_parameter('tcp-backlog', default=511) }}
 
 # Unix socket.
 #
@@ -105,11 +105,11 @@
 # incoming connections. There is no default, so Redis will not listen
 # on a unix socket when not specified.
 #
-{{ config | manala_redis_config_parameter('unixsocket', default='/var/run/redis/redis-server.sock', comment=True) }}
-{{ config | manala_redis_config_parameter('unixsocketperm', default=700, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('unixsocket', default='/var/run/redis/redis-server.sock', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('unixsocketperm', default=700, comment=True) }}
 
 # Close the connection after a client is idle for N seconds (0 to disable)
-{{ config | manala_redis_config_parameter('timeout', default=0) }}
+{{ config | manala.roles.redis_config_parameter('timeout', default=0) }}
 
 # TCP keepalive.
 #
@@ -126,7 +126,7 @@
 #
 # A reasonable value for this option is 300 seconds, which is the new
 # Redis default starting with Redis 3.2.1.
-{{ config | manala_redis_config_parameter('tcp-keepalive', default=300) }}
+{{ config | manala.roles.redis_config_parameter('tcp-keepalive', default=300) }}
 
 ################################# TLS/SSL #####################################
 
@@ -135,25 +135,25 @@
 # default port, use:
 #
 # port 0
-{{ config | manala_redis_config_parameter('tls-port', default=6379, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-port', default=6379, comment=True) }}
 
 # Configure a X.509 certificate and private key to use for authenticating the
 # server to connected clients, masters or cluster peers.  These files should be
 # PEM formatted.
 #
-{{ config | manala_redis_config_parameter('tls-cert-file', default='redis.crt', comment=True) }}
-{{ config | manala_redis_config_parameter('tls-key-file', default='redis.key', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-cert-file', default='redis.crt', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-key-file', default='redis.key', comment=True) }}
 
 # Configure a DH parameters file to enable Diffie-Hellman (DH) key exchange:
 #
-{{ config | manala_redis_config_parameter('tls-dh-params-file', default='redis.dh', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-dh-params-file', default='redis.dh', comment=True) }}
 
 # Configure a CA certificate(s) bundle or directory to authenticate TLS/SSL
 # clients and peers.  Redis requires an explicit configuration of at least one
 # of these, and will not implicitly use the system wide configuration.
 #
-{{ config | manala_redis_config_parameter('tls-ca-cert-file', default='ca.crt', comment=True) }}
-{{ config | manala_redis_config_parameter('tls-ca-cert-dir', default='/etc/ssl/certs', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-ca-cert-file', default='ca.crt', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-ca-cert-dir', default='/etc/ssl/certs', comment=True) }}
 
 # By default, clients (including replica servers) on a TLS port are required
 # to authenticate using valid client side certificates.
@@ -162,66 +162,66 @@
 # If "optional" is specified, client certificates are accepted and must be
 # valid if provided, but are not required.
 #
-{{ config | manala_redis_config_parameter('tls-auth-clients', default=False, comment=True) }}
-{{ config | manala_redis_config_parameter('tls-auth-clients', default='optional', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-auth-clients', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-auth-clients', default='optional', comment=True) }}
 
 # By default, a Redis replica does not attempt to establish a TLS connection
 # with its master.
 #
 # Use the following directive to enable TLS on replication links.
 #
-{{ config | manala_redis_config_parameter('tls-replication', default=True, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-replication', default=True, comment=True) }}
 
 # By default, the Redis Cluster bus uses a plain TCP connection. To enable
 # TLS for the bus protocol, use the following directive:
 #
-{{ config | manala_redis_config_parameter('tls-cluster', default=True, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-cluster', default=True, comment=True) }}
 
 # Explicitly specify TLS versions to support. Allowed values are case insensitive
 # and include "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3" (OpenSSL >= 1.1.1) or
 # any combination. To enable only TLSv1.2 and TLSv1.3, use:
 #
-{{ config | manala_redis_config_parameter('tls-protocols', default='"TLSv1.2 TLSv1.3"', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-protocols', default='"TLSv1.2 TLSv1.3"', comment=True) }}
 
 # Configure allowed ciphers.  See the ciphers(1ssl) manpage for more information
 # about the syntax of this string.
 #
 # Note: this configuration applies only to <= TLSv1.2.
 #
-{{ config | manala_redis_config_parameter('tls-ciphers', default='DEFAULT:!MEDIUM', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-ciphers', default='DEFAULT:!MEDIUM', comment=True) }}
 
 # Configure allowed TLSv1.3 ciphersuites.  See the ciphers(1ssl) manpage for more
 # information about the syntax of this string, and specifically for TLSv1.3
 # ciphersuites.
 #
-{{ config | manala_redis_config_parameter('tls-ciphersuites', default='TLS_CHACHA20_POLY1305_SHA256', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-ciphersuites', default='TLS_CHACHA20_POLY1305_SHA256', comment=True) }}
 
 # When choosing a cipher, use the server's preference instead of the client
 # preference. By default, the server follows the client's preference.
 #
-{{ config | manala_redis_config_parameter('tls-prefer-server-ciphers', default=True, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-prefer-server-ciphers', default=True, comment=True) }}
 
 # By default, TLS session caching is enabled to allow faster and less expensive
 # reconnections by clients that support it. Use the following directive to disable
 # caching.
 #
-{{ config | manala_redis_config_parameter('tls-session-caching', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-session-caching', default=False, comment=True) }}
 
 # Change the default number of TLS sessions cached. A zero value sets the cache
 # to unlimited size. The default size is 20480.
 #
-{{ config | manala_redis_config_parameter('tls-session-cache-size', default=5000, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-session-cache-size', default=5000, comment=True) }}
 
 # Change the default timeout of cached TLS sessions. The default timeout is 300
 # seconds.
 #
-{{ config | manala_redis_config_parameter('tls-session-cache-timeout', default=60, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tls-session-cache-timeout', default=60, comment=True) }}
 
 ################################# GENERAL #####################################
 
 # By default Redis does not run as a daemon. Use 'yes' if you need it.
 # Note that Redis will write a pid file in /var/run/redis.pid when daemonized.
-{{ config | manala_redis_config_parameter('daemonize', default=True) }}
+{{ config | manala.roles.redis_config_parameter('daemonize', default=True) }}
 
 # If you run Redis from upstart or systemd, Redis can interact with your
 # supervision tree. Options:
@@ -233,7 +233,7 @@
 #                        UPSTART_JOB or NOTIFY_SOCKET environment variables
 # Note: these supervision methods only signal "process is ready."
 #       They do not enable continuous pings back to your supervisor.
-{{ config | manala_redis_config_parameter('supervised', default=False) }}
+{{ config | manala.roles.redis_config_parameter('supervised', default=False) }}
 
 # If a pid file is specified, Redis writes it where specified at startup
 # and removes it at exit.
@@ -244,7 +244,7 @@
 #
 # Creating a pid file is best effort: if Redis is not able to create it
 # nothing bad happens, the server will start and run normally.
-{{ config | manala_redis_config_parameter('pidfile', default='/var/run/redis/redis-server.pid') }}
+{{ config | manala.roles.redis_config_parameter('pidfile', default='/var/run/redis/redis-server.pid') }}
 
 # Specify the server verbosity level.
 # This can be one of:
@@ -252,27 +252,27 @@
 # verbose (many rarely useful info, but not a mess like the debug level)
 # notice (moderately verbose, what you want in production probably)
 # warning (only very important / critical messages are logged)
-{{ config | manala_redis_config_parameter('loglevel', default='notice') }}
+{{ config | manala.roles.redis_config_parameter('loglevel', default='notice') }}
 
 # Specify the log file name. Also the empty string can be used to force
 # Redis to log on the standard output. Note that if you use standard
 # output for logging but daemonize, logs will be sent to /dev/null
-{{ config | manala_redis_config_parameter('logfile', default='/var/log/redis/redis-server.log') }}
+{{ config | manala.roles.redis_config_parameter('logfile', default='/var/log/redis/redis-server.log') }}
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.
-{{ config | manala_redis_config_parameter('syslog-enabled', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('syslog-enabled', default=False, comment=True) }}
 
 # Specify the syslog identity.
-{{ config | manala_redis_config_parameter('syslog-ident', default='redis', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('syslog-ident', default='redis', comment=True) }}
 
 # Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.
-{{ config | manala_redis_config_parameter('syslog-facility', default='local0', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('syslog-facility', default='local0', comment=True) }}
 
 # Set the number of databases. The default database is DB 0, you can select
 # a different one on a per-connection basis using SELECT <dbid> where
 # dbid is a number between 0 and 'databases'-1
-{{ config | manala_redis_config_parameter('databases', default=16) }}
+{{ config | manala.roles.redis_config_parameter('databases', default=16) }}
 
 # By default Redis shows an ASCII art logo only when started to log to the
 # standard output and if the standard output is a TTY. Basically this means
@@ -280,7 +280,7 @@
 #
 # However it is possible to force the pre-4.0 behavior and always show a
 # ASCII art logo in startup logs by setting the following option to yes.
-{{ config | manala_redis_config_parameter('always-show-logo', default=True) }}
+{{ config | manala.roles.redis_config_parameter('always-show-logo', default=True) }}
 
 ################################ SNAPSHOTTING  ################################
 #
@@ -304,7 +304,7 @@
 #
 #   save ""
 
-{{ config | manala_redis_config_parameter('save', default=['900 1', '300 10', '60 10000']) }}
+{{ config | manala.roles.redis_config_parameter('save', default=['900 1', '300 10', '60 10000']) }}
 
 # By default Redis will stop accepting writes if RDB snapshots are enabled
 # (at least one save point) and the latest background save failed.
@@ -319,13 +319,13 @@
 # and persistence, you may want to disable this feature so that Redis will
 # continue to work as usual even if there are problems with disk,
 # permissions, and so forth.
-{{ config | manala_redis_config_parameter('stop-writes-on-bgsave-error', default=True) }}
+{{ config | manala.roles.redis_config_parameter('stop-writes-on-bgsave-error', default=True) }}
 
 # Compress string objects using LZF when dump .rdb databases?
 # By default compression is enabled as it's almost always a win.
 # If you want to save some CPU in the saving child set it to 'no' but
 # the dataset will likely be bigger if you have compressible values or keys.
-{{ config | manala_redis_config_parameter('rdbcompression', default=True) }}
+{{ config | manala.roles.redis_config_parameter('rdbcompression', default=True) }}
 
 # Since version 5 of RDB a CRC64 checksum is placed at the end of the file.
 # This makes the format more resistant to corruption but there is a performance
@@ -334,10 +334,10 @@
 #
 # RDB files created with checksum disabled have a checksum of zero that will
 # tell the loading code to skip the check.
-{{ config | manala_redis_config_parameter('rdbchecksum', default=True) }}
+{{ config | manala.roles.redis_config_parameter('rdbchecksum', default=True) }}
 
 # The filename where to dump the DB
-{{ config | manala_redis_config_parameter('dbfilename', default='dump.rdb') }}
+{{ config | manala.roles.redis_config_parameter('dbfilename', default='dump.rdb') }}
 
 # Remove RDB files used by replication in instances without persistence
 # enabled. By default this option is disabled, however there are environments
@@ -350,7 +350,7 @@
 # An alternative (and sometimes better) way to obtain the same effect is
 # to use diskless replication on both master and replicas instances. However
 # in the case of replicas, diskless is not always an option.
-{{ config | manala_redis_config_parameter('rdb-del-sync-files', default=False) }}
+{{ config | manala.roles.redis_config_parameter('rdb-del-sync-files', default=False) }}
 
 # The working directory.
 #
@@ -360,7 +360,7 @@
 # The Append Only File will also be created inside this directory.
 #
 # Note that you must specify a directory here, not a file name.
-{{ config | manala_redis_config_parameter('dir', default='/var/lib/redis') }}
+{{ config | manala.roles.redis_config_parameter('dir', default='/var/lib/redis') }}
 
 ################################# REPLICATION #################################
 
@@ -383,14 +383,14 @@
 #    network partition replicas automatically try to reconnect to masters
 #    and resynchronize with them.
 #
-{{ config | manala_redis_config_parameter('replicaof', default='<masterip> <masterport>', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('replicaof', default='<masterip> <masterport>', comment=True) }}
 
 # If the master is password protected (using the "requirepass" configuration
 # directive below) it is possible to tell the replica to authenticate before
 # starting the replication synchronization process, otherwise the master will
 # refuse the replica request.
 #
-{{ config | manala_redis_config_parameter('masterauth', default='<master-password>', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('masterauth', default='<master-password>', comment=True) }}
 #
 # However this is not enough if you are using Redis ACLs (for Redis version
 # 6 or greater), and the default user is not capable of running the PSYNC
@@ -398,7 +398,7 @@
 # better to configure a special user to use with replication, and specify the
 # masteruser configuration as such:
 #
-{{ config | manala_redis_config_parameter('masteruser', default='<username>', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('masteruser', default='<username>', comment=True) }}
 #
 # When masteruser is specified, the replica will authenticate against its
 # master using the new AUTH form: AUTH <username> <password>.
@@ -416,7 +416,7 @@
 #    UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PUBLISH, PUBSUB, COMMAND, POST,
 #    HOST and LATENCY.
 #
-{{ config | manala_redis_config_parameter('replica-serve-stale-data', default=True) }}
+{{ config | manala.roles.redis_config_parameter('replica-serve-stale-data', default=True) }}
 
 # You can configure a replica instance to accept writes or not. Writing against
 # a replica instance may be useful to store some ephemeral data (because data
@@ -432,7 +432,7 @@
 # such as CONFIG, DEBUG, and so forth. To a limited extent you can improve
 # security of read only replicas using 'rename-command' to shadow all the
 # administrative / dangerous commands.
-{{ config | manala_redis_config_parameter('replica-read-only', default=True) }}
+{{ config | manala.roles.redis_config_parameter('replica-read-only', default=True) }}
 
 # Replication SYNC strategy: disk or socket.
 #
@@ -461,7 +461,7 @@
 #
 # With slow disks and fast (large bandwidth) networks, diskless replication
 # works better.
-{{ config | manala_redis_config_parameter('repl-diskless-sync', default=False) }}
+{{ config | manala.roles.redis_config_parameter('repl-diskless-sync', default=False) }}
 
 # When diskless replication is enabled, it is possible to configure the delay
 # the server waits in order to spawn the child that transfers the RDB via socket
@@ -473,7 +473,7 @@
 #
 # The delay is specified in seconds, and by default is 5 seconds. To disable
 # it entirely just set it to 0 seconds and the transfer will start ASAP.
-{{ config | manala_redis_config_parameter('repl-diskless-sync-delay', default=5) }}
+{{ config | manala.roles.redis_config_parameter('repl-diskless-sync-delay', default=5) }}
 
 # -----------------------------------------------------------------------------
 # WARNING: RDB diskless load is experimental. Since in this setup the replica
@@ -499,13 +499,13 @@
 # "swapdb"      - Keep a copy of the current db contents in RAM while parsing
 #                 the data directly from the socket. note that this requires
 #                 sufficient memory, if you don't have it, you risk an OOM kill.
-{{ config | manala_redis_config_parameter('repl-diskless-load', default='disabled') }}
+{{ config | manala.roles.redis_config_parameter('repl-diskless-load', default='disabled') }}
 
 # Replicas send PINGs to server in a predefined interval. It's possible to
 # change this interval with the repl_ping_replica_period option. The default
 # value is 10 seconds.
 #
-{{ config | manala_redis_config_parameter('repl-ping-replica-period', default=10, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('repl-ping-replica-period', default=10, comment=True) }}
 
 # The following option sets the replication timeout for:
 #
@@ -518,7 +518,7 @@
 # every time there is low traffic between the master and the replica. The default
 # value is 60 seconds.
 #
-{{ config | manala_redis_config_parameter('repl-timeout', default=60, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('repl-timeout', default=60, comment=True) }}
 
 # Disable TCP_NODELAY on the replica socket after SYNC?
 #
@@ -533,7 +533,7 @@
 # By default we optimize for low latency, but in very high traffic conditions
 # or when the master and replicas are many hops away, turning this to "yes" may
 # be a good idea.
-{{ config | manala_redis_config_parameter('repl-disable-tcp-nodelay', default=False) }}
+{{ config | manala.roles.redis_config_parameter('repl-disable-tcp-nodelay', default=False) }}
 
 # Set the replication backlog size. The backlog is a buffer that accumulates
 # replica data when replicas are disconnected for some time, so that when a
@@ -546,7 +546,7 @@
 #
 # The backlog is only allocated if there is at least one replica connected.
 #
-{{ config | manala_redis_config_parameter('repl-backlog-size', default='1mb', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('repl-backlog-size', default='1mb', comment=True) }}
 
 # After a master has no connected replicas for some time, the backlog will be
 # freed. The following option configures the amount of seconds that need to
@@ -559,7 +559,7 @@
 #
 # A value of 0 means to never release the backlog.
 #
-{{ config | manala_redis_config_parameter('repl-backlog-ttl', default=3600, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('repl-backlog-ttl', default=3600, comment=True) }}
 
 # The replica priority is an integer number published by Redis in the INFO
 # output. It is used by Redis Sentinel in order to select a replica to promote
@@ -574,7 +574,7 @@
 # Redis Sentinel for promotion.
 #
 # By default the priority is 100.
-{{ config | manala_redis_config_parameter('replica-priority', default=100) }}
+{{ config | manala.roles.redis_config_parameter('replica-priority', default=100) }}
 
 # It is possible for a master to stop accepting writes if there are less than
 # N replicas connected, having a lag less or equal than M seconds.
@@ -590,8 +590,8 @@
 #
 # For example to require at least 3 replicas with a lag <= 10 seconds use:
 #
-{{ config | manala_redis_config_parameter('min-replicas-to-write', default=3, comment=True) }}
-{{ config | manala_redis_config_parameter('min-replicas-max-lag', default=10, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('min-replicas-to-write', default=3, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('min-replicas-max-lag', default=10, comment=True) }}
 #
 # Setting one or the other to 0 disables the feature.
 #
@@ -624,8 +624,8 @@
 # There is no need to use both the options if you need to override just
 # the port or the IP address.
 #
-{{ config | manala_redis_config_parameter('replica-announce-ip', default='5.5.5.5', comment=True) }}
-{{ config | manala_redis_config_parameter('replica-announce-port', default=1234, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('replica-announce-ip', default='5.5.5.5', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('replica-announce-port', default=1234, comment=True) }}
 
 ############################### KEYS TRACKING #################################
 
@@ -661,7 +661,7 @@
 # Note: when key tracking is used in broadcasting mode, no memory is used
 # in the server side so this setting is useless.
 #
-{{ config | manala_redis_config_parameter('tracking-table-max-keys', default=1000000, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('tracking-table-max-keys', default=1000000, comment=True) }}
 
 ################################## SECURITY ###################################
 
@@ -759,7 +759,7 @@
 # For more information about ACL configuration please refer to
 # the Redis web site at https://redis.io/topics/acl
 {% if 'user' in config %}
-{{ config | manala_redis_config_parameter('user') }}
+{{ config | manala.roles.redis_config_parameter('user') }}
 {% endif %}
 
 # ACL LOG
@@ -768,7 +768,7 @@
 # with ACLs. The ACL Log is useful to troubleshoot failed commands blocked
 # by ACLs. The ACL Log is stored in memory. You can reclaim memory with
 # ACL LOG RESET. Define the maximum entry length of the ACL Log below.
-{{ config | manala_redis_config_parameter('acllog-max-len', default=128) }}
+{{ config | manala.roles.redis_config_parameter('acllog-max-len', default=128) }}
 
 # Using an external ACL file
 #
@@ -780,7 +780,7 @@
 # The format of the external ACL user file is exactly the same as the
 # format that is used inside redis.conf to describe users.
 #
-{{ config | manala_redis_config_parameter('aclfile', default='/etc/redis/users.acl', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('aclfile', default='/etc/redis/users.acl', comment=True) }}
 
 # IMPORTANT NOTE: starting with Redis 6 "requirepass" is just a compatibility
 # layer on top of the new ACL system. The option effect will be just setting
@@ -788,7 +788,7 @@
 # AUTH <password> as usually, or more explicitly with AUTH default <password>
 # if they follow the new protocol: both will work.
 #
-{{ config | manala_redis_config_parameter('requirepass', default='foobared', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('requirepass', default='foobared', comment=True) }}
 
 # Command renaming (DEPRECATED).
 #
@@ -815,7 +815,7 @@
 # Please note that changing the name of commands that are logged into the
 # AOF file or transmitted to replicas may cause problems.
 {% if 'rename-command' in config %}
-{{ config | manala_redis_config_parameter('rename-command') }}
+{{ config | manala.roles.redis_config_parameter('rename-command') }}
 {% endif %}
 
 ################################### CLIENTS ####################################
@@ -834,7 +834,7 @@
 # connections, one incoming and another outgoing. It is important to size the
 # limit accordingly in case of very large clusters.
 #
-{{ config | manala_redis_config_parameter('maxclients', default=10000, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('maxclients', default=10000, comment=True) }}
 
 ############################## MEMORY MANAGEMENT ################################
 
@@ -861,7 +861,7 @@
 # limit for maxmemory so that there is some free RAM on the system for replica
 # output buffers (but this is not needed if the policy is 'noeviction').
 #
-{{ config | manala_redis_config_parameter('maxmemory', default='<bytes>', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('maxmemory', default='<bytes>', comment=True) }}
 
 # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
 # is reached. You can select one from the following behaviors:
@@ -892,7 +892,7 @@
 #
 # The default is:
 #
-{{ config | manala_redis_config_parameter('maxmemory-policy', default='noeviction', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('maxmemory-policy', default='noeviction', comment=True) }}
 
 # LRU, LFU and minimal TTL algorithms are not precise algorithms but approximated
 # algorithms (in order to save memory), so you can tune it for speed or
@@ -903,7 +903,7 @@
 # The default of 5 produces good enough results. 10 Approximates very closely
 # true LRU but costs more CPU. 3 is faster but not very accurate.
 #
-{{ config | manala_redis_config_parameter('maxmemory-samples', default=5, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('maxmemory-samples', default=5, comment=True) }}
 
 # Starting from Redis 5, by default a replica will ignore its maxmemory setting
 # (unless it is promoted to master after a failover or manually). It means
@@ -923,7 +923,7 @@
 # have enough memory to never hit a real out-of-memory condition before the
 # master hits the configured maxmemory setting.
 #
-{{ config | manala_redis_config_parameter('replica-ignore-maxmemory', default=True, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('replica-ignore-maxmemory', default=True, comment=True) }}
 
 # Redis reclaims expired keys in two ways: upon access when those keys are
 # found to be expired, and also in background, in what is called the
@@ -940,7 +940,7 @@
 # more latency), and will tolerate less already expired keys still present
 # in the system. It's a tradeoff between memory, CPU and latency.
 #
-{{ config | manala_redis_config_parameter('active-expire-effort', default=1, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-expire-effort', default=1, comment=True) }}
 
 ############################# LAZY FREEING ####################################
 
@@ -986,17 +986,17 @@
 # in order to instead release memory in a non-blocking way like if UNLINK
 # was called, using the following configuration directives.
 
-{{ config | manala_redis_config_parameter('lazyfree-lazy-eviction', default=False) }}
-{{ config | manala_redis_config_parameter('lazyfree-lazy-expire', default=False) }}
-{{ config | manala_redis_config_parameter('lazyfree-lazy-server-del', default=False) }}
-{{ config | manala_redis_config_parameter('replica-lazy-flush', default=False) }}
+{{ config | manala.roles.redis_config_parameter('lazyfree-lazy-eviction', default=False) }}
+{{ config | manala.roles.redis_config_parameter('lazyfree-lazy-expire', default=False) }}
+{{ config | manala.roles.redis_config_parameter('lazyfree-lazy-server-del', default=False) }}
+{{ config | manala.roles.redis_config_parameter('replica-lazy-flush', default=False) }}
 
 # It is also possible, for the case when to replace the user code DEL calls
 # with UNLINK calls is not easy, to modify the default behavior of the DEL
 # command to act exactly like UNLINK, using the following configuration
 # directive:
 
-{{ config | manala_redis_config_parameter('lazyfree-lazy-user-del', default=False) }}
+{{ config | manala.roles.redis_config_parameter('lazyfree-lazy-user-del', default=False) }}
 
 ################################ THREADED I/O #################################
 
@@ -1022,7 +1022,7 @@
 # threads, if you have a 8 cores, try to use 6 threads. In order to
 # enable I/O threads use the following configuration directive:
 #
-{{ config | manala_redis_config_parameter('io-threads', default=4, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('io-threads', default=4, comment=True) }}
 #
 # Setting io-threads to 1 will just use the main thread as usual.
 # When I/O threads are enabled, we only use threads for writes, that is
@@ -1031,7 +1031,7 @@
 # protocol parsing using the following configuration directive, by setting
 # it to yes:
 #
-{{ config | manala_redis_config_parameter('io-threads-do-reads', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('io-threads-do-reads', default=False, comment=True) }}
 #
 # Usually threading reads doesn't help much.
 #
@@ -1054,7 +1054,7 @@
 # attempt to have background child processes killed before all others, and
 # replicas killed before masters.
 
-{{ config | manala_redis_config_parameter('oom-score-adj', default=False) }}
+{{ config | manala.roles.redis_config_parameter('oom-score-adj', default=False) }}
 
 # When oom-score-adj is used, this directive controls the specific values used
 # for master, replica and background child processes. Values range -1000 to
@@ -1068,7 +1068,7 @@
 # starts. Because typically the initial value is 0, they will often match the
 # absolute values.
 
-{{ config | manala_redis_config_parameter('oom-score-adj-values', default='0 200 800') }}
+{{ config | manala.roles.redis_config_parameter('oom-score-adj-values', default='0 200 800') }}
 
 ############################## APPEND ONLY MODE ###############################
 
@@ -1090,11 +1090,11 @@
 #
 # Please check http://redis.io/topics/persistence for more information.
 
-{{ config | manala_redis_config_parameter('appendonly', default=False) }}
+{{ config | manala.roles.redis_config_parameter('appendonly', default=False) }}
 
 # The name of the append only file (default: "appendonly.aof")
 
-{{ config | manala_redis_config_parameter('appendfilename', default='"appendonly.aof"') }}
+{{ config | manala.roles.redis_config_parameter('appendfilename', default='"appendonly.aof"') }}
 
 # The fsync() call tells the Operating System to actually write data on disk
 # instead of waiting for more data in the output buffer. Some OS will really flush
@@ -1120,7 +1120,7 @@
 # If unsure, use "everysec".
 
 # appendfsync always
-{{ config | manala_redis_config_parameter('appendfsync', default='everysec') }}
+{{ config | manala.roles.redis_config_parameter('appendfsync', default='everysec') }}
 # appendfsync no
 
 # When the AOF fsync policy is set to always or everysec, and a background
@@ -1142,7 +1142,7 @@
 # If you have latency problems turn this to "yes". Otherwise leave it as
 # "no" that is the safest pick from the point of view of durability.
 
-{{ config | manala_redis_config_parameter('no-appendfsync-on-rewrite', default=False) }}
+{{ config | manala.roles.redis_config_parameter('no-appendfsync-on-rewrite', default=False) }}
 
 # Automatic rewrite of the append only file.
 # Redis is able to automatically rewrite the log file implicitly calling
@@ -1161,8 +1161,8 @@
 # Specify a percentage of zero in order to disable the automatic AOF
 # rewrite feature.
 
-{{ config | manala_redis_config_parameter('auto-aof-rewrite-percentage', default=100) }}
-{{ config | manala_redis_config_parameter('auto-aof-rewrite-min-size', default='64mb') }}
+{{ config | manala.roles.redis_config_parameter('auto-aof-rewrite-percentage', default=100) }}
+{{ config | manala.roles.redis_config_parameter('auto-aof-rewrite-min-size', default='64mb') }}
 
 # An AOF file may be found to be truncated at the end during the Redis
 # startup process, when the AOF data gets loaded back into memory.
@@ -1186,7 +1186,7 @@
 # the server will still exit with an error. This option only applies when
 # Redis will try to read more data from the AOF file but not enough bytes
 # will be found.
-{{ config | manala_redis_config_parameter('aof-load-truncated', default=True) }}
+{{ config | manala.roles.redis_config_parameter('aof-load-truncated', default=True) }}
 
 # When rewriting the AOF file, Redis is able to use an RDB preamble in the
 # AOF file for faster rewrites and recoveries. When this option is turned
@@ -1197,7 +1197,7 @@
 # When loading, Redis recognizes that the AOF file starts with the "REDIS"
 # string and loads the prefixed RDB file, then continues loading the AOF
 # tail.
-{{ config | manala_redis_config_parameter('aof-use-rdb-preamble', default=True) }}
+{{ config | manala.roles.redis_config_parameter('aof-use-rdb-preamble', default=True) }}
 
 ################################ LUA SCRIPTING  ###############################
 
@@ -1215,7 +1215,7 @@
 # termination of the script.
 #
 # Set it to 0 or a negative value for unlimited execution without warnings.
-{{ config | manala_redis_config_parameter('lua-time-limit', default=5000) }}
+{{ config | manala.roles.redis_config_parameter('lua-time-limit', default=5000) }}
 
 ################################ REDIS CLUSTER  ###############################
 
@@ -1223,7 +1223,7 @@
 # started as cluster nodes can. In order to start a Redis instance as a
 # cluster node enable the cluster support uncommenting the following:
 #
-{{ config | manala_redis_config_parameter('cluster-enabled', default=True, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-enabled', default=True, comment=True) }}
 
 # Every cluster node has a cluster configuration file. This file is not
 # intended to be edited by hand. It is created and updated by Redis nodes.
@@ -1231,13 +1231,13 @@
 # Make sure that instances running in the same system do not have
 # overlapping cluster configuration file names.
 #
-{{ config | manala_redis_config_parameter('cluster-config-file', default='nodes-6379.conf', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-config-file', default='nodes-6379.conf', comment=True) }}
 
 # Cluster node timeout is the amount of milliseconds a node must be unreachable
 # for it to be considered in failure state.
 # Most other internal time limits are a multiple of the node timeout.
 #
-{{ config | manala_redis_config_parameter('cluster-node-timeout', default=15000, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-node-timeout', default=15000, comment=True) }}
 
 # A replica of a failing master will avoid to start a failover if its data
 # looks too old.
@@ -1282,7 +1282,7 @@
 # Zero is the only value able to guarantee that when all the partitions heal
 # the cluster will always be able to continue.
 #
-{{ config | manala_redis_config_parameter('cluster-replica-validity-factor', default=10, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-replica-validity-factor', default=10, comment=True) }}
 
 # Cluster replicas are able to migrate to orphaned masters, that are masters
 # that are left without working replicas. This improves the cluster ability
@@ -1301,7 +1301,7 @@
 # A value of 0 can be set but is useful only for debugging and dangerous
 # in production.
 #
-{{ config | manala_redis_config_parameter('cluster-migration-barrier', default=1, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-migration-barrier', default=1, comment=True) }}
 
 # By default Redis Cluster nodes stop accepting queries if they detect there
 # is at least a hash slot uncovered (no available node is serving it).
@@ -1314,7 +1314,7 @@
 # covered. In order to do so, just set the cluster-require-full-coverage
 # option to no.
 #
-{{ config | manala_redis_config_parameter('cluster-require-full-coverage', default=True, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-require-full-coverage', default=True, comment=True) }}
 
 # This option, when set to yes, prevents replicas from trying to failover its
 # master during master failures. However the master can still perform a
@@ -1324,7 +1324,7 @@
 # data center operations, where we want one side to never be promoted if not
 # in the case of a total DC failure.
 #
-{{ config | manala_redis_config_parameter('cluster-replica-no-failover', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-replica-no-failover', default=False, comment=True) }}
 
 # This option, when set to yes, allows nodes to serve read traffic while the
 # the cluster is in a down state, as long as it believes it owns the slots.
@@ -1340,7 +1340,7 @@
 # entire cluster without this option set, with it set there is only a write outage.
 # Without a quorum of masters, slot ownership will not change automatically.
 #
-{{ config | manala_redis_config_parameter('cluster-allow-reads-when-down', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-allow-reads-when-down', default=False, comment=True) }}
 
 # In order to setup your cluster make sure to read the documentation
 # available at http://redis.io web site.
@@ -1374,9 +1374,9 @@
 #
 # Example:
 #
-{{ config | manala_redis_config_parameter('cluster-announce-ip', default='10.1.1.5', comment=True) }}
-{{ config | manala_redis_config_parameter('cluster-announce-port', default=6379, comment=True) }}
-{{ config | manala_redis_config_parameter('cluster-announce-bus-port', default=6380, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-announce-ip', default='10.1.1.5', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-announce-port', default=6379, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('cluster-announce-bus-port', default=6380, comment=True) }}
 
 ################################## SLOW LOG ###################################
 
@@ -1396,11 +1396,11 @@
 # The following time is expressed in microseconds, so 1000000 is equivalent
 # to one second. Note that a negative number disables the slow log, while
 # a value of zero forces the logging of every command.
-{{ config | manala_redis_config_parameter('slowlog-log-slower-than', default=10000) }}
+{{ config | manala.roles.redis_config_parameter('slowlog-log-slower-than', default=10000) }}
 
 # There is no limit to this length. Just be aware that it will consume memory.
 # You can reclaim memory used by the slow log with SLOWLOG RESET.
-{{ config | manala_redis_config_parameter('slowlog-max-len', default=128) }}
+{{ config | manala.roles.redis_config_parameter('slowlog-max-len', default=128) }}
 
 ################################ LATENCY MONITOR ##############################
 
@@ -1421,7 +1421,7 @@
 # impact, that while very small, can be measured under big load. Latency
 # monitoring can easily be enabled at runtime using the command
 # "CONFIG SET latency-monitor-threshold <milliseconds>" if needed.
-{{ config | manala_redis_config_parameter('latency-monitor-threshold', default=0) }}
+{{ config | manala.roles.redis_config_parameter('latency-monitor-threshold', default=0) }}
 
 ############################# EVENT NOTIFICATION ##############################
 
@@ -1471,7 +1471,7 @@
 #  By default all notifications are disabled because most users don't need
 #  this feature and the feature has some overhead. Note that if you don't
 #  specify at least one of K or E, no events will be delivered.
-{{ config | manala_redis_config_parameter('notify-keyspace-events', default='""') }}
+{{ config | manala.roles.redis_config_parameter('notify-keyspace-events', default='""') }}
 
 ############################### GOPHER SERVER #################################
 
@@ -1529,15 +1529,15 @@
 # To enable Gopher support, uncomment the following line and set the option
 # from no (the default) to yes.
 #
-{{ config | manala_redis_config_parameter('gopher-enabled', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('gopher-enabled', default=False, comment=True) }}
 
 ############################### ADVANCED CONFIG ###############################
 
 # Hashes are encoded using a memory efficient data structure when they have a
 # small number of entries, and the biggest entry does not exceed a given
 # threshold. These thresholds can be configured using the following directives.
-{{ config | manala_redis_config_parameter('hash-max-ziplist-entries', default=512) }}
-{{ config | manala_redis_config_parameter('hash-max-ziplist-value', default=64) }}
+{{ config | manala.roles.redis_config_parameter('hash-max-ziplist-entries', default=512) }}
+{{ config | manala.roles.redis_config_parameter('hash-max-ziplist-value', default=64) }}
 
 # Lists are also encoded in a special way to save a lot of space.
 # The number of entries allowed per internal list node can be specified
@@ -1552,7 +1552,7 @@
 # per list node.
 # The highest performing option is usually -2 (8 Kb size) or -1 (4 Kb size),
 # but if your use case is unique, adjust the settings as necessary.
-{{ config | manala_redis_config_parameter('list-max-ziplist-size', default=-2) }}
+{{ config | manala.roles.redis_config_parameter('list-max-ziplist-size', default=-2) }}
 
 # Lists may also be compressed.
 # Compress depth is the number of quicklist ziplist nodes from *each* side of
@@ -1568,20 +1568,20 @@
 #    but compress all nodes between them.
 # 3: [head]->[next]->[next]->node->node->...->node->[prev]->[prev]->[tail]
 # etc.
-{{ config | manala_redis_config_parameter('list-compress-depth', default=0) }}
+{{ config | manala.roles.redis_config_parameter('list-compress-depth', default=0) }}
 
 # Sets have a special encoding in just one case: when a set is composed
 # of just strings that happen to be integers in radix 10 in the range
 # of 64 bit signed integers.
 # The following configuration setting sets the limit in the size of the
 # set in order to use this special memory saving encoding.
-{{ config | manala_redis_config_parameter('set-max-intset-entries', default=512) }}
+{{ config | manala.roles.redis_config_parameter('set-max-intset-entries', default=512) }}
 
 # Similarly to hashes and lists, sorted sets are also specially encoded in
 # order to save a lot of space. This encoding is only used when the length and
 # elements of a sorted set are below the following limits:
-{{ config | manala_redis_config_parameter('zset-max-ziplist-entries', default=128) }}
-{{ config | manala_redis_config_parameter('zset-max-ziplist-value', default=64) }}
+{{ config | manala.roles.redis_config_parameter('zset-max-ziplist-entries', default=128) }}
+{{ config | manala.roles.redis_config_parameter('zset-max-ziplist-value', default=64) }}
 
 # HyperLogLog sparse representation bytes limit. The limit includes the
 # 16 bytes header. When an HyperLogLog using the sparse representation crosses
@@ -1595,7 +1595,7 @@
 # which is O(N) with the sparse encoding. The value can be raised to
 # ~ 10000 when CPU is not a concern, but space is, and the data set is
 # composed of many HyperLogLogs with cardinality in the 0 - 15000 range.
-{{ config | manala_redis_config_parameter('hll-sparse-max-bytes', default=3000) }}
+{{ config | manala.roles.redis_config_parameter('hll-sparse-max-bytes', default=3000) }}
 
 # Streams macro node max size / items. The stream data structure is a radix
 # tree of big nodes that encode multiple items inside. Using this configuration
@@ -1605,8 +1605,8 @@
 # zero, the limit is ignored, so for instance it is possible to set just a
 # max entires limit by setting max-bytes to 0 and max-entries to the desired
 # value.
-{{ config | manala_redis_config_parameter('stream-node-max-bytes', default=4096) }}
-{{ config | manala_redis_config_parameter('stream-node-max-entries', default=100) }}
+{{ config | manala.roles.redis_config_parameter('stream-node-max-bytes', default=4096) }}
+{{ config | manala.roles.redis_config_parameter('stream-node-max-entries', default=100) }}
 
 # Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in
 # order to help rehashing the main Redis hash table (the one mapping top-level
@@ -1626,7 +1626,7 @@
 #
 # use "activerehashing yes" if you don't have such hard requirements but
 # want to free memory asap when possible.
-{{ config | manala_redis_config_parameter('activerehashing', default=True) }}
+{{ config | manala.roles.redis_config_parameter('activerehashing', default=True) }}
 
 # The client output buffer limits can be used to force disconnection of clients
 # that are not reading data from the server fast enough for some reason (a
@@ -1661,7 +1661,7 @@
 # subscribers and replicas receive data in a push fashion.
 #
 # Both the hard or the soft limit can be disabled by setting them to zero.
-{{ config | manala_redis_config_parameter('client-output-buffer-limit', default=['normal 0 0 0', 'replica 256mb 64mb 60', 'pubsub 32mb 8mb 60']) }}
+{{ config | manala.roles.redis_config_parameter('client-output-buffer-limit', default=['normal 0 0 0', 'replica 256mb 64mb 60', 'pubsub 32mb 8mb 60']) }}
 
 # Client query buffers accumulate new commands. They are limited to a fixed
 # amount by default in order to avoid that a protocol desynchronization (for
@@ -1669,13 +1669,13 @@
 # the query buffer. However you can configure it here if you have very special
 # needs, such us huge multi/exec requests or alike.
 #
-{{ config | manala_redis_config_parameter('client-query-buffer-limit', default='1gb', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('client-query-buffer-limit', default='1gb', comment=True) }}
 
 # In the Redis protocol, bulk requests, that are, elements representing single
 # strings, are normally limited to 512 mb. However you can change this limit
 # here, but must be 1mb or greater
 #
-{{ config | manala_redis_config_parameter('proto-max-bulk-len', default='512mb', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('proto-max-bulk-len', default='512mb', comment=True) }}
 
 # Redis calls an internal function to perform many background tasks, like
 # closing connections of clients in timeout, purging expired keys that are
@@ -1692,7 +1692,7 @@
 # The range is between 1 and 500, however a value over 100 is usually not
 # a good idea. Most users should use the default of 10 and raise this up to
 # 100 only in environments where very low latency is required.
-{{ config | manala_redis_config_parameter('hz', default=10) }}
+{{ config | manala.roles.redis_config_parameter('hz', default=10) }}
 
 # Normally it is useful to have an HZ value which is proportional to the
 # number of clients connected. This is useful in order, for instance, to
@@ -1708,19 +1708,19 @@
 # used as needed once more clients are connected. In this way an idle
 # instance will use very little CPU time while a busy instance will be
 # more responsive.
-{{ config | manala_redis_config_parameter('dynamic-hz', default=True) }}
+{{ config | manala.roles.redis_config_parameter('dynamic-hz', default=True) }}
 
 # When a child rewrites the AOF file, if the following option is enabled
 # the file will be fsync-ed every 32 MB of data generated. This is useful
 # in order to commit the file to the disk more incrementally and avoid
 # big latency spikes.
-{{ config | manala_redis_config_parameter('aof-rewrite-incremental-fsync', default=True) }}
+{{ config | manala.roles.redis_config_parameter('aof-rewrite-incremental-fsync', default=True) }}
 
 # When redis saves RDB file, if the following option is enabled
 # the file will be fsync-ed every 32 MB of data generated. This is useful
 # in order to commit the file to the disk more incrementally and avoid
 # big latency spikes.
-{{ config | manala_redis_config_parameter('rdb-save-incremental-fsync', default=True) }}
+{{ config | manala.roles.redis_config_parameter('rdb-save-incremental-fsync', default=True) }}
 
 # Redis LFU eviction (see maxmemory setting) can be tuned. However it is a good
 # idea to start with the default settings and only change them after investigating
@@ -1771,8 +1771,8 @@
 # The default value for the lfu-decay-time is 1. A special value of 0 means to
 # decay the counter every time it happens to be scanned.
 #
-{{ config | manala_redis_config_parameter('lfu-log-factor', default=10, comment=True) }}
-{{ config | manala_redis_config_parameter('lfu-decay-time', default=1, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('lfu-log-factor', default=10, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('lfu-decay-time', default=1, comment=True) }}
 
 ########################### ACTIVE DEFRAGMENTATION #######################
 #
@@ -1818,31 +1818,31 @@
 # NOTE: This feature is not available in the stock Debian packages as they use
 # the distribution-wide jemalloc allocator that does not have support for active
 # defragmentation. See #967970 for more information.
-{{ config | manala_redis_config_parameter('activedefrag', default=False, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('activedefrag', default=False, comment=True) }}
 
 # Minimum amount of fragmentation waste to start active defrag
-{{ config | manala_redis_config_parameter('active-defrag-ignore-bytes', default='100mb', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-defrag-ignore-bytes', default='100mb', comment=True) }}
 
 # Minimum percentage of fragmentation to start active defrag
-{{ config | manala_redis_config_parameter('active-defrag-threshold-lower', default=10, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-defrag-threshold-lower', default=10, comment=True) }}
 
 # Maximum percentage of fragmentation at which we use maximum effort
-{{ config | manala_redis_config_parameter('active-defrag-threshold-upper', default=100, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-defrag-threshold-upper', default=100, comment=True) }}
 
 # Minimal effort for defrag in CPU percentage, to be used when the lower
 # threshold is reached
-{{ config | manala_redis_config_parameter('active-defrag-cycle-min', default=1, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-defrag-cycle-min', default=1, comment=True) }}
 
 # Maximal effort for defrag in CPU percentage, to be used when the upper
 # threshold is reached
-{{ config | manala_redis_config_parameter('active-defrag-cycle-max', default=25, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-defrag-cycle-max', default=25, comment=True) }}
 
 # Maximum number of set/hash/zset/list fields that will be processed from
 # the main dictionary scan
-{{ config | manala_redis_config_parameter('active-defrag-max-scan-fields', default=1000, comment=True) }}
+{{ config | manala.roles.redis_config_parameter('active-defrag-max-scan-fields', default=1000, comment=True) }}
 
 # Jemalloc background thread for purging will be enabled by default
-{{ config | manala_redis_config_parameter('jemalloc-bg-thread', default=True) }}
+{{ config | manala.roles.redis_config_parameter('jemalloc-bg-thread', default=True) }}
 
 # It is possible to pin different threads and processes of Redis to specific
 # CPUs in your system, in order to maximize the performances of the server.
@@ -1858,13 +1858,13 @@
 # the taskset command:
 #
 # Set redis server/io threads to cpu affinity 0,2,4,6:
-{{ config | manala_redis_config_parameter('server_cpulist', default='0-7:2', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('server_cpulist', default='0-7:2', comment=True) }}
 #
 # Set bio threads to cpu affinity 1,3:
-{{ config | manala_redis_config_parameter('bio_cpulist', default='1,3', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('bio_cpulist', default='1,3', comment=True) }}
 #
 # Set aof rewrite child process to cpu affinity 8,9,10,11:
-{{ config | manala_redis_config_parameter('aof_rewrite_cpulist', default='8-11', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('aof_rewrite_cpulist', default='8-11', comment=True) }}
 #
 # Set bgsave child process to cpu affinity 1,10,11
-{{ config | manala_redis_config_parameter('bgsave_cpulist', default='1,10-11', comment=True) }}
+{{ config | manala.roles.redis_config_parameter('bgsave_cpulist', default='1,10-11', comment=True) }}

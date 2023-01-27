@@ -1,0 +1,28 @@
+---
+
+file:
+  {{ tests_dir }}/dict:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "/^ES_JAVA_OPTS=\"-Xms1g -Xmx1g\"$/"
+      - "/^FOO=\"bar\"$/"
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: elasticsearch
+    mode: "0660"
+    contains:
+      - "/^Template$/"

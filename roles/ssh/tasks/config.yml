@@ -1,8 +1,8 @@
 ---
 
-- name: config > Server - Template
-  template:
-    src: "{{ manala_ssh_server_config_template|default('config/server/_default.j2', true) }}"
+- name: Config > Server - Template
+  ansible.builtin.template:
+    src: "{{ manala_ssh_server_config_template | default('config/server/_default.j2', true) }}"
     dest: "{{ manala_ssh_server_config_file }}"
     owner: root
     group: root
@@ -10,16 +10,16 @@
   when:
     - manala_ssh_server
     - manala_ssh_server_config_template
-      or manala_ssh_server_config
+        or manala_ssh_server_config
   notify:
-    - ssh reload
+    - Reload ssh
 
-- name: config > Client - Template
-  template:
-    src: "{{ manala_ssh_client_config_template|default('config/client/_default.j2', true) }}"
+- name: Config > Client - Template
+  ansible.builtin.template:
+    src: "{{ manala_ssh_client_config_template | default('config/client/_default.j2', true) }}"
     dest: "{{ manala_ssh_client_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_ssh_client_config_template
-        or manala_ssh_client_config
+    or manala_ssh_client_config

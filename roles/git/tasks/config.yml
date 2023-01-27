@@ -1,11 +1,11 @@
 ---
 
-- name: config > Template
-  template:
-    src: "{{ manala_git_config_template|default('config/_default.j2', true) }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_git_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_git_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_git_config_template
-        or manala_git_config
+    or manala_git_config

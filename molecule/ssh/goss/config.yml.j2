@@ -1,0 +1,67 @@
+---
+
+file:
+  {{ tests_dir }}:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+  {{ tests_dir }}/dict-server:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "foo none"
+      - "bar yes"
+      - "baz no"
+      - "qux foo"
+      - "quux 123"
+      - "corge foo"
+      - "corge bar"
+      - "corge baz"
+      - "grault"
+      - "    foo bar"
+      - "    bar 123"
+  {{ tests_dir }}/dict-client:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "foo bar"
+  {{ tests_dir }}/content-server:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/content-client:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/template-server:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/template-client:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"

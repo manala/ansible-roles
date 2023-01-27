@@ -1,0 +1,28 @@
+name: Molecule - Backup Manager
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.backup_manager.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/backup_manager/**
+      - roles/backup_manager/**
+      # Plugins
+      - plugins/filter/backup_manager_config.py
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  backup_manager:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: backup_manager

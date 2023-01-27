@@ -1,0 +1,41 @@
+---
+
+command:
+  aptly repo list:
+    exit-status: 0
+    timeout: 30000
+    stdout:
+      - " * [bar]: Bar (packages: 0)"
+      - " * [foo]: Foo (packages: 0)"
+  aptly repo show foo:
+    exit-status: 0
+    timeout: 30000
+    stdout:
+      - "Name: foo"
+      - "Comment: Foo"
+      - "Default Distribution: buster"
+      - "Default Component: main"
+      - "Number of packages: 0"
+  aptly repo show bar:
+    exit-status: 0
+    timeout: 30000
+    stdout:
+      - "Name: bar"
+      - "Comment: Bar"
+      - "Default Distribution: bullseye"
+      - "Default Component: main"
+      - "Number of packages: 0"
+
+file:
+  {{ tests_dir }}/public/dists/bullseye/Release:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  {{ tests_dir }}/public/dists/bullseye/main/binary-amd64/Packages:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

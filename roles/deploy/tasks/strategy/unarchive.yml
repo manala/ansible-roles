@@ -1,16 +1,16 @@
 ---
 
-- name: strategy/unarchive
+- name: Strategy / Unarchive
   tags:
     - manala_deploy
   block:
 
-    - name: strategy/unarchive > Create dir
-      file:
+    - name: Strategy / Unarchive > Create dir  # noqa risky-file-permissions
+      ansible.builtin.file:
         path: "{{ deploy_helper.new_release_path }}/"
         state: directory
 
-    - name: strategy/unarchive > Unarchive
-      unarchive:
+    - name: Strategy / Unarchive > Unarchive
+      ansible.builtin.unarchive:
         src: "{{ manala_deploy_strategy_unarchive_src }}"
         dest: "{{ deploy_helper.new_release_path }}"

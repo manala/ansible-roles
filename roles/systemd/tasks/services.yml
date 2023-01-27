@@ -1,15 +1,15 @@
 ---
 
-- name: services > Services
-  systemd:
+- name: Services > Services
+  ansible.builtin.systemd:
     name: "{{ item.name }}"
-    enabled: "{{ item.enabled|default(omit) }}"
-    masked: "{{ item.masked|default(omit) }}"
-    state: "{{ item.state|default(omit) }}"
-    user: "{{ item.user|default(omit) }}"
-    daemon_reload: "{{ item.daemon_reload|default(omit) }}"
+    enabled: "{{ item.enabled | default(omit) }}"
+    masked: "{{ item.masked | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    user: "{{ item.user | default(omit) }}"
+    daemon_reload: "{{ item.daemon_reload | default(omit) }}"
   loop: "{{
-    manala_systemd_services | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_systemd_services | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_systemd_services
+      | flatten
+      | manala.roles.staten_ignore
   }}"

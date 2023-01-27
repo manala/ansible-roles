@@ -1,47 +1,50 @@
 ---
 
-- name: host_vars > Directory
-  file:
+- name: Host Vars > Directory
+  ansible.builtin.file:
     path: "{{ manala_ansible_host_vars_dir }}"
     state: directory
     owner: root
     group: root
     mode: "0755"
-  when: manala_ansible_host_vars|length
+  when: manala_ansible_host_vars | length
 
-- name: host_vars > Exclusive
-  find:
+- name: Host Vars > Exclusive
+  ansible.builtin.find:
     path: "{{ manala_ansible_host_vars_dir }}"
+    file_type: file
+    patterns: "*"
   changed_when: false
   register: __manala_ansible_host_vars_exclusive_find
   when: manala_ansible_host_vars_exclusive
 
-- name: host_vars > Templates presents
-  template:
-    src: "{{ item.template|default(manala_ansible_host_vars_template|ternary(manala_ansible_host_vars_template, 'host_vars/empty.j2')) }}"
+- name: Host Vars > Templates presents
+  ansible.builtin.template:
+    src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-      'manala_ansible_files',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_ansible_host_vars,
-      __manala_ansible_host_vars_exclusive_find.files|default([]),
+      __manala_ansible_host_vars_exclusive_find.files | default([]),
       manala_ansible_host_vars_dir,
+      manala_ansible_host_vars_defaults.template | default('host_vars/_default.j2', true),
       wantstate='present'
-    )
-  }}"
+    ) }}
 
-# Ansible template module does not support "state" parameter (see: https://github.com/ansible/ansible/issues/29781)
-- name: host_vars > Files absents
-  file:
+- name: Host Vars > Files absents
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-      'manala_ansible_files',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_ansible_host_vars,
-      __manala_ansible_host_vars_exclusive_find.files|default([]),
+      __manala_ansible_host_vars_exclusive_find.files | default([]),
       manala_ansible_host_vars_dir,
+      manala_ansible_host_vars_defaults.template | default('host_vars/_default.j2', true),
       wantstate='absent'
-    )
-  }}"
+    ) }}

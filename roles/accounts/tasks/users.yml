@@ -1,120 +1,153 @@
 ---
 
-- name: users > Accounts
-  user:
-    name: "{{ item.user }}"
-    password: "{{ item.password|default(omit) }}"
-    group: "{{ item.group|default(omit) }}"
-    groups: "{{ item.groups|default([])|join(',') }}"
+- name: Users > Users configuration
+  ansible.builtin.user:
+    name: "{{ (item) if (item is string) else (item.user) }}"
+    password: "{{ item.password | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    groups: "{{ item.groups | default([]) | join(',') }}"
     append: "{{ not manala_accounts_users_groups_exclusive }}"
-    shell: "{{ item.shell|default(omit) }}"
-    createhome: "{{ item.createhome|default(true)|bool }}"
-    system: "{{ item.system|default(false)|bool }}"
-    uid: "{{ item.uid|default(omit) }}"
-    comment: "{{ item.comment|default(omit) }}"
-    state: "{{ item.state|default('present') }}"
-  with_items: "{{ manala_accounts_users|flatten }}"
+    shell: "{{ item.shell | default(omit) }}"
+    createhome: "{{ item.createhome | default(true) | bool }}"
+    system: "{{ item.system | default(false) | bool }}"
+    uid: "{{ item.uid | default(omit) }}"
+    comment: "{{ item.comment | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{
+    manala_accounts_users
+      | flatten
+      | manala.roles.staten
+  }}"
+  loop_control:
+    label: |
+      {{ {
+        'user': (item) if (item is string) else (item.user),
+        'state': item.state | default('present'),
+      } }}
 
-- name: users > Authorized keys
-  authorized_key:
+- name: Users > Authorized keys
+  ansible.posix.authorized_key:
     user: "{{ item.user }}"
     key: "{{ item.authorized_keys }}"
-    path: "{{ item.authorized_keys_file|default(omit) }}"
+    path: "{{ item.authorized_keys_file | default(omit) }}"
     exclusive: true
-  loop: "{{ query(
-      'manala_accounts_users_authorized_keys',
-      manala_accounts_users|flatten,
-      wantstate='present'
-    )
-  }}"
+  loop: |
+    {{ query(
+      'manala.roles.accounts_users_authorized_keys',
+      manala_accounts_users
+        | flatten
+        | manala.roles.staten(want='present')
+    ) }}
+  loop_control:
+    label: |
+      {{ {
+        'user': item.user,
+      } }}
 
 # Find the primary group of users whose group has not been manually defined
-- name: users > Find primary groups
-  command: "id -g -n {{ item.user }}"
-  with_items: "{{ manala_accounts_users|flatten }}"
-  when: item.group is not defined and item.state|default('present') == 'present'
-  register: __manala_accounts_users
+- name: Users > Find primary groups
+  ansible.builtin.command: >
+    id -g -n {{ item.user }}
+  loop: "{{
+    manala_accounts_users
+      | flatten
+      | manala.roles.staten(want='present')
+      | selectattr('keys', 'sequence') | list
+  }}"
+  loop_control:
+    label: |
+      {{ {
+        'user': (item) if (item is string) else (item.user),
+      } }}
+  when:
+    - item is not string
+    - item.group is not defined
+  register: __manala_accounts_users_groups
   changed_when: false
-  no_log: true
 
-# Pair users with their found groups
-- name: users > Pair primary groups
-  set_fact:
-    # Waiting for the ansible 2 "combine" filter...
-    __item: "{% set __item = item.0.update(({}) if (item.1 is skipped) else ({'group': item.1.stdout})) %}{{ item.0 }}"
-  with_together:
-    - "{{ manala_accounts_users|flatten }}"
-    - "{{ __manala_accounts_users.results }}"
-  register: __manala_accounts_users
-  no_log: true
-
-# Flatten results structure to the original variable
-- name: users > Flatten primary groups
-  set_fact:
-    manala_accounts_users: "{{ __manala_accounts_users.results|map(attribute='ansible_facts.__item')|list }}"
-  no_log: true
-
-- name: users > Keys directory
-  file:
-    path: "~{{ item.0.user }}/.ssh"
+- name: Users > Keys directory
+  ansible.builtin.file:
+    path: "~{{ item.user }}/.ssh"
     state: directory
-    owner: "{{ item.0.user }}"
-    group: "{{ item.0.group|default(omit) }}"
+    owner: "{{ item.user }}"
+    group: "{{ item.group | default(omit) }}"
     mode: "0700"
-  with_subelements:
-    - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
-    - keys
+  loop: "{{
+    manala_accounts_users
+      | flatten
+      | manala.roles.staten(want='present')
+      | selectattr('keys', 'sequence')
+      | manala.roles.users_groups(__manala_accounts_users_groups.results)
+  }}"
+  loop_control:
+    label: |
+      {{ {
+        'user': item.user,
+      } }}
 
-- name: users > Keys private
-  copy:
-    dest: "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}"
-    content: "{{ item.1.private }}"
-    owner: "{{ item.0.user }}"
-    group: "{{ item.0.group|default(omit) }}"
-    mode: "0600"
-  when: item.1.private is defined
-  with_subelements:
-    - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
-    - keys
+- name: Users > Keys
+  ansible.builtin.copy:
+    dest: "~{{ item.0.0.user }}/.ssh/{{ item.0.1.key | default('id_rsa') ~ {'private': '', 'public': '.pub'}[item.1] }}"
+    content: "{{ item.0.1[item.1] }}"
+    owner: "{{ item.0.0.user }}"
+    group: "{{ item.0.0.group | default(omit) }}"
+    mode: "{{ {'private': '0600', 'public': '0644'}[item.1] }}"
+  when: item.0.1[item.1] is defined
+  loop: "{{
+    manala_accounts_users
+      | flatten
+      | manala.roles.staten(want='present')
+      | selectattr('keys', 'sequence')
+      | manala.roles.users_groups(__manala_accounts_users_groups.results)
+      | subelements('keys')
+      | product(['private', 'public'])
+      | list
+  }}"
+  loop_control:
+    label: "{{ {
+      'user': item.0.0.user,
+      'key': item.0.1.key | default('id_rsa'),
+      'type': item.1,
+    } }}"
 
-- name: users > Keys public
-  copy:
-    dest: "~{{ item.0.user }}/.ssh/{{ item.1.key|default('id_rsa') }}.pub"
-    content: "{{ item.1.public }}"
-    owner: "{{ item.0.user }}"
-    group: "{{ item.0.group|default(omit) }}"
-    mode: "0644"
-  when: item.1.public is defined
-  with_subelements:
-    - "{{ manala_accounts_users|selectattr('keys', 'sequence')|list }}"
-    - keys
-
-- name: users > Gpg keys public
-  command: "su {{ item.0.user }} -c 'gpg --list-keys {{ item.1.key }} || echo \"{{ item.1.public }}\" | gpg --import'"
-  when: item.1.public is defined
-  register: __manala_accounts_users_gpg_keys_public_result
-  changed_when: __manala_accounts_users_gpg_keys_public_result.stderr
-  with_subelements:
-    - "{{ manala_accounts_users|selectattr('gpg_keys', 'sequence')|list }}"
-    - gpg_keys
-  no_log: true
-
-- name: users > Gpg keys secret
-  command: "su {{ item.0.user }} -c 'gpg --list-secret-keys {{ item.1.key }} || echo \"{{ item.1.secret }}\" | gpg --import --allow-secret-key-import'"
-  when: item.1.secret is defined
-  register: __manala_accounts_users_gpg_keys_secret_result
-  changed_when: __manala_accounts_users_gpg_keys_secret_result.stderr
-  with_subelements:
-    - "{{ manala_accounts_users|selectattr('gpg_keys', 'sequence')|list }}"
-    - gpg_keys
-  no_log: true
-
-- name: users > Gpg trust keys public
-  command: "su {{ item.0.user }} -c 'echo \"{{ item.1.public }}\" | gpg --keyid-format long --with-fingerprint --with-colons - | sed -E -n -e \"s/^fpr:::::::::([0-9A-F]+):$/\\1:6:/p\" | gpg --import-ownertrust'"
-  when: item.1.public is defined and item.1.trust is defined
-  register: __manala_accounts_users_gpg_trust_keys_public_result
-  changed_when: "'gpg: WARNING: no command supplied.  Trying to guess what you mean ...' not in __manala_accounts_users_gpg_trust_keys_public_result.stderr"
-  with_subelements:
-    - "{{ manala_accounts_users|selectattr('gpg_keys', 'sequence')|list }}"
-    - gpg_keys
-  no_log: true
+- name: Users > Gpg keys
+  ansible.builtin.command: >
+    su {{ item.0.0.user }} -c '
+      {%- if item.1 == 'public' -%}
+        gpg --list-keys {{ item.0.1.key }} || echo "{{ item.0.1.public }}" \
+          | gpg --import
+        {%- if item.0.1.trust | default(False) -%}{{- ' ' -}}
+          && echo "{{ item.0.1.public }}" \
+            | gpg --keyid-format long --with-fingerprint --with-colons - \
+            | sed -E -n -e "s/^fpr:::::::::([0-9A-F]+):$/\\1:6:/p" \
+            | gpg --import-ownertrust
+        {%- endif -%}
+      {%- else -%}
+        gpg --list-secret-keys {{ item.0.1.key }} || echo "{{ item.0.1.secret }}" \
+          | gpg --import --allow-secret-key-import
+      {%- endif -%}
+    '
+  when: item.0.1[item.1] is defined
+  register: __manala_accounts_users_gpg_keys
+  changed_when:
+    - __manala_accounts_users_gpg_keys.stderr
+    - |
+      'gpg: WARNING: no command supplied.' not in __manala_accounts_users_gpg_keys.stderr
+        or
+      'gpg: inserting ownertrust of' in __manala_accounts_users_gpg_keys.stderr
+  loop: "{{
+    manala_accounts_users
+      | flatten
+      | manala.roles.staten(want='present')
+      | selectattr('gpg_keys', 'sequence') | list
+      | subelements('gpg_keys')
+      | product(['public', 'secret'])
+      | list
+  }}"
+  loop_control:
+    label: "{{ {
+      'user': item.0.0.user,
+      'key': item.0.1.key,
+      'trust': item.0.1.trust | default(False),
+      'type': item.1,
+    } }}"

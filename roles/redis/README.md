@@ -1,10 +1,8 @@
-# Ansible Role: Redis [![Build Status](https://travis-ci.org/manala/ansible-role-redis.svg?branch=master)](https://travis-ci.org/manala/ansible-role-redis)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Redis
 
 This role will deal with the setup of [Redis](https://redis.io/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,41 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.redis
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.redis
-```
-
-## Role Handlers
-
-| Name                     | Type    | Description            |
-| ------------------------ | ------- | ---------------------- |
-| `redis restart`          | Service | Restart redis server   |
-| `redis-sentinel restart` | Service | Restart redis sentinel |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                    | Default                             | Type         | Description                            |
-| --------------------------------------- | ----------------------------------- | ------------ | -------------------------------------- |
-| `manala_redis_version`                  | ~                                   | String       | Version (autodetect if null)           |
-| `manala_redis_install_packages`         | ~                                   | Array        | Dependency packages to install         |
-| `manala_redis_install_packages_default` | ['redis-server']/['redis-sentinel'] | Array        | Default dependency packages to install |
-| `manala_redis_server`                   | true                                | Boolean      | Install and configure "redis-server"   |
-| `manala_redis_server_config_file`       | '/etc/redis/redis.conf'             | String       | Configuration file path                |
-| `manala_redis_server_config_template`   | ~                                   | String       | Configuration template path            |
-| `manala_redis_server_config`            | ~                                   | Array/String | Configuration directives               |
-| `manala_redis_sentinel`                 | false                               | Boolean      | Install and configure "redis-sentinel" |
-| `manala_redis_sentinel_config_file`     | '/etc/redis/sentinel.conf'          | String       | Sentinel configuration file path       |
-| `manala_redis_sentinel_config`          | {}                                  | Array        | Sentinel configuration directives      |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -83,13 +51,6 @@ manala_redis_server_config: |
   port 1234
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_redis_server_config:
-  - port: 1234
-```
-
-
 #### Redis sentinel
 
 ```yaml
@@ -105,13 +66,16 @@ manala_redis_sentinel_config:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.redis
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.redis
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

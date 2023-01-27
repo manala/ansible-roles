@@ -1,4 +1,7 @@
 ---
 
-- name: systemd reload
-  command: systemctl daemon-reload # noqa 303
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+  # Deprecated
+  listen: systemd reload

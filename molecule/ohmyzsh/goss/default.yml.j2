@@ -1,0 +1,15 @@
+---
+
+file:
+  {{ manala_ohmyzsh_dir }}:
+    exists: true
+    filetype: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+command:
+  git --git-dir={{ manala_ohmyzsh_dir }}/.git --work-tree={{ manala_ohmyzsh_dir }} status:
+    exit-status: 0
+    stdout:
+      - On branch master

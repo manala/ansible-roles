@@ -6,6 +6,228 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.2.0] - 2023-01-09
+### Added
+- [Apt] Nodejs 18 support
+### Changed
+- [Telegraf] Update base config template
+
+## [3.1.1] - 2022-12-22
+### Changed
+- [Apt] Update grafana repository
+
+## [3.1.0] - 2022-12-13
+### Added
+- [Php] 8.2 support
+
+## [3.0.1] - 2022-12-12
+### Changed
+- [Apt] Variabilize docker repository address to dynamically match distribution
+### Removed
+- [Ssh] debian jessie related version 6.7 support
+- [Ssh] debian stretch related version 7.4 support
+
+## [3.0.0] - 2022-12-02
+### Removed
+- [All] Remove debian stretch support
+- [Apt] Remove debian stretch related `elasticsearch_2`, `maxscale_2_2`, `mongodb_3_2`, `mongodb_3_4`, `mongodb_3_6`, `mongodb_4_0`, `mysql_5_6`, `mysql_wsrep_5_6`, `galera_3`, `galera_3_31` repositories patterns
+- [Elasticsearch] debian stretch related version 2 support
+- [Redis] debian stretch related version 3.2 support
+
+## [2.1.0] - 2022-09-19
+### Added
+- [Promtail] Introduce role
+### Changed
+- [Apparmor] Deprecate handler "apparmor reload" in favor of "Reload apparmor"
+- [Cron] Deprecate handler "cron restart" in favor of "Restart cron"
+- [Dhcp] Deprecate handler "dhcp restart" in favor of "Restart dhcp"
+- [Dsnqmasq] Deprecate handler "dnsmasq restart" in favor of "Restart dnsmasq"
+- [Docker] Deprecate handler "docker restart" in favor of "Restart docker"
+- [Elasticsearch] Deprecate handler "elasticsearch restart" in favor of "Restart elasticsearch"
+- [Fail2ban] Deprecate handler "fail2ban restart" in favor of "Restart fail2ban"
+- [Gitlab] Deprecate handler "gitlab reconfigure" in favor of "Reconfigure gitlab"
+- [Gitlab] Deprecate handler "gitlab restart" in favor of "Restart gitlab"
+- [Grafana] Deprecate handler "grafana restart" in favor of "Restart grafana"
+- [Haproxy] Deprecate handler "haproxy reload" in favor of "Reload haproxy"
+- [Haproxy] Deprecate handler "haproxy restart" in favor of "Restart haproxy"
+- [InfluxDB] Deprecate handler "influxdb restart" in favor of "Restart influxdb"
+- [InfluxDB] Deprecate handler "influxdb start" in favor of "Start influxdb"
+- [Keepalived] Deprecate handler "keepalived restart" in favor of "Restart keepalived"
+- [Keepalived] Deprecate handler "keepalived reload" in favor of "Reload keepalived"
+- [MaxScale] Deprecate handler "maxscale restart" in favor of "Restart maxscale"
+- [MongoDB] Deprecate handler "mongodb restart" in favor of "Restart mongodb"
+- [MySQL] Deprecate handler "mysql restart" in favor of "Restart mysql"
+- [Network] Deprecate handler "networking restart" in favor of "Restart networking"
+- [Nginx] Deprecate handler "nginx restart" in favor of "Restart nginx"
+- [Nginx] Deprecate handler "do nginx restart" in favor of "Do restart nginx"
+- [Php] Deprecate handler "php restart" in favor of "Restart php fpm"
+- [Php] Deprecate handler "php fpm restart" in favor of "Restart php fpm"
+- [Php] Deprecate handler "do php fpm restart" in favor of "Do restart php fpm"
+- [Php] Deprecate handler "php blackfire agent restart" in favor of "Restart php blackfire agent"
+- [Proftpd] Deprecate handler "proftpd restart" in favor of "Restart proftpd"
+- [Prometheus] Deprecate handler "prometheus restart" in favor of "Restart prometheus"
+- [Prometheus] Deprecate handler "prometheus node exporter restart" in favor of "Restart prometheus node exporter"
+- [Prometheus] Deprecate handler "prometheus nginx exporter restart" in favor of "Restart prometheus nginx exporter"
+- [Prometheus] Deprecate handler "prometheus php fpm exporter restart" in favor of "Restart prometheus php fpm exporter"
+- [Promtail] Deprecate handler "promtail restart" in favor of "Restart promtail"
+- [Redis] Deprecate handler "redis restart" in favor of "Restart redis"
+- [Redis] Deprecate handler "redis-sentinel restart" in favor of "Restart redis-sentinel"
+- [RSyslog] Deprecate handler "rsyslog restart" in favor of "Restart rsyslog"
+- [SensuGo] Deprecate handler "sensu-backend restart" in favor of "Restart sensu-backend"
+- [SensuGo] Deprecate handler "sensu-agent restart" in favor of "Restart sensu-agent"
+- [Shorewall] Deprecate handler "shorewall restart" in favor of "Restart shorewall"
+- [Ssh] Deprecate handler "ssh reload" in favor of "Reload ssh"
+- [Supervisor] Deprecate handler "supervisor restart" in favor of "Restart supervisor"
+- [Systemd] Deprecate handler "systemd reload" in favor of "Reload systemd"
+- [Telegraf] Deprecate handler "telegraf restart" in favor of "Restart telegraf"
+
+## [2.0.3] - 2022-09-09
+### Fixed
+- [Apt] Fix github cli key
+
+## [2.0.2] - 2022-08-25
+### Fixed
+- [Php] Fix extension handling when extension is already disabled
+
+## [2.0.1] - 2022-08-17
+### Added
+- [Apt] Add GlusterFS 10.2 repository
+- [Apt] Add HAProxy 2.6 repository
+### Changed
+- [Apt] Update Symfony repository
+
+## [2.0.0] - 2022-07-20
+### Changed
+- [All] Update minimum version of ansible to 2.10
+- [All] Use fqcn
+- [Ngrok] Switch to v3 stable
+- [Symfony CLI] Switch to open source version
+- [Gomplate] Use github api to get latest version
+- [Vault CLI] Use github api to get latest version
+### Added
+- [Apt] Install gnupg package
+- [Prometheus] Introduce role
+### Fixed
+- [Apt] Update aptly key
+
+## [1.0.11] - 2022-03-04
+### Added
+- [Apt] GitHub cli repository
+
+## [1.0.10] - 2022-03-01
+### Changed
+- [Apt] Trust MySQL repository on stretch
+### Added
+- [Apt] Add Galera 4.10 and MySQL wsrep 8.0.26 repositories
+- [MySQL] Add `login_*` parameters in `users` and `databases` tasks.
+- [MySQL] Python installed package is configurable.
+
+## [1.0.9] - 2022-02-21
+### Changed
+- [Aptly] Publishing is now conditionned on existing published repositories instead of locals
+- [Apt] Remove explicit architecture on Manala repository pattern
+### Added
+- [Aptly] `Repositories` task now handle `architecture` when publishing
+
+## [1.0.8] - 2022-02-09
+### Added
+- [Apt] Symfony repository
+
+## [1.0.7] - 2022-02-04
+### Changed
+- [Php] Ensure extensions idempotence
+
+## [1.0.6] - 2022-02-02
+### Added
+- [MySQL] Support server/client handling via `manala_mysql_server` flag
+
+## [1.0.5] - 2022-01-26
+### Changed
+- [Apt] Add new Mysql key id and rename the old one `mysql_legacy`
+
+## [1.0.4] - 2022-01-19
+### Fixed
+- [Composer] No interaction on install check to prevent blocking root warning
+
+## [1.0.3] - 2022-01-10
+### Fixed
+- [Php] Support multiple `include` in fpm pool configs.
+
+## [1.0.2] - 2022-01-05
+### Fixed
+- [Mysql] Remove `(want='present')` from staten in `users` and `databases` tasks
+
+## [1.0.1] - 2021-12-27
+### Fixed
+- [Apt] Kopia key id
+
+## [1.0.0] - 2021-12-17
+### Added
+- [All] Add debian bullseye support
+- [Accounts] `ignore` users state
+- [Accounts] users short syntax
+- [Accounts] `ignore` groups state
+- [Php] 8.1 support
+
+### Fixed
+- [Apt] Percona key url
+- [Cron] Remove empty lines between jobs
+- [MongoDB] `python-pymongo` or `python3-pymongo` apt package as requirements for users handling, depending of tha ansible python version
+- [ProFTPd] Remove useless leading spaces in users password file
+
+### Removed
+- [All] Remove debian jessie support
+- [Ansible Galaxy] Remove alternatives support
+- [Apt] Remove deprecated `debian_security` `debian_security_src` `debian_updates` `debian_updates_src` `debian_backports` `dotdeb` `maxscale_2_2_6` `sury_php_debian` repositories patterns
+- [Apt] Remove deprecated `sury_php_debian` keys patterns
+- [Apt] Remove debian jessie related `mariadb_10_0`, `elasticsearch_1_7`, `nodesource_0_10`, `nodesource_0_12`, `nodesource_5` repositories patterns
+- [Apt] Remove debian jessie related `mariadb_legacy` keys patterns
+- [Apt] Remove `php5-*` preferences pattern
+- [Apt] Remove deprecated `phpmyadmin`, `phppgadmin`, `oauth2-proxy`, `thefuck`, and `httpie` preferences pattern, all related to deprecated manala debian packages
+- [Apt] Remove 'logentries' repository, key, and preference patterns (no more available)
+- [Apt] Remove 'sensu' repository, key, and preference patterns  (no more available)
+- [Beanstalkd] Remove role
+- [Elasticsearch] debian jessie related version 1.7 support
+- [Grafana] Remove versions 2.0/2.1/2.5 support
+- [Graylog Sidecar] Remove role
+- [Heka] Remove role
+- [Hugo] Remove role
+- [Logentries] Remove role
+- [Merge] Remove role
+- [Mongo Express] Remove role
+- [OAuth2 Proxy] Remove role
+- [Timezone] Stop using handlers
+- [Mailhog] Remove role
+- [Nginx] Remove config filters
+- [Opcache Dashboard] Remove role
+- [PhantomJS] Remove role
+- [PhpMyAdmin] Remove role
+- [PhpPgAdmin] Remove role
+- [PhpRedisAdmin] Remove role
+- [Proxmox] Remove role
+- [Redis] Remove version 2.8 support
+- [Rtail] Remove role
+- [Vault] Remove role
+- [Varnish] Remove role
+
+### Changed
+- [Apt] Don't ensure anymore that configs (`/etc/apt/apt.conf.d`) and preferences (`/etc/apt/preferences.d`) directory exists
+- [Apt] Switch default preferences pin priority from 900 to 1000
+- [Apt] Use regular expressions in preferences patterns when possible (such as `php`)
+- [OhMyZsh] Update users template (see: https://github.com/ohmyzsh/ohmyzsh/commits/master/templates/zshrc.zsh-template)
+- [Grafana] Group services handling and stop using handlers
+- [Shorewall] Explicit config file permissions
+- [Systemd] Use native systemd module for `daemon-reload`
+
+## [0.1.141] - 2021-12-10
+### Added
+- [Php] Supports php 8.1 for debian stretch and buster
+- [Apt] Php 8.1 repository pattern
+
+## [0.1.140] - 2021-11-30
+### Added
+- [Apt] Add GlusterFS 6.10 repository
+
 ## [0.1.139] - 2021-11-17
 ### Added
 - [Apt] Add HAProxy 2.4 repository

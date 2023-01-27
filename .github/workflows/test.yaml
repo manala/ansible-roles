@@ -1,0 +1,39 @@
+name: Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker cache
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
+          restore-keys: |
+            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
+      - name: Env
+        run: |
+          cp .env.dist .env
+      - name: Sanity
+        run: |
+          make test.sanity VERBOSE=1
+      - name: Units
+        run: |
+          make test.units VERBOSE=1 COVERAGE=1
+      - name: Integration
+        run: |
+          make test.integration VERBOSE=1 COVERAGE=1
+      - name: Coverage
+        run: |
+          make test.coverage VERBOSE=1
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: false

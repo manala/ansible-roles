@@ -1,7 +1,7 @@
 ---
 
-# Install
-- import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_zsh
     - manala_zsh.install

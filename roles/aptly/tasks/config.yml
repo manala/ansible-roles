@@ -1,11 +1,11 @@
 ---
 
-- name: config > Template
-  template:
-    src: "{{ manala_aptly_config_template|default('config/_default.j2', true) }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_aptly_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_aptly_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_aptly_config_template
-        or manala_aptly_config
+    or manala_aptly_config

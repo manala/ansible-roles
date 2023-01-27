@@ -1,0 +1,29 @@
+name: Molecule - Elasticsearch
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.elasticsearch.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/elasticsearch.*/**
+      - roles/elasticsearch/**
+      # Plugins
+      - plugins/filter/environment.py
+      - plugins/filter/yaml.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  elasticsearch:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: elasticsearch
+      versions: '[5, 6, 7]'

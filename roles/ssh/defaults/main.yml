@@ -1,31 +1,29 @@
 ---
 
+# Available values: '~' (autodetect), 7.9, 8.4, ...
 manala_ssh_version: ~
 
 # Install
+# Note: First package name in list is used for version autodetection
 manala_ssh_install_packages: ~
-manala_ssh_install_packages_default: "{{ manala_ssh_server|ternary(['openssh-server'], ['openssh-client']) }}"
+manala_ssh_install_packages_default: |
+  {{
+    manala_ssh_server | ternary(
+      ['openssh-server'],
+      ['openssh-client']
+    )
+  }}
 
 # Server
 manala_ssh_server: true
-manala_ssh_server_config_file: "{{ manala_ssh_config_sshd_file }}"
-manala_ssh_server_config_template: "{{ manala_ssh_config_sshd_template }}"
-manala_ssh_server_config: "{{ manala_ssh_config_sshd }}"
-
-# /!\ Deprecated
-manala_ssh_config_sshd_file: /etc/ssh/sshd_config # Use `manala_ssh_server_config_file`
-manala_ssh_config_sshd_template: ~ # Use `manala_ssh_server_config_template`
-manala_ssh_config_sshd: ~ # Use `manala_ssh_server_config`
+manala_ssh_server_config_file: /etc/ssh/sshd_config
+manala_ssh_server_config_template: ~
+manala_ssh_server_config: ~
 
 # Client
-manala_ssh_client_config_file: "{{ manala_ssh_config_file }}"
-manala_ssh_client_config_template: "{{ manala_ssh_config_template }}"
-manala_ssh_client_config: "{{ manala_ssh_config }}"
-
-# /!\ Deprecated
-manala_ssh_config_file: /etc/ssh/ssh_config # Use `manala_ssh_client_config_file`
-manala_ssh_config_template: ~ # Use `manala_ssh_client_config_template`
-manala_ssh_config: ~ # Use `manala_ssh_client_config`
+manala_ssh_client_config_file: /etc/ssh/ssh_config
+manala_ssh_client_config_template: ~
+manala_ssh_client_config: ~
 
 # Known hosts
 manala_ssh_known_hosts: []

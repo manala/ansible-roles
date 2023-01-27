@@ -1,0 +1,26 @@
+name: Molecule - PostgreSQL
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.postgresql.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/postgresql.*/**
+      - roles/postgresql/**
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  postgresql:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: postgresql
+      versions: '[9.4]'

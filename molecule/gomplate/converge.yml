@@ -1,0 +1,50 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.gomplate
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+###########
+# Version #
+###########
+
+- name: Version
+  tags: [version]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/gomplate/version
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Fixed
+          ansible.builtin.import_role:
+            name: manala.roles.gomplate
+            tasks_from: install
+          vars:
+            manala_gomplate_bin: "{{ tests_dir }}/fixed"
+            manala_gomplate_version: 3.8.0
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/version.yml.j2') }}"
+          changed_when: false

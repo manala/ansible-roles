@@ -1,0 +1,282 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+#########
+# Hosts #
+#########
+
+- name: Hosts
+  tags: [hosts]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ansible/hosts
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: hosts
+          vars:
+            manala_ansible_hosts_file: "{{ tests_dir }}/content"
+            manala_ansible_hosts_template: ~
+            manala_ansible_hosts: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: hosts
+          vars:
+            manala_ansible_hosts_file: "{{ tests_dir }}/template"
+            manala_ansible_hosts_template: fixtures/template.j2
+            manala_ansible_hosts: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/hosts.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ansible/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: config
+          vars:
+            manala_ansible_config_file: "{{ tests_dir }}/content"
+            manala_ansible_config_template: ~
+            manala_ansible_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: config
+          vars:
+            manala_ansible_config_file: "{{ tests_dir }}/template"
+            manala_ansible_config_template: fixtures/template.j2
+            manala_ansible_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false
+
+#############
+# Host Vars #
+#############
+
+- name: Host Vars
+  tags: [host_vars]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ansible/host_vars
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/foo, exclusive/bar, exclusive/baz, exclusive/qux,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: host_vars
+          vars:
+            manala_ansible_host_vars_exclusive: false
+            manala_ansible_host_vars_dir: "{{ tests_dir }}/default"
+            manala_ansible_host_vars_defaults: {}
+            manala_ansible_host_vars:
+              # Content
+              - file: content
+                vars: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: host_vars
+          vars:
+            manala_ansible_host_vars_exclusive: false
+            manala_ansible_host_vars_dir: "{{ tests_dir }}/defaults"
+            manala_ansible_host_vars_defaults:
+              template: fixtures/template.j2
+            manala_ansible_host_vars:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: host_vars
+          vars:
+            manala_ansible_host_vars_exclusive: true
+            manala_ansible_host_vars_dir: "{{ tests_dir }}/exclusive"
+            manala_ansible_host_vars_defaults: {}
+            manala_ansible_host_vars:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/host_vars.yml.j2') }}"
+          changed_when: false
+
+##############
+# Group Vars #
+##############
+
+- name: Group Vars
+  tags: [group_vars]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/ansible/group_vars
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/foo, exclusive/bar, exclusive/baz, exclusive/qux,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: group_vars
+          vars:
+            manala_ansible_group_vars_exclusive: false
+            manala_ansible_group_vars_dir: "{{ tests_dir }}/default"
+            manala_ansible_group_vars_defaults: {}
+            manala_ansible_group_vars:
+              # Content
+              - file: content
+                vars: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: group_vars
+          vars:
+            manala_ansible_group_vars_exclusive: false
+            manala_ansible_group_vars_dir: "{{ tests_dir }}/defaults"
+            manala_ansible_group_vars_defaults:
+              template: fixtures/template.j2
+            manala_ansible_group_vars:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.ansible
+            tasks_from: group_vars
+          vars:
+            manala_ansible_group_vars_exclusive: true
+            manala_ansible_group_vars_dir: "{{ tests_dir }}/exclusive"
+            manala_ansible_group_vars_defaults: {}
+            manala_ansible_group_vars:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/group_vars.yml.j2') }}"
+          changed_when: false

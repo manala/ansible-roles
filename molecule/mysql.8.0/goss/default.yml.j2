@@ -1,0 +1,30 @@
+---
+
+package:
+  mysql-server:
+    installed: true
+  mysql-client:
+    installed: true
+
+command:
+  mysql --version:
+    exit-status: 0
+    stdout:
+      - "/mysql(.)*Ver 8.0/"
+  mysql -u root --execute "select user from mysql.user":
+    exit-status: 0
+    stdout:
+      - foo
+  mysqladmin  --user=foo --password=foo ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
+  mysql -u root --execute "show databases":
+    exit-status: 0
+    stdout:
+      - foo
+
+service:
+  mysql:
+    enabled: true
+    running: true

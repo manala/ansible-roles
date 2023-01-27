@@ -1,0 +1,28 @@
+---
+
+file:
+  {{ tests_dir }}/array:
+    exists: true
+    filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
+    contains:
+      - '[{"account": "admin", "name": "foo", "password": "$1$MXS$ilOCSZPnjmHjTz6B96SiJ1"},{"account": "admin", "name": "bar", "password": "$1$MXS$M.YZOr2pNTgW87l7KQWLU/"}]'
+  {{ tests_dir }}/array_empty:
+    exists: true
+    filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
+    size: 2
+    contains:
+      - '[]'
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: maxscale
+    group: maxscale
+    mode: "0600"
+    contains:
+      - "/^Template$/"

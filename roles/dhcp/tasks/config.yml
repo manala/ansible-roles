@@ -1,7 +1,7 @@
 ---
 
-- name: config > Template
-  template:
+- name: Config > Template
+  ansible.builtin.template:
     src: "{{ manala_dhcp_config_template }}"
     dest: "{{ manala_dhcp_config_file }}"
     owner: root
@@ -9,10 +9,10 @@
     mode: "0644"
   when: manala_dhcp_config_template is not none
   notify:
-    - dhcp restart
+    - Restart dhcp
 
-- name: config > Content
-  copy:
+- name: Config > Content
+  ansible.builtin.copy:
     content: "{{ manala_dhcp_config_content }}"
     dest: "{{ manala_dhcp_config_file }}"
     owner: root
@@ -20,4 +20,4 @@
     mode: "0644"
   when: manala_dhcp_config_content is not none
   notify:
-    - dhcp restart
+    - Restart dhcp

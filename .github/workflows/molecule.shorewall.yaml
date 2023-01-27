@@ -1,0 +1,27 @@
+name: Molecule - Shorewall
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.shorewall.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/shorewall/**
+      - roles/shorewall/**
+      # Plugins
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  shorewall:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: shorewall

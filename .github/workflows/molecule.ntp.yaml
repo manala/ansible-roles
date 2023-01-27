@@ -1,0 +1,25 @@
+name: Molecule - Ntp
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.ntp.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/ntp/**
+      - roles/ntp/**
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  ntp:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: ntp

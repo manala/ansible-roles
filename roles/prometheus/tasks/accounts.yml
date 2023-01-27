@@ -1,0 +1,16 @@
+---
+
+- name: Accounts > Group
+  ansible.builtin.group:
+    name: "{{ manala_prometheus_group }}"
+    system: true
+
+- name: Accounts > User
+  ansible.builtin.user:
+    name: "{{ manala_prometheus_user }}"
+    comment: Prometheus
+    system: true
+    shell: /usr/sbin/nologin
+    group: "{{ manala_prometheus_group }}"
+    createhome: false
+    home: "{{ manala_prometheus_data_dir }}"

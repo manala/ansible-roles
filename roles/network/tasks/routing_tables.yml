@@ -1,21 +1,8 @@
 ---
 
-# Note: non mapping manala_network_routing_tables is deprecated
-- name: routing_tables > File
-  lineinfile:
+- name: Routing Tables > File  # noqa no-tabs
+  ansible.builtin.lineinfile:
     path: "{{ manala_network_routing_tables_file }}"
-    regexp: "^{{
-      item.key
-        if (manala_network_routing_tables is mapping) else
-      (item.keys()|list)[0]
-    }}\\s+"
-    line: "{{
-      item.key ~ '\t' ~ item.value
-        if (manala_network_routing_tables is mapping) else
-      (item.keys()|list)[0] ~ '\t' ~ (item.values()|list)[0]
-    }}"
-  loop: "{{
-    manala_network_routing_tables | dict2items
-      if (manala_network_routing_tables is mapping) else
-    manala_network_routing_tables
-  }}"
+    regexp: "^{{ item.key }}\\s+"
+    line: "{{ item.key ~ '\t' ~ item.value }}"
+  loop: "{{ manala_network_routing_tables | dict2items }}"

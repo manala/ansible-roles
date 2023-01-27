@@ -1,8 +1,29 @@
 ---
 
-- name: install > Packages
-  apt:
-    name: "{{ manala_grafana_install_packages|default(manala_grafana_install_packages_default, True) }}"
+- name: Install > Packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
     install_recommends: false
-    update_cache:       true
-    cache_valid_time:   3600
+    update_cache: true
+    cache_valid_time: 3600
+  loop:
+    - "{{ manala_grafana_install_packages | default(manala_grafana_install_packages_default, True) }}"
+
+- name: Install > Version
+  when: manala_grafana_version is none
+  check_mode: false
+  block:
+    - name: Install > Parse version
+      ansible.builtin.command: >
+        dpkg -s
+        {{ manala_grafana_install_packages | default(manala_grafana_install_packages_default, True) | first }}
+      register: __manala_grafana_version
+      changed_when: false
+    - name: Install > Set version
+      ansible.builtin.set_fact:
+        manala_grafana_version: "{{
+          __manala_grafana_version.stdout
+            | regex_search('Version: (\\d+:)?(?P<version>\\d+\\.\\d+)', '\\g<version>')
+            | first
+        }}"
+      changed_when: false

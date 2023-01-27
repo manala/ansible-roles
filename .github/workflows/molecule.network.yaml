@@ -1,0 +1,27 @@
+name: Molecule - Network
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.network.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/network/**
+      - roles/network/**
+      # Plugins
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  network:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: network

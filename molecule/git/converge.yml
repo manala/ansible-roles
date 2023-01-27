@@ -1,0 +1,89 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/git/default
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+        mode: "0777"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.git
+          vars:
+            manala_git_repositories:
+              - repo: https://github.com/manala/ansible-role-git.git
+                dest: "{{ tests_dir }}/ansible-role-git"
+              - repo: https://github.com/manala/ansible-role-git.git
+                dest: "{{ tests_dir }}/ansible-role-git-user"
+                user: games
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/git/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            name: manala.roles.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: "{{ tests_dir }}/dict"
+            manala_git_config_template: ~
+            manala_git_config:
+              foo:
+                foo: true
+                bar: false
+              bar:
+                foo: bar
+                bar: 123
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: "{{ tests_dir }}/content"
+            manala_git_config_template: ~
+            manala_git_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.git
+            tasks_from: config
+          vars:
+            manala_git_config_file: "{{ tests_dir }}/template"
+            manala_git_config_template: fixtures/template.j2
+            manala_git_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false

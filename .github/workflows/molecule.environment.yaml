@@ -1,0 +1,27 @@
+name: Molecule - Environment
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.environment.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/environment/**
+      - roles/environment/**
+      # Plugins
+      - plugins/lookup/environment_files.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  environment:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: environment

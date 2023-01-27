@@ -1,0 +1,28 @@
+name: Molecule - Redis
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.redis.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/redis.*/**
+      - roles/redis/**
+      # Plugins
+      - plugins/filter/redis_config.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  redis:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: redis
+      versions: '["5.0", "6.0"]'

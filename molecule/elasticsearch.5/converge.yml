@@ -1,0 +1,33 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.elasticsearch
+          vars:
+            manala_elasticsearch_environment_template: environment/elasticsearch/elasticsearch.j2
+            manala_elasticsearch_environment:
+              ES_JAVA_OPTS: -Xms256m -Xmx256m
+            manala_elasticsearch_plugins:
+              - analysis-icu
+      always:
+        - name: Wait for pretty response
+          ansible.builtin.uri:
+            url: http://localhost:9200/?pretty
+          register: result
+          until: result.status == 200
+          retries: 60
+          delay: 1
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false

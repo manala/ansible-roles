@@ -1,36 +1,36 @@
 ---
 
-- name: containers > Create docker containers
-  docker_container:
+- name: Containers > Create docker containers
+  community.docker.docker_container:
     name: "{{ item.name }}"
-    image: "{{ item.image|default(omit) }}"
-    pull: "{{ item.pull|default(omit) }}"
-    hostname: "{{ item.hostname|default(omit) }}"
-    user: "{{ item.user|default(omit) }}"
-    state: "{{ item.state|default('started') }}"
-    restart_policy: "{{ item.restart_policy|default('on-failure') }}"
-    dns_servers: "{{ item.dns_servers|default(omit) }}"
-    dns_search_domains: "{{ item.dns_search_domains|default(omit) }}"
-    volumes: "{{ item.volumes|default(omit) }}"
-    ports: "{{ item.ports|default(omit) }}"
-    links: "{{ item.links|default(omit) }}"
-    env: "{{ item.env|default(omit) }}"
-    entrypoint: "{{ item.entrypoint|default(omit) }}"
-    command: "{{ item.command|default(omit) }}"
-    memory: "{{ item.memory|default(omit) }}"
-    memory_reservation: "{{ item.memory_reservation|default(omit) }}"
-    memory_swap: "{{ item.memory_swap|default(omit) }}"
-    memory_swappiness: "{{ item.memory_swappiness|default(omit) }}"
-    ulimits: "{{ item.ulimits|default(omit) }}"
-    privileged: "{{ item.privileged|default(omit) }}"
-    capabilities: "{{ item.capabilities|default(omit) }}"
-    network_mode: "{{ item.network_mode|default(omit) }}"
-    log_driver: "{{ item.log_driver|default(omit) }}"
-    log_options: "{{ item.log_options|default(omit) }}"
-    etc_hosts: "{{ item.etc_hosts|default(omit) }}"
-    labels: "{{ item.labels|default(omit) }}"
+    image: "{{ item.image | default(omit) }}"
+    pull: "{{ item.pull | default(omit) }}"
+    hostname: "{{ item.hostname | default(omit) }}"
+    user: "{{ item.user | default(omit) }}"
+    state: "{{ item.state | default('started') }}"
+    restart_policy: "{{ item.restart_policy | default('on-failure') }}"
+    dns_servers: "{{ item.dns_servers | default(omit) }}"
+    dns_search_domains: "{{ item.dns_search_domains | default(omit) }}"
+    volumes: "{{ item.volumes | default(omit) }}"
+    ports: "{{ item.ports | default(omit) }}"
+    links: "{{ item.links | default(omit) }}"
+    env: "{{ item.env | default(omit) }}"
+    entrypoint: "{{ item.entrypoint | default(omit) }}"
+    command: "{{ item.command | default(omit) }}"
+    memory: "{{ item.memory | default(omit) }}"
+    memory_reservation: "{{ item.memory_reservation | default(omit) }}"
+    memory_swap: "{{ item.memory_swap | default(omit) }}"
+    memory_swappiness: "{{ item.memory_swappiness | default(omit) }}"
+    ulimits: "{{ item.ulimits | default(omit) }}"
+    privileged: "{{ item.privileged | default(omit) }}"
+    capabilities: "{{ item.capabilities | default(omit) }}"
+    network_mode: "{{ item.network_mode | default(omit) }}"
+    log_driver: "{{ item.log_driver | default(omit) }}"
+    log_options: "{{ item.log_options | default(omit) }}"
+    etc_hosts: "{{ item.etc_hosts | default(omit) }}"
+    labels: "{{ item.labels | default(omit) }}"
   loop: "{{
-    manala_docker_containers | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_docker_containers | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_docker_containers
+      | flatten
+      | manala.roles.staten_ignore
   }}"

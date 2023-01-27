@@ -1,13 +1,13 @@
 ---
 
-- name: environment > Template
-  template:
-    src: "{{ manala_keepalived_environment_template|default('environment/_default.j2', true) }}"
+- name: Environment > Template
+  ansible.builtin.template:
+    src: "{{ manala_keepalived_environment_template | default('environment/_default.j2', true) }}"
     dest: "{{ manala_keepalived_environment_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_keepalived_environment_template
-        or manala_keepalived_environment
+    or manala_keepalived_environment
   notify:
-    - keepalived restart
+    - Restart keepalived

@@ -1,0 +1,16 @@
+---
+
+file:
+  # Default
+  {{ tests_dir }}/default/perdu:
+    exists: true
+    filetype: file
+    contains:
+      - Perdu sur l'Internet ?
+      - Pas de panique, on va vous aider
+  {{ tests_dir }}/default/alt-galaxy.tar.gz:
+    exists: true
+    filetype: file
+  {{ tests_dir }}/default/alt-galaxy:
+    exists: true
+    filetype: file

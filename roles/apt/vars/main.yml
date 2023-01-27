@@ -1,33 +1,40 @@
 ---
 
 # Flags
-__manala_apt: "{{
-  {
-    'update': False
-  }|combine(
-    manala|default({}),
-    manala_apt
-  )
-}}"
+__manala_apt: |
+  {{
+    {
+      'update': False
+    } | combine(
+      manala | default({}),
+      manala_apt
+    )
+  }}
 
 # Repositories
 manala_apt_repositories_patterns:
   default:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components|flatten|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ manala_apt_components | flatten | join(' ') }}
     pin: release a={{ ansible_distribution_release }}
   security:
-    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
+    source: >-
+      deb http://security.debian.org/debian-security
+      {{ ansible_distribution_release }}{{ (ansible_distribution_release in ['buster']) | ternary('/updates', '-security') }}
+      {{ manala_apt_components | flatten | join(' ') }}
   security_src:
-    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
+    source: >-
+      deb-src http://security.debian.org/debian-security
+      {{ ansible_distribution_release }}{{ (ansible_distribution_release in ['buster']) | ternary('/updates', '-security') }}
+      {{ manala_apt_components | flatten | join(' ') }}
   updates:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components | flatten | join(' ') }}
   updates_src:
-    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
+    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components | flatten | join(' ') }}
   backports:
-    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|flatten|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components | flatten | join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports
   backports_sloppy:
-    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports-sloppy {{ manala_apt_components|flatten|join(' ') }}
+    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports-sloppy {{ manala_apt_components | flatten | join(' ') }}
     pin: release a={{ ansible_distribution_release }}-backports-sloppy
   multimedia:
     source: deb http://www.deb-multimedia.org {{ ansible_distribution_release }} main
@@ -37,43 +44,14 @@ manala_apt_repositories_patterns:
     source: deb http://www.deb-multimedia.org {{ ansible_distribution_release }}-backports main
     key: multimedia
     file: multimedia_backports.list
-  # Deprecated
-  debian_security:
-    source: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
-  # Deprecated
-  debian_security_src:
-    source: deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ manala_apt_components|flatten|join(' ') }}
-  # Deprecated
-  debian_updates:
-    source: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
-  # Deprecated
-  debian_updates_src:
-    source: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ manala_apt_components|flatten|join(' ') }}
-  # Deprecated
-  debian_backports:
-    source: deb http://{{ (ansible_distribution_release in ['jessie'])|ternary('archive', 'deb') }}.debian.org/debian {{ ansible_distribution_release }}-backports {{ manala_apt_components|flatten|join(' ') }}
-    pin: release a={{ ansible_distribution_release }}-backports
-  dotdeb:
-    source: deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
-    key: dotdeb
-    file: dotdeb.list
   nginx:
-    source: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx
+    source: deb http://nginx.org/packages/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} nginx
     key: nginx
   bearstech:
     source: deb http://deb.bearstech.com/debian {{ ansible_distribution_release }}-bearstech main
     key: bearstech
-  nodesource_0_10:
-    source: deb https://deb.nodesource.com/node_0.10 {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_0_12:
-    source: deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main
-    key: nodesource
   nodesource_4:
     source: deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
-    key: nodesource
-  nodesource_5:
-    source: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
     key: nodesource
   nodesource_6:
     source: deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main
@@ -99,43 +77,33 @@ manala_apt_repositories_patterns:
   nodesource_16:
     source: deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main
     key: nodesource
-  mysql_5_6:
-    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.6
-    key: mysql
+  nodesource_18:
+    source: deb https://deb.nodesource.com/node_18.x {{ ansible_distribution_release }} main
+    key: nodesource
   mysql_5_7:
-    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-5.7
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} mysql-5.7
     key: mysql
   mysql_8_0:
-    source: deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} mysql-8.0
+    source: deb http://repo.mysql.com/apt/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} mysql-8.0
     key: mysql
-  mariadb_10_0:
-    source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian {{ ansible_distribution_release }} main
-    key: mariadb_legacy
   mariadb_10_1:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
+    key: mariadb
   mariadb_10_2:
     source: deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
+    key: mariadb
   mariadb_10_3:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.3/repo/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
+    key: mariadb
   mariadb_10_4:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.4/repo/debian {{ ansible_distribution_release }} main
-    key: "{{ (ansible_distribution_release not in ['jessie'])|ternary('mariadb','mariadb_legacy') }}"
+    key: mariadb
   mariadb_10_5:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/debian {{ ansible_distribution_release }} main
     key: mariadb
   mariadb_10_6:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.6/repo/debian {{ ansible_distribution_release }} main
     key: mariadb
-  maxscale_2_2:
-    source: deb https://downloads.mariadb.com/MaxScale/2.2/debian {{ ansible_distribution_release }} main
-    key: maxscale
-# Deprecated - Use `maxscale_2_2`
-  maxscale_2_2_6:
-    source: deb https://downloads.mariadb.com/MaxScale/2.2.6/debian {{ ansible_distribution_release }} main
-    key: maxscale
   maxscale_2_3:
     source: deb https://downloads.mariadb.com/MaxScale/2.3/debian {{ ansible_distribution_release }} main
     key: maxscale
@@ -151,38 +119,23 @@ manala_apt_repositories_patterns:
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     key: postgresql
-  mongodb_3_2:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.2 main
-    key: mongodb_3_2
-  mongodb_3_4:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.4 main
-    key: mongodb_3_4
-  mongodb_3_6:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/3.6 main
-    key: mongodb_3_6
-  mongodb_4_0:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.0 main
-    key: mongodb_4_0
   mongodb_4_2:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.2 main
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}/mongodb-org/4.2 main
     key: mongodb_4_2
   mongodb_4_4:
-    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}/mongodb-org/4.4 main
+    source: deb http://repo.mongodb.org/apt/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}/mongodb-org/4.4 main
     key: mongodb_4_4
   varnish_4_0:
-    source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    source: deb https://packagecloud.io/varnishcache/varnish40/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main
     key: varnish_4_0
   varnish_6_1:
-    source: deb https://packagecloud.io/varnishcache/varnish61/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    source: deb https://packagecloud.io/varnishcache/varnish61/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main
     key: varnish_6_1
   jenkins:
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key: jenkins
-  sensu:
-    source: deb https://sensu.global.ssl.fastly.net/apt {{ ansible_distribution_release }} main
-    key: sensu
   sensu-go:
-    source: deb https://packagecloud.io/sensu/stable/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
+    source: deb https://packagecloud.io/sensu/stable/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main
     key: sensu-go
   rabbitmq:
     source: deb http://www.rabbitmq.com/debian/ testing main
@@ -193,48 +146,36 @@ manala_apt_repositories_patterns:
   proxmox_enterprise:
     source: deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise
     key: proxmox
-  logentries:
-    source: deb http://rep.logentries.com/ {{ {'jessie':'jessie', 'stretch':'stretch', 'buster':'bionic', 'bullseye':'bullseye'}[ansible_distribution_release] }} main
-    key: logentries
-  galera_3:
-    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
-    key: galera
-  galera_3_31:
-    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/galera-3.31/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
-    key: galera
   galera_4:
-    source: deb https://releases.galeracluster.com/galera-4/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb https://releases.galeracluster.com/galera-4/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   galera_4_7:
-    source: deb https://releases.galeracluster.com/galera-4.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb https://releases.galeracluster.com/galera-4.7/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   galera_4_8:
-    source: deb https://releases.galeracluster.com/galera-4.8/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb https://releases.galeracluster.com/galera-4.8/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
-  mysql_wsrep_5_6:
-    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+  galera_4_10:
+    source: deb https://releases.galeracluster.com/galera-4.10/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_5_7:
-    source: deb {{ (ansible_distribution_release not in ['jessie'])|ternary('[trusted=yes] ','') }}http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb [trusted=yes] http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_8_0:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_8_0_22:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.22-26.5/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.22-26.5/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   mysql_wsrep_8_0_23:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.23-26.6/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
+    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.23-26.6/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
+    key: galera
+  mysql_wsrep_8_0_26:
+    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.26-26.8/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
     key: galera
   grafana:
-    source: deb https://packages.grafana.com/oss/deb stable main
+    source: deb https://apt.grafana.com stable main
     key: grafana
-  elasticsearch_1_7:
-    source: deb https://packages.elastic.co/elasticsearch/1.7/debian stable main
-    key: elasticsearch
-  elasticsearch_2:
-    source: deb https://packages.elastic.co/elasticsearch/2.x/debian stable main
-    key: elasticsearch
   elasticsearch_5:
     source: deb https://artifacts.elastic.co/packages/5.x/apt stable main
     key: elasticsearch
@@ -245,7 +186,10 @@ manala_apt_repositories_patterns:
     source: deb https://artifacts.elastic.co/packages/7.x/apt stable main
     key: elasticsearch
   ansible:
-    source: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ {'jessie':'trusty', 'stretch':'xenial', 'buster':'bionic', 'bullseye':'bullseye'}[ansible_distribution_release] }} main
+    source: >-
+      deb http://ppa.launchpad.net/ansible/ansible/ubuntu
+      {{ {'buster': 'bionic', 'bullseye': 'focal'}[ansible_distribution_release] }}
+      main
     key: ansible
   blackfire:
     source: deb http://packages.blackfire.io/debian any main
@@ -257,16 +201,20 @@ manala_apt_repositories_patterns:
     source: deb http://repo.aptly.info/ squeeze main
     key: aptly
   docker:
-    source: deb [arch={{ ansible_architecture|manala_apt_architecture }}] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    source: >-
+      deb [arch={{ ansible_architecture | manala.roles.apt_architecture }}]
+      https://download.docker.com/linux/{{ ansible_lsb.id | default(ansible_distribution) | lower }} {{ ansible_distribution_release }} stable
     key: docker
   manala:
-    source: deb [arch=amd64] http://debian.manala.io {{ ansible_distribution_release }} main
+    source: deb http://debian.manala.io {{ ansible_distribution_release }} main
     key: manala
   newrelic:
     source: deb http://apt.newrelic.com/debian/ newrelic non-free
     key: newrelic
   newrelic-infra:
-    source: deb [arch={{ ansible_architecture|manala_apt_architecture }}] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main
+    source: >-
+      deb [arch={{ ansible_architecture | manala.roles.apt_architecture }}]
+      https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main
     key: newrelic-infra
   influxdata:
     source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
@@ -277,10 +225,6 @@ manala_apt_repositories_patterns:
   sury_php:
     source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
     key: sury_php
-  # Deprecated
-  sury_php_debian:
-    source: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
-    key: sury_php_debian
   percona:
     source: deb http://repo.percona.com/apt {{ ansible_distribution_release }} main
     key: percona
@@ -294,11 +238,33 @@ manala_apt_repositories_patterns:
     source: deb https://obiba.jfrog.io/artifactory/debian-local all main
     key: mica
   glusterfs_6:
-    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/{{ ansible_architecture|manala_apt_architecture }}/apt {{ ansible_distribution_release }} main
+    source: >-
+      deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_distribution_release }}/{{
+        ansible_architecture | manala.roles.apt_architecture
+      }}/apt
+      {{ ansible_distribution_release }} main
     key: glusterfs_6
   glusterfs_6_1:
-    source: deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{ ansible_architecture|manala_apt_architecture }}/apt {{ ansible_distribution_release }} main
+    source: >-
+      deb https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_distribution_release }}/{{
+        ansible_architecture | manala.roles.apt_architecture
+      }}/apt
+      {{ ansible_distribution_release }} main
     key: glusterfs_6
+  glusterfs_6_10:
+    source: >-
+      deb https://download.gluster.org/pub/gluster/glusterfs/6/6.10/Debian/{{ ansible_distribution_release }}/{{
+        ansible_architecture | manala.roles.apt_architecture
+      }}/apt
+      {{ ansible_distribution_release }} main
+    key: glusterfs_6
+  glusterfs_10_2:
+    source: >-
+      deb https://download.gluster.org/pub/gluster/glusterfs/10/10.2/Debian/{{ ansible_distribution_release }}/{{
+        ansible_architecture | manala.roles.apt_architecture
+      }}/apt
+      {{ ansible_distribution_release }} main
+    key: glusterfs_10
   haproxy_1_8:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-1.8 main
     key: haproxy
@@ -311,21 +277,29 @@ manala_apt_repositories_patterns:
   haproxy_2_4:
     source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.4 main
     key: haproxy
+  haproxy_2_6:
+    source: deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.6 main
+    key: haproxy
   unifi:
     source: deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti
     key: unifi
   kopia:
     source: deb http://packages.kopia.io/apt/ stable main
     key: kopia
+  symfony:
+    source: deb https://dl.cloudsmith.io/public/symfony/stable/deb/debian {{ ansible_distribution_release }} main
+    key: symfony
+    file: symfony.list
+  github_cli:
+    source: deb https://cli.github.com/packages stable main
+    key: github_cli
+    file: github_cli.list
 
 # Keys
 manala_apt_keys_patterns:
   multimedia:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 65558117
-  dotdeb:
-    url: http://www.dotdeb.org/dotdeb.gpg
-    id: 89DF5277
   nginx:
     url: http://nginx.org/keys/nginx_signing.key
     id: 7BD9BF62
@@ -336,12 +310,8 @@ manala_apt_keys_patterns:
     url: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
     id: 68576280
   mysql:
-    url: https://repo.mysql.com/RPM-GPG-KEY-mysql
-    id: 5072E1F5
-  # Jessie
-  mariadb_legacy:
-    url: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-    id: 1BB943DB
+    url: https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+    id: 3A79BD29
   mariadb:
     url: https://raw.githubusercontent.com/MariaDB/mariadb.org-tools/master/release/create_package_tarballs/deb_files/MariaDB-C74CD1D8-public.asc
     id: C74CD1D8
@@ -354,18 +324,6 @@ manala_apt_keys_patterns:
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     id: ACCC4CF8
-  mongodb_3_2:
-    url: https://www.mongodb.org/static/pgp/server-3.2.asc
-    id: EA312927
-  mongodb_3_4:
-    url: https://www.mongodb.org/static/pgp/server-3.4.asc
-    id: A15703C6
-  mongodb_3_6:
-    url: https://www.mongodb.org/static/pgp/server-3.6.asc
-    id: 91FA4AD5
-  mongodb_4_0:
-    url: https://www.mongodb.org/static/pgp/server-4.0.asc
-    id: E52529D4
   mongodb_4_2:
     url: https://www.mongodb.org/static/pgp/server-4.2.asc
     id: 058F8B6B
@@ -381,9 +339,6 @@ manala_apt_keys_patterns:
   jenkins:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
     id: D50582E6
-  sensu:
-    url: https://sensu.global.ssl.fastly.net/apt/pubkey.gpg
-    id: EB9C94BB
   sensu-go:
     url: https://packagecloud.io/sensu/stable/gpgkey
     id: 0A3F7426
@@ -393,9 +348,6 @@ manala_apt_keys_patterns:
   proxmox:
     url: http://download.proxmox.com/debian/proxmox-ve-release-5.x.gpg
     id: E2EF0603
-  logentries:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: C43C79AD
   galera:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: BC19DDBA
@@ -410,9 +362,9 @@ manala_apt_keys_patterns:
     id: 51312F3F
   aptly:
     url: https://www.aptly.info/pubkey.txt
-    id: ED75B5A4483DA07C
+    id: 624A8331
   docker:
-    url: https://download.docker.com/linux/debian/gpg
+    url: https://download.docker.com/linux/{{ ansible_lsb.id | default(ansible_distribution) | lower }}/gpg
     id: 0EBFCD88
   manala:
     keyserver: hkp://keyserver.ubuntu.com:80
@@ -432,12 +384,8 @@ manala_apt_keys_patterns:
   sury_php:
     url: https://packages.sury.org/php/apt.gpg
     id: 95BD4743
-  # Deprecated
-  sury_php_debian:
-    url: https://packages.sury.org/php/apt.gpg
-    id: 95BD4743
   percona:
-    url: https://github.com/percona/percona-repositories/raw/master/deb/percona-keyring2.gpg
+    url: https://github.com/percona/percona-repositories/raw/main/deb/percona-keyring.gpg
     id: 8507EFA5
   matomo:
     url: https://debian.matomo.org/repository.gpg
@@ -446,7 +394,7 @@ manala_apt_keys_patterns:
     url: https://download.owncloud.org/download/repositories/production/Debian_{{ ansible_distribution_major_version }}.0/Release.key
     id: 479BC94B
   grafana:
-    url: https://packages.grafana.com/gpg.key
+    url: https://apt.grafana.com/gpg.key
     id: 24098CB6
   blackfire:
     url: https://packages.blackfire.io/gpg.key
@@ -456,6 +404,9 @@ manala_apt_keys_patterns:
     id: 7B0A831B
   glusterfs_6:
     url: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
+    id: C2F8238C
+  glusterfs_10:
+    url: https://download.gluster.org/pub/gluster/glusterfs/10/rsa.pub
     id: C2F8238C
   ansible:
     keyserver: hkp://keyserver.ubuntu.com:80
@@ -468,63 +419,63 @@ manala_apt_keys_patterns:
     id: 06E85760C0A52C50
   kopia:
     url: https://kopia.io/signing-key
-    id: 7713E6D88ED70D9D
+    id: FD56A556
+  github_cli:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    id: 75716059
+  symfony:
+    url: https://dl.cloudsmith.io/public/symfony/stable/gpg.99CEF8A62216B73D.key
+    id: 2216B73D
 
 # Preferences
 manala_apt_preferences_patterns:
-  vim:                vim*
-  git:                git git-*
-  php:                php-* php5-* php5.6-* php7.0-* php7.1-* php7.2-* php7.3-* php7.4-* php8.0-*
-  mysql:              mysql* libmysql*
-  nginx:              nginx*
-  ruby:               ruby*
-  nodejs:             nodejs*
-  rabbitmq:           rabbitmq*
-  redis:              redis*
-  logentries:         logentries*
-  sensu:              sensu*
-  haproxy:            haproxy*
-  galera:             galera*
-  grafana:            grafana*
-  elasticsearch:      elasticsearch*
-  postgresql:         postgresql*
-  mongodb:            mongodb*
-  keepalived:         keepalived*
-  gitlab-ce:          gitlab-ce*
-  phpmyadmin:         phpmyadmin*
-  phppgadmin:         phppgadmin*
-  docker:             docker*
-  chrony:             chrony*
-  backup-manager:     backup-manager*
+  vim: vim*
+  git: git git-*
+  php: php php-* /^php[1-9]+/
+  mysql: mysql* libmysql*
+  nginx: nginx*
+  ruby: ruby*
+  nodejs: nodejs*
+  rabbitmq: rabbitmq*
+  redis: redis*
+  haproxy: haproxy*
+  galera: galera*
+  grafana: grafana*
+  elasticsearch: elasticsearch*
+  postgresql: postgresql*
+  mongodb: mongodb*
+  keepalived: keepalived*
+  gitlab-ce: gitlab-ce*
+  docker: docker*
+  chrony: chrony*
+  backup-manager: backup-manager*
   pam-ssh-agent-auth: libpam-ssh-agent-auth*
-  oauth2-proxy:       oauth2-proxy*
-  cloud:              cloud-init cloud-utils
-  mariadb:            mariadb* libmariadb*
-  maxscale:           maxscale*
-  influxdb:           influxdb*
-  telegraf:           telegraf*
-  thefuck:            thefuck*
-  python-six:         python-six*
-  htop:               htop*
-  yarn:               yarn*
-  openssh:            openssh*
-  ansible:            ansible*
-  openjdk:            openjdk-* ca-certificates-java
-  linux:              linux-base linux-image-* linux-headers-*
-  httpie:             httpie*
-  certbot:            certbot python-certbot python-acme python3-certbot python3-acme python-cryptography python-openssl python-setuptools python-pyasn1 python-pkg-resources
-  thumbor:            thumbor python-libthumbor
-  mica:               mica
-  sensu-go:           sensu-go-*
-  ffmpeg:             "ffmpeg {{
-    {
-      'jessie': 'libavcodec56 libva1 libavdevice56 libavfilter5 libavformat56 libavresample2 libavutil54 libpostproc53 libswresample1 libswscale3',
-      'stretch': 'libavcodec57 libavdevice57 libavfilter6 libavformat57 libavresample3 libavutil55 libpostproc54 libswresample2 libswscale4',
-      'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
-      'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample4 libswscale5'
-    }[ansible_distribution_release]
-  }}"
-  glusterfs:          glusterfs-*
-  newrelic-infra:     newrelic-infra
-  filebeat:           filebeat*
-  kopia:              kopia*
+  cloud: cloud-init cloud-utils
+  mariadb: mariadb* libmariadb*
+  maxscale: maxscale*
+  influxdb: influxdb*
+  telegraf: telegraf*
+  python-six: python-six*
+  htop: htop*
+  yarn: yarn*
+  openssh: openssh*
+  ansible: ansible*
+  openjdk: openjdk-* ca-certificates-java
+  linux: linux-base linux-image-* linux-headers-*
+  certbot: >-
+    certbot python-certbot python-acme python3-certbot python3-acme python-cryptography
+    python-openssl python-setuptools python-pyasn1 python-pkg-resources
+  thumbor: thumbor python-libthumbor
+  mica: mica
+  sensu-go: sensu-go-*
+  ffmpeg: |-
+    ffmpeg {{
+      {
+        'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
+        'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
+      }[ansible_distribution_release]
+    }}
+  glusterfs: glusterfs-*
+  newrelic-infra: newrelic-infra
+  filebeat: filebeat*
+  kopia: kopia*

@@ -4,18 +4,17 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           telegraf
-  author:              Elao
-  company:             Elao
-  description:         Setup and configure influxdata/telegraf
+  role_name: telegraf
+  author: Manala
+  company: Manala
+  description: Setup and configure influxdata/telegraf
   license: MIT
-  min_ansible_version: 2.5.0
-  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  min_ansible_version: 2.10.0
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:
-        - jessie
-        - stretch
         - buster
+        - bullseye
   galaxy_tags:
     - monitoring

@@ -1,6 +1,10 @@
 ---
 
-- name: telegraf restart
-  service:
-    name: telegraf
+- name: Restart telegraf
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - telegraf
+  # Deprecated
+  listen: telegraf restart

@@ -1,0 +1,202 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/maxscale/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Content
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.maxscale
+          vars:
+            manala_maxscale_config_file: "{{ tests_dir }}/content"
+            manala_maxscale_config_template: ~
+            manala_maxscale_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+            tasks_from: config
+          vars:
+            manala_maxscale_config_file: "{{ tests_dir }}/template"
+            manala_maxscale_config_template: fixtures/template.j2
+            manala_maxscale_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/maxscale/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+            tasks_from: configs
+          vars:
+            manala_maxscale_configs_exclusive: false
+            manala_maxscale_configs_dir: "{{ tests_dir }}/default"
+            manala_maxscale_configs_defaults: {}
+            manala_maxscale_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+            tasks_from: configs
+          vars:
+            manala_maxscale_configs_exclusive: false
+            manala_maxscale_configs_dir: "{{ tests_dir }}/defaults"
+            manala_maxscale_configs_defaults:
+              template: fixtures/template.j2
+            manala_maxscale_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+            tasks_from: configs
+          vars:
+            manala_maxscale_configs_exclusive: true
+            manala_maxscale_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_maxscale_configs_defaults: {}
+            manala_maxscale_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/configs.yml.j2') }}"
+          changed_when: false
+
+#########
+# Users #
+#########
+
+- name: Users
+  tags: [users]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/maxscale/users
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Array
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.maxscale
+          vars:
+            manala_maxscale_users_file: "{{ tests_dir }}/array"
+            manala_maxscale_users_template: ~
+            manala_maxscale_network_users:
+              - name: foo
+                password: $1$MXS$ilOCSZPnjmHjTz6B96SiJ1  # "foo"
+              - name: bar
+                password: $1$MXS$M.YZOr2pNTgW87l7KQWLU/  # "bar"
+        - name: Role - Array Empty
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+            tasks_from: users
+          vars:
+            manala_maxscale_users_file: "{{ tests_dir }}/array_empty"
+            manala_maxscale_users_template: ~
+            manala_maxscale_network_users: []
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.maxscale
+            tasks_from: users
+          vars:
+            manala_maxscale_users_file: "{{ tests_dir }}/template"
+            manala_maxscale_users_template: fixtures/template.j2
+            manala_maxscale_network_users: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users.yml.j2') }}"
+          changed_when: false

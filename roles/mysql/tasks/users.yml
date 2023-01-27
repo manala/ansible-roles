@@ -1,16 +1,22 @@
 ---
 
-- name: users > Create mysql users
-  mysql_user:
+- name: Users > Create mysql users
+  community.mysql.mysql_user:
     name: "{{ item.name }}"
-    password: "{{ item.password|default(omit) }}"
-    host: "{{ item.host|default('localhost') }}"
-    priv: "{{ item.priv|default(omit) }}"
-    append_privs: "{{ item.append_privs|default(omit) }}"
-    sql_log_bin: "{{ item.sql_log_bin|default(omit) }}"
-    state: "{{ item.state|default(omit) }}"
+    password: "{{ item.password | default(omit) }}"
+    host: "{{ item.host | default('localhost') }}"
+    priv: "{{ item.priv | default(omit) }}"
+    append_privs: "{{ item.append_privs | default(omit) }}"
+    sql_log_bin: "{{ item.sql_log_bin | default(omit) }}"
+    login_host: "{{ item.login_host | default(omit) }}"
+    login_port: "{{ item.login_port | default(omit) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default(omit) }}"
+    login_user: "{{ item.login_user | default(omit) }}"
+    login_password: "{{ item.login_password | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
   loop: "{{
-    manala_mysql_users | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_mysql_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_mysql_users
+      | flatten
+      | manala.roles.staten
   }}"
+  when: manala_mysql_server

@@ -1,31 +1,14 @@
 ---
 
-- name: config > Directory
-  file:
-    path: "{{ manala_shorewall_config_file | dirname }}"
-    state: directory
+- name: Config > File
+  ansible.builtin.lineinfile:
+    dest: "{{ manala_shorewall_config_file }}"
+    regexp: "^{{ item.key | regex_escape() ~ '=' }}"
+    line: "{{ item.key ~ '=' ~ item.value }}"
+    create: true
     owner: root
     group: root
-    mode: "0755"
-
-- name: config > File
-  lineinfile:
-    dest: "{{ manala_shorewall_config_file }}"
-    regexp: "^{{
-      item.key|regex_escape() ~ '='
-        if (manala_shorewall_config is mapping) else
-      (item.keys()|list)[0]|regex_escape() ~ '='
-    }}"
-    line: "{{
-      item.key ~ '=' ~ item.value
-        if (manala_shorewall_config is mapping) else
-      (item.keys()|list)[0] ~ '=' ~ (item.values()|list)[0]
-    }}"
-    create: true
-  loop: "{{
-    manala_shorewall_config | dict2items
-      if (manala_shorewall_config is mapping) else
-    manala_shorewall_config
-  }}"
+    mode: "0644"
+  loop: "{{ manala_shorewall_config | dict2items }}"
   notify:
-    - shorewall restart
+    - Restart shorewall

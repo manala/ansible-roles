@@ -1,0 +1,22 @@
+---
+
+file:
+
+  # Content
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Content$/"
+  # Template
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^Template$/"

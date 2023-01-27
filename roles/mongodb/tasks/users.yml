@@ -1,20 +1,20 @@
 ---
 
-- name: users > Create Mongo users
-  mongodb_user:
+- name: Users > Create Mongo users
+  community.mongodb.mongodb_user:
     name: "{{ item.name }}"
-    password: "{{ item.password|default(omit) }}"
+    password: "{{ item.password | default(omit) }}"
     database: "{{ item.database }}"
-    roles: "{{ item.roles|default(omit) }}"
-    state: "{{ item.state|default(omit) }}"
-    login_database: "{{ item.login_database|default('admin') }}"
-    login_host: "{{ item.login_host|default('localhost') }}"
-    login_password: "{{ item.login_password|default(omit) }}"
-    login_port: "{{ item.login_port|default('27017') }}"
-    login_user: "{{ item.login_user|default(omit) }}"
-    update_password: "{{ item.update_password|default('always') }}"
+    roles: "{{ item.roles | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    login_database: "{{ item.login_database | default('admin') }}"
+    login_host: "{{ item.login_host | default('localhost') }}"
+    login_password: "{{ item.login_password | default(omit) }}"
+    login_port: "{{ item.login_port | default('27017') }}"
+    login_user: "{{ item.login_user | default(omit) }}"
+    update_password: "{{ item.update_password | default('always') }}"
   loop: "{{
-    manala_mongodb_users | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_mongodb_users | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_mongodb_users
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

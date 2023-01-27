@@ -1,19 +1,11 @@
 ---
 
-- name: interfaces_config > Directory
-  file:
-    path: "{{ manala_network_resolver_config_file | dirname }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: resolver_config > Template
-  template:
-    src: "{{ manala_network_resolver_config_template|default('resolver_config/_default.j2', true) }}"
+- name: Resolver Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_network_resolver_config_template | default('resolver_config/_default.j2', true) }}"
     dest: "{{ manala_network_resolver_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_network_resolver_config_template
-        or manala_network_resolver_config
+    or manala_network_resolver_config

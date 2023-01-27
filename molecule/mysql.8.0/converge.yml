@@ -1,0 +1,372 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_configs:
+              # Use native authentication plugin
+              - file: auth.cnf
+                config:
+                  mysqld:
+                    default-authentication-plugin: mysql_native_password
+            manala_mysql_users:
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+            manala_mysql_databases:
+              - name: foo
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Client #
+##########
+
+- name: Client
+  tags: [client]
+  hosts: debian
+  tasks:
+    - name: Packages absent
+      ansible.builtin.apt:
+        name:
+          - mysql-server
+          - mysql-client
+        state: absent
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_server: false
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/client.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mysql/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_config_file: "{{ tests_dir }}/dict"
+            manala_mysql_config_template: ~
+            manala_mysql_config:
+              mysqld:
+                bind-address: 1.2.3.4
+                pid-file: /var/run/mysqld/mysqld.pid
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+            tasks_from: config
+          vars:
+            manala_mysql_config_file: "{{ tests_dir }}/content"
+            manala_mysql_config_template: ~
+            manala_mysql_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+            tasks_from: config
+          vars:
+            manala_mysql_config_file: "{{ tests_dir }}/template"
+            manala_mysql_config_template: fixtures/template.j2
+            manala_mysql_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mysql/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_configs_exclusive: false
+            manala_mysql_configs_dir: "{{ tests_dir }}/default"
+            manala_mysql_configs_defaults: {}
+            manala_mysql_configs:
+              # Dict
+              - file: dict
+                config:
+                  mysqld:
+                    user: mysql
+                    query_cache_size: 0
+                    gtid_mode: true
+                    enforce_gtid_consistency: false
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+            tasks_from: configs
+          vars:
+            manala_mysql_configs_exclusive: false
+            manala_mysql_configs_dir: "{{ tests_dir }}/defaults"
+            manala_mysql_configs_defaults:
+              template: fixtures/template.j2
+            manala_mysql_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+            tasks_from: configs
+          vars:
+            manala_mysql_configs_exclusive: true
+            manala_mysql_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_mysql_configs_defaults: {}
+            manala_mysql_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/configs.yml.j2') }}"
+          changed_when: false
+
+########
+# Data #
+########
+
+- name: Data
+  tags: [data]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mysql/data
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_config: |
+              [mysqld]
+              pid-file = /var/run/mysqld/mysqld.pid
+              socket = /var/run/mysqld/mysqld.sock
+              log-error = /var/log/mysql/error.log
+              datadir = {{ tests_dir }}/data
+              # Use native authentication plugin
+              default-authentication-plugin = mysql_native_password
+            manala_mysql_data_dir: "{{ tests_dir }}/data"
+            manala_mysql_data_dir_user: mysql
+            manala_mysql_data_dir_group: root
+            manala_mysql_data_dir_mode: "0700"
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/data.yml.j2') }}"
+          changed_when: false
+
+#########
+# Users #
+#########
+
+- name: Users
+  tags: [users]
+  hosts: debian
+  tasks:
+    - name: Role - Default
+      ansible.builtin.import_role:
+        # Play role fully on first run, to install python modules
+        name: manala.roles.mysql
+      vars:
+        manala_mysql_configs:
+          # Use native authentication plugin
+          - file: auth.cnf
+            config:
+              mysqld:
+                default-authentication-plugin: mysql_native_password
+        manala_mysql_users:
+          - name: bar
+            state: absent
+    - name: Create users to absent/ignore later
+      community.mysql.mysql_user:
+        user: "{{ item }}"
+        state: present
+      loop: [
+        state_absent_existing, state_ignore_existing,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_users:
+              # Privileges and password
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+              # States
+              - name: state_present_implicit
+              - name: state_present
+                state: present
+              - name: state_absent
+                state: absent
+              - name: state_absent_existing
+                state: absent
+              - name: state_ignored
+                state: ignore
+              - name: state_ignore_existing
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  host: localhost
+                  priv: "*.*:ALL,GRANT"
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users.yml.j2') }}"
+          changed_when: false
+
+#############
+# Databases #
+#############
+
+- name: Databases
+  tags: [databases]
+  hosts: debian
+  tasks:
+    - name: Role - Default
+      ansible.builtin.import_role:
+        # Play role fully on first run, to install python modules
+        name: manala.roles.mysql
+      vars:
+        manala_mysql_configs:
+          # Use native authentication plugin
+          - file: auth.cnf
+            config:
+              mysqld:
+                default-authentication-plugin: mysql_native_password
+        manala_mysql_databases:
+          - name: bar
+            state: absent
+    - name: Create databases to absent/ignore later
+      community.mysql.mysql_db:
+        name: "{{ item }}"
+        state: present
+      loop: [
+        state_absent_existing, state_ignore_existing,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_databases:
+              # States
+              - name: state_present_implicit
+              - name: state_present
+                state: present
+              - name: state_absent
+                state: absent
+              - name: state_absent_existing
+                state: absent
+              - name: state_ignored
+                state: ignore
+              - name: state_ignore_existing
+                state: ignore
+              # Flatten
+              -
+                - name: baz
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/databases.yml.j2') }}"
+          changed_when: false

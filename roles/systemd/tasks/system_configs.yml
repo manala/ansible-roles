@@ -1,53 +1,45 @@
 ---
 
-- name: system_configs > Directory
-  file:
+- name: System Configs > Exclusive
+  ansible.builtin.find:
     path: "{{ manala_systemd_system_configs_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  when: manala_systemd_system_configs|length
-
-- name: system_configs > Exclusive
-  find:
-    path: "{{ manala_systemd_system_configs_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_systemd_system_configs_exclusive_find
   when: manala_systemd_system_configs_exclusive
 
-- name: system_configs > Templates present
-  template:
+- name: System Configs > Templates present
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ query(
-      'manala_templates_exclusive',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_systemd_system_configs,
-      __manala_systemd_system_configs_exclusive_find.files|default([]),
+      __manala_systemd_system_configs_exclusive_find.files | default([]),
       manala_systemd_system_configs_dir,
-      manala_systemd_system_configs_defaults.template|default('system_configs/_default.j2', true),
+      manala_systemd_system_configs_defaults.template | default('system_configs/_default.j2', true),
       wantstate='present'
-    )
-  }}"
+    ) }}
   notify:
-    - systemd reload
+    - Reload systemd
 
-- name: system_configs > Files absent
-  file:
+- name: System Configs > Files absent
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-      'manala_templates_exclusive',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_systemd_system_configs,
-      __manala_systemd_system_configs_exclusive_find.files|default([]),
+      __manala_systemd_system_configs_exclusive_find.files | default([]),
       manala_systemd_system_configs_dir,
-      manala_systemd_system_configs_defaults.template|default('system_configs/_default.j2', true),
+      manala_systemd_system_configs_defaults.template | default('system_configs/_default.j2', true),
       wantstate='absent'
-    )
-  }}"
+    ) }}
   notify:
-    - systemd reload
+    - Reload systemd

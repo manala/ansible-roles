@@ -1,6 +1,10 @@
 ---
 
-- name: apparmor reload
-  service:
-    name: apparmor
+- name: Reload apparmor
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: reloaded
+  loop:
+    - apparmor
+  # Deprecated
+  listen: apparmor reload

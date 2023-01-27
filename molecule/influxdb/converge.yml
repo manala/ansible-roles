@@ -1,0 +1,91 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/influxdb/default
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.influxdb
+          vars:
+            manala_influxdb_dir:
+              - "{{ tests_dir }}/meta"
+              - "{{ tests_dir }}/data"
+              - "{{ tests_dir }}/wal"
+            manala_influxdb_databases:
+              - my_db
+            manala_influxdb_users:
+              - database: my_db
+                name: my_user
+                password: my_password
+            manala_influxdb_privileges:
+              - database: my_db
+                user: my_user
+                grant: ALL
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/influxdb/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.influxdb
+          vars:
+            manala_influxdb_config_file: "{{ tests_dir }}/dict"
+            manala_influxdb_config_template: ~
+            manala_influxdb_config:
+              reporting-disabled: true
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.influxdb
+            tasks_from: config
+          vars:
+            manala_influxdb_config_file: "{{ tests_dir }}/content"
+            manala_influxdb_config_template: ~
+            manala_influxdb_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.influxdb
+            tasks_from: config
+          vars:
+            manala_influxdb_config_file: "{{ tests_dir }}/template"
+            manala_influxdb_config_template: fixtures/template.j2
+            manala_influxdb_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false

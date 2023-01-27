@@ -1,0 +1,9 @@
+---
+
+- name: Data > Directory
+  ansible.builtin.file:
+    path: "{{ manala_prometheus_data_dir }}"
+    state: directory
+    owner: "{{ manala_prometheus_user }}"
+    group: "{{ manala_prometheus_group }}"
+    mode: "0755"

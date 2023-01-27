@@ -1,0 +1,28 @@
+name: Molecule - Haproxy
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.haproxy.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/haproxy/**
+      - roles/haproxy/**
+      # Plugins
+      - plugins/filter/environment.py
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  haproxy:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: haproxy

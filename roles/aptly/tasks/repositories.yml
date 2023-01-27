@@ -1,12 +1,12 @@
 ---
 
-- name: repositories > List
-  command: "{{
-    manala_aptly_user|ternary(
+- name: Repositories (local) > List
+  ansible.builtin.command: "{{
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
     ) }}aptly repo list --raw{{
-    manala_aptly_user|ternary(
+    manala_aptly_user | ternary(
       '\"',
       ''
     )
@@ -14,36 +14,63 @@
   check_mode: false
   failed_when: false
   changed_when: false
-  register: __manala_aptly_repositories_find_output
+  register: __manala_aptly_repositories_local_find_output
+  when: |
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
+      | length
 
-- name: repositories > Create
-  command: "{{
-    manala_aptly_user|ternary(
+- name: Repositories (published) > List
+  ansible.builtin.command: "{{
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
-    ) }}aptly repo create -comment={{ item.comment }} -component={{ item.component }} -distribution={{ item.distribution }} {{ item.name }}{{
-    manala_aptly_user|ternary(
+    ) }}aptly publish list --raw | cut -f2 -d ' '{{
+    manala_aptly_user | ternary(
       '\"',
       ''
     )
   }}"
-  when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
-  loop: "{{
-    manala_aptly_repositories | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_aptly_repositories | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
-  }}"
+  check_mode: false
+  failed_when: false
+  changed_when: false
+  register: __manala_aptly_repositories_published_find_output
+  when: |
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
+      | length
 
-- name: repositories > Publish
-  command: "{{
-    manala_aptly_user|ternary(
+- name: Repositories > Create
+  ansible.builtin.command: "{{
+    manala_aptly_user | ternary(
       'su ' ~ manala_aptly_user ~ ' -c \"',
       ''
-    ) }}aptly publish repo -origin={{ item.origin }} -label={{ item.label }} {{ item.name }}{{ manala_aptly_user|ternary('\"', '')
+    ) }}aptly repo create -comment={{ item.comment }} -component={{ item.component }} -distribution={{ item.distribution }} {{ item.name }}{{
+    manala_aptly_user | ternary(
+      '\"',
+      ''
+    )
   }}"
-  when: item.name not in __manala_aptly_repositories_find_output.stdout_lines
+  when: item.name not in __manala_aptly_repositories_local_find_output.stdout_lines
   loop: "{{
-    manala_aptly_repositories | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_aptly_repositories | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
+  }}"
+
+- name: Repositories > Publish
+  ansible.builtin.command: "{{
+    manala_aptly_user | ternary(
+      'su ' ~ manala_aptly_user ~ ' -c \"',
+      ''
+    ) }}aptly publish repo -architectures={{ item.architectures }} -origin={{ item.origin }} \
+        -label={{ item.label }} {{ item.name }}{{ manala_aptly_user | ternary('\"', '')
+  }}"
+  when: item.name not in __manala_aptly_repositories_published_find_output.stdout_lines
+  loop: "{{
+    manala_aptly_repositories
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

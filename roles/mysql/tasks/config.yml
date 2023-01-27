@@ -1,20 +1,20 @@
 ---
 
-- name: config > Template
-  template:
-    src: "{{ manala_mysql_config_template|default('config/_default.j2', true) }}"
-    dest: "{{ manala_mysql_config_alternative|default(manala_mysql_config_file, true) }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_mysql_config_template | default('config/_default.j2', true) }}"
+    dest: "{{ manala_mysql_config_alternative | default(manala_mysql_config_file, true) }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_mysql_config_template
-        or manala_mysql_config
+    or manala_mysql_config
   register: __manala_mysql_config_template_result
 
-- name: config > Alternative
-  alternatives:
+- name: Config > Alternative
+  community.general.alternatives:
     name: my.cnf
     link: "{{ manala_mysql_config_file }}"
     path: "{{ manala_mysql_config_alternative }}"
-  when: manala_mysql_config_alternative|default(false, true)
+  when: manala_mysql_config_alternative | default(false, true)
   register: __manala_mysql_config_alternative_result

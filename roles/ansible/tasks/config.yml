@@ -1,10 +1,11 @@
 ---
 
-- name: config > Template
-  template:
-    src: "{{ manala_ansible_config_template|ternary(manala_ansible_config_template, 'config/_base.j2') }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_ansible_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_ansible_config_file }}"
     owner: root
     group: root
     mode: "0644"
-  when: (manala_ansible_config_template is not none) or (manala_ansible_config|length)
+  when: manala_ansible_config_template
+    or manala_ansible_config

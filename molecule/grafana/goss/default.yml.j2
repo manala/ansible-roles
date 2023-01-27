@@ -1,0 +1,19 @@
+---
+
+package:
+  grafana:
+    installed: true
+
+service:
+  grafana-server:
+    enabled: true
+    running: true
+
+process:
+  grafana-server:
+    running: true
+
+http:
+  http://admin:admin@127.0.0.1:3000:
+    status: 200
+    timeout: 1000

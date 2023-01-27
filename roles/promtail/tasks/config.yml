@@ -1,0 +1,19 @@
+---
+
+- name: Config > Directory
+  ansible.builtin.file:
+    path: "{{ manala_promtail_config_file | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_promtail_config_template | default('config/_default.j2', true) }}"
+    dest: "{{ manala_promtail_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart promtail

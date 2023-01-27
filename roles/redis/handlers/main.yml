@@ -1,11 +1,19 @@
 ---
 
-- name: redis restart
-  service:
-    name: redis-server
+- name: Restart redis
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - redis-server
+  # Deprecated
+  listen: redis restart
 
-- name: redis-sentinel restart
-  service:
-    name: redis-sentinel
+- name: Restart redis-sentinel
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - redis-sentinel
+  # Deprecated
+  listen: redis-sentinel restart

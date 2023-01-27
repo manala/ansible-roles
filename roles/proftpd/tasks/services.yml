@@ -1,8 +1,9 @@
 ---
 
-- name: services > Services
-  service:
+- name: Services > Services
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
-  with_items:
+    enabled: true
+  loop:
     - proftpd

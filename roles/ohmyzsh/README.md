@@ -1,10 +1,8 @@
-# Ansible Role: Oh My Zsh [![Build Status](https://travis-ci.org/manala/ansible-role-ohmyzsh.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ohmyzsh)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Oh My Zsh
 
 This role will deal with the setup of [Oh My Zsh](http://ohmyz.sh/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,37 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.ohmyzsh
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.ohmyzsh
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                     | Default                      | Type    | Description                                                    |
-| ---------------------------------------- | ---------------------------- | ------- | -------------------------------------------------------------- |
-| `manala_ohmyzsh_dir`                     | '/usr/local/share/oh-my-zsh' | String  | Oh My Zsh installation directory                               |
-| `manala_ohmyzsh_users_defaults`          | []                           | Array   | Users config defaults                                          |
-| `manala_ohmyzsh_users`                   | []                           | Array   | Collection of users with ohMyZsh custom configurations.        |
-| `manala_ohmyzsh.update`                  | false                        | Boolean | Whether or not we should auto retrieve new revision of ohMyZsh |
-| `manala_ohmyzsh_custom_themes_exclusive` | false                        | Boolean | Exclusion of existing custom themes                            |
-| `manala_ohmyzsh_custom_themes_dir`       | '/etc/supervisor/conf.d'     | String  | Custom themes directory path                                   |
-| `manala_ohmyzsh_custom_themes_defaults`  | {}                           | Array   | Custom themes defaults                                         |
-| `manala_ohmyzsh_custom_themes`           | []                           | Array   | Custom themes                                                  |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Oh My Zsh configuration
 
@@ -94,11 +66,6 @@ manala_ohmyzsh_users:
     config: |
       # Path to your oh-my-zsh installation.
       export ZSH=$HOME/.oh-my-zsh
-  # Dict's array parameters (deprecated):
-  - user: root
-    config:
-      - ZSH_THEME: default.prod
-      - plugins: (git debian common-aliases history history-substring-search)
   - user: bar
     state: ignore # Entry will be ignored
   # Flatten users
@@ -156,13 +123,16 @@ manala:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.ohmyzsh
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.ohmyzsh
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

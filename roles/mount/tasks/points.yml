@@ -1,14 +1,14 @@
 ---
 
-- name: points > Mounts
-  mount:
+- name: Points > Mounts
+  ansible.posix.mount:
    name: "{{ item.path }}"
    fstype: "{{ item.fstype }}"
    src: "{{ item.src }}"
-   opts: "{{ item.opts|default(omit) }}"
-   state: "{{ item.state|default('mounted') }}"
+   opts: "{{ item.opts | default(omit) }}"
+   state: "{{ item.state | default('mounted') }}"
   loop: "{{
-    manala_mount_points | flatten | selectattr('state', 'undefined') | list
-    +
-    manala_mount_points | flatten | selectattr('state', 'defined') | rejectattr('state', 'equalto', 'ignore') | list
+    manala_mount_points
+      | flatten
+      | manala.roles.staten(want='present')
   }}"

@@ -1,64 +1,66 @@
 ---
 
-- name: repositories > Exclusive
-  find:
+- name: Repositories > Exclusive
+  ansible.builtin.find:
     path: /etc/apt/sources.list.d
+    file_type: file
     patterns: "*.list"
   changed_when: false
   register: __manala_apt_repositories_exclusive_find
   when: manala_apt_repositories_exclusive
 
-- name: repositories > Repositories presents
-  apt_repository:
+- name: Repositories > Repositories presents
+  ansible.builtin.apt_repository:
     repo: "{{ item.source }}"
-    filename: "{{ (item.file|basename|splitext)[0] }}"
+    filename: "{{ (item.file | basename | splitext)[0] }}"
     update_cache: false
     mode: "0644"
-  loop: "{{ query(
-      'manala_apt_repositories',
+  loop: |
+    {{ query(
+      'manala.roles.apt_repositories',
       manala_apt_repositories,
       manala_apt_repositories_patterns,
       query(
-          'manala_apt_preferences',
+          'manala.roles.apt_preferences',
           manala_apt_preferences,
           manala_apt_preferences_patterns,
           manala_apt_repositories_patterns,
           [],
           manala_apt_preferences_dir,
-          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+          manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
           wantstate='present'
       ),
-      __manala_apt_repositories_exclusive_find.files|default([]),
+      __manala_apt_repositories_exclusive_find.files | default([]),
       wantstate='present'
-    )
-  }}"
+    ) }}
   register: __manala_apt_repositories_presents_results
 
-- name: repositories > Repositories absents
-  file:
+- name: Repositories > Repositories absents
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-      'manala_apt_repositories',
+  loop: |
+    {{ query(
+      'manala.roles.apt_repositories',
       manala_apt_repositories,
       manala_apt_repositories_patterns,
       query(
-          'manala_apt_preferences',
+          'manala.roles.apt_preferences',
           manala_apt_preferences,
           manala_apt_preferences_patterns,
           manala_apt_repositories_patterns,
           [],
           manala_apt_preferences_dir,
-          manala_apt_preferences_defaults.template|default('preferences/_default.j2', true),
+          manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
           wantstate='present'
       ),
-      __manala_apt_repositories_exclusive_find.files|default([]),
+      __manala_apt_repositories_exclusive_find.files | default([]),
       wantstate='absent'
-    )
-  }}"
+    ) }}
   register: __manala_apt_repositories_absents_results
 
-- name: repositories > Update cache
-  apt:
+- name: Repositories > Update cache  # noqa no-handler
+  ansible.builtin.apt:
     update_cache: true
-  when: __manala_apt_repositories_presents_results is changed or __manala_apt_repositories_absents_results is changed
+  when: __manala_apt_repositories_presents_results is changed
+    or __manala_apt_repositories_absents_results is changed

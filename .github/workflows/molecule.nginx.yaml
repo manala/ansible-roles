@@ -1,0 +1,28 @@
+name: Molecule - Nginx
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.nginx.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/nginx/**
+      - roles/nginx/**
+      # Plugins
+      - plugins/filter/nginx_config.py
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  nginx:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: nginx

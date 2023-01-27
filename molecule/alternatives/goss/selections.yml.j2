@@ -1,0 +1,16 @@
+---
+
+command:
+
+  update-alternatives --query editor:
+    exit-status: 0
+    stdout:
+      - "Value: /bin/ed"
+  update-alternatives --query pico:
+    exit-status: 0
+    stdout:
+      - "Value: /bin/ed"
+  update-alternatives --query pager:
+    exit-status: 0
+    stdout:
+      - "Value: /bin/more"

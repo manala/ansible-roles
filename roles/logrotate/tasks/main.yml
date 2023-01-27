@@ -1,13 +1,13 @@
 ---
 
-# Install
-- import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_logrotate
     - manala_logrotate.install
 
-# Configs
-- import_tasks: configs.yml
+- name: Configs
+  ansible.builtin.import_tasks: configs.yml
   tags:
     - manala_logrotate
     - manala_logrotate.configs

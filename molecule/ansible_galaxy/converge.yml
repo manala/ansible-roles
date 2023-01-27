@@ -1,0 +1,27 @@
+---
+
+#########
+# Roles #
+#########
+
+- name: Roles
+  tags: [roles]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.ansible_galaxy
+            tasks_from: roles
+          vars:
+            manala_ansible_galaxy_roles:
+              - ansistrano.deploy
+              - jdauphant.nginx
+              - src: jdauphant.nginx
+                version: v1.11.4
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/roles.yml.j2') }}"
+          changed_when: false

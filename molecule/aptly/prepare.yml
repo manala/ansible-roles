@@ -1,0 +1,24 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts: debian
+  tasks:
+    - name: Apt
+      ansible.builtin.import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - aptly@aptly
+    - name: Packages
+      ansible.builtin.apt:
+        name: [gnupg1]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+    - name: Gpg key
+      ansible.builtin.command:
+        cmd: gpg1 --allow-secret-key-import --import
+        stdin: "{{ lookup('ansible.builtin.file', 'fixtures/gpg/private.asc') }}"
+      args:
+        creates: ~/.gnupg/trustdb.gpg

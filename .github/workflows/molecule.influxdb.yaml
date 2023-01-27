@@ -1,0 +1,27 @@
+name: Molecule - InfluxDB
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.influxdb.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/influxdb/**
+      - roles/influxdb/**
+      # Plugins
+      - plugins/filter/toml.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  influxdb:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: influxdb

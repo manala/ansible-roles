@@ -1,6 +1,0 @@
----
-
-service:
-  oauth2-proxy:
-    enabled: true
-    running: true

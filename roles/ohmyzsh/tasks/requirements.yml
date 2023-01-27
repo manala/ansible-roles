@@ -1,25 +1,25 @@
 ---
 
-- name: requirements > Git check
-  command: "git --version" # noqa 303
+- name: Requirements > Git check  # noqa command-instead-of-module
+  ansible.builtin.command: git --version
   check_mode: false
   failed_when: false
   changed_when: false
   register: __manala_git_check_output
 
-- name: requirements > Git check fail
-  fail:
-    msg: Need git, you can use https://github.com/manala/ansible-role-git
-  when: __manala_git_check_output.stdout is not defined
+- name: Requirements > Git check fail
+  ansible.builtin.fail:
+    msg: Need git, you can use manala.roles.git
+  when: __manala_git_check_output.rc != 0
 
-- name: requirements > Zsh check
-  command: "zsh --version"
+- name: Requirements > Zsh check
+  ansible.builtin.command: zsh --version
   check_mode: false
   failed_when: false
   changed_when: false
   register: __manala_zsh_check_output
 
-- name: requirements > Zsh check fail
-  fail:
-    msg: Need zsh, you can use https://github.com/manala/ansible-role-zsh
-  when: __manala_zsh_check_output.stdout is not defined
+- name: Requirements > Zsh check fail
+  ansible.builtin.fail:
+    msg: Need zsh, you can use manala.roles.zsh
+  when: __manala_zsh_check_output.rc != 0

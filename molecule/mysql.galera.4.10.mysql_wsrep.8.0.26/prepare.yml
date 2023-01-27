@@ -1,0 +1,15 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts:
+    - debian.buster
+    - debian.bullseye
+  tasks:
+    - name: Apt
+      ansible.builtin.import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - galera@galera_4_10
+          - mysql@mysql_wsrep_8_0_26

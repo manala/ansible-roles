@@ -1,0 +1,33 @@
+---
+
+package:
+  mariadb-server:
+    installed: true
+  mariadb-client:
+    installed: true
+
+command:
+  mysql --version:
+    exit-status: 0
+    stdout:
+      - "/mysql(.)*Distrib 10.6.(.){1,2}-MariaDB/"
+  mysql -u root --execute "select user from mysql.user":
+    exit-status: 0
+    stdout:
+      - foo
+  mysqladmin  --user=foo --password=foo ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
+  mysql -u root --execute "show databases":
+    exit-status: 0
+    stdout:
+      - foo
+
+service:
+  mysql:  # Alias to mariadb
+    enabled: true
+    running: true
+  mariadb:
+    enabled: true
+    running: true

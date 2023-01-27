@@ -1,8 +1,8 @@
 ---
 
-- name: config > Server - Template
-  template:
-    src: "{{ manala_redis_server_config_template|default('config/_default.j2', true) }}"
+- name: Config > Server - Template
+  ansible.builtin.template:
+    src: "{{ manala_redis_server_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_redis_server_config_file }}"
     owner: redis
     group: redis
@@ -10,18 +10,18 @@
   when:
     - manala_redis_server
     - manala_redis_server_config_template
-      or manala_redis_server_config
+        or manala_redis_server_config
   notify:
-    - redis restart
+    - Restart redis
 
-- name: config > Sentinel - File
-  lineinfile:
+- name: Config > Sentinel - File
+  ansible.builtin.lineinfile:
     dest: "{{ manala_redis_sentinel_config_file }}"
     regexp: "^{{ item.key }} (.*)$"
     line: "{{ item.key }} {{ item.value }}"
   when:
     - manala_redis_sentinel
-    - manala_redis_sentinel_config|length
-  with_dict: "{{ manala_redis_sentinel_config }}"
+    - manala_redis_sentinel_config | length
+  loop: "{{ manala_redis_sentinel_config | dict2items }}"
   notify:
-    - redis-sentinel restart
+    - Restart redis-sentinel

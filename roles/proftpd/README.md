@@ -1,10 +1,8 @@
-# Ansible Role: ProFTPd [![Build Status](https://travis-ci.org/manala/ansible-role-proftpd.svg?branch=master)](https://travis-ci.org/manala/ansible-role-proftpd)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: ProFTPd
 
 This role will deal with the setup of [ProFTPd](http://www.proftpd.org/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,43 +14,11 @@ None.
 
 ## Installation
 
-Ansible 2+
-----------
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
-Using ansible galaxy cli:
+## Role Variables
 
-```bash
-ansible-galaxy install manala.proftpd
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.proftpd
-```
-
-Role Handlers
--------------
-
-| Name              | Type    | Description            |
-| ----------------- | ------- | ---------------------- |
-| `proftpd restart` | Service | Restart proftpd server |
-
-Role Variables
---------------
-
-| Name                                      | Default               | Type    | Description                            |
-| ----------------------------------------- | --------------------- | ------- | -------------------------------------- |
-| `manala_proftpd_install_packages`         | ~                     | Array   | Dependency packages to install         |
-| `manala_proftpd_install_packages_default` | ['proftpd-basic']     | Array   | Default dependency packages to install |
-| `manala_proftpd_configs_exclusive`        | false                 | Boolean | Configurations exclusivity             |
-| `manala_proftpd_configs_dir`              | '/etc/proftpd/conf.d' | String  | Configurations directory path          |
-| `manala_proftpd_configs_defaults`         | {}                    | String  | Configurations defaults                |
-| `manala_proftpd_configs`                  | []                    | Array   | Configurations                         |
-| `manala_proftpd_users_file`               | '/etc/ftpd.passwd'    | String  | User accounts definition file path     |
-| `manala_proftpd_users_template`           | 'users/_default.j2    | String  | User accounts definition template path |
-| `manala_proftpd_users_defaults`           | {...}                 | Array   | ProFTPd user accounts defaults         |
-| `manala_proftpd_users`                    | []                    | Array   | ProFTPd user accounts                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -77,15 +43,6 @@ manala_proftpd_configs:
       AuthOrder: mod_auth_file.c
       AuthUserFile: /etc/ftpd.passwd
       RequireValidShell: false
-  # Dict's array based (deprecated)
-  - file: default_deprecated.conf
-    config:
-      - ServerName: Manala
-      - PassivePorts: 10000 10030
-      - DefaultRoot: "~"
-      - AuthOrder: mod_auth_file.c
-      - AuthUserFile: /etc/ftpd.passwd
-      - RequireValidShell: false
   # Content based
   - file: content.conf
     config: |
@@ -153,20 +110,21 @@ We strongly encourage you to generate SHA2 password hash
 On linux, it can be generated with:
 `echo -n yourpassword | mkpasswd --method=sha-512 -`
 
-Example playbook
-----------------
+## Example playbook
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.proftpd
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.proftpd
 ```
 
-Licence
--------
-MIT
+# Licencing
 
-Author information
-------------------
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
+
+# Author information
 
 Manala [**(http://www.manala.io/)**](http://www.manala.io) is an open source project supported by the french web agency [**(ELAO)**](http://www.elao.com)

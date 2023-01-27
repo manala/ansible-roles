@@ -1,0 +1,116 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.aptly
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/aptly/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.aptly
+          vars:
+            manala_aptly_config_file: "{{ tests_dir }}/dict"
+            manala_aptly_config_template: ~
+            manala_aptly_config:
+              rootDir: /molecule/aptly
+              architectures:
+                - amd64
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.aptly
+            tasks_from: config
+          vars:
+            manala_aptly_config_file: "{{ tests_dir }}/content"
+            manala_aptly_config_template: ~
+            manala_aptly_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.aptly
+            tasks_from: config
+          vars:
+            manala_aptly_config_file: "{{ tests_dir }}/template"
+            manala_aptly_config_template: fixtures/template.j2
+            manala_aptly_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false
+
+################
+# Repositories #
+################
+
+- name: Repositories
+  tags: [repositories]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/aptly/repositories
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.aptly
+          vars:
+            manala_aptly_config:
+              rootDir: "{{ tests_dir }}"
+              architectures:
+                - amd64
+            manala_aptly_repositories:
+              - name: ignore
+                state: ignore
+              - name: foo
+                comment: Foo
+                component: main
+                distribution: buster
+                origin: Foo
+                label: Foo
+                architectures: arm64,amd64
+              # Flatten
+              -
+                - name: bar
+                  comment: Bar
+                  component: main
+                  distribution: bullseye
+                  origin: Bar
+                  label: Bar
+                  architectures: arm64,amd64
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.yml.j2') }}"
+          changed_when: false

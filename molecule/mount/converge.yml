@@ -1,0 +1,41 @@
+---
+
+##########
+# Points #
+##########
+
+- name: Points
+  tags: [points]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/mount/points
+  tasks:
+    - name: Directory  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/directory"
+        state: directory
+    - name: File  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/directory/file"
+        state: touch
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mount
+            tasks_from: points
+          vars:
+            manala_mount_points:
+              - path: "{{ tests_dir }}/ignore"
+                state: ignore
+              # Flatten
+              -
+                - path: "{{ tests_dir }}/bind"
+                  src: "{{ tests_dir }}/directory"
+                  fstype: none
+                  opts: bind
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/points.yml.j2') }}"
+          changed_when: false

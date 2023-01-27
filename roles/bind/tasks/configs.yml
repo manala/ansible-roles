@@ -1,36 +1,39 @@
 ---
 
-- name: configs > Templates
-  template:
+- name: Configs > Templates
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     owner: root
     group: "{{ manala_bind_group }}"
     mode: "0644"
-  with_items: "{{ manala_bind_configs }}"
-  when: (item.template is defined)
-        and (item.state|default('present') == 'present')
-        and (not item.omit|default(False))
+  loop: "{{ manala_bind_configs }}"
+  when:
+    - item.template is defined
+    - item.state | default('present') == 'present'
+    - not item.omit | default(False)
   register: __manala_bind_configs_templates
 
-- name: configs > Contents
-  copy:
+- name: Configs > Contents
+  ansible.builtin.copy:
     content: "{{ item.content }}"
     dest: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     owner: root
     group: "{{ manala_bind_group }}"
     mode: "0644"
-  with_items: "{{ manala_bind_configs }}"
-  when: (item.content is defined)
-        and (item.state|default('present') == 'present')
-        and (not item.omit|default(False))
+  loop: "{{ manala_bind_configs }}"
+  when:
+    - item.content is defined
+    - item.state | default('present') == 'present'
+    - not item.omit | default(False)
   register: __manala_bind_configs_contents
 
-- name: configs > Absents
-  file:
+- name: Configs > Absents
+  ansible.builtin.file:
     path: "{{ manala_bind_configs_dir }}/{{ item.file }}"
     state: absent
-  with_items: "{{ manala_bind_configs }}"
-  when: (item.state|default('present') == 'absent')
-        and (not item.omit|default(False))
+  loop: "{{ manala_bind_configs }}"
+  when:
+    - item.state | default('present') == 'absent'
+    - not item.omit | default(False)
   register: __manala_bind_configs_absents

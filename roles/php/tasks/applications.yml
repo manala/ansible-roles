@@ -1,34 +1,34 @@
 ---
 
-- name: applications > Download
-  get_url:
+- name: Applications > Download
+  ansible.builtin.get_url:
     url: "{{ item.source }}"
-    dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version|ternary('_' ~ item.version, '') }}"
+    dest: "{{ manala_php_applications_dir }}/{{ item.application ~ item.version | ternary('_' ~ item.version, '') }}"
     owner: root
     group: root
     mode: "0755"
-    validate_certs: "{{ item.validate_certs|default(omit) }}"
-  loop: "{{ query(
-      'manala_php_applications',
+    validate_certs: "{{ item.validate_certs | default(omit) }}"
+  loop: |
+    {{ query(
+      'manala.roles.php_applications',
       manala_php_applications,
       manala_php_applications_patterns,
       wantstate='present'
-    )
-  }}"
+    ) }}
 
-- name: applications > Link versions
-  file:
+- name: Applications > Link versions
+  ansible.builtin.file:
     state: link
-    force: yes
+    force: true
     src: "{{ item.application ~ '_' ~ item.version }}"
     dest: "{{ manala_php_applications_dir }}/{{ item.application }}"
     owner: root
     group: root
   when: item.version
-  loop: "{{ query(
-      'manala_php_applications',
+  loop: |
+    {{ query(
+      'manala.roles.php_applications',
       manala_php_applications,
       manala_php_applications_patterns,
       wantstate='present'
-    )
-  }}"
+    ) }}

@@ -3,9 +3,7 @@
 # Configs
 manala_apt_configs_exclusive: false
 manala_apt_configs_dir: /etc/apt/apt.conf.d
-manala_apt_configs_template: ~ # Deprecated
-manala_apt_configs_defaults:
-  template: "{{ manala_apt_configs_template }}" # Ensure backward compatibility
+manala_apt_configs_defaults: {}
 manala_apt_configs: []
 
 # Install
@@ -14,6 +12,7 @@ manala_apt_install_packages_default:
   - apt-transport-https
   - openssl
   - ca-certificates
+  - gnupg
 
 # Components
 manala_apt_components: ['main']
@@ -30,8 +29,7 @@ manala_apt_repositories: []
 # Preferences
 manala_apt_preferences_exclusive: false
 manala_apt_preferences_dir: /etc/apt/preferences.d
-manala_apt_preferences_defaults:
-  template: ~
+manala_apt_preferences_defaults: {}
 manala_apt_preferences: []
 
 # Keys

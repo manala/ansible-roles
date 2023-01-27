@@ -1,11 +1,12 @@
 ---
 
-- name: tasks/command
+- name: Tasks / Command
   tags:
     - manala_deploy
   block:
 
-    - name: tasks/command > "{{ item.options }}" in "{{ item.dir }}"
-      command: "{{ item.options }}"
+    - name: Tasks / Command > {{ '"%(cmd)s" in "%(dir)s"' | format(cmd=item.options, dir=item.dir) }}
+      ansible.builtin.command: "{{ item.options }}"
       args:
         chdir: "{{ item.dir }}"
+      changed_when: true

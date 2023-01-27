@@ -1,0 +1,115 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.grafana
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate --retry-timeout 10s
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/grafana/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.grafana
+            tasks_from: config
+          vars:
+            manala_grafana_config_file: "{{ tests_dir }}/content"
+            manala_grafana_config_template: ~
+            manala_grafana_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.grafana
+            tasks_from: config
+          vars:
+            manala_grafana_config_file: "{{ tests_dir }}/template"
+            manala_grafana_config_template: fixtures/template.j2
+            manala_grafana_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false
+
+###############
+# Datasources #
+###############
+
+- name: Datasources
+  tags: [datasources]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.grafana
+          vars:
+            manala_grafana_datasources_exclusive: true
+            manala_grafana_datasources:
+              - name: datasource_test
+                type: influxdb
+                isDefault: true
+                access: proxy
+                basicAuth: false
+                url: http://localhost:8086
+                database: telegraf
+                username: ""
+                password: ""
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/datasources.yml.j2') }}"
+          changed_when: false
+
+##############
+# Dashboards #
+##############
+
+- name: Dashboards
+  tags: [dashboards]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.grafana
+          vars:
+            manala_grafana_dashboards_exclusive: true
+            manala_grafana_dashboards:
+              - template: fixtures/dashboard.json
+                overwrite: true
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/dashboards.yml.j2') }}"
+          changed_when: false

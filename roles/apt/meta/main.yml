@@ -4,18 +4,16 @@ dependencies: []
 
 galaxy_info:
 
-  role_name:           apt
-  author:              Manala
-  company:             Manala
-  description:         Handle apt
-  license:             MIT
-  min_ansible_version: 2.5.0
-  issue_tracker_url:   https://github.com/manala/ansible-roles/issues
+  role_name: apt
+  author: Manala
+  company: Manala
+  description: Handle apt
+  license: MIT
+  min_ansible_version: 2.10.0
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
       versions:
-        - jessie
-        - stretch
         - buster
         - bullseye
   galaxy_tags:

@@ -1,9 +1,9 @@
 ---
 
-- name: services > Services
-  service:
+- name: Services > Services
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
-  with_items:
+  loop:
     - ssh
   when: manala_ssh_server

@@ -1,69 +1,69 @@
 ---
 
-# Setup
-- import_tasks: setup.yml
+- name: Setup
+  ansible.builtin.import_tasks: setup.yml
   tags:
     - manala_deploy
     - manala_deploy.setup
 
-# Strategy
-- import_tasks: strategy.yml
+- name: Strategy
+  ansible.builtin.import_tasks: strategy.yml
   tags:
     - manala_deploy
     - manala_deploy.strategy
 
-# Unfinished
-- import_tasks: unfinished.yml
+- name: Unfinished
+  ansible.builtin.import_tasks: unfinished.yml
   tags:
     - manala_deploy
     - manala_deploy.unfinished
 
-# Shared
-- import_tasks: shared.yml
+- name: Shared
+  ansible.builtin.import_tasks: shared.yml
   tags:
     - manala_deploy
     - manala_deploy.shared
 
-# Copied
-- import_tasks: copied.yml
+- name: Copied
+  ansible.builtin.import_tasks: copied.yml
   tags:
     - manala_deploy
     - manala_deploy.copied
 
-# Writable - Dirs
-- import_tasks: writable/dirs.yml
+- name: Writable - Dirs
+  ansible.builtin.import_tasks: writable/dirs.yml
   tags:
     - manala_deploy
     - manala_deploy.dirs
 
-# Tasks
-- import_tasks: tasks.yml
+- name: Tasks
+  ansible.builtin.import_tasks: tasks.yml
   vars:
     __manala_deploy_tasks: "{{ manala_deploy_tasks }}"
   tags:
     - manala_deploy
     - manala_deploy.tasks
 
-# Removed
-- import_tasks: removed.yml
+- name: Removed
+  ansible.builtin.import_tasks: removed.yml
   tags:
     - manala_deploy
     - manala_deploy.removed
 
-# Finalize
-- import_tasks: finalize.yml
+- name: Finalize
+  ansible.builtin.import_tasks: finalize.yml
   tags:
     - manala_deploy
     - manala_deploy.finalize
 
-# Clean
-- import_tasks: clean.yml
+- name: Clean
+  ansible.builtin.import_tasks: clean.yml
   tags:
     - manala_deploy
     - manala_deploy.clean
 
-# Post tasks
-- import_tasks: tasks.yml
+- name: Post tasks
+  ansible.builtin.import_tasks: tasks.yml
   vars:
     __manala_deploy_tasks: "{{ manala_deploy_post_tasks }}"
   tags:

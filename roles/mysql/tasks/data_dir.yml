@@ -1,19 +1,23 @@
 ---
 
-- name: data_dir > Create data directory
-  file:
+- name: Data Dir > Create data directory
+  ansible.builtin.file:
     path: "{{ manala_mysql_data_dir }}"
     state: directory
     owner: "{{ manala_mysql_data_dir_user }}"
     group: "{{ manala_mysql_data_dir_group }}"
     mode: "{{ manala_mysql_data_dir_mode }}"
   register: __manala_mysql_data_dir_create_result
-  when: manala_mysql_data_dir|default(false)
+  when:
+    - manala_mysql_server
+    - manala_mysql_data_dir | default(false)
 
-- name: data_dir > Initialize data directory
-  command: >
+- name: Data Dir > Initialize data directory
+  ansible.builtin.command: >
     mysql_install_db
     --user={{ manala_mysql_data_dir_user }}
     --datadir={{ manala_mysql_data_dir }}
-  when: manala_mysql_data_dir_initialize
-        and __manala_mysql_data_dir_create_result is changed
+  when:
+    - manala_mysql_server
+    - manala_mysql_data_dir_initialize
+    - __manala_mysql_data_dir_create_result is changed

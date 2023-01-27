@@ -1,0 +1,28 @@
+name: Molecule - Telegraf
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.telegraf.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/telegraf/**
+      - roles/telegraf/**
+      # Plugins
+      - plugins/filter/toml.py
+      - plugins/lookup/templates_exclusive.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  telegraf:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: telegraf

@@ -1,8 +1,8 @@
 ---
 
-- name: options > Default
-  lineinfile:
-    path: /etc/default/bind9
+- name: Options > Default
+  ansible.builtin.lineinfile:
+    path: "{{ manala_bind_options_file }}"
     regexp: '^OPTIONS='
-    line: OPTIONS="{{ manala_bind_options|join(' ') }}"
+    line: OPTIONS="{{ manala_bind_options | join(' ') }}"
   register: __manala_bind_options

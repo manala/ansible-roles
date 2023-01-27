@@ -1,10 +1,8 @@
-# Ansible Role: Ngrok [![Build Status](https://travis-ci.org/manala/ansible-role-ngrok.svg?branch=master)](https://travis-ci.org/manala/ansible-role-ngrok)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Ngrok
 
 This role will deal with the setup and the config of [Ngrok](https://ngrok.com/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,48 +14,26 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.ngrok
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.ngrok
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-### Definition
-
-| Name                             | Default                | Type    | Description                            |
-| -------------------------------- | ---------------------- | ------- | -------------------------------------- |
-| `manala_ngrok_version`           | ~                      | String  | Version to install, latest by default  |
-| `manala_ngrok_bin`               | '/usr/local/bin/ngrok' | String  | Binary                                 |
-| `manala_ngrok_configs_exclusive` | false                  | Boolean | Configurations exclusivity             |
-| `manala_ngrok_configs_dir`       | '/etc/ngrok'           | String  | Configurations directory path          |
-| `manala_ngrok_configs_defaults`  | {}                     | String  | Configurations defaults                |
-| `manala_ngrok_configs`           | []                     | Array   | Configurations                         |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Example
 
 ```yaml
 - hosts: all
-  roles:
-    - role: manala.ngrok
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.ngrok
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

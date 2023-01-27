@@ -1,6 +1,10 @@
 ---
 
-- name: grafana restart
-  service:
-    name: grafana-server
+- name: Restart grafana
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - grafana-server
+  # Deprecated
+  listen: grafana restart

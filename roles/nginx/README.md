@@ -1,14 +1,12 @@
-# Ansible Role: Nginx [![Build Status](https://travis-ci.org/manala/ansible-role-nginx.svg?branch=master)](https://travis-ci.org/manala/ansible-role-nginx)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Nginx
 
 This role will deal with the setup and config of [Nginx](https://nginx.org/en/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
-This role is made to work with the official __nginx__ debian packages, available on the __nginx__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the official __nginx__ debian packages, available on the __nginx__ debian repository. Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -21,39 +19,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.nginx
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.nginx
-```
-
-## Role Handlers
-
-| Name            | Type    | Description          |
-| --------------- | ------- | -------------------- |
-| `nginx restart` | Service | Restart nginx server |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                    | Default             | Type    | Description                                    |
-| --------------------------------------- | ------------------- | ------- | ---------------------------------------------- |
-| `manala_nginx_install_packages`         | 'config/default.j2' | String  | Dependency packages to install                 |
-| `manala_nginx_install_packages_default` | 'config/default.j2' | String  | Default dependency packages to install         |
-| `manala_nginx_config_template`          | 'config/default.j2' | String  | Main configuration template path               |
-| `manala_nginx_config`                   | []                  | Array   | Main configuration                             |
-| `manala_nginx_configs`                  | []                  | Array   | Configurations                                 |
-| `manala_nginx_configs_template`         | 'configs/empty.j2'  | String  | Configurations template path                   |
-| `manala_nginx_configs_exclusive`        | false               | Boolean | Exclusion of existings files                   |
-| `manala_nginx_configs_dir`              | '/etc/nginx/conf.d' | String  | Configurations directory path                  |
-
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Nginx configuration
 
@@ -71,21 +41,18 @@ The `manala_nginx_config` key is made to allow you to alter main Nginx configura
 
 #### Examples:
 
+Use dict:
+```yaml
+manala_nginx_config:
+  user: nginx
+  worker_processes: 1
+```
+
 Use raw content:
 ```yaml
 manala_nginx_config: |
   user nginx;
   worker_processes 1;
-```
-
-Use dict's array (deprecated):
-```yaml
-manala_nginx_config:
-  - user: nginx
-  - load_module: modules/ngx_http_geoip_module.so
-  - load_module: modules/ngx_stream_geoip_module.so
-  - events:
-    - worker_connections: 1024
 ```
 
 ### Exclusivity
@@ -107,6 +74,11 @@ manala_nginx_configs:
   # Template based
   - file: template.conf
     template: my/template.conf.j2
+  # Dict based
+  - file: dict.conf
+    config:
+      listen: 80 default_server
+      server_name: example.com www.example.com
   # Raw content based
   - file: content.conf
     config: |
@@ -118,22 +90,6 @@ manala_nginx_configs:
           index index.html;
           try_files $uri /index.html;
       }
-  # Dict's array based (deprecated)
-  - file: symfony2.conf
-    config:
-      - server:
-        - server_name: symfony2.dev
-        - root: /srv/symfony2/web
-        - access_log: /var/log/nginx/app.access.log
-        - error_log: /var/log/nginx/app.error.log
-        - client_max_body_size: 8G
-        - include: conf.d/gzip
-        - location ^~ /sf/:
-          - alias: /usr/share/symfony/symfony-1.4/data/web/sf/
-        - location /:
-          - try_files: $uri /index.php$is_args$args
-        - location ~ ^/(index|frontend_dev)\.php(/|$):
-          - include: conf.d/php_fpm_params
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -148,13 +104,16 @@ manala_nginx_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.nginx
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.nginx
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

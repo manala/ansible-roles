@@ -1,8 +1,8 @@
-{% set environment = manala_keepalived_environment|default({}, true) -%}
+{% set environment = manala_keepalived_environment | default({}, true) -%}
 
 # Options to pass to keepalived
 
 # DAEMON_ARGS are appended to the keepalived command-line
-{{ environment | manala_environment_parameter('DAEMON_ARGS') }}
+{{ environment | manala.roles.environment_parameter('DAEMON_ARGS') }}
 
-{{ environment | manala_environment(exclude=['DAEMON_ARGS']) }}
+{{ environment | manala.roles.environment(exclude=['DAEMON_ARGS']) }}

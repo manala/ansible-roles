@@ -1,11 +1,12 @@
 ---
 
 # Flags
-__manala_composer: "{{
-  {
-    'update': False
-  }|combine(
-    manala|default({}),
-    manala_composer
-  )
-}}"
+__manala_composer: |
+  {{
+    {
+      'update': False
+    } | combine(
+      manala | default({}),
+      manala_composer
+    )
+  }}

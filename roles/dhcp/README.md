@@ -1,10 +1,8 @@
-# Ansible Role: Dhcp [![Build Status](https://travis-ci.org/manala/ansible-role-dhcp.svg?branch=master)](https://travis-ci.org/manala/ansible-role-dhcp)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Dhcp
 
 This role will deal with the setup of [ISC DHCP Server](https://www.isc.org/downloads/dhcp/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,36 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.dhcp
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.dhcp
-```
-
-## Role Handlers
-
-| Name           | Type    | Description          |
-| -------------- | ------- | -------------------- |
-| `dhcp restart` | Service | Restart dhcp service |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                   | Default                | Type   | Description                            |
-| -------------------------------------- | ---------------------- | ------ | -------------------------------------- |
-| `manala_dhcp_install_packages`         | ~                      | Array  | Dependency packages to install         |
-| `manala_dhcp_install_packages_default` | ['isc-dhcp-server']    | Array  | Default dependency packages to install |
-| `manala_dhcp_interfaces`               | []                     | Array  | Network interfaces                     |
-| `manala_dhcp_config_file`              | '/etc/dhcp/dhcpd.conf' | String | Configuration destination path         |
-| `manala_dhcp_config_template`          | ~                      | String | Configuration template                 |
-| `manala_dhcp_config_content`           | ~                      | String | Configuration content                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -74,13 +47,16 @@ manala_dhcp_config_content: |
 
 ```yaml
 - hosts: servers
-  roles:
-    - { role: manala.dhcp }
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.dhcp
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

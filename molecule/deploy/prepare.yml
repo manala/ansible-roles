@@ -1,0 +1,25 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts: debian
+  tasks:
+    - name: Packages
+      ansible.builtin.apt:
+        name: [rsync]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600
+
+- name: Prepare (local)
+  tags: [always]
+  hosts: 127.0.0.1
+  connection: local
+  become: true
+  tasks:
+    - name: Packages local
+      ansible.builtin.apt:
+        name: [rsync]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600

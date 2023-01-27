@@ -1,49 +1,50 @@
 ---
 
-- name: configs > Directory
-  file:
+- name: Configs > Directory
+  ansible.builtin.file:
     path: "{{ manala_backup_manager_configs_dir }}"
     state: directory
     owner: root
     group: root
     mode: "0700"
-  when: manala_backup_manager_configs|length
+  when: manala_backup_manager_configs | length
 
-- name: configs > Exclusive
-  find:
+- name: Configs > Exclusive
+  ansible.builtin.find:
     path: "{{ manala_backup_manager_configs_dir }}"
+    file_type: file
     patterns: "*"
   changed_when: false
   register: __manala_backup_manager_configs_exclusive_find
   when: manala_backup_manager_configs_exclusive
 
-- name: configs > Templates present
-  template:
+- name: Configs > Templates present
+  ansible.builtin.template:
     src: "{{ item.template }}"
     dest: "{{ item.file }}"
     owner: root
     group: root
     mode: "0600"
-  loop: "{{ query(
-      'manala_templates_exclusive',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_backup_manager_configs,
-      __manala_backup_manager_configs_exclusive_find.files|default([]),
+      __manala_backup_manager_configs_exclusive_find.files | default([]),
       manala_backup_manager_configs_dir,
-      manala_backup_manager_configs_defaults.template|default('configs/_default.j2', true),
+      manala_backup_manager_configs_defaults.template | default('configs/_default.j2', true),
       wantstate='present'
-    )
-  }}"
+    ) }}
 
-- name: configs > Files absent
-  file:
+- name: Configs > Files absent
+  ansible.builtin.file:
     path: "{{ item.file }}"
     state: absent
-  loop: "{{ query(
-      'manala_templates_exclusive',
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
       manala_backup_manager_configs,
-      __manala_backup_manager_configs_exclusive_find.files|default([]),
+      __manala_backup_manager_configs_exclusive_find.files | default([]),
       manala_backup_manager_configs_dir,
-      manala_backup_manager_configs_defaults.template|default('configs/_default.j2', true),
+      manala_backup_manager_configs_defaults.template | default('configs/_default.j2', true),
       wantstate='absent'
-    )
-  }}"
+    ) }}

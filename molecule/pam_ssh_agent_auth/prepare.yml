@@ -1,0 +1,12 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts: debian
+  tasks:
+    - name: Packages
+      ansible.builtin.apt:
+        name: [sudo]
+        install_recommends: false
+        update_cache: true
+        cache_valid_time: 3600

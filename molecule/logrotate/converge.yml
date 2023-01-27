@@ -1,0 +1,117 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.logrotate
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+###########
+# Configs #
+###########
+
+- name: Configs
+  tags: [configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/logrotate/configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            name: manala.roles.logrotate
+            tasks_from: configs
+          vars:
+            manala_logrotate_configs_exclusive: false
+            manala_logrotate_configs_dir: "{{ tests_dir }}/default"
+            manala_logrotate_configs_defaults: {}
+            manala_logrotate_configs:
+              # Dict
+              - file: dict
+                config:
+                  /var/log/foo/*.log:
+                    rotate: 17
+                    weekly: true
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          ansible.builtin.import_role:
+            name: manala.roles.logrotate
+            tasks_from: configs
+          vars:
+            manala_logrotate_configs_exclusive: false
+            manala_logrotate_configs_dir: "{{ tests_dir }}/defaults"
+            manala_logrotate_configs_defaults:
+              template: fixtures/template.j2
+            manala_logrotate_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.logrotate
+            tasks_from: configs
+          vars:
+            manala_logrotate_configs_exclusive: true
+            manala_logrotate_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_logrotate_configs_defaults: {}
+            manala_logrotate_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/configs.yml.j2') }}"
+          changed_when: false

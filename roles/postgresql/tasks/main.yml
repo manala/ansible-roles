@@ -1,44 +1,44 @@
 ---
 
-# Requirements
-- import_tasks: requirements.yml
+- name: Requirements
+  ansible.builtin.import_tasks: requirements.yml
   tags:
     - manala_postgresql
     - manala_postgresql.requirements
 
-# Install
-- import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_postgresql
     - manala_postgresql.install
 
-# Config
-- import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_postgresql
     - manala_postgresql.config
 
-# Services
-- import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_postgresql
     - manala_postgresql.services
     - manala.services
 
-# Roles
-- import_tasks: roles.yml
+- name: Roles
+  ansible.builtin.import_tasks: roles.yml
   tags:
     - manala_postgresql
     - manala_postgresql.roles
 
-# Databases
-- import_tasks: databases.yml
+- name: Databases
+  ansible.builtin.import_tasks: databases.yml
   tags:
     - manala_postgresql
     - manala_postgresql.databases
 
-# Privileges
-- import_tasks: privileges.yml
+- name: Privileges
+  ansible.builtin.import_tasks: privileges.yml
   tags:
     - manala_postgresql
     - manala_postgresql.privileges

@@ -1,0 +1,171 @@
+---
+
+user:
+
+  # None
+  user_k_none:
+    exists: true
+  # Private
+  user_k_private:
+    exists: true
+  # Public
+  user_k_public:
+    exists: true
+  # Verbose syntax
+  user_k_verbose_syntax:
+    exists: true
+  # Flatten
+  user_k_flatten:
+    exists: true
+  # Multiple
+  user_k_multiple:
+    exists: true
+  # State
+  user_k_state_ignore:
+    exists: false
+
+file:
+
+  # None
+  /home/user_k_none/.ssh:
+    exists: true
+    filetype: directory
+    owner: user_k_none
+    group: user_k_none
+    mode: "0700"
+  /home/user_k_none/.ssh/id_rsa:
+    exists: false
+  /home/user_k_none/.ssh/id_rsa.pub:
+    exists: false
+  # Private
+  /home/user_k_private/.ssh:
+    exists: true
+    filetype: directory
+    owner: user_k_private
+    group: user_k_private
+    mode: "0700"
+  /home/user_k_private/.ssh/id_rsa:
+    exists: true
+    filetype: file
+    owner: user_k_private
+    group: user_k_private
+    mode: "0600"
+    contains:
+{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
+      - "{{ line }}"
+{% endfor %}
+  /home/user_k_private/.ssh/id_rsa.pub:
+    exists: false
+  # Public
+  /home/user_k_public/.ssh:
+    exists: true
+    filetype: directory
+    owner: user_k_public
+    group: user_k_public
+    mode: "0700"
+  /home/user_k_public/.ssh/id_rsa:
+    exists: false
+  /home/user_k_public/.ssh/id_rsa.pub:
+    exists: true
+    filetype: file
+    owner: user_k_public
+    group: user_k_public
+    mode: "0644"
+    contains:
+      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+  # Verbose syntax
+  /home/user_k_verbose_syntax/.ssh:
+    exists: true
+    filetype: directory
+    owner: user_k_verbose_syntax
+    group: user_k_verbose_syntax
+    mode: "0700"
+  /home/user_k_verbose_syntax/.ssh/id_rsa:
+    exists: true
+    filetype: file
+    owner: user_k_verbose_syntax
+    group: user_k_verbose_syntax
+    mode: "0600"
+    contains:
+{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
+      - "{{ line }}"
+{% endfor %}
+  /home/user_k_verbose_syntax/.ssh/id_rsa.pub:
+    exists: true
+    filetype: file
+    owner: user_k_verbose_syntax
+    group: user_k_verbose_syntax
+    mode: "0644"
+    contains:
+      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+  # Flatten
+  /home/user_k_flatten/.ssh:
+    exists: true
+    filetype: directory
+    owner: user_k_flatten
+    group: user_k_flatten
+    mode: "0700"
+  /home/user_k_flatten/.ssh/id_rsa:
+    exists: true
+    filetype: file
+    owner: user_k_flatten
+    group: user_k_flatten
+    mode: "0600"
+    contains:
+{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
+      - "{{ line }}"
+{% endfor %}
+  /home/user_k_flatten/.ssh/id_rsa.pub:
+    exists: true
+    filetype: file
+    owner: user_k_flatten
+    group: user_k_flatten
+    mode: "0644"
+    contains:
+      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+  # Multiple
+  /home/user_k_multiple/.ssh:
+    exists: true
+    filetype: directory
+    owner: user_k_multiple
+    group: user_k_multiple
+    mode: "0700"
+  /home/user_k_multiple/.ssh/id_rsa_1:
+    exists: true
+    filetype: file
+    owner: user_k_multiple
+    group: user_k_multiple
+    mode: "0600"
+    contains:
+{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
+      - "{{ line }}"
+{% endfor %}
+  /home/user_k_multiple/.ssh/id_rsa_1.pub:
+    exists: true
+    filetype: file
+    owner: user_k_multiple
+    group: user_k_multiple
+    mode: "0644"
+    contains:
+      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+  /home/user_k_multiple/.ssh/id_rsa_2:
+    exists: true
+    filetype: file
+    owner: user_k_multiple
+    group: user_k_multiple
+    mode: "0600"
+    contains:
+{% for line in lookup('ansible.builtin.file', 'fixtures/key_2').splitlines() %}
+      - "{{ line }}"
+{% endfor %}
+  /home/user_k_multiple/.ssh/id_rsa_2.pub:
+    exists: true
+    filetype: file
+    owner: user_k_multiple
+    group: user_k_multiple
+    mode: "0644"
+    contains:
+      - "{{ lookup('ansible.builtin.file', 'fixtures/key_2.pub') }}"
+  # State
+  /home/user_k_state_ignore/.ssh:
+    exists: false

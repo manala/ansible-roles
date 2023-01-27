@@ -1,0 +1,21 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name: prometheus
+  author: Manala
+  company: Manala
+  description: Handle prometheus
+  license: MIT
+  min_ansible_version: 2.10.0
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+  galaxy_tags:
+    - monitoring
+    - prometheus

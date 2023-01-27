@@ -1,8 +1,10 @@
 ---
 
-- name: mysql restart
-  service:
+- name: Restart mysql
+  ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
-  with_items:
+  loop:
     - mysql
+  # Deprecated
+  listen: mysql restart

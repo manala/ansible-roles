@@ -1,0 +1,25 @@
+---
+
+# Version
+manala_promtail_version: ~
+
+# Accounts
+manala_promtail_user: promtail
+manala_promtail_group: promtail
+
+# Bin
+manala_promtail_bin: /usr/local/bin/promtail
+
+# Config
+manala_promtail_config_file: /etc/promtail/promtail.yaml
+manala_promtail_config_template: ~
+manala_promtail_config: ~
+
+# Data
+manala_promtail_data_dir: /var/lib/promtail
+
+# Services
+manala_promtail_service: promtail
+manala_promtail_service_file: /etc/systemd/system/{{ manala_promtail_service }}.service
+manala_promtail_service_template: ~
+manala_promtail_service_args: []

@@ -1,44 +1,44 @@
 ---
 
-# Install
-- import_tasks: install.yml
+- name: Install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - manala_influxdb
     - manala_influxdb.install
 
-# Dir
-- import_tasks: dir.yml
+- name: Dir
+  ansible.builtin.import_tasks: dir.yml
   tags:
     - manala_influxdb
     - manala_influxdb.dir
 
-# Config
-- import_tasks: config.yml
+- name: Config
+  ansible.builtin.import_tasks: config.yml
   tags:
     - manala_influxdb
     - manala_influxdb.config
 
-# Services
-- import_tasks: services.yml
+- name: Services
+  ansible.builtin.import_tasks: services.yml
   tags:
     - manala_influxdb
     - manala_influxdb.services
     - manala.services
 
-# Databases
-- import_tasks: databases.yml
+- name: Databases
+  ansible.builtin.import_tasks: databases.yml
   tags:
     - manala_influxdb
     - manala_influxdb.databases
 
-# Users
-- import_tasks: users.yml
+- name: Users
+  ansible.builtin.import_tasks: users.yml
   tags:
     - manala_influxdb
     - manala_influxdb.users
 
-# Privileges
-- import_tasks: privileges.yml
+- name: Privileges
+  ansible.builtin.import_tasks: privileges.yml
   tags:
     - manala_influxdb
     - manala_influxdb.privileges

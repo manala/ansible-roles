@@ -1,10 +1,8 @@
-# Ansible Role: Logrotate [![Build Status](https://travis-ci.org/manala/ansible-role-logrotate.svg?branch=master)](https://travis-ci.org/manala/ansible-role-logrotate)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Logrotate
 
 This role will assume the setup of Logrotate.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,34 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.logrotate
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.logrotate
-```
-
-## Role Handlers
-
-None
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                        | Default            | Type    | Description                                |
-| ------------------------------------------- | ------------------ | ------- | ------------------------------------------ |
-| `manala_logrotate_install_packages`         | ~                  | Array   | Dependency packages to install             |
-| `manala_logrotate_install_packages_default` | ['logrotate']      | Array   | Default dependency packages to install     |
-| `manala_logrotate_configs_exclusive`        | false              | Boolean | Exclusion of existing files Configurations |
-| `manala_logrotate_configs_dir`              | '/etc/logrotate.d' | String  | Configurations directory path              |
-| `manala_logrotate_configs_defaults`         | {}                 | Array   | Configurations defaults                    |
-| `manala_logrotate_configs`                  | []                 | Array   | Configurations directives                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configurations examples
 
@@ -56,18 +31,6 @@ manala_logrotate_configs:
         size: 200M
         missingok: true
         rotate: 0
-  # Dicts array config based (deprecated)
-  - file: config_deprecated.conf
-    config:
-      - /var/log/nginx/example/*.log:
-        - size: 200M
-        - missingok
-        - rotate: 0
-        - compress
-        - delaycompress
-        - notifempty
-        - create: 0640 www-data adm
-        - sharedscripts
   # Content based
   - file: content
     config: |
@@ -111,13 +74,16 @@ manala_logrotate_configs_exclusive: true
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.logrotate
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.logrotate
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

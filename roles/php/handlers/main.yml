@@ -1,35 +1,46 @@
 ---
 
-- name: php fpm restart
-  command: >
-    /usr/sbin/php-fpm{{ manala_php_version|string }} -t
+- name: Restart php fpm
+  ansible.builtin.command: >
+    /usr/sbin/php-fpm{{ manala_php_version | string }} -t
   when: |
     'fpm' in query(
-      'manala_php_sapis',
-      manala_php_sapis|default(manala_php_sapis_default, True),
+      'manala.roles.php_sapis',
+      manala_php_sapis | default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
       wantmap=true
     )
   changed_when: true
-  listen: php restart
   notify:
-    - do php fpm restart
+    - Do restart php fpm
+  # Deprecated
+  listen:
+    - php restart
+    - php fpm restart
 
-- name: do php fpm restart
-  service:
-    name: php{{ manala_php_version|string }}-fpm
+- name: Do restart php fpm
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - php{{ manala_php_version | string }}-fpm
   when: |
     'fpm' in query(
-      'manala_php_sapis',
-      manala_php_sapis|default(manala_php_sapis_default, True),
+      'manala.roles.php_sapis',
+      manala_php_sapis | default(manala_php_sapis_default, True),
       manala_php_sapis_available,
       wantstate='present',
       wantmap=true
     )
+  # Deprecated
+  listen: do php fpm restart
 
-- name: php blackfire agent restart
-  service:
-    name: blackfire-agent
+- name: Restart php blackfire agent
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - blackfire-agent
+  # Deprecated
+  listen: php blackfire agent restart

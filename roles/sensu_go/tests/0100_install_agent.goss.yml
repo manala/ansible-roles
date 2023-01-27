@@ -1,5 +1,0 @@
----
-
-package:
-  sensu-go-agent:
-    installed: true

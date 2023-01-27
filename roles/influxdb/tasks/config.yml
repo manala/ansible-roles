@@ -1,13 +1,13 @@
 ---
 
-- name: config > Template
-  template:
-    src: "{{ manala_influxdb_config_template|default('config/_default.j2', true) }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_influxdb_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_influxdb_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_influxdb_config_template
-        or manala_influxdb_config
+    or manala_influxdb_config
   notify:
-    - influxdb restart
+    - Restart influxdb

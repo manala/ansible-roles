@@ -1,19 +1,21 @@
 ---
 
-- name: services > Ensure service is started or restarted
-  service:
+- name: Services > Ensure service is started or restarted   # noqa args[module]
+  ansible.builtin.service:
     name: "{{ item }}"
-    state: "{{
-      'restarted'
-        if (
-          __manala_mysql_config_template_result|default({}) is changed
-          or __manala_mysql_config_alternative_result|default({}) is changed
-          or __manala_mysql_configs_templates_present_result|default({}) is changed
-          or __manala_mysql_configs_files_absent_result|default({}) is changed
-          or __manala_mysql_data_dir_create_result|default({}) is changed
-        ) else
-      'started'
-    }}"
+    state: |-
+      {{
+        'restarted'
+          if (
+            __manala_mysql_config_template_result | default({}) is changed
+            or __manala_mysql_config_alternative_result | default({}) is changed
+            or __manala_mysql_configs_templates_present_result | default({}) is changed
+            or __manala_mysql_configs_files_absent_result | default({}) is changed
+            or __manala_mysql_data_dir_create_result | default({}) is changed
+          ) else
+        'started'
+      }}
     enabled: true
-  with_items:
+  loop:
     - mysql
+  when: manala_mysql_server

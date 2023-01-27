@@ -1,8 +1,10 @@
 ---
 
-- name: install > Packages
-  apt:
-    name: "{{ manala_apt_install_packages|default(manala_apt_install_packages_default, True) }}"
+- name: Install > Packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
     install_recommends: false
     update_cache: true
     cache_valid_time: "{{ manala_apt_cache_valid_time }}"
+  loop:
+    - "{{ manala_apt_install_packages | default(manala_apt_install_packages_default, True) }}"

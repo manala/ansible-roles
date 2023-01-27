@@ -1,0 +1,70 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.vim
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/vim/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            name: manala.roles.vim
+            tasks_from: config
+          vars:
+            manala_vim_config_file: "{{ tests_dir }}/dict"
+            manala_vim_config_template: ~
+            manala_vim_config:
+              encoding: utf8
+              expandtab: true
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.vim
+            tasks_from: config
+          vars:
+            manala_vim_config_file: "{{ tests_dir }}/content"
+            manala_vim_config_template: ~
+            manala_vim_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.vim
+            tasks_from: config
+          vars:
+            manala_vim_config_file: "{{ tests_dir }}/template"
+            manala_vim_config_template: fixtures/template.j2
+            manala_vim_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false

@@ -1,5 +1,0 @@
----
-
-package:
-  ntp:
-    installed: true

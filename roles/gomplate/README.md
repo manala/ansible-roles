@@ -2,7 +2,7 @@
 
 This role will deal with the installation of [Gomplate](https://github.com/hairyhenderson/gomplate/releases/)
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -14,48 +14,26 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy collection install manala.roles
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-collections:
-  - manala.roles
-```
-
-## Role Handlers
-
-None.
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-### Definition
-
-| Name                      | Default                  | Type   | Description                            |
-| ------------------------- | ------------------------ | ------ | -------------------------------------- |
-| `manala_gomplate_version` | ~                        | String | Version to install, latest by default  |
-| `manala_gomplate_bin`     | '/usr/local/bin/gomplate'| String | Binary path                            |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ## Example playbook
 
 ```yaml
 - hosts: all
-  collections:
-    - manala.roles
   tasks:
-    - import_role:
-        name: gomplate
+    - ansible.builtin.import_role:
+        name: manala.roles.gomplate
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

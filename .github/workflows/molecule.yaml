@@ -1,0 +1,49 @@
+name: Molecule
+
+on:
+  workflow_call:
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
+      scenario:
+        type: string
+        required: true
+      versions:
+        type: string
+        required: false
+        default: '[null]'
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        version: ${{ fromJson(inputs.versions) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker cache
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
+          restore-keys: |
+            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
+      - name: Env
+        run: |
+          cp .env.dist .env
+      - name: AppArmor
+        run: |
+          # Disable mysqld profile
+          echo "/usr/sbin/mysqld { }" | sudo tee /etc/apparmor.d/usr.sbin.mysqld
+          sudo apparmor_parser -v -R /etc/apparmor.d/usr.sbin.mysqld
+      - name: Molecule
+        run: |
+          make molecule.converge SCENARIO=${{ inputs.scenario }}${{ matrix.version && format('.{0}', matrix.version) || '' }}
+      - name: Debug
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ inputs.debug && always() }}
+        timeout-minutes: 15

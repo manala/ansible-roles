@@ -1,6 +1,6 @@
-{%- set config = item.config|default({}) -%}
+{%- set config = item.config | default({}) -%}
 
 [inet_http_server]
 {{- {
-  'port': config.port|mandatory
-} | combine(config) | manala_supervisor_config_section }}
+  'port': config.port | mandatory
+} | combine(config) | manala.roles.supervisor_config_section }}

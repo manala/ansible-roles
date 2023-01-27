@@ -1,0 +1,27 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.promtail
+          vars:
+            manala_promtail_config:
+              clients:
+                # Fake loki server url
+                - url: http://localhost:3100/loki/api/v1/push
+            manala_promtail_service_args:
+              - --dry-run
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false

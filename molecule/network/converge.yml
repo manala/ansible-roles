@@ -1,0 +1,268 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.network
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+#########
+# Hosts #
+#########
+
+- name: Hosts
+  tags: [hosts]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/network/hosts
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: File  # noqa risky-file-permissions
+      ansible.builtin.copy:
+        dest: "{{ tests_dir }}/dict"
+        content: |
+          1.1.1.111 bar.com
+          1.1.1.222 bar.com
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            name: manala.roles.network
+          vars:
+            manala_network_hosts_file: "{{ tests_dir }}/dict"
+            manala_network_hosts:
+              1.1.1.111: foo.com
+              1.1.1.2: baz.com
+              1.1.1.333: qux.com
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/hosts.yml.j2') }}"
+          changed_when: false
+
+###################
+# Resolver Config #
+###################
+
+- name: Resolver Config
+  tags: [resolver_config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/network/resolver_config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: resolver_config
+          vars:
+            manala_network_resolver_config_file: "{{ tests_dir }}/content"
+            manala_network_resolver_config_template: ~
+            manala_network_resolver_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: resolver_config
+          vars:
+            manala_network_resolver_config_file: "{{ tests_dir }}/template"
+            manala_network_resolver_config_template: fixtures/template.j2
+            manala_network_resolver_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/resolver_config.yml.j2') }}"
+          changed_when: false
+
+#####################
+# Interfaces Config #
+#####################
+
+- name: Interfaces Config
+  tags: [interfaces_config]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/network/interfaces_config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: interfaces_config
+          vars:
+            manala_network_interfaces_config_file: "{{ tests_dir }}/content"
+            manala_network_interfaces_config_template: ~
+            manala_network_interfaces_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: interfaces_config
+          vars:
+            manala_network_interfaces_config_file: "{{ tests_dir }}/template"
+            manala_network_interfaces_config_template: fixtures/template.j2
+            manala_network_interfaces_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/interfaces_config.yml.j2') }}"
+          changed_when: false
+
+######################
+# Interfaces Configs #
+######################
+
+- name: Interfaces Configs
+  tags: [interfaces_configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/network/interfaces_configs
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files  # noqa risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
+    - block:  # noqa name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: interfaces_configs
+          vars:
+            manala_network_interfaces_configs_exclusive: false
+            manala_network_interfaces_configs_dir: "{{ tests_dir }}/default"
+            manala_network_interfaces_configs_defaults: {}
+            manala_network_interfaces_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+              # Flatten
+              -
+                - file: flatten
+              # State
+              - file: state_present_implicit
+              - file: state_present
+                state: present
+              - file: state_absent
+                state: absent
+              - file: state_absent_existing
+                state: absent
+              - file: state_ignore
+                state: ignore
+              - file: state_ignore_existing
+                state: ignore
+        - name: Role - Defaults
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: interfaces_configs
+          vars:
+            manala_network_interfaces_configs_exclusive: false
+            manala_network_interfaces_configs_dir: "{{ tests_dir }}/defaults"
+            manala_network_interfaces_configs_defaults:
+              template: fixtures/template.j2
+            manala_network_interfaces_configs:
+              - file: template
+              - template: fixtures/template_file.j2
+              - file: template_overwrite
+                template: fixtures/template_file.j2
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.network
+            tasks_from: interfaces_configs
+          vars:
+            manala_network_interfaces_configs_exclusive: true
+            manala_network_interfaces_configs_dir: "{{ tests_dir }}/exclusive"
+            manala_network_interfaces_configs_defaults: {}
+            manala_network_interfaces_configs:
+              - file: existing_present
+              - file: existing_ignore
+                state: ignore
+              - file: ignore
+                state: ignore
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/interfaces_configs.yml.j2') }}"
+          changed_when: false
+
+##################
+# Routing Tables #
+##################
+
+- name: Routing Tables
+  tags: [routing_tables]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/network/routing_tables
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: File  # noqa risky-file-permissions no-tabs
+      ansible.builtin.copy:
+        dest: "{{ tests_dir }}/dict"
+        content: |
+          255	local
+          254	main
+          253	foo
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            name: manala.roles.network
+          vars:
+            manala_network_routing_tables_file: "{{ tests_dir }}/dict"
+            manala_network_routing_tables:
+              253: default
+              25: foo
+              123: bar
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/routing_tables.yml.j2') }}"
+          changed_when: false

@@ -1,19 +1,16 @@
 ---
 
-- name: environment > Template
-  template:
-    src: "{{ manala_elasticsearch_environment_template|default('environment/_default.j2', true) }}"
+- name: Environment > Template
+  ansible.builtin.template:
+    src: "{{ manala_elasticsearch_environment_template | default('environment/_default.j2', true) }}"
     dest: "{{ manala_elasticsearch_environment_file }}"
     owner: root
     group: "{{
       'root' if (manala_elasticsearch_version is version('5', '<=')) else
       'elasticsearch'
     }}"
-    mode: "{{
-      '0644' if (manala_elasticsearch_version is version('2', '<=')) else
-      '0660'
-    }}"
+    mode: "0660"
   when: manala_elasticsearch_environment_template
-        or manala_elasticsearch_environment
+    or manala_elasticsearch_environment
   notify:
-    - elasticsearch restart
+    - Restart elasticsearch

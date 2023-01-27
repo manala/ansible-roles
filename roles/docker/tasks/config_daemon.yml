@@ -1,13 +1,23 @@
 ---
 
-- name: config_daemon > Template
-  template:
-    src: "{{ manala_docker_config_daemon_template|default('config_daemon/_default.j2', true) }}"
+- name: Config Daemon > Directory
+  ansible.builtin.file:
+    path: "{{ manala_docker_config_daemon_file | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_docker_config_daemon_template
+    or manala_docker_config_daemon
+
+- name: Config Daemon > Template
+  ansible.builtin.template:
+    src: "{{ manala_docker_config_daemon_template | default('config_daemon/_default.j2', true) }}"
     dest: "{{ manala_docker_config_daemon_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_docker_config_daemon_template
-        or manala_docker_config_daemon
+    or manala_docker_config_daemon
   notify:
-    - docker restart
+    - Restart docker

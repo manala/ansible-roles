@@ -1,10 +1,8 @@
-# Ansible Role: Cron [![Build Status](https://travis-ci.org/manala/ansible-role-cron.svg?branch=master)](https://travis-ci.org/manala/ansible-role-cron)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Cron
 
 This role will deal with the setup of __Cron__.
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,36 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.cron
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.cron
-```
-
-## Role Handlers
-
-| Name          | Type    | Description          |
-| ------------- | ------- | -------------------- |
-| `cron restart | Service | Restart cron service |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                   | Default       | Type    | Description                            |
-| -------------------------------------- | ------------- | ------- | -------------------------------------- |
-| `manala_cron_install_packages`         | ~             | Array   | Dependency packages to install         |
-| `manala_cron_install_packages_default` | ['cron']      | Array   | Default dependency packages to install |
-| `manala_cron_files_exclusive`          | false         | Boolean | Files exclusivity                      |
-| `manala_cron_files_dir`                | '/etc/cron.d' | String  | Files dir path                         |
-| `manala_cron_files_defaults`           | {}            | Array   | Defaults cron files parameters         |
-| `manala_cron_files`                    | []            | Array   | Cron files collection                  |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -70,11 +43,6 @@ manala_cron_files:
         user: bar # Override default jobs user
         minute: 0
         hour: 7
-      # Deprecated
-      - name: foo-bar
-        job: php /srv/app/bin/console app:foo:bar
-        minute: 0
-        hour: 7
   # Template based
   - file: template
     template: my/cron.j2
@@ -96,13 +64,16 @@ manala_cron_files:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.cron
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.cron
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

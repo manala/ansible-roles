@@ -1,0 +1,25 @@
+name: Molecule - Grafana
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.grafana.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/grafana/**
+      - roles/grafana/**
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  grafana:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: grafana

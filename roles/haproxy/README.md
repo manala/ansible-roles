@@ -1,10 +1,8 @@
-# Ansible Role: HAProxy [![Build Status](https://travis-ci.org/manala/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/manala/ansible-role-haproxy)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: HAProxy
 
 This role will deal with the setup of [HAProxy](http://www.haproxy.org/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,45 +14,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.haproxy
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.haproxy
-```
-
-## Role Handlers
-| Name              | Type    | Description             |
-| ----------------- | ------- | ----------------------- |
-| `haproxy reload`  | Service | Reload haproxy service  |
-| `haproxy restart` | Service | Restart haproxy service |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                      | Default                      | Type         | Description                            |
-| ----------------------------------------- | ---------------------------- | ------------ | -------------------------------------- |
-| `manala_haproxy_install_packages`         | ~                            | Array        | Dependency packages to install         |
-| `manala_haproxy_install_packages_default` | []                           | Array        | Default dependency packages to install |
-| `manala_haproxy_errorfiles_exclusive`     | false                        | Boolean      | Errorfiles exclusivity                 |
-| `manala_haproxy_errorfiles_dir`           | '/etc/haproxy/errors'        | String       | Errorfiles directory path              |
-| `manala_haproxy_errorfiles_defaults`      | {}                           | Array        | Errorfiles defaults                    |
-| `manala_haproxy_errorfiles`               | []                           | Array        | Errorfiles                             |
-| `manala_haproxy_config_file`              | '/etc/haproxy/haproxy.cfg'   | String       | Configuration file path                |
-| `manala_haproxy_config_template`          | 'config/http_default.cfg.j2' | String       | Configuration template                 |
-| `manala_haproxy_configs_exclusive`        | false                        | Boolean      | Configurations exclusivity             |
-| `manala_haproxy_configs_dir`              | '/etc/haproxy/conf.d'        | String       | Configurations dir path                |
-| `manala_haproxy_configs_defaults`         | {}                           | Array        | Configuration defaults                 |
-| `manala_haproxy_configs`                  | []                           | Array        | Configurations                         |
-| `manala_haproxy_environment_file`         | '/etc/default/haproxy'       | String       | Environment file path                  |
-| `manala_haproxy_environment_template`     | 'environment/_default.j2'    | String       | Environment base template              |
-| `manala_haproxy_environment`              | ~                            | Array/String | Environment directives                 |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -144,13 +108,16 @@ manala_haproxy_configs:
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.haproxy
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.haproxy
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

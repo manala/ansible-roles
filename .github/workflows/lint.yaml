@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker cache
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
+          restore-keys: |
+            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
+      - name: Env
+        run: |
+          cp .env.dist .env
+      - name: Lint
+        run: |
+          make lint VERBOSE=1

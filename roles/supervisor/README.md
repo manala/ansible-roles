@@ -1,14 +1,12 @@
-# Ansible Role: Supervisor [![Build Status](https://travis-ci.org/manala/ansible-role-supervisor.svg?branch=master)](https://travis-ci.org/manala/ansible-role-supervisor)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Supervisor
 
 This role will deal with the setup of [Supervisor](http://supervisord.org/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
-This role is made to work with the __manala__ supervisor debian package, available on the __manala__ debian repository. Please use the [**manala.apt**](https://galaxy.ansible.com/manala/apt/) role to handle it properly.
+This role is made to work with the __manala__ supervisor debian package, available on the __manala__ debian repository. Please use the [**manala.roles.apt**](../apt/) role to handle it properly.
 
 ```yaml
 manala_apt_preferences:
@@ -21,40 +19,11 @@ None.
 
 ## Installation
 
-### Ansible 2+
-
-Using ansible galaxy cli:
-
-```bash
-ansible-galaxy install manala.supervisor
-```
-
-Using ansible galaxy requirements file:
-
-```yaml
-- src: manala.supervisor
-```
-
-## Role Handlers
-
-| Name                 | Type    | Description                |
-| -------------------- | ------- | -------------------------- |
-| `supervisor restart` | Service | Restart supervisor service |
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
 
 ## Role Variables
 
-| Name                                         | Default                            | Type         | Description                                           |
-| -------------------------------------------- | ---------------------------------- | ------------ | ----------------------------------------------------- |
-| `manala_supervisor_install_packages`         | ~                                  | Array        | Dependency packages to install                        |
-| `manala_supervisor_install_packages_default` | ['supervisor']                     | Array        | Default dependency packages to install                |
-| `manala_supervisor_config_file`              | '/etc/supervisor/supervisord.conf' | String       | Main configuration file path                          |
-| `manala_supervisor_config_template`          | 'config/_default.j2'               | String       | Main configuration template path                      |
-| `manala_supervisor_config`                   | ~                                  | Array/String | Main configuration directives                         |
-| `manala_supervisor_configs_exclusive`        | false                              | Boolean      | Exclusion of existing files additional configurations |
-| `manala_supervisor_configs_dir`              | '/etc/supervisor/conf.d'           | String       | Additional configurations directory path              |
-| `manala_supervisor_configs_defaults`         | {}                                 | Array        | Additional configurations defaults                    |
-| `manala_supervisor_configs`                  | []                                 | Array        | Additional configurations directives                  |
-| `manala_supervisor_log_dir`                  | '/var/log/supervisor'              | String       | Log directory path                                    |
+You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
 
 ### Configuration example
 
@@ -91,12 +60,6 @@ manala_supervisor_config: |
   ...
 ```
 
-Use dict's array parameters (deprecated):
-```yaml
-manala_supervisor_config:
-  - loglevel: info
-```
-
 Enable http server:
 ```yaml
 manala_supervisor_configs:
@@ -130,13 +93,6 @@ manala_supervisor_configs:
     config: |
       [program:foo]
       command=/bin/foo
-  - file: foo_dicts_array.conf # Deprecated
-    config:
-      - foo:
-        - command: bar
-        - environment:
-            FOO: bar
-            BAR: 12
   # Ensure config is absent
   - file: absent.conf
     state: absent # "present" by default
@@ -167,13 +123,16 @@ manala_supervisor_configs_exclusive: true
 
 ```yaml
 - hosts: servers
-  roles:
-    - role: manala.supervisor
+  tasks:
+    - ansible.builtin.import_role:  
+        name: manala.roles.supervisor
 ```
 
-# Licence
+# Licencing
 
-MIT
+This collection is distributed under the MIT license.
+
+See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
 
 # Author information
 

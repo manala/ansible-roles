@@ -1,6 +1,10 @@
 ---
 
-- name: shorewall restart
-  service:
-    name:  shorewall
+- name: Restart shorewall
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - shorewall
+  # Deprecated
+  listen: shorewall restart

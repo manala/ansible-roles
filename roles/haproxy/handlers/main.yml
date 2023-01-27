@@ -1,11 +1,19 @@
 ---
 
-- name: haproxy reload
-  service:
-    name: haproxy
+- name: Reload haproxy
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: reloaded
+  loop:
+    - haproxy
+  # Deprecated
+  listen: haproxy reload
 
-- name: haproxy restart
-  service:
-    name: haproxy
+- name: Restart haproxy
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - haproxy
+  # Deprecated
+  listen: haproxy restart

@@ -1,6 +1,6 @@
 {%- set config = {
   'Host *': {},
-} | combine(manala_ssh_client_config|default({}, true)) %}
+} | combine(manala_ssh_client_config | default({}, true)) %}
 
 # This is the ssh client system-wide configuration file.  See
 # ssh_config(5) for more information.  This file provides defaults for
@@ -19,81 +19,81 @@
 # list of available options, their meanings and defaults, please see the
 # ssh_config(5) man page.
 
-{{ config | manala_ssh_config_parameter('Include', default='/etc/ssh/ssh_config.d/*.conf') }}
+{{ config | manala.roles.ssh_config_parameter('Include', default='/etc/ssh/ssh_config.d/*.conf') }}
 
 Host *
 {% if 'ForwardAgent' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('ForwardAgent') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('ForwardAgent') | indent(4) }}
 {% else %}
 #   ForwardAgent no
 {% endif %}
 {% if 'ForwardX11' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('ForwardX11') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('ForwardX11') | indent(4) }}
 {% else %}
 #   ForwardX11 no
 {% endif %}
 {% if 'ForwardX11Trusted' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('ForwardX11Trusted') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('ForwardX11Trusted') | indent(4) }}
 {% else %}
 #   ForwardX11Trusted yes
 {% endif %}
 {% if 'PasswordAuthentication' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('PasswordAuthentication') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('PasswordAuthentication') | indent(4) }}
 {% else %}
 #   PasswordAuthentication yes
 {% endif %}
 {% if 'HostbasedAuthentication' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('HostbasedAuthentication') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('HostbasedAuthentication') | indent(4) }}
 {% else %}
 #   HostbasedAuthentication no
 {% endif %}
 {% if 'GSSAPIAuthentication' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('GSSAPIAuthentication') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('GSSAPIAuthentication') | indent(4) }}
 {% else %}
 #   GSSAPIAuthentication no
 {% endif %}
 {% if 'GSSAPIDelegateCredentials' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('GSSAPIDelegateCredentials') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('GSSAPIDelegateCredentials') | indent(4) }}
 {% else %}
 #   GSSAPIDelegateCredentials no
 {% endif %}
 {% if 'GSSAPIKeyExchange' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('GSSAPIKeyExchange') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('GSSAPIKeyExchange') | indent(4) }}
 {% else %}
 #   GSSAPIKeyExchange no
 {% endif %}
 {% if 'GSSAPITrustDNS' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('GSSAPITrustDNS') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('GSSAPITrustDNS') | indent(4) }}
 {% else %}
 #   GSSAPITrustDNS no
 {% endif %}
 {% if 'BatchMode' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('BatchMode') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('BatchMode') | indent(4) }}
 {% else %}
 #   BatchMode no
 {% endif %}
 {% if 'CheckHostIP' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('CheckHostIP') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('CheckHostIP') | indent(4) }}
 {% else %}
 #   CheckHostIP yes
 {% endif %}
 {% if 'AddressFamily' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('AddressFamily') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('AddressFamily') | indent(4) }}
 {% else %}
 #   AddressFamily any
 {% endif %}
 {% if 'ConnectTimeout' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('ConnectTimeout') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('ConnectTimeout') | indent(4) }}
 {% else %}
 #   ConnectTimeout 0
 {% endif %}
 {% if 'StrictHostKeyChecking' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('StrictHostKeyChecking') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('StrictHostKeyChecking') | indent(4) }}
 {% else %}
 #   StrictHostKeyChecking ask
 {% endif %}
 {% if 'IdentityFile' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('IdentityFile') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('IdentityFile') | indent(4) }}
 {% else %}
 #   IdentityFile ~/.ssh/id_rsa
 #   IdentityFile ~/.ssh/id_dsa
@@ -101,64 +101,64 @@ Host *
 #   IdentityFile ~/.ssh/id_ed25519
 {% endif %}
 {% if 'ForwardAgent' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('ForwardAgent') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('ForwardAgent') | indent(4) }}
 {% else %}
 #   Port 22
 {% endif %}
 {% if 'Ciphers' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('Ciphers') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('Ciphers') | indent(4) }}
 {% else %}
 #   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc
 {% endif %}
 {% if 'MACs' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('MACs') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('MACs') | indent(4) }}
 {% else %}
 #   MACs hmac-md5,hmac-sha1,umac-64@openssh.com
 {% endif %}
 {% if 'EscapeChar' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('EscapeChar') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('EscapeChar') | indent(4) }}
 {% else %}
 #   EscapeChar ~
 {% endif %}
 {% if 'Tunnel' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('Tunnel') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('Tunnel') | indent(4) }}
 {% else %}
 #   Tunnel no
 {% endif %}
 {% if 'TunnelDevice' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('TunnelDevice') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('TunnelDevice') | indent(4) }}
 {% else %}
 #   TunnelDevice any:any
 {% endif %}
 {% if 'PermitLocalCommand' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('PermitLocalCommand') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('PermitLocalCommand') | indent(4) }}
 {% else %}
 #   PermitLocalCommand no
 {% endif %}
 {% if 'VisualHostKey' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('VisualHostKey') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('VisualHostKey') | indent(4) }}
 {% else %}
 #   VisualHostKey no
 {% endif %}
 {% if 'ProxyCommand' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('ProxyCommand') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('ProxyCommand') | indent(4) }}
 {% else %}
 #   ProxyCommand ssh -q -W %h:%p gateway.example.com
 {% endif %}
 {% if 'RekeyLimit' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('RekeyLimit') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('RekeyLimit') | indent(4) }}
 {% else %}
 #   RekeyLimit 1G 1h
 {% endif %}
 {% if 'UserKnownHostsFile' in config['Host *'] %}
-    {{ config['Host *'] | manala_ssh_config_parameter('UserKnownHostsFile') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('UserKnownHostsFile') | indent(4) }}
 {% else %}
 #   UserKnownHostsFile ~/.ssh/known_hosts.d/%k
 {% endif %}
-    {{ config['Host *'] | manala_ssh_config_parameter('SendEnv', default='LANG LC_*') | indent(4) }}
-    {{ config['Host *'] | manala_ssh_config_parameter('HashKnownHosts', default=True) | indent(4) }}
-    {{ config['Host *'] | manala_ssh_config_parameter('GSSAPIAuthentication', default=True) | indent(4) }}
-    {{- config['Host *'] | manala_ssh_config_section(exclude=[
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('SendEnv', default='LANG LC_*') | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('HashKnownHosts', default=True) | indent(4) }}
+    {{ config['Host *'] | manala.roles.ssh_config_parameter('GSSAPIAuthentication', default=True) | indent(4) }}
+    {{- config['Host *'] | manala.roles.ssh_config_section(exclude=[
       'ForwardAgent',
       'ForwardX11',
       'ForwardX11Trusted',
@@ -190,4 +190,4 @@ Host *
       'GSSAPIAuthentication',
     ]) | indent(4) }}
 
-{{ config | manala_ssh_config(exclude=['Include', 'Host *']) }}
+{{ config | manala.roles.ssh_config(exclude=['Include', 'Host *']) }}

@@ -1,13 +1,13 @@
 ---
 
-- name: config > Template
-  template:
-    src: "{{ manala_supervisor_config_template|default('config/_default.j2', true) }}"
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_supervisor_config_template | default('config/_default.j2', true) }}"
     dest: "{{ manala_supervisor_config_file }}"
     owner: root
     group: root
     mode: "0644"
   when: manala_supervisor_config_template
-        or manala_supervisor_config
+    or manala_supervisor_config
   notify:
-    - supervisor restart
+    - Restart supervisor

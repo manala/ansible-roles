@@ -1,6 +1,10 @@
 ---
 
-- name: proftpd restart
-  service:
-    name: proftpd
+- name: Restart proftpd
+  ansible.builtin.service:
+    name: "{{ item }}"
     state: restarted
+  loop:
+    - proftpd
+  # Deprecated
+  listen: proftpd restart

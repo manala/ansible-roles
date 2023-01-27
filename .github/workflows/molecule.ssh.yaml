@@ -1,0 +1,28 @@
+name: Molecule - Ssh
+
+on:
+  pull_request:
+    paths:
+      - .manala.yaml
+      - .github/workflows/molecule.ssh.yml
+      - .config/molecule/config.yml
+      - molecule/Dockerfile.*
+      - molecule/ssh/**
+      - roles/ssh/**
+      # Plugins
+      - plugins/filter/ssh_config.py
+      - plugins/lookup/ssh_known_hosts.py
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: Run with tmate debugging
+        required: false
+        default: false
+
+jobs:
+  ssh:
+    uses: ./.github/workflows/molecule.yaml
+    with:
+      debug: ${{ inputs.debug == true }}
+      scenario: ssh
