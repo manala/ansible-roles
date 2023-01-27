@@ -377,7 +377,7 @@ manala_apt_keys_patterns:
     id: 8ECCE87C
   influxdata:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id: D8FF8E1F7DF8B07E
+    id: 7DF8B07E
   yarn:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
     id: 86E50310
