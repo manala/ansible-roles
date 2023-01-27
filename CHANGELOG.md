@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Fixed
 - [Apt] Update grafana key
+- [Apt] Update influxdb key
 
 ## [3.2.0] - 2023-01-09
 ### Added
