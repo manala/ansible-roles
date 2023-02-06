@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.3.0] - 2023-02-06
 ### Changed
 - [All] Update minimum version of ansible to 2.14
 
