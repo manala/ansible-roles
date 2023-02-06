@@ -1,7 +1,8 @@
 ---
 
-- name: Requirements > Git check  # noqa command-instead-of-module
-  ansible.builtin.command: git --version
+- name: Requirements > Git check
+  ansible.builtin.command:  # noqa command-instead-of-module
+    cmd: git --version
   check_mode: false
   failed_when: false
   changed_when: false
@@ -13,7 +14,8 @@
   when: __manala_git_check_output.rc != 0
 
 - name: Requirements > Zsh check
-  ansible.builtin.command: zsh --version
+  ansible.builtin.command:
+    cmd: zsh --version
   check_mode: false
   failed_when: false
   changed_when: false

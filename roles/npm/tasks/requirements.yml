@@ -1,7 +1,8 @@
 ---
 
 - name: Requirements > Node check
-  ansible.builtin.command: node --version
+  ansible.builtin.command:
+    cmd: node --version
   check_mode: false
   failed_when: false
   changed_when: false

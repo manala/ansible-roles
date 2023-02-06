@@ -1,11 +1,13 @@
 ---
 
 - name: Reconfigure gitlab
-  ansible.builtin.command: gitlab-ctl reconfigure
+  ansible.builtin.command:
+    cmd: gitlab-ctl reconfigure
   # Deprecated
   listen: gitlab reconfigure
 
 - name: Restart gitlab
-  ansible.builtin.command: gitlab-ctl restart
+  ansible.builtin.command:
+    cmd: gitlab-ctl restart
   # Deprecated
   listen: gitlab restart

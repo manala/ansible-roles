@@ -75,43 +75,45 @@
 
     # Use dpkg-query to find out installed packages
     - name: Install > Exclusive - Find packages
-      ansible.builtin.command: >
-        dpkg-query
-        --showformat "${Status}    ${binary:Package}\n"
-        --show "php*"
+      ansible.builtin.command:
+        cmd: >
+          dpkg-query
+          --showformat "${Status}    ${binary:Package}\n"
+          --show "php*"
       register: __manala_php_install_packages_presents
       check_mode: false
       changed_when: false
 
     # Use debfoster to find out each package dependencies
-    - name: Install > Exclusive - Find packages dependencies  # noqa risky-shell-pipe
-      ansible.builtin.shell: |
-        for package in {{
-          query(
-            'manala.roles.php_packages',
-            (
-              query(
-                'manala.roles.php_sapis',
-                manala_php_sapis | default(manala_php_sapis_default, True),
-                manala_php_sapis_available,
-                wantstate='present',
-                wantmap=true
-              )
-              + query(
-                'manala.roles.php_extensions',
-                manala_php_extensions,
-                manala_php_extensions_available,
-                manala_php_sapis_available,
-                wantstate='present',
-                wantmap=true
-              )
-            ),
-            manala_php_version | string | escape
-          ) | join(' ')
-        }}
-        do
-           debfoster --quiet --option UseRecommends=no --show-depends $package
-        done
+    - name: Install > Exclusive - Find packages dependencies
+      ansible.builtin.shell:  # noqa risky-shell-pipe
+        cmd: |
+          for package in {{
+            query(
+              'manala.roles.php_packages',
+              (
+                query(
+                  'manala.roles.php_sapis',
+                  manala_php_sapis | default(manala_php_sapis_default, True),
+                  manala_php_sapis_available,
+                  wantstate='present',
+                  wantmap=true
+                )
+                + query(
+                  'manala.roles.php_extensions',
+                  manala_php_extensions,
+                  manala_php_extensions_available,
+                  manala_php_sapis_available,
+                  wantstate='present',
+                  wantmap=true
+                )
+              ),
+              manala_php_version | string | escape
+            ) | join(' ')
+          }}
+          do
+            debfoster --quiet --option UseRecommends=no --show-depends $package
+          done
       register: __manala_php_install_packages_dependencies
       check_mode: false
       changed_when: false

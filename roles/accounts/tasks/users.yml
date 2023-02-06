@@ -46,8 +46,8 @@
 
 # Find the primary group of users whose group has not been manually defined
 - name: Users > Find primary groups
-  ansible.builtin.command: >
-    id -g -n {{ item.user }}
+  ansible.builtin.command:
+    cmd: id -g -n {{ item.user }}
   loop: "{{
     manala_accounts_users
       | flatten
@@ -111,22 +111,23 @@
     } }}"
 
 - name: Users > Gpg keys
-  ansible.builtin.command: >
-    su {{ item.0.0.user }} -c '
-      {%- if item.1 == 'public' -%}
-        gpg --list-keys {{ item.0.1.key }} || echo "{{ item.0.1.public }}" \
-          | gpg --import
-        {%- if item.0.1.trust | default(False) -%}{{- ' ' -}}
-          && echo "{{ item.0.1.public }}" \
-            | gpg --keyid-format long --with-fingerprint --with-colons - \
-            | sed -E -n -e "s/^fpr:::::::::([0-9A-F]+):$/\\1:6:/p" \
-            | gpg --import-ownertrust
+  ansible.builtin.command:
+    cmd: >
+      su {{ item.0.0.user }} -c '
+        {%- if item.1 == 'public' -%}
+          gpg --list-keys {{ item.0.1.key }} || echo "{{ item.0.1.public }}" \
+            | gpg --import
+          {%- if item.0.1.trust | default(False) -%}{{- ' ' -}}
+            && echo "{{ item.0.1.public }}" \
+              | gpg --keyid-format long --with-fingerprint --with-colons - \
+              | sed -E -n -e "s/^fpr:::::::::([0-9A-F]+):$/\\1:6:/p" \
+              | gpg --import-ownertrust
+          {%- endif -%}
+        {%- else -%}
+          gpg --list-secret-keys {{ item.0.1.key }} || echo "{{ item.0.1.secret }}" \
+            | gpg --import --allow-secret-key-import
         {%- endif -%}
-      {%- else -%}
-        gpg --list-secret-keys {{ item.0.1.key }} || echo "{{ item.0.1.secret }}" \
-          | gpg --import --allow-secret-key-import
-      {%- endif -%}
-    '
+      '
   when: item.0.1[item.1] is defined
   register: __manala_accounts_users_gpg_keys
   changed_when:

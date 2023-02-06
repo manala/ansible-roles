@@ -1,8 +1,9 @@
 ---
 
-- name: Update > Pull  # noqa risky-shell-pipe
-  ansible.builtin.shell: |
-    docker images \
-      | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \
-      | xargs --max-args=1 --max-lines=1 --no-run-if-empty docker pull
+- name: Update > Pull
+  ansible.builtin.shell:  # noqa risky-shell-pipe
+    cmd: |
+      docker images \
+        | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \
+        | xargs --max-args=1 --max-lines=1 --no-run-if-empty docker pull
   changed_when: false

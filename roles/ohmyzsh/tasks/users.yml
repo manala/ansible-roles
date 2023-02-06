@@ -2,8 +2,8 @@
 
 # Find the primary group of users whose group has not been manually defined
 - name: Users > Find primary groups
-  ansible.builtin.command: >
-    id -g -n {{ item.user }}
+  ansible.builtin.command:
+    cmd: id -g -n {{ item.user }}
   loop: "{{
     manala_ohmyzsh_users
       | flatten

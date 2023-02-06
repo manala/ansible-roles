@@ -18,7 +18,8 @@
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: Tasks / Install Composer > Install
-      ansible.builtin.command: "php /tmp/installer --install-dir=\"{{ item.shared_dir }}\" --filename=\"composer\" --disable-tls"
+      ansible.builtin.command:
+        cmd: "php /tmp/installer --install-dir=\"{{ item.shared_dir }}\" --filename=\"composer\" --disable-tls"
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: Tasks / Install Composer > Remove installer
@@ -28,7 +29,8 @@
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
 
     - name: Tasks / Install Composer > Self update
-      ansible.builtin.command: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
+      ansible.builtin.command:
+        cmd: "{{ item.shared_dir }}/composer selfupdate --no-interaction"
       when: __manala_deploy_composer_bin_stat_result.stat.exists
       register: __manala_deploy_composer_self_update_result
       changed_when: __manala_deploy_composer_self_update_result.stderr | search('Updating')

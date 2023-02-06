@@ -1,8 +1,8 @@
 ---
 
 - name: Restart php fpm
-  ansible.builtin.command: >
-    /usr/sbin/php-fpm{{ manala_php_version | string }} -t
+  ansible.builtin.command:
+    cmd: /usr/sbin/php-fpm{{ manala_php_version | string }} -t
   when: |
     'fpm' in query(
       'manala.roles.php_sapis',

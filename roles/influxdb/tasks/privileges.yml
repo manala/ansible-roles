@@ -1,6 +1,7 @@
 ---
 
 - name: Privileges > Setup Influx privileges
-  ansible.builtin.command: "{{ manala_influxdb_influx_bin }} -execute 'GRANT {{ item.grant }} ON \"{{ item.database }}\" TO \"{{ item.user }}\"'"
+  ansible.builtin.command:
+    cmd: "{{ manala_influxdb_influx_bin }} -execute 'GRANT {{ item.grant }} ON \"{{ item.database }}\" TO \"{{ item.user }}\"'"
   loop: "{{ manala_influxdb_privileges }}"
   changed_when: false
