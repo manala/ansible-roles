@@ -7,8 +7,8 @@
 - vars:
     tests_dir: /tmp/integration/files_attributes/touch
   block:  # noqa name[missing]
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]

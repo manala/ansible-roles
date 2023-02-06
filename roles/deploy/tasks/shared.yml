@@ -12,8 +12,8 @@
   register: __manala_deploy_shared_files_stats_output
   loop: "{{ manala_deploy_shared_files }}"
 
-- name: Shared > Ensure shared directories files are present  # noqa risky-file-permissions
-  ansible.builtin.file:
+- name: Shared > Ensure shared directories files are present
+  ansible.builtin.file:  # noqa risky-file-permissions
     path: "{{ (deploy_helper.shared_path ~ '/' ~ item) | dirname }}"
     state: directory
   loop: "{{ manala_deploy_shared_files | flatten }}"
@@ -21,8 +21,8 @@
     index_var: index
   when: not __manala_deploy_shared_files_stats_output.results[index].stat.exists
 
-- name: Shared > Ensure shared files are present  # noqa risky-file-permissions
-  ansible.builtin.file:
+- name: Shared > Ensure shared files are present
+  ansible.builtin.file:  # noqa risky-file-permissions
     path: "{{ deploy_helper.shared_path ~ '/' ~ item }}"
     state: touch
   loop: "{{ manala_deploy_shared_files | flatten }}"
@@ -30,8 +30,8 @@
     index_var: index
   when: not __manala_deploy_shared_files_stats_output.results[index].stat.exists
 
-- name: Shared > Ensure shared dirs are present  # noqa risky-file-permissions
-  ansible.builtin.file:
+- name: Shared > Ensure shared dirs are present
+  ansible.builtin.file:  # noqa risky-file-permissions
     path: "{{ deploy_helper.shared_path ~ '/' ~ item }}"
     state: directory
     follow: true

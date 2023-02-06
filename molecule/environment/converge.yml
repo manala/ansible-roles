@@ -10,28 +10,28 @@
   vars:
     tests_dir: /molecule/environment/default
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - name: Pam file   # noqa risky-file-permissions
-      ansible.builtin.copy:
+    - name: Pam file
+      ansible.builtin.copy:  # noqa risky-file-permissions
         dest: /etc/environment
         content: |
           _FOO="bar"
           _BAR="123"
-    - name: Zsh directory   # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Zsh directory
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: /etc/zsh
         state: directory
-    - name: Zsh file   # noqa risky-file-permissions
-      ansible.builtin.copy:
+    - name: Zsh file
+      ansible.builtin.copy:  # noqa risky-file-permissions
         dest: /etc/zsh/zshenv
         content: |
           # /etc/zsh/zshenv
-    - name: File   # noqa risky-file-permissions
-      ansible.builtin.copy:
+    - name: File
+      ansible.builtin.copy:  # noqa risky-file-permissions
         dest: "{{ tests_dir }}/file"
         content: |
           # {{ tests_dir }}/file

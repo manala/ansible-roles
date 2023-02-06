@@ -25,14 +25,18 @@ if [ -t 1 ]; then
 fi
 
 # Home cache
-HOME_DIR=${CACHE_DIR}/home
-if [ ! -d "${HOME_DIR}" ]; then
+if [ -n "${CACHE_DIR}" ]; then
+  HOME_DIR=${CACHE_DIR}/home
+  if [ ! -d "${HOME_DIR}" ]; then
     cp --archive /home/lazy/. "${HOME_DIR}"
+  fi
+  usermod --home "${HOME_DIR}" lazy 2>/dev/null
 fi
-usermod --home "${HOME_DIR}" lazy 2>/dev/null
 
 # Templates
-GOMPLATE_LOG_FORMAT=simple gomplate --input-dir=.manala/templates --output-dir=/etc 2>/dev/null
+if [ -d ".manala/etc" ]; then
+  GOMPLATE_LOG_FORMAT=simple gomplate --input-dir=.manala/etc --output-dir=/etc 2>/dev/null
+fi
 
 # Services
 if [ $# -eq 0 ] && [ -d "/etc/services" ]; then

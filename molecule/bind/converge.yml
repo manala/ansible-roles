@@ -10,8 +10,8 @@
   vars:
     tests_dir: /molecule/bind/default
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
@@ -38,8 +38,8 @@
   vars:
     tests_file: /molecule/bind/options
   tasks:
-    - name: Clean tests file  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests file
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_file }}"
         state: "{{ item }}"
       loop: [absent, touch]
@@ -69,13 +69,13 @@
   vars:
     tests_dir: /molecule/bind/configs
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - name: Touch existing files  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [state_absent_existing]
@@ -114,13 +114,13 @@
   vars:
     tests_dir: /molecule/bind/zones
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - name: Touch existing files  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [db.state_absent_existing, db.dynamic_existing]

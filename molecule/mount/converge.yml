@@ -10,12 +10,12 @@
   vars:
     tests_dir: /molecule/mount/points
   tasks:
-    - name: Directory  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Directory
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/directory"
         state: directory
-    - name: File  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: File
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/directory/file"
         state: touch
     - block:  # noqa name[missing]

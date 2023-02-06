@@ -1,12 +1,12 @@
 FROM {{ item.image }}
 
 # Versions
-ENV GOSS_VERSION=0.3.20
+ENV GOSS_VERSION=0.3.21
 
 # System
 RUN \
-    apt-get update \
-    && apt-get install --yes --no-install-recommends \
+    apt-get --quiet update \
+    && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
         curl ca-certificates \
         gnupg \
         procps \
@@ -15,6 +15,8 @@ RUN \
     # Bash
     && sed -i -e '/PS1=/s/\\h/\\H/' /etc/bash.bashrc \
     # Goss
-    && curl -sSL https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-$(dpkg --print-architecture) \
-        -o /usr/local/bin/goss \
-    && chmod +x /usr/local/bin/goss
+    && curl -sSL "https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-$(dpkg --print-architecture)" \
+        --output /usr/local/bin/goss \
+    && chmod +x /usr/local/bin/goss \
+    # Clean
+    && rm -rf /var/lib/apt/lists/*

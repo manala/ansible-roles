@@ -11,16 +11,16 @@
     tests_dir: /molecule/files/defaults
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
@@ -64,16 +64,16 @@
     tests_dir: /molecule/files/file
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
@@ -101,8 +101,8 @@
                 msg: A planned error has been caught...
         # File already exists as empty directory
         - block:  # noqa name[missing]
-            - name: Directories  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directories
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
@@ -122,16 +122,16 @@
                 msg: A planned error has been caught...
         # File already exists as full directory
         - block:  # noqa name[missing]
-            - name: Directories  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directories
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - file_directory_full
                 - file_directory_full/file_force
                 - file_directory_full/file
-            - name: Files  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Files
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
@@ -150,16 +150,16 @@
                 msg: A planned error has been caught...
         # File already exists as link to file
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/file_link_file"
                 state: directory
-            - name: File  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: File
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/file_link_file/link_file"
                 state: touch
-            - name: Links  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Links
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/file_link_file/link_file"
                 state: link
@@ -176,15 +176,15 @@
                   - path: "{{ tests_dir }}/file_link_file/file"
         # File already exists as link to directory
         - block:  # noqa name[missing]
-            - name: Directories  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directories
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - file_link_directory
                 - file_link_directory/link_file
-            - name: Links  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Links
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/file_link_directory/link_file"
                 state: link
@@ -220,24 +220,24 @@
     tests_dir: /molecule/files/link
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - name: File  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: File
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/file"
         state: touch
-    - name: Directory  # noqa risky-file-permissions
-      ansible.builtin.file:
+    - name: Directory
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}/directory"
         state: directory
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
@@ -288,12 +288,12 @@
                 msg: A planned error has been caught...
         # Wrong
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/wrong"
                 state: directory
-            - name: Link  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Link
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/wrong/link"
                 src: "{{ tests_dir }}/file"
                 state: link
@@ -307,12 +307,12 @@
                     state: link
         # Link already exists as file
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/link_file"
                 state: directory
-            - name: Files  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Files
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
@@ -335,8 +335,8 @@
                 msg: A planned error has been caught...
         # Link already exists as empty directory
         - block:  # noqa name[missing]
-            - name: Directories  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directories
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
@@ -360,16 +360,16 @@
                 msg: A planned error has been caught...
         # Link already exists as full directory
         - block:  # noqa name[missing]
-            - name: Directories  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directories
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - link_directory_full
                 - link_directory_full/link_force
                 - link_directory_full/link
-            - name: Files  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Files
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
@@ -408,16 +408,16 @@
     tests_dir: /molecule/files/directory
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: File  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: File
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
@@ -429,12 +429,12 @@
                     state: directory
         # Directory already exists as file
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/directory_file"
                 state: directory
-            - name: Files  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Files
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: touch
               loop:
@@ -455,16 +455,16 @@
                 msg: A planned error has been caught...
         # Directory already exists as link to file
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/directory_link_file"
                 state: directory
-            - name: File  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: File
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/directory_link_file/link_file"
                 state: touch
-            - name: Link  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Link
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/directory_link_file/link_file"
                 state: link
@@ -486,15 +486,15 @@
                 msg: A planned error has been caught...
         # Directory already exists as link to directory
         - block:  # noqa name[missing]
-            - name: Directories  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directories
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 state: directory
               loop:
                 - directory_link_directory
                 - directory_link_directory/link_directory
-            - name: Links  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Links
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/{{ item }}"
                 src: "{{ tests_dir }}/directory_link_directory/link_directory"
                 state: link
@@ -529,19 +529,19 @@
     tests_dir: /molecule/files/copy
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
-        - name: Directory  # noqa risky-file-permissions
-          ansible.builtin.file:
+        - name: Directory
+          ansible.builtin.file:  # noqa risky-file-permissions
             path: "{{ tests_dir }}/default"
             state: directory
-        - name: File  # noqa risky-file-permissions
-          ansible.builtin.file:
+        - name: File
+          ansible.builtin.file:  # noqa risky-file-permissions
             path: "{{ tests_dir }}/default/absent"
             state: touch
         - block:  # noqa name[missing]
@@ -579,16 +579,16 @@
     tests_dir: /molecule/files/url
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
@@ -622,20 +622,20 @@
     tests_dir: /molecule/files/content
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
-            - name: File  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: File
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default/absent"
                 state: touch
             - name: Role
@@ -697,20 +697,20 @@
     tests_dir: /molecule/files/template
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
-            - name: File  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: File
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default/absent"
                 state: touch
             - name: Role
@@ -767,16 +767,16 @@
     tests_dir: /molecule/files/link_directory
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
@@ -816,16 +816,16 @@
     tests_dir: /molecule/files/link_file
   gather_facts: false
   tasks:
-    - name: Clean tests dir  # noqa risky-file-permissions args[module]
-      ansible.builtin.file:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - block:  # noqa name[missing]
         # Default
         - block:  # noqa name[missing]
-            - name: Directory  # noqa risky-file-permissions
-              ansible.builtin.file:
+            - name: Directory
+              ansible.builtin.file:  # noqa risky-file-permissions
                 path: "{{ tests_dir }}/default"
                 state: directory
             - name: Role
