@@ -35,7 +35,8 @@
     - __manala_timezone_default_localtime.stat.islnk
   register: __manala_timezone_default_link_result
 
-- name: Default > Reconfigure tzdata  # noqa no-handler
-  ansible.builtin.command: dpkg-reconfigure --frontend noninteractive tzdata
+- name: Default > Reconfigure tzdata
+  ansible.builtin.command:  # noqa no-handler
+    cmd: dpkg-reconfigure --frontend noninteractive tzdata
   when: __manala_timezone_default_content_result | default({}) is changed
     or __manala_timezone_default_link_result | default({}) is changed

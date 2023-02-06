@@ -1,7 +1,8 @@
 ---
 
 - name: Restart nginx
-  ansible.builtin.command: nginx -t
+  ansible.builtin.command:
+    cmd: nginx -t
   changed_when: true
   notify:
     - Do restart nginx

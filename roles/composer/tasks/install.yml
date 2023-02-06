@@ -10,8 +10,8 @@
     - "{{ manala_composer_install_packages | default(manala_composer_install_packages_default, True) }}"
 
 - name: Install > Check
-  ansible.builtin.command: >
-    {{ manala_composer_bin }} --version --no-interaction
+  ansible.builtin.command:
+    cmd: "{{ manala_composer_bin }} --version --no-interaction"
   register: __manala_composer_bin_check_result
   changed_when: false
   failed_when: false

@@ -1,6 +1,7 @@
 ---
 
 - name: Databases > Create Influx databases
-  ansible.builtin.command: "{{ manala_influxdb_influx_bin }} -execute 'CREATE DATABASE \"{{ item }}\"'"
+  ansible.builtin.command:
+    cmd: "{{ manala_influxdb_influx_bin }} -execute 'CREATE DATABASE \"{{ item }}\"'"
   loop: "{{ manala_influxdb_databases }}"
   changed_when: false

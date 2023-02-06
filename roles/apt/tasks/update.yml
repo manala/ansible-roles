@@ -1,18 +1,20 @@
 ---
 
-- name: Update > Backup package marks  # noqa risky-shell-pipe no-tabs
-  ansible.builtin.shell: >
-    dpkg --get-selections {{ item }}
-    | cut -f 2-
-    | tr -d '\t'
+- name: Update > Backup package marks
+  ansible.builtin.shell:  # noqa risky-shell-pipe no-tabs
+    cmd: >
+      dpkg --get-selections {{ item }}
+      | cut -f 2-
+      | tr -d '\t'
   changed_when: false
   loop: "{{ manala_apt_update_holds }}"
   register: __manala_apt_update_marks_results
 
-- name: Update > Hold packages  # noqa risky-shell-pipe
-  ansible.builtin.shell: >
-    echo '{{ item.0 }} hold'
-    | dpkg --set-selections
+- name: Update > Hold packages
+  ansible.builtin.shell:  # noqa risky-shell-pipe
+    cmd: >
+      echo '{{ item.0 }} hold'
+      | dpkg --set-selections
   when:
     - item.1
     - item.1 != 'hold'
@@ -30,10 +32,11 @@
     upgrade: dist
     update_cache: true
 
-- name: Update > Restore package marks  # noqa risky-shell-pipe
-  ansible.builtin.shell: >
-    echo '{{ item.0 }} {{ item.1 }}'
-    | dpkg --set-selections
+- name: Update > Restore package marks
+  ansible.builtin.shell:  # noqa risky-shell-pipe
+    cmd: >
+      echo '{{ item.0 }} {{ item.1 }}'
+      | dpkg --set-selections
   when: item.1
   loop: |
     {{

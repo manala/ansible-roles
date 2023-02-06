@@ -6,7 +6,8 @@
   block:
 
     - name: Tasks / Make > {{ '"%(trg)s" in "%(dir)s"' | format(trg=item.options, dir=item.dir) }}
-      ansible.builtin.command: "make {{ item.options }}"
+      ansible.builtin.command:
+        cmd: make {{ item.options }}
       args:
         chdir: "{{ item.dir }}"
       changed_when: true

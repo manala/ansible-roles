@@ -1,7 +1,8 @@
 ---
 
 - name: Holds > Apt show holds
-  ansible.builtin.command: apt-mark showhold
+  ansible.builtin.command:
+    cmd: apt-mark showhold
   when: manala_apt_holds_exclusive
   register: __manala_apt_holds_exclusive_find
   changed_when: false
