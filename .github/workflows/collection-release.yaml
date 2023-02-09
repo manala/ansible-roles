@@ -81,6 +81,10 @@ jobs:
         with:
           name: manala-roles-${{ steps.get_version.outputs.version }}
 
+      - name: Env
+        run: |
+          cp .env.dist .env
+
       - name: Publish Collection
         id: publish_collection
         run: make collection.publish
