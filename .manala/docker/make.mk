@@ -52,6 +52,11 @@ _DOCKER_COMPOSE_ENV += MANALA_SSH_AUTH_SOCK_BIND=/run/host-services/ssh-auth.soc
 	endif
 endif
 
+# Cache
+ifneq ($(and $(MANALA_DOCKER_CACHE_FROM),$(MANALA_DOCKER_CACHE_TO)),)
+_DOCKER_COMPOSE_FILE += $(_DIR)/.manala/docker/compose/cache.yaml
+endif
+
 # Docker
 _DOCKER_COMPOSE_FILE += $(_DIR)/.manala/docker/compose/docker.yaml
 _DOCKER_COMPOSE_ENV += MANALA_DOCKER_SOCK=/var/run/docker.sock
