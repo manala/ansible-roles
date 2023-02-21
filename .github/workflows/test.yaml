@@ -8,31 +8,42 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-22.04
+    env:
+      MANALA_DOCKER_CACHE_FROM: type=gha,scope=docker
+      MANALA_DOCKER_CACHE_TO: type=gha,mode=max,scope=docker
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Docker cache
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
-          restore-keys: |
-            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
+
       - name: Env
         run: |
           cp .env.dist .env
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Expose ACTIONS_CACHE_URL & ACTIONS_RUNTIME_TOKEN
+      # to be consumed by docker github action cache
+      # See: https://docs.docker.com/build/cache/backends/gha/
+      - name: Expose GitHub Runtime
+        uses: crazy-max/ghaction-github-runtime@v2
+
       - name: Sanity
         run: |
           make test.sanity VERBOSE=1
+
       - name: Units
         run: |
           make test.units VERBOSE=1 COVERAGE=1
+
       - name: Integration
         run: |
           make test.integration VERBOSE=1 COVERAGE=1
+
       - name: Coverage
         run: |
           make test.coverage VERBOSE=1
+
       - name: Codecov
         uses: codecov/codecov-action@v2
         with:

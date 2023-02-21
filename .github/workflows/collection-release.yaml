@@ -9,6 +9,9 @@ jobs:
   collection-build:
     runs-on: ubuntu-22.04
     if: "contains(github.event.head_commit.message, 'Release')"
+    env:
+      MANALA_DOCKER_CACHE_FROM: type=gha,scope=docker
+      MANALA_DOCKER_CACHE_TO: type=gha,mode=max,scope=docker
     steps:
       - name: Notify Slack of starting
         uses: act10ns/slack@v2
@@ -28,21 +31,23 @@ jobs:
           file: ./galaxy.yml
           version: version
 
-      - name: Docker cache
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-{hash}
-          restore-keys: |
-            docker-cache-${{ hashFiles('.manala/docker/compose.yaml') }}-
-
       - name: Env
         run: |
           cp .env.dist .env
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Expose ACTIONS_CACHE_URL & ACTIONS_RUNTIME_TOKEN
+      # to be consumed by docker github action cache
+      # See: https://docs.docker.com/build/cache/backends/gha/
+      - name: Expose GitHub Runtime
+        uses: crazy-max/ghaction-github-runtime@v2
+
       - name: Build Collection
         id: build_collection
-        run: make collection.build
+        run: |
+          make collection.build
 
       - name: Create artifact from collection build
         uses: actions/upload-artifact@v3
@@ -65,6 +70,10 @@ jobs:
     needs: collection-build
     runs-on: ubuntu-22.04
     if: "contains(github.event.head_commit.message, 'Release')"
+    env:
+      MANALA_DOCKER_CACHE_FROM: type=gha,scope=docker
+      MANALA_DOCKER_CACHE_TO: type=gha,mode=max,scope=docker
+      COLLECTION_API_TOKEN: ${{ secrets.COLLECTION_API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -85,11 +94,19 @@ jobs:
         run: |
           cp .env.dist .env
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Expose ACTIONS_CACHE_URL & ACTIONS_RUNTIME_TOKEN
+      # to be consumed by docker github action cache
+      # See: https://docs.docker.com/build/cache/backends/gha/
+      - name: Expose GitHub Runtime
+        uses: crazy-max/ghaction-github-runtime@v2
+
       - name: Publish Collection
         id: publish_collection
-        run: make collection.publish
-        env:
-          COLLECTION_API_TOKEN: ${{ secrets.COLLECTION_API_TOKEN }}
+        run: |
+          make collection.publish
 
       - name: Notify Slack of job status
         uses: act10ns/slack@v2
