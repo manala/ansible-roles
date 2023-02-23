@@ -4,21 +4,21 @@
 
 .DEFAULT_GOAL := help
 
-HELP = \
-	\nUsage: make [$(COLOR_INFO)command$(COLOR_RESET)] \
-	$(call help_section, Help) \
-	$(call help,help,This help)
+MANALA_HELP = \
+	Usage: make [$(MANALA_COLOR_INFO)command$(MANALA_COLOR_RESET)] \
+	$(call manala_help_section, Help) \
+	$(call manala_help,help,This help)
 
-define help_section
-	\n\n$(COLOR_COMMENT)$(strip $(1)):$(COLOR_RESET)
+define manala_help_section
+	\n\n$(MANALA_COLOR_COMMENT)$(strip $(1)):$(MANALA_COLOR_RESET)
 endef
 
-define help
-  \n  $(COLOR_INFO)$(1)$(COLOR_RESET) $(2)
+define manala_help
+  \n  $(MANALA_COLOR_INFO)$(1)$(MANALA_COLOR_RESET) $(2)
 endef
 
 help:
-	@printf "$(HELP)$(HELP_SUFFIX)"
+	@printf "\n$(MANALA_HELP)"
 	@awk ' \
 		BEGIN { \
 			sectionsName[1] = "Commands" ; \
@@ -56,13 +56,17 @@ help:
 		END { \
 			for (i = 1; i <= sectionsCount; i++) { \
 				if (sectionsCommandCount[i]) { \
-					printf "\n\n$(COLOR_COMMENT)%s:$(COLOR_RESET)", sectionsName[i] ; \
+					printf "\n\n$(MANALA_COLOR_COMMENT)%s:$(MANALA_COLOR_RESET)", sectionsName[i] ; \
 					for (j = 1; j <= sectionsCommandCount[i]; j++) { \
-						printf "\n  $(COLOR_INFO)%-" sectionsCommandLength[i] "s$(COLOR_RESET) %s", helpsCommand[i, j], helpsMessage[i, j] ; \
+						printf "\n  $(MANALA_COLOR_INFO)%-" sectionsCommandLength[i] "s$(MANALA_COLOR_RESET) %s", helpsCommand[i, j], helpsMessage[i, j] ; \
 					} \
 				} \
 			} \
 		} \
 	' $(MAKEFILE_LIST)
 	@printf "\n\n"
+	@printf "$(if $(MANALA_HELP_PROJECT),$(MANALA_HELP_PROJECT)\n\n)"
 .PHONY: help
+
+help.project:
+	@printf "$(if $(MANALA_HELP_PROJECT),\n$(MANALA_HELP_PROJECT)\n\n)"

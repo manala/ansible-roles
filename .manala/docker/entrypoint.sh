@@ -25,8 +25,8 @@ if [ -t 1 ]; then
 fi
 
 # Home cache
-if [ -n "${CACHE_DIR}" ]; then
-  HOME_DIR=${CACHE_DIR}/home
+if [ -n "${MANALA_CACHE_DIR}" ]; then
+  HOME_DIR=${MANALA_CACHE_DIR}/home
   if [ ! -d "${HOME_DIR}" ]; then
     cp --archive /home/lazy/. "${HOME_DIR}"
   fi
@@ -39,8 +39,8 @@ if [ -d ".manala/etc" ]; then
 fi
 
 # Services
-if [ $# -eq 0 ] && [ -d "/etc/services" ]; then
-    exec s6-svscan /etc/services
+if [ $# -eq 0 ] && [ -d "/etc/services.d" ]; then
+    exec s6-svscan /etc/services.d
 fi
 
 # Command
