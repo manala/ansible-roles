@@ -8,22 +8,14 @@
 #
 # Example #1: conditions on linux
 #
-#   echo $(if $(OS_LINUX),Running on Linux,*NOT* running on Linux)
+#   echo $(if $(MANALA_OS_LINUX),Running on Linux,*NOT* running on Linux)
 
 ifeq ($(OS),Windows_NT)
-OS := windows
+MANALA_OS = windows
+MANALA_OS_WINDOWS = 1
 else
-OS := $(shell uname | tr '[:upper:]' '[:lower:]')
-endif
-
-ifeq ($(OS),linux)
-OS_LINUX := 1
-endif
-
-ifeq ($(OS),darwin)
-OS_DARWIN := 1
-endif
-
-ifeq ($(OS),windows)
-OS_WINDOWS := 1
+# See: https://make.mad-scientist.net/deferred-simple-variable-expansion/
+MANALA_OS = $(eval MANALA_OS := $$(shell uname -s | tr '[:upper:]' '[:lower:]'))$(MANALA_OS)
+MANALA_OS_LINUX = $(if $(findstring linux,$(MANALA_OS)),1)
+MANALA_OS_DARWIN = $(if $(findstring darwin,$(MANALA_OS)),1)
 endif

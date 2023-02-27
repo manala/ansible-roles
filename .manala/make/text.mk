@@ -2,21 +2,23 @@
 # Colors #
 ##########
 
-COLOR_RESET   := \033[0m
-COLOR_ERROR   := \033[31m
-COLOR_INFO    := \033[32m
-COLOR_WARNING := \033[33m
-COLOR_COMMENT := \033[36m
+MANALA_COLOR_RESET   := \033[0m
+MANALA_COLOR_ERROR   := \033[31m
+MANALA_COLOR_INFO    := \033[32m
+MANALA_COLOR_WARNING := \033[33m
+MANALA_COLOR_COMMENT := \033[36m
 
 ######################
 # Special Characters #
 ######################
 
 # Usage:
-#   $(call message, Foo$(,) bar) = Foo, bar
-#   $(call message, Foo$(rp) bar) = Foo) bar
+#   $(call manala_message, Foo$(,) bar) = Foo, bar
+#   $(call manala_message, $(lp)Foo bar) = (Foo bar
+#   $(call manala_message, Foo$(rp) bar) = Foo) bar
 
 , := ,
+lp := (
 rp := )
 
 ########
@@ -24,9 +26,9 @@ rp := )
 ########
 
 # Usage:
-#   $(call time) = 11:06:20
+#   $(call manala_time) = 11:06:20
 
-define time
+define manala_time
 `date -u +%T`
 endef
 
@@ -35,25 +37,25 @@ endef
 ###########
 
 # Usage:
-#   $(call message, Foo bar)         = Foo bar
-#   $(call message_success, Foo bar) = (っ◕‿◕)っ Foo bar
-#   $(call message_warning, Foo bar) = ¯\_(ツ)_/¯ Foo bar
-#   $(call message_error, Foo bar)   = (╯°□°)╯︵ ┻━┻ Foo bar
+#   $(call manala_message, Foo bar)         = Foo bar
+#   $(call manala_message_success, Foo bar) = (っ◕‿◕)っ Foo bar
+#   $(call manala_message_warning, Foo bar) = ¯\_(ツ)_/¯ Foo bar
+#   $(call manala_message_error, Foo bar)   = (╯°□°)╯︵ ┻━┻ Foo bar
 
-define message
-	printf "$(COLOR_INFO)$(strip $(1))$(COLOR_RESET)\n"
+define manala_message
+	printf "$(MANALA_COLOR_INFO)$(strip $(1))$(MANALA_COLOR_RESET)\n"
 endef
 
-define message_success
-	printf "$(COLOR_INFO)(っ◕‿◕)っ $(strip $(1))$(COLOR_RESET)\n"
+define manala_message_success
+	printf "$(MANALA_COLOR_INFO)(っ◕‿◕)っ $(strip $(1))$(MANALA_COLOR_RESET)\n"
 endef
 
-define message_warning
-	printf "$(COLOR_WARNING)¯\_(ツ)_/¯ $(strip $(1))$(COLOR_RESET)\n"
+define manala_message_warning
+	printf "$(MANALA_COLOR_WARNING)¯\_(ツ)_/¯ $(strip $(1))$(MANALA_COLOR_RESET)\n"
 endef
 
-define message_error
-	printf "$(COLOR_ERROR)(╯°□°)╯︵ ┻━┻ $(strip $(1))$(COLOR_RESET)\n"
+define manala_message_error
+	printf "$(MANALA_COLOR_ERROR)(╯°□°)╯︵ ┻━┻ $(strip $(1))$(MANALA_COLOR_RESET)\n"
 endef
 
 #######
@@ -61,20 +63,20 @@ endef
 #######
 
 # Usage:
-#   $(call log, Foo bar)         = [11:06:20] [target] Foo bar
-#   $(call log_warning, Foo bar) = [11:06:20] [target] ¯\_(ツ)_/¯ Foo bar
-#   $(call log_error, Foo bar)   = [11:06:20] [target] (╯°□°)╯︵ ┻━┻ Foo bar
+#   $(call manala_log, Foo bar)         = [11:06:20] [target] Foo bar
+#   $(call manala_log_warning, Foo bar) = [11:06:20] [target] ¯\_(ツ)_/¯ Foo bar
+#   $(call manala_log_error, Foo bar)   = [11:06:20] [target] (╯°□°)╯︵ ┻━┻ Foo bar
 
-define log
-	printf "[$(COLOR_COMMENT)$(call time)$(COLOR_RESET)] [$(COLOR_COMMENT)$(@)$(COLOR_RESET)] " ; $(call message, $(1))
+define manala_log
+	printf "[$(MANALA_COLOR_COMMENT)$(call manala_time)$(MANALA_COLOR_RESET)] [$(MANALA_COLOR_COMMENT)$(@)$(MANALA_COLOR_RESET)] " ; $(call manala_message, $(1))
 endef
 
-define log_warning
-	printf "[$(COLOR_COMMENT)$(call time)$(COLOR_RESET)] [$(COLOR_COMMENT)$(@)$(COLOR_RESET)] "  ; $(call message_warning, $(1))
+define manala_log_warning
+	printf "[$(MANALA_COLOR_COMMENT)$(call manala_time)$(MANALA_COLOR_RESET)] [$(MANALA_COLOR_COMMENT)$(@)$(MANALA_COLOR_RESET)] "  ; $(call manala_message_warning, $(1))
 endef
 
-define log_error
-	printf "[$(COLOR_COMMENT)$(call time)$(COLOR_RESET)] [$(COLOR_COMMENT)$(@)$(COLOR_RESET)] " ;  $(call message_error, $(1))
+define manala_log_error
+	printf "[$(MANALA_COLOR_COMMENT)$(call manala_time)$(MANALA_COLOR_RESET)] [$(MANALA_COLOR_COMMENT)$(@)$(MANALA_COLOR_RESET)] " ;  $(call manala_message_error, $(1))
 endef
 
 ###########
@@ -82,12 +84,12 @@ endef
 ###########
 
 # Usage:
-#   $(call confirm, Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
-#   $(call confirm, Bar foo, y) = ༼ つ ◕_◕ ༽つ Foo bar (Y/n):
+#   $(call manala_confirm, Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
+#   $(call manala_confirm, Bar foo, y) = ༼ つ ◕_◕ ༽つ Foo bar (Y/n):
 
-define confirm
+define manala_confirm
 	$(if $(CONFIRM),, \
-		printf "$(COLOR_INFO) ༼ つ ◕_◕ ༽つ $(COLOR_WARNING)$(strip $(1)) $(COLOR_RESET)$(COLOR_WARNING)$(if $(filter y,$(2)),(Y/n),(y/N))$(COLOR_RESET): " ; \
+		printf "$(MANALA_COLOR_INFO) ༼ つ ◕_◕ ༽つ $(MANALA_COLOR_WARNING)$(strip $(1)) $(MANALA_COLOR_RESET)$(MANALA_COLOR_WARNING)$(if $(filter y,$(2)),(Y/n),(y/N))$(MANALA_COLOR_RESET): " ; \
 		read CONFIRM ; \
 		case $$CONFIRM in $(if $(filter y,$(2)), \
 			[nN]$(rp) printf "\n" ; exit 1 ;; *$(rp) ;;, \
@@ -101,29 +103,29 @@ endef
 ################
 
 # Usage:
-#   $(call error_if_not, $(FOO), FOO has not been specified) = (╯°□°)╯︵ ┻━┻ FOO has not been specified
+#   $(call manala_error_if_not, $(FOO), FOO has not been specified) = (╯°□°)╯︵ ┻━┻ FOO has not been specified
 
-define error_if_not
+define manala_error_if_not
 	$(if $(strip $(1)),, \
-		$(call message_error, $(strip $(2))) ; exit 1 \
+		$(call manala_message_error, $(strip $(2))) ; exit 1 \
 	)
 endef
 
 # Usage:
-#   $(call confirm_if, $(FOO), Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
+#   $(call manala_confirm_if, $(FOO), Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
 
-define confirm_if
+define manala_confirm_if
 	$(if $(strip $(1)), \
-		$(call confirm, $(strip $(2)))
+		$(call manala_confirm, $(strip $(2)))
 	)
 endef
 
 # Usage:
-#   $(call confirm_if_not, $(FOO), Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
+#   $(call manala_confirm_if_not, $(FOO), Foo bar) = ༼ つ ◕_◕ ༽つ Foo bar (y/N):
 
-define confirm_if_not
+define manala_confirm_if_not
 	$(if $(strip $(1)),, \
-		$(call confirm, $(strip $(2)))
+		$(call manala_confirm, $(strip $(2)))
 	)
 endef
 
@@ -132,8 +134,8 @@ endef
 ##########
 
 # Usage:
-#   $(call rand, 8) = 8th56zp2
+#   $(call manala_rand, 8) = 8th56zp2
 
-define rand
+define manala_rand
 `cat /dev/urandom | LC_ALL=C tr -dc 'a-z0-9' | fold -w $(strip $(1)) | head -n 1`
 endef

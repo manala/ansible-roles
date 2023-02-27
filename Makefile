@@ -8,7 +8,7 @@
 
 ## Lint - Lint collection [VERBOSE]
 lint:
-	$(call docker_run, ansible-lint \
+	$(call manala_docker_shell, ansible-lint \
 		$(if $(VERBOSE), -v) \
 		--force-color \
 	)
@@ -24,7 +24,7 @@ test: test.sanity test.units test.integration
 
 ## Test - Run sanity tests [VERBOSE]
 test.sanity:
-	$(call docker_run, ansible-test sanity \
+	$(call manala_docker_shell, ansible-test sanity \
 		--requirements \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
@@ -36,7 +36,7 @@ test.sanity:
 
 ## Test - Run units tests [VERBOSE|COVERAGE]
 test.units:
-	$(call docker_run, ansible-test units \
+	$(call manala_docker_shell, ansible-test units \
 		--requirements \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
@@ -47,7 +47,7 @@ test.units:
 
 ## Test - Run integration tests [VERBOSE|COVERAGE]
 test.integration:
-	$(call docker_run, ansible-test integration \
+	$(call manala_docker_shell, ansible-test integration \
 		--requirements \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
@@ -58,7 +58,7 @@ test.integration:
 
 ## Test - Run coverage [VERBOSE]
 test.coverage:
-	$(call docker_run, ansible-test coverage xml \
+	$(call manala_docker_shell, ansible-test coverage xml \
 		--requirements \
 		--python 3.9 \
 		--group-by command \
@@ -74,15 +74,15 @@ test.coverage:
 
 ## Molecule - Run molecule test [SCENARIO]
 molecule.test:
-	$(call docker_run, PY_COLORS=1 molecule test \
+	$(call manala_docker_shell, PY_COLORS=1 molecule test \
 		$(if $(SCENARIO), --scenario-name $(SCENARIO), --all) \
 	)
 .PHONY: molecule.test
 
 ## Molecule - Rune molecule converge [SCENARIO]
 molecule.converge:
-	$(call error_if_not, $(SCENARIO), SCENARIO has not been specified)
-	$(call docker_run, PY_COLORS=1 molecule converge \
+	$(call manala_error_if_not, $(SCENARIO), SCENARIO has not been specified)
+	$(call manala_docker_shell, PY_COLORS=1 molecule converge \
 		--scenario-name $(SCENARIO) \
 	)
 .PHONY: molecule.converge
@@ -94,7 +94,7 @@ molecule.converge:
 MANALA_COLLECTION = manala-roles-*.tar.gz
 
 define collection
-	$(call docker_run, ansible-galaxy collection $(1))
+	$(call manala_docker_shell, ansible-galaxy collection $(1))
 endef
 
 ## Collection - Build collection
@@ -105,6 +105,6 @@ collection.build:
 
 ## Collection - Publish collection [COLLECTION_API_TOKEN]
 collection.publish:
-	$(call error_if_not, $(COLLECTION_API_TOKEN), COLLECTION_API_TOKEN has not been specified)
+	$(call manala_error_if_not, $(COLLECTION_API_TOKEN), COLLECTION_API_TOKEN has not been specified)
 	$(call collection, publish $(MANALA_COLLECTION) --api-key $(COLLECTION_API_TOKEN))
 .PHONY: collection.publish

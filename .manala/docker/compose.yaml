@@ -11,15 +11,15 @@ services:
         build:
             context: ..
             dockerfile: docker/Dockerfile
-        image: manala-ansible-roles:20230220140707
+        image: manala-ansible-roles:20230226135604
         volumes:
-            - ../..:${DIR}
+            - ../..:${MANALA_DIR}
         environment:
-            DIR: ${DIR}
-            CACHE_DIR: ${CACHE_DIR}
+            MANALA_DIR: ${MANALA_DIR}
+            MANALA_CACHE_DIR: ${MANALA_CACHE_DIR}
         env_file:
             - ../../.env.dist
             - ../../.env
-        working_dir: ${DIR}
+        working_dir: ${MANALA_DIR}
         # Use default docker bridge network
         network_mode: bridge

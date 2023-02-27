@@ -7,5 +7,5 @@ services:
     system:
         build:
             args:
-                USER_ID: ${USER_ID:-1000}
-                GROUP_ID: ${GROUP_ID:-1000}
+                MANALA_USER_ID: ${MANALA_USER_ID:-1000}
+                MANALA_GROUP_ID: ${MANALA_GROUP_ID:-1000}

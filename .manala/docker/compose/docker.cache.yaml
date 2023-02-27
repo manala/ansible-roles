@@ -1,0 +1,12 @@
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        build:
+            cache_from:
+                - ${MANALA_DOCKER_CACHE_FROM:?you must provide a MANALA_DOCKER_CACHE_FROM environment variable}
+            cache_to:
+                - ${MANALA_DOCKER_CACHE_TO:?you must provide a MANALA_DOCKER_CACHE_TO environment variable}

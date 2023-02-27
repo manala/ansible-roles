@@ -6,8 +6,8 @@ FROM debian:bullseye-slim
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
-ARG USER_ID="1000"
-ARG GROUP_ID="1000"
+ARG MANALA_USER_ID="1000"
+ARG MANALA_GROUP_ID="1000"
 
 ARG GOSU_VERSION="1.16"
 ARG GOMPLATE_VERSION="3.11.3"
@@ -41,9 +41,9 @@ RUN \
     # Apt keyrings (debian < bookworm)
     && mkdir --verbose --parents /etc/apt/keyrings \
     # User
-    && addgroup --gid ${GROUP_ID} lazy \
-    && adduser --home /home/lazy --shell /bin/bash --uid ${USER_ID} --gecos lazy --ingroup lazy --disabled-password lazy \
-    && mkdir --verbose --parents /run/user/${USER_ID} && chown lazy:lazy /run/user/${USER_ID} \
+    && addgroup --gid ${MANALA_GROUP_ID} lazy \
+    && adduser --home /home/lazy --shell /bin/bash --uid ${MANALA_USER_ID} --gecos lazy --ingroup lazy --disabled-password lazy \
+    && mkdir --verbose --parents /run/user/${MANALA_USER_ID} && chown lazy:lazy /run/user/${MANALA_USER_ID} \
     && echo "lazy ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/lazy \
     # Gosu
     && curl -sSL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(case $(dpkg --print-architecture) in "amd64") echo "amd64" ;; "arm64") echo "arm64" ;; esac)" \

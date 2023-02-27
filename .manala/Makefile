@@ -1,46 +1,65 @@
-# Relative root dir ("."|".."|"../.."|…)
-_DIR := $(patsubst ./%,%,$(patsubst %/.manala/Makefile,%,./$(filter %.manala/Makefile,$(MAKEFILE_LIST))))
-# Is current dir root ? (""|"1")
-_ROOT = $(if $(filter .,$(_DIR)),1)
-# Relative current dir ("."|"foo"|"foo/bar"|…)
-_CURRENT_DIR = $(patsubst ./%,%,.$(patsubst $(realpath $(CURDIR)/$(_DIR))%,%,$(CURDIR)))
-# Cache dir
-_CACHE_DIR = .manala/.cache
+# Project root dir, relative to current dir (.|..|../..|…)
+MANALA_DIR := $(patsubst %/.,%,$(patsubst %.manala/..,%.,$(patsubst %Makefile,%..,$(lastword $(MAKEFILE_LIST)))))
+# Current dir, relative to project root dir (.|dir|dir/dir|…)
+MANALA_CURRENT_DIR = $(patsubst ./%,%,.$(patsubst $(realpath $(CURDIR)/$(MANALA_DIR))%,%,$(CURDIR)))
+# Is current dir root ? (|1)
+MANALA_CURRENT_ROOT = $(if $(filter .,$(MANALA_CURRENT_DIR)),1)
+# Cache dir, relative to project dir
+MANALA_CACHE_DIR = .manala/.cache
 
-include $(_DIR)/.manala/make/text.mk
-include $(_DIR)/.manala/make/help.mk
-include $(_DIR)/.manala/make/os.mk
-include $(_DIR)/.manala/docker/make.mk
+###########
+# Project #
+###########
+
+include $(MANALA_DIR)/.manala/make/text.mk
+include $(MANALA_DIR)/.manala/make/help.mk
+include $(MANALA_DIR)/.manala/make/os.mk
+include $(MANALA_DIR)/.manala/docker/docker.mk
+
+##########
+# Docker #
+##########
+
+MANALA_DOCKER_COMPOSE_ENV += \
+	MANALA_DIR=/srv/ansible_collections/manala/roles \
+	MANALA_CACHE_DIR=/srv/ansible_collections/manala/roles/$(shell dir=$(MANALA_DIR)/$(MANALA_CACHE_DIR) ; mkdir -p $${dir} ; echo $(MANALA_CACHE_DIR))
+
+define manala_docker_command
+	$(manala_docker_compose) run \
+		--rm \
+		$(1) \
+		system
+endef
 
 ##########
 # System #
 ##########
 
 # Docker commands only available *OUTSIDE* docker environment
-ifndef DOCKER
+ifndef MANALA_DOCKER
 
-HELP += $(call help_section, System)
+MANALA_HELP += $(call manala_help_section, System)
 
-HELP += $(call help,sh,   Open a local system shell)
+MANALA_HELP += $(call manala_help,sh,   Open a local system shell)
 sh:
-	$(call docker_run, exec bash --login)
+	$(manala_docker_command) bash --login
 .PHONY: sh
 
-HELP += $(call help,clean,Clean local system)
+MANALA_HELP += $(call manala_help,clean,Clean local system)
 clean:
-	@$(call confirm, Confirm system cleaning)
-	@$(call log, Stops and removes docker containers$(,) networks$(,) volumes$(,) images…)
-	$(_docker_compose) down \
+	@$(call manala_confirm, Confirm system cleaning)
+	@$(call manala_log, Stops and removes docker containers$(,) networks$(,) volumes$(,) images…)
+	$(manala_docker_compose) down \
 		--rmi all \
 		--volumes \
 		--remove-orphans
-	@$(call log, Removes old docker images…)
-	$(_docker) images \
+	@$(call manala_log, Removes old docker images…)
+	$(manala_docker) images \
 		--filter reference='manala-ansible-roles:*' \
 		--format "{{.ID}}" \
-			| xargs $(_docker) rmi --force
-	@$(call log, Delete cache dir…)
-	rm -Rf $(_DIR)/$(_CACHE_DIR)
+			| xargs $(manala_docker) rmi --force
+	@$(call manala_log, Delete cache dir…)
+	rm -Rf $(MANALA_DIR)/$(MANALA_CACHE_DIR)
 .PHONY: clean
 
 endif
