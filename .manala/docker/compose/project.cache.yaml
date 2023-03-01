@@ -1,0 +1,14 @@
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        volumes:
+            - ../.cache:/srv/cache
+        environment:
+            # Composer, Yarn, ...
+            XDG_CACHE_HOME: /srv/cache/project
+            # Npm (dynamically based on XDG_CACHE_HOME)
+            NPM_CONFIG_CACHE: $${XDG_CACHE_HOME}/npm

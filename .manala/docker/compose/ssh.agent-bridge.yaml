@@ -1,0 +1,11 @@
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        volumes:
+            - ${SSH_AUTH_SOCK}:/var/run/ssh-auth.sock
+        environment:
+            SSH_AUTH_SOCK: /var/run/ssh-auth-bridge.sock
