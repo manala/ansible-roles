@@ -24,12 +24,9 @@ MANALA_DOCKER_COMPOSE_ENV += \
 	MANALA_DIR=/srv/ansible_collections/manala/roles \
 	MANALA_CACHE_DIR=/srv/ansible_collections/manala/roles/$(shell dir=$(MANALA_DIR)/$(MANALA_CACHE_DIR) ; mkdir -p $${dir} ; echo $(MANALA_CACHE_DIR))
 
-define manala_docker_command
-	$(manala_docker_compose) run \
-		--rm \
-		$(1) \
-		system
-endef
+# Command
+MANALA_DOCKER_COMMAND = run --rm
+MANALA_DOCKER_COMMAND_SERVICE = system
 
 ##########
 # System #
@@ -40,9 +37,20 @@ ifndef MANALA_DOCKER
 
 MANALA_HELP += $(call manala_help_section, System)
 
-MANALA_HELP += $(call manala_help,sh,   Open a local system shell)
+MANALA_HELP += $(call manala_help,sh,   Shell to local system (DIR|PORT|DEBUG))
+sh: MANALA_DOCKER_COMMAND_DIR ?= $(if $(findstring command line,$(origin DIR)),$(DIR))
+sh: MANALA_DOCKER_DEBUG = $(if $(DEBUG),1)
 sh:
-	$(manala_docker_command) bash --login
+	if [ ! -t 0 ] ; then \
+		$(call manala_docker_command, \
+			--no-TTY \
+			$(if $(PORT),--publish $(PORT)), \
+		) sh -s ; \
+	else \
+		$(call manala_docker_command, \
+			$(if $(PORT),--publish $(PORT)), \
+		) bash --login ; \
+	fi
 .PHONY: sh
 
 MANALA_HELP += $(call manala_help,clean,Clean local system)

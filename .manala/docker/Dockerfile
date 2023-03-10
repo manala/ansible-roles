@@ -94,7 +94,7 @@ RUN \
 
 # Ansible
 RUN \
-    pip3 --no-cache-dir install \
+    pip3 --no-cache-dir --disable-pip-version-check install \
         ansible-core==2.14.2
 
 RUN \
@@ -106,12 +106,16 @@ RUN \
     && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
         "${BUILD_PACKAGES[@]}" \
     # Ansible Lint
-    && pipx install ansible-lint==6.12.1 \
+    && pipx install \
+        ansible-lint==6.12.1 \
     # Molecule
-    && pipx install molecule==4.0.4 \
+    && pipx install \
+        molecule==4.0.4 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
-    && pipx inject molecule molecule-plugins==23.0.0 \
-    && pipx inject molecule molecule-plugins[docker]==23.0.0 \
+    && pipx inject molecule \
+        molecule-plugins==23.0.0 \
+    && pipx inject molecule \
+        molecule-plugins[docker]==23.0.0 \
     # Clean
     && apt-get --quiet --yes --autoremove purge \
         "${BUILD_PACKAGES[@]}" \

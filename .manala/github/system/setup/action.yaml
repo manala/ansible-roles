@@ -1,0 +1,93 @@
+name: Set up
+
+description: Set up system
+
+inputs:
+  dir:
+    description: Working directory
+    required: false
+    default: .
+  docker_build_cache_scope:
+    description: Docker build cache scope
+    required: false
+    default: docker
+  docker_compose_profile:
+    description: Docker compose profile
+    required: false
+  docker_project_cache:
+    description: Docker project cache
+    type: boolean
+    required: false
+    default: 'false'
+  docker_env:
+    description: Docker env
+    required: false
+  docker_services:
+    description: Docker services
+    required: false
+  docker_compose_up:
+    description: Docker compose up
+    type: boolean
+    required: false
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Expose ACTIONS_CACHE_URL & ACTIONS_RUNTIME_TOKEN
+    # to be consumed by docker github action cache
+    # See: https://docs.docker.com/build/cache/backends/gha/
+    - name: Expose GitHub Runtime
+      uses: crazy-max/ghaction-github-runtime@v2
+
+    - name: Set environment variables file
+      if: inputs.docker_env != ''
+      shell: bash
+      run: |
+        cat << EOF > ${{ runner.temp }}/manala_docker_env_file
+        ${{ inputs.docker_env }}
+        EOF
+
+    - name: Set environment variables
+      shell: bash
+      run: |
+        cat << EOF >> ${{ github.env }}
+        MANALA_DOCKER_CACHE_FROM=type=gha,scope=${{ inputs.docker_build_cache_scope }}
+        MANALA_DOCKER_CACHE_TO=type=gha,scope=type=gha,mode=max,scope=${{ inputs.docker_build_cache_scope }}
+        ${{ inputs.docker_compose_profile != ''
+          && format('MANALA_DOCKER_COMPOSE_PROFILE={0}', inputs.docker_compose_profile)
+          || ''
+        }}
+        ${{ inputs.docker_project_cache != 'false'
+          && format('MANALA_DOCKER_PROJECT_CACHE=1')
+          || ''
+        }}
+        ${{ inputs.docker_env != ''
+          && format('MANALA_DOCKER_ENV_FILE={0}/manala_docker_env_file', runner.temp)
+          || ''
+        }}
+        MANALA_DOCKER_SERVICES=${{ inputs.docker_services }}
+        EOF
+
+    - name: Docker compose pull
+      shell: bash
+      working-directory: ${{ inputs.dir }}
+      run: |
+        make manala.docker.compose COMMAND="pull --ignore-buildable"
+
+    - name: Docker compose build
+      shell: bash
+      working-directory: ${{ inputs.dir }}
+      run: |
+        make manala.docker.compose COMMAND="build"
+
+    - name: Docker compose up
+      if: inputs.docker_compose_up != 'false'
+      shell: bash
+      working-directory: ${{ inputs.dir }}
+      run: |
+        make manala.docker.compose COMMAND="up --wait"

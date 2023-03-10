@@ -1,0 +1,11 @@
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        volumes:
+            - ${MANALA_DOCKER_SOCK}:/var/run/docker.sock
+        environment:
+            DOCKER_HOST: unix:///var/run/docker-bridge.sock

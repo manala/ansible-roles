@@ -1,45 +1,27 @@
 # Prerequisites:
 #   - "container" environment variable in docker containers equal to "docker"
 #   - "MANALA_DIR" make variable
-#   - "manala_docker_command" make function
+#   - "MANALA_DOCKER_COMMAND" & "MANALA_DOCKER_COMMAND_SERVICE" make variables
 #   - Mandatory include os.mk
 #   - Mandatory .manala/docker/compose.yaml
 #   - Optionals .manala/docker/compose/os.$(MANALA_OS).yaml
 #   - Mandatory .manala/docker/compose/ssh-agent.yaml
 #   - Mandatory .manala/docker/compose/docker.yaml
 #   - Mandatory .manala/docker/compose/docker.cache.yaml
+#   - Mandatory .manala/docker/compose/env.file.yaml
+#   - Mandatory .manala/docker/compose/project.cache.yaml
 #   - Mandatory .manala/docker/compose/profile.$(MANALA_DOCKER_COMPOSE_PROFILE).yaml if "MANALA_DOCKER_COMPOSE_PROFILE" make variable
 #   - Optional include git.mk
 #   - Mandatory .manala/docker/compose/git.yaml if include git.mk
 #   - Mandatory .manala/docker/compose/github.yaml if include git.mk
 
-ifeq ($(container),docker)
-MANALA_DOCKER = 1
-endif
-
-ifndef MANALA_DOCKER
-define manala_docker_shell
-	$(if $(2), \
-		$(call manala_docker_command, $(strip $(1))) /bin/sh -c '$(subst ','\'',$(strip $(2)))', \
-		$(call manala_docker_command,) /bin/sh -c '$(subst ','\'',$(strip $(1)))' \
-	)
-endef
-MANALA_DOCKER_SHELL = $(manala_docker_command) /bin/sh
-MANALA_DOCKER_MAKE = $(manala_docker_command) make
-else
-define manala_docker_shell
-	$(if $(2), \
-		$(call message_error, Unable to run docker shell command with options inside a docker container) ; exit 1 ;, \
-		$(strip $(1)) \
-	)	
-endef
-MANALA_DOCKER_SHELL := $(SHELL)
-MANALA_DOCKER_MAKE := $(MAKE)
-endif
-
 ##########
 # Docker #
 ##########
+
+ifeq ($(container),docker)
+MANALA_DOCKER = 1
+endif
 
 MANALA_DOCKER_BIN = docker
 
@@ -56,7 +38,7 @@ endef
 # Docker Compose #
 ##################
 
-MANALA_DOCKER_COMPOSE_BIN_DEFAULT = $(MANALA_DOCKER_BIN) compose
+MANALA_DOCKER_COMPOSE_BIN_DEFAULT = $(call manala_docker) compose
 
 MANALA_DOCKER_COMPOSE_BIN = $(MANALA_DOCKER_COMPOSE_BIN_DEFAULT)
 
@@ -78,16 +60,13 @@ ifdef SSH_AUTH_SOCK
 # See: https://docs.docker.com/desktop/mac/networking/#ssh-agent-forwarding
 MANALA_DOCKER_COMPOSE_ENV += $(if $(MANALA_OS_DARWIN), \
 	SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock \
-	MANALA_SSH_AUTH_SOCK_BIND=/run/host-services/ssh-auth.sock.bind \
 )
-MANALA_DOCKER_COMPOSE_FILE += $(MANALA_DIR)/.manala/docker/compose/ssh-agent.yaml
+MANALA_DOCKER_COMPOSE_FILE += $(MANALA_DIR)/.manala/docker/compose/ssh.agent-bridge.yaml
 endif
 
 # Docker
-MANALA_DOCKER_COMPOSE_ENV += \
-	MANALA_DOCKER_SOCK=/var/run/docker.sock \
-	MANALA_DOCKER_SOCK_BIND=/var/run/docker.sock.bind
-MANALA_DOCKER_COMPOSE_FILE += $(MANALA_DIR)/.manala/docker/compose/docker.yaml
+MANALA_DOCKER_COMPOSE_ENV += MANALA_DOCKER_SOCK=$(MANALA_DOCKER_SOCK)
+MANALA_DOCKER_COMPOSE_FILE += $(MANALA_DIR)/.manala/docker/compose/docker.bridge.yaml
 
 # Docker - Cache
 ifneq ($(and $(MANALA_DOCKER_CACHE_FROM),$(MANALA_DOCKER_CACHE_TO)),)
@@ -106,10 +85,18 @@ MANALA_DOCKER_COMPOSE_FILE += \
 MANALA_DOCKER_COMPOSE_FILE += \
 	$(if $(MANALA_DOCKER_COMPOSE_PROFILE), $(MANALA_DIR)/.manala/docker/compose/profile.$(MANALA_DOCKER_COMPOSE_PROFILE).yaml)
 
+# Env file
+MANALA_DOCKER_COMPOSE_ENV += \
+	$(if $(MANALA_DOCKER_ENV_FILE), MANALA_DOCKER_ENV_FILE=$(MANALA_DOCKER_ENV_FILE))
+MANALA_DOCKER_COMPOSE_FILE += \
+	$(if $(MANALA_DOCKER_ENV_FILE), $(MANALA_DIR)/.manala/docker/compose/env.file.yaml)
+
+# Project cache
+MANALA_DOCKER_COMPOSE_FILE += \
+	$(if $(MANALA_DOCKER_PROJECT_CACHE), $(MANALA_DIR)/.manala/docker/compose/project.cache.yaml)
+
 # Debug
-ifdef DEBUG
-MANALA_DOCKER_COMPOSE_ENV += BUILDKIT_PROGRESS=plain
-endif
+MANALA_DOCKER_COMPOSE_ENV += $(if $(MANALA_DOCKER_DEBUG), BUILDKIT_PROGRESS=plain)
 
 # Usage:
 #   $(manala_docker_compose) [COMMAND] [ARGS...]
@@ -125,3 +112,67 @@ define manala_docker_compose
 			--file $(FILE) \
 		)
 endef
+
+ifndef MANALA_DOCKER
+
+manala.docker.compose:
+	$(manala_docker_compose) $(OPTIONS) $(COMMAND)
+
+endif
+
+###########
+# Command #
+###########
+
+# GitHub Action
+MANALA_DOCKER_COMMAND_ENV += \
+	$(if $(GITHUB_ACTIONS), \
+		CI="$${CI}" \
+		GITHUB_ACTION="$${GITHUB_ACTION}" \
+		GITHUB_ACTION_REF="$${GITHUB_ACTION_REF}" \
+		GITHUB_ACTION_REPOSITORY="$${GITHUB_ACTION_REPOSITORY}" \
+		GITHUB_ACTIONS="$${GITHUB_ACTIONS}" \
+		GITHUB_ACTOR="$${GITHUB_ACTOR}" \
+		GITHUB_JOB="$${GITHUB_JOB}" \
+		GITHUB_WORKFLOW="$${GITHUB_WORKFLOW}" \
+	)
+
+# Usage:
+#   $(manala_docker_command) [COMMAND] [ARGS...]
+#   $(call manala_docker_command, [OPTIONS]) [COMMAND] [ARGS...]
+
+define manala_docker_command
+	$(manala_docker_compose) $(MANALA_DOCKER_COMMAND) \
+		$(if $(MANALA_DOCKER_COMMAND_DIR), --workdir $(MANALA_DOCKER_COMMAND_DIR), \
+			$(if $(MANALA_DOCKER_COMMAND_DEFAULT_DIR), --workdir $(MANALA_DOCKER_COMMAND_DEFAULT_DIR)) \
+		) \
+		$(foreach ENV, $(MANALA_DOCKER_COMMAND_ENV), \
+			--env $(ENV) \
+		) \
+		$(1) \
+		$(MANALA_DOCKER_COMMAND_SERVICE)
+endef
+
+################
+# Shell / Make #
+################
+
+ifndef MANALA_DOCKER
+define manala_docker_shell
+	$(if $(2), \
+		$(call manala_docker_command, $(strip $(1))) /bin/sh -c '$(subst ','\'',$(strip $(2)))', \
+		$(call manala_docker_command,) /bin/sh -c '$(subst ','\'',$(strip $(1)))' \
+	)
+endef
+MANALA_DOCKER_SHELL = $(manala_docker_command) /bin/sh
+MANALA_DOCKER_MAKE = $(manala_docker_command) make
+else
+define manala_docker_shell
+	$(if $(2), \
+		$(call message_error, Unable to run docker shell command with options inside a docker container) ; exit 1 ;, \
+		$(strip $(1)) \
+	)	
+endef
+MANALA_DOCKER_SHELL := $(SHELL)
+MANALA_DOCKER_MAKE := $(MAKE)
+endif

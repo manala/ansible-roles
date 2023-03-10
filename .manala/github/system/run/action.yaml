@@ -1,0 +1,30 @@
+name: Run
+
+description: System - Run
+
+inputs:
+  dir:
+    description: Working directory
+    required: false
+    default: .
+  docker_dir:
+    description: Docker working directory
+    required: false
+  docker_env:
+    description: Docker env
+    required: false
+  run:
+    description: Run
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - name: Run
+      shell: sh -c "make sh < {0}"
+      working-directory: ${{ inputs.dir }}
+      env:
+        MANALA_DOCKER_COMMAND_DIR: ${{ inputs.docker_dir }}
+        MANALA_DOCKER_COMMAND_ENV: ${{ inputs.docker_env }}
+      run: ${{ inputs.run }}
