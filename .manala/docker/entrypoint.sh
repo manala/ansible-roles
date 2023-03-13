@@ -11,7 +11,7 @@ fi
 
 # Docker bridge
 if [ -n "${DOCKER_HOST}" ]; then
-  socat \
+  socat -t 600 \
     UNIX-LISTEN:"/var/run/docker-bridge.sock",fork,mode=777 \
     UNIX-CONNECT:"/var/run/docker.sock" &
 fi

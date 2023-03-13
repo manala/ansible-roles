@@ -10,7 +10,7 @@ ARG MANALA_USER_ID="1000"
 ARG MANALA_GROUP_ID="1000"
 
 ARG GOSU_VERSION="1.16"
-ARG GOMPLATE_VERSION="3.11.3"
+ARG GOMPLATE_VERSION="3.11.4"
 
 # The 'container' environment variable tells systemd that it's running inside a
 # Docker container environment.
@@ -95,7 +95,7 @@ RUN \
 # Ansible
 RUN \
     pip3 --no-cache-dir --disable-pip-version-check install \
-        ansible-core==2.14.2
+        ansible-core==2.14.3
 
 RUN \
     BUILD_PACKAGES=( \
@@ -107,7 +107,7 @@ RUN \
         "${BUILD_PACKAGES[@]}" \
     # Ansible Lint
     && pipx install \
-        ansible-lint==6.12.1 \
+        ansible-lint==6.14.2 \
     # Molecule
     && pipx install \
         molecule==4.0.4 \
