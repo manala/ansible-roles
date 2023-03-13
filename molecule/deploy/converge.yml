@@ -11,11 +11,11 @@
     tests_dir: /molecule/deploy/default
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -41,11 +41,11 @@
     tests_dir: /molecule/deploy/strategy
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Synchronize
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -83,27 +83,27 @@
     tests_dir: /molecule/deploy/shared
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Directories
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/app/{{ item }}"
         state: directory
       loop: [shared, shared/dir, shared/dir/dir]
     - name: Files
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/app/{{ item }}"
         state: touch
       loop: [shared/file_shared_existing, shared/dir/file_shared_existing, shared/dir/dir/file_shared_existing]
     - name: Links
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/app/{{ item }}_link"
         src: "{{ tests_dir }}/app/{{ item }}"
         state: link
       loop: [shared/file_shared_existing, shared/dir/file_shared_existing, shared/dir/dir/file_shared_existing]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -143,20 +143,20 @@
     tests_dir: /molecule/deploy/copied
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Directory
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/app/releases/20170520092302/vendor"
         state: directory
     - name: Link
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/app/current"
         src: "{{ tests_dir }}/app/releases/20170520092302"
         state: link
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -184,11 +184,11 @@
     tests_dir: /molecule/deploy/writable
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -220,11 +220,11 @@
     tests_dir: /molecule/deploy/tasks
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Raw
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -252,11 +252,11 @@
     tests_dir: /molecule/deploy/removed
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -285,16 +285,16 @@
     tests_dir: /molecule/deploy/clean
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
     - name: Directories
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/app/releases/{{ item }}"
         state: directory
       loop: [20170520092302, 20170520092413, 20170520092714, 20170520092738, 20170520093012, 20170520093234]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.deploy
@@ -321,11 +321,11 @@
     tests_dir: /molecule/deploy/post_tasks
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Raw
           ansible.builtin.import_role:
             name: manala.roles.deploy

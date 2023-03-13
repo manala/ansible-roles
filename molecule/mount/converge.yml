@@ -11,14 +11,14 @@
     tests_dir: /molecule/mount/points
   tasks:
     - name: Directory
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/directory"
         state: directory
     - name: File
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/directory/file"
         state: touch
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mount

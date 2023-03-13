@@ -17,7 +17,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -90,7 +90,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -125,7 +125,7 @@
     tests_dir: /molecule/php/configs
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: |
@@ -134,7 +134,7 @@
           'default/fpm/conf.d', 'defaults/fpm/conf.d', 'exclusive/fpm/conf.d'
         ] | product(['absent', 'directory']) }}
     - name: Touch existing files
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
@@ -145,7 +145,7 @@
         exclusive/fpm/conf.d/existing, exclusive/fpm/conf.d/existing_present, exclusive/fpm/conf.d/existing_ignore,
         exclusive/fpm/conf.d/existing_fpm, exclusive/fpm/conf.d/existing_present_fpm, exclusive/fpm/conf.d/existing_ignore_fpm,
       ]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.php
@@ -257,19 +257,19 @@
     tests_dir: /molecule/php/fpm_pools
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.php

@@ -17,7 +17,7 @@
         install_recommends: false
         update_cache: true
         cache_valid_time: 3600
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.php

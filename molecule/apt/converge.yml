@@ -11,19 +11,19 @@
     tests_dir: /molecule/apt/configs
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -102,11 +102,11 @@
     tests_dir: /molecule/apt/sources_list
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Content
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -142,19 +142,19 @@
     tests_dir: /molecule/apt/preferences
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item.0 }}"
         state: "{{ item.1 }}"
       loop: "{{ ['default', 'defaults', 'exclusive'] | product(['absent', 'directory']) }}"
     - name: Touch existing files
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}/{{ item }}"
         state: touch
       loop: [
         default/state_absent_existing, default/state_ignore_existing,
         exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
       ]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -272,7 +272,7 @@
   tags: [keys]
   hosts: debian
   tasks:
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -326,7 +326,7 @@
       loop:
         - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             # Play role fully, because of "keys" tasks dependency
@@ -384,7 +384,7 @@
         - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
         - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             # Play role fully, because of "keys" tasks dependency
@@ -431,7 +431,7 @@
             'aarch64': 'https://snapshot.debian.org/archive/debian/20140820T100258Z/pool/main/p/pscan/pscan_1.2-9_arm64.deb',
             'armv7l': 'https://snapshot.debian.org/archive/debian/20111201T234959Z/pool/main/p/pscan/pscan_1.2-9_armhf.deb',
           }[ansible_architecture] }}
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -485,7 +485,7 @@
         name: "{{ item }}"
         selection: hold
       loop: [dpkg, tar]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -521,7 +521,7 @@
         name: "{{ item }}"
         selection: hold
       loop: [python3, tar]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt
@@ -549,7 +549,7 @@
   tags: [update]
   hosts: debian
   tasks:
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.apt

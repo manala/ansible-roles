@@ -22,3 +22,4 @@
     - manala_mysql_server
     - manala_mysql_data_dir_initialize
     - __manala_mysql_data_dir_create_result is changed
+  changed_when: true

@@ -12,7 +12,7 @@
       ansible.builtin.group:
         name: "{{ item }}"
       loop: [group_state_absent_existing, group_state_ignore_existing]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -64,7 +64,7 @@
       ansible.builtin.user:
         name: "{{ item }}"
       loop: [user_state_absent_existing, user_state_ignore_existing]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -108,7 +108,7 @@
   tags: [users_authorized_keys]
   hosts: debian
   tasks:
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -158,7 +158,7 @@
   tags: [users_keys]
   hosts: debian
   tasks:
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts
@@ -225,7 +225,7 @@
   tags: [users_gpg_keys]
   hosts: debian
   tasks:
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.accounts

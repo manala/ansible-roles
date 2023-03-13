@@ -6,7 +6,7 @@
   block:
 
     - name: Strategy / Unarchive > Create dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ deploy_helper.new_release_path }}/"
         state: directory
 

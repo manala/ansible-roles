@@ -86,7 +86,7 @@
 
     # Use debfoster to find out each package dependencies
     - name: Install > Exclusive - Find packages dependencies
-      ansible.builtin.shell:  # noqa risky-shell-pipe
+      ansible.builtin.shell:  # noqa: risky-shell-pipe
         cmd: |
           for package in {{
             query(

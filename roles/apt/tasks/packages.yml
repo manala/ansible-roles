@@ -1,7 +1,7 @@
 ---
 
 - name: Packages > Apt
-  ansible.builtin.apt:  # noqa args[module]
+  ansible.builtin.apt:  # noqa: args[module]
     deb: "{{ item.package if (item.deb) else omit }}"
     name: "{{ item.package if (not item.deb) else omit }}"
     state: "{{ item.state }}"

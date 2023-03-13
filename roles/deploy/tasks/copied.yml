@@ -17,3 +17,4 @@
   loop_control:
     index_var: index
   when: __manala_deploy_copied_stats_output.results[index].stat.exists
+  changed_when: true

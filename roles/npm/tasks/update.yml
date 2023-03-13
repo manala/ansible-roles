@@ -1,6 +1,6 @@
 ---
 
 - name: Update > Packages
-  community.general.npm:  # noqa package-latest
+  community.general.npm:  # noqa: package-latest
     global: true
     state: latest

@@ -1,7 +1,7 @@
 ---
 
 - name: Keys > Keys
-  ansible.builtin.apt_key:  # noqa args[module]
+  ansible.builtin.apt_key:  # noqa: args[module]
     id: "{{ item.id }}"
     url: "{{ item.url | default(omit) }}"
     keyserver: "{{ item.keyserver | default(omit) }}"

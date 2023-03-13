@@ -60,7 +60,7 @@
   register: __manala_apt_repositories_absents_results
 
 - name: Repositories > Update cache
-  ansible.builtin.apt:  # noqa no-handler
+  ansible.builtin.apt:  # noqa: no-handler
     update_cache: true
   when: __manala_apt_repositories_presents_results is changed
     or __manala_apt_repositories_absents_results is changed

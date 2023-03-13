@@ -11,12 +11,12 @@
     tests_dir: /molecule/git/default
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
         mode: "0777"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.git
@@ -45,11 +45,11 @@
     tests_dir: /molecule/git/config
   tasks:
     - name: Clean tests dir
-      ansible.builtin.file:  # noqa risky-file-permissions
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role - Dict
           ansible.builtin.import_role:
             name: manala.roles.git

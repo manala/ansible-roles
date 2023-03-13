@@ -57,6 +57,7 @@
       )
     }}"
   when: item.name not in __manala_aptly_repositories_local_find_output.stdout_lines
+  changed_when: true
   loop: "{{
     manala_aptly_repositories
       | flatten
@@ -73,6 +74,7 @@
           -label={{ item.label }} {{ item.name }}{{ manala_aptly_user | ternary('\"', '')
     }}"
   when: item.name not in __manala_aptly_repositories_published_find_output.stdout_lines
+  changed_when: true
   loop: "{{
     manala_aptly_repositories
       | flatten

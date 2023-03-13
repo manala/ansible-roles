@@ -1,7 +1,7 @@
 ---
 
 - name: Requirements > Git check
-  ansible.builtin.command:  # noqa command-instead-of-module
+  ansible.builtin.command:  # noqa: command-instead-of-module
     cmd: git --version
   check_mode: false
   failed_when: false
