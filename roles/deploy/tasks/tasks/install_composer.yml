@@ -21,6 +21,7 @@
       ansible.builtin.command:
         cmd: "php /tmp/installer --install-dir=\"{{ item.shared_dir }}\" --filename=\"composer\" --disable-tls"
       when: not __manala_deploy_composer_bin_stat_result.stat.exists
+      changed_when: true
 
     - name: Tasks / Install Composer > Remove installer
       ansible.builtin.file:

@@ -1,7 +1,7 @@
 ---
 
 - name: Update > Backup package marks
-  ansible.builtin.shell:  # noqa risky-shell-pipe no-tabs
+  ansible.builtin.shell:  # noqa: risky-shell-pipe no-tabs
     cmd: >
       dpkg --get-selections {{ item }}
       | cut -f 2-
@@ -11,13 +11,14 @@
   register: __manala_apt_update_marks_results
 
 - name: Update > Hold packages
-  ansible.builtin.shell:  # noqa risky-shell-pipe
+  ansible.builtin.shell:  # noqa: risky-shell-pipe
     cmd: >
       echo '{{ item.0 }} hold'
       | dpkg --set-selections
   when:
     - item.1
     - item.1 != 'hold'
+  changed_when: true
   loop: |
     {{
       manala_apt_update_holds
@@ -33,11 +34,12 @@
     update_cache: true
 
 - name: Update > Restore package marks
-  ansible.builtin.shell:  # noqa risky-shell-pipe
+  ansible.builtin.shell:  # noqa: risky-shell-pipe
     cmd: >
       echo '{{ item.0 }} {{ item.1 }}'
       | dpkg --set-selections
   when: item.1
+  changed_when: true
   loop: |
     {{
       manala_apt_update_holds

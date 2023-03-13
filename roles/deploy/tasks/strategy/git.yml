@@ -14,7 +14,7 @@
         update: true
 
     - name: Strategy / Git > Get head
-      ansible.builtin.command:  # noqa command-instead-of-module
+      ansible.builtin.command:  # noqa: command-instead-of-module
         cmd: git rev-parse --short HEAD
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
@@ -26,7 +26,7 @@
         manala_deploy_strategy_git_head: "{{ __manala_deploy_strategy_git_head_result.stdout }}"
 
     - name: Strategy / Git > Export repository
-      ansible.builtin.command:  # noqa command-instead-of-module
+      ansible.builtin.command:  # noqa: command-instead-of-module
         cmd: git checkout-index -f -a --prefix="{{ deploy_helper.new_release_path }}/"
       args:
         chdir: "{{ deploy_helper.shared_path ~ '/cached-copy' }}"
