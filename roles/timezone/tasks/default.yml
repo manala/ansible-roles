@@ -40,3 +40,4 @@
     cmd: dpkg-reconfigure --frontend noninteractive tzdata
   when: __manala_timezone_default_content_result | default({}) is changed
     or __manala_timezone_default_link_result | default({}) is changed
+  changed_when: true

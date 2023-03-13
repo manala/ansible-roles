@@ -17,6 +17,7 @@
 - name: Writable / Dirs > Raw {{ item.dir | quote }}
   ansible.builtin.raw: "{{ item.raw | format(dir=deploy_helper.new_release_path ~ '/' ~ item.dir) }}"
   when: item.raw is defined
+  changed_when: true
   loop: |
     {{ query(
       'manala.roles.deploy_writable_dirs',

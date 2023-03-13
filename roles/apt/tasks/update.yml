@@ -18,6 +18,7 @@
   when:
     - item.1
     - item.1 != 'hold'
+  changed_when: true
   loop: |
     {{
       manala_apt_update_holds
@@ -38,6 +39,7 @@
       echo '{{ item.0 }} {{ item.1 }}'
       | dpkg --set-selections
   when: item.1
+  changed_when: true
   loop: |
     {{
       manala_apt_update_holds
