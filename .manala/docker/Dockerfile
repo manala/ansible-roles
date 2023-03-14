@@ -64,18 +64,20 @@ RUN \
 # System #
 ##########
 
-ARG PIPX_HOME="/usr/local"
-ARG PIPX_BIN_DIR="/usr/local/bin"
+ENV PIPX_HOME="/usr/local"
+ENV PIPX_BIN_DIR="/usr/local/bin"
 
 RUN \
     apt-get --quiet update \
     && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
         openssh-client \
         sshpass \
-        python3 python3-pip \
+        python3 \
+        pipx \
         python3-argcomplete \
-        python3-apt python3-docker \
         shellcheck \
+    # Sudo
+    && echo "Defaults env_keep += \"PIPX_*\"" > /etc/sudoers.d/pipx \
     # Bash completion
     && activate-global-python-argcomplete3 --dest /etc/bash_completion.d \
     # Clean
@@ -94,32 +96,34 @@ RUN \
 
 # Ansible
 RUN \
-    pip3 --no-cache-dir --disable-pip-version-check install \
-        ansible-core==2.14.3
+    pipx install --pip-args="--no-cache-dir" \
+        ansible-core==2.14.3 \
+    && pipx inject --pip-args="--no-cache-dir" ansible-core \
+        docker==6.0.1
 
+# Ansible Lint
 RUN \
     BUILD_PACKAGES=( \
-        pipx \
         libpython3-dev gcc \
     ) \
     && apt-get --quiet update \
     && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
         "${BUILD_PACKAGES[@]}" \
-    # Ansible Lint
-    && pipx install \
+    && pipx install --pip-args="--no-cache-dir" \
         ansible-lint==6.14.2 \
-    # Molecule
-    && pipx install \
-        molecule==4.0.4 \
-    && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
-    && pipx inject molecule \
-        molecule-plugins==23.0.0 \
-    && pipx inject molecule \
-        molecule-plugins[docker]==23.0.0 \
     # Clean
     && apt-get --quiet --yes --autoremove purge \
         "${BUILD_PACKAGES[@]}" \
     && rm -rf /var/lib/apt/lists/*
+
+# Molecule
+RUN \
+    pipx install --pip-args="--no-cache-dir" \
+        molecule==4.0.4 \
+    && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
+    && pipx inject --pip-args="--no-cache-dir" molecule \
+        molecule-plugins==23.0.0 \
+        molecule-plugins[docker]==23.0.0
 
 # Run
 COPY docker/entrypoint.sh /

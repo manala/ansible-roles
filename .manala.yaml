@@ -23,12 +23,20 @@ system:
         - .env.dist
         - .env
     docker: true
+    git:
+        config: |
+            # Silence false positive dubious ownership errors
+            [safe]
+            directory = *
     ansible:
         version: 2.14.3
+        dependencies:
+            # Collection community.docker
+            - docker==6.0.1
     ansible-lint:
         version: 6.14.2
     molecule:
         version: 4.0.4
-        plugins:
-            version: 23.0.0
-            docker: true
+        dependencies:
+            - molecule-plugins==23.0.0
+            - molecule-plugins[docker]==23.0.0
