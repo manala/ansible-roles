@@ -26,6 +26,7 @@ test: test.sanity test.units test.integration
 test.sanity:
 	$(call manala_docker_shell, ansible-test sanity \
 		--requirements \
+		--venv \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
 		--color \
@@ -38,6 +39,7 @@ test.sanity:
 test.units:
 	$(call manala_docker_shell, ansible-test units \
 		--requirements \
+		--venv \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
@@ -49,6 +51,7 @@ test.units:
 test.integration:
 	$(call manala_docker_shell, ansible-test integration \
 		--requirements \
+		--venv \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
@@ -60,6 +63,7 @@ test.integration:
 test.coverage:
 	$(call manala_docker_shell, ansible-test coverage xml \
 		--requirements \
+		--venv \
 		--python 3.9 \
 		--group-by command \
 		--group-by version \
