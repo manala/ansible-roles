@@ -1,0 +1,19 @@
+---
+
+file:
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: grafana-agent
+    mode: "0640"
+    contains:
+      - "/^Content$/"
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: grafana-agent
+    mode: "0640"
+    contains:
+      - "/^Template$/"

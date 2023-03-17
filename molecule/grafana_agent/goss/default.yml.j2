@@ -1,0 +1,22 @@
+---
+
+package:
+  grafana-agent:
+    installed: true
+
+service:
+  grafana-agent:
+    enabled: true
+    running: true
+
+process:
+  grafana-agent:
+    running: true
+
+file:
+  {{ manala_grafana_agent_config_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: grafana-agent
+    mode: "0640"
