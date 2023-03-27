@@ -18,7 +18,7 @@
     mode: "0644"
   loop: "{{ query(
     'manala.roles.templates_exclusive',
-    manala_php_configs + vars['manala_php_' ~ __manala_php_configs_sapi ~ '_configs'],
+    manala_php_configs + lookup('ansible.builtin.vars', 'manala_php_' ~ __manala_php_configs_sapi ~ '_configs'),
     __manala_php_configs_exclusive_find.files | default([]),
     manala_php_configs_dir ~ '/' ~ __manala_php_configs_sapi ~ '/conf.d',
     manala_php_configs_defaults.template | default('configs/_default.j2', true),
@@ -32,7 +32,7 @@
     state: absent
   loop: "{{ query(
     'manala.roles.templates_exclusive',
-    manala_php_configs + vars['manala_php_' ~ __manala_php_configs_sapi ~ '_configs'],
+    manala_php_configs + lookup('ansible.builtin.vars', 'manala_php_' ~ __manala_php_configs_sapi ~ '_configs'),
     __manala_php_configs_exclusive_find.files | default([]),
     manala_php_configs_dir ~ '/' ~ __manala_php_configs_sapi ~ '/conf.d',
     manala_php_configs_defaults.template | default('configs/_default.j2', true),
