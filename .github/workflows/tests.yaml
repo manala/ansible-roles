@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  pull_request:
+
+jobs:
+
+  test:
+    name: Tests
+    runs-on: ubuntu-22.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Env
+        run: |
+          cp .env.dist .env
+
+      - name: Set up system
+        uses: ./.manala/github/system/setup
+
+      - name: Run 1
+        run: make sh <<< pwd
+
+      - name: Run 2
+        uses: ./.manala/github/system/run
+        with:
+          docker_env: AAA=ZZZ
+          run: |
+            whoami
+            pwd
+            env
+
+      - name: Run 3
+        run: |
+          whoami
+          pwd

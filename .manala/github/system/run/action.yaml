@@ -18,13 +18,16 @@ inputs:
     required: true
 
 runs:
-  using: composite
-  steps:
+  using: node16
+  main: action.js
 
-    - name: Run
-      shell: sh -c "make sh < {0}"
-      working-directory: ${{ inputs.dir }}
-      env:
-        MANALA_DOCKER_COMMAND_DIR: ${{ inputs.docker_dir }}
-        MANALA_DOCKER_COMMAND_ENV: ${{ inputs.docker_env }}
-      run: ${{ inputs.run }}
+  # using: composite
+  # steps:
+
+  #   - name: Run
+  #     shell: sh -c "make sh < {0}"
+  #     working-directory: ${{ inputs.dir }}
+  #     env:
+  #       MANALA_DOCKER_COMMAND_DIR: ${{ inputs.docker_dir }}
+  #       MANALA_DOCKER_COMMAND_ENV: ${{ inputs.docker_env }}
+  #     run: ${{ inputs.run }}
