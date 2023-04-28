@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.4.1] - 2023-04-28
+### Added
+- [Php] Fix sapi specific configs
+
 ## [3.4.0] - 2023-03-17
 ### Added
 - [Grafana Agent] Introduce role
