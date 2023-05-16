@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [MySQL] MariaDB 10.11 support
+- [Apt] MariaDB 10.11 support
 
 ## [3.4.1] - 2023-04-28
 ### Added
