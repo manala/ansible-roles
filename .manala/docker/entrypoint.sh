@@ -4,16 +4,26 @@ set -e
 
 # Ssh agent bridge
 if [ -n "${SSH_AUTH_SOCK}" ]; then
-  socat \
-    UNIX-LISTEN:"/var/run/ssh-auth-bridge.sock",fork,mode=777 \
-    UNIX-CONNECT:"/var/run/ssh-auth.sock" &
+  sh -c " \
+    while sleep 1; do \
+      rm -f /var/run/ssh-auth-bridge.sock ;
+      socat \
+        UNIX-LISTEN:/var/run/ssh-auth-bridge.sock,fork,mode=777 \
+        UNIX-CONNECT:/var/run/ssh-auth.sock ; \
+    done \
+  " &
 fi
 
 # Docker bridge
 if [ -n "${DOCKER_HOST}" ]; then
-  socat -t 600 \
-    UNIX-LISTEN:"/var/run/docker-bridge.sock",fork,mode=777 \
-    UNIX-CONNECT:"/var/run/docker.sock" &
+  sh -c " \
+    while sleep 1; do \
+      rm -f /var/run/docker-bridge.sock ;
+      socat -t 600 \
+        UNIX-LISTEN:/var/run/docker-bridge.sock,fork,mode=777 \
+        UNIX-CONNECT:/var/run/docker.sock ; \
+    done \
+  " &
 fi
 
 # As a consequence of running the container as root user,

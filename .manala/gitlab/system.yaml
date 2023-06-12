@@ -1,0 +1,10 @@
+.manala.system:
+  before_script:
+    - !reference [.manala.system.setup, script]
+
+.manala.system.setup:
+  script:
+    - echo -e "\e[0Ksection_start:`date +%s`:manala_system_setup[collapsed=true]\r\e[0KSet up system"
+    - make manala.docker.compose COMMAND="pull --ignore-buildable"
+    - make manala.docker.compose COMMAND="build"
+    - echo -e "\e[0Ksection_end:`date +%s`:manala_system_setup\r\e[0K"
