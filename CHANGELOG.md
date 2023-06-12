@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] Switch influxdata repository to "stable"
 - [Apt] Remove apt-transport-https default package
 
+### Added
+- [All] Add debian bookworm support
+- [Redis] Version 7.0 support (bullseye and bookworm)
+- [Apt] Add GlusterFS 10.4 repository
+- [Apt] Add Maxscale 23.02 support
+
 ## [3.6.0] - 2023-05-16
 ### Added
 - [Apt] Nodejs 20 support

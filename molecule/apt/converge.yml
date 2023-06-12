@@ -324,8 +324,8 @@
       ansible.builtin.apt_repository:
         repo: "{{ item }}"
       loop:
-        - deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -336,7 +336,7 @@
               - sury_php:100
             manala_apt_repositories:
               # Short syntax
-              - percona
+              - matomo
               # Pattern syntax
               - repository: grafana
               # Verbose syntax
@@ -350,14 +350,14 @@
               -
                 - nginx
               # State
-              - source: deb https://deb.nodesource.com/node_10.x {{ ansible_facts.distribution_release }} main
               - source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-                state: absent
               - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-                state: present
-              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
-                state: ignore
+                state: absent
               - source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
+                state: present
+              - source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+                state: ignore
+              - source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
                 state: ignore
       always:
         - name: Goss
@@ -380,10 +380,10 @@
       ansible.builtin.apt_repository:
         repo: "{{ item }}"
       loop:
-        - deb https://deb.nodesource.com/node_10.x {{ ansible_facts.distribution_release }} main
         - deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
         - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -393,10 +393,10 @@
           vars:
             manala_apt_repositories_exclusive: true
             manala_apt_repositories:
-              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
                 state: ignore
       always:
         - name: Goss

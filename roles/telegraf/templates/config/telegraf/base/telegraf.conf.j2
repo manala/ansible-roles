@@ -113,7 +113,13 @@
   ## If set to true, do no set the "host" tag in the telegraf agent.
   {{ config.agent | manala.roles.toml_parameter('omit_hostname', default=false) }}
 
-  ## Method of translating SNMP objects. Can be "netsnmp" which
+  ## Method of translating SNMP objects. Can be "netsnmp" (deprecated) which
   ## translates by calling external programs snmptranslate and snmptable,
   ## or "gosmi" which translates using the built-in gosmi library.
   {{ config.agent | manala.roles.toml_parameter('snmp_translator', default='netsnmp', comment=true) }}
+
+  ## Name of the file to load the state of plugins from and store the state to.
+  ## If uncommented and not empty, this file will be used to save the state of
+  ## stateful plugins on termination of Telegraf. If the file exists on start,
+  ## the state in the file will be restored for the plugins.
+  {{ config.agent | manala.roles.toml_parameter('statefile', default='', comment=true) }}

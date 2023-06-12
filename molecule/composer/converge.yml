@@ -54,7 +54,7 @@
             tasks_from: install
           vars:
             manala_composer_bin: "{{ tests_dir }}/update"
-            manala_composer_version: 1.10.15
+            manala_composer_version: 1.10.26
         - name: Role - Major
           ansible.builtin.import_role:
             name: manala.roles.composer
@@ -82,7 +82,7 @@
             tasks_from: install
           vars:
             manala_composer_bin: "{{ tests_dir }}/major_no_change"
-            manala_composer_version: 1.10.15
+            manala_composer_version: 1.10.26
         - name: Role - Major No Change 2/2
           ansible.builtin.import_role:
             name: manala.roles.composer

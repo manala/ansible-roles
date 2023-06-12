@@ -1,0 +1,183 @@
+{%- set config = manala_ssh_server_config | default({}, true) -%}
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+{{ config | manala.roles.ssh_config_parameter('Include', default='/etc/ssh/sshd_config.d/*.conf') }}
+
+{{ config | manala.roles.ssh_config_parameter('Port', default=22, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('AddressFamily', default='any', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('ListenAddress', default=['0.0.0.0', '::'], comment=True) }}
+
+{{ config | manala.roles.ssh_config_parameter('HostKey', default=[
+  '/etc/ssh/ssh_host_rsa_key',
+  '/etc/ssh/ssh_host_ecdsa_key',
+  '/etc/ssh/ssh_host_ed25519_key',
+], comment=True) }}
+
+# Ciphers and keying
+{{ config | manala.roles.ssh_config_parameter('RekeyLimit', default='default none', comment=True) }}
+
+# Logging
+{{ config | manala.roles.ssh_config_parameter('SyslogFacility', default='AUTH', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('LogLevel', default='INFO', comment=True) }}
+
+# Authentication:
+
+{{ config | manala.roles.ssh_config_parameter('LoginGraceTime', default='2m', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PermitRootLogin', default='prohibit-password', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('StrictModes', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('MaxAuthTries', default=6, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('MaxSessions', default=10, comment=True) }}
+
+{{ config | manala.roles.ssh_config_parameter('PubkeyAuthentication', default=True, comment=True) }}
+
+# Expect .ssh/authorized_keys2 to be disregarded by default in future.
+{{ config | manala.roles.ssh_config_parameter('AuthorizedKeysFile', comment='#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2') }}
+
+{{ config | manala.roles.ssh_config_parameter('AuthorizedPrincipalsFile', default='none', comment=True) }}
+
+{{ config | manala.roles.ssh_config_parameter('AuthorizedKeysCommand', default='none', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('AuthorizedKeysCommandUser', default='nobody', comment=True) }}
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+{{ config | manala.roles.ssh_config_parameter('HostbasedAuthentication', default=False, comment=True) }}
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+{{ config | manala.roles.ssh_config_parameter('IgnoreUserKnownHosts', default=False, comment=True) }}
+# Don't read the user's ~/.rhosts and ~/.shosts files
+{{ config | manala.roles.ssh_config_parameter('IgnoreRhosts', default=True, comment=True) }}
+
+# To disable tunneled clear text passwords, change to no here!
+{{ config | manala.roles.ssh_config_parameter('PasswordAuthentication', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PermitEmptyPasswords', default=False, comment=True) }}
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+{{ config | manala.roles.ssh_config_parameter('KbdInteractiveAuthentication', default=False) }}
+
+# Kerberos options
+{{ config | manala.roles.ssh_config_parameter('KerberosAuthentication', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosOrLocalPasswd', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosTicketCleanup', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('KerberosGetAFSToken', default=False, comment=True) }}
+
+# GSSAPI options
+{{ config | manala.roles.ssh_config_parameter('GSSAPIAuthentication', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('GSSAPICleanupCredentials', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('GSSAPIStrictAcceptorCheck', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('GSSAPIKeyExchange', default=False, comment=True) }}
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the KbdInteractiveAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via KbdInteractiveAuthentication may bypass
+# the setting of "PermitRootLogin prohibit-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and KbdInteractiveAuthentication to 'no'.
+{{ config | manala.roles.ssh_config_parameter('UsePAM', default=True) }}
+
+{{ config | manala.roles.ssh_config_parameter('AllowAgentForwarding', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('AllowTcpForwarding', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('GatewayPorts', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('X11Forwarding', default=True) }}
+{{ config | manala.roles.ssh_config_parameter('X11DisplayOffset', default=10, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('X11UseLocalhost', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PermitTTY', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PrintMotd', default=False) }}
+{{ config | manala.roles.ssh_config_parameter('PrintLastLog', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('TCPKeepAlive', default=True, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PermitUserEnvironment', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('Compression', default='delayed', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('ClientAliveInterval', default=0, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('ClientAliveCountMax', default=3, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('UseDNS', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PidFile', default='/run/sshd.pid', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('MaxStartups', default='10:30:100', comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('PermitTunnel', default=False, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('ChrootDirectory', default=None, comment=True) }}
+{{ config | manala.roles.ssh_config_parameter('VersionAddendum', default=None, comment=True) }}
+
+# no default banner path
+{{ config | manala.roles.ssh_config_parameter('Banner', default=None, comment=True) }}
+
+# Allow client to pass locale environment variables
+{{ config | manala.roles.ssh_config_parameter('AcceptEnv', default='LANG LC_*') }}
+
+# override default of no subsystems
+{{ config | manala.roles.ssh_config_parameter('Subsystem', comment='Subsystem	sftp	/usr/lib/openssh/sftp-server') }}
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
+
+{{ config | manala.roles.ssh_config(exclude=[
+  'Include',
+  'Port',
+  'AddressFamily',
+  'ListenAddress',
+  'HostKey',
+  'RekeyLimit',
+  'SyslogFacility',
+  'LogLevel',
+  'LoginGraceTime',
+  'PermitRootLogin',
+  'StrictModes',
+  'MaxAuthTries',
+  'MaxSessions',
+  'PubkeyAuthentication',
+  'AuthorizedKeysFile',
+  'AuthorizedPrincipalsFile',
+  'AuthorizedKeysCommand',
+  'AuthorizedKeysCommandUser',
+  'HostbasedAuthentication',
+  'IgnoreUserKnownHosts',
+  'IgnoreRhosts',
+  'PasswordAuthentication',
+  'PermitEmptyPasswords',
+  'ChallengeResponseAuthentication',
+  'KerberosAuthentication',
+  'KerberosOrLocalPasswd',
+  'KerberosTicketCleanup',
+  'KerberosGetAFSToken',
+  'GSSAPIAuthentication',
+  'GSSAPICleanupCredentials',
+  'GSSAPIStrictAcceptorCheck',
+  'GSSAPIKeyExchange',
+  'UsePAM',
+  'AllowAgentForwarding',
+  'AllowTcpForwarding',
+  'GatewayPorts',
+  'X11Forwarding',
+  'X11DisplayOffset',
+  'X11UseLocalhost',
+  'PermitTTY',
+  'PrintMotd',
+  'PrintLastLog',
+  'TCPKeepAlive',
+  'PermitUserEnvironment',
+  'Compression',
+  'ClientAliveInterval',
+  'ClientAliveCountMax',
+  'UseDNS',
+  'PidFile',
+  'MaxStartups',
+  'PermitTunnel',
+  'ChrootDirectory',
+  'VersionAddendum',
+  'Banner',
+  'AcceptEnv',
+  'Subsystem'
+]) }}
