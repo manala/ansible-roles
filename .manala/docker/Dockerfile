@@ -119,11 +119,11 @@ RUN \
 # Molecule
 RUN \
     pipx install --pip-args="--no-cache-dir" \
-        molecule==4.0.4 \
+        molecule==5.0.1 \
     && _MOLECULE_COMPLETE=bash_source molecule > /etc/bash_completion.d/molecule \
     && pipx inject --pip-args="--no-cache-dir" molecule \
-        molecule-plugins==23.0.0 \
-        molecule-plugins[docker]==23.0.0
+        molecule-plugins==23.4.1 \
+        molecule-plugins[docker]==23.4.1
 
 # Run
 COPY docker/entrypoint.sh /
