@@ -80,6 +80,9 @@ manala_apt_repositories_patterns:
   nodesource_18:
     source: deb https://deb.nodesource.com/node_18.x {{ ansible_distribution_release }} main
     key: nodesource
+  nodesource_20:
+    source: deb https://deb.nodesource.com/node_20.x {{ ansible_distribution_release }} main
+    key: nodesource
   mysql_5_7:
     source: deb http://repo.mysql.com/apt/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} mysql-5.7
     key: mysql

@@ -1,0 +1,15 @@
+---
+
+package:
+  nodejs:
+    installed: true
+
+command:
+  node --version:
+    exit-status: 0
+    stdout:
+      - "/^v20.\\d+\\.\\d+$/"
+  npm --version:
+    exit-status: 0
+    stdout:
+      - "/^9.\\d+\\.\\d+$/"

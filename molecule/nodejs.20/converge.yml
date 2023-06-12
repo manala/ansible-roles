@@ -1,0 +1,20 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa: name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.nodejs
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false

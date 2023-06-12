@@ -133,6 +133,7 @@ manala_apt_repositories:
   - nodesource_14
   - nodesource_16
   - nodesource_18
+  - nodesource_20
   - postgresql
   - mongodb_4_2
   - mongodb_4_4
