@@ -17,11 +17,11 @@ command:
       - foo
       - "!bar"
       - baz
-  mysqladmin  --user=foo --password=foo ping:
+  mysqladmin --user=foo --password=foo ping:
     exit-status: 0
     stdout:
       - "mysqld is alive"
-  mysqladmin  --user=baz --password=baz ping:
+  mysqladmin --user=baz --password=baz ping:
     exit-status: 0
     stdout:
       - "mysqld is alive"
