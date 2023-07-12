@@ -223,7 +223,7 @@ manala_apt_repositories_patterns:
       https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main
     key: newrelic-infra
   influxdata:
-    source: deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable
+    source: deb https://repos.influxdata.com/debian stable main
     key: influxdata
   yarn:
     source: deb https://dl.yarnpkg.com/debian/ stable main
