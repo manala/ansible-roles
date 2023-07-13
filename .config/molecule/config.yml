@@ -32,6 +32,8 @@ provisioner:
       fact_caching: jsonfile
       fact_caching_connection: facts.json
       fact_caching_timeout: 3600
+      # Increase performance by not injecting facts as ansible_* variables
+      inject_facts_as_vars: false
 
 scenario:
   create_sequence:

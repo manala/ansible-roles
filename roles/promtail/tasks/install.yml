@@ -26,7 +26,7 @@
     __manala_promtail_archive: |-
       {{
         'promtail-linux-%(architecture)s' | format(
-          architecture=ansible_architecture | manala.roles.promtail_architecture,
+          architecture=ansible_facts.architecture | manala.roles.promtail_architecture,
         )
       }}
     __manala_promtail_archive_url: |-
@@ -39,7 +39,7 @@
     __manala_promtail_archive_bin: |-
       {{
         'promtail-linux-%(architecture)s' | format(
-          architecture=ansible_architecture | manala.roles.promtail_architecture,
+          architecture=ansible_facts.architecture | manala.roles.promtail_architecture,
         )
       }}
 

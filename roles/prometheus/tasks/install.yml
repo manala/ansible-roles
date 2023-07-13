@@ -27,7 +27,7 @@
       {{
         'prometheus-%(version)s.linux-%(architecture)s' | format(
           version=__manala_prometheus_version,
-          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+          architecture=ansible_facts.architecture | manala.roles.prometheus_architecture,
         )
       }}
     __manala_prometheus_archive_url: |-
@@ -98,7 +98,7 @@
       {{
         'node_exporter-%(version)s.linux-%(architecture)s' | format(
           version=__manala_prometheus_node_exporter_version,
-          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+          architecture=ansible_facts.architecture | manala.roles.prometheus_architecture,
         )
       }}
     __manala_prometheus_node_exporter_archive_url: |-
@@ -175,7 +175,7 @@
       {{
         'nginx-prometheus-exporter_%(version)s_linux_%(architecture)s' | format(
           version=__manala_prometheus_nginx_exporter_version,
-          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+          architecture=ansible_facts.architecture | manala.roles.prometheus_architecture,
         )
       }}
     __manala_prometheus_nginx_exporter_archive_url: |-
@@ -250,7 +250,7 @@
       {{
         'php-fpm_exporter_%(version)s_linux_%(architecture)s' | format(
           version=__manala_prometheus_php_fpm_exporter_version,
-          architecture=ansible_architecture | manala.roles.prometheus_architecture,
+          architecture=ansible_facts.architecture | manala.roles.prometheus_architecture,
         )
       }}
     __manala_prometheus_php_fpm_exporter_archive_url: |-

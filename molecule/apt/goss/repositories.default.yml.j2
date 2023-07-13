@@ -9,7 +9,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
+      - "deb https://packages.sury.org/php/ {{ ansible_facts.distribution_release }} main"
   # Short syntax
   /etc/apt/sources.list.d/repo_percona_com_apt.list:
     exists: true
@@ -18,7 +18,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb http://repo.percona.com/apt {{ ansible_distribution_release }} main"
+      - "deb http://repo.percona.com/apt {{ ansible_facts.distribution_release }} main"
   # Pattern syntax
   /etc/apt/sources.list.d/apt_grafana_com.list:
     exists: true
@@ -44,7 +44,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+      - "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main"
   # Flatten
   /etc/apt/sources.list.d/nginx_org_packages_debian.list:
     exists: true
@@ -53,7 +53,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx"
+      - "deb http://nginx.org/packages/debian/ {{ ansible_facts.distribution_release }} nginx"
   # State
   /etc/apt/sources.list.d/deb_nodesource_com_node_10_x.list:
     exists: true
@@ -62,7 +62,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main"
+      - "deb https://deb.nodesource.com/node_10.x {{ ansible_facts.distribution_release }} main"
   /etc/apt/sources.list.d/deb_nodesource_com_node_12_x.list:
     exists: false
   /etc/apt/sources.list.d/deb_nodesource_com_node_14_x.list:
@@ -72,7 +72,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main"
+      - "deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main"
   /etc/apt/sources.list.d/deb_nodesource_com_node_15_x.list:
     exists: true
     filetype: file
@@ -80,6 +80,6 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main"
+      - "deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main"
   /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list:
     exists: false

@@ -10,7 +10,7 @@
     - |
       {{
         manala_bind_install_packages | default(manala_bind_install_packages_default, True)
-        + (ansible_python.version.major == 2) | ternary(
+        + (ansible_facts.python.version.major == 2) | ternary(
             ['python-dnspython'],
             ['python3-dnspython']
         )

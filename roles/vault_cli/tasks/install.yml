@@ -27,7 +27,7 @@
       {{
         'vault_%(version)s_linux_%(architecture)s' | format(
           version=__manala_vault_cli_version,
-          architecture=ansible_architecture | manala.roles.vault_cli_architecture,
+          architecture=ansible_facts.architecture | manala.roles.vault_cli_architecture,
         )
       }}
     __manala_vault_cli_archive_url: |-

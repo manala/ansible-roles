@@ -11,7 +11,7 @@
       {{
         manala_mongodb_install_packages | default(manala_mongodb_install_packages_default, True)
         + (manala_mongodb_users | length > 0) | ternary(
-            (ansible_python.version.major == 2) | ternary(
+            (ansible_facts.python.version.major == 2) | ternary(
               ['python-pymongo'],
               ['python3-pymongo']
             ),

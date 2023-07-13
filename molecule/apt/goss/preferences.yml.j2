@@ -11,7 +11,7 @@ file:
     mode: "0644"
     contains:
       - "Package:      git git-*"
-      - "Pin:          release a={{ ansible_distribution_release }}-backports"
+      - "Pin:          release a={{ ansible_facts.distribution_release }}-backports"
       - "Pin-Priority: 1000"
   {{ tests_dir }}/default/libssl1_0_0:
     exists: true
@@ -21,7 +21,7 @@ file:
     mode: "0644"
     contains:
       - "Package:      libssl1.0.0"
-      - "Pin:          release a={{ ansible_distribution_release }}-backports"
+      - "Pin:          release a={{ ansible_facts.distribution_release }}-backports"
       - "Pin-Priority: 1000"
   {{ tests_dir }}/default/php:
     exists: true

@@ -7,10 +7,10 @@
 
     - name: Strategy / Unarchive > Create dir
       ansible.builtin.file:  # noqa: risky-file-permissions
-        path: "{{ deploy_helper.new_release_path }}/"
+        path: "{{ ansible_facts.deploy_helper.new_release_path }}/"
         state: directory
 
     - name: Strategy / Unarchive > Unarchive
       ansible.builtin.unarchive:
         src: "{{ manala_deploy_strategy_unarchive_src }}"
-        dest: "{{ deploy_helper.new_release_path }}"
+        dest: "{{ ansible_facts.deploy_helper.new_release_path }}"

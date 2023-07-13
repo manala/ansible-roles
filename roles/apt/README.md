@@ -38,7 +38,7 @@ You can find all variables and default values used by this role in the [defaults
       - nginx@nginx
     manala_apt_packages:
       - xfonts-75dpi
-      - http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-{{ ansible_distribution_release }}-amd64.deb
+      - http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-{{ ansible_facts.distribution_release }}-amd64.deb
   tasks:
     - ansible.builtin.import_role:  
         name: manala.roles.apt
@@ -103,9 +103,9 @@ manala_apt_sources_list:
 Use raw content:
 ```yaml
 manala_apt_sources_list: |
-  deb http://deb.debian.org/debian {{ ansible_distribution_release }} main
-  deb http://security.debian.org/debian-security {{ ansible_distribution_release }}/updates main
-  deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main
+  deb http://deb.debian.org/debian {{ ansible_facts.distribution_release }} main
+  deb http://security.debian.org/debian-security {{ ansible_facts.distribution_release }}/updates main
+  deb http://deb.debian.org/debian {{ ansible_facts.distribution_release }}-updates main
 ```
 
 ### Repositories
@@ -170,7 +170,7 @@ manala_apt_repositories:
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id: D50582E6
-  - source: deb https://enterprise.proxmox.com/debian {{ ansible_distribution_release }} pve-enterprise
+  - source: deb https://enterprise.proxmox.com/debian {{ ansible_facts.distribution_release }} pve-enterprise
     state: absent
   # Ignore repository
   - source: deb https://example.com foo

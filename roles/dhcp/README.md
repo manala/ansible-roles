@@ -26,7 +26,7 @@ You can find all variables and default values used by this role in the [defaults
 
 ```yaml
 manala_dhcp_interfaces:
-  - "{{ ansible_default_ipv4.interface }}"
+  - "{{ ansible_facts.default_ipv4.interface }}"
 ```
 
 #### Config
@@ -39,7 +39,7 @@ manala_dhcp_config_template: dhcp/config.j2
 
 ```yaml
 manala_dhcp_config_content: |
-  subnet {{ ansible_default_ipv4.network }} netmask {{ ansible_default_ipv4.netmask }} {
+  subnet {{ ansible_facts.default_ipv4.network }} netmask {{ ansible_facts.default_ipv4.netmask }} {
   }
 ```
 

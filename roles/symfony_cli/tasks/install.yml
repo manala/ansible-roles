@@ -26,7 +26,7 @@
     __manala_symfony_cli_archive: |-
       {{
         'symfony-cli_linux_%(architecture)s' | format(
-          architecture=ansible_architecture | manala.roles.symfony_cli_architecture,
+          architecture=ansible_facts.architecture | manala.roles.symfony_cli_architecture,
         )
       }}
     __manala_symfony_cli_archive_url: |-

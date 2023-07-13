@@ -2,19 +2,19 @@
 
 - name: Shared > Ensure release targets are absent
   ansible.builtin.file:
-    path: "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
+    path: "{{ ansible_facts.deploy_helper.new_release_path ~ '/' ~ item }}"
     state: absent
   loop: "{{ manala_deploy_shared_files + manala_deploy_shared_dirs }}"
 
 - name: Shared > Stat shared files
   ansible.builtin.stat:
-    path: "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+    path: "{{ ansible_facts.deploy_helper.shared_path ~ '/' ~ item }}"
   register: __manala_deploy_shared_files_stats_output
   loop: "{{ manala_deploy_shared_files }}"
 
 - name: Shared > Ensure shared directories files are present
   ansible.builtin.file:  # noqa: risky-file-permissions
-    path: "{{ (deploy_helper.shared_path ~ '/' ~ item) | dirname }}"
+    path: "{{ (ansible_facts.deploy_helper.shared_path ~ '/' ~ item) | dirname }}"
     state: directory
   loop: "{{ manala_deploy_shared_files | flatten }}"
   loop_control:
@@ -23,7 +23,7 @@
 
 - name: Shared > Ensure shared files are present
   ansible.builtin.file:  # noqa: risky-file-permissions
-    path: "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+    path: "{{ ansible_facts.deploy_helper.shared_path ~ '/' ~ item }}"
     state: touch
   loop: "{{ manala_deploy_shared_files | flatten }}"
   loop_control:
@@ -32,14 +32,14 @@
 
 - name: Shared > Ensure shared dirs are present
   ansible.builtin.file:  # noqa: risky-file-permissions
-    path: "{{ deploy_helper.shared_path ~ '/' ~ item }}"
+    path: "{{ ansible_facts.deploy_helper.shared_path ~ '/' ~ item }}"
     state: directory
     follow: true
   loop: "{{ manala_deploy_shared_dirs }}"
 
 - name: Shared > Links
   ansible.builtin.file:
-    path: "{{ deploy_helper.new_release_path ~ '/' ~ item }}"
-    src: "{{ (deploy_helper.shared_path ~ '/' ~ item) | relpath((deploy_helper.new_release_path ~ '/' ~ item) | dirname) }}"
+    path: "{{ ansible_facts.deploy_helper.new_release_path ~ '/' ~ item }}"
+    src: "{{ (ansible_facts.deploy_helper.shared_path ~ '/' ~ item) | relpath((ansible_facts.deploy_helper.new_release_path ~ '/' ~ item) | dirname) }}"
     state: link
   loop: "{{ manala_deploy_shared_files + manala_deploy_shared_dirs }}"

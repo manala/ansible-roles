@@ -18,7 +18,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - INTERFACESv4="{{ ansible_default_ipv4.interface }}"
+      - INTERFACESv4="{{ ansible_facts.default_ipv4.interface }}"
   # Config
   {{ manala_dhcp_config_file }}:
     exists: true
@@ -27,7 +27,7 @@ file:
     group: root
     mode: "0644"
     contains:
-      - "subnet {{ ansible_default_ipv4.network }} netmask {{ ansible_default_ipv4.netmask }} {"
+      - "subnet {{ ansible_facts.default_ipv4.network }} netmask {{ ansible_facts.default_ipv4.netmask }} {"
       - "}"
 
 command:
@@ -35,4 +35,4 @@ command:
   ps aux:
     exit-status: 0
     stdout:
-      - /usr/sbin/dhcpd -4 -q -cf {{ manala_dhcp_config_file }} {{ ansible_default_ipv4.interface }}
+      - /usr/sbin/dhcpd -4 -q -cf {{ manala_dhcp_config_file }} {{ ansible_facts.default_ipv4.interface }}

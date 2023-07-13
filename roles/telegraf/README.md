@@ -32,14 +32,14 @@ manala_telegraf_config:
   global_tags:
     foo: bar
   agent:
-    hostname: "{{ ansible_fqdn }}"
+    hostname: "{{ ansible_facts.fqdn }}"
 ```
 
 Start from a fresh empty main config, using dict parameters:
 ```yaml
 manala_telegraf_config:
   agent:
-    hostname: "{{ ansible_fqdn }}"
+    hostname: "{{ ansible_facts.fqdn }}"
     quiet: true
   outputs:
     file:
@@ -51,7 +51,7 @@ Use raw main config:
 ```yaml
 manala_telegraf_config: |
 [agent]
-  hostname = "{{ ansible_fqdn }}"
+  hostname = "{{ ansible_facts.fqdn }}"
   quiet = true
 
 [[outputs.file]]

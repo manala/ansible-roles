@@ -10,7 +10,7 @@
         __manala_deploy_symfony_assets_version: "{{
           manala_deploy_strategy_git_head
             if (item.options == 'git_head' and manala_deploy_strategy_git_head) else
-          deploy_helper.new_release
+          ansible_facts.deploy_helper.new_release
         }}"
 
     - name: Tasks / Symfony Assets Version > Replace assets_version in parameters.yml

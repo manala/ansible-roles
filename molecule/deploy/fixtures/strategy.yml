@@ -3,10 +3,10 @@
 - block:  # noqa: name[missing]
     - name: strategy > Create release dir
       ansible.builtin.file:
-        path: "{{ deploy_helper.new_release_path }}/"
+        path: "{{ ansible_facts.deploy_helper.new_release_path }}/"
         state: directory
 
     - name: strategy > Touch file
       ansible.builtin.file:
-        path: "{{ deploy_helper.new_release_path }}/{{ manala_deploy_strategy_include_options.filename }}"
+        path: "{{ ansible_facts.deploy_helper.new_release_path }}/{{ manala_deploy_strategy_include_options.filename }}"
         state: touch

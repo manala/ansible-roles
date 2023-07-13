@@ -2,7 +2,7 @@
 
 - name: Copied > Stat
   ansible.builtin.stat:
-    path: "{{ deploy_helper.previous_release_path ~ '/' ~ item }}"
+    path: "{{ ansible_facts.deploy_helper.previous_release_path ~ '/' ~ item }}"
   register: __manala_deploy_copied_stats_output
   loop: "{{ manala_deploy_copied }}"
 
@@ -10,8 +10,8 @@
   ansible.builtin.command:
     cmd: >
       cp -R
-      {{ deploy_helper.previous_release_path ~ '/' ~ item ~ (__manala_deploy_copied_stats_output.results[index].stat.isdir | ternary('/', '')) }}
-      {{ deploy_helper.new_release_path ~ '/' ~ item }}
+      {{ ansible_facts.deploy_helper.previous_release_path ~ '/' ~ item ~ (__manala_deploy_copied_stats_output.results[index].stat.isdir | ternary('/', '')) }}
+      {{ ansible_facts.deploy_helper.new_release_path ~ '/' ~ item }}
   delegate_to: "{{ inventory_hostname }}"
   loop: "{{ manala_deploy_copied | flatten }}"
   loop_control:

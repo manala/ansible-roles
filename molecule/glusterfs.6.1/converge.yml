@@ -48,19 +48,19 @@
               - name: volume_absent
                 bricks: "{{ tests_dir }}/absent"
                 cluster:
-                  - debian.{{ ansible_distribution_release }}
+                  - debian.{{ ansible_facts.distribution_release }}
                 force: true
               - name: volume_present
                 bricks: "{{ tests_dir }}/present"
                 cluster:
-                  - debian.{{ ansible_distribution_release }}
+                  - debian.{{ ansible_facts.distribution_release }}
                 force: true
               # Flatten
               -
                 - name: volume_test
                   bricks: "{{ tests_dir }}/test_1"
                   cluster:
-                    - debian.{{ ansible_distribution_release }}
+                    - debian.{{ ansible_facts.distribution_release }}
                   options:
                     storage.owner-gid: "1337"
                     storage.owner-uid: "1337"
@@ -77,7 +77,7 @@
               - name: volume_test
                 bricks: "{{ tests_dir }}/test_2,{{ tests_dir }}/test_3"
                 cluster:
-                  - debian.{{ ansible_distribution_release }}
+                  - debian.{{ ansible_facts.distribution_release }}
                 force: true
       always:
         - name: Goss

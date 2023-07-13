@@ -284,7 +284,7 @@
               - nginx
               - source: deb https://dl.yarnpkg.com/debian/ stable main
                 key: yarn
-              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
                 key:
                   url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
                   id: ACCC4CF8
@@ -324,8 +324,8 @@
       ansible.builtin.apt_repository:
         repo: "{{ item }}"
       loop:
-        - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
-        - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+        - deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -342,7 +342,7 @@
               # Verbose syntax
               - source: deb https://dl.yarnpkg.com/debian/ stable main
                 key: yarn
-              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
                 key:
                   url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
                   id: ACCC4CF8
@@ -350,14 +350,14 @@
               -
                 - nginx
               # State
-              - source: deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_10.x {{ ansible_facts.distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
                 state: absent
-              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
                 state: present
-              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
                 state: ignore
       always:
         - name: Goss
@@ -380,10 +380,10 @@
       ansible.builtin.apt_repository:
         repo: "{{ item }}"
       loop:
-        - deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
-        - deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
-        - deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
-        - deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+        - deb https://deb.nodesource.com/node_10.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
+        - deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -393,10 +393,10 @@
           vars:
             manala_apt_repositories_exclusive: true
             manala_apt_repositories:
-              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_15.x {{ ansible_facts.distribution_release }} main
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main
+              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
                 state: ignore
       always:
         - name: Goss
@@ -430,7 +430,7 @@
             'x86_64': 'https://snapshot.debian.org/archive/debian/20080726T000000Z/pool/main/p/pscan/pscan_1.2-9_amd64.deb',
             'aarch64': 'https://snapshot.debian.org/archive/debian/20140820T100258Z/pool/main/p/pscan/pscan_1.2-9_arm64.deb',
             'armv7l': 'https://snapshot.debian.org/archive/debian/20111201T234959Z/pool/main/p/pscan/pscan_1.2-9_armhf.deb',
-          }[ansible_architecture] }}
+          }[ansible_facts.architecture] }}
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -445,7 +445,7 @@
                   'x86_64': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_amd64.deb',
                   'aarch64': 'https://snapshot.debian.org/archive/debian/20140819T040912Z/pool/main/s/spinner/spinner_1.2.4-3_arm64.deb',
                   'armv7l': 'https://snapshot.debian.org/archive/debian/20111228T033508Z/pool/main/s/spinner/spinner_1.2.4-3_armhf.deb',
-                }[ansible_architecture] }}
+                }[ansible_facts.architecture] }}
               # Verbose syntax
               - package: freesweep
               # Flatten

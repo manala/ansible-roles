@@ -15,5 +15,5 @@ file:
     exists: true
     filetype: symlink
   # Unfinished
-  {{ tests_dir }}/app/current/{{ deploy_helper.unfinished_filename }}:
+  {{ tests_dir }}/app/current/{{ ansible_facts.deploy_helper.unfinished_filename }}:
     exists: false

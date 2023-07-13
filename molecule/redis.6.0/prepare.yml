@@ -12,4 +12,4 @@
       vars:
         manala_apt_preferences:
           - redis@backports
-      when: ansible_distribution_release in ['buster']
+      when: ansible_facts.distribution_release in ['buster']

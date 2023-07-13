@@ -44,7 +44,7 @@
           vars:
             manala_mysql_install_python_packages: |
               {{
-                (ansible_python.version.major == 2) | ternary(
+                (ansible_facts.python.version.major == 2) | ternary(
                   ['python-pymysql'],
                   ['python3-pymysql']
                 )

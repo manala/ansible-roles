@@ -15,7 +15,7 @@
           or (manala_postgresql_privileges | length > 0)
           or (manala_postgresql_roles | length > 0)
         ) | ternary(
-          (ansible_python.version.major == 2) | ternary(
+          (ansible_facts.python.version.major == 2) | ternary(
             ['python-psycopg2'],
             ['python3-psycopg2']
           ),

@@ -23,12 +23,12 @@
         __manala_ngrok_version.content | default | regex_search(
           'https://[^"]+ngrok-v3-%(version)s-linux-%(architecture)s.tar.gz' | format(
             version=manala_ngrok_version,
-            architecture=ansible_architecture | manala.roles.ngrok_architecture,
+            architecture=ansible_facts.architecture | manala.roles.ngrok_architecture,
           )
         )
           if (manala_ngrok_version) else
         'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-%(architecture)s.tgz' | format(
-          architecture=ansible_architecture | manala.roles.ngrok_architecture,
+          architecture=ansible_facts.architecture | manala.roles.ngrok_architecture,
         )
       }}
     __manala_ngrok_archive_bin: ngrok

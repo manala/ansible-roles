@@ -54,13 +54,13 @@ manala_deploy_strategy_include_options:
 
     - name: strategy/s3 > Create release dir
       ansible.builtin.file:
-        path: "{{ deploy_helper.new_release_path }}/"
+        path: "{{ ansible_facts.deploy_helper.new_release_path }}/"
         state: directory
 
     - name: strategy/s3 > Unarchive
       ansible.builtin.unarchive:
         src: "{{ deploy_tmp.path }}/archive.tar.gz"
-        dest: "{{ deploy_helper.new_release_path }}"
+        dest: "{{ ansible_facts.deploy_helper.new_release_path }}"
         remote_src: yes
 ```
 

@@ -27,7 +27,7 @@
       {{
         'https://github.com/hairyhenderson/gomplate/releases/download/v%(version)s/gomplate_linux-%(architecture)s' | format(
           version=__manala_gomplate_version,
-          architecture=ansible_architecture | manala.roles.gomplate_architecture,
+          architecture=ansible_facts.architecture | manala.roles.gomplate_architecture,
         )
       }}
   block:

@@ -31,14 +31,14 @@ class LookupModule(LookupBase):
             'when': True,
             'dir':
                 (
-                    variables['deploy_helper'].get('new_release_path')
-                ) if 'deploy_helper' in variables else (
+                    variables['ansible_facts']['deploy_helper'].get('new_release_path')
+                ) if 'deploy_helper' in variables['ansible_facts'] else (
                     variables.get('manala_deploy_dir', '') + '/' + variables.get('manala_deploy_current_dir', '')
                 ),
             'shared_dir':
                 (
-                    variables['deploy_helper'].get('shared_path')
-                ) if 'deploy_helper' in variables else (
+                    variables['ansible_facts']['deploy_helper'].get('shared_path')
+                ) if 'deploy_helper' in variables['ansible_facts'] else (
                     variables.get('manala_deploy_dir', '') + '/' + variables.get('manala_deploy_shared_dir', '')
                 )
         }
