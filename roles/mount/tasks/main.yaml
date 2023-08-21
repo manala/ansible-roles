@@ -1,0 +1,7 @@
+---
+
+- name: Points
+  ansible.builtin.import_tasks: points.yaml
+  tags:
+    - manala_mount
+    - manala_mount.points

@@ -25,5 +25,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/roles.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/roles.yaml.j2') }}"
           changed_when: false

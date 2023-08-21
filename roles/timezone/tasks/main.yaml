@@ -1,0 +1,7 @@
+---
+
+- name: Default
+  ansible.builtin.import_tasks: default.yaml
+  tags:
+    - manala_timezone
+    - manala_timezone.default

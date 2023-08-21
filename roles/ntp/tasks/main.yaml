@@ -1,0 +1,14 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+     - manala_ntp
+     - manala_ntp.install
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+     - manala_ntp
+     - manala_ntp.services
+     - manala.services

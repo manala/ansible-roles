@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.cron.yml
+      - .github/workflows/molecule.cron.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/cron/**

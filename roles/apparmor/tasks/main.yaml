@@ -1,0 +1,13 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_apparmor
+    - manala_apparmor.install
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_apparmor
+    - manala_apparmor.configs

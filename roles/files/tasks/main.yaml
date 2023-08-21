@@ -1,0 +1,7 @@
+---
+
+- name: Attributes
+  ansible.builtin.import_tasks: attributes.yaml
+  tags:
+    - manala_files
+    - manala_files.attributes

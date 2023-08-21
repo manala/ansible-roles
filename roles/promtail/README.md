@@ -18,7 +18,7 @@ Installation instructions can be found in the main [README.md](https://github.co
 
 ## Role Variables
 
-You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
+You can find all variables and default values used by this role in the [defaults/main.yaml](./defaults/main.yaml) file
 
 ## Example
 

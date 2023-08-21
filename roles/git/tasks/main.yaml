@@ -1,0 +1,19 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_git
+    - manala_git.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_git
+    - manala_git.config
+
+- name: Repositories
+  ansible.builtin.import_tasks: repositories.yaml
+  tags:
+    - manala_git
+    - manala_git.repositories

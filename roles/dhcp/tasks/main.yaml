@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_dhcp
+    - manala_dhcp.install
+
+- name: Interfaces
+  ansible.builtin.import_tasks: interfaces.yaml
+  tags:
+    - manala_dhcp
+    - manala_dhcp.interfaces
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_dhcp
+    - manala_dhcp.config
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_dhcp
+    - manala_dhcp.services
+    - manala.services

@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.elasticsearch.yml
+      - .github/workflows/molecule.elasticsearch.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/elasticsearch.*/**

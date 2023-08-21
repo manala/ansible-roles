@@ -1,0 +1,7 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_make
+    - manala_make.install

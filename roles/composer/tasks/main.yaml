@@ -1,0 +1,15 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_composer
+    - manala_composer.install
+    - manala_composer.update
+    - manala.update
+
+- name: Users Auth
+  ansible.builtin.import_tasks: users_auth.yaml
+  tags:
+    - manala_composer
+    - manala_composer.users_auth

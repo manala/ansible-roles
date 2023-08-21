@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_nginx
+    - manala_nginx.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_nginx
+    - manala_nginx.config
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_nginx
+    - manala_nginx.configs
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_nginx
+    - manala_nginx.services
+    - manala.services

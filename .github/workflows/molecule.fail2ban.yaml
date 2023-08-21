@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.fail2ban.yml
+      - .github/workflows/molecule.fail2ban.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/fail2ban/**

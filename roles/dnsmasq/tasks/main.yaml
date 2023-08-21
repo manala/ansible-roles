@@ -1,0 +1,20 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_dnsmasq
+    - manala_dnsmasq.install
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_dnsmasq
+    - manala_dnsmasq.configs
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_dnsmasq
+    - manala_dnsmasq.services
+    - manala.services

@@ -45,7 +45,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/groups.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/groups.yaml.j2') }}"
           changed_when: false
 
 #########
@@ -97,7 +97,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/users.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users.yaml.j2') }}"
           changed_when: false
 
 #########################
@@ -147,7 +147,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/users_authorized_keys.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users_authorized_keys.yaml.j2') }}"
           changed_when: false
 
 ##############
@@ -214,7 +214,7 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/users_keys.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users_keys.yaml.j2') }}"
           changed_when: false
 
 ##################
@@ -290,5 +290,5 @@
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/users_gpg_keys.yml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/users_gpg_keys.yaml.j2') }}"
           changed_when: false

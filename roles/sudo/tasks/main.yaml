@@ -1,0 +1,13 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_sudo
+    - manala_sudo.install
+
+- name: Sudoers
+  ansible.builtin.import_tasks: sudoers.yaml
+  tags:
+    - manala_sudo
+    - manala_sudo.sudoers

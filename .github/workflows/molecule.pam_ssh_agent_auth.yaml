@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.pam_ssh_agent_auth.yml
+      - .github/workflows/molecule.pam_ssh_agent_auth.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/pam_ssh_agent_auth/**

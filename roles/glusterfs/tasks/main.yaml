@@ -1,0 +1,19 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_glusterfs
+    - manala_glusterfs.install
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_glusterfs
+    - manala_glusterfs.services
+
+- name: Volumes
+  ansible.builtin.import_tasks: volumes.yaml
+  tags:
+    - manala_glusterfs
+    - manala_glusterfs.volumes

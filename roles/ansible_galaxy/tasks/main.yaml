@@ -1,0 +1,9 @@
+---
+
+- name: Roles
+  ansible.builtin.import_tasks: roles.yaml
+  tags:
+    - manala_ansible_galaxy
+    - manala_ansible_galaxy.roles
+    - manala_ansible_galaxy.update
+    - manala.update

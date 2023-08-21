@@ -1,0 +1,38 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.install
+
+- name: Errorfiles
+  ansible.builtin.import_tasks: errorfiles.yaml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.errorfiles
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.config
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.configs
+
+- name: Environment
+  ansible.builtin.import_tasks: environment.yaml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.environment
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_haproxy
+    - manala_haproxy.services
+    - manala.services

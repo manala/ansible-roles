@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_mongodb
+    - manala_mongodb.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_mongodb
+    - manala_mongodb.config
+
+- name: Users
+  ansible.builtin.import_tasks: users.yaml
+  tags:
+    - manala_mongodb
+    - manala_mongodb.users
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_mongodb
+    - manala_mongodb.services
+    - manala.services

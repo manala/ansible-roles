@@ -1,0 +1,43 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_network
+    - manala_network.install
+
+- name: Hosts
+  ansible.builtin.import_tasks: hosts.yaml
+  tags:
+    - manala_network
+    - manala_network.hosts
+
+- name: Resolver config
+  ansible.builtin.import_tasks: resolver_config.yaml
+  tags:
+    - manala_network
+    - manala_network.resolver_config
+
+- name: Interfaces config
+  ansible.builtin.import_tasks: interfaces_config.yaml
+  tags:
+    - manala_network
+    - manala_network.interfaces_config
+
+- name: Interfaces configs
+  ansible.builtin.import_tasks: interfaces_configs.yaml
+  tags:
+    - manala_network
+    - manala_network.interfaces_configs
+
+- name: Routing Tables
+  ansible.builtin.import_tasks: routing_tables.yaml
+  tags:
+    - manala_network
+    - manala_network.routing_tables
+
+- name: Netplan configs
+  ansible.builtin.import_tasks: netplan_configs.yaml
+  tags:
+    - manala_network
+    - manala_network.netplan_configs
