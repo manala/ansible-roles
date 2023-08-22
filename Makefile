@@ -29,7 +29,7 @@ test.sanity:
 		--venv \
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
-		--color \
+		--color yes \
 		--exclude .github/ \
 		--exclude .manala/ \
 	)
@@ -43,7 +43,7 @@ test.units:
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
-		--color \
+		--color yes \
 	)
 .PHONY: test.units
 
@@ -55,7 +55,7 @@ test.integration:
 		--python 3.9 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
-		--color \
+		--color yes \
 	)
 .PHONY: test.integration
 
@@ -68,7 +68,7 @@ test.coverage:
 		--group-by command \
 		--group-by version \
 		$(if $(VERBOSE), --verbose) \
-		--color \
+		--color yes \
 	)
 .PHONY: test.coverage
 
