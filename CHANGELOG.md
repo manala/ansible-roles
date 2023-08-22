@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [Apt] Switch influxdata repository to "stable"
+- [Apt] Remove apt-transport-https default package
 
 ## [3.6.0] - 2023-05-16
 ### Added
