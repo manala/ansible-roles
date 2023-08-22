@@ -165,19 +165,29 @@ manala_apt_repositories_patterns:
     source: deb https://releases.galeracluster.com/galera-4.10/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
     key: galera
   mysql_wsrep_5_7:
-    source: deb [trusted=yes] http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb [trusted=yes] http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   mysql_wsrep_8_0:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   mysql_wsrep_8_0_22:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.22-26.5/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/mysql-wsrep-8.0.22-26.5/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   mysql_wsrep_8_0_23:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.23-26.6/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/mysql-wsrep-8.0.23-26.6/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   mysql_wsrep_8_0_26:
-    source: deb https://releases.galeracluster.com/mysql-wsrep-8.0.26-26.8/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/mysql-wsrep-8.0.26-26.8/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   grafana:
     source: deb https://apt.grafana.com stable main
