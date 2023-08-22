@@ -20,7 +20,7 @@ class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
 
-        variables = variables or {}
+        variables = variables or {'ansible_facts': {}}
 
         results = []
 
