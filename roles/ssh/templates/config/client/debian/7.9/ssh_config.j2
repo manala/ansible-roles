@@ -156,7 +156,7 @@ Host *
     {{ config['Host *'] | manala.roles.ssh_config_parameter('SendEnv', default='LANG LC_*') | indent(4) }}
     {{ config['Host *'] | manala.roles.ssh_config_parameter('HashKnownHosts', default=True) | indent(4) }}
     {{ config['Host *'] | manala.roles.ssh_config_parameter('GSSAPIAuthentication', default=True) | indent(4) }}
-    {{- config['Host *'] | manala.roles.ssh_config_section(exclude=[
+    {{ config['Host *'] | manala.roles.ssh_config(exclude=[
       'ForwardAgent',
       'ForwardX11',
       'ForwardX11Trusted',

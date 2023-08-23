@@ -12,4 +12,8 @@ command:
   ansible --version:
     exit-status: 0
     stdout:
+{% if ansible_facts.distribution_major_version is version('11', '<=') %}
       - "/^ansible \\d+\\.\\d+\\.\\d+/"
+{% else %}
+      - "/^ansible \\[core \\d+\\.\\d+\\.\\d+\\]/"
+{% endif %}

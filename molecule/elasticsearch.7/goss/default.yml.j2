@@ -20,5 +20,6 @@ http:
 command:
   /usr/share/elasticsearch/bin/elasticsearch-plugin list:
     exit-status: 0
+    timeout: 30000
     stdout:
       - "analysis-icu"

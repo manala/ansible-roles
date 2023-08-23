@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   tasks:
     - block:  # noqa: name[missing]
         - name: Role
@@ -25,7 +27,9 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   vars:
     tests_dir: /molecule/apparmor/configs
   tasks:

@@ -7,6 +7,7 @@ platforms:
   - name: debian.buster
     groups: [debian]
     image: jrei/systemd-debian:buster
+    platform: linux/amd64
     dockerfile: ../Dockerfile.debian.buster.j2
     privileged: true
     cgroupns_mode: host
@@ -16,7 +17,18 @@ platforms:
   - name: debian.bullseye
     groups: [debian]
     image: jrei/systemd-debian:bullseye
+    platform: linux/amd64
     dockerfile: ../Dockerfile.debian.bullseye.j2
+    privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    override_command: false
+  - name: debian.bookworm
+    groups: [debian]
+    image: jrei/systemd-debian:bookworm
+    platform: linux/amd64
+    dockerfile: ../Dockerfile.debian.bookworm.j2
     privileged: true
     cgroupns_mode: host
     volumes:
