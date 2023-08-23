@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   tasks:
     - block:  # noqa: name[missing]
         - name: Role
@@ -39,7 +41,9 @@
 
 - name: Client
   tags: [client]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   tasks:
     - name: Packages absent
       ansible.builtin.apt:
@@ -66,7 +70,9 @@
 
 - name: Config
   tags: [config]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   vars:
     tests_dir: /molecule/mysql/config
   tasks:
@@ -117,7 +123,9 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   vars:
     tests_dir: /molecule/mysql/configs
   tasks:
@@ -216,7 +224,9 @@
 
 - name: Data
   tags: [data]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   vars:
     tests_dir: /molecule/mysql/data
   tasks:
@@ -255,7 +265,9 @@
 
 - name: Users
   tags: [users]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   tasks:
     - name: Role - Default
       ansible.builtin.import_role:
@@ -320,7 +332,9 @@
 
 - name: Databases
   tags: [databases]
-  hosts: debian
+  hosts:
+    - debian.buster
+    - debian.bullseye
   tasks:
     - name: Role - Default
       ansible.builtin.import_role:

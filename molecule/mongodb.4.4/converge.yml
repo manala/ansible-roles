@@ -1,0 +1,71 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts:
+    - debian.buster
+  tasks:
+    - block:  # noqa name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mongodb
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yml.j2') }}"
+          changed_when: false
+
+##########
+# Config #
+##########
+
+- name: Config
+  tags: [config]
+  hosts:
+    - debian.buster
+  vars:
+    tests_dir: /molecule/mongodb/config
+  tasks:
+    - name: Clean tests dir  # noqa risky-file-permissions args[module]
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - block:  # noqa name[missing]
+        - name: Role - Dict
+          ansible.builtin.import_role:
+            # Play role fully on first run, so that handlers don't breaks
+            name: manala.roles.mongodb
+          vars:
+            manala_mongodb_config_file: "{{ tests_dir }}/dict"
+            manala_mongodb_config_template: ~
+            manala_mongodb_config:
+              foo:
+                bar: baz
+        - name: Role - Content
+          ansible.builtin.import_role:
+            name: manala.roles.mongodb
+            tasks_from: config
+          vars:
+            manala_mongodb_config_file: "{{ tests_dir }}/content"
+            manala_mongodb_config_template: ~
+            manala_mongodb_config: |
+              Content
+        - name: Role - Template
+          ansible.builtin.import_role:
+            name: manala.roles.mongodb
+            tasks_from: config
+          vars:
+            manala_mongodb_config_file: "{{ tests_dir }}/template"
+            manala_mongodb_config_template: fixtures/template.j2
+            manala_mongodb_config: ~
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/config.yml.j2') }}"
+          changed_when: false

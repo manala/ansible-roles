@@ -122,6 +122,9 @@ manala_apt_repositories_patterns:
   maxscale_6_1:
     source: deb https://downloads.mariadb.com/MaxScale/6.1/debian {{ ansible_facts.distribution_release }} main
     key: mariadb_enterprise
+  maxscale_23_02:
+    source: deb https://downloads.mariadb.com/MaxScale/23.02/debian {{ ansible_facts.distribution_release }} main
+    key: mariadb_enterprise
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
     key: postgresql
@@ -153,16 +156,24 @@ manala_apt_repositories_patterns:
     source: deb https://enterprise.proxmox.com/debian/pve {{ ansible_facts.distribution_release }} pve-enterprise
     key: proxmox
   galera_4:
-    source: deb https://releases.galeracluster.com/galera-4/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/galera-4/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   galera_4_7:
-    source: deb https://releases.galeracluster.com/galera-4.7/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/galera-4.7/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   galera_4_8:
-    source: deb https://releases.galeracluster.com/galera-4.8/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/galera-4.8/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   galera_4_10:
-    source: deb https://releases.galeracluster.com/galera-4.10/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} main
+    source: >-
+      deb https://releases.galeracluster.com/galera-4.10/{{ ansible_facts.distribution | lower }}
+      {{ ansible_facts.distribution_release }} main
     key: galera
   mysql_wsrep_5_7:
     source: >-
@@ -204,7 +215,7 @@ manala_apt_repositories_patterns:
   ansible:
     source: >-
       deb http://ppa.launchpad.net/ansible/ansible/ubuntu
-      {{ {'buster': 'bionic', 'bullseye': 'focal'}[ansible_facts.distribution_release] }}
+      {{ {'buster': 'bionic', 'bullseye': 'focal', 'bookworm': 'jammy'}[ansible_facts.distribution_release] }}
       main
     key: ansible
   blackfire:
@@ -219,7 +230,8 @@ manala_apt_repositories_patterns:
   docker:
     source: >-
       deb [arch={{ ansible_facts.architecture | manala.roles.apt_architecture }}]
-      https://download.docker.com/linux/{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }} {{ ansible_facts.distribution_release }} stable
+      https://download.docker.com/linux/{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}
+      {{ ansible_facts.distribution_release }} stable
     key: docker
   manala:
     source: deb http://debian.manala.io {{ ansible_facts.distribution_release }} main
@@ -277,6 +289,13 @@ manala_apt_repositories_patterns:
   glusterfs_10_2:
     source: >-
       deb https://download.gluster.org/pub/gluster/glusterfs/10/10.2/Debian/{{ ansible_facts.distribution_release }}/{{
+        ansible_facts.architecture | manala.roles.apt_architecture
+      }}/apt
+      {{ ansible_facts.distribution_release }} main
+    key: glusterfs_10
+  glusterfs_10_4:
+    source: >-
+      deb https://download.gluster.org/pub/gluster/glusterfs/10/10.4/Debian/{{ ansible_facts.distribution_release }}/{{
         ansible_facts.architecture | manala.roles.apt_architecture
       }}/apt
       {{ ansible_facts.distribution_release }} main
@@ -492,6 +511,7 @@ manala_apt_preferences_patterns:
       {
         'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
         'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
+        'bookworm': 'libavcodec59 libavdevice59 libavfilter8 libavformat59 libavutil57 libpostproc56 libswresample4 libswscale6',
       }[ansible_facts.distribution_release]
     }}
   glusterfs: glusterfs-*

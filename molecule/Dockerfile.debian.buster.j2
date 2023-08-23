@@ -1,11 +1,14 @@
 FROM {{ item.image }}
 
 # Versions
-ENV GOSS_VERSION=0.3.21
+ENV GOSS_VERSION=0.3.23
+
+ENV LC_ALL=C.UTF-8
 
 # System
 RUN \
     apt-get --quiet update \
+    && apt-get --quiet --yes --purge --autoremove upgrade \
     && apt-get --quiet --yes --no-install-recommends --verbose-versions install \
         curl ca-certificates \
         gnupg \
