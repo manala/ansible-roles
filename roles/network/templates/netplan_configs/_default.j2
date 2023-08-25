@@ -1,0 +1,7 @@
+{%- set config = item.config | default('') -%}
+
+{%- if config is string -%}
+{{ config }}
+{%- else -%}
+{{ config | to_yaml }}
+{%- endif -%}

@@ -8,3 +8,11 @@
     - networking
   # Deprecated
   listen: networking restart
+
+- name: Generate netplan
+  ansible.builtin.command: netplan generate
+  notify: Apply netplan
+
+- name: Apply netplan
+  ansible.builtin.command: netplan apply
+  when: manala_network_netplan_configs_apply

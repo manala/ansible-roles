@@ -99,6 +99,25 @@ manala_network_interfaces_configs:
   - "{{ my_custom_interfaces_configs_array }}"
 ```
 
+#### Netplan configurations
+
+```yaml
+manala_network_netplan_configs_apply: true # Default behavior, generate and applying netplan configurations
+manala_network_install_packages:
+  - netplan.io
+manala_network_netplan_configs:
+  - file: 90-default.yaml
+    config: |
+      network:
+        version: 2
+        ethernets:
+          all-en:
+            match:
+              name: en*
+            dhcp4: true
+            dhcp6: true
+```
+
 ## Example playbook
 
 ```yaml

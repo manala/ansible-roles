@@ -28,3 +28,10 @@ manala_network_interfaces_configs: []
 # Routing Tables
 manala_network_routing_tables_file: /etc/iproute2/rt_tables
 manala_network_routing_tables: {}
+
+# Netplan configs
+manala_network_netplan_configs_exclusive: false
+manala_network_netplan_configs_dir: /etc/netplan
+manala_network_netplan_configs_defaults: {}
+manala_network_netplan_configs: []
+manala_network_netplan_configs_apply: true
