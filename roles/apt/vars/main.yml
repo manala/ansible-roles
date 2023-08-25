@@ -411,7 +411,7 @@ manala_apt_keys_patterns:
     id: 479BC94B
   grafana:
     url: https://apt.grafana.com/gpg.key
-    id: 2CF3C0C6
+    id: 10458545
   blackfire:
     url: https://packages.blackfire.io/gpg.key
     id: 47312329

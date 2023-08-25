@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - [Apt] Switch influxdata repository to "stable"
 - [Apt] Remove apt-transport-https default package
+- [Apt] Update Grafana key
 
 ### Added
 - [Network] Add Netplan configs support
