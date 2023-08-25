@@ -266,3 +266,45 @@
             cmd: goss --gossfile - validate
             stdin: "{{ lookup('ansible.builtin.template', 'goss/routing_tables.yml.j2') }}"
           changed_when: false
+
+###################
+# Netplan Configs #
+###################
+
+- name: Netplan Configs
+  tags: [netplan_configs]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/network/netplan_configs
+  tasks:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default'] | product(['absent', 'directory']) }}"
+    - block:  # noqa: name[missing]
+        - name: Role - Default
+          ansible.builtin.import_role:
+            name: manala.roles.network
+          vars:
+            manala_network_install_packages:
+              - netplan.io
+            manala_network_netplan_configs_apply: false
+            manala_network_netplan_configs_exclusive: false
+            manala_network_netplan_configs_dir: "{{ tests_dir }}/default"
+            manala_network_netplan_configs_defaults: {}
+            manala_network_netplan_configs:
+              # Content
+              - file: content
+                config: |
+                  Content
+              # Template
+              - file: template
+                template: fixtures/template.j2
+              - template: fixtures/template_file.j2
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/netplan_configs.yml.j2') }}"
+          changed_when: false
