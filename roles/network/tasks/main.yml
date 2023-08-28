@@ -35,3 +35,9 @@
   tags:
     - manala_network
     - manala_network.routing_tables
+
+- name: Netplan configs
+  ansible.builtin.import_tasks: netplan_configs.yml
+  tags:
+    - manala_network
+    - manala_network.netplan_configs

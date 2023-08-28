@@ -1,0 +1,33 @@
+---
+
+package:
+  netplan.io:
+    installed: true
+
+file:
+  # Default - Content
+  {{ tests_dir }}/default/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "/^Content$/"
+  # Default - Template
+  {{ tests_dir }}/default/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "/^Template$/"
+  {{ tests_dir }}/default/template_file:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0600"
+    contains:
+      - "/^Template file$/"
