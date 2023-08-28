@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] Update Grafana key
 
 ### Added
+- [Apt] Add HAProxy 2.8 repository
 - [Network] Add Netplan configs support
 ## [3.6.0] - 2023-05-16
 ### Added
