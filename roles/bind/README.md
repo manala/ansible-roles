@@ -106,7 +106,7 @@ manala_bind_configs:
     content: |
       zone "foo.local" {
           type master;
-          file "{{ 'foo.local' | manala_bind_zone_file }}";
+          file "{{ 'foo.local' | manala.roles.bind_zone_file }}";
           allow-update { localhost; };
       };
 
