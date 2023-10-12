@@ -596,8 +596,8 @@
                 name: manala.roles.files
               vars:
                 manala_files_attributes:
-                  - path: "{{ tests_dir }}/default/perdu"
-                    url: http://www.perdu.com/
+                  - path: "{{ tests_dir }}/default/example"
+                    url: http://example.com/
                   # Flatten
                   -
                     - path: "{{ tests_dir }}/default/alt-galaxy.tar.gz"
