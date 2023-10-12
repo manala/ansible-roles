@@ -2,7 +2,9 @@
 
 - name: Prepare
   tags: [always]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.buster"
   tasks:
     - name: Ansible
       ansible.builtin.import_role:
