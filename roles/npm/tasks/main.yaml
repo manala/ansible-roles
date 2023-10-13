@@ -1,0 +1,21 @@
+---
+
+- name: Requirements
+  ansible.builtin.import_tasks: requirements.yaml
+  tags:
+    - manala_npm
+    - manala_npm.requirements
+
+- name: Update
+  ansible.builtin.import_tasks: update.yaml
+  when: __manala_npm['update']
+  tags:
+    - manala_npm
+    - manala_npm.update
+    - manala.update
+
+- name: Packages
+  ansible.builtin.import_tasks: packages.yaml
+  tags:
+    - manala_npm
+    - manala_npm.packages

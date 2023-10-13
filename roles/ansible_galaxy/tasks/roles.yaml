@@ -1,0 +1,38 @@
+---
+
+- name: Roles > Requirements
+  ansible.builtin.copy:
+    dest: /tmp/manala_ansible_galaxy_roles.yaml
+    content: |
+      {% for role in query('manala.roles.ansible_galaxy_roles', manala_ansible_galaxy_roles) %}
+      - src: {{ role.src }}
+      {% if role.scm is defined %}
+        scm: {{ role.scm }}
+      {% endif %}
+      {% if role.version is defined %}
+        version: {{ role.version }}
+      {% endif %}
+      {% if role.name is defined %}
+        name: {{ role.name }}
+      {% endif %}
+      {% endfor %}
+    owner: root
+    group: root
+    mode: "0644"
+  when: manala_ansible_galaxy_roles | length
+  changed_when: false
+
+- name: Roles > Install
+  ansible.builtin.command:
+    cmd: >
+      {{ manala_ansible_galaxy_bin | ternary(manala_ansible_galaxy_bin, 'ansible-galaxy') }} install
+      --role-file=/tmp/manala_ansible_galaxy_roles.yaml
+      --roles-path={{ manala_ansible_galaxy_roles_path | ternary(manala_ansible_galaxy_roles_path, '/etc/ansible/roles') }}
+      {{ manala_ansible_galaxy_force | ternary('--force', '') }}
+  when: manala_ansible_galaxy_roles | length
+  changed_when: true
+
+- name: Roles > Clean requirements
+  ansible.builtin.file:
+    path: /tmp/manala_ansible_galaxy_roles.yaml
+    state: absent

@@ -1,0 +1,25 @@
+---
+
+- name: Requirements
+  ansible.builtin.import_tasks: requirements.yaml
+  tags:
+    - manala_ohmyzsh
+    - manala_ohmyzsh.requirements
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_ohmyzsh
+    - manala_ohmyzsh.install
+
+- name: Custom Themes
+  ansible.builtin.import_tasks: custom_themes.yaml
+  tags:
+    - manala_ohmyzsh
+    - manala_ohmyzsh.custom_themes
+
+- name: Users
+  ansible.builtin.import_tasks: users.yaml
+  tags:
+    - manala_ohmyzsh
+    - manala_ohmyzsh.users

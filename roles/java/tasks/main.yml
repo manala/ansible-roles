@@ -1,7 +1,0 @@
----
-
-- name: Install
-  ansible.builtin.import_tasks: install.yml
-  tags:
-    - manala_java
-    - manala_java.install

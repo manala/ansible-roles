@@ -1,0 +1,20 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_redis
+    - manala_redis.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_redis
+    - manala_redis.config
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_redis
+    - manala_redis.services
+    - manala.services

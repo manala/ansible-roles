@@ -1,0 +1,13 @@
+---
+
+- name: Modules
+  ansible.builtin.import_tasks: modules.yaml
+  tags:
+    - manala_kernel
+    - manala_kernel.modules
+
+- name: Parameters
+  ansible.builtin.import_tasks: parameters.yaml
+  tags:
+    - manala_kernel
+    - manala_kernel.parameters

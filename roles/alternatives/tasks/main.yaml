@@ -1,0 +1,7 @@
+---
+
+- name: Selections
+  ansible.builtin.import_tasks: selections.yaml
+  tags:
+    - manala_alternatives
+    - manala_alternatives.selections

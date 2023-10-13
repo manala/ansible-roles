@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.shorewall.yml
+      - .github/workflows/molecule.shorewall.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/shorewall/**

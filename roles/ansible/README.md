@@ -19,7 +19,7 @@ Installation instructions can be found in the main [README.md](https://github.co
 
 ## Role Variables
 
-You can find all variables and default values used by this role in the [defaults/main.yml](./defaults/main.yml) file
+You can find all variables and default values used by this role in the [defaults/main.yaml](./defaults/main.yaml) file
 
 ### Configuration example
 
@@ -39,22 +39,22 @@ manala_ansible_config: |
 
 manala_ansible_host_vars_exclusive: true
 manala_ansible_host_vars:
-  - file: foo.yml
+  - file: foo.yaml
     vars: |
       foo: ~
       bar: bar
       baz: 123
-  - file: bar.yml
+  - file: bar.yaml
     state: absent
 
 manala_ansible_group_vars_exclusive: true
 manala_ansible_group_vars:
-  - file: foo.yml
+  - file: foo.yaml
     vars: |
       foo: ~
       bar: bar
       baz: 123
-  - file: bar.yml
+  - file: bar.yaml
     state: absent      
 ```
 

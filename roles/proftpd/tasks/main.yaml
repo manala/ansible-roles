@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_proftpd
+    - manala_proftpd.install
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_proftpd
+    - manala_proftpd.configs
+
+- name: Users
+  ansible.builtin.import_tasks: users.yaml
+  tags:
+    - manala_proftpd
+    - manala_proftpd.users
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_proftpd
+    - manala_proftpd.services
+    - manala.services

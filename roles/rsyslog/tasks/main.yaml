@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_rsyslog
+    - manala_rsyslog.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_rsyslog
+    - manala_rsyslog.config
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_rsyslog
+    - manala_rsyslog.configs
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_rsyslog
+    - manala_rsyslog.services
+    - manala.services

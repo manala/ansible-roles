@@ -1,0 +1,20 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_cron
+    - manala_cron.install
+
+- name: Files
+  ansible.builtin.import_tasks: files.yaml
+  tags:
+    - manala_cron
+    - manala_cron.files
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_cron
+    - manala_cron.services
+    - manala.services

@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_ssh
+    - manala_ssh.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_ssh
+    - manala_ssh.config
+
+- name: Known Hosts
+  ansible.builtin.import_tasks: known_hosts.yaml
+  tags:
+    - manala_ssh
+    - manala_ssh.known_hosts
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_ssh
+    - manala_ssh.services
+    - manala.services

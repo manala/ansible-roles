@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_sensu_go
+    - manala_sensu_go.install
+
+- name: Backend Config
+  ansible.builtin.import_tasks: backend_config.yaml
+  tags:
+    - manala_sensu_go
+    - manala_sensu_go.backend_config
+
+- name: Agent Config
+  ansible.builtin.import_tasks: agent_config.yaml
+  tags:
+    - manala_sensu_go
+    - manala_sensu_go.agent_config
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_sensu_go
+    - manala_sensu_go.services
+    - manala.services

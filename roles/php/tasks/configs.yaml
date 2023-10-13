@@ -1,0 +1,31 @@
+---
+
+- name: Configs - Sapi Cli
+  ansible.builtin.import_tasks: configs_sapi.yaml
+  vars:
+    __manala_php_configs_sapi: cli
+  tags:
+    - manala_php.cli_configs
+  when: |
+    'cli' in query(
+      'manala.roles.php_sapis',
+      manala_php_sapis | default(manala_php_sapis_default, True),
+      manala_php_sapis_available,
+      wantstate='present',
+      wantmap=true
+    )
+
+- name: Configs - Sapi Fpm
+  ansible.builtin.import_tasks: configs_sapi.yaml
+  vars:
+    __manala_php_configs_sapi: fpm
+  tags:
+    - manala_php.fpm_configs
+  when: |
+    'fpm' in query(
+      'manala.roles.php_sapis',
+      manala_php_sapis | default(manala_php_sapis_default, True),
+      manala_php_sapis_available,
+      wantstate='present',
+      wantmap=true
+    )

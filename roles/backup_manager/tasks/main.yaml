@@ -1,0 +1,13 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_backup_manager
+    - manala_backup_manager.install
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_backup_manager
+    - manala_backup_manager.configs

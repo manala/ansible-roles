@@ -1,0 +1,50 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.config
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.configs
+
+- name: Data
+  ansible.builtin.import_tasks: data.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.data
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.services
+    - manala.services
+
+- name: Users
+  ansible.builtin.import_tasks: users.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.users
+
+- name: Databases
+  ansible.builtin.import_tasks: databases.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.databases
+
+- name: Replications
+  ansible.builtin.import_tasks: replications.yaml
+  tags:
+    - manala_mysql
+    - manala_mysql.replications

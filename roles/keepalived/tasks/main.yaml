@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_keepalived
+    - manala_keepalived.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_keepalived
+    - manala_keepalived.config
+
+- name: Environment
+  ansible.builtin.import_tasks: environment.yaml
+  tags:
+    - manala_keepalived
+    - manala_keepalived.environment
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_keepalived
+    - manala_keepalived.services
+    - manala.services

@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.prometheus.yml
+      - .github/workflows/molecule.prometheus.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/prometheus/**

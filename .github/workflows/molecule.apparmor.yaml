@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.apparmor.yml
+      - .github/workflows/molecule.apparmor.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/apparmor/**

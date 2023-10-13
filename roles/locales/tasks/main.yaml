@@ -1,0 +1,21 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_locales
+    - manala_locales.install
+
+- name: Codes
+  ansible.builtin.import_tasks: codes.yaml
+  when: manala_locales_codes | length
+  tags:
+    - manala_locales
+    - manala_locales.codes
+
+- name: Codes Defaults
+  ansible.builtin.import_tasks: codes_default.yaml
+  when: manala_locales_codes_default is not none
+  tags:
+    - manala_locales
+    - manala_locales.codes_default

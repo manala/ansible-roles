@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .manala.yaml
-      - .github/workflows/molecule.timezone.yml
+      - .github/workflows/molecule.timezone.yaml
       - .config/molecule/config.yml
       - molecule/Dockerfile.*
       - molecule/timezone/**

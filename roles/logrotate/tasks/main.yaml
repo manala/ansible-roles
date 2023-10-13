@@ -1,0 +1,13 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_logrotate
+    - manala_logrotate.install
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_logrotate
+    - manala_logrotate.configs

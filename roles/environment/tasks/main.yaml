@@ -1,0 +1,7 @@
+---
+
+- name: Variables
+  ansible.builtin.import_tasks: variables.yaml
+  tags:
+    - manala_environment
+    - manala_environment.variables

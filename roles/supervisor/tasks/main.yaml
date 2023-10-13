@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_supervisor
+    - manala_supervisor.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_supervisor
+    - manala_supervisor.config
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_supervisor
+    - manala_supervisor.configs
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_supervisor
+    - manala_supervisor.services
+    - manala.services

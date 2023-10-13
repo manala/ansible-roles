@@ -1,0 +1,36 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_grafana
+    - manala_grafana.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_grafana
+    - manala_grafana.config
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_grafana
+    - manala_grafana.services
+    - manala.services
+
+- name: Datasources
+  ansible.builtin.import_tasks: datasources.yaml
+  when: manala_grafana_datasources | length
+    or manala_grafana_datasources_exclusive
+  tags:
+    - manala_grafana
+    - manala_grafana.datasources
+
+- name: Dashboards
+  ansible.builtin.import_tasks: dashboards.yaml
+  when: manala_grafana_dashboards | length
+    or manala_grafana_dashboards_exclusive
+  tags:
+    - manala_grafana
+    - manala_grafana.dashboards

@@ -1,0 +1,31 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_ansible
+    - manala_ansible.install
+
+- name: Hosts
+  ansible.builtin.import_tasks: hosts.yaml
+  tags:
+    - manala_ansible
+    - manala_ansible.hosts
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_ansible
+    - manala_ansible.config
+
+- name: Host vars
+  ansible.builtin.import_tasks: host_vars.yaml
+  tags:
+    - manala_ansible
+    - manala_ansible.hosts_vars
+
+- name: Group vars
+  ansible.builtin.import_tasks: group_vars.yaml
+  tags:
+    - manala_ansible
+    - manala_ansible.group_vars

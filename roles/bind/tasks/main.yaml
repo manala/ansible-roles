@@ -1,0 +1,44 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_bind
+    - manala_bind.install
+
+- name: Options
+  ansible.builtin.import_tasks: options.yaml
+  tags:
+    - manala_bind
+    - manala_bind.options
+
+- name: Logs
+  ansible.builtin.import_tasks: logs.yaml
+  tags:
+    - manala_bind
+    - manala_bind.logs
+
+- name: Configs
+  ansible.builtin.import_tasks: configs.yaml
+  tags:
+    - manala_bind
+    - manala_bind.configs
+
+- name: Zones
+  ansible.builtin.import_tasks: zones.yaml
+  tags:
+    - manala_bind
+    - manala_bind.zones
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_bind
+    - manala_bind.services
+    - manala.services
+
+- name: Zones - Records
+  ansible.builtin.import_tasks: zones_records.yaml
+  tags:
+    - manala_bind
+    - manala_bind.zones_records

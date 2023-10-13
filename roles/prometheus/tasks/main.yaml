@@ -1,0 +1,32 @@
+---
+
+- name: Accounts
+  ansible.builtin.import_tasks: accounts.yaml
+  tags:
+    - manala_prometheus
+    - manala_prometheus.accounts
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_prometheus
+    - manala_prometheus.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_prometheus
+    - manala_prometheus.config
+
+- name: Data
+  ansible.builtin.import_tasks: data.yaml
+  tags:
+    - manala_prometheus
+    - manala_prometheus.data
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_prometheus
+    - manala_prometheus.services
+    - manala.services
