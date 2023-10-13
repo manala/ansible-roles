@@ -6,7 +6,8 @@
     state: stopped
   loop:
     - influxdb
-  notify: Start influxdb
+  notify:
+    - Start influxdb
 
 - name: Start influxdb
   ansible.builtin.service:
