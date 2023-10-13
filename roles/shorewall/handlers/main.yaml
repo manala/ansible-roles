@@ -6,5 +6,3 @@
     state: restarted
   loop:
     - shorewall
-  # Deprecated
-  listen: shorewall restart

@@ -14,10 +14,6 @@
   changed_when: true
   notify:
     - Do restart php fpm
-  # Deprecated
-  listen:
-    - php restart
-    - php fpm restart
 
 - name: Do restart php fpm
   ansible.builtin.service:
@@ -33,8 +29,6 @@
       wantstate='present',
       wantmap=true
     )
-  # Deprecated
-  listen: do php fpm restart
 
 - name: Restart php blackfire agent
   ansible.builtin.service:
@@ -42,5 +36,3 @@
     state: restarted
   loop:
     - blackfire-agent
-  # Deprecated
-  listen: php blackfire agent restart

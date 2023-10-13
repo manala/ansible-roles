@@ -6,8 +6,6 @@
     state: restarted
   loop:
     - redis-server
-  # Deprecated
-  listen: redis restart
 
 - name: Restart redis-sentinel
   ansible.builtin.service:
@@ -15,5 +13,3 @@
     state: restarted
   loop:
     - redis-sentinel
-  # Deprecated
-  listen: redis-sentinel restart

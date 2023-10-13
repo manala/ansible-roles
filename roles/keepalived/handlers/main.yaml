@@ -6,8 +6,6 @@
     state: restarted
   loop:
     - keepalived
-  # Deprecated
-  listen: keepalived restart
 
 - name: Reload keepalived
   ansible.builtin.service:
@@ -15,5 +13,3 @@
     state: reloaded
   loop:
     - keepalived
-  # Deprecated
-  listen: keepalived reload

@@ -6,5 +6,3 @@
     state: reloaded
   loop:
     - ssh
-  # Deprecated
-  listen: ssh reload

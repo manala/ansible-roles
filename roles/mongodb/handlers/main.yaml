@@ -6,5 +6,3 @@
     state: restarted
   loop:
     - mongod
-  # Deprecated
-  listen: mongodb restart
