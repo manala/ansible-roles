@@ -7,4 +7,11 @@
     update_cache: true
     cache_valid_time: "{{ manala_apt_cache_valid_time }}"
   loop:
-    - "{{ manala_apt_install_packages | default(manala_apt_install_packages_default, True) }}"
+    - |
+      {{
+        manala_apt_install_packages | default(manala_apt_install_packages_default, True)
+        + (ansible_facts.python.version.major == 2) | ternary(
+            ['python-debian'],
+            ['python3-debian']
+        )
+      }}

@@ -12,7 +12,6 @@ on:
       # Plugins
       - plugins/filter/apt_architecture.py
       - plugins/lookup/apt_holds.py
-      - plugins/lookup/apt_keys.py
       - plugins/lookup/apt_packages.py
       - plugins/lookup/apt_preferences.py
       - plugins/lookup/apt_repositories.py

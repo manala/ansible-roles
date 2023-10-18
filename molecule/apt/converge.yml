@@ -106,6 +106,10 @@
         path: "{{ tests_dir }}"
         state: "{{ item }}"
       loop: [absent, directory]
+    - name: Touch existing file
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}/delete"
+        state: touch
     - block:  # noqa: name[missing]
         - name: Role - Content
           ansible.builtin.import_role:
@@ -124,6 +128,13 @@
             manala_apt_sources_list_file: "{{ tests_dir }}/template"
             manala_apt_sources_list_template: fixtures/template.j2
             manala_apt_sources_list: ~
+        - name: Role - Delete
+          ansible.builtin.import_role:
+            name: manala.roles.apt
+            tasks_from: sources_list
+          vars:
+            manala_apt_sources_list_file: "{{ tests_dir }}/delete"
+            manala_apt_sources_list: false
       always:
         - name: Goss
           ansible.builtin.command:
@@ -264,48 +275,6 @@
             stdin: "{{ lookup('ansible.builtin.template', 'goss/preferences.yaml.j2') }}"
           changed_when: false
 
-########
-# Keys #
-########
-
-- name: Keys
-  tags: [keys]
-  hosts: debian
-  tasks:
-    - block:  # noqa: name[missing]
-        - name: Role
-          ansible.builtin.import_role:
-            name: manala.roles.apt
-            tasks_from: keys
-          vars:
-            manala_apt_preferences:
-              - sury_php:100
-            manala_apt_repositories:
-              - nginx
-              - source: deb https://dl.yarnpkg.com/debian/ stable main
-                key: yarn
-              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
-                key:
-                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-                  id: ACCC4CF8
-            manala_apt_keys:
-              # Short syntax
-              - sensu-go
-              # Verbose syntax
-              - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-                id: 056E8E56
-              - keyserver: keyserver.ubuntu.com
-                id: BC19DDBA  # Galera
-              # Flatten
-              -
-                - multimedia
-      always:
-        - name: Goss
-          ansible.builtin.command:
-            cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/keys.yaml.j2') }}"
-          changed_when: false
-
 ################
 # Repositories #
 ################
@@ -314,23 +283,29 @@
   tags: [repositories, repositories.default]
   hosts: debian
   tasks:
-    - name: Apt keys
-      ansible.builtin.apt_key:
-        url: "{{ item.0 }}"
-        id: "{{ item.1 }}"
-      loop:
-        - [http://deb.nodesource.com/gpgkey/nodesource.gpg.key, 68576280]
     - name: Apt repositories
-      ansible.builtin.apt_repository:
-        repo: "{{ item }}"
+      ansible.builtin.deb822_repository:
+        name: "{{ item.name }}"
+        uris: "{{ item.uris }}"
+        suites: "{{ item.suites }}"
+        components: "{{ item.components }}"
+        signed_by: "{{ item.signed_by }}"
       loop:
-        - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+        - name: nodesource_14
+          uris: https://deb.nodesource.com/node_14.x
+          suites: "{{ ansible_facts.distribution_release }}"
+          components: main
+          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        - name: nodesource_18
+          uris: https://deb.nodesource.com/node_18.x
+          suites: "{{ ansible_facts.distribution_release }}"
+          components: main
+          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
-            # Play role fully, because of "keys" tasks dependency
             name: manala.roles.apt
+            tasks_from: repositories
           vars:
             manala_apt_preferences:
               - sury_php:100
@@ -340,24 +315,53 @@
               # Pattern syntax
               - repository: grafana
               # Verbose syntax
-              - source: deb https://dl.yarnpkg.com/debian/ stable main
+              - name: yarn
+                uris: https://dl.yarnpkg.com/debian/
+                suites: stable
+                components: main
                 key: yarn
-              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
-                key:
-                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-                  id: ACCC4CF8
+              - name: postgresql
+                uris: http://apt.postgresql.org/pub/repos/apt/
+                suites: "{{ ansible_facts.distribution_release }}-pgdg"
+                components: main
+                signed_by: https://www.postgresql.org/media/keys/ACCC4CF8.asc
               # Flatten
               -
                 - nginx
               # State
-              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
+              # Implicit present
+              - name: nodesource_12
+                uris: https://deb.nodesource.com/node_12.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
+              # Explicit absent
+              - name: nodesource_14
+                uris: https://deb.nodesource.com/node_14.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
                 state: absent
-              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
+              # Explicit Present
+              - name: nodesource_16
+                uris: https://deb.nodesource.com/node_16.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
                 state: present
-              - source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+              # Existing Ignore
+              - name: nodesource_18
+                uris: https://deb.nodesource.com/node_18.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
+              # Not existing Ignore
+              - name: nodesource_20
+                uris: https://deb.nodesource.com/node_20.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
                 state: ignore
       always:
         - name: Goss
@@ -370,33 +374,58 @@
   tags: [repositories, repositories.exclusive]
   hosts: debian
   tasks:
-    - name: Apt keys
-      ansible.builtin.apt_key:
-        url: "{{ item.0 }}"
-        id: "{{ item.1 }}"
-      loop:
-        - [http://deb.nodesource.com/gpgkey/nodesource.gpg.key, 68576280]
     - name: Apt repositories
-      ansible.builtin.apt_repository:
-        repo: "{{ item }}"
+      ansible.builtin.deb822_repository:
+        name: "{{ item.name }}"
+        uris: "{{ item.uris }}"
+        suites: "{{ item.suites }}"
+        components: "{{ item.components }}"
+        signed_by: "{{ item.signed_by }}"
       loop:
-        - deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+        # Exclusive absent
+        - name: nodesource_12
+          uris: https://deb.nodesource.com/node_12.x
+          suites: "{{ ansible_facts.distribution_release }}"
+          components: main
+          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        - name: nodesource_14
+          uris: https://deb.nodesource.com/node_14.x
+          suites: "{{ ansible_facts.distribution_release }}"
+          components: main
+          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        - name: nodesource_18
+          uris: https://deb.nodesource.com/node_18.x
+          suites: "{{ ansible_facts.distribution_release }}"
+          components: main
+          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
-            # Play role fully, because of "keys" tasks dependency
+            # Play role fully on first run, so that apt update don't break
             name: manala.roles.apt
-            tasks_from: repositories
           vars:
+            manala_apt_sources_list: false
             manala_apt_repositories_exclusive: true
             manala_apt_repositories:
-              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+              # Don't break apt update
+              - default
+              - security
+              - updates
+              # Existing present
+              - name: nodesource_14
+                uris: https://deb.nodesource.com/node_14.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
+              # Existing ignore
+              - name: nodesource_18
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
+              # Not existing ignore
+              - name: nodesource_20
+                uris: https://deb.nodesource.com/node_20.x
+                suites: "{{ ansible_facts.distribution_release }}"
+                components: main
+                key: nodesource
                 state: ignore
       always:
         - name: Goss

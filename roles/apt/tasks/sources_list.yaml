@@ -7,5 +7,14 @@
     owner: root
     group: root
     mode: "0644"
-  when: manala_apt_sources_list_template
-    or manala_apt_sources_list
+  when: (
+          (manala_apt_sources_list_template
+          or manala_apt_sources_list)
+          and manala_apt_sources_list is not false
+        )
+
+- name: Sources List > Delete
+  ansible.builtin.file:
+    path: "{{ manala_apt_sources_list_file }}"
+    state: absent
+  when: manala_apt_sources_list is false

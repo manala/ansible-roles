@@ -10,8 +10,8 @@ DOCUMENTATION = '''
     description:
       - Takes a repositories list and returns it curated and optionally state filtered.
     options:
-      wantstate:
-        description: filter list items by state
+      wanttype:
+        description: filter list items by type
 '''
 
 from ansible.plugins.lookup import LookupBase
@@ -29,16 +29,17 @@ class LookupModule(LookupBase):
 
         results = []
 
-        wantstate = kwargs.pop('wantstate', None)
+        wanttype = kwargs.pop('wanttype', None)
 
-        if wantstate and wantstate not in ['present', 'absent']:
-            raise AnsibleError('Expected a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+        if wanttype and wanttype not in ['name', 'file']:
+            raise AnsibleError('Expected a wanttype of "name" or "file" but was "%s"' % to_text(wanttype))
 
         repositories = self._flatten(terms[0])
         repositoriesPatterns = terms[1]
-        preferences = terms[2]
-        exclusives = self._flatten(terms[3])
-        dir = '/etc/apt/sources.list.d'
+        keysPatterns = terms[2]
+        preferences = terms[3]
+        exclusives = self._flatten(terms[4])
+        dir = terms[5]
 
         itemDefault = {
             'state': 'present'
@@ -83,38 +84,52 @@ class LookupModule(LookupBase):
                     continue
 
             if 'repository' in item:
-                item.update(
-                    repositoriesPatterns.get(item['repository'])
-                )
+                repositoryPattern = item['repository']
+                if repositoryPattern not in repositoriesPatterns:
+                    raise AnsibleError('unable to find "%s" repository pattern' % repositoryPattern)
+                item = {
+                    **{'name': item['repository']},
+                    **repositoriesPatterns[repositoryPattern],
+                    **item,
+                }
+
+            # Legacy
+            if 'source' in item:
+                raise AnsibleError('Using a "source" repository key is deprecated, please use deb822 notation. See manala.roles.apt README.md')
 
             # Check index key
-            if 'source' not in item:
-                raise AnsibleError('Missing "source" key')
+            if 'name' not in item:
+                raise AnsibleError('Missing "name" key')
 
-            # Force file if not present
-            if 'file' not in item:
-                item.update({
+            # Check required keys
+            if 'uris' not in item:
+                raise AnsibleError('Missing "uris" key')
+            if 'suites' not in item:
+                raise AnsibleError('Missing "suites" key')
+
+            if 'components' not in item and not item['suites'].endswith('/'):
+                raise AnsibleError('If "components" key not present, "suites" key must end with a "/"')
+
+            # Handle key
+            if 'key' in item and isinstance(item['key'], string_types):
+                keyPattern = item['key']
+                if keyPattern not in keysPatterns:
+                    raise AnsibleError('unable to find "%s" key pattern' % keyPattern)
+                item = {
+                    **keysPatterns[keyPattern],
+                    **item,
+                }
+
+            if 'legacy_file' in item:
+                itemLegacy = itemDefault.copy()
+                itemLegacy.update({
                     'file': os.path.join(
                         dir,
-                        re.sub(
-                            '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$',
-                            '\\2',
-                            item['source']
-                        )
-                        .strip('/ ')
-                        .replace('.', '_')
-                        .replace('/', '_')
-                        .replace('-', '_')
-                        + '.list'
-                    )
+                        item['legacy_file']
+                    ),
+                    'state': 'absent',
                 })
-            else:
-                item.update({
-                    'file': os.path.join(
-                        dir,
-                        item['file']
-                    )
-                })
+                results.append(itemLegacy)
 
             items.append(item)
 
@@ -122,16 +137,38 @@ class LookupModule(LookupBase):
             for item in items:
                 itemFound = False
                 for i, result in enumerate(results):
-                    if ('source' in result and result['source'] == item['source']) or (result['file'] == item['file']):
-                        results[i] = item
-                        itemFound = True
-                        break
+                    # Comes from exclusives or legacy_files
+                    if 'file' in result:
+                        file_basename = os.path.basename(result['file'])
+                        file_name = os.path.splitext(file_basename)[0]
+                        file_extension = os.path.splitext(file_basename)[1]
+                        if file_extension == '.sources' and file_name == re.sub('_', '-', item['name']):
+                            results[i] = item
+                            itemFound = True
+                            break
+                    elif 'name' in result:
+                        if result['name'] == item['name']:
+                            results[i] = item
+                            itemFound = True
+                            break
 
                 if not itemFound:
                     results.append(item)
 
-        # Filter by state
-        if wantstate:
-            results = [result for result in results if result.get('state') == wantstate]
+        # Absent with deb822_repository if format is corresponding
+        for i, result in enumerate(results):
+            if 'file' in result:
+                file_basename = os.path.basename(result['file'])
+                file_name = os.path.splitext(file_basename)[0]
+                file_extension = os.path.splitext(file_basename)[1]
+                if file_extension == '.sources' and '_' not in file_name:
+                    item = itemDefault.copy()
+                    item['name'] = file_name
+                    item['state'] = 'absent'
+                    results[i] = item
+
+        # Filter by type
+        if wanttype:
+            results = [result for result in results if wanttype in result]
 
         return results

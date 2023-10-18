@@ -24,12 +24,6 @@
     - manala_apt
     - manala_apt.preferences
 
-- name: Keys
-  ansible.builtin.import_tasks: keys.yaml
-  tags:
-    - manala_apt
-    - manala_apt.keys
-
 - name: Repositories
   ansible.builtin.import_tasks: repositories.yaml
   tags:
