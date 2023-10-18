@@ -7,8 +7,6 @@
     daemon_reload: true
   loop:
     - "{{ manala_prometheus_service }}"
-  # Deprecated
-  listen: prometheus restart
 
 #################
 # Node Exporter #
@@ -21,8 +19,6 @@
     daemon_reload: true
   loop:
     - "{{ manala_prometheus_node_exporter_service }}"
-  # Deprecated
-  listen: prometheus node exporter restart
 
 ##################
 # Nginx Exporter #
@@ -35,8 +31,6 @@
     daemon_reload: true
   loop:
     - "{{ manala_prometheus_nginx_exporter_service }}"
-  # Deprecated
-  listen: prometheus nginx exporter restart
 
 ####################
 # Php Fpm Exporter #
@@ -49,5 +43,3 @@
     daemon_reload: true
   loop:
     - "{{ manala_prometheus_php_fpm_exporter_service }}"
-  # Deprecated
-  listen: prometheus php fpm exporter restart

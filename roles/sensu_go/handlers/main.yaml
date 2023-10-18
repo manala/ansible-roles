@@ -6,8 +6,6 @@
     state: restarted
   loop:
     - sensu-backend
-  # Deprecated
-  listen: sensu-backend restart
 
 - name: Restart sensu-agent
   ansible.builtin.service:
@@ -15,5 +13,3 @@
     state: restarted
   loop:
     - sensu-agent
-  # Deprecated
-  listen: sensu-agent restart

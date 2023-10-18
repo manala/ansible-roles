@@ -6,5 +6,3 @@
     state: restarted
   loop:
     - elasticsearch
-  # Deprecated
-  listen: elasticsearch restart

@@ -6,8 +6,6 @@
     state: reloaded
   loop:
     - haproxy
-  # Deprecated
-  listen: haproxy reload
 
 - name: Restart haproxy
   ansible.builtin.service:
@@ -15,5 +13,3 @@
     state: restarted
   loop:
     - haproxy
-  # Deprecated
-  listen: haproxy restart

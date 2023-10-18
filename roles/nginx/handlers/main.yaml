@@ -6,8 +6,6 @@
   changed_when: true
   notify:
     - Do restart nginx
-  # Deprecated
-  listen: nginx restart
 
 - name: Do restart nginx
   ansible.builtin.service:
@@ -15,5 +13,3 @@
     state: restarted
   loop:
     - nginx
-  # Deprecated
-  listen: do nginx restart

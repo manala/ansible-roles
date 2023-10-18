@@ -6,5 +6,3 @@
     state: restarted
   loop:
     - grafana-server
-  # Deprecated
-  listen: grafana restart
