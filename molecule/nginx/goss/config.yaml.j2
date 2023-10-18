@@ -7,27 +7,27 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - _true on;
-      - _false off;
-      - _array foo;
-      - _array bar;
-      - _string string;
-      - _integer 123;
-      - _float 4.56;
+    contents: |
+      _array foo;
+      _array bar;
+      _false off;
+      _float 4.56;
+      _integer 123;
+      _string string;
+      _true on;
   {{ tests_dir }}/content:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

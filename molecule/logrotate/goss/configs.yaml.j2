@@ -9,11 +9,11 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/var/log/foo/*.log {"
-      - "    rotate 17"
-      - "    weekly"
-      - "}"
+    contents: |
+      /var/log/foo/*.log {
+          rotate 17
+          weekly
+      }
   # Default - Content
   {{ tests_dir }}/default/content:
     exists: true
@@ -21,8 +21,8 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   # Default - Template
   {{ tests_dir }}/default/template:
     exists: true
@@ -30,16 +30,16 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/default/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   # Default - Flatten
   {{ tests_dir }}/default/flatten:
     exists: true
@@ -77,24 +77,24 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/defaults/template_overwrite:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
 
   # Exclusive
   {{ tests_dir }}/exclusive/existing:

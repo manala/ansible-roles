@@ -7,23 +7,23 @@ file:
     owner: root
     group: elasticsearch
     mode: "0660"
-    contains:
-      - "cluster:"
-      - "    name: foo"
-      - "path.data: /foo/bar"
+    contents: |
+      cluster:
+          name: foo
+      path.data: /foo/bar
   {{ tests_dir }}/content:
     exists: true
     filetype: file
     owner: root
     group: elasticsearch
     mode: "0660"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template:
     exists: true
     filetype: file
     owner: root
     group: elasticsearch
     mode: "0660"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

@@ -50,10 +50,8 @@ file:
     owner: user_k_private
     group: user_k_private
     mode: "0600"
-    contains:
-{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
-      - "{{ line }}"
-{% endfor %}
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1') | indent(6) }}
   /home/user_k_private/.ssh/id_rsa.pub:
     exists: false
   # Public
@@ -71,8 +69,8 @@ file:
     owner: user_k_public
     group: user_k_public
     mode: "0644"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   # Verbose syntax
   /home/user_k_verbose_syntax/.ssh:
     exists: true
@@ -86,18 +84,16 @@ file:
     owner: user_k_verbose_syntax
     group: user_k_verbose_syntax
     mode: "0600"
-    contains:
-{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
-      - "{{ line }}"
-{% endfor %}
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1') | indent(6) }}
   /home/user_k_verbose_syntax/.ssh/id_rsa.pub:
     exists: true
     filetype: file
     owner: user_k_verbose_syntax
     group: user_k_verbose_syntax
     mode: "0644"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   # Flatten
   /home/user_k_flatten/.ssh:
     exists: true
@@ -111,18 +107,16 @@ file:
     owner: user_k_flatten
     group: user_k_flatten
     mode: "0600"
-    contains:
-{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
-      - "{{ line }}"
-{% endfor %}
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1') | indent(6) }}
   /home/user_k_flatten/.ssh/id_rsa.pub:
     exists: true
     filetype: file
     owner: user_k_flatten
     group: user_k_flatten
     mode: "0644"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   # Multiple
   /home/user_k_multiple/.ssh:
     exists: true
@@ -136,36 +130,32 @@ file:
     owner: user_k_multiple
     group: user_k_multiple
     mode: "0600"
-    contains:
-{% for line in lookup('ansible.builtin.file', 'fixtures/key_1').splitlines() %}
-      - "{{ line }}"
-{% endfor %}
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1') | indent(6) }}
   /home/user_k_multiple/.ssh/id_rsa_1.pub:
     exists: true
     filetype: file
     owner: user_k_multiple
     group: user_k_multiple
     mode: "0644"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   /home/user_k_multiple/.ssh/id_rsa_2:
     exists: true
     filetype: file
     owner: user_k_multiple
     group: user_k_multiple
     mode: "0600"
-    contains:
-{% for line in lookup('ansible.builtin.file', 'fixtures/key_2').splitlines() %}
-      - "{{ line }}"
-{% endfor %}
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_2') | indent(6) }}
   /home/user_k_multiple/.ssh/id_rsa_2.pub:
     exists: true
     filetype: file
     owner: user_k_multiple
     group: user_k_multiple
     mode: "0644"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_2.pub') }}"
+    contents: |-
+      {{ lookup('ansible.builtin.file', 'fixtures/key_2.pub') | indent(6) }}
   # State
   /home/user_k_state_ignore/.ssh:
     exists: false

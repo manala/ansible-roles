@@ -14,5 +14,5 @@ service:
 file:
   /etc/ssh/ssh_known_hosts:
     exists: true
-    contains:
+    contents:
       - github.com ecdsa-sha2-nistp256

@@ -7,16 +7,16 @@ file:
     owner: root
     group: bind
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/content:
     exists: true
     filetype: file
     owner: root
     group: bind
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/state_absent_existing:
     exists: false
   {{ tests_dir }}/omit:

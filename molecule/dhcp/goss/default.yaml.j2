@@ -17,7 +17,7 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
+    contents:
       - INTERFACESv4="{{ ansible_facts.default_ipv4.interface }}"
   # Config
   {{ manala_dhcp_config_file }}:
@@ -26,9 +26,9 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "subnet {{ ansible_facts.default_ipv4.network }} netmask {{ ansible_facts.default_ipv4.netmask }} {"
-      - "}"
+    contents: |
+      subnet {{ ansible_facts.default_ipv4.network }} netmask {{ ansible_facts.default_ipv4.netmask }} {
+      }
 
 command:
   # Interfaces

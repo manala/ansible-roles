@@ -9,12 +9,11 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - 'FOO="bar"'
-      - "0 7 * * * bar cd /srv/app && bin/console app:bar:bar"
-      - "1 2 3 4 5 foo cd /srv/app && bin/console app:baz:baz"
-      - "* * * * * foo cd /srv/app && bin/console app:foo:present"
-      - "!* * * * * foo cd /srv/app && bin/console app:foo:absent"
+    contents: |
+      FOO="bar"
+      0 7 * * * bar cd /srv/app && bin/console app:bar:bar
+      1 2 3 4 5 foo cd /srv/app && bin/console app:baz:baz
+      * * * * * foo cd /srv/app && bin/console app:foo:present
   # Default - Content
   {{ tests_dir }}/default/content:
     exists: true
@@ -22,8 +21,9 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |+
+      Content
+      
   # Default - Template
   {{ tests_dir }}/default/template:
     exists: true
@@ -31,16 +31,16 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/default/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   # Default - Flatten
   {{ tests_dir }}/default/flatten:
     exists: true
@@ -78,24 +78,24 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/defaults/template_overwrite:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   # Defaults - User
   {{ tests_dir }}/defaults/user:
     exists: true
@@ -103,24 +103,24 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "* * * * * foo foo"
+    contents: |
+      * * * * * foo foo
   {{ tests_dir }}/defaults/user_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "* * * * * bar bar"
+    contents: |
+      * * * * * bar bar
   {{ tests_dir }}/defaults/user_job:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "* * * * * baz baz"
+    contents: |
+      * * * * * baz baz
 
   # Exclusive
   {{ tests_dir }}/exclusive/existing:

@@ -4,7 +4,7 @@ file:
   /etc/environment:
     exists: true
     filetype: file
-    contains:
+    contents:
       - '_FOO="bar"'
       - '_BAR="123"'
       - 'BAR="123"'
@@ -14,7 +14,7 @@ file:
   /etc/zsh/zshenv:
     exists: true
     filetype: file
-    contains:
+    contents:
       - '# /etc/zsh/zshenv'
       - 'export BAR="123"'
       - 'export BAZ="1.2"'
@@ -23,7 +23,7 @@ file:
   {{ tests_dir }}/file:
     exists: true
     filetype: file
-    contains:
+    contents:
       - '# {{ tests_dir }}/file'
       - 'export BAR="123"'
       - 'export BAZ="1.2"'

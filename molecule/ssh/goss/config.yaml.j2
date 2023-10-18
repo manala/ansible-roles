@@ -13,55 +13,55 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "foo none"
-      - "bar yes"
-      - "baz no"
-      - "qux foo"
-      - "quux 123"
-      - "corge foo"
-      - "corge bar"
-      - "corge baz"
-      - "grault"
-      - "    foo bar"
-      - "    bar 123"
+    contents: |
+      bar yes
+      baz no
+      corge foo
+      corge bar
+      corge baz
+      foo none
+      grault
+          bar 123
+          foo bar
+      quux 123
+      qux foo
   {{ tests_dir }}/dict-client:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "foo bar"
+    contents: |
+      foo bar
   {{ tests_dir }}/content-server:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/content-client:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template-server:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/template-client:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

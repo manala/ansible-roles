@@ -9,23 +9,24 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "[www]"
-      - "user = foo"
-      - "group = foo"
-      - "env[BAR] = 123"
-      - "env[BAZ] = 1.2"
-      - "env[FOO] = bar"
-      - "env[QUX] = foo=bar"
-      - "php_admin_value[memory_limit] = 123M"
-      - "php_value[display_errors] = no"
-      - "include = /include-1"
-      - "include = /include-2"
-      - "access.suppress_path[] = /access.suppress_path-1"
-      - "access.suppress_path[] = /access.suppress_path-2"
-      - "[bar]"
-      - "user = bar"
-      - "group = bar"
+    contents: |
+      [bar]
+      group = bar
+      user = bar
+
+      [www]
+      access.suppress_path[] = /access.suppress_path-1
+      access.suppress_path[] = /access.suppress_path-2
+      env[BAR] = 123
+      env[BAZ] = 1.2
+      env[FOO] = bar
+      env[QUX] = foo=bar
+      group = foo
+      include = /include-1
+      include = /include-2
+      php_admin_value[memory_limit] = 123M
+      php_value[display_errors] = no
+      user = foo
   # Default - Content
   {{ tests_dir }}/default/content:
     exists: true
@@ -33,8 +34,8 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   # Default - Template
   {{ tests_dir }}/default/template:
     exists: true
@@ -42,16 +43,16 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/default/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   # Default - Flatten
   {{ tests_dir }}/default/flatten:
     exists: true
@@ -89,24 +90,24 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/defaults/template_overwrite:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
 
   # Exclusive
   {{ tests_dir }}/exclusive/existing:

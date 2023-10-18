@@ -7,29 +7,29 @@ file:
     owner: redis
     group: redis
     mode: "0640"
-    contains:
-      - "include /foo/bar.conf"
-      - "include /foo/baz.conf"
-      - "port 1234"
+    contents: |
+      include /foo/bar.conf
+      include /foo/baz.conf
+      port 1234
   {{ tests_dir }}/dict-sentinel:
     exists: true
     filetype: file
-    contains:
-      - "sentinel monitor foo 1.2.3.4 6379 2"
-      - "sentinel down-after-milliseconds foo 1234"
+    contents: |
+      sentinel monitor foo 1.2.3.4 6379 2
+      sentinel down-after-milliseconds foo 1234
   {{ tests_dir }}/content-server:
     exists: true
     filetype: file
     owner: redis
     group: redis
     mode: "0640"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template-server:
     exists: true
     filetype: file
     owner: redis
     group: redis
     mode: "0640"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

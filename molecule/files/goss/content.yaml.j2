@@ -5,13 +5,13 @@ file:
   {{ tests_dir }}/default/default:
     exists: true
     filetype: file
-    contains:
-      - Content default
+    contents: |
+      Content default
   {{ tests_dir }}/default/present:
     exists: true
     filetype: file
-    contains:
-      - Content present
+    contents: |
+      Content present
   {{ tests_dir }}/default/absent:
     exists: false
   {{ tests_dir }}/default/ignore:
@@ -23,15 +23,15 @@ file:
   {{ tests_dir }}/parents/content:
     exists: true
     filetype: file
-    contains:
-      - Content parents default
+    contents: |
+      Content parents default
   {{ tests_dir }}/parents_defaults:
     exists: true
     filetype: directory
   {{ tests_dir }}/parents_defaults/content:
     exists: true
     filetype: file
-    contains:
-      - Content defaults parents
+    contents: |
+      Content defaults parents
   {{ tests_dir }}/parents_unexisting/content:
     exists: false
