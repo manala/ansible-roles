@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [All] Update minimum version of ansible to 2.15
+- [Apt] Switch to deb822 format
 - [Apparmor] Remove handler "apparmor reload" in favor of "Reload apparmor"
 - [Cron] Remove handler "cron restart" in favor of "Restart cron"
 - [Dhcp] Remove handler "dhcp restart" in favor of "Restart dhcp"

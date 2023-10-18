@@ -1,0 +1,124 @@
+---
+
+file:
+  # Default - From preferences
+  {{ tests_dir }}/default/sury_php.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: https://packages.sury.org/php/
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+  # Default - Short syntax
+  {{ tests_dir }}/default/matomo.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: http://debian.matomo.org/
+      Suites: piwik
+      Components: main
+  # Default - Pattern syntax
+  {{ tests_dir }}/default/grafana.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: https://apt.grafana.com
+      Suites: stable
+      Components: main
+  # Default - Verbose syntax
+  {{ tests_dir }}/default/yarn:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: https://dl.yarnpkg.com/debian/
+      Suites: stable
+      Components: main
+  {{ tests_dir }}/default/postgresql:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: http://apt.postgresql.org/pub/repos/apt/
+      Suites: {{ ansible_facts.distribution_release }}-pgdg
+      Components: main
+  # Default - Flatten
+  {{ tests_dir }}/default/nginx.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: http://nginx.org/packages/debian
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: nginx
+  # Default - State
+  {{ tests_dir }}/default/state_present_implicit:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: https://deb.nodesource.com/node_10.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+  {{ tests_dir }}/default/state_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: https://deb.nodesource.com/node_12.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+  {{ tests_dir }}/default/state_absent:
+    exists: false
+  {{ tests_dir }}/default/state_absent_existing:
+    exists: false
+  {{ tests_dir }}/default/state_ignore:
+    exists: false
+  {{ tests_dir }}/default/state_ignore_existing:
+    exists: true
+
+  # Exclusive
+  {{ tests_dir }}/exclusive/existing:
+    exists: false
+  {{ tests_dir }}/exclusive/existing_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Types: deb
+      URIs: https://deb.nodesource.com/node_16.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+  {{ tests_dir }}/exclusive/existing_ignore:
+    exists: false
+  {{ tests_dir }}/exclusive/ignore:
+    exists: false

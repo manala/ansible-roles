@@ -164,16 +164,39 @@ manala_apt_repositories:
 
 Verbose
 
+Note: although legacy "source" based repositories are still supported, a file ending by .sources MUST be provided
+
 ```yaml
 manala_apt_repositories:
-  - source: deb http://pkg.jenkins-ci.org/debian binary/
+  - file: jenkins.sources
+    uris: http://pkg.jenkins-ci.org/debian
+    suites: binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id: D50582E6
-  - source: deb https://enterprise.proxmox.com/debian {{ ansible_facts.distribution_release }} pve-enterprise
+  - file: proxmox.sources
+    uris: https://enterprise.proxmox.com/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: pve-enterprise
     state: absent
   # Ignore repository
-  - source: deb https://example.com foo
+  - file: example.sources
+    uris: https://example.com
+    suites: foo/
+    state: ignore
+  # Legacy
+  - file: jenkins.sources
+    source: deb http://pkg.jenkins-ci.org/debian binary/
+    key:
+      url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+      id: D50582E6
+  # Legacy
+  - file: proxmox.sources
+    source: deb https://enterprise.proxmox.com/debian {{ ansible_facts.distribution_release }} pve-enterprise
+    state: absent
+  # Ignore repository (Legacy)
+  - file: example.sources
+    source: deb https://example.com foo/
     state: ignore
   # Flatten repositories
   - "{{ my_custom_repositories_array }}"

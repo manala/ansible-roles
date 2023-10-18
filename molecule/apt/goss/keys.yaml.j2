@@ -1,15 +1,103 @@
 ---
 
-command:
+file:
+  # Default - From preferences
+  {{ tests_dir }}/default/sury_php.gpg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: b3ea944563435e54bb64f181ee8bc26200985d09164cdc4c1702fc3ef051f19d
+  # Default - From repositories
+  {{ tests_dir }}/default/nginx.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: dd4da5dc599ef9e7a7ac20a87275024b4923a917a306ab5d53fa77871220ecda
+  {{ tests_dir }}/default/yarn.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: 8550a7e298b523fffa899069754fc150f2ff74092701e4d4109edd1cd6d5327f
+  {{ tests_dir }}/default/postgresql.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: 0144068502a1eddd2a0280ede10ef607d1ec592ce819940991203941564e8e76
+  # Default - Short syntax
+  {{ tests_dir }}/default/sensu-go.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: e74c2b7fbe75d84b3350a5f0a93df95798d99bc1c0b6399e174b36eb162229ef
+  # Default - Pattern syntax
+  {{ tests_dir }}/default/grafana.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: 58052c148058ace26dbd01ce057afa5709fb9d39c8a8ab16800be3f42fc02ab2
+  # Default - Verbose syntax
+  {{ tests_dir }}/default/rabbitmq.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: bf3d770e522b9436d9c6bee1b1206cba6800fc64d754b1293471038eb9529138
+  # Default - Flatten
+  {{ tests_dir }}/default/multimedia.asc:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: 53aede0e70e642307f91645bd66475ad95d37d2e283749ac9306f88435b2efd9
+  # Default - State
+  {{ tests_dir }}/default/state_present_implicit:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: 2fa86e09463b95cc35b30b2ec83e869f0b25c77516e76cfa25458e38901fb01f  # mongodb_4_2
+  {{ tests_dir }}/default/state_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: b5b674e0fee2ff6e5f007a59bf3be522f3382f90f2c2c796e4a9b7095eb58e94  # mongodb_4_4
+  {{ tests_dir }}/default/state_absent:
+    exists: false
+  {{ tests_dir }}/default/state_absent_existing:
+    exists: false
+  {{ tests_dir }}/default/state_ignore:
+    exists: false
+  {{ tests_dir }}/default/state_ignore_existing:
+    exists: true
 
-  "apt-key adv --list-public-keys --with-colons | grep '^pub' | cut -d':' -f 5 | egrep -o '.{8}$'":
-    exit-status: 0
-    stdout:
-      - "95BD4743" # Sury_php
-      - "7BD9BF62" # Nginx
-      - "86E50310" # Yarn
-      - "ACCC4CF8" # PostgreSQL
-      - "0A3F7426" # Sensu Go
-      - "056E8E56" # RabbitMQ
-      - "BC19DDBA" # Galera
-      - "65558117" # Multimedia
+  # Exclusive
+  {{ tests_dir }}/exclusive/existing:
+    exists: false
+  {{ tests_dir }}/exclusive/existing_present:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    sha256: 90c79fc38896101706f8e69e26c328d55fbe05afb72128af34091d34cd181bbb  # varnish_6_1
+  {{ tests_dir }}/exclusive/existing_ignore:
+    exists: false
+  {{ tests_dir }}/exclusive/ignore:
+    exists: false

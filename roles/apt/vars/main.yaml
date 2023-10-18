@@ -45,44 +45,80 @@ manala_apt_repositories_patterns:
     key: multimedia
     file: multimedia_backports.list
   nginx:
-    source: deb http://nginx.org/packages/{{ ansible_facts.distribution | lower }}/ {{ ansible_facts.distribution_release }} nginx
+    uris: http://nginx.org/packages/{{ ansible_facts.distribution | lower }}
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: nginx
     key: nginx
+    legacy_file: nginx_org_packages_{{ ansible_facts.distribution | lower }}.list
   bearstech:
     source: deb http://deb.bearstech.com/debian {{ ansible_facts.distribution_release }}-bearstech main
     key: bearstech
   nodesource_4:
-    source: deb https://deb.nodesource.com/node_4.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_4.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_4_x.list
   nodesource_6:
-    source: deb https://deb.nodesource.com/node_6.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_6.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_6_x.list
   nodesource_7:
-    source: deb https://deb.nodesource.com/node_7.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_7.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_7_x.list
   nodesource_8:
-    source: deb https://deb.nodesource.com/node_8.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_8.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_8_x.list
   nodesource_9:
-    source: deb https://deb.nodesource.com/node_9.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_9.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_9_x.list
   nodesource_10:
-    source: deb https://deb.nodesource.com/node_10.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_10.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_10_x.list
   nodesource_12:
-    source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_12.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_12_x.list
   nodesource_14:
-    source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_14.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_14_x.list
   nodesource_16:
-    source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_16.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_16_x.list
   nodesource_18:
-    source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_18.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_18_x.list
   nodesource_20:
-    source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
+    uris: https://deb.nodesource.com/node_20.x
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: nodesource
+    legacy_file: deb_nodesource_com_node_20_x.list
   mysql_5_7:
     source: deb http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/ {{ ansible_facts.distribution_release }} mysql-5.7
     key: mysql
@@ -201,8 +237,11 @@ manala_apt_repositories_patterns:
       {{ ansible_facts.distribution_release }} main
     key: galera
   grafana:
-    source: deb https://apt.grafana.com stable main
+    uris: https://apt.grafana.com
+    suites: stable
+    components: main
     key: grafana
+    legacy_file: apt_grafana_com.list
   elasticsearch_5:
     source: deb https://artifacts.elastic.co/packages/5.x/apt stable main
     key: elasticsearch
@@ -228,11 +267,11 @@ manala_apt_repositories_patterns:
     source: deb http://repo.aptly.info/ squeeze main
     key: aptly
   docker:
-    source: >-
-      deb [arch={{ ansible_facts.architecture | manala.roles.apt_architecture }}]
-      https://download.docker.com/linux/{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}
-      {{ ansible_facts.distribution_release }} stable
+    uris: https://download.docker.com/linux/{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: stable
     key: docker
+    legacy_file: download_docker_com_linux_{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}.list
   manala:
     source: deb http://debian.manala.io {{ ansible_facts.distribution_release }} main
     key: manala
@@ -251,14 +290,20 @@ manala_apt_repositories_patterns:
     source: deb https://dl.yarnpkg.com/debian/ stable main
     key: yarn
   sury_php:
-    source: deb https://packages.sury.org/php/ {{ ansible_facts.distribution_release }} main
+    uris: https://packages.sury.org/php/
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: sury_php
+    legacy_file: packages_sury_org_php.list
   percona:
     source: deb http://repo.percona.com/apt {{ ansible_facts.distribution_release }} main
     key: percona
   matomo:
-    source: deb http://debian.matomo.org/ piwik main
+    uris: http://debian.matomo.org/
+    suites: piwik
+    components: main
     key: matomo
+    legacy_file: debian_matomo_org.list
   owncloud:
     source: deb http://download.owncloud.org/download/repositories/production/Debian_{{ ansible_facts.distribution_major_version }}.0/ /
     key: owncloud
@@ -301,169 +346,240 @@ manala_apt_repositories_patterns:
       {{ ansible_facts.distribution_release }} main
     key: glusterfs_10
   haproxy_1_8:
-    source: deb http://haproxy.debian.net {{ ansible_facts.distribution_release }}-backports-1.8 main
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-1.8"
+    components: main
     key: haproxy
+    legacy_file: haproxy_debian_net.list
   haproxy_2_0:
-    source: deb http://haproxy.debian.net {{ ansible_facts.distribution_release }}-backports-2.0 main
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-2.0"
+    components: main
     key: haproxy
+    legacy_file: haproxy_debian_net.list
   haproxy_2_2:
-    source: deb http://haproxy.debian.net {{ ansible_facts.distribution_release }}-backports-2.2 main
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-2.2"
+    components: main
     key: haproxy
+    legacy_file: haproxy_debian_net.list
   haproxy_2_4:
-    source: deb http://haproxy.debian.net {{ ansible_facts.distribution_release }}-backports-2.4 main
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-2.4"
+    components: main
     key: haproxy
+    legacy_file: haproxy_debian_net.list
   haproxy_2_6:
-    source: deb http://haproxy.debian.net {{ ansible_facts.distribution_release }}-backports-2.6 main
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-2.6"
+    components: main
     key: haproxy
+    legacy_file: haproxy_debian_net.list
   haproxy_2_8:
-    source: deb http://haproxy.debian.net {{ ansible_facts.distribution_release }}-backports-2.8 main
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-2.8"
+    components: main
     key: haproxy
+    legacy_file: haproxy_debian_net.list
   unifi:
-    source: deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti
+    uris: http://www.ubnt.com/downloads/unifi/debian
+    suites: stable
+    components: ubiquiti
     key: unifi
+    legacy_file: www_ubnt_com_downloads_unifi_debian.list
   kopia:
-    source: deb http://packages.kopia.io/apt/ stable main
+    uris: http://packages.kopia.io/apt/
+    suites: stable
+    components: main
     key: kopia
+    legacy_file: packages_kopia_io_apt.list
   symfony:
-    source: deb https://dl.cloudsmith.io/public/symfony/stable/deb/debian {{ ansible_facts.distribution_release }} main
+    uris: https://dl.cloudsmith.io/public/symfony/stable/deb/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: symfony
-    file: symfony.list
+    legacy_file: symfony.list
   github_cli:
-    source: deb https://cli.github.com/packages stable main
+    uris: https://cli.github.com/packages
+    suites: stable
+    components: main
     key: github_cli
-    file: github_cli.list
+    legacy_file: github_cli.list
 
 # Keys
 manala_apt_keys_patterns:
   multimedia:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 65558117
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x65558117
+    file: multimedia.asc
+    checksum: sha256:53aede0e70e642307f91645bd66475ad95d37d2e283749ac9306f88435b2efd9
   nginx:
-    url: http://nginx.org/keys/nginx_signing.key
-    id: 7BD9BF62
+    url: https://nginx.org/keys/nginx_signing.key
+    file: nginx.asc
+    checksum: sha256:dd4da5dc599ef9e7a7ac20a87275024b4923a917a306ab5d53fa77871220ecda
   bearstech:
     url: http://deb.bearstech.com/bearstech-archive.gpg
-    id: 90158EE0
+    file: bearstech.gpg
+    checksum: sha256:48a832cfe5e46219e559543e62e519ff237aee305a3bccba5ae716005702a9f6
   nodesource:
     url: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    id: 68576280
+    file: nodesource.asc
+    checksum: sha256:773b328f7b1d6db58a8c6a7fc89e2ed58ac5e06c3ab148411cf8272be7b1c472
   mysql:
     url: https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
-    id: 3A79BD29
+    file: mysql.asc
+    checksum: sha256:e971e92ed9e1b7941d1d34cf50ee68510f72bb549f7af2a14ed1e37f5d2886c5
   mariadb:
     url: https://raw.githubusercontent.com/MariaDB/mariadb.org-tools/master/release/create_package_tarballs/deb_files/MariaDB-C74CD1D8-public.asc
-    id: C74CD1D8
+    file: mariadb.asc
+    checksum: sha256:531dcebb22dc26997ba550ef68712ece2ccfca47af99c49c4e56f3585c25d254
   mariadb_enterprise:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: E3C94F49
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE3C94F49
+    file: mariadb_enterprise.asc
+    checksum: sha256:a2ff265daa49d5698563b8e966811f776eae730b8271cde1f905fa5df8d927af
   maxscale:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 28C12247
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x28C12247
+    file: maxscale.asc
+    checksum: sha256:4547b4f8b1767d63fdbf90a61b6b62395f548efdcb0e114433218dbe047b97d3
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    id: ACCC4CF8
+    file: postgresql.asc
+    checksum: sha256:0144068502a1eddd2a0280ede10ef607d1ec592ce819940991203941564e8e76
   mongodb_4_2:
     url: https://www.mongodb.org/static/pgp/server-4.2.asc
-    id: 058F8B6B
+    file: mongodb_4_2.asc
+    checksum: sha256:2fa86e09463b95cc35b30b2ec83e869f0b25c77516e76cfa25458e38901fb01f
   mongodb_4_4:
     url: https://www.mongodb.org/static/pgp/server-4.4.asc
-    id: 90CFB1F5
+    file: mongodb_4_4.asc
+    checksum: sha256:b5b674e0fee2ff6e5f007a59bf3be522f3382f90f2c2c796e4a9b7095eb58e94
   varnish_4_0:
     url: https://packagecloud.io/varnishcache/varnish40/gpgkey
-    id: DE3FFEA4
+    file: varnish_4_0.asc
+    checksum: sha256:6104a12297e918458f49c3775750a866f68707bd42206f8e042908dcc1083b40
   varnish_6_1:
     url: https://packagecloud.io/varnishcache/varnish61/gpgkey
-    id: 742D76CC
+    file: varnish_6_1.asc
+    checksum: sha256:90c79fc38896101706f8e69e26c328d55fbe05afb72128af34091d34cd181bbb
   jenkins:
     url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
-    id: D50582E6
+    file: jenkins.asc
+    checksum: sha256:f6b8584841a7f2852ad9a00b8f8d53ba40bb2942c8d6b99d6bf30a4f48b0cf69
   sensu-go:
     url: https://packagecloud.io/sensu/stable/gpgkey
-    id: 0A3F7426
+    file: sensu-go.asc
+    checksum: sha256:e74c2b7fbe75d84b3350a5f0a93df95798d99bc1c0b6399e174b36eb162229ef
   rabbitmq:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-    id: 6026DFCA
+    file: rabbitmq.asc
+    checksum: sha256:bf3d770e522b9436d9c6bee1b1206cba6800fc64d754b1293471038eb9529138
   proxmox:
     url: http://download.proxmox.com/debian/proxmox-ve-release-5.x.gpg
-    id: E2EF0603
+    file: proxmox.gpg
+    checksum: sha256:0d47e36e0d8e876bb694ce75766c9490d5cec4e2efadabe4ad8f2020ebb3924a
   galera:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: BC19DDBA
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xBC19DDBA
+    file: galera.asc
+    checksum: sha256:e33084407f5e11c6330cc20edd7717944ab6b071dd9b0efa32b424ca1d2fa51a
   packagecloud:
     url: https://packagecloud.io/gpg.key
-    id: D59097AB
+    file: packagecloud.asc
+    checksum: sha256:59ce96ea07d22651feee7213709aacd69cf196bb4c429621a926e26b9c3a9577
   elasticsearch:
     url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-    id: D88E42B4
+    file: elasticsearch.asc
+    checksum: sha256:db52809c5f6b27f9c2bed45cb43e398c659275f3d35305653c6750a0db90f5eb
   gitlab:
     url: https://packages.gitlab.com/gpg.key
-    id: 51312F3F
+    file: gitlab.asc
+    checksum: sha256:34170579d600a258ab1fbe7efa8078a36ba80793a99a1c1ad55d3be6f2c41c00
   aptly:
     url: https://www.aptly.info/pubkey.txt
-    id: 624A8331
+    file: aptly.asc
+    checksum: sha256:217af3a4ece1283ce0c7d73de0709566a589c174d9808ac2a4578ee53037a6d6
   docker:
     url: https://download.docker.com/linux/{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}/gpg
-    id: 0EBFCD88
+    file: docker.asc
+    checksum: sha256:1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b3a570
   manala:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 1394DEA3
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1394DEA3
+    file: manala.asc
+    checksum: sha256:ac8d9fc37c82d4168bbdc4b5bba11aea141f1e846b8ec9eadc20e2093c8a4526
   newrelic:
     url: https://download.newrelic.com/548C16BF.gpg
-    id: 548C16BF
+    file: newrelic.asc
+    checksum: sha256:683cf9af796388a110ca3d7128896d2f96d9ce2c64130a643a72bcc627447f3f
   newrelic-infra:
     url: https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg
-    id: 8ECCE87C
+    file: newrelic-infra.asc
+    checksum: sha256:f776e60659b95b2c4a86bb526026e698bf894ea24530b591ed8a46e2e98441ac
   influxdata:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 7DF8B07E
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x7DF8B07E
+    file: influxdata.asc
+    checksum: sha256:797adfb3ecb48d4f45d1fe67a5d04a00ffacdddfa9cbb07e68631e05336e2df1
   yarn:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
-    id: 86E50310
+    file: yarn.asc
+    checksum: sha256:8550a7e298b523fffa899069754fc150f2ff74092701e4d4109edd1cd6d5327f
   sury_php:
     url: https://packages.sury.org/php/apt.gpg
-    id: 95BD4743
+    file: sury_php.gpg
+    checksum: sha256:b3ea944563435e54bb64f181ee8bc26200985d09164cdc4c1702fc3ef051f19d
   percona:
     url: https://github.com/percona/percona-repositories/raw/main/deb/percona-keyring.gpg
-    id: 8507EFA5
+    file: percona.gpg
+    checksum: sha256:5880e095306e79381b8c080e18e591e2d1ac7883d0e086833d19f31e03c6ab69
   matomo:
     url: https://debian.matomo.org/repository.gpg
-    id: 66FED89E
+    file: matomo.gpg
+    checksum: sha256:0d7c880f6c838bba2d02817dcacfc97fc538b1ebcdb41c3106595265c0d371d4
   owncloud:
-    url: https://download.owncloud.org/download/repositories/production/Debian_{{ ansible_facts.distribution_major_version }}.0/Release.key
-    id: 479BC94B
+    url: https://download.opensuse.org/repositories/isv:ownCloud:server:10/Debian_12/Release.key
+    file: owncloud.asc
+    checksum: sha256:5eb058671f31002a65e4e8a0df8b1c081a71c09ff2bd2fa1420560dd6f3b97fa
   grafana:
     url: https://apt.grafana.com/gpg.key
-    id: 10458545
+    file: grafana.asc
+    checksum: sha256:58052c148058ace26dbd01ce057afa5709fb9d39c8a8ab16800be3f42fc02ab2
   blackfire:
     url: https://packages.blackfire.io/gpg.key
-    id: 47312329
+    file: blackfire.asc
+    checksum: sha256:393e77d8595ed2f32d5ef126e7265b5f17133f70aaee40e261b69ceea3834e64
   mica:
     url: https://www.obiba.org/assets/obiba-pub.pem
-    id: 7B0A831B
+    file: mica.asc
+    checksum: sha256:1d70226b05371b284485a5aae29eb159dcb4ed91e153a9463d8d7d2777a7d2a2
   glusterfs_6:
     url: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
-    id: C2F8238C
+    file: glusterfs_6.asc
+    checksum: sha256:ae5b68d9cc21c3787fc432f95899e015ed08c77b228e41f569825b7e5dde1d57
   glusterfs_10:
     url: https://download.gluster.org/pub/gluster/glusterfs/10/rsa.pub
-    id: C2F8238C
+    file: glusterfs_10.asc
+    checksum: sha256:ae5b68d9cc21c3787fc432f95899e015ed08c77b228e41f569825b7e5dde1d57
   ansible:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 7BB9C367
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x7BB9C367
+    file: ansible.asc
+    checksum: sha256:03caa1fab5b747f72bd88cf09e100968aeb78e2a52a19851d27413375032290b
   haproxy:
     url: https://haproxy.debian.net/bernat.debian.org.gpg
-    id: 353525F9
+    file: haproxy.asc
+    checksum: sha256:586e7ff5f3d804bf9975c2f634cf0bf35f22af9e1b2476e6f91f7c8146010a6c
   unifi:
     url: https://dl.ubnt.com/unifi/unifi-repo.gpg
-    id: 06E85760C0A52C50
+    file: unifi.gpg
+    checksum: sha256:f4625b8f05619d506961d64ca25c262d4a033acf4d1f5303babd7f5b9a971207
   kopia:
     url: https://kopia.io/signing-key
-    id: FD56A556
+    file: kopia.asc
+    checksum: sha256:e01adf3b905ef41a1c0b81f28a41fd7daa6a6918c97506a726b0f896aa93555a
   github_cli:
     url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
-    id: 75716059
+    file: github_cli.gpg
+    checksum: sha256:a5eb97c717ec3438bb94d465554e3560f8732403c28870780f779b8ab89975ea
   symfony:
     url: https://dl.cloudsmith.io/public/symfony/stable/gpg.99CEF8A62216B73D.key
-    id: 2216B73D
+    file: symfony.asc
+    checksum: sha256:a72e72916096e78decead37cadd1767420d2df81f13d4f04b79b951d501ae4a4
 
 # Preferences
 manala_apt_preferences_patterns:

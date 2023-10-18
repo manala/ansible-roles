@@ -1,0 +1,9 @@
+Types: {{ item.types | default("deb") }}
+URIs: {{ item.uris }}
+Suites: {{ item.suites }}
+{% if item.components is defined %}
+Components: {{ item.components }}
+{% endif %}
+{% if item.signed_by is defined %}
+Signed-By: {{ item.signed_by }}
+{% endif %}

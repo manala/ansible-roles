@@ -22,6 +22,7 @@ from ansible.module_utils._text import to_text
 import os.path
 import re
 
+legacy_source_regex = r"(?P<type>deb(?:-src)?) (?:\[(?P<options>.*)\] )?(?P<uri>(?P<uri_scheme>file|cdrom|copy|http|https|ftp|ssh)://(?P<uri_domain>(?:(?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,6}))/[a-zA-Z0-1-_\./]+ (?P<suites>[a-z/-]+)(?:(?<!/) (?P<components>[a-z]+(?: [a-z]+)*))"
 
 class LookupModule(LookupBase):
 
@@ -38,7 +39,7 @@ class LookupModule(LookupBase):
         repositoriesPatterns = terms[1]
         preferences = terms[2]
         exclusives = self._flatten(terms[3])
-        dir = '/etc/apt/sources.list.d'
+        dir = terms[4]
 
         itemDefault = {
             'state': 'present'
@@ -83,38 +84,47 @@ class LookupModule(LookupBase):
                     continue
 
             if 'repository' in item:
-                item.update(
-                    repositoriesPatterns.get(item['repository'])
-                )
+                item = {
+                    # Guess file from repository pattern name
+                    **{'file': item['repository'] + '.sources'},
+                    **repositoriesPatterns.get(item['repository']),
+                    **item,
+                }
+
+            # Legacy
+            if 'source' in item:
+                self._display.warning('Using a "source" repository key is deprecated, please provide "uris", "suites", and possibly "types" and "components" keys for repository "%s"' % item['source'])
+                if 'file' not in item:
+                    raise AnsibleError('Missing "file" key in legacy repository source "%s"' % item['source'])
+                if not item['file'].endswith('.sources'):
+                    raise AnsibleError('Invalid "file" key in legacy repository source "%s", must end with ".sources"' % item['source'])
+                matches = re.search(legacy_source_regex, item['source'])
+                if matches:
+                    item.update({
+                        'uris': matches.group('uri'),
+                        'suites': matches.group('suites'),
+                        'components': matches.group('components'),
+                    })
 
             # Check index key
-            if 'source' not in item:
-                raise AnsibleError('Missing "source" key')
-
-            # Force file if not present
             if 'file' not in item:
-                item.update({
-                    'file': os.path.join(
-                        dir,
-                        re.sub(
-                            '^deb (\\[.+\\] )?https?:\\/\\/([^ ]+)[ ].*$',
-                            '\\2',
-                            item['source']
-                        )
-                        .strip('/ ')
-                        .replace('.', '_')
-                        .replace('/', '_')
-                        .replace('-', '_')
-                        + '.list'
-                    )
-                })
-            else:
-                item.update({
-                    'file': os.path.join(
-                        dir,
-                        item['file']
-                    )
-                })
+                raise AnsibleError('Missing "file" key')
+
+            # Check required keys
+            if 'uris' not in item:
+                raise AnsibleError('Missing "uris" key in repository file "%s"' % item['file'])
+            if 'suites' not in item:
+                raise AnsibleError('Missing "suites" key in repository file "%s"' % item['file'])
+
+            if 'components' not in item and not item['suites'].endswith('/'):
+                raise AnsibleError('If "components" key not present, "suites" key must end with a "/"')
+
+            item.update({
+                'file': os.path.join(
+                    dir,
+                    item['file']
+                )
+            })
 
             items.append(item)
 
@@ -122,7 +132,7 @@ class LookupModule(LookupBase):
             for item in items:
                 itemFound = False
                 for i, result in enumerate(results):
-                    if ('source' in result and result['source'] == item['source']) or (result['file'] == item['file']):
+                    if result['file'] == item['file']:
                         results[i] = item
                         itemFound = True
                         break
