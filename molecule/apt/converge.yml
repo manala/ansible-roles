@@ -271,9 +271,24 @@
 - name: Keys
   tags: [keys]
   hosts: debian
+  vars:
+    tests_dir: /molecule/apt/keys
   tasks:
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
     - block:  # noqa: name[missing]
-        - name: Role
+        - name: Role - Default
           ansible.builtin.import_role:
             name: manala.roles.apt
             tasks_from: keys
@@ -282,23 +297,67 @@
               - sury_php:100
             manala_apt_repositories:
               - nginx
-              - source: deb https://dl.yarnpkg.com/debian/ stable main
+              - file: yarn.sources
+                uris: https://dl.yarnpkg.com/debian/
+                suites: stable
+                components: main
                 key: yarn
-              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
+              - file: postgresql.sources
+                uris: http://apt.postgresql.org/pub/repos/apt/
+                suites: "{{ ansible_facts.distribution_release }}-pgdg"
+                components: main
                 key:
                   url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-                  id: ACCC4CF8
+                  file: postgresql.asc
+                  checksum: sha256:0144068502a1eddd2a0280ede10ef607d1ec592ce819940991203941564e8e76
+            manala_apt_keys_exclusive: false
+            manala_apt_keys_dir: "{{ tests_dir }}/default"
             manala_apt_keys:
               # Short syntax
               - sensu-go
+              # Pattern syntax
+              - key: grafana
               # Verbose syntax
-              - url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-                id: 056E8E56
-              - keyserver: keyserver.ubuntu.com
-                id: BC19DDBA  # Galera
+              - url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+                file: rabbitmq.asc
+                checksum: sha256:bf3d770e522b9436d9c6bee1b1206cba6800fc64d754b1293471038eb9529138
               # Flatten
               -
                 - multimedia
+              # State
+              - key: mongodb_4_2
+                file: state_present_implicit
+              - key: mongodb_4_4
+                file: state_present
+                state: present
+              - key: varnish_4_0
+                file: state_absent
+                state: absent
+              - key: varnish_6_1
+                file: state_absent_existing
+                state: absent
+              - key: glusterfs_6
+                file: state_ignore
+                state: ignore
+              - key: glusterfs_10
+                file: state_ignore_existing
+                state: ignore
+        - name: Role - Exclusive
+          ansible.builtin.import_role:
+            name: manala.roles.apt
+            tasks_from: keys
+          vars:
+            manala_apt_keys_exclusive: true
+            manala_apt_keys_dir: "{{ tests_dir }}/exclusive"
+            manala_apt_keys:
+              - key: varnish_6_1
+                file: existing_present
+              - key: glusterfs_6
+                file: existing_ignore
+                state: ignore
+              - key: glusterfs_10
+                file: ignore
+                state: ignore
       always:
         - name: Goss
           ansible.builtin.command:
@@ -310,39 +369,50 @@
 # Repositories #
 ################
 
-- name: Repositories - Default
-  tags: [repositories, repositories.default]
+- name: Repositories
+  tags: [repositories]
   hosts: debian
+  vars:
+    tests_dir: /molecule/apt/repositories
   tasks:
-    - name: Apt keys
-      ansible.builtin.apt_key:
-        url: "{{ item.0 }}"
-        id: "{{ item.1 }}"
-      loop:
-        - [http://deb.nodesource.com/gpgkey/nodesource.gpg.key, 68576280]
-    - name: Apt repositories
-      ansible.builtin.apt_repository:
-        repo: "{{ item }}"
-      loop:
-        - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}/{{ item.0 }}"
+        state: "{{ item.1 }}"
+      loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
+    - name: Touch existing files
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}/{{ item }}"
+        state: touch
+      loop: [
+        default/state_absent_existing, default/state_ignore_existing,
+        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+      ]
     - block:  # noqa: name[missing]
-        - name: Role
+        - name: Role - Default
           ansible.builtin.import_role:
-            # Play role fully, because of "keys" tasks dependency
             name: manala.roles.apt
+            tasks_from: repositories
           vars:
             manala_apt_preferences:
               - sury_php:100
+            manala_apt_repositories_exclusive: false
+            manala_apt_repositories_dir: "{{ tests_dir }}/default"
             manala_apt_repositories:
               # Short syntax
               - matomo
               # Pattern syntax
               - repository: grafana
               # Verbose syntax
-              - source: deb https://dl.yarnpkg.com/debian/ stable main
+              - file: yarn
+                uris: https://dl.yarnpkg.com/debian/
+                suites: stable
+                components: main
                 key: yarn
-              - source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
+              - file: postgresql
+                uris: http://apt.postgresql.org/pub/repos/apt/
+                suites: "{{ ansible_facts.distribution_release }}-pgdg"
+                components: main
                 key:
                   url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
                   id: ACCC4CF8
@@ -350,59 +420,44 @@
               -
                 - nginx
               # State
-              - source: deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-                state: absent
-              - source: deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
+              - repository: nodesource_10
+                file: state_present_implicit
+              - repository: nodesource_12
+                file: state_present
                 state: present
-              - source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+              - repository: nodesource_14
+                file: state_absent
+                state: absent
+              - repository: nodesource_16
+                file: state_absent_existing
+                state: absent
+              - repository: nodesource_18
+                file: state_ignore
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
+              - repository: nodesource_20
+                file: state_ignore_existing
                 state: ignore
-      always:
-        - name: Goss
-          ansible.builtin.command:
-            cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.default.yaml.j2') }}"
-          changed_when: false
-
-- name: Repositories - Exclusive
-  tags: [repositories, repositories.exclusive]
-  hosts: debian
-  tasks:
-    - name: Apt keys
-      ansible.builtin.apt_key:
-        url: "{{ item.0 }}"
-        id: "{{ item.1 }}"
-      loop:
-        - [http://deb.nodesource.com/gpgkey/nodesource.gpg.key, 68576280]
-    - name: Apt repositories
-      ansible.builtin.apt_repository:
-        repo: "{{ item }}"
-      loop:
-        - deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
-        - deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
-    - block:  # noqa: name[missing]
-        - name: Role
+        - name: Role - Exclusive
           ansible.builtin.import_role:
-            # Play role fully, because of "keys" tasks dependency
             name: manala.roles.apt
             tasks_from: repositories
           vars:
             manala_apt_repositories_exclusive: true
+            manala_apt_repositories_dir: "{{ tests_dir }}/exclusive"
             manala_apt_repositories:
-              - source: deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-              - source: deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
+              - repository: nodesource_16
+                file: existing_present
+              - repository: nodesource_18
+                file: existing_ignore
                 state: ignore
-              - source: deb https://deb.nodesource.com/node_20.x {{ ansible_facts.distribution_release }} main
+              - repository: nodesource_20
+                file: ignore
                 state: ignore
       always:
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.exclusive.yaml.j2') }}"
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.yaml.j2') }}"
           changed_when: false
 
 ############

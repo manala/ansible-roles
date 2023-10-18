@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [All] Update minimum version of ansible to 2.15
+- [Apt] Switch to deb822 format
+- [Apt] Add redirectionio repository
 - [Apparmor] Remove handler "apparmor reload" in favor of "Reload apparmor"
 - [Cron] Remove handler "cron restart" in favor of "Restart cron"
 - [Dhcp] Remove handler "dhcp restart" in favor of "Restart dhcp"
@@ -55,6 +57,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Redis] Version 7.0 support (bullseye and bookworm)
 - [Apt] Add GlusterFS 10.4 repository
 - [Apt] Add Maxscale 23.02 support
+
+### Removed
+- [Apt] Remove MariaDB 10.1 support
+- [Apt] Remove Varnish 4.0 support
+- [Apt] Remove Varnish 6.1 support
+
+### Fixed
+- [Apt] Fix Jenkins support
 
 ## [3.7.0] - 2023-09-05
 ### Changed

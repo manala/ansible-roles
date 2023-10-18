@@ -1,32 +1,96 @@
 ---
 
-- name: Keys > Keys
-  ansible.builtin.apt_key:  # noqa: args[module]
-    id: "{{ item.id }}"
-    url: "{{ item.url | default(omit) }}"
-    keyserver: "{{ item.keyserver | default(omit) }}"
-    validate_certs: "{{ item.validate_certs | default(omit) }}"
-    state: "{{ item.state | default('present') }}"
+- name: Keys > Directory
+  ansible.builtin.file:
+    path: "{{ manala_apt_keys_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Keys > Exclusive
+  ansible.builtin.find:
+    path: "{{ manala_apt_keys_dir }}"
+    file_type: file
+    patterns: "*"
+  changed_when: false
+  register: __manala_apt_keys_exclusive_find
+  when: manala_apt_keys_exclusive
+
+- name: Keys > Keys presents
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.file }}"
+    checksum: "{{ item.checksum | default(omit) }}"
+    owner: root
+    group: root
+    mode: "0644"
   loop: |
-    {{ query(
-      'manala.roles.apt_keys',
-      manala_apt_keys,
-      manala_apt_keys_patterns,
-      query(
-        'manala.roles.apt_repositories',
-        manala_apt_repositories,
-        manala_apt_repositories_patterns,
+      {{ query(
+        'manala.roles.apt_keys',
+        manala_apt_keys,
+        manala_apt_keys_patterns,
         query(
-            'manala.roles.apt_preferences',
-            manala_apt_preferences,
-            manala_apt_preferences_patterns,
-            manala_apt_repositories_patterns,
-            [],
-            manala_apt_preferences_dir,
-            manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
-            wantstate='present'
+          'manala.roles.apt_repositories',
+          manala_apt_repositories,
+          manala_apt_repositories_patterns,
+          manala_apt_keys_patterns,
+          query(
+              'manala.roles.apt_preferences',
+              manala_apt_preferences,
+              manala_apt_preferences_patterns,
+              manala_apt_repositories_patterns,
+              [],
+              manala_apt_preferences_dir,
+              manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
+              wantstate='present'
+          ),
+          [],
+          manala_apt_repositories_dir,
+          wantstate='present'
         ),
-        [],
+        __manala_apt_keys_exclusive_find.files | default([]),
+        manala_apt_keys_dir,
         wantstate='present'
-      ),
-    ) }}
+      ) }}
+  loop_control:
+    label: "{{ {
+        'file': item.file,
+      } }}"
+
+- name: Keys > Keys absents
+  ansible.builtin.file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: |
+      {{ query(
+        'manala.roles.apt_keys',
+        manala_apt_keys,
+        manala_apt_keys_patterns,
+        query(
+          'manala.roles.apt_repositories',
+          manala_apt_repositories,
+          manala_apt_repositories_patterns,
+          manala_apt_keys_patterns,
+          query(
+              'manala.roles.apt_preferences',
+              manala_apt_preferences,
+              manala_apt_preferences_patterns,
+              manala_apt_repositories_patterns,
+              [],
+              manala_apt_preferences_dir,
+              manala_apt_preferences_defaults.template | default('preferences/_default.j2', true),
+              wantstate='present'
+          ),
+          [],
+          manala_apt_repositories_dir,
+          wantstate='present'
+        ),
+        __manala_apt_keys_exclusive_find.files | default([]),
+        manala_apt_keys_dir,
+        wantstate='absent'
+      ) }}
+  loop_control:
+    label: "{{ {
+        'file': item.file,
+      } }}"

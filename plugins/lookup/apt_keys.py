@@ -15,6 +15,8 @@ from ansible.plugins.lookup import LookupBase
 from ansible.errors import AnsibleError
 from ansible.module_utils.six import string_types
 
+import os.path
+
 
 class LookupModule(LookupBase):
 
@@ -22,17 +24,34 @@ class LookupModule(LookupBase):
 
         results = []
 
+        wantstate = kwargs.pop('wantstate', None)
+
+        if wantstate and wantstate not in ['present', 'absent']:
+            raise AnsibleError('Expected a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+
         keys = self._flatten(terms[0])
         keysPatterns = terms[1]
         repositories = terms[2]
+        exclusives = self._flatten(terms[3])
+        dir = terms[4]
 
-        itemDefault = {}
+        itemDefault = {
+            'state': 'present'
+        }
+
+        # Mark exclusive keys as absent
+        for key in exclusives:
+            item = itemDefault.copy()
+            item.update({
+                'file': key['path'],
+                'state': 'absent'
+            })
+            results.append(item)
 
         # Handle repositories defined as reversed preferences
         for repository in repositories[::-1]:
-            key = repository.get('key')
-            if key:
-                keys.insert(0, key)
+            if 'key' in repository:
+                keys.insert(0, repository['key'])
 
         for key in keys:
 
@@ -42,19 +61,51 @@ class LookupModule(LookupBase):
 
             # Short syntax
             if isinstance(key, string_types):
-                item.update(
-                    keysPatterns.get(key)
-                )
+                item.update({
+                    'key': key
+                })
             else:
                 # Must be a dict
                 if not isinstance(key, dict):
                     raise AnsibleError('Expected a dict but was a %s' % type(key))
 
-                # Check id key
-                if 'id' not in key:
-                    raise AnsibleError('Missing "id" key')
-
                 item.update(key)
+
+                if item['state'] not in ['present', 'absent', 'ignore']:
+                    raise AnsibleError('Expected a state of "present", "absent" or "ignore" but was "%s"' % to_text(item['state']))
+
+                if item['state'] == 'ignore':
+                    continue
+
+            if 'key' in item:
+                keyPattern = item['key']
+                if keyPattern not in keysPatterns:
+                    raise AnsibleError('unable to find "%s" key pattern' % keyPattern)
+                item = {
+                    **keysPatterns[keyPattern],
+                    **item,
+                }
+
+            # Legacy
+            if 'keyserver' in item:
+                raise AnsibleError('Deprecated "keyserver" key, please use "url" instead')
+            if 'id' in item:
+                raise AnsibleError('Deprecated "id" key, please use "checksum" instead')
+
+            # Check index key
+            if 'file' not in item:
+                raise AnsibleError('Missing "file" key')
+
+            item.update({
+                'file': os.path.join(
+                    dir,
+                    item['file']
+                )
+            })
+
+            # Check required keys
+            if 'url' not in item:
+                raise AnsibleError('Missing "url" key in key file "%s"' % item['file'])
 
             items.append(item)
 
@@ -62,12 +113,16 @@ class LookupModule(LookupBase):
             for item in items:
                 itemFound = False
                 for i, result in enumerate(results):
-                    if result['id'] == item['id']:
+                    if result['file'] == item['file']:
                         results[i] = item
                         itemFound = True
                         break
 
                 if not itemFound:
                     results.append(item)
+
+        # Filter by state
+        if wantstate:
+            results = [result for result in results if result.get('state') == wantstate]
 
         return results
