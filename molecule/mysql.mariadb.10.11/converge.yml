@@ -21,8 +21,10 @@
                 password: foo
                 host: localhost
                 priv: "*.*:ALL,GRANT"
+                login_unix_socket: /var/run/mysqld/mysqld.sock
             manala_mysql_databases:
               - name: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
         - name: Goss
           ansible.builtin.command:
             cmd: goss --gossfile - validate
@@ -55,8 +57,8 @@
             manala_mysql_users:
               - name: foo
                 password: foo
-                login_unix_socket: /var/run/mysqld/mysqld.sock
                 priv: "*.*:ALL,GRANT"
+                login_unix_socket: /var/run/mysqld/mysqld.sock
             manala_mysql_databases:
               - name: foo
                 login_unix_socket: /var/run/mysqld/mysqld.sock
@@ -314,10 +316,12 @@
           - mariadb-client
         manala_mysql_users:
           - name: bar
+            login_unix_socket: /var/run/mysqld/mysqld.sock
     - name: Create users to absent/ignore later
       community.mysql.mysql_user:
         user: "{{ item }}"
         state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
       loop: [
         state_absent_existing, state_ignore_existing,
       ]
@@ -325,6 +329,7 @@
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
+            tasks_from: users
           vars:
             manala_mysql_users:
               # Privileges and password
@@ -332,24 +337,32 @@
                 password: foo
                 host: localhost
                 priv: "*.*:ALL,GRANT"
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               # States
               - name: state_present_implicit
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_present
                 state: present
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_absent
                 state: absent
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_absent_existing
                 state: absent
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_ignored
                 state: ignore
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_ignore_existing
                 state: ignore
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               # Flatten
               -
                 - name: baz
                   password: baz
                   host: localhost
                   priv: "*.*:ALL,GRANT"
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           ansible.builtin.command:
@@ -376,10 +389,12 @@
         manala_mysql_databases:
           - name: bar
             state: absent
+            login_unix_socket: /var/run/mysqld/mysqld.sock
     - name: Create databases to absent/ignore later
       community.mysql.mysql_db:
         name: "{{ item }}"
         state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
       loop: [
         state_absent_existing, state_ignore_existing,
       ]
@@ -387,23 +402,31 @@
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
+            tasks_from: databases
           vars:
             manala_mysql_databases:
               # States
               - name: state_present_implicit
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_present
                 state: present
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_absent
                 state: absent
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_absent_existing
                 state: absent
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_ignored
                 state: ignore
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: state_ignore_existing
                 state: ignore
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               # Flatten
               -
                 - name: baz
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           ansible.builtin.command:

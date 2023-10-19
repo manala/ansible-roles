@@ -83,15 +83,15 @@ molecule converge -s [role] -- -t [tag]
 
 Launch sanity tests (first time with `--requirements`)
 ```shell
-ansible-test sanity --python 3.9 --requirements
-ansible-test sanity --python 3.9
+ansible-test sanity --python 3.11 --requirements
+ansible-test sanity --python 3.11
 ```
 
 Launch units tests (first time with `--requirements`) over a specific file or not
 ```shell
-ansible-test units --python 3.9 --requirements
-ansible-test units --python 3.9
-ansible-test units --python 3.9 tests/unit/plugins/lookup/test_foo.py
+ansible-test units --python 3.11 --requirements
+ansible-test units --python 3.11
+ansible-test units --python 3.11 tests/unit/plugins/lookup/test_foo.py
 ```
 
 ## Licensing

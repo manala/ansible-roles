@@ -27,7 +27,7 @@ test.sanity:
 	$(call manala_docker_shell, ansible-test sanity \
 		--requirements \
 		--venv \
-		--python 3.9 \
+		--python 3.11 \
 		$(if $(VERBOSE), --verbose) \
 		--color yes \
 		--exclude .github/ \
@@ -40,7 +40,7 @@ test.units:
 	$(call manala_docker_shell, ansible-test units \
 		--requirements \
 		--venv \
-		--python 3.9 \
+		--python 3.11 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
 		--color yes \
@@ -52,7 +52,7 @@ test.integration:
 	$(call manala_docker_shell, ansible-test integration \
 		--requirements \
 		--venv \
-		--python 3.9 \
+		--python 3.11 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
 		--color yes \
@@ -64,7 +64,7 @@ test.coverage:
 	$(call manala_docker_shell, ansible-test coverage xml \
 		--requirements \
 		--venv \
-		--python 3.9 \
+		--python 3.11 \
 		--group-by command \
 		--group-by version \
 		$(if $(VERBOSE), --verbose) \

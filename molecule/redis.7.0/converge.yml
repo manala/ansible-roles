@@ -51,9 +51,6 @@
             name: manala.roles.redis
           vars:
             manala_redis_sentinel: true
-            manala_redis_sentinel_config:
-              sentinel monitor: foo 1.2.3.4 6379 2
-              sentinel down-after-milliseconds: foo 1234
         - name: Role - Dict
           ansible.builtin.import_role:
             name: manala.roles.redis
@@ -66,6 +63,7 @@
                 - /foo/bar.conf
                 - /foo/baz.conf
               port: 1234
+            manala_redis_sentinel: true
             manala_redis_sentinel_config_file: "{{ tests_dir }}/dict-sentinel"
             manala_redis_sentinel_config:
               sentinel monitor: foo 1.2.3.4 6379 2
@@ -75,8 +73,6 @@
             name: manala.roles.redis
             tasks_from: config
           vars:
-            # manala_redis_sentinel_config_file: ~
-            manala_redis_sentinel_config: {}
             manala_redis_server_config_file: "{{ tests_dir }}/content-server"
             manala_redis_server_config_template: ~
             manala_redis_server_config: |
@@ -86,8 +82,6 @@
             name: manala.roles.redis
             tasks_from: config
           vars:
-            # manala_redis_sentinel_config_file: ~
-            manala_redis_sentinel_config: {}
             manala_redis_server_config_file: "{{ tests_dir }}/template-server"
             manala_redis_server_config_template: fixtures/template.j2
             manala_redis_server_config: ~

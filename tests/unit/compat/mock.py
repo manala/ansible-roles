@@ -22,7 +22,6 @@ __metaclass__ = type
 '''
 Compat module for Python3.x's unittest.mock module
 '''
-import sys
 
 # Python 2.7
 
