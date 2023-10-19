@@ -9,13 +9,13 @@ file:
     owner: user_dict
     group: user_dict
     mode: "0644"
-    contains:
-      - 'foo=""'
-      - 'bar="true"'
-      - 'baz="false"'
-      - 'qux="foo"'
-      - 'quux=123'
-      - 'corge=(foo bar baz)'
+    contents: |
+      bar="true"
+      baz="false"
+      corge=(foo bar baz)
+      foo=""
+      quux=123
+      qux="foo"
   # Content
   {{ tests_dir }}/content/.zshrc:
     exists: true
@@ -23,8 +23,8 @@ file:
     owner: user_content
     group: user_content
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   # Template
   {{ tests_dir }}/template/.zshrc:
     exists: true
@@ -32,8 +32,8 @@ file:
     owner: user_template
     group: user_template
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   # Flatten
   {{ tests_dir }}/flatten/.zshrc:
     exists: true

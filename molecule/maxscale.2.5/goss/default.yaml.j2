@@ -18,8 +18,8 @@ file:
   /var/lib/maxscale/passwd:
     exists: true
     filetype: file
-    contains:
-      - '[{"name": "admin", "account": "admin", "password": "$6$MXS$RjtL0yWoXRIzkDGR6iwIAUHrQTWvqMizWYaGZKetqP2VDmWLgpgaT5YueeBoMKkoTMisvIy3sGEUMFa16UYDc."}]'
+    contents: |-
+      [{"name": "admin", "account": "admin", "password": "$6$MXS$RjtL0yWoXRIzkDGR6iwIAUHrQTWvqMizWYaGZKetqP2VDmWLgpgaT5YueeBoMKkoTMisvIy3sGEUMFa16UYDc."}]
 
 service:
   maxscale:

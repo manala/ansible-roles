@@ -5,13 +5,13 @@ file:
   {{ tests_dir }}/default/default:
     exists: true
     filetype: file
-    contains:
-      - "/^File$/"
+    contents: |
+      File
   {{ tests_dir }}/default/present:
     exists: true
     filetype: file
-    contains:
-      - "/^File$/"
+    contents: |
+      File
   {{ tests_dir }}/default/absent:
     exists: false
   {{ tests_dir }}/default/ignore:

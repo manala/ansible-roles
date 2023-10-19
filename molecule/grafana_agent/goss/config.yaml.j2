@@ -7,13 +7,13 @@ file:
     owner: root
     group: grafana-agent
     mode: "0640"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template:
     exists: true
     filetype: file
     owner: root
     group: grafana-agent
     mode: "0640"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

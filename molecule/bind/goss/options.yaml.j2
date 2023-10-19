@@ -4,5 +4,5 @@ file:
   {{ tests_file }}:
     exists: true
     filetype: file
-    contains:
-      - OPTIONS="-u bind -4"
+    contents: |
+      OPTIONS="-u bind -4"

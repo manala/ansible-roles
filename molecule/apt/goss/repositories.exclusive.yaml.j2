@@ -9,8 +9,8 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main"
+    contents: |
+      deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
   /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list:
     exists: false
   /etc/apt/sources.list.d/deb_nodesource_com_node_18_x.list:

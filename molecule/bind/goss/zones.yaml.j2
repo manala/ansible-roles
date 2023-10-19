@@ -7,16 +7,16 @@ file:
     owner: bind
     group: bind
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/db.content:
     exists: true
     filetype: file
     owner: bind
     group: bind
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/db.state_absent_existing:
     exists: false
   {{ tests_dir }}/db.omit:
@@ -27,9 +27,8 @@ file:
     owner: bind
     group: bind
     mode: "0644"
-    contains:
-      - "/^Dynamic$/"
+    contents: |
+      Dynamic
   {{ tests_dir }}/db.dynamic_existing:
     exists: true
-    contains:
-      - "!/^Dynamic existing$/"
+    contents: ""

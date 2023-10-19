@@ -8,32 +8,32 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "memory_limit = 123M"
+    contents: |
+      memory_limit = 123M
   {{ tests_dir }}/default/cli/conf.d/dict_cli:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "memory_limit = 255M"
+    contents: |
+      memory_limit = 255M
   {{ tests_dir }}/default/fpm/conf.d/dict:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "memory_limit = 123M"
+    contents: |
+      memory_limit = 123M
   {{ tests_dir }}/default/fpm/conf.d/dict_fpm:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "memory_limit = 257M"
+    contents: |
+      memory_limit = 257M
   # Default - Content
   {{ tests_dir }}/default/cli/conf.d/content:
     exists: true
@@ -41,16 +41,16 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/default/fpm/conf.d/content:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   # Default - Template
   {{ tests_dir }}/default/cli/conf.d/template:
     exists: true
@@ -58,32 +58,32 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/default/fpm/conf.d/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/default/cli/conf.d/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/default/fpm/conf.d/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   # Default - Flatten
   {{ tests_dir }}/default/cli/conf.d/flatten:
     exists: true
@@ -148,64 +148,64 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/cli/conf.d/template_cli:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/fpm/conf.d/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/fpm/conf.d/template_fpm:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template
   {{ tests_dir }}/defaults/cli/conf.d/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/defaults/fpm/conf.d/template_file:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/defaults/cli/conf.d/template_overwrite:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
   {{ tests_dir }}/defaults/fpm/conf.d/template_overwrite:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template file$/"
+    contents: |
+      Template file
 
   # Exclusive
   {{ tests_dir }}/exclusive/cli/conf.d/existing:

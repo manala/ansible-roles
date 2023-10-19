@@ -19,8 +19,8 @@ file:
   /var/lib/maxscale/passwd:
     exists: true
     filetype: file
-    contains:
-      - '[{"name": "admin", "account": "admin", "password": "$1$MXS$ZKZ/yMdf0ycX3d18iuS9U."}]'
+    contents: |-
+      [{"name": "admin", "account": "admin", "password": "$1$MXS$ZKZ/yMdf0ycX3d18iuS9U."}]
 
 service:
   maxscale:

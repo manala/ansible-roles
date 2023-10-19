@@ -7,21 +7,21 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - reporting-disabled = true
+    contents: |
+      reporting-disabled = true
   {{ tests_dir }}/content:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

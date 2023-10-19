@@ -7,23 +7,23 @@ file:
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "[mysqld]"
-      - "bind-address = 1.2.3.4"
-      - "pid-file = /var/run/mysqld/mysqld.pid"
+    contents: |
+      [mysqld]
+      bind-address = 1.2.3.4
+      pid-file = /var/run/mysqld/mysqld.pid
   {{ tests_dir }}/content:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Content$/"
+    contents: |
+      Content
   {{ tests_dir }}/template:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
-    contains:
-      - "/^Template$/"
+    contents: |
+      Template

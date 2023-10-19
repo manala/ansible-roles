@@ -7,9 +7,11 @@ file:
     owner: sensu
     group: sensu
     mode: "0640"
-    contains:
-      - "backend-url:"
-      - "ws://127.0.0.1:8081"
+    contents: |
+      ---
+
+      backend-url:
+      - ws://127.0.0.1:8081
 
   "{{ tests_dir }}/dict-backend":
     exists: true
@@ -17,5 +19,8 @@ file:
     owner: sensu
     group: sensu
     mode: "0640"
-    contains:
-      - "state-dir: /tmp"
+    contents: |
+      ---
+      # Sensu backend configuration
+      
+      state-dir: /tmp

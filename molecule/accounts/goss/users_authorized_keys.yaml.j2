@@ -26,25 +26,25 @@ file:
     filetype: file
     owner: user_ak_verbose_syntax
     mode: "0600"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+    contents: |
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   # Flatten
   /home/user_ak_flatten/.ssh/authorized_keys:
     exists: true
     filetype: file
     owner: user_ak_flatten
     mode: "0600"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
+    contents: |
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   # Multiple
   /home/user_ak_multiple/.ssh/authorized_keys:
     exists: true
     filetype: file
     owner: user_ak_multiple
     mode: "0600"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_2.pub') }}"
+    contents: |
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
+      {{ lookup('ansible.builtin.file', 'fixtures/key_2.pub') | indent(6) }}
   # File
   /home/user_ak_file/.ssh/authorized_keys:
     exists: false
@@ -53,9 +53,8 @@ file:
     filetype: file
     owner: user_ak_file
     mode: "0600"
-    contains:
-      - "{{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') }}"
-      - "!{{ lookup('ansible.builtin.file', 'fixtures/key_2.pub') }}"
+    contents: |
+      {{ lookup('ansible.builtin.file', 'fixtures/key_1.pub') | indent(6) }}
   # State
   /home/user_ak_state_ignore/.ssh/authorized_keys:
     exists: false

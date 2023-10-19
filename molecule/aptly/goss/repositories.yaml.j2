@@ -10,21 +10,21 @@ command:
   aptly repo show foo:
     exit-status: 0
     timeout: 30000
-    stdout:
-      - "Name: foo"
-      - "Comment: Foo"
-      - "Default Distribution: bullseye"
-      - "Default Component: main"
-      - "Number of packages: 0"
+    stdout: |
+      Name: foo
+      Comment: Foo
+      Default Distribution: bullseye
+      Default Component: main
+      Number of packages: 0
   aptly repo show bar:
     exit-status: 0
     timeout: 30000
-    stdout:
-      - "Name: bar"
-      - "Comment: Bar"
-      - "Default Distribution: bookworm"
-      - "Default Component: main"
-      - "Number of packages: 0"
+    stdout: |
+      Name: bar
+      Comment: Bar
+      Default Distribution: bookworm
+      Default Component: main
+      Number of packages: 0
 
 file:
   {{ tests_dir }}/public/dists/bullseye/Release:
