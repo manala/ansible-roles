@@ -7,6 +7,8 @@
 - name: Default
   tags: [default]
   hosts: debian
+  vars:
+    manala_php_version: 8.2
   tasks:
     - name: Packages
       ansible.builtin.apt:
@@ -22,7 +24,6 @@
           ansible.builtin.import_role:
             name: manala.roles.php
           vars:
-            manala_php_version: 8.2
             manala_php_sapis:
               - cli
               # Flatten
@@ -80,6 +81,8 @@
 - name: Exclusive
   tags: [exclusive]
   hosts: debian
+  vars:
+    manala_php_version: 8.2
   tasks:
     - name: Packages
       ansible.builtin.apt:
@@ -96,7 +99,6 @@
             name: manala.roles.php
             tasks_from: install
           vars:
-            manala_php_version: 8.2
             manala_php_sapis_exclusive: true
             manala_php_sapis:
               - cli
@@ -122,6 +124,7 @@
   tags: [configs]
   hosts: debian
   vars:
+    manala_php_version: 8.2
     tests_dir: /molecule/php/configs
   tasks:
     - name: Clean tests dir
@@ -151,7 +154,6 @@
             name: manala.roles.php
             tasks_from: configs
           vars:
-            manala_php_version: 8.2
             manala_php_configs_exclusive: false
             manala_php_configs_dir: "{{ tests_dir }}/default"
             manala_php_configs_defaults: {}
@@ -198,7 +200,6 @@
             name: manala.roles.php
             tasks_from: configs
           vars:
-            manala_php_version: 8.2
             manala_php_configs_exclusive: false
             manala_php_configs_dir: "{{ tests_dir }}/defaults"
             manala_php_configs_defaults:
@@ -217,7 +218,6 @@
             name: manala.roles.php
             tasks_from: configs
           vars:
-            manala_php_version: 8.2
             manala_php_configs_exclusive: true
             manala_php_configs_dir: "{{ tests_dir }}/exclusive"
             manala_php_configs_defaults: {}
@@ -254,6 +254,7 @@
   tags: [fpm_pools]
   hosts: debian
   vars:
+    manala_php_version: 8.2
     tests_dir: /molecule/php/fpm_pools
   tasks:
     - name: Clean tests dir
@@ -275,7 +276,6 @@
             name: manala.roles.php
             tasks_from: fpm_pools
           vars:
-            manala_php_version: 8.2
             manala_php_sapis:
               - fpm
             manala_php_fpm_pools_exclusive: false
@@ -334,7 +334,6 @@
             name: manala.roles.php
             tasks_from: fpm_pools
           vars:
-            manala_php_version: 8.2
             manala_php_sapis:
               - fpm
             manala_php_fpm_pools_exclusive: false
@@ -351,7 +350,6 @@
             name: manala.roles.php
             tasks_from: fpm_pools
           vars:
-            manala_php_version: 8.2
             manala_php_sapis:
               - fpm
             manala_php_fpm_pools_exclusive: true

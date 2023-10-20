@@ -4,8 +4,6 @@ __metaclass__ = type
 from ansible_collections.manala.roles.tests.unit.compat import unittest
 from ansible.plugins.loader import lookup_loader
 
-from ansible.errors import AnsibleError
-
 
 class Test(unittest.TestCase):
 

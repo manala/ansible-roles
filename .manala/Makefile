@@ -65,7 +65,7 @@ clean:
 	$(manala_docker) images \
 		--filter reference='manala-ansible-roles:*' \
 		--format "{{.ID}}" \
-			| xargs $(manala_docker) rmi --force
+			| xargs -r $(manala_docker) rmi --force
 	@$(call manala_log, Delete cache dir…)
 	rm -Rf $(MANALA_DIR)/$(MANALA_CACHE_DIR)
 .PHONY: clean

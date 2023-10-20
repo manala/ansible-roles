@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
+- [All] Update minimum version of ansible to 2.15
 - [Apt] Switch influxdata repository to "stable"
 - [Apt] Remove apt-transport-https default package
 - [Apt] Update Grafana key

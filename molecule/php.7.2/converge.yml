@@ -7,6 +7,8 @@
 - name: Default
   tags: [default]
   hosts: debian
+  vars:
+    manala_php_version: 7.2
   tasks:
     - name: Packages
       ansible.builtin.apt:
@@ -22,7 +24,6 @@
           ansible.builtin.import_role:
             name: manala.roles.php
           vars:
-            manala_php_version: 7.2
             manala_php_sapis:
               - cli
               # Flatten
