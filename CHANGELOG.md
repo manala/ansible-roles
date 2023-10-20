@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [All] Update minimum version of ansible to 2.15
-- [Apt] Switch influxdata repository to "stable"
-- [Apt] Remove apt-transport-https default package
-- [Apt] Update Grafana key
 - [Apparmor] Remove handler "apparmor reload" in favor of "Reload apparmor"
 - [Cron] Remove handler "cron restart" in favor of "Restart cron"
 - [Dhcp] Remove handler "dhcp restart" in favor of "Restart dhcp"
@@ -54,12 +51,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Telegraf] Remove handler "telegraf restart" in favor of "Restart telegraf"
 
 ### Added
-- [Apt] Add HAProxy 2.8 repository
-- [Network] Add Netplan configs support
 - [All] Add debian bookworm support
 - [Redis] Version 7.0 support (bullseye and bookworm)
 - [Apt] Add GlusterFS 10.4 repository
 - [Apt] Add Maxscale 23.02 support
+
+## [3.7.0] - 2023-09-05
+### Changed
+- [Apt] Switch influxdata repository to "stable"
+- [Apt] Remove apt-transport-https default package
+- [Apt] Update Grafana key
+
+### Added
+- [Apt] Add HAProxy 2.8 repository
+- [Network] Add Netplan configs support
 
 ## [3.6.0] - 2023-05-16
 ### Added
