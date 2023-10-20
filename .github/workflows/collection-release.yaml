@@ -8,7 +8,7 @@ on:
 jobs:
   collection-build:
     runs-on: ubuntu-22.04
-    if: "contains(github.event.head_commit.message, 'Release')"
+    if: github.event.head_commit.message == 'Release'
     steps:
 
       - name: Notify Slack of starting
@@ -61,7 +61,7 @@ jobs:
   collection-publish:
     needs: collection-build
     runs-on: ubuntu-22.04
-    if: "contains(github.event.head_commit.message, 'Release')"
+    if: github.event.head_commit.message == 'Release'
     env:
       COLLECTION_API_TOKEN: ${{ secrets.COLLECTION_API_TOKEN }}
     steps:
@@ -106,7 +106,7 @@ jobs:
   github-release:
     needs: collection-build
     runs-on: ubuntu-22.04
-    if: "contains(github.event.head_commit.message, 'Release')"
+    if: github.event.head_commit.message == 'Release'
     steps:
 
       - name: Checkout
