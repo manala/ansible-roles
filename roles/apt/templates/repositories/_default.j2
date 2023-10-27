@@ -7,3 +7,9 @@ Components: {{ item.components }}
 {% if item.signed_by is defined %}
 Signed-By: {{ item.signed_by }}
 {% endif %}
+{% if item.pin is defined %}
+Pin: {{ item.pin }}
+{% endif %}
+{% if item.pin_priority is defined %}
+Pin-Priority: {{ item.pin_priority }}
+{% endif %}
