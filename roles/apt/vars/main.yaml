@@ -141,11 +141,17 @@ manala_apt_repositories_patterns:
     source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/debian {{ ansible_facts.distribution_release }} main
     key: mariadb
   mariadb_10_6:
-    source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.6/repo/debian {{ ansible_facts.distribution_release }} main
+    uris: https://downloads.mariadb.com/MariaDB/mariadb-10.6/repo/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: mariadb
+    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_6_repo_debian.list
   mariadb_10_11:
-    source: deb https://downloads.mariadb.com/MariaDB/mariadb-10.11/repo/debian {{ ansible_facts.distribution_release }} main
+    uris: https://downloads.mariadb.com/MariaDB/mariadb-10.11/repo/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: mariadb
+    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_11_repo_debian.list
   maxscale_2_3:
     source: deb https://downloads.mariadb.com/MaxScale/2.3/debian {{ ansible_facts.distribution_release }} main
     key: maxscale

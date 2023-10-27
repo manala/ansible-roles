@@ -46,6 +46,7 @@
           ),
           [],
           manala_apt_repositories_dir,
+          manala_apt_keys_dir,
           wantstate='present'
         ),
         __manala_apt_keys_exclusive_find.files | default([]),
@@ -82,6 +83,7 @@
           ),
           [],
           manala_apt_repositories_dir,
+          manala_apt_keys_dir,
           wantstate='present'
         ),
         __manala_apt_keys_exclusive_find.files | default([]),
