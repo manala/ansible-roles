@@ -273,8 +273,11 @@ manala_apt_repositories_patterns:
     key: docker
     legacy_file: download_docker_com_linux_{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}.list
   manala:
-    source: deb http://debian.manala.io {{ ansible_facts.distribution_release }} main
+    uris: http://debian.manala.io
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
     key: manala
+    legacy_file: debian_manala_io.list
   newrelic:
     source: deb http://apt.newrelic.com/debian/ newrelic non-free
     key: newrelic
@@ -284,8 +287,11 @@ manala_apt_repositories_patterns:
       https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_facts.distribution_release }} main
     key: newrelic-infra
   influxdata:
-    source: deb https://repos.influxdata.com/debian stable main
+    uris: https://repos.influxdata.com/debian
+    suites: stable
+    components: main
     key: influxdata
+    legacy_file: repos_influxdata_com_debian.list
   yarn:
     source: deb https://dl.yarnpkg.com/debian/ stable main
     key: yarn
@@ -405,6 +411,16 @@ manala_apt_repositories_patterns:
     components: main
     key: github_cli
     legacy_file: github_cli.list
+  debian:
+    types: deb deb-src
+    uris: mirror+file:///etc/apt/mirrors/debian.list
+    suites: "{{ ansible_facts.distribution_release }} {{ ansible_facts.distribution_release }}-updates {{ ansible_facts.distribution_release }}-backports"
+    components: main
+  debian_security:
+    types: deb deb-src
+    uris: mirror+file:///etc/apt/mirrors/debian-security.list
+    suites: "{{ ansible_facts.distribution_release }}-security"
+    components: main
 
 # Keys
 manala_apt_keys_patterns:
