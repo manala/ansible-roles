@@ -40,6 +40,7 @@ class LookupModule(LookupBase):
         preferences = terms[2]
         exclusives = self._flatten(terms[3])
         dir = terms[4]
+        keysDir = terms[5]
 
         itemDefault = {
             'state': 'present'
@@ -131,6 +132,14 @@ class LookupModule(LookupBase):
                     'legacy_file': os.path.join(
                         dir,
                         item['legacy_file']
+                    )
+                })
+
+            if 'key' in item:
+                item.update({
+                    'signed_by': os.path.join(
+                        keysDir,
+                        item['key'] + '.asc' # todo, need `manala_apt_keys_patterns` for extension
                     )
                 })
 

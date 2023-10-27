@@ -33,6 +33,7 @@
       ),
       __manala_apt_repositories_exclusive_find.files | default([]),
       manala_apt_repositories_dir,
+      manala_apt_keys_dir,
       wantstate='present'
     ) }}
   loop_control:
@@ -63,6 +64,7 @@
       ),
       __manala_apt_repositories_exclusive_find.files | default([]),
       manala_apt_repositories_dir,
+      manala_apt_keys_dir,
       wantstate='present'
     ) | selectattr('legacy_file', 'defined') }}
   loop_control:
@@ -92,6 +94,7 @@
       ),
       __manala_apt_repositories_exclusive_find.files | default([]),
       manala_apt_repositories_dir,
+      manala_apt_keys_dir,
       wantstate='absent'
     ) }}
   loop_control:
