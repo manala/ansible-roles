@@ -126,6 +126,14 @@ class LookupModule(LookupBase):
                 )
             })
 
+            if 'legacy_file' in item:
+                item.update({
+                    'legacy_file': os.path.join(
+                        dir,
+                        item['legacy_file']
+                    )
+                })
+
             items.append(item)
 
             # Merge by index key
