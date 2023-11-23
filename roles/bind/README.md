@@ -85,7 +85,7 @@ manala_bind_zones:
                   86400   ; minimum (1 day)
                   )
       @  IN NS  ns.bar.local.
-      ns IN A   172.16.1.1";
+      ns IN A   172.16.1.1
   - zone: baz.local
     state: absent
   - zone: qux.local
@@ -122,7 +122,7 @@ manala_bind_zones:
                   86400   ; minimum (1 day)
                   )
       @  IN NS  ns.foo.local.
-      ns IN A   172.16.1.1";
+      ns IN A   172.16.1.1
     records:
       - { record: bar, value: 172.16.1.123 }
 ```
