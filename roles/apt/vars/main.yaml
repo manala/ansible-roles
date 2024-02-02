@@ -385,7 +385,7 @@ manala_apt_repositories_patterns:
     key: docker
     legacy_file: download_docker_com_linux_{{ ansible_facts.lsb.id | default(ansible_facts.distribution) | lower }}.list
   manala:
-    uris: http://debian.manala.io
+    uris: https://debian.manala.io
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
     key: manala
@@ -657,9 +657,9 @@ manala_apt_keys_patterns:
     file: docker.asc
     checksum: sha256:1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b3a570
   manala:
-    url: https://keys.openpgp.org/vks/v1/by-fingerprint/1C5C27A0AD35B0491CB645D0A9E848781394DEA3
+    url: https://debian.manala.io/apt.gpg
     file: manala.asc
-    checksum: sha256:9fe53616a85552e00cd0ea50911f5467e3fb12b5e7ef1fb038aedf659f1b7975
+    checksum: sha256:1310649b557eb738ca4b8f70de701dae32b6f2885c92e55118688165e7163a0a
   newrelic:
     url: https://download.newrelic.com/548C16BF.gpg
     file: newrelic.asc
