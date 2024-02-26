@@ -198,12 +198,6 @@ manala_apt_repositories_patterns:
     components: main
     key: mariadb
     legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_6_repo_debian.list
-  maxscale_2_3:
-    uris: https://dlm.mariadb.com/repo/maxscale/2.3/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb_enterprise
-    legacy_file: downloads_mariadb_com_MaxScale_2_3_debian.list
   maxscale_2_4:
     uris: https://dlm.mariadb.com/repo/maxscale/2.4/apt
     suites: "{{ ansible_facts.distribution_release }}"

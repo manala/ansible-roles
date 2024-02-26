@@ -62,6 +62,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] Remove MariaDB 10.1 support
 - [Apt] Remove Varnish 4.0 support
 - [Apt] Remove Varnish 6.1 support
+- [Apt] Remove Maxscale 2.3 support
+- [MaxScale] Remove version 2.3 support
 
 ### Fixed
 - [Apt] Fix Jenkins support
