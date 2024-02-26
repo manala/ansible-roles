@@ -427,7 +427,7 @@ manala_apt_repositories_patterns:
     key: matomo
     legacy_file: debian_matomo_org.list
   owncloud:
-    uris: http://download.owncloud.org/download/repositories/production/Debian_{{ ansible_facts.distribution_major_version }}.0/
+    uris: http://download.opensuse.org/repositories/isv:/ownCloud:/server:/10/Debian_{{ ansible_facts.distribution_major_version }}/
     suites: /
     key: owncloud
     legacy_file: download_owncloud_org_download_repositories_production_Debian_{{ ansible_facts.distribution_major_version }}_0.list
@@ -683,7 +683,7 @@ manala_apt_keys_patterns:
     file: matomo.gpg
     checksum: sha256:0d7c880f6c838bba2d02817dcacfc97fc538b1ebcdb41c3106595265c0d371d4
   owncloud:
-    url: https://download.opensuse.org/repositories/isv:ownCloud:server:10/Debian_12/Release.key
+    url: https://download.opensuse.org/repositories/isv:ownCloud:server:10/Debian_{{ ansible_facts.distribution_major_version }}/Release.key
     file: owncloud.asc
     checksum: sha256:5eb058671f31002a65e4e8a0df8b1c081a71c09ff2bd2fa1420560dd6f3b97fa
   grafana:
