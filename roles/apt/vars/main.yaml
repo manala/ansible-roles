@@ -279,19 +279,19 @@ manala_apt_repositories_patterns:
     uris: https://releases.galeracluster.com/galera-4.7/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: galera
+    key: galera_legacy
     legacy_file: releases_galeracluster_com_galera_4_7_{{ ansible_facts.distribution | lower }}.list
   galera_4_8:
     uris: https://releases.galeracluster.com/galera-4.8/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: galera
+    key: galera_legacy
     legacy_file: releases_galeracluster_com_galera_4_8_{{ ansible_facts.distribution | lower }}.list
   galera_4_10:
     uris: https://releases.galeracluster.com/galera-4.10/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: galera
+    key: galera_legacy
     legacy_file: releases_galeracluster_com_galera_4_10_{{ ansible_facts.distribution | lower }}.list
   mysql_wsrep_8_0:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_facts.distribution | lower }}
@@ -303,19 +303,19 @@ manala_apt_repositories_patterns:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0.22-26.5/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: galera
+    key: galera_legacy
     legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_22_26_5_{{ ansible_facts.distribution | lower }}.list
   mysql_wsrep_8_0_23:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0.23-26.6/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: galera
+    key: galera_legacy
     legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_23_26_6_{{ ansible_facts.distribution | lower }}.list
   mysql_wsrep_8_0_26:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0.26-26.8/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: galera
+    key: galera_legacy
     legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_26_26_8_{{ ansible_facts.distribution | lower }}.list
   grafana:
     uris: https://apt.grafana.com
@@ -632,10 +632,14 @@ manala_apt_keys_patterns:
         'bookworm': 'sha256:13a87cec79f2d05f40f125629e4b509080a5c0286608bea273e36be9809ecaba',
       }[ansible_facts.distribution_release]
     }}"
-  galera:
-    url: https://keys.openpgp.org/vks/v1/by-fingerprint/44B7345738EBDE52594DAD80D669017EBC19DDBA
-    file: galera.asc
+  galera_legacy:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x44B7345738EBDE52594DAD80D669017EBC19DDBA
+    file: galera_legacy.asc
     checksum: sha256:633cf1dc7eb32c94818a2a56a32ca6e42e9f7734e47c580bba538ccd1a83aba6
+  galera:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3D53839A70BC938B08CDD47F45460A518DA84635
+    file: galera.asc
+    checksum: sha256:0c6964b344b56b7bda65d5b21e022a88d68c39e9a9d21023e043de7c55d23707
   packagecloud:
     url: https://packagecloud.io/gpg.key
     file: packagecloud.asc
