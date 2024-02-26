@@ -587,10 +587,6 @@ manala_apt_keys_patterns:
     url: https://keys.openpgp.org/vks/v1/by-fingerprint/4C470FFFEFC4D3DC59778655CE1A3DD5E3C94F49
     file: mariadb_enterprise.asc
     checksum: sha256:352dee56d723c4a66a5f789168a267c8b0eac6ee090e1f4fe59fab62489d47dc
-  maxscale:
-    url: https://keys.openpgp.org/vks/v1/by-fingerprint/7B963F525AD3AE6259058D30135659E928C12247
-    file: maxscale.asc
-    checksum: sha256:74961e3a8618cb54762a7838efcc4ee041f378a9b5bb2d520c9315192ec1412e
   postgresql:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     file: postgresql.asc
