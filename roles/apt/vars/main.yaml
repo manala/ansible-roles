@@ -293,13 +293,6 @@ manala_apt_repositories_patterns:
     components: main
     key: galera
     legacy_file: releases_galeracluster_com_galera_4_10_{{ ansible_facts.distribution | lower }}.list
-  mysql_wsrep_5_7:
-    uris: http://releases.galeracluster.com/mysql-wsrep-5.7/{{ ansible_facts.distribution | lower }}
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: galera
-    trusted: true
-    legacy_file: releases_galeracluster_com_mysql_wsrep_5_7_{{ ansible_facts.distribution | lower }}.list
   mysql_wsrep_8_0:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"

@@ -64,6 +64,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Apt] Remove Varnish 6.1 support
 - [Apt] Remove Maxscale 2.3 support
 - [MaxScale] Remove version 2.3 support
+- [Apt] Remove MySQL wsrep 5.7 support
 
 ### Fixed
 - [Apt] Fix Jenkins support
