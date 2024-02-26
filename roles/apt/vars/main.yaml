@@ -608,26 +608,25 @@ manala_apt_keys_patterns:
     file: sensu-go.asc
     checksum: sha256:e74c2b7fbe75d84b3350a5f0a93df95798d99bc1c0b6399e174b36eb162229ef
   rabbitmq:
-    url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     url: https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
     file: rabbitmq.asc
     checksum: sha256:17b3eeb98b7aabe659b0e2579715d1ae4e328b58a401434599495779c59ac73a
   proxmox:
     url: "{{
-      {
-        'buster': 'http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg',
-        'bullseye': 'http://download.proxmox.com/debian/proxmox-release-bullseye.gpg',
-        'bookworm': 'http://download.proxmox.com/debian/proxmox-release-bookworm.gpg',
-      }[ansible_facts.distribution_release]
-    }}"
+        {
+          'buster': 'http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg',
+          'bullseye': 'http://download.proxmox.com/debian/proxmox-release-bullseye.gpg',
+          'bookworm': 'http://download.proxmox.com/debian/proxmox-release-bookworm.gpg',
+        }[ansible_facts.distribution_release]
+      }}"
     file: proxmox.gpg
     checksum: "{{
-      {
-        'buster': 'sha256:2781fd6fdcc63a95576bdbf3b95bbf21fac3ea330ad6a4311d4dfec4016ac02e',
-        'bullseye': 'sha256:411b420c3ab024d099e1ef55d06695a9d90a7db7c49b76fa719b453eb376093e',
-        'bookworm': 'sha256:13a87cec79f2d05f40f125629e4b509080a5c0286608bea273e36be9809ecaba',
-      }[ansible_facts.distribution_release]
-    }}"
+        {
+          'buster': 'sha256:2781fd6fdcc63a95576bdbf3b95bbf21fac3ea330ad6a4311d4dfec4016ac02e',
+          'bullseye': 'sha256:411b420c3ab024d099e1ef55d06695a9d90a7db7c49b76fa719b453eb376093e',
+          'bookworm': 'sha256:13a87cec79f2d05f40f125629e4b509080a5c0286608bea273e36be9809ecaba',
+        }[ansible_facts.distribution_release]
+      }}"
   galera_legacy:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x44B7345738EBDE52594DAD80D669017EBC19DDBA
     file: galera_legacy.asc
