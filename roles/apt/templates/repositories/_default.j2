@@ -1,0 +1,12 @@
+Types: {{ item.types | default('deb') }}
+URIs: {{ item.uris }}
+Suites: {{ item.suites }}
+{% if item.components is defined %}
+Components: {{ item.components }}
+{% endif %}
+{% if item.trusted is defined %}
+Trusted: {{ item.trusted | ternary('yes', 'false') }}
+{% endif %}
+{% if item.key is defined %}
+Signed-By: {{ [manala_apt_keys_dir, item.key.file] | ansible.builtin.path_join }}
+{% endif %}

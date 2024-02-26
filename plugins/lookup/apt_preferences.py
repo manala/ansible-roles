@@ -18,6 +18,8 @@ from ansible.plugins.lookup import LookupBase
 from ansible.errors import AnsibleError
 from ansible.module_utils.six import string_types
 from ansible.module_utils._text import to_text
+from ansible.module_utils.urls import generic_urlparse
+from ansible.module_utils.urls import urlparse
 
 import os.path
 import re
@@ -106,13 +108,11 @@ class LookupModule(LookupBase):
                         .get(repositoryPattern)
                         .get(
                             'pin',
-                            'origin ' + re.sub(
-                                'deb (\\[.+\\] )?https?:\\/\\/([^\\/ ]+)[\\/ ].*$',
-                                '\\2',
+                            'origin ' + generic_urlparse(urlparse(
                                 repositoriesPatterns
                                 .get(repositoryPattern)
-                                .get('source')
-                            )
+                                .get('uris')
+                            )).hostname
                         ),
                         'repository': repositoryPattern,
                     })
