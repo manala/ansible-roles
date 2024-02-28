@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Supervisor] Remove handler "supervisor restart" in favor of "Restart supervisor"
 - [Systemd] Remove handler "systemd reload" in favor of "Reload systemd"
 - [Telegraf] Remove handler "telegraf restart" in favor of "Restart telegraf"
+- [Mount] Fix mount point state always equals to present
 
 ### Added
 - [All] Add debian bookworm support

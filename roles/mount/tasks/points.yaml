@@ -10,5 +10,4 @@
   loop: "{{
     manala_mount_points
       | flatten
-      | manala.roles.staten(want='present')
   }}"
