@@ -1,5 +1,11 @@
 ---
 
+- name: files
+  ansible.builtin.import_tasks: files.yaml
+  tags:
+    - manala_mount
+    - manala_mount.files
+
 - name: Points
   ansible.builtin.import_tasks: points.yaml
   tags:

@@ -2,3 +2,9 @@
 
 # Points
 manala_mount_points: []
+
+# Files
+manala_mount_files: []
+
+# Files - Defaults
+manala_mount_files_defaults: []
