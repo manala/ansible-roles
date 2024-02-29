@@ -125,6 +125,9 @@ manala_apt_repositories_patterns:
   maxscale_23_02:
     source: deb https://downloads.mariadb.com/MaxScale/23.02/debian {{ ansible_facts.distribution_release }} main
     key: mariadb_enterprise
+  maxscale_23_08:
+    source: deb https://downloads.mariadb.com/MaxScale/23.08/debian {{ ansible_facts.distribution_release }} main
+    key: mariadb_enterprise
   postgresql:
     source: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
     key: postgresql
