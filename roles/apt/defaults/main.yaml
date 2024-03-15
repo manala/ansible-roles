@@ -32,11 +32,6 @@ manala_apt_preferences_dir: /etc/apt/preferences.d
 manala_apt_preferences_defaults: {}
 manala_apt_preferences: []
 
-# Keys
-manala_apt_keys_exclusive: false
-manala_apt_keys_dir: /etc/apt/keyrings
-manala_apt_keys: []
-
 # Holds
 manala_apt_holds_exclusive: false
 manala_apt_holds: []
