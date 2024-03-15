@@ -1,0 +1,5 @@
+[whitelist]
+
+# Mark directories as “trusted”
+# See: https://direnv.net/man/direnv.toml.1.html#codeprefixcode
+prefix = [ "{{ .Env.MANALA_DIR }}" ]
