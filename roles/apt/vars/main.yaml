@@ -560,7 +560,7 @@ manala_apt_repositories_patterns:
 # Keys
 manala_apt_keys_patterns:
   multimedia:
-    url: https://keys.openpgp.org/vks/v1/by-fingerprint/A401FF99368FA1F98152DE755C808C2B65558117
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA401FF99368FA1F98152DE755C808C2B65558117
     file: multimedia.asc
     checksum: sha256:83907b6dbecf1cfba02dfeeeffbb8aefc0857a4f45046c677282cf0c8301912a
   nginx:
@@ -712,7 +712,7 @@ manala_apt_keys_patterns:
     file: glusterfs_10.asc
     checksum: sha256:ae5b68d9cc21c3787fc432f95899e015ed08c77b228e41f569825b7e5dde1d57
   ansible:
-    url: https://keys.openpgp.org/vks/v1/by-fingerprint/6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
     file: ansible.asc
     checksum: sha256:0ad0bfeca45c2eddd01f0d3ed583da90262f5b942f95baffb309a9be718bf0a0
   haproxy:
