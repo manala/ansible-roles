@@ -11,7 +11,7 @@ services:
         build:
             context: ..
             dockerfile: docker/Dockerfile
-        image: manala-ansible-roles:20231019094123
+        image: manala-ansible-roles:20240315115847
         volumes:
             - ../..:${MANALA_DIR}
         environment:
