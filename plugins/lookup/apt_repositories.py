@@ -10,8 +10,8 @@ DOCUMENTATION = '''
     description:
       - Takes a repositories list and returns it curated and optionally state filtered.
     options:
-      wantstate:
-        description: filter list items by state
+      wanttype:
+        description: filter list items by type
 '''
 
 from ansible.plugins.lookup import LookupBase
@@ -21,19 +21,21 @@ from ansible.module_utils._text import to_text
 
 import os.path
 import re
-
-legacy_source_regex = r"(?P<type>deb(?:-src)?) (?:\[(?P<options>.*)\] )?(?P<uri>(?P<uri_scheme>file|cdrom|copy|http|https|ftp|ssh)://(?P<uri_domain>(?:(?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,6}))/[a-zA-Z0-1-_\./]+ (?P<suites>[a-z/-]+)(?:(?<!/) (?P<components>[a-z]+(?: [a-z]+)*))"
+import logging
 
 class LookupModule(LookupBase):
 
     def run(self, terms, variables=None, **kwargs):
+        # Logging
+        logging.basicConfig(level=logging.INFO)
+        log = logging.getLogger("apt_repo")
 
         results = []
 
-        wantstate = kwargs.pop('wantstate', None)
+        wanttype = kwargs.pop('wanttype', None)
 
-        if wantstate and wantstate not in ['present', 'absent']:
-            raise AnsibleError('Expected a wanstate of "present" or "absent" but was "%s"' % to_text(wantstate))
+        if wanttype and wanttype not in ['name', 'file']:
+            raise AnsibleError('Expected a wanttype of "name" or "file" but was "%s"' % to_text(wanttype))
 
         repositories = self._flatten(terms[0])
         repositoriesPatterns = terms[1]
@@ -89,36 +91,24 @@ class LookupModule(LookupBase):
                 if repositoryPattern not in repositoriesPatterns:
                     raise AnsibleError('unable to find "%s" repository pattern' % repositoryPattern)
                 item = {
-                    # Guess file from repository pattern name
-                    **{'file': item['repository'] + '.sources'},
+                    **{'name': item['repository']},
                     **repositoriesPatterns[repositoryPattern],
                     **item,
                 }
 
             # Legacy
             if 'source' in item:
-                self._display.warning('Using a "source" repository key is deprecated, please provide "uris", "suites", and possibly "types" and "components" keys for repository "%s"' % item['source'])
-                if 'file' not in item:
-                    raise AnsibleError('Missing "file" key in legacy repository source "%s"' % item['source'])
-                if not item['file'].endswith('.sources'):
-                    raise AnsibleError('Invalid "file" key in legacy repository source "%s", must end with ".sources"' % item['source'])
-                matches = re.search(legacy_source_regex, item['source'])
-                if matches:
-                    item.update({
-                        'uris': matches.group('uri'),
-                        'suites': matches.group('suites'),
-                        'components': matches.group('components'),
-                    })
+                raise AnsibleError('Using a "source" repository key is deprecated, please use deb822 notation. See manala.roles.apt README.md')
 
             # Check index key
-            if 'file' not in item:
-                raise AnsibleError('Missing "file" key')
+            if 'name' not in item:
+                raise AnsibleError('Missing "name" key')
 
             # Check required keys
             if 'uris' not in item:
-                raise AnsibleError('Missing "uris" key in repository file "%s"' % item['file'])
+                raise AnsibleError('Missing "uris" key')
             if 'suites' not in item:
-                raise AnsibleError('Missing "suites" key in repository file "%s"' % item['file'])
+                raise AnsibleError('Missing "suites" key')
 
             if 'components' not in item and not item['suites'].endswith('/'):
                 raise AnsibleError('If "components" key not present, "suites" key must end with a "/"')
@@ -128,41 +118,63 @@ class LookupModule(LookupBase):
                 keyPattern = item['key']
                 if keyPattern not in keysPatterns:
                     raise AnsibleError('unable to find "%s" key pattern' % keyPattern)
-                item.update({
-                    'key': keysPatterns[keyPattern],
-                })
-
-            item.update({
-                'file': os.path.join(
-                    dir,
-                    item['file']
-                )
-            })
+                item = {
+                    **keysPatterns[keyPattern],
+                    **item,
+                }
 
             if 'legacy_file' in item:
-                item.update({
-                    'legacy_file': os.path.join(
+                itemLegacy = itemDefault.copy()
+                itemLegacy.update({
+                    'file': os.path.join(
                         dir,
                         item['legacy_file']
-                    )
+                    ),
+                    'state': 'absent',
                 })
+                results.append(itemLegacy)
 
             items.append(item)
 
             # Merge by index key
+            for result in results:
+                # Comes from exclusive
+                if 'file' in result:
+                    self._display.v('> ' + str(result))
+                    file_name = os.path.basename(result['file'])
+                    file_basename = os.path.splitext(file_name)[0]
+                    file_extension = os.path.splitext(file_name)[1]
+                    result['file_extension'] = file_extension
+                    result['file_basename'] = file_basename
+                    result['file_name'] = file_name
+                    if file_extension == '.sources' and not '_' in file_name:
+                        itemFound = False
+                        for item in items:
+                            self._display.v('   > ' + str(item))
+                            #if file_basename == re.sub("_", "-", item['name']):
+                            #    result['name'] = item['name']
+                            #    itemFound = True
+                            #    #break
+                        if not itemFound:
+                            result['name'] = file_basename
+                        del result['file']
+
+            # Merge by index key
             for item in items:
                 itemFound = False
+                # Comes from variables
                 for i, result in enumerate(results):
-                    if result['file'] == item['file']:
-                        results[i] = item
-                        itemFound = True
-                        break
+                    if 'name' in result and 'name' in item:
+                        if result['name'] == item['name']:
+                            results[i] = item
+                            itemFound = True
+                            break
 
                 if not itemFound:
                     results.append(item)
 
-        # Filter by state
-        if wantstate:
-            results = [result for result in results if result.get('state') == wantstate]
+        # Filter by type
+        if wanttype:
+            results = [result for result in results if wanttype in result]
 
         return results

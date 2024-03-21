@@ -271,93 +271,194 @@
 - name: Repositories
   tags: [repositories]
   hosts: debian
-  vars:
-    tests_dir: /molecule/apt/repositories
   tasks:
-    - name: Clean tests dir
-      ansible.builtin.file:  # noqa: risky-file-permissions
-        path: "{{ tests_dir }}/{{ item.0 }}"
-        state: "{{ item.1 }}"
-      loop: "{{ ['default', 'exclusive'] | product(['absent', 'directory']) }}"
-    - name: Touch existing files
-      ansible.builtin.file:  # noqa: risky-file-permissions
-        path: "{{ tests_dir }}/{{ item }}"
-        state: touch
-      loop: [
-        default/state_absent_existing, default/state_ignore_existing,
-        exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
-      ]
-    - block:  # noqa: name[missing]
-        - name: Role - Default
-          ansible.builtin.import_role:
-            name: manala.roles.apt
-            tasks_from: repositories
-          vars:
-            manala_apt_preferences:
-              - sury_php:100
-            manala_apt_repositories_exclusive: false
-            manala_apt_repositories_dir: "{{ tests_dir }}/default"
-            manala_apt_repositories:
-              # Short syntax
-              - matomo
-              # Pattern syntax
-              - repository: grafana
-              # Verbose syntax
-              - file: yarn
-                uris: https://dl.yarnpkg.com/debian/
-                suites: stable
-                components: main
-                key: yarn
-              - file: postgresql
-                uris: http://apt.postgresql.org/pub/repos/apt/
-                suites: "{{ ansible_facts.distribution_release }}-pgdg"
-                components: main
-                key:
-                  url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-                  id: ACCC4CF8
-              # Flatten
-              -
-                - nginx
-              # State
-              - repository: nodesource_10
-                file: state_present_implicit
-              - repository: nodesource_12
-                file: state_present
-                state: present
-              - repository: nodesource_14
-                file: state_absent
-                state: absent
-              - repository: nodesource_16
-                file: state_absent_existing
-                state: absent
-              - repository: nodesource_18
-                file: state_ignore
-                state: ignore
-              - repository: nodesource_20
-                file: state_ignore_existing
-                state: ignore
-        - name: Role - Exclusive
-          ansible.builtin.import_role:
-            name: manala.roles.apt
-            tasks_from: repositories
-          vars:
-            manala_apt_repositories_exclusive: true
-            manala_apt_repositories_dir: "{{ tests_dir }}/exclusive"
-            manala_apt_repositories:
-              - repository: nodesource_16
-                file: existing_present
-              - repository: nodesource_18
-                file: existing_ignore
-                state: ignore
-              - repository: nodesource_20
-                file: ignore
-                state: ignore
-      always:
-        - name: Goss
-          ansible.builtin.command:
-            cmd: goss --gossfile - validate
-            stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.yaml.j2') }}"
-          changed_when: false
+    - ansible.builtin.import_role:
+        name: manala.roles.apt
+        # !!!
+        tasks_from: repositories.yaml
+      vars:
+        manala_apt_repositories_exclusive: true
+        manala_apt_repositories:
+          ##  Ok (System)
+          # - default
+          # - security
+          # - security_src
+          # - updates
+          # - updates_src
+          # - backports
+          # - backports_sloppy
+          # # Ok
+          - nginx
+          # - bearstech
+          # - postgresql
+          - nodesource_12
+          # - nodesource_14
+          # - nodesource_16
+          # - nodesource_18
+          # - nodesource_20
+          # - mongodb_4_2
+          # - mongodb_4_4
+          - grafana
+          # - elasticsearch_5
+          # - elasticsearch_6
+          # - elasticsearch_7
+          # - blackfire
+          # - gitlab-ce
+          # - aptly
+          # - docker
+          # - newrelic
+          # - influxdata
+          # - yarn
+          # - sury_php
+          # - percona
+          # - matomo
+          # - mica
+          # - haproxy_2_6
+          # - unifi
+          # - kopia
+          # - symfony
+          # - github_cli
+          # - redirectionio
+          # - nodesource_4
+          # - nodesource_6
+          # - nodesource_7
+          # - nodesource_8
+          # - nodesource_9
+          # - nodesource_10
+          # - mysql_5_7
+          # - mysql_8_0
+          # - mariadb_10_2
+          # - mariadb_10_3
+          # - mariadb_10_4
+          # - mariadb_10_5
+          # - mariadb_10_6
+          # - mariadb_10_11
+          # - jenkins
+          # - sensu-go
+          # - rabbitmq
+          # - proxmox
+          # - proxmox_enterprise
+          # - newrelic-infra
+          # - maxscale_2_4
+          # - maxscale_2_5
+          # - maxscale_6_1
+          # - maxscale_23_02
+          # - manala
+          # - glusterfs_6
+          # - glusterfs_6_1
+          # - glusterfs_6_10
+          # - glusterfs_10_2
+          # - glusterfs_10_4
+          # - haproxy_1_8
+          # - haproxy_2_0
+          # - haproxy_2_2
+          # - haproxy_2_4
+          # - haproxy_2_8
+          # - owncloud
+
+          # - galera_4
+          # - galera_4_7
+          # - galera_4_8
+          # - galera_4_10
+          # - mysql_wsrep_8_0
+          # - mysql_wsrep_8_0_22
+          # - mysql_wsrep_8_0_23
+          # - mysql_wsrep_8_0_26
+
+          # # Pas Ok du tout...
+          # - multimedia # keyserver ubuntu ok, openpgp pas ok
+          # - multimedia_backports
+          # - ansible # keyserver ubuntu ok, openpgp pas ok
+    # - ansible.builtin.import_role:
+    #     name: manala.roles.apt
+    #     # !!!
+    #     tasks_from: repositories.yaml
+    #   vars:
+    #     manala_apt_repositories_exclusive: true
+    #     manala_apt_repositories:
+    #       - repository: nginx
+    #         state: present
+    #       - repository: grafana
+    #         state: present
+
+    # tasks:
+    # - name: Touch existing files
+    #   ansible.builtin.file:  # noqa: risky-file-permissions
+    #     path: "{{ tests_dir }}/{{ item }}"
+    #     state: touch
+    #   loop: [
+    #     default/state_absent_existing, default/state_ignore_existing,
+    #     exclusive/existing, exclusive/existing_present, exclusive/existing_ignore,
+    #   ]
+    # - block:  # noqa: name[missing]
+    #     - name: Role - Default
+    #       ansible.builtin.import_role:
+    #         name: manala.roles.apt
+    #         tasks_from: repositories
+    #       vars:
+    #         manala_apt_preferences:
+    #           - sury_php:100
+    #         manala_apt_repositories_exclusive: false
+    #         manala_apt_repositories:
+    #           # Short syntax
+    #           - matomo
+    #           # Pattern syntax
+    #           - repository: grafana
+    #           # Verbose syntax
+    #           - file: yarn
+    #             uris: https://dl.yarnpkg.com/debian/
+    #             suites: stable
+    #             components: main
+    #             key: yarn
+    #           - file: postgresql
+    #             uris: http://apt.postgresql.org/pub/repos/apt/
+    #             suites: "{{ ansible_facts.distribution_release }}-pgdg"
+    #             components: main
+    #             key:
+    #               url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    #               id: ACCC4CF8
+    #           # Flatten
+    #           -
+    #             - nginx
+    #           # State
+    #           - repository: nodesource_10
+    #             file: state_present_implicit
+    #           - repository: nodesource_12
+    #             file: state_present
+    #             state: present
+    #           - repository: nodesource_14
+    #             file: state_absent
+    #             state: absent
+    #           - repository: nodesource_16
+    #             file: state_absent_existing
+    #             state: absent
+    #           - repository: nodesource_18
+    #             file: state_ignore
+    #             state: ignore
+    #           - repository: nodesource_20
+    #             file: state_ignore_existing
+    #             state: ignore
+        # - name: Role - Exclusive
+        #   ansible.builtin.import_role:
+        #     name: manala.roles.apt
+        #     tasks_from: repositories
+        #   vars:
+        #     manala_apt_repositories_exclusive: true
+        #     manala_apt_repositories:
+        #       - repository: nodesource_16
+        #         file: existing_present
+        #       - repository: nodesource_18
+        #         file: existing_ignore
+        #         state: ignore
+        #       - repository: nodesource_20
+        #         file: ignore
+        #         state: ignore
+      # always:
+      #   - name: Goss
+      #     ansible.builtin.command:
+      #       cmd: goss --gossfile - validate
+      #       stdin: "{{ lookup('ansible.builtin.template', 'goss/repositories.yaml.j2') }}"
+      #     changed_when: false
 
 ############
 # Packages #

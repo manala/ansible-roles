@@ -167,34 +167,34 @@ Note: although legacy "source" based repositories are still supported, a file en
 
 ```yaml
 manala_apt_repositories:
-  - file: jenkins.sources
+  - name: jenkins
     uris: http://pkg.jenkins-ci.org/debian
     suites: binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id: D50582E6
-  - file: proxmox.sources
+  - name: proxmox
     uris: https://enterprise.proxmox.com/debian
     suites: "{{ ansible_facts.distribution_release }}"
     components: pve-enterprise
     state: absent
   # Ignore repository
-  - file: example.sources
+  - name: example
     uris: https://example.com
     suites: foo/
     state: ignore
   # Legacy
-  - file: jenkins.sources
+  - name: jenkins
     source: deb http://pkg.jenkins-ci.org/debian binary/
     key:
       url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
       id: D50582E6
   # Legacy
-  - file: proxmox.sources
+  - name: proxmox
     source: deb https://enterprise.proxmox.com/debian {{ ansible_facts.distribution_release }} pve-enterprise
     state: absent
   # Ignore repository (Legacy)
-  - file: example.sources
+  - name: example
     source: deb https://example.com foo/
     state: ignore
   # Flatten repositories
