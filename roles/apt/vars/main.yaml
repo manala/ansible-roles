@@ -560,7 +560,8 @@ manala_apt_repositories_patterns:
 # Keys
 manala_apt_keys_patterns:
   multimedia:
-    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA401FF99368FA1F98152DE755C808C2B65558117
+    # https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA401FF99368FA1F98152DE755C808C2B65558117
+    signed_by: "{{ lookup('ansible.builtin.file', 'keys/multimedia.asc') }}"
   nginx:
     signed_by: https://nginx.org/keys/nginx_signing.key
   bearstech:
@@ -594,9 +595,11 @@ manala_apt_keys_patterns:
         }[ansible_facts.distribution_release]
       }}"
   galera_legacy:
-    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x44B7345738EBDE52594DAD80D669017EBC19DDBA
+    # https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x44B7345738EBDE52594DAD80D669017EBC19DDBA
+    signed_by: "{{ lookup('ansible.builtin.file', 'keys/galera_legacy.asc') }}"
   galera:
-    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3D53839A70BC938B08CDD47F45460A518DA84635
+    # https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3D53839A70BC938B08CDD47F45460A518DA84635
+    signed_by: "{{ lookup('ansible.builtin.file', 'keys/galera.asc') }}"
   packagecloud:
     signed_by: https://packagecloud.io/gpg.key
   elasticsearch:
@@ -636,7 +639,8 @@ manala_apt_keys_patterns:
   glusterfs_10:
     signed_by: https://download.gluster.org/pub/gluster/glusterfs/10/rsa.pub
   ansible:
-    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
+    # https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
+    signed_by: "{{ lookup('ansible.builtin.file', 'keys/ansible.asc') }}"
   haproxy:
     signed_by: https://haproxy.debian.net/bernat.debian.org.gpg
   unifi:
