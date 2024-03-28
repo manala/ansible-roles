@@ -137,34 +137,19 @@ class LookupModule(LookupBase):
             items.append(item)
 
             # Merge by index key
-            for result in results:
-                # Comes from exclusive
-                if 'file' in result:
-                    self._display.v('> ' + str(result))
-                    file_name = os.path.basename(result['file'])
-                    file_basename = os.path.splitext(file_name)[0]
-                    file_extension = os.path.splitext(file_name)[1]
-                    result['file_extension'] = file_extension
-                    result['file_basename'] = file_basename
-                    result['file_name'] = file_name
-                    if file_extension == '.sources' and not '_' in file_name:
-                        itemFound = False
-                        for item in items:
-                            self._display.v('   > ' + str(item))
-                            #if file_basename == re.sub("_", "-", item['name']):
-                            #    result['name'] = item['name']
-                            #    itemFound = True
-                            #    #break
-                        if not itemFound:
-                            result['name'] = file_basename
-                        del result['file']
-
-            # Merge by index key
             for item in items:
                 itemFound = False
                 # Comes from variables
                 for i, result in enumerate(results):
-                    if 'name' in result and 'name' in item:
+                    if 'file' in result:
+                        file_basename = os.path.basename(result['file'])
+                        file_name = os.path.splitext(file_basename)[0]
+                        file_extension = os.path.splitext(file_basename)[1]
+                        if file_extension == '.sources' and file_name == re.sub('_', '-', item['name']):
+                            results[i] = item
+                            itemFound = True
+                            break
+                    elif 'name' in result:
                         if result['name'] == item['name']:
                             results[i] = item
                             itemFound = True
@@ -172,6 +157,18 @@ class LookupModule(LookupBase):
 
                 if not itemFound:
                     results.append(item)
+
+        # Absent with deb822_repository if format is corresponding
+        for i, result in enumerate(results):
+            if 'file' in result:
+                file_basename = os.path.basename(result['file'])
+                file_name = os.path.splitext(file_basename)[0]
+                file_extension = os.path.splitext(file_basename)[1]
+                if file_extension == '.sources' and not '_' in file_name:
+                    item = itemDefault.copy()
+                    item['name'] = file_name
+                    item['state'] = 'absent'
+                    results[i] = item
 
         # Filter by type
         if wanttype:
