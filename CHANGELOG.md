@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.0] - 2024-04-12
 ### Changed
 - [All] Update minimum version of ansible to 2.15
 - [Apt] Switch to deb822_repository ansible module
