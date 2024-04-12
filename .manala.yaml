@@ -29,14 +29,13 @@ system:
             [safe]
             directory = *
     ansible:
-        version: 2.15.5
+        version: 2.15.8
         dependencies:
             # Collection community.docker
-            - docker==6.1.3
+            - docker==7.0.0
     ansible-lint:
         version: 6.14.6
     molecule:
-        version: 5.0.1
+        version: 6.0.3
         dependencies:
-            - molecule-plugins==23.5.0
-            - molecule-plugins[docker]==23.5.0
+            - molecule-plugins[docker]==23.5.3
