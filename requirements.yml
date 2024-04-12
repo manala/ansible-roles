@@ -1,8 +1,17 @@
+---
+
 collections:
-  - https://galaxy.ansible.com/download/ansible-posix-1.5.4.tar.gz
-  - https://galaxy.ansible.com/download/community-general-7.5.0.tar.gz
-  - https://galaxy.ansible.com/download/community-docker-3.4.9.tar.gz
-  - https://galaxy.ansible.com/download/community-mysql-3.7.2.tar.gz
-  - https://galaxy.ansible.com/download/community-postgresql-2.4.3.tar.gz
-  - https://galaxy.ansible.com/download/community-mongodb-1.6.3.tar.gz
-  - https://galaxy.ansible.com/download/gluster-gluster-1.0.2.tar.gz
+  - name: ansible.posix
+    version: 1.5.4
+  - name: community.general
+    version: 8.5.0
+  - name: community.docker
+    version: 3.8.1
+  - name: community.mysql
+    version: 3.9.0
+  - name: community.postgresql
+    version: 3.4.0
+  - name: community.mongodb
+    version: 1.7.2
+  - name: gluster.gluster
+    version: 1.0.2
