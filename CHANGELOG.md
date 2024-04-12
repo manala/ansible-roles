@@ -59,6 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Redis] Version 7.0 support (bullseye and bookworm)
 - [Apt] Add GlusterFS 10.4 repository
 - [Apt] Add Maxscale 23.02 support
+- [Php] 8.3 support
 
 ## [3.7.0] - 2023-09-05
 ### Changed
