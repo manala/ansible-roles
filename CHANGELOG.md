@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Apt] MaxScale 23.08 support
+
 ### Changed
 - [All] Update minimum version of ansible to 2.15
 - [Apparmor] Remove handler "apparmor reload" in favor of "Reload apparmor"
