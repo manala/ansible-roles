@@ -1,19 +1,60 @@
 ---
 
 file:
-  /etc/apt/sources.list.d/deb_nodesource_com_node_12_x.list:
+  /etc/apt/sources.list.d/nodesource-12.sources:
     exists: false
-  /etc/apt/sources.list.d/deb_nodesource_com_node_14_x.list:
+  /etc/apt/sources.list.d/default.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://deb.nodesource.com/node_14.x {{ ansible_facts.distribution_release }} main
-  /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list:
+      X-Repolib-Name: default
+      URIs: http://deb.debian.org/debian
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+      Types: deb
+  /etc/apt/sources.list.d/security.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      X-Repolib-Name: security
+      URIs: http://deb.debian.org/debian-security
+      Suites: {{ ansible_facts.distribution_release }}{{ (ansible_facts.distribution_release in ['buster']) | ternary('/updates', '-security') }}
+      Components: main
+      Types: deb
+  /etc/apt/sources.list.d/updates.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      X-Repolib-Name: updates
+      URIs: http://deb.debian.org/debian
+      Suites: {{ ansible_facts.distribution_release }}-updates
+      Components: main
+      Types: deb
+  /etc/apt/sources.list.d/nodesource-14.sources:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      X-Repolib-Name: nodesource_14
+      URIs: https://deb.nodesource.com/node_14.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+      Signed-By: /etc/apt/keyrings/nodesource-14.asc
+      Types: deb
+  /etc/apt/sources.list.d/nodesource-16.sources:
     exists: false
-  /etc/apt/sources.list.d/deb_nodesource_com_node_18_x.list:
+  /etc/apt/sources.list.d/nodesource-18.sources:
     exists: false
-  /etc/apt/sources.list.d/deb_nodesource_com_node_20_x.list:
+  /etc/apt/sources.list.d/nodesource-20.sources:
     exists: false

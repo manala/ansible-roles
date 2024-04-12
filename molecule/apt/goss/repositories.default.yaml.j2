@@ -1,85 +1,130 @@
 ---
 
 file:
-  # From preferences
-  /etc/apt/sources.list.d/packages_sury_org_php.list:
+  # Default - From preferences
+  {{ manala_apt_repositories_dir }}/sury-php.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://packages.sury.org/php/ {{ ansible_facts.distribution_release }} main
-  # Short syntax
-  /etc/apt/sources.list.d/debian_matomo_org.list:
+      X-Repolib-Name: sury_php
+      URIs: https://packages.sury.org/php/
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+      Signed-By: /etc/apt/keyrings/sury-php.gpg
+      Types: deb
+  # Default - Short syntax
+  {{ manala_apt_repositories_dir }}/matomo.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb http://debian.matomo.org/ piwik main
-  # Pattern syntax
-  /etc/apt/sources.list.d/apt_grafana_com.list:
+      X-Repolib-Name: matomo
+      URIs: http://debian.matomo.org/
+      Suites: piwik
+      Components: main
+      Signed-By: /etc/apt/keyrings/matomo.gpg
+      Types: deb
+  # Default - Pattern syntax
+  {{ manala_apt_repositories_dir }}/grafana.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://apt.grafana.com stable main
-  # Verbose syntax
-  /etc/apt/sources.list.d/dl_yarnpkg_com_debian.list:
+      X-Repolib-Name: grafana
+      URIs: https://apt.grafana.com
+      Suites: stable
+      Components: main
+      Signed-By: /etc/apt/keyrings/grafana.asc
+      Types: deb
+  # Default - Verbose syntax
+  {{ manala_apt_repositories_dir }}/yarn.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://dl.yarnpkg.com/debian/ stable main
-  /etc/apt/sources.list.d/apt_postgresql_org_pub_repos_apt.list:
+      X-Repolib-Name: yarn
+      URIs: https://dl.yarnpkg.com/debian/
+      Suites: stable
+      Components: main
+      Signed-By: /etc/apt/keyrings/yarn.asc
+      Types: deb
+  {{ manala_apt_repositories_dir }}/postgresql.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_facts.distribution_release }}-pgdg main
-  # Flatten
-  /etc/apt/sources.list.d/nginx_org_packages_debian.list:
+      X-Repolib-Name: postgresql
+      URIs: http://apt.postgresql.org/pub/repos/apt/
+      Suites: {{ ansible_facts.distribution_release }}-pgdg
+      Components: main
+      Signed-By: /etc/apt/keyrings/postgresql.asc
+      Types: deb
+  # Default - Flatten
+  {{ manala_apt_repositories_dir }}/nginx.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb http://nginx.org/packages/debian/ {{ ansible_facts.distribution_release }} nginx
-  # State
-  /etc/apt/sources.list.d/deb_nodesource_com_node_12_x.list:
+      X-Repolib-Name: nginx
+      URIs: http://nginx.org/packages/debian
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: nginx
+      Signed-By: /etc/apt/keyrings/nginx.asc
+      Types: deb
+  # Default - State
+  {{ manala_apt_repositories_dir }}/nodesource-12.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://deb.nodesource.com/node_12.x {{ ansible_facts.distribution_release }} main
-  /etc/apt/sources.list.d/deb_nodesource_com_node_14_x.list:
+      X-Repolib-Name: nodesource_12
+      URIs: https://deb.nodesource.com/node_12.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+      Signed-By: /etc/apt/keyrings/nodesource-12.asc
+      Types: deb
+  {{ manala_apt_repositories_dir }}/nodesource-14.sources:
     exists: false
-  /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list:
+  {{ manala_apt_repositories_dir }}/nodesource-16.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://deb.nodesource.com/node_16.x {{ ansible_facts.distribution_release }} main
-  /etc/apt/sources.list.d/deb_nodesource_com_node_18_x.list:
+      X-Repolib-Name: nodesource_16
+      URIs: https://deb.nodesource.com/node_16.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+      Signed-By: /etc/apt/keyrings/nodesource-16.asc
+      Types: deb
+  {{ manala_apt_repositories_dir }}/nodesource-18.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      deb https://deb.nodesource.com/node_18.x {{ ansible_facts.distribution_release }} main
-  /etc/apt/sources.list.d/deb_nodesource_com_node_20_x.list:
+      X-Repolib-Name: nodesource_18
+      URIs: https://deb.nodesource.com/node_18.x
+      Suites: {{ ansible_facts.distribution_release }}
+      Components: main
+      Signed-By: /etc/apt/keyrings/nodesource-18.asc
+      Types: deb
+  {{ manala_apt_repositories_dir }}/nodesource-20.sources:
     exists: false

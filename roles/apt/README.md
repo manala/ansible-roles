@@ -137,7 +137,6 @@ manala_apt_repositories:
   - postgresql
   - mongodb_4_2
   - mongodb_4_4
-  - varnish_4_0
   - jenkins
   - sensu
   - rabbitmq
@@ -166,14 +165,19 @@ Verbose
 
 ```yaml
 manala_apt_repositories:
-  - source: deb http://pkg.jenkins-ci.org/debian binary/
-    key:
-      url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
-      id: D50582E6
-  - source: deb https://enterprise.proxmox.com/debian {{ ansible_facts.distribution_release }} pve-enterprise
+  - name: jenkins
+    uris: http://pkg.jenkins-ci.org/debian
+    suites: binary/
+    signed_by: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+  - name: proxmox
+    uris: https://enterprise.proxmox.com/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: pve-enterprise
     state: absent
   # Ignore repository
-  - source: deb https://example.com foo
+  - name: example
+    uris: https://example.com
+    suites: foo/
     state: ignore
   # Flatten repositories
   - "{{ my_custom_repositories_array }}"
@@ -183,6 +187,22 @@ Exclusivity (all repositories non defined by role will be deleted)
 
 ```yaml
 manala_apt_repositories_exclusive: true
+```
+
+Starting with Debian 12 Bookworm, default debian repositories are no longer in `/etc/apt/source.list` file, but in a `/etc/apt/source.list.d/debian.sources` file. Using exclusive without specifying explicitely this repo will delete the file and remove access to default debian packages.
+To continue using default debian repositories with exclusive, use:
+
+```yaml
+manala_apt_repositories:
+  - default
+  - security
+  - updates
+```
+
+You can of course use the same repositories definition on Debian 10 Buster and Debian 11 Bullseye, but since this two distros comes with a default `/etc/apt/source.list` file, it will conflict when using apt command. To solve this, set the following variable to `false` to delete `/etc/apt/source.list`
+
+```yaml
+manala_apt_sources_list: false
 ```
 
 ### Preferences
