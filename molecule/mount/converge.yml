@@ -25,8 +25,8 @@
             tasks_from: points
           vars:
             manala_mount_points:
-              - path: "{{ tests_dir }}/ignore"
-                state: ignore
+              - path: "{{ tests_dir }}/absent"
+                state: absent
               # Flatten
               -
                 - path: "{{ tests_dir }}/bind"
