@@ -3,8 +3,8 @@
 - name: Points > Mounts
   ansible.posix.mount:
    name: "{{ item.path }}"
-   fstype: "{{ item.fstype }}"
-   src: "{{ item.src }}"
+   fstype: "{{ item.fstype | default(omit) }}"
+   src: "{{ item.src | default(omit) }}"
    opts: "{{ item.opts | default(omit) }}"
    state: "{{ item.state | default('mounted') }}"
   loop: "{{
