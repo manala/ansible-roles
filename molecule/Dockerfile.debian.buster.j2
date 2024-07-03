@@ -20,6 +20,4 @@ RUN \
     # Goss
     && curl -sSL "https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-$(dpkg --print-architecture)" \
         --output /usr/local/bin/goss \
-    && chmod +x /usr/local/bin/goss \
-    # Clean
-    && rm -rf /var/lib/apt/lists/*
+    && chmod +x /usr/local/bin/goss
