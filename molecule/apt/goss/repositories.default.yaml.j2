@@ -2,18 +2,18 @@
 
 file:
   # Default - From preferences
-  {{ manala_apt_repositories_dir }}/sury-php.sources:
+  {{ manala_apt_repositories_dir }}/nginx.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      X-Repolib-Name: sury_php
-      URIs: https://packages.sury.org/php/
+      X-Repolib-Name: nginx
+      URIs: http://nginx.org/packages/debian
       Suites: {{ ansible_facts.distribution_release }}
-      Components: main
-      Signed-By: /etc/apt/keyrings/sury-php.gpg
+      Components: nginx
+      Signed-By: /etc/apt/keyrings/nginx.asc
       Types: deb
   # Default - Short syntax
   {{ manala_apt_repositories_dir }}/matomo.sources:
@@ -71,18 +71,18 @@ file:
       Signed-By: /etc/apt/keyrings/postgresql.asc
       Types: deb
   # Default - Flatten
-  {{ manala_apt_repositories_dir }}/nginx.sources:
+  {{ manala_apt_repositories_dir }}/aptly.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      X-Repolib-Name: nginx
-      URIs: http://nginx.org/packages/debian
-      Suites: {{ ansible_facts.distribution_release }}
-      Components: nginx
-      Signed-By: /etc/apt/keyrings/nginx.asc
+      X-Repolib-Name: aptly
+      URIs: http://repo.aptly.info/
+      Suites: squeeze
+      Components: main
+      Signed-By: /etc/apt/keyrings/aptly.asc
       Types: deb
   # Default - State
   {{ manala_apt_repositories_dir }}/nodesource-12.sources:

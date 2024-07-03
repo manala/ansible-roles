@@ -81,68 +81,73 @@ manala_apt_repositories_patterns:
     uris: https://deb.nodesource.com/node_4.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_4_x.list
   nodesource_6:
     uris: https://deb.nodesource.com/node_6.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_6_x.list
   nodesource_7:
     uris: https://deb.nodesource.com/node_7.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_7_x.list
   nodesource_8:
     uris: https://deb.nodesource.com/node_8.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_8_x.list
   nodesource_9:
     uris: https://deb.nodesource.com/node_9.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_9_x.list
   nodesource_10:
     uris: https://deb.nodesource.com/node_10.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_10_x.list
   nodesource_12:
     uris: https://deb.nodesource.com/node_12.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_12_x.list
   nodesource_14:
     uris: https://deb.nodesource.com/node_14.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_14_x.list
   nodesource_16:
     uris: https://deb.nodesource.com/node_16.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_16_x.list
   nodesource_18:
     uris: https://deb.nodesource.com/node_18.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_18_x.list
   nodesource_20:
     uris: https://deb.nodesource.com/node_20.x
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: nodesource
+    key: nodesource_legacy
     legacy_file: deb_nodesource_com_node_20_x.list
+  nodesource_22:
+    uris: https://deb.nodesource.com/node_22.x
+    suites: nodistro
+    components: main
+    key: nodesource
   mysql_5_7:
     uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
     suites: "{{ ansible_facts.distribution_release }}"
@@ -564,8 +569,10 @@ manala_apt_keys_patterns:
     signed_by: https://nginx.org/keys/nginx_signing.key
   bearstech:
     signed_by: http://deb.bearstech.com/bearstech-archive.gpg
-  nodesource:
+  nodesource_legacy:
     signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
+  nodesource:
+    signed_by: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
   mysql:
     signed_by: https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
   mariadb:

@@ -134,6 +134,7 @@ manala_apt_repositories:
   - nodesource_16
   - nodesource_18
   - nodesource_20
+  - nodesource_22
   - postgresql
   - mongodb_4_2
   - mongodb_4_4
