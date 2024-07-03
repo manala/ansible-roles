@@ -23,25 +23,25 @@ file:
       Package:      libssl1.0.0
       Pin:          release n={{ ansible_facts.distribution_release }}-backports
       Pin-Priority: 1000
-  {{ tests_dir }}/default/php:
+  {{ tests_dir }}/default/nginx-dbg:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      Package:      php php-* /^php[1-9]+/
-      Pin:          origin packages.sury.org
+      Package:      nginx-dbg
+      Pin:          origin nginx.org
       Pin-Priority: 300
-  {{ tests_dir }}/default/sury_php:
+  {{ tests_dir }}/default/nginx:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      Package:      *
-      Pin:          origin packages.sury.org
+      Package:      nginx*
+      Pin:          origin nginx.org
       Pin-Priority: 200
   # Default - Pattern syntax
   {{ tests_dir }}/default/ansible:

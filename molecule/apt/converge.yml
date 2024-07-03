@@ -178,9 +178,9 @@
               # Short syntax
               - git@backports
               - libssl1.0.0@backports
-              - php@sury_php:300
-              - sury_php:100
-              - sury_php:200
+              - nginx-dbg@nginx:300
+              - nginx:100
+              - nginx:200
               # Pattern syntax
               - preference: ansible@ansible
               - preference: ansible@ansible
@@ -308,7 +308,7 @@
             tasks_from: repositories
           vars:
             manala_apt_preferences:
-              - sury_php:100
+              - nginx:100
             manala_apt_repositories:
               # Short syntax
               - matomo
@@ -327,41 +327,41 @@
                 signed_by: https://www.postgresql.org/media/keys/ACCC4CF8.asc
               # Flatten
               -
-                - nginx
+                - aptly
               # State
               # Implicit present
               - name: nodesource_12
                 uris: https://deb.nodesource.com/node_12.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
               # Explicit absent
               - name: nodesource_14
                 uris: https://deb.nodesource.com/node_14.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
                 state: absent
               # Explicit Present
               - name: nodesource_16
                 uris: https://deb.nodesource.com/node_16.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
                 state: present
               # Existing Ignore
               - name: nodesource_18
                 uris: https://deb.nodesource.com/node_18.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
                 state: ignore
               # Not existing Ignore
               - name: nodesource_20
                 uris: https://deb.nodesource.com/node_20.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
                 state: ignore
       always:
         - name: Goss
@@ -416,7 +416,7 @@
                 uris: https://deb.nodesource.com/node_14.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
               # Existing ignore
               - name: nodesource_18
                 state: ignore
@@ -425,7 +425,7 @@
                 uris: https://deb.nodesource.com/node_20.x
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource
+                key: nodesource_legacy
                 state: ignore
       always:
         - name: Goss
