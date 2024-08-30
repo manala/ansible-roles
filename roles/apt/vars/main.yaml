@@ -530,6 +530,12 @@ manala_apt_repositories_patterns:
     components: main
     key: haproxy
     legacy_file: haproxy_debian_net.list
+  haproxy_3_0:
+    uris: http://haproxy.debian.net
+    suites: "{{ ansible_facts.distribution_release }}-backports-3.0"
+    components: main
+    key: haproxy
+    legacy_file: haproxy_debian_net.list
   unifi:
     uris: http://www.ubnt.com/downloads/unifi/debian
     suites: stable

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Apt] Add HAProxy 3.0 repository
 
 ## [4.1.0] - 2024-07-03
 ### Added
