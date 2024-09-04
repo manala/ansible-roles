@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [4.2.0] - 2024-09-04
 ### Added
 - [Apt] Add HAProxy 3.0 repository
 - [Apt] MariaDB 11.4 support
