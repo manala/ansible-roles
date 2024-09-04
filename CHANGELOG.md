@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - [Apt] Add HAProxy 3.0 repository
+- [Apt] MariaDB 11.4 support
+- [MySQL] MariaDB 11.4 support
 
 ## [4.1.0] - 2024-07-03
 ### Added

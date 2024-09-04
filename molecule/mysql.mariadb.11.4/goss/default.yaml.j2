@@ -1,0 +1,33 @@
+---
+
+package:
+  mariadb-server:
+    installed: true
+  mariadb-client:
+    installed: true
+
+command:
+  mariadb --version:
+    exit-status: 0
+    stdout:
+      - "/mariadb from 11\\.4\\.(\\d){1,2}-MariaDB/"
+  mariadb -u root --execute "select user from mysql.user":
+    exit-status: 0
+    stdout:
+      - foo
+  mariadb-admin --user=foo --password=foo ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
+  mariadb -u root --execute "show databases":
+    exit-status: 0
+    stdout:
+      - foo
+
+service:
+  mysql:  # Alias to mariadb
+    enabled: true
+    running: true
+  mariadb:
+    enabled: true
+    running: true

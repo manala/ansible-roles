@@ -13,9 +13,13 @@
     - manala_mysql_data_dir | default(false)
 
 - name: Data > Directory initialization
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: >
       mysql_install_db
+      --user={{ manala_mysql_data_dir_user }}
+      --datadir={{ manala_mysql_data_dir }}
+      ||
+      mariadb-install-db
       --user={{ manala_mysql_data_dir_user }}
       --datadir={{ manala_mysql_data_dir }}
   when:
