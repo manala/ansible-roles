@@ -7,7 +7,7 @@
 
 **The flexible, robust, and web oriented toolbox for Ansible !**
 
-![Tests](https://img.shields.io/github/checks-status/manala/ansible-roles/master)
+![Tests](https://img.shields.io/github/checks-status/manala/ansible-roles/main)
 
 ## Using this collection
 
@@ -56,7 +56,7 @@ See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guid
 
 ## Release notes
 
-See the [changelog](https://github.com/manala/ansible-roles/blob/master/CHANGELOG.md).
+See the [changelog](https://github.com/manala/ansible-roles/blob/main/CHANGELOG.md).
 
 ## Contributing to this collection
 

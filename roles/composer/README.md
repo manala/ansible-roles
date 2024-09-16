@@ -14,7 +14,7 @@ This role requires php-cli >=5.3.2. You can use [manala.php](https://github.com/
 
 ## Installation
 
-Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/main/README.md)
 
 ## Role Variables
 

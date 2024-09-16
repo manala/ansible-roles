@@ -3,7 +3,7 @@ name: Collection Release
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   collection-build:

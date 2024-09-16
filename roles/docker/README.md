@@ -1,10 +1,8 @@
-# Ansible Role: Docker [![Build Status](https://travis-ci.org/manala/ansible-role-docker.svg?branch=master)](https://travis-ci.org/manala/ansible-role-docker)
-
-:exclamation: [Report issues](https://github.com/manala/ansible-roles/issues) and [send Pull Requests](https://github.com/manala/ansible-roles/pulls) in the [main Ansible Role repository](https://github.com/manala/ansible-roles) :exclamation:
+# Ansible Role: Docker
 
 This role will deal with the setup of [Docker](https://www.docker.com/).
 
-It's part of the [Manala Ansible stack](http://www.manala.io) but can be used as a stand alone component.
+It's part of the [Manala Ansible Collection](https://galaxy.ansible.com/manala/roles).
 
 ## Requirements
 
@@ -16,7 +14,7 @@ None.
 
 ## Installation
 
-Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/master/README.md)
+Installation instructions can be found in the main [README.md](https://github.com/manala/ansible-roles/blob/main/README.md)
 
 ## Role Variables
 
