@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-24.04
+    if: github.event.head_commit.message == 'Release'
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set ansible galaxy token
+        run: |
+          cat << EOF > galaxy_token
+          token: ${{ secrets.ANSIBLE_GALAXY_TOKEN }}
+          EOF
+
+      - name: Set up system
+        uses: ./.manala/github/system/setup
+
+      - name: Get version
+        id: version
+        run: |
+          cat << EOF > $GITHUB_OUTPUT
+          version=$(make version)
+          EOF
+
+      - name: Build
+        id: build
+        run: |
+          make build VERBOSE=1
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: build/manala-roles-${{ steps.version.outputs.version }}.tar.gz
+          name: manala-roles-${{ steps.version.outputs.version }}.tar.gz
+
+      - name: Publish
+        id: publish
+        run: |
+          make publish VERBOSE=1
+
+      - name: Get Changelog entry
+        id: changelog
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          path: CHANGELOG.md
+          version: ${{ steps.version.outputs.version }}
+
+      - name: Create GitHub Release
+        id: release
+        uses: ncipollo/release-action@v1
+        with:
+          name: ${{ steps.version.outputs.version }}
+          tag: ${{ steps.version.outputs.version }}
+          body: ${{ steps.changelog.outputs.changes }}
+          artifacts: build/manala-roles-${{ steps.version.outputs.version }}.tar.gz
+          token: ${{ secrets.GITHUB_TOKEN }}
+          skipIfReleaseExists: true
+
+      - name: Notify Slack - Status
+        uses: act10ns/slack@v2
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#collection_release'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()

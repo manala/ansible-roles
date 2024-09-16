@@ -2,7 +2,7 @@
 
 [![homepage][image]][url]
 
-[image]: https://www.manala.io/images/manala.svg
+[image]: https://raw.githubusercontent.com/manala/resources/main/logo.svg
 [url]: https://www.manala.io/ "manala.io"
 
 **The flexible, robust, and web oriented toolbox for Ansible !**
@@ -68,7 +68,6 @@ Any kind of contribution is very welcome, you can submit pull requests [here](ht
 
 This collection uses [molecule](https://github.com/ansible-community/molecule), [ansible-lint](https://github.com/ansible-community/ansible-lint), and `ansible-test` for linting and testing roles.
 
-All of these tools are available through the excellent [ansible-toolset](https://github.com/ansible-community/toolset) docker image.
 
 Open a docker shell
 ```shell
@@ -98,8 +97,8 @@ ansible-test units --python 3.11 tests/unit/plugins/lookup/test_foo.py
 
 This collection is distributed under the MIT license.
 
-See [LICENSE](https://opensource.org/licenses/MIT) to see the full text.
+See [LICENSE](LICENSE) to see the full text.
 
 # Author information
 
-Manala [**(http://www.manala.io/)**](http://www.manala.io)
+Manala [**(https://www.manala.io/)**](https://www.manala.io/)

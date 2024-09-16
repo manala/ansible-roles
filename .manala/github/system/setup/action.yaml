@@ -36,13 +36,13 @@ runs:
   steps:
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     # Expose ACTIONS_CACHE_URL & ACTIONS_RUNTIME_TOKEN
     # to be consumed by docker github action cache
     # See: https://docs.docker.com/build/cache/backends/gha/
     - name: Expose GitHub Runtime
-      uses: crazy-max/ghaction-github-runtime@v2
+      uses: crazy-max/ghaction-github-runtime@v3
 
     - name: Set environment variables file
       if: inputs.docker_env != ''
