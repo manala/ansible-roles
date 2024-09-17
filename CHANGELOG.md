@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Fixed
+- [Apt] Fix buster backports/backports_sloppy debian repository uris
+
 ## [4.2.0] - 2024-09-04
 ### Added
 - [Apt] Add HAProxy 3.0 repository
