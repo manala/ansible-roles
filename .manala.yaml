@@ -18,10 +18,11 @@ project:
 ##########
 
 system:
-    dir: /srv/ansible_collections/manala/roles
+    dir: /usr/share/ansible/collections/ansible_collections/manala/roles
     env_file:
-        - .env.dist
         - .env
+        - path: .env.local
+          required: false
     docker: true
     git:
         config: |
@@ -29,13 +30,17 @@ system:
             [safe]
             directory = *
     ansible:
-        version: 2.15.8
+        version: 2.15.12
+        config: |
+            [defaults]
+            force_color = True
+            retry_files_enabled = False
         dependencies:
             # Collection community.docker
-            - docker==7.0.0
+            - docker==7.1.0
     ansible-lint:
-        version: 6.14.6
+        version: 24.7.0
     molecule:
-        version: 6.0.3
+        version: 24.7.0
         dependencies:
             - molecule-plugins[docker]==23.5.3

@@ -27,10 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Env
-        run: |
-          cp .env.dist .env
-
       - name: Set up system
         uses: ./.manala/github/system/setup
 

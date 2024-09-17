@@ -4,14 +4,14 @@ collections:
   - name: ansible.posix
     version: 1.5.4
   - name: community.general
-    version: 9.1.0
+    version: 9.4.0
   - name: community.docker
-    version: 3.10.4
+    version: 3.12.1
   - name: community.mysql
-    version: 3.9.0
+    version: 3.10.3
   - name: community.postgresql
-    version: 3.4.1
+    version: 3.5.0
   - name: community.mongodb
-    version: 1.7.4
+    version: 1.7.6
   - name: gluster.gluster
     version: 1.0.2
