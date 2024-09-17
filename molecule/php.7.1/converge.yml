@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.buster"
   vars:
     manala_php_version: 7.1
   tasks:

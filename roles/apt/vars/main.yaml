@@ -42,13 +42,13 @@ manala_apt_repositories_patterns:
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     legacy_file: deb_debian_org_debian.list
   backports:
-    uris: http://deb.debian.org/debian
+    uris: "{{ (ansible_facts.distribution_release in ['buster']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     pin: release n={{ ansible_facts.distribution_release }}-backports
     legacy_file: deb_debian_org_debian.list
   backports_sloppy:
-    uris: http://deb.debian.org/debian
+    uris: "{{ (ansible_facts.distribution_release in ['buster']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports-sloppy"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     pin: release n={{ ansible_facts.distribution_release }}-backports-sloppy

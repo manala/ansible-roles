@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.buster"
   vars:
     manala_php_version: 5.6
   tasks:
@@ -80,7 +82,9 @@
 
 - name: Exclusive
   tags: [exclusive]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.buster"
   vars:
     manala_php_version: 5.6
   tasks:
@@ -122,7 +126,9 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.buster"
   vars:
     manala_php_version: 5.6
     tests_dir: /molecule/php/configs
@@ -252,7 +258,9 @@
 
 - name: Fpm Pools
   tags: [fpm_pools]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.buster"
   vars:
     manala_php_version: 5.6
     tests_dir: /molecule/php/fpm_pools
