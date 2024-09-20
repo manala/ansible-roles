@@ -7,4 +7,12 @@
     update_cache: true
     cache_valid_time: 3600
   loop:
-    - "{{ manala_fail2ban_install_packages | default(manala_fail2ban_install_packages_default, True) }}"
+    # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=770171
+    - |
+      {{
+        manala_fail2ban_install_packages | default(manala_fail2ban_install_packages_default, True)
+        + (ansible_facts.distribution_release in ['bookworm']) | ternary(
+            ['python3-systemd'],
+            []
+        )
+      }}
