@@ -3,6 +3,9 @@
 package:
   fail2ban:
     installed: true
+  # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=770171
+  python3-systemd:
+    installed: {{ (ansible_facts.distribution_release in ['bookworm']) | ternary('true', 'false') }}
 
 service:
   fail2ban:

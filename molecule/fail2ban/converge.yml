@@ -14,8 +14,6 @@
             name: manala.roles.fail2ban
           vars:
             manala_fail2ban_config: |
-              [ssh]
-              enabled = false
               [sshd]
               enabled = false
       always:
