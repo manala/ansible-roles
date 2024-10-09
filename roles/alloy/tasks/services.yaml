@@ -12,5 +12,6 @@
         'started'
       }}
     enabled: true
+    daemon_reload: "{{ (ansible_facts.distribution_release in ['buster']) | ternary(True, omit) }}"
   loop:
     - alloy
