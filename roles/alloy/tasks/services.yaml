@@ -12,9 +12,5 @@
         'started'
       }}
     enabled: true
-    # Ensure `systemctl daemon-reload` is run, even if package post-install script
-    # does not handle it properly.
-    # See: https://github.com/grafana/agent/issues/2653
-    daemon_reload: true
   loop:
     - alloy

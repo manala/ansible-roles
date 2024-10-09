@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- [Alloy] Add installation and basics configuration role and test it with molecule 
+
+
 ## [4.2.2] - 2024-09-20
 ### Fixed
 - [Fail2ban] Fix Bookworm sshd jail by installing python3-systemd
