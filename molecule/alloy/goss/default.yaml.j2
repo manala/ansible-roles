@@ -1,0 +1,22 @@
+---
+
+package:
+  alloy:
+    installed: true
+
+service:
+  alloy:
+    enabled: true
+    running: true
+
+process:
+  alloy:
+    running: true
+
+file:
+  {{ manala_alloy_config_file }}:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"

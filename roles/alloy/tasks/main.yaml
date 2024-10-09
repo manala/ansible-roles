@@ -1,0 +1,20 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_alloy
+    - manala_alloy.install
+
+- name: Config
+  ansible.builtin.import_tasks: config.yaml
+  tags:
+    - manala_alloy
+    - manala_alloy.config
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_alloy
+    - manala_alloy.services
+    - manala.services

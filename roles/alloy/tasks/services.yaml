@@ -1,0 +1,17 @@
+---
+
+- name: Services > Services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: |-
+      {{
+        'restarted'
+          if (
+            __manala_alloy_config_template_result | default({}) is changed
+          ) else
+        'started'
+      }}
+    enabled: true
+    daemon_reload: "{{ (ansible_facts.distribution_release in ['buster']) | ternary(True, omit) }}"
+  loop:
+    - alloy

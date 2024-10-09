@@ -1,0 +1,12 @@
+---
+
+- name: Config > Template
+  ansible.builtin.template:
+    src: "{{ manala_alloy_config_template | ternary(manala_alloy_config_template, 'config/_default.j2') }}"
+    dest: "{{ manala_alloy_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: manala_alloy_config_template
+    or manala_alloy_config
+  register: __manala_alloy_config_template_result
