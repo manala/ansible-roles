@@ -1,0 +1,11 @@
+---
+
+# Install
+manala_alloy_install_packages: ~
+manala_alloy_install_packages_default:
+  - alloy
+
+# Config
+manala_alloy_config_file: /etc/alloy/config.alloy
+manala_alloy_config_template: ~
+manala_alloy_config: ~
