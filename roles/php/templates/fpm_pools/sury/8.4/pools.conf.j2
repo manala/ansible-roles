@@ -20,9 +20,14 @@
 ; Default Value: none
 {{ config | manala.roles.php_fpm_pools_parameter('prefix', default='/path/to/pools/$pool', comment=True) }}
 
-; Unix user/group of processes
-; Note: The user is mandatory. If the group is not set, the default user's group
-;       will be used.
+; Unix user/group of the child processes. This can be used only if the master
+; process running user is root. It is set after the child process is created.
+; The user and group can be specified either by their name or by their numeric
+; IDs.
+; Note: If the user is root, the executable needs to be started with
+;       --allow-to-run-as-root option to work.
+; Default Values: The user is set to master process running user by default.
+;                 If the group is not set, the user's group is used.
 {{ config | manala.roles.php_fpm_pools_parameter('user', default='www-data') }}
 {{ config | manala.roles.php_fpm_pools_parameter('group', default='www-data') }}
 
@@ -36,7 +41,7 @@
 ;                            (IPv6 and IPv4-mapped) on a specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-{{ config | manala.roles.php_fpm_pools_parameter('listen', default='/run/php/php8.3-fpm.sock') }}
+{{ config | manala.roles.php_fpm_pools_parameter('listen', default='/run/php/php8.4-fpm.sock') }}
 
 ; Set listen(2) backlog.
 ; Default Value: 511 (-1 on Linux, FreeBSD and OpenBSD)
@@ -46,11 +51,12 @@
 ; permissions must be set in order to allow connections from a web server. Many
 ; BSD-derived systems allow connections regardless of permissions. The owner
 ; and group can be specified either by name or by their numeric IDs.
-; Default Values: user and group are set as the running user
-;                 mode is set to 0660
+; Default Values: Owner is set to the master process running user. If the group
+;                 is not set, the owner's group is used. Mode is set to 0660.
 {{ config | manala.roles.php_fpm_pools_parameter('listen.owner', default='www-data') }}
 {{ config | manala.roles.php_fpm_pools_parameter('listen.group', default='www-data') }}
 {{ config | manala.roles.php_fpm_pools_parameter('listen.mode', default='0660', comment=True) }}
+
 ; When POSIX Access Control Lists are supported you can set them using
 ; these options, value is a comma separated list of user/group names.
 ; When set, listen.owner and listen.group are ignored
@@ -226,8 +232,8 @@
 ;                          it's always 0 if the process is not in Idle state
 ;                          because memory calculation is done when the request
 ;                          processing has terminated;
-; If the process is in Idle state, then informations are related to the
-; last request the process has served. Otherwise informations are related to
+; If the process is in Idle state, then information is related to the
+; last request the process has served. Otherwise information is related to
 ; the current request being served.
 ; Example output:
 ;   ************************
@@ -246,7 +252,7 @@
 ;   last request memory:  0
 ;
 ; Note: There is a real-time FPM status monitoring sample web page available
-;       It's available in: /usr/share/php/8.3/fpm/status.html
+;       It's available in: /usr/share/php/8.4/fpm/status.html
 ;
 ; Note: The value must start with a leading slash (/). The value can be
 ;       anything, but it may not be a good idea to use the .php extension or it
@@ -345,14 +351,14 @@
 ;      %d/%b/%Y:%H:%M:%S %z (default)
 ;      The strftime(3) format must be encapsulated in a %{<strftime_format>}t tag
 ;      e.g. for a ISO8601 formatted timestring, use: {{ '%{%Y-%m-%dT%H:%M:%S%z}t' }}
-;  %u: remote user
+;  %u: basic auth user if specified in Authorization header
 ;
 ; Default: "%R - %u %t \"%m %r\" %s"
 {{ config | manala.roles.php_fpm_pools_parameter('access.format', default='"%R - %u %t \\"%m %r%Q%q\\" %s %f %{milli}d %{kilo}M %C%%"', comment=True) }}
 
 ; A list of request_uri values which should be filtered from the access log.
 ;
-; As a security precuation, this setting will be ignored if:
+; As a security precaution, this setting will be ignored if:
 ;     - the request method is not GET or HEAD; or
 ;     - there is a request body; or
 ;     - there are query parameters; or
