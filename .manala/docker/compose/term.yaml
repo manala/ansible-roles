@@ -1,0 +1,9 @@
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        environment:
+            TERM: ${TERM:-xterm}

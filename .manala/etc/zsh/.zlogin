@@ -12,5 +12,11 @@ printf "\n"
 printf " \033[36m‣ ansible \033[35m2.15.12\033[0m\n"
 printf "    \033[36m· docker==7.1.0\033[0m\n"
 printf " \033[36m‣ ansible-lint \033[35m24.7.0\033[0m\n"
-printf " \033[36m‣ molecule \033[35m24.7.0\033[0m\n"
+printf " \033[36m‣ molecule \033[35m24.12.0\033[0m\n"
 printf "    \033[36m· molecule-plugins[docker]==23.5.3\033[0m\n"
+printf "\n"
+cat << EOF
+## Containerd ##
+Build of test containers with Molecule is incompatible with Containerd on Mac ARM
+Turn it off in Docker Desktop in order to launch your tests in local
+EOF

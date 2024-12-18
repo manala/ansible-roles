@@ -49,7 +49,7 @@ sh:
 	else \
 		$(call manala_docker_command, \
 			$(if $(PORT),--publish $(PORT)), \
-		) bash --login ; \
+		) zsh --login ; \
 	fi
 .PHONY: sh
 

@@ -1,4 +1,6 @@
-eval "$(direnv hook bash)"
+##########
+# Direnv #
+##########
 
 # Config directory
 export DIRENV_CONFIG=/etc/direnv
