@@ -160,6 +160,12 @@ manala_apt_repositories_patterns:
     components: mysql-8.0
     key: mysql
     legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
+  mysql_8_4:
+    uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: mysql-8.4-lts
+    key: mysql
+    legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
   mariadb_10_2:
     uris: https://downloads.mariadb.com/MariaDB/mariadb-10.2/repo/debian
     suites: "{{ ansible_facts.distribution_release }}"
@@ -302,6 +308,11 @@ manala_apt_repositories_patterns:
     components: main
     key: galera_legacy
     legacy_file: releases_galeracluster_com_galera_4_10_{{ ansible_facts.distribution | lower }}.list
+  galera_4_26:
+    uris: https://releases.galeracluster.com/galera-4.26/{{ ansible_facts.distribution | lower }}
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
+    key: galera
   mysql_wsrep_8_0:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
@@ -326,6 +337,11 @@ manala_apt_repositories_patterns:
     components: main
     key: galera_legacy
     legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_26_26_8_{{ ansible_facts.distribution | lower }}.list
+  mysql_wsrep_8_4_5:
+    uris: https://releases.galeracluster.com/mysql-wsrep-8.4.5-26.23/{{ ansible_facts.distribution | lower }}
+    suites: "{{ {'bullseye': 'bullseye', 'bookworm': 'bookworm', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
+    components: main
+    key: galera
   grafana:
     uris: https://apt.grafana.com
     suites: stable
