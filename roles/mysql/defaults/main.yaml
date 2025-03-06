@@ -12,8 +12,8 @@ manala_mysql_install_packages_default: |
 manala_mysql_install_python_packages: |
   {{
     (ansible_facts.python.version.major == 2) | ternary(
-      ['python-mysqldb'],
-      ['python3-mysqldb']
+      ['python-pymysql'],
+      ['python3-pymysql']
     )
   }}
 
