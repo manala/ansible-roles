@@ -87,6 +87,21 @@ manala_systemd_tmpfiles_configs:
   - "{{ my_custom_systemd_tmpfiles_configs_array }}"
 ```
 
+### Configuration example (resolved)
+
+```yaml
+
+manala_systemd_resolved_configs_exclusive: true
+
+manala_systemd_resolved_configs:
+  - file: dns.conf
+    config: |
+      [Resolve]
+      DNS=1.1.1.1#cloudflare 1.0.0.1#cloudflare 213.186.33.99#ovh
+      # Without the Domains=~. option, systemd-resolved might use the per-link DNS servers, if any of them set Domains=~. in the per-link configuration.
+      Domains=~.
+```
+
 ## Example playbook
 
 ```yaml

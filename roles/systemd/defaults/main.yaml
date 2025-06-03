@@ -14,3 +14,9 @@ manala_systemd_tmpfiles_configs_exclusive: false
 manala_systemd_tmpfiles_configs_dir: /etc/tmpfiles.d
 manala_systemd_tmpfiles_configs_defaults: {}
 manala_systemd_tmpfiles_configs: []
+
+# Resolved configs
+manala_systemd_resolved_configs_exclusive: false
+manala_systemd_resolved_configs_dir: /etc/systemd/resolved.conf.d
+manala_systemd_resolved_configs_defaults: {}
+manala_systemd_resolved_configs: []

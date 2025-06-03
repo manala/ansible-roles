@@ -1,0 +1,54 @@
+---
+
+- name: Resolved Configs > Directory
+  ansible.builtin.file:
+    path: "{{ manala_systemd_resolved_configs_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: manala_systemd_resolved_configs | length
+
+- name: Resolved Configs > Exclusive
+  ansible.builtin.find:
+    path: "{{ manala_systemd_resolved_configs_dir }}"
+    file_type: file
+    patterns: "*"
+  changed_when: false
+  register: __manala_systemd_resolved_configs_exclusive_find
+  when: manala_systemd_resolved_configs_exclusive
+
+- name: Resolved Configs > Templates present
+  ansible.builtin.template:
+    src: "{{ item.template }}"
+    dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_systemd_resolved_configs,
+      __manala_systemd_resolved_configs_exclusive_find.files | default([]),
+      manala_systemd_resolved_configs_dir,
+      manala_systemd_resolved_configs_defaults.template | default('resolved_configs/_default.j2', true),
+      wantstate='present'
+    ) }}
+  notify:
+    - Restart systemd-resolved
+
+- name: Resolved Configs > Files absent
+  ansible.builtin.file:
+    path: "{{ item.file }}"
+    state: absent
+  loop: |
+    {{ query(
+      'manala.roles.templates_exclusive',
+      manala_systemd_resolved_configs,
+      __manala_systemd_resolved_configs_exclusive_find.files | default([]),
+      manala_systemd_resolved_configs_dir,
+      manala_systemd_resolved_configs_defaults.template | default('resolved_configs/_default.j2', true),
+      wantstate='absent'
+    ) }}
+  notify:
+    - Restart systemd-resolved
