@@ -12,6 +12,12 @@
     - manala_systemd
     - manala_systemd.system_configs
 
+- name: Configs - Resolved
+  ansible.builtin.import_tasks: resolved_configs.yaml
+  tags:
+    - manala_systemd
+    - manala_systemd.resolved_configs
+
 - name: Services
   ansible.builtin.import_tasks: services.yaml
   tags:
