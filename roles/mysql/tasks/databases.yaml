@@ -10,6 +10,7 @@
     login_unix_socket: "{{ item.login_unix_socket | default(omit) }}"
     login_user: "{{ item.login_user | default(omit) }}"
     login_password: "{{ item.login_password | default(omit) }}"
+    sql_log_bin: "{{ item.sql_log_bin | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   loop: "{{
     manala_mysql_databases

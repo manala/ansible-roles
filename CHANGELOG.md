@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - [MySQL] Supports `tls_requires` directive on `manala_mysql_users`
+- [MySQL] Supports `sql_log_bin` directive on `manala_mysql_databases`
 
 ## [4.5.0] - 2025-06-03
 ### Added
