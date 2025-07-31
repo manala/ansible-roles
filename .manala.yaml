@@ -12,6 +12,10 @@ manala:
 
 project:
     name: manala-ansible-roles
+    help: |
+        ## Containerd ##
+        Build of test containers with Molecule is incompatible with Containerd on Mac ARM
+        Turn it off in Docker Desktop in order to launch your tests in local
 
 ##########
 # System #
@@ -41,6 +45,6 @@ system:
     ansible-lint:
         version: 24.7.0
     molecule:
-        version: 24.7.0
+        version: 24.12.0
         dependencies:
             - molecule-plugins[docker]==23.5.3
