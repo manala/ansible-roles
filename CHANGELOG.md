@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- [Apt] Add Mysql 8.4 support
+- [Apt] Add Galera 4.21 and MySQL wsrep 8.4.3 repositories
+- [MySQL] Mysql 8.4 support
+- [MySQL] Change `manala_mysql_install_python_packages` from `python3-mysqldb` to `python3-pymysql`. (See https://github.com/ansible-collections/community.mysql/pull/655 and https://github.com/ansible-collections/community.mysql/issues/659)
 
 ## [4.6.0] - 2025-07-25
 ### Added

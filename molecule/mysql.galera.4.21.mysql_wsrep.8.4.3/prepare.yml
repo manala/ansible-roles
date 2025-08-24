@@ -2,11 +2,14 @@
 
 - name: Prepare
   tags: [always]
-  hosts: debian
+  hosts:
+    - debian.bullseye
+    - debian.bookworm
   tasks:
     - name: Apt
       ansible.builtin.import_role:
         name: manala.roles.apt
       vars:
         manala_apt_preferences:
-          - mysql@mysql_8_0
+          - galera@galera_4_21
+          - mysql@mysql_wsrep_8_4_3
