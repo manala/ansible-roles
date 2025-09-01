@@ -177,6 +177,7 @@
                       type master;
                       file "{{ 'foo.local' | manala.roles.bind_zone_file }}";
                       allow-update { 127.0.0.1; };
+                      allow-transfer { 127.0.0.1; };
                   };
             manala_bind_zones:
               - zone: foo.local

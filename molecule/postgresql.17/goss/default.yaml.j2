@@ -1,0 +1,26 @@
+---
+
+package:
+  postgresql-17:
+    installed: true
+
+service:
+  postgresql:
+    enabled: true
+    running: true
+
+command:
+  psql --version:
+    exit-status: 0
+    stdout:
+      - psql (PostgreSQL) 17
+  psql --host=127.0.0.1 --username=postgres --command="\du":
+    exit-status: 0
+    stdout:
+      - foo       | Superuser
+  psql --host=127.0.0.1 --username=postgres --command="\l":
+    exit-status: 0
+    stdout:
+      - 'bar       | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |        |           |'
+      - 'postgres  | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |        |           |'
+

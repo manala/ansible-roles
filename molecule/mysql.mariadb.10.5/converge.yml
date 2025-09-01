@@ -7,7 +7,6 @@
 - name: Default
   tags: [default]
   hosts:
-    - debian.buster
     - debian.bullseye
   tasks:
     - block:  # noqa: name[missing]
@@ -23,6 +22,7 @@
                 password: foo
                 host: localhost
                 priv: "*.*:ALL,GRANT"
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: bar
                 state: ignore
               # Flatten
@@ -31,13 +31,16 @@
                   password: baz
                   host: localhost
                   priv: "*.*:ALL,GRANT"
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
             manala_mysql_databases:
               - name: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
               - name: bar
                 state: ignore
               # Flatten
               -
                 - name: baz
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           ansible.builtin.command:

@@ -95,7 +95,7 @@
               - name: foo
                 comment: Foo
                 component: main
-                distribution: bullseye
+                distribution: bookworm
                 origin: Foo
                 label: Foo
                 architectures: arm64,amd64
@@ -104,7 +104,7 @@
                 - name: bar
                   comment: Bar
                   component: main
-                  distribution: bookworm
+                  distribution: trixie
                   origin: Bar
                   label: Bar
                   architectures: arm64,amd64

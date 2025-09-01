@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0-RC] - 2025-09-16
+Added support for Debian Trixie 13 and deprecated Debian Buster 10 across all manala roles.
+
+### Added
+- [All] Add Debian Trixie support
+- [Apt] Add Galera 4.23 support
+- [Apt] Add MySQL 8.4 support
+- [Apt] Add MySQL wsrep 8.4.5 support
+- [Apt] Elasticsearch 8 support
+- [Apt] Elasticsearch 9 support
+- [Apt] Mariadb 11.8 support
+- [Apt] Maxscale 24.02 support
+- [Apt] Nodejs 24 support
+- [Apt] Add `enabled` parameter for repositories
+- [Elasticsearch] Elasticsearch 8 support
+- [Elasticsearch] Elasticsearch 9 support
+
+### Changed
+- [Apt] Bullseye backport repo is now on archive.debian.org
+- [Apt] Change Aptly suite following update of repo
+- [Apt] Switch to RabbitMQ new repo
+- [MySQL] Change `manala_mysql_install_python_packages` from `python3-mysqldb` to `python3-pymysql`. (See https://github.com/ansible-collections/community.mysql/pull/655 and https://github.com/ansible-collections/community.mysql/issues/659). You need to explicitly define the `login_unix_socket` if you want to use it.
+- [Postgresql] Use `community.postgresql.postgresql_privs` to handle privileges
+- [Proftpd] Switch to `proftpd-core` package from Trixie
+
+### Removed
+- [Apt] Glusterfs 6 support
+- [Apt] Glusterfs 6.1 support
+- [Apt] Glusterfs 6.10 support
+- [Apt] Maxscale 2.4 support
+- [Apt] Maxscale 2.5 support
+- [Apt] Maxscale 6.1 support
+- [Apt] Mongodb support
+- [Apt] Nodejs 4 support
+- [Apt] Nodejs 6 support
+- [Apt] Nodejs 7 support
+- [Apt] Nodejs 8 support
+- [Apt] Nodejs 9 support
+- [Mongodb] Mongodb support
+
 ## [4.6.0] - 2025-07-25
 ### Added
 - [MySQL] Supports `tls_requires` directive on `manala_mysql_users`

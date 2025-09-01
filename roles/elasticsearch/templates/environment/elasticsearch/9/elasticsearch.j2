@@ -1,0 +1,33 @@
+{% set environment = manala_elasticsearch_environment | default({}, true) -%}
+
+################################
+# Elasticsearch
+################################
+
+# Elasticsearch home directory
+{{ environment | manala.roles.environment_parameter('ES_HOME', comment='#ES_HOME=/usr/share/elasticsearch') }}
+
+# Elasticsearch Java path
+{{ environment | manala.roles.environment_parameter('ES_JAVA_HOME', comment='#ES_JAVA_HOME=') }}
+
+# Elasticsearch configuration directory
+# Note: this setting will be shared with command-line tools
+{{ environment | manala.roles.environment_parameter('ES_PATH_CONF', comment='ES_PATH_CONF=/etc/elasticsearch') }}
+
+# Elasticsearch PID directory
+{{ environment | manala.roles.environment_parameter('PID_DIR', comment='#PID_DIR=/var/run/elasticsearch') }}
+
+# Additional Java OPTS
+{{ environment | manala.roles.environment_parameter('ES_JAVA_OPTS', comment='#ES_JAVA_OPTS=') }}
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+{{ environment | manala.roles.environment_parameter('RESTART_ON_UPGRADE', comment='#RESTART_ON_UPGRADE=true') }}
+
+{{ environment | manala.roles.environment(exclude=[
+  'ES_HOME',
+  'JAVA_HOME',
+  'ES_PATH_CONF',
+  'PID_DIR',
+  'ES_JAVA_OPTS',
+  'RESTART_ON_UPGRADE',
+]) }}

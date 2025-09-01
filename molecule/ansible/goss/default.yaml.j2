@@ -15,5 +15,5 @@ command:
 {% if ansible_facts.distribution_major_version is version('11', '<=') %}
       - "/^ansible \\d+\\.\\d+\\.\\d+/"
 {% else %}
-      - "/^ansible \\[core \\d+\\.\\d+\\.\\d+\\]/"
+      - "/^ansible \\[core \\d+\\.\\d+\\.\\d+[a-z0-9]*\\]/"
 {% endif %}

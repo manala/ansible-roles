@@ -4,16 +4,6 @@ driver:
   name: docker
 
 platforms:
-  - name: debian.buster
-    groups: [debian]
-    image: jrei/systemd-debian:buster
-    platform: linux/amd64
-    dockerfile: ../Dockerfile.debian.buster.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    override_command: false
   - name: debian.bullseye
     groups: [debian]
     image: jrei/systemd-debian:bullseye
@@ -33,6 +23,19 @@ platforms:
     cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    override_command: false
+  - name: debian.trixie
+    groups: [debian]
+    image: jrei/systemd-debian:trixie
+    ## 11/09/2025 - If systemd doesn't start services on Macos + trixie, try using Docker VMM instead of Apple Virtualization framework
+    platform: linux/amd64
+    dockerfile: ../Dockerfile.debian.trixie.j2
+    privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    tmpfs:
+      - /tmp
     override_command: false
 
 provisioner:

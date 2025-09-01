@@ -14,9 +14,9 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - buster
         - bullseye
         - bookworm
+        - trixie
   galaxy_tags:
     - system
     - mount

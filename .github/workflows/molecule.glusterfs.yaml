@@ -25,4 +25,4 @@ jobs:
     with:
       debug: ${{ inputs.debug == true }}
       scenario: glusterfs
-      versions: '[6.1, 10.2, 10.4]'
+      versions: '[10.2, 10.4]'
