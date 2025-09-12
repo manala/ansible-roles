@@ -1,0 +1,58 @@
+---
+
+###########
+# Default #
+###########
+
+- name: Default
+  tags: [default]
+  hosts: debian
+  tasks:
+    - block:  # noqa: name[missing]
+        - name: Role
+          ansible.builtin.import_role:
+            name: manala.roles.mysql
+          vars:
+            manala_mysql_configs:
+              # Use native authentication plugin
+              - file: auth.cnf
+                config:
+                  mysqld:
+                    mysql_native_password: 'ON'
+            manala_mysql_install_packages:
+              - galera-4
+              - galera-arbitrator-4
+              - mysql-wsrep-server
+              - mysql-wsrep-client
+            manala_mysql_users:
+              - name: foo
+                password: foo
+                host: localhost
+                priv: "*.*:ALL,GRANT"
+                login_unix_socket: /var/run/mysqld/mysqld.sock
+              - name: bar
+                state: ignore
+                login_unix_socket: /var/run/mysqld/mysqld.sock
+              # Flatten
+              -
+                - name: baz
+                  password: baz
+                  host: localhost
+                  priv: "*.*:ALL,GRANT"
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
+            manala_mysql_databases:
+              - name: foo
+                login_unix_socket: /var/run/mysqld/mysqld.sock
+              - name: bar
+                state: ignore
+                login_unix_socket: /var/run/mysqld/mysqld.sock
+              # Flatten
+              -
+                - name: baz
+                  login_unix_socket: /var/run/mysqld/mysqld.sock
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yaml.j2') }}"
+          changed_when: false

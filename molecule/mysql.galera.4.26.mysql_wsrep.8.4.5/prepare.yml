@@ -9,4 +9,5 @@
         name: manala.roles.apt
       vars:
         manala_apt_preferences:
-          - mysql@mysql_8_0
+          - galera@galera_4_26
+          - mysql@mysql_wsrep_8_4_5
