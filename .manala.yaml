@@ -23,6 +23,9 @@ system:
         - .env
         - path: .env.local
           required: false
+    apt:
+        packages:
+            - goss
     docker: true
     git:
         config: |
@@ -30,7 +33,7 @@ system:
             [safe]
             directory = *
     ansible:
-        version: 2.15.12
+        version: 2.18.8
         config: |
             [defaults]
             force_color = True
@@ -39,8 +42,8 @@ system:
             # Collection community.docker
             - docker==7.1.0
     ansible-lint:
-        version: 24.7.0
+        version: 25.7.0
     molecule:
-        version: 24.7.0
+        version: 25.7.0
         dependencies:
             - molecule-plugins[docker]==23.5.3

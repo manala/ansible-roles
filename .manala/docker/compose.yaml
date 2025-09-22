@@ -11,7 +11,8 @@ services:
         build:
             context: ..
             dockerfile: docker/Dockerfile
-        image: manala-ansible-roles:20240916111724
+        image: manala-ansible-roles:20250911113102
+        pull_policy: never
         volumes:
             - ../..:${MANALA_DIR}
         environment:
@@ -22,5 +23,9 @@ services:
             - path: ../../.env.local
               required: false
         working_dir: ${MANALA_DIR}
-        # Use default docker bridge network
-        network_mode: bridge
+        networks:
+          - network
+
+networks:
+  network:
+    name: manala-ansible-roles

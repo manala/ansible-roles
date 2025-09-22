@@ -1,8 +1,6 @@
 ---
 
 file:
-  /etc/apt/sources.list.d/nodesource-12.sources:
-    exists: false
   /etc/apt/sources.list.d/default.sources:
     exists: true
     filetype: file
@@ -10,11 +8,11 @@ file:
     group: root
     mode: "0644"
     contents: |
-      X-Repolib-Name: default
-      URIs: http://deb.debian.org/debian
-      Suites: {{ ansible_facts.distribution_release }}
       Components: main
+      X-Repolib-Name: default
+      Suites: {{ ansible_facts.distribution_release }}
       Types: deb
+      URIs: http://deb.debian.org/debian
   /etc/apt/sources.list.d/security.sources:
     exists: true
     filetype: file
@@ -22,11 +20,11 @@ file:
     group: root
     mode: "0644"
     contents: |
-      X-Repolib-Name: security
-      URIs: http://deb.debian.org/debian-security
-      Suites: {{ ansible_facts.distribution_release }}{{ (ansible_facts.distribution_release in ['buster']) | ternary('/updates', '-security') }}
       Components: main
+      X-Repolib-Name: security
+      Suites: {{ ansible_facts.distribution_release }}-security
       Types: deb
+      URIs: http://deb.debian.org/debian-security
   /etc/apt/sources.list.d/updates.sources:
     exists: true
     filetype: file
@@ -34,27 +32,27 @@ file:
     group: root
     mode: "0644"
     contents: |
-      X-Repolib-Name: updates
-      URIs: http://deb.debian.org/debian
-      Suites: {{ ansible_facts.distribution_release }}-updates
       Components: main
+      X-Repolib-Name: updates
+      Suites: {{ ansible_facts.distribution_release }}-updates
       Types: deb
-  /etc/apt/sources.list.d/nodesource-14.sources:
+      URIs: http://deb.debian.org/debian
+  /etc/apt/sources.list.d/present-existing.sources:
     exists: true
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
-      X-Repolib-Name: nodesource_14
-      URIs: https://deb.nodesource.com/node_14.x
-      Suites: {{ ansible_facts.distribution_release }}
       Components: main
-      Signed-By: /etc/apt/keyrings/nodesource-14.asc
+      Enabled: no
+      X-Repolib-Name: present_existing
+      Suites: {{ ansible_facts.distribution_release }}
       Types: deb
-  /etc/apt/sources.list.d/nodesource-16.sources:
+      URIs: https://example.com
+  /etc/apt/sources.list.d/absent-exclusive.sources:
     exists: false
-  /etc/apt/sources.list.d/nodesource-18.sources:
+  /etc/apt/sources.list.d/ignore-existing.sources:
     exists: false
-  /etc/apt/sources.list.d/nodesource-20.sources:
+  /etc/apt/sources.list.d/ignore-not-existing.sources:
     exists: false

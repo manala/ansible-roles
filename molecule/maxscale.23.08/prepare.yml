@@ -3,8 +3,8 @@
 - name: Prepare
   tags: [always]
   hosts:
-    - debian
-    - "!debian.buster"
+    - debian.bullseye
+    - debian.bookworm
   tasks:
     - name: Apt
       ansible.builtin.import_role:

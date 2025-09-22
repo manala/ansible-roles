@@ -6,7 +6,9 @@
 
 - name: Default
   tags: [default]
-  hosts: debian
+  hosts:
+    - debian.bullseye
+    - debian.bookworm
   tasks:
     - block:  # noqa: name[missing]
         - name: Role
@@ -25,7 +27,9 @@
 
 - name: Configs
   tags: [configs]
-  hosts: debian
+  hosts:
+    - debian.bullseye
+    - debian.bookworm
   vars:
     tests_dir: /molecule/gitlab/configs
   tasks:

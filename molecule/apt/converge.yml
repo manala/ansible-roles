@@ -289,18 +289,20 @@
         uris: "{{ item.uris }}"
         suites: "{{ item.suites }}"
         components: "{{ item.components }}"
-        signed_by: "{{ item.signed_by }}"
+        signed_by: "{{ item.signed_by | default(omit) }}"
+        enabled: "{{ item.enabled }}"
       loop:
-        - name: nodesource_14
-          uris: https://deb.nodesource.com/node_14.x
+        - name: absent_explicit
+          uris: https://example.com
           suites: "{{ ansible_facts.distribution_release }}"
           components: main
-          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        - name: nodesource_18
-          uris: https://deb.nodesource.com/node_18.x
+          enabled: false
+        - name: ignore_existing
+          uris: https://example.com
           suites: "{{ ansible_facts.distribution_release }}"
           components: main
-          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
+          enabled: false
+          state: ignore
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -311,7 +313,7 @@
               - nginx:100
             manala_apt_repositories:
               # Short syntax
-              - matomo
+              - jenkins
               # Pattern syntax
               - repository: grafana
               # Verbose syntax
@@ -330,38 +332,38 @@
                 - aptly
               # State
               # Implicit present
-              - name: nodesource_12
-                uris: https://deb.nodesource.com/node_12.x
+              - name: present_implicit
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
               # Explicit absent
-              - name: nodesource_14
-                uris: https://deb.nodesource.com/node_14.x
+              - name: absent_explicit
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
                 state: absent
               # Explicit Present
-              - name: nodesource_16
-                uris: https://deb.nodesource.com/node_16.x
+              - name: present_explicit
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
                 state: present
               # Existing Ignore
-              - name: nodesource_18
-                uris: https://deb.nodesource.com/node_18.x
+              - name: ignore_existing
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
                 state: ignore
               # Not existing Ignore
-              - name: nodesource_20
-                uris: https://deb.nodesource.com/node_20.x
+              - name: ignore_not_existing
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
                 state: ignore
       always:
         - name: Goss
@@ -380,24 +382,25 @@
         uris: "{{ item.uris }}"
         suites: "{{ item.suites }}"
         components: "{{ item.components }}"
-        signed_by: "{{ item.signed_by }}"
+        signed_by: "{{ item.signed_by | default(omit) }}"
+        enabled: "{{ item.enabled }}"
       loop:
         # Exclusive absent
-        - name: nodesource_12
-          uris: https://deb.nodesource.com/node_12.x
+        - name: absent_exclusive
+          uris: https://example.com
           suites: "{{ ansible_facts.distribution_release }}"
           components: main
-          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        - name: nodesource_14
-          uris: https://deb.nodesource.com/node_14.x
+          enabled: false
+        - name: present_existing
+          uris: https://example.com
           suites: "{{ ansible_facts.distribution_release }}"
           components: main
-          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        - name: nodesource_18
-          uris: https://deb.nodesource.com/node_18.x
+          enabled: false
+        - name: ignore_existing
+          uris: https://example.com
           suites: "{{ ansible_facts.distribution_release }}"
           components: main
-          signed_by: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
+          enabled: false
     - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
@@ -412,20 +415,21 @@
               - security
               - updates
               # Existing present
-              - name: nodesource_14
-                uris: https://deb.nodesource.com/node_14.x
+              - name: present_existing
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
               # Existing ignore
-              - name: nodesource_18
+              - name: ignore_existing
+                enabled: false
                 state: ignore
               # Not existing ignore
-              - name: nodesource_20
-                uris: https://deb.nodesource.com/node_20.x
+              - name: ignore_not_existing
+                uris: https://example.com
                 suites: "{{ ansible_facts.distribution_release }}"
                 components: main
-                key: nodesource_legacy
+                enabled: false
                 state: ignore
       always:
         - name: Goss

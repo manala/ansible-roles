@@ -23,4 +23,4 @@ jobs:
     with:
       debug: ${{ inputs.debug == true }}
       scenario: postgresql
-      versions: '[9.4]'
+      versions: '[17]'

@@ -21,13 +21,13 @@ manala_apt_repositories_patterns:
     legacy_file: deb_debian_org_debian.list
   security:
     uris: http://deb.debian.org/debian-security
-    suites: "{{ ansible_facts.distribution_release }}{{ (ansible_facts.distribution_release in ['buster']) | ternary('/updates', '-security') }}"
+    suites: "{{ ansible_facts.distribution_release }}-security"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     legacy_file: security_debian_org_debian_security.list
   security_src:
     types: deb-src
     uris: http://deb.debian.org/debian-security
-    suites: "{{ ansible_facts.distribution_release }}{{ (ansible_facts.distribution_release in ['buster']) | ternary('/updates', '-security') }}"
+    suites: "{{ ansible_facts.distribution_release }}-security"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     legacy_file: security_debian_org_debian_security.list
   updates:
@@ -42,13 +42,13 @@ manala_apt_repositories_patterns:
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     legacy_file: deb_debian_org_debian.list
   backports:
-    uris: "{{ (ansible_facts.distribution_release in ['buster']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
+    uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     pin: release n={{ ansible_facts.distribution_release }}-backports
     legacy_file: deb_debian_org_debian.list
   backports_sloppy:
-    uris: "{{ (ansible_facts.distribution_release in ['buster']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
+    uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports-sloppy"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     pin: release n={{ ansible_facts.distribution_release }}-backports-sloppy
@@ -77,36 +77,6 @@ manala_apt_repositories_patterns:
     components: main
     key: bearstech
     legacy_file: deb_bearstech_com_debian.list
-  nodesource_4:
-    uris: https://deb.nodesource.com/node_4.x
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: nodesource_legacy
-    legacy_file: deb_nodesource_com_node_4_x.list
-  nodesource_6:
-    uris: https://deb.nodesource.com/node_6.x
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: nodesource_legacy
-    legacy_file: deb_nodesource_com_node_6_x.list
-  nodesource_7:
-    uris: https://deb.nodesource.com/node_7.x
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: nodesource_legacy
-    legacy_file: deb_nodesource_com_node_7_x.list
-  nodesource_8:
-    uris: https://deb.nodesource.com/node_8.x
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: nodesource_legacy
-    legacy_file: deb_nodesource_com_node_8_x.list
-  nodesource_9:
-    uris: https://deb.nodesource.com/node_9.x
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: nodesource_legacy
-    legacy_file: deb_nodesource_com_node_9_x.list
   nodesource_10:
     uris: https://deb.nodesource.com/node_10.x
     suites: "{{ ansible_facts.distribution_release }}"
@@ -148,6 +118,11 @@ manala_apt_repositories_patterns:
     suites: nodistro
     components: main
     key: nodesource
+  nodesource_24:
+    uris: https://deb.nodesource.com/node_24.x
+    suites: nodistro
+    components: main
+    key: nodesource
   mysql_5_7:
     uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
     suites: "{{ ansible_facts.distribution_release }}"
@@ -158,6 +133,12 @@ manala_apt_repositories_patterns:
     uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
     suites: "{{ ansible_facts.distribution_release }}"
     components: mysql-8.0
+    key: mysql
+    legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
+  mysql_8_4:
+    uris: http://repo.mysql.com/apt/ubuntu/
+    suites: "{{ {'bullseye': 'bullseye', 'bookworm': 'bookworm', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
+    components: mysql-8.4-lts
     key: mysql
     legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
   mariadb_10_2:
@@ -201,24 +182,11 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
     key: mariadb
-  maxscale_2_4:
-    uris: https://dlm.mariadb.com/repo/maxscale/2.4/apt
+  mariadb_11_8:
+    uris: https://dlm.mariadb.com/repo/mariadb-server/11.8/repo/debian
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
-    key: mariadb_enterprise
-    legacy_file: downloads_mariadb_com_MaxScale_2_4_debian.list
-  maxscale_2_5:
-    uris: https://dlm.mariadb.com/repo/maxscale/2.5/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb_enterprise
-    legacy_file: downloads_mariadb_com_MaxScale_2_5_debian.list
-  maxscale_6_1:
-    uris: https://dlm.mariadb.com/repo/maxscale/6.1/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb_enterprise
-    legacy_file: downloads_mariadb_com_MaxScale_6_1_debian.list
+    key: mariadb
   maxscale_23_02:
     uris: https://dlm.mariadb.com/repo/maxscale/23.02/apt
     suites: "{{ ansible_facts.distribution_release }}"
@@ -231,24 +199,17 @@ manala_apt_repositories_patterns:
     components: main
     key: mariadb_enterprise
     legacy_file: downloads_mariadb_com_MaxScale_23_08_debian.list
+  maxscale_24_02:
+    uris: https://dlm.mariadb.com/repo/maxscale/24.02/apt
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
+    key: mariadb_enterprise
   postgresql:
     uris: http://apt.postgresql.org/pub/repos/apt/
     suites: "{{ ansible_facts.distribution_release }}-pgdg"
     components: main
     key: postgresql
     legacy_file: apt_postgresql_org_pub_repos_apt.list
-  mongodb_4_2:
-    uris: http://repo.mongodb.org/apt/{{ ansible_facts.distribution | lower }}
-    suites: "{{ ansible_facts.distribution_release }}/mongodb-org/4.2"
-    components: main
-    key: mongodb_4_2
-    legacy_file: repo_mongodb_org_apt_{{ ansible_facts.distribution | lower }}.list
-  mongodb_4_4:
-    uris: http://repo.mongodb.org/apt/{{ ansible_facts.distribution | lower }}
-    suites: "{{ ansible_facts.distribution_release }}/mongodb-org/4.4"
-    components: main
-    key: mongodb_4_4
-    legacy_file: repo_mongodb_org_apt_{{ ansible_facts.distribution | lower }}.list
   jenkins:
     uris: https://pkg.jenkins.io/debian-stable
     suites: binary/
@@ -261,11 +222,12 @@ manala_apt_repositories_patterns:
     key: sensu-go
     legacy_file: packagecloud_io_sensu_stable_{{ ansible_facts.distribution | lower }}.list
   rabbitmq:
-    uris: https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/{{ ansible_facts.distribution | lower }}
+    uris:
+      - https://deb1.rabbitmq.com/rabbitmq-server/debian/{{ ansible_facts.distribution_release }}
+      - https://deb2.rabbitmq.com/rabbitmq-server/debian/{{ ansible_facts.distribution_release }}
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
     key: rabbitmq
-    legacy_file: www_rabbitmq_com_debian.list
   proxmox:
     uris: http://download.proxmox.com/debian/pve
     suites: "{{ ansible_facts.distribution_release }}"
@@ -302,6 +264,11 @@ manala_apt_repositories_patterns:
     components: main
     key: galera_legacy
     legacy_file: releases_galeracluster_com_galera_4_10_{{ ansible_facts.distribution | lower }}.list
+  galera_4_23:
+    uris: https://releases.galeracluster.com/galera-4.23/{{ ansible_facts.distribution | lower }}
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
+    key: galera
   mysql_wsrep_8_0:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.0/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
@@ -326,6 +293,11 @@ manala_apt_repositories_patterns:
     components: main
     key: galera_legacy
     legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_26_26_8_{{ ansible_facts.distribution | lower }}.list
+  mysql_wsrep_8_4_5:
+    uris: https://releases.galeracluster.com/mysql-wsrep-8.4.5-26.23/{{ ansible_facts.distribution | lower }}
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
+    key: galera
   grafana:
     uris: https://apt.grafana.com
     suites: stable
@@ -350,9 +322,19 @@ manala_apt_repositories_patterns:
     components: main
     key: elasticsearch
     legacy_file: artifacts_elastic_co_packages_7_x_apt.list
+  elasticsearch_8:
+    uris: https://artifacts.elastic.co/packages/8.x/apt
+    suites: stable
+    components: main
+    key: elasticsearch
+  elasticsearch_9:
+    uris: https://artifacts.elastic.co/packages/9.x/apt
+    suites: stable
+    components: main
+    key: elasticsearch
   ansible:
     uris: http://ppa.launchpad.net/ansible/ansible/ubuntu
-    suites: "{{ {'buster': 'bionic', 'bullseye': 'focal', 'bookworm': 'jammy'}[ansible_facts.distribution_release] }}"
+    suites: "{{ {'bullseye': 'focal', 'bookworm': 'jammy', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
     components: main
     key: ansible
     legacy_file: ppa_launchpad_net_ansible_ansible_ubuntu.list
@@ -369,8 +351,8 @@ manala_apt_repositories_patterns:
     key: gitlab
     legacy_file: packages_gitlab_com_gitlab_gitlab_ce_debian.list
   aptly:
-    uris: http://repo.aptly.info/
-    suites: squeeze
+    uris: http://repo.aptly.info/release
+    suites: "{{ ansible_facts.distribution_release }}"
     components: main
     key: aptly
     legacy_file: repo_aptly_info.list
@@ -439,42 +421,6 @@ manala_apt_repositories_patterns:
     components: main
     key: mica
     legacy_file: obiba_jfrog_io_artifactory_debian_local.list
-  glusterfs_6:
-    uris: >-
-      https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/{{ ansible_facts.distribution_release }}/{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: glusterfs_6
-    legacy_file: >-
-      download_gluster_org_pub_gluster_glusterfs_6_LATEST_Debian_{{ ansible_facts.distribution_release }}_{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}_apt.list
-  glusterfs_6_1:
-    uris: >-
-      https://download.gluster.org/pub/gluster/glusterfs/6/6.1/Debian/{{ ansible_facts.distribution_release }}/{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: glusterfs_6
-    legacy_file: >-
-      download_gluster_org_pub_gluster_glusterfs_6_6_1_Debian_{{ ansible_facts.distribution_release }}_{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}_apt.list
-  glusterfs_6_10:
-    uris: >-
-      https://download.gluster.org/pub/gluster/glusterfs/6/6.10/Debian/{{ ansible_facts.distribution_release }}/{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: glusterfs_6
-    legacy_file: >-
-      download_gluster_org_pub_gluster_glusterfs_6_6_10_Debian_{{ ansible_facts.distribution_release }}_{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}_apt.list
   glusterfs_10_2:
     uris: >-
       https://download.gluster.org/pub/gluster/glusterfs/10/10.2/Debian/{{ ansible_facts.distribution_release }}/{{
@@ -592,23 +538,19 @@ manala_apt_keys_patterns:
     signed_by: https://keys.openpgp.org/vks/v1/by-fingerprint/4C470FFFEFC4D3DC59778655CE1A3DD5E3C94F49
   postgresql:
     signed_by: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-  mongodb_4_2:
-    signed_by: https://www.mongodb.org/static/pgp/server-4.2.asc
-  mongodb_4_4:
-    signed_by: https://www.mongodb.org/static/pgp/server-4.4.asc
   jenkins:
     signed_by: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
   sensu-go:
     signed_by: https://packagecloud.io/sensu/stable/gpgkey
   rabbitmq:
-    signed_by: https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+    signed_by: https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA
   proxmox:
     signed_by: |-
       {{
         {
-          'buster': 'http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg',
           'bullseye': 'http://download.proxmox.com/debian/proxmox-release-bullseye.gpg',
           'bookworm': 'http://download.proxmox.com/debian/proxmox-release-bookworm.gpg',
+          'trixie': 'https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg',
         }[ansible_facts.distribution_release]
       }}
   galera_legacy:
@@ -684,7 +626,6 @@ manala_apt_preferences_patterns:
   grafana: grafana*
   elasticsearch: elasticsearch*
   postgresql: postgresql*
-  mongodb: mongodb*
   keepalived: keepalived*
   gitlab-ce: gitlab-ce*
   docker: docker*
@@ -712,9 +653,9 @@ manala_apt_preferences_patterns:
   ffmpeg: |-
     ffmpeg {{
       {
-        'buster': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
         'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
         'bookworm': 'libavcodec59 libavdevice59 libavfilter8 libavformat59 libavutil57 libpostproc56 libswresample4 libswscale6',
+        'trixie': 'libavcodec61 libavdevice61 libavfilter10 libavformat59 libavutil61 libpostproc58 libswresample5 libswscale8',
       }[ansible_facts.distribution_release]
     }}
   glusterfs: glusterfs-*

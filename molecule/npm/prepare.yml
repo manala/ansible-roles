@@ -9,7 +9,7 @@
         name: manala.roles.apt
       vars:
         manala_apt_preferences:
-          - nodejs@nodesource_20
+          - nodejs@nodesource_24
     - name: NodeJS
       ansible.builtin.import_role:
         name: manala.roles.nodejs

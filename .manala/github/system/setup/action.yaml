@@ -56,8 +56,8 @@ runs:
       shell: bash
       run: |
         cat << EOF >> ${{ github.env }}
-        MANALA_DOCKER_CACHE_FROM=type=gha,scope=${{ inputs.docker_build_cache_scope }}
-        MANALA_DOCKER_CACHE_TO=type=gha,scope=type=gha,mode=max,scope=${{ inputs.docker_build_cache_scope }}
+        MANALA_DOCKER_CACHE_FROM=type=gha,scope=${{ inputs.docker_build_cache_scope }},url_v2=${ACTIONS_RESULTS_URL}
+        MANALA_DOCKER_CACHE_TO=type=gha,scope=type=gha,mode=max,scope=${{ inputs.docker_build_cache_scope }},url_v2=${ACTIONS_RESULTS_URL}
         ${{ inputs.docker_compose_profile != ''
           && format('MANALA_DOCKER_COMPOSE_PROFILE={0}', inputs.docker_compose_profile)
           || ''

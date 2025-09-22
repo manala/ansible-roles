@@ -42,7 +42,7 @@ test.sanity:
 	ansible-test sanity \
 		--requirements \
 		--venv \
-		--python 3.11 \
+		--python 3.13 \
 		$(if $(VERBOSE), --verbose) \
 		--color yes \
 		--exclude .github/ \
@@ -55,7 +55,7 @@ test.units:
 	ansible-test units \
 		--requirements \
 		--venv \
-		--python 3.11 \
+		--python 3.13 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
 		--color yes
@@ -67,7 +67,7 @@ test.integration:
 	ansible-test integration \
 		--requirements \
 		--venv \
-		--python 3.11 \
+		--python 3.13 \
 		$(if $(VERBOSE), --verbose) \
 		$(if $(COVERAGE), --coverage) \
 		--color yes
@@ -92,7 +92,7 @@ test.coverage:
 	ansible-test coverage xml \
 		--requirements \
 		--venv \
-		--python 3.11 \
+		--python 3.13 \
 		--group-by command \
 		--group-by version \
 		$(if $(VERBOSE), --verbose) \

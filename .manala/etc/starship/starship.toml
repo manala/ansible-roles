@@ -1,0 +1,21 @@
+# Starship config template
+# Don't edit this file directly. Instead, set config in project .manala.yaml, and run `manala up`.
+
+format = """
+[╭─](cyan)$username$hostname$directory$direnv$env_var$custom
+[╰](cyan) $cmd_duration$character"""
+
+[username]
+show_always = true
+format = '[$user]($style)@'
+style_user = 'yellow'
+
+[hostname]
+ssh_only = false
+style = 'yellow'
+
+[directory]
+truncation_length = 1
+truncation_symbol = '…/'
+read_only = ''
+style = 'cyan'

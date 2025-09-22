@@ -2,7 +2,9 @@
 
 - name: Prepare
   tags: [always]
-  hosts: debian
+  hosts:
+    - debian.bullseye
+    - debian.bookworm
   tasks:
     - name: Apt
       ansible.builtin.import_role:

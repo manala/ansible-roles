@@ -18,6 +18,7 @@
         suites: "{{ item.suites | default(omit) }}"
         components: "{{ item.components | default(omit) }}"
         signed_by: "{{ item.signed_by | default(omit) }}"
+        enabled: "{{ item.enabled | default(omit) }}"
         state: "{{ item.state }}"
       loop: |
         {{ query(

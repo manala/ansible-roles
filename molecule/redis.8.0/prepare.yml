@@ -1,0 +1,10 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts:
+    - debian.trixie
+  tasks:
+    - name: Apt
+      ansible.builtin.import_role:
+        name: manala.roles.apt

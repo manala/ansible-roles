@@ -13,5 +13,5 @@
   loop: "{{
     manala_glusterfs_volumes
       | flatten
-      | manala.roles.staten(want='present')
+      | manala.roles.staten
   }}"

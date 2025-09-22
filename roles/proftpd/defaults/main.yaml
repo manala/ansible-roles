@@ -3,7 +3,7 @@
 # Install
 manala_proftpd_install_packages: ~
 manala_proftpd_install_packages_default:
-  - proftpd-basic
+  - "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary('proftpd-basic', 'proftpd-core') }}"
 
 # Configs
 manala_proftpd_configs_exclusive: false

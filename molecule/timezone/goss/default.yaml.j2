@@ -2,10 +2,17 @@
 
 file:
   /etc/timezone:
-    exists: true
+    exists: {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary('true', 'false') }}
     filetype: file
     owner: root
     group: root
     mode: "0644"
     contents: |
       Africa/Bamako
+  /etc/localtime:
+    exists: 'true'
+    filetype: symlink
+    linked-to: /usr/share/zoneinfo/Africa/Bamako
+    owner: root
+    group: root
+    mode: "0777"

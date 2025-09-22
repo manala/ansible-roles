@@ -1,0 +1,13 @@
+---
+
+- name: Prepare
+  tags: [always]
+  hosts:
+    - debian.trixie
+  tasks:
+    - name: Apt
+      ansible.builtin.import_role:
+        name: manala.roles.apt
+      vars:
+        manala_apt_preferences:
+          - mysql@mysql_8_4

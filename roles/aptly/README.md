@@ -59,13 +59,6 @@ Repositories:
 
 ```yaml
 manala_aptly_repositories:
-  - name: buster
-    comment: Buster
-    component: main
-    distribution: buster
-    origin: Foo
-    label: Bar
-    architectures: amd64,arm64
   - name: bullseye
     comment: Bullseye
     component: main
@@ -73,6 +66,13 @@ manala_aptly_repositories:
     origin: Foo
     label: Bar
     architectures: amd64
+  - name: bookworm
+    comment: Bookworm
+    component: main
+    distribution: bookworm
+    origin: Foo
+    label: Bar
+    architectures: amd64,arm64
   # Ignore repository
   - name: ignore
     state: ignore

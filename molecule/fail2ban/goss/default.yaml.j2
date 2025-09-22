@@ -4,8 +4,10 @@ package:
   fail2ban:
     installed: true
   # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=770171
+  ## On bookworm/trixie python3-systemd is a dependance to fail2ban.
+  ## We don't explicitely install it in the role but still checking here so the test passes
   python3-systemd:
-    installed: {{ (ansible_facts.distribution_release in ['bookworm']) | ternary('true', 'false') }}
+    installed: {{ (ansible_facts.distribution_release in ['bookworm', 'trixie']) | ternary('true', 'false') }}
 
 service:
   fail2ban:

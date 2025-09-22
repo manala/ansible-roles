@@ -1,0 +1,97 @@
+{%- set config = manala_elasticsearch_config | default({}, true) | manala.roles.yaml_flatten -%}
+
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please consult the documentation for further information on configuration options:
+# https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#
+{{ config | manala.roles.yaml_parameter('cluster.name', default='my-application', comment=True) }}
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#
+{{ config | manala.roles.yaml_parameter('node.name', default='node-1', comment=True) }}
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+#
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+#
+{{ config | manala.roles.yaml_parameter('path.data', default='/var/lib/elasticsearch') }}
+#
+# Path to log files:
+#
+{{ config | manala.roles.yaml_parameter('path.logs', default='/var/log/elasticsearch') }}
+#
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+#
+{{ config | manala.roles.yaml_parameter('bootstrap.memory_lock', default=True, comment=True) }}
+#
+# Make sure that the heap size is set to about half the memory available
+# on the system and that the owner of the process is allowed to use this
+# limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# By default Elasticsearch is only accessible on localhost. Set a different
+# address here to expose this node on the network:
+#
+{{ config | manala.roles.yaml_parameter('network.host', default='192.168.0.1', comment=True) }}
+#
+# By default Elasticsearch listens for HTTP traffic on the first free port it
+# finds starting at 9200. Set a specific HTTP port here:
+#
+{{ config | manala.roles.yaml_parameter('http.port', default=9200, comment=True) }}
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when this node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#
+{{ config | manala.roles.yaml_parameter('discovery.seed_hosts', comment='#discovery.seed_hosts: ["host1", "host2"]') }}
+#
+# Bootstrap the cluster using an initial set of master-eligible nodes:
+#
+{{ config | manala.roles.yaml_parameter('cluster.initial_master_nodes', comment='#cluster.initial_master_nodes: ["node-1", "node-2"]') }}
+#
+# For more information, consult the discovery and cluster formation module documentation.
+#
+# ---------------------------------- Various -----------------------------------
+#
+# Allow wildcard deletion of indices:
+#
+{{ config | manala.roles.yaml_parameter('action.destructive_requires_name', default=False, comment=True) }}
+
+{{ config | manala.roles.yaml(exclude=[
+  'cluster.name',
+  'node.name',
+  'path.data',
+  'path.logs',
+  'bootstrap.memory_lock',
+  'network.host',
+  'http.port',
+  'discovery.seed_hosts',
+  'cluster.initial_master_nodes',
+  'action.destructive_requires_name',
+]) }}

@@ -10,7 +10,7 @@ manala_bind_user: bind
 manala_bind_group: bind
 
 # Options
-manala_bind_options_file: /etc/default/{{ (ansible_facts.distribution_release in ['buster']) | ternary('bind9', 'named') }}
+manala_bind_options_file: /etc/default/named
 manala_bind_options:
   - -u {{ manala_bind_user }}
 
