@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- [Apt] Add HAProxy 3.2 repository
 
 ## [5.0.0] - 2025-09-22
 Added support for Debian Trixie 13 and deprecated Debian Buster 10 across all manala roles.
