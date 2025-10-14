@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.vim.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/vim/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/vim/**
       - roles/vim/**
       # Plugins
       - plugins/filter/vim_config.py

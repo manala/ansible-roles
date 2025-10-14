@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.symfony_cli.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/symfony_cli/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/symfony_cli/**
       - roles/symfony_cli/**
       # Plugins
       - plugins/filter/symfony_cli_architecture.py

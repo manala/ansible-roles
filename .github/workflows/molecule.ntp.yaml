@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.ntp.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/ntp/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/ntp/**
       - roles/ntp/**
   workflow_dispatch:
     inputs:

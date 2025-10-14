@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.postgresql.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/postgresql.*/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/postgresql.*/**
       - roles/postgresql/**
   workflow_dispatch:
     inputs:

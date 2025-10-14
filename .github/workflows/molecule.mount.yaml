@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.mount.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/mount/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/mount/**
       - roles/mount/**
       # Plugins
       - plugins/filter/staten.py

@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.deploy.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/deploy/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/deploy/**
       - roles/deploy/**
       # Plugins
       - plugins/callback/deploy_log.py

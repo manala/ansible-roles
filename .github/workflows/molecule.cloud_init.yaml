@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.cloud_init.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/cloud_init/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/cloud_init/**
       - roles/cloud_init/**
       # Plugins
       - plugins/lookup/templates_exclusive.py

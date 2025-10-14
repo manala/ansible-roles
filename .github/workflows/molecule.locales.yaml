@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.locales.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/locales/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/locales/**
       - roles/locales/**
       # Plugins
       - plugins/lookup/locales_code.py

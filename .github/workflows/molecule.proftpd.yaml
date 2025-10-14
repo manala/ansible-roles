@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.proftpd.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/proftpd/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/proftpd/**
       - roles/proftpd/**
       # Plugins
       - plugins/filter/proftpd_config.py

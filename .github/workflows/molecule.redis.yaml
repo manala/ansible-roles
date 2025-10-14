@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.redis.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/redis.*/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/redis.*/**
       - roles/redis/**
       # Plugins
       - plugins/filter/redis_config.py

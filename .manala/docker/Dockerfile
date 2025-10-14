@@ -14,22 +14,19 @@ ARG MANALA_GROUP_ID="1000"
 ARG GOMPLATE_VERSION="4.3.3"
 ARG DIRENV_VERSION="2.37.1"
 ARG JQ_VERSION="1.7.1"
-ARG YQ_VERSION="4.47.1"
+ARG YQ_VERSION="4.47.2"
 ARG STARSHIP_VERSION="1.23.0"
-ARG FZF_VERSION="0.65.1"
+ARG FZF_VERSION="0.65.2"
 
 # The 'container' environment variable tells systemd that it's running inside a
 # Docker container environment.
 # It's also internally used for checking we're running inside a container.
 ENV container="docker"
 
-# Default locale
-ENV LANG="C.UTF-8"
-
 # Starship
 ENV STARSHIP_CONFIG=/etc/starship/starship.toml
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 RUN <<EOF
 # Packages
@@ -51,6 +48,11 @@ apt-get --quiet --yes --no-install-recommends --verbose-versions install \
     sudo \
     vim \
     zsh
+# Locale
+apt-get --quiet --yes --no-install-recommends --verbose-versions install \
+    locales
+sed -i "/^# *en_US.UTF-8\b/s/^# *//" /etc/locale.gen
+dpkg-reconfigure locales
 # User
 addgroup --gid ${MANALA_GROUP_ID} lazy
 adduser --home /home/lazy --shell /bin/zsh --uid ${MANALA_USER_ID} --gecos lazy --ingroup lazy --disabled-password lazy
@@ -89,6 +91,9 @@ chmod +x /usr/local/bin/fzf
 # Clean
 rm -rf /var/lib/apt/lists/*
 EOF
+
+# Locale
+ENV LANG="en_US.UTF-8"
 
 ##########
 # System #
@@ -133,7 +138,7 @@ EOF
 # Ansible
 RUN <<EOF
 pipx install --pip-args="--no-cache-dir" \
-    ansible-core==2.18.8
+    ansible-core==2.18.9
 pipx inject --pip-args="--no-cache-dir" ansible-core \
     docker==7.1.0
 EOF
@@ -147,19 +152,25 @@ apt-get --quiet update
 apt-get --quiet --yes --no-install-recommends --verbose-versions install \
     "${BUILD_PACKAGES[@]}"
 pipx install --pip-args="--no-cache-dir" \
-    ansible-lint==25.7.0
+    ansible-lint[lock]==25.9.1
 # Clean
 apt-get --quiet --yes --autoremove purge \
     "${BUILD_PACKAGES[@]}"
 rm -rf /var/lib/apt/lists/*
 EOF
 
+# Ansible Creator
+RUN <<EOF
+pipx install --pip-args="--no-cache-dir" \
+    ansible-creator==25.9.0
+EOF
+
 # Molecule
 RUN <<EOF
 pipx install --pip-args="--no-cache-dir" \
-    molecule==25.7.0
+    molecule==25.9.0
 pipx inject --pip-args="--no-cache-dir" molecule \
-    molecule-plugins[docker]==23.5.3
+    molecule-plugins[docker]==25.8.12
 EOF
 
 # Run

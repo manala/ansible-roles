@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.grafana.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/grafana/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/grafana/**
       - roles/grafana/**
   workflow_dispatch:
     inputs:

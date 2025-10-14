@@ -11,7 +11,7 @@ services:
         build:
             context: ..
             dockerfile: docker/Dockerfile
-        image: manala-ansible-roles:20250911113102
+        image: manala-ansible-roles:20251014142937
         pull_policy: never
         volumes:
             - ../..:${MANALA_DIR}

@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.motd.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/motd/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/motd/**
       - roles/motd/**
       # Plugins
       - plugins/lookup/templates_exclusive.py

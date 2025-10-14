@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.promtail.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/promtail/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/promtail/**
       - roles/promtail/**
       # Plugins
       - plugins/filter/promtail_architecture.py

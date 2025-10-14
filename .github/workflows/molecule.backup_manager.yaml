@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.backup_manager.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/backup_manager/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/backup_manager/**
       - roles/backup_manager/**
       # Plugins
       - plugins/filter/backup_manager_config.py

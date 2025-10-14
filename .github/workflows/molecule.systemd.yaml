@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.systemd.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/systemd/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/systemd/**
       - roles/systemd/**
       # Plugins
       - plugins/filter/staten.py

@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.make.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/make/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/make/**
       - roles/make/**
   workflow_dispatch:
     inputs:

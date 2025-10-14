@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.elasticsearch.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/elasticsearch.*/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/elasticsearch.*/**
       - roles/elasticsearch/**
       # Plugins
       - plugins/filter/environment.py

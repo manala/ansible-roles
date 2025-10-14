@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.logrotate.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/logrotate/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/logrotate/**
       - roles/logrotate/**
       # Plugins
       - plugins/filter/logrotate_config.py

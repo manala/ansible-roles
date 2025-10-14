@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.glusterfs.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/glusterfs.*/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/glusterfs.*/**
       - roles/glusterfs/**
       # Plugins
       - plugins/filter/staten.py

@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.ngrok.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/ngrok/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/ngrok/**
       - roles/ngrok/**
       # Plugins
       - plugins/filter/ngrok_architecture.py

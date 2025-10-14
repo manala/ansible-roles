@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.files.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/files/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/files/**
       - roles/files/**
       # Plugins
       - plugins/action/files_attributes.py

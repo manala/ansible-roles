@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.apparmor.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/apparmor/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/apparmor/**
       - roles/apparmor/**
       # Plugins
       - plugins/lookup/templates_exclusive.py
