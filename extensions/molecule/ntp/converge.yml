@@ -6,8 +6,7 @@
 
 - name: Default
   tags: [default]
-  hosts:
-    - debian.bullseye
+  hosts: debian 
   tasks:
     - block:  # noqa: name[missing]
         - name: Role
