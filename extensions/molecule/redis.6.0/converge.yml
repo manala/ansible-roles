@@ -15,6 +15,7 @@
             name: manala.roles.redis
           vars:
             manala_redis_sentinel: true
+            manala_redis_server_config_template: config/debian/redis.conf.j2
       always:
         - name: Goss
           ansible.builtin.command:
