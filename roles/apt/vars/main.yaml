@@ -232,8 +232,8 @@ manala_apt_repositories_patterns:
     key: mysql
     legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
   mysql_8_4:
-    uris: http://repo.mysql.com/apt/ubuntu/
-    suites: "{{ {'bullseye': 'bullseye', 'bookworm': 'bookworm', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
+    uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
+    suites: "{{ ansible_facts.distribution_release }}"
     components: mysql-8.4-lts
     key: mysql
   mariadb_10_5:
