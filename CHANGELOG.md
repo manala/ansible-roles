@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Apt] Add HAProxy 3.2 repository
 
+### Fixed
+- [Redis] Missing 8.0 template
+
 ### Removed
 - [Promtail] Debian Bullseye support
 
