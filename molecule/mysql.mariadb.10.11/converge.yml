@@ -10,7 +10,7 @@
     - debian.bullseye
     - debian.bookworm
   tasks:
-    - block:  # noqa name[missing]
+    - block:  # noqa: name[missing]
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.mysql
