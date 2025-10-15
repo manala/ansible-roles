@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Apt] Add `trusted` parameter for repositories
 
+### Changed
+- [All] Update minimum version of ansible to 2.18
+
 ## [5.1.0] - 2025-10-15
 ### Added
 - [Apt] Add HAProxy 3.2 repository
