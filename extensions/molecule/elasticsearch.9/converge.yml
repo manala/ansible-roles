@@ -19,7 +19,7 @@
               ES_JAVA_OPTS: -Xms256m -Xmx256m -Djava.io.tmpdir=/var/log/elasticsearch
             manala_elasticsearch_plugins:
               - analysis-icu
-            manala_elasticsearch_config_template: config/elasticsearch/9/elasticsearch.yml.j2
+            manala_elasticsearch_config_template: config/elasticsearch/elasticsearch.yml.j2
             manala_elasticsearch_config:
               cluster:
                 name: foo
@@ -65,7 +65,7 @@
             manala_elasticsearch_environment:
               # See: https://github.com/elastic/elasticsearch/issues/57018#issuecomment-694703398
               ES_JAVA_OPTS: -Xms256m -Xmx256m -Djava.io.tmpdir=/var/log/elasticsearch
-            manala_elasticsearch_config_template: config/elasticsearch/9/elasticsearch.yml.j2
+            manala_elasticsearch_config_template: config/elasticsearch/elasticsearch.yml.j2
             manala_elasticsearch_config:
               cluster:
                 name: foo
@@ -139,7 +139,7 @@
             manala_elasticsearch_environment:
               # See: https://github.com/elastic/elasticsearch/issues/57018#issuecomment-694703398
               ES_JAVA_OPTS: -Xms256m -Xmx256m -Djava.io.tmpdir=/var/log/elasticsearch
-            manala_elasticsearch_config_template: config/elasticsearch/9/elasticsearch.yml.j2
+            manala_elasticsearch_config_template: config/elasticsearch/elasticsearch.yml.j2
             manala_elasticsearch_config:
               cluster:
                 name: foo
