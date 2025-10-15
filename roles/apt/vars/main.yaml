@@ -134,7 +134,6 @@ manala_apt_repositories_patterns:
     suites: "{{ {'bullseye': 'bullseye', 'bookworm': 'bookworm', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
     components: mysql-8.4-lts
     key: mysql
-    legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
   mariadb_10_5:
     uris: https://dlm.mariadb.com/repo/mariadb-server/10.5/repo/debian
     suites: "{{ ansible_facts.distribution_release }}"
