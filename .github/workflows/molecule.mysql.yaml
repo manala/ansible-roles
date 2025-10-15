@@ -27,4 +27,4 @@ jobs:
     with:
       debug: ${{ inputs.debug == true }}
       scenario: mysql
-      versions: '["8.0", "8.4", "galera.4.10.mysql_wsrep.8.0.26", "mariadb.10.5", "mariadb.10.6", "mariadb.10.11", "mariadb.11.4", "mariadb.11.8"]'
+      versions: '["8.0", "8.4", "galera.4.10.mysql_wsrep.8.0.26", "galera.4.23.mysql_wsrep.8.4.5", "mariadb.10.5", "mariadb.10.6", "mariadb.10.11", "mariadb.11.4", "mariadb.11.8"]'
