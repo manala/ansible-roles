@@ -123,12 +123,6 @@ manala_apt_repositories_patterns:
     suites: nodistro
     components: main
     key: nodesource
-  mysql_5_7:
-    uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: mysql-5.7
-    key: mysql
-    legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
   mysql_8_0:
     uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
     suites: "{{ ansible_facts.distribution_release }}"
@@ -141,24 +135,6 @@ manala_apt_repositories_patterns:
     components: mysql-8.4-lts
     key: mysql
     legacy_file: repo_mysql_com_apt_{{ ansible_facts.distribution | lower }}.list
-  mariadb_10_2:
-    uris: https://downloads.mariadb.com/MariaDB/mariadb-10.2/repo/debian
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb
-    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_2_repo_debian.list
-  mariadb_10_3:
-    uris: https://dlm.mariadb.com/repo/mariadb-server/10.3/repo/debian
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb
-    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_3_repo_debian.list
-  mariadb_10_4:
-    uris: https://dlm.mariadb.com/repo/mariadb-server/10.4/repo/debian
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb
-    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_4_repo_debian.list
   mariadb_10_5:
     uris: https://dlm.mariadb.com/repo/mariadb-server/10.5/repo/debian
     suites: "{{ ansible_facts.distribution_release }}"
