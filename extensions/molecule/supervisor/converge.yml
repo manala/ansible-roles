@@ -12,6 +12,13 @@
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.supervisor
+          vars:
+            manala_supervisor_config_template: config/debian/supervisord.conf.j2
+            manala_supervisor_configs:
+              - file: inet_http_server.conf
+                template: configs/inet_http_server.conf.j2
+                config:
+                  port: 1234
       always:
         - name: Goss
           ansible.builtin.command:

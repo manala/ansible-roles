@@ -24,6 +24,7 @@
               - "{{ tests_dir }}/meta"
               - "{{ tests_dir }}/data"
               - "{{ tests_dir }}/wal"
+            manala_influxdb_config_template: config/influxdata/influxdb.conf.j2
             manala_influxdb_databases:
               - my_db
             manala_influxdb_users:
