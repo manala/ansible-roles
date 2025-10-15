@@ -13,6 +13,8 @@
           ansible.builtin.import_role:
             name: manala.roles.ssh
           vars:
+            manala_ssh_server_config_template: config/server/debian/sshd_config.j2
+            manala_ssh_client_config_template: config/client/debian/ssh_config.j2
             manala_ssh_known_hosts: "{{ manala_ssh_known_hosts_patterns }}"
       always:
         - name: Goss
