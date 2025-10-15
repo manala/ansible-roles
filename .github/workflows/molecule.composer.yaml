@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.composer.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/composer/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/composer/**
       - roles/composer/**
       # Plugins
       - plugins/filter/json.py

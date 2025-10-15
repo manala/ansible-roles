@@ -42,7 +42,7 @@ provisioner:
   name: ansible
   config_options:
     defaults:
-      stdout_callback: yaml
+      callback_result_format: yaml
       gathering: smart
       fact_caching: jsonfile
       fact_caching_connection: facts.json

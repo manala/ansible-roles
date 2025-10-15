@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.ansible_galaxy.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/ansible_galaxy/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/ansible_galaxy/**
       - roles/ansible_galaxy/**
       # Plugins
       - plugins/lookup/ansible_galaxy_roles.py

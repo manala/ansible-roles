@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.telegraf.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/telegraf/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/telegraf/**
       - roles/telegraf/**
       # Plugins
       - plugins/filter/toml.py

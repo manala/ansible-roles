@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.sqlite.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/sqlite/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/sqlite/**
       - roles/sqlite/**
   workflow_dispatch:
     inputs:

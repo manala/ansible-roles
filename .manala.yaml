@@ -19,6 +19,8 @@ project:
 
 system:
     dir: /usr/share/ansible/collections/ansible_collections/manala/roles
+    # ansible-test needs en_US.UTF-8 locale
+    locale: en_US.UTF-8
     env_file:
         - .env
         - path: .env.local
@@ -33,7 +35,7 @@ system:
             [safe]
             directory = *
     ansible:
-        version: 2.18.8
+        version: 2.18.9
         config: |
             [defaults]
             force_color = True
@@ -42,8 +44,10 @@ system:
             # Collection community.docker
             - docker==7.1.0
     ansible-lint:
-        version: 25.7.0
+        version: 25.9.1
+    ansible-creator:
+        version: 25.9.0
     molecule:
-        version: 25.7.0
+        version: 25.9.0
         dependencies:
-            - molecule-plugins[docker]==23.5.3
+            - molecule-plugins[docker]==25.8.12

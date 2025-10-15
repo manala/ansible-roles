@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.mysql.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/mysql.*/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/mysql.*/**
       - roles/mysql/**
       # Plugins
       - plugins/filter/mysql_config.py

@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.keepalived.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/keepalived/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/keepalived/**
       - roles/keepalived/**
       # Plugins
       - plugins/filter/environment.py

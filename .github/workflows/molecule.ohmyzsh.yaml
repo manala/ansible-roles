@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.ohmyzsh.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/ohmyzsh/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/ohmyzsh/**
       - roles/ohmyzsh/**
       # Plugins
       - plugins/filter/staten.py

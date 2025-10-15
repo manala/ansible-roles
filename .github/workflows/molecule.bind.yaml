@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.bind.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/bind/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/bind/**
       - roles/bind/**
       # Plugins
       - plugins/filter/bind_zone.py

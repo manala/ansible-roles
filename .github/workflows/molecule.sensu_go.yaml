@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.sensu_go.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/sensu_go/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/sensu_go/**
       - roles/sensu_go/**
   workflow_dispatch:
     inputs:

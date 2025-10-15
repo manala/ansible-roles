@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.vault_cli.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/vault_cli/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/vault_cli/**
       - roles/vault_cli/**
       # Plugins
       - plugins/filter/vault_cli_architecture.py

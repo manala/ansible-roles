@@ -6,8 +6,7 @@
 
 - name: Roles
   tags: [roles]
-  hosts:
-    - debian
+  hosts: debian
   tasks:
     - block:  # noqa: name[missing]
         - name: Role

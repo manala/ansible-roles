@@ -1,3 +1,4 @@
+.ansible
 build/
 .env.local
 galaxy_token

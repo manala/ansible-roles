@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.git.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/git/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/git/**
       - roles/git/**
       # Plugins
       - plugins/filter/git_config.py

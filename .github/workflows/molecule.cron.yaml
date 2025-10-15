@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.cron.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/cron/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/cron/**
       - roles/cron/**
       # Plugins
       - plugins/filter/environment.py

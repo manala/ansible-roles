@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.supervisor.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/supervisor/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/supervisor/**
       - roles/supervisor/**
       # Plugins
       - plugins/filter/supervisor_config.py

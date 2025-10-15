@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.nginx.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/nginx/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/nginx/**
       - roles/nginx/**
       # Plugins
       - plugins/filter/nginx_config.py

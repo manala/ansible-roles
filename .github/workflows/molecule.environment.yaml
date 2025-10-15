@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.environment.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/environment/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/environment/**
       - roles/environment/**
       # Plugins
       - plugins/lookup/environment_files.py

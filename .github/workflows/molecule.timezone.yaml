@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.timezone.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/timezone/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/timezone/**
       - roles/timezone/**
   workflow_dispatch:
     inputs:

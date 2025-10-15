@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.ssh.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/ssh/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/ssh/**
       - roles/ssh/**
       # Plugins
       - plugins/filter/ssh_config.py

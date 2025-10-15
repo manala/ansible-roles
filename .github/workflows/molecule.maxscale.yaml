@@ -5,9 +5,9 @@ on:
     paths:
       - .manala.yaml
       - .github/workflows/molecule.maxscale.yaml
-      - .config/molecule/config.yml
-      - molecule/Dockerfile.*
-      - molecule/maxscale.*/**
+      - extensions/molecule/config.yml
+      - extensions/molecule/Dockerfile.*
+      - extensions/molecule/maxscale.*/**
       - roles/maxscale/**
       # Plugins
       - plugins/lookup/templates_exclusive.py
