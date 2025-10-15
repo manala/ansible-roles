@@ -9,7 +9,7 @@ galaxy_info:
   company: Manala
   description: Handle SQLite
   license: MIT
-  min_ansible_version: 2.15.0
+  min_ansible_version: 2.18.0
   issue_tracker_url: https://github.com/manala/ansible-roles/issues
   platforms:
     - name: Debian
