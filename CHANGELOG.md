@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - [Redis] Missing 8.0 template
+- [Ssh] Missing 10.0 templates
 
 ### Removed
 - [Promtail] Debian Bullseye support
