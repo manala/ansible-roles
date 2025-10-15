@@ -7,7 +7,9 @@
 - name: Default
   tags: [default]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   tasks:
     - block:  # noqa: name[missing]
         - name: Role
@@ -43,7 +45,9 @@
 - name: Client
   tags: [client]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   tasks:
     - name: Packages absent
       ansible.builtin.apt:
@@ -71,7 +75,9 @@
 - name: Config
   tags: [config]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   vars:
     tests_dir: /molecule/mysql/config
   tasks:
@@ -123,7 +129,9 @@
 - name: Configs
   tags: [configs]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   vars:
     tests_dir: /molecule/mysql/configs
   tasks:
@@ -223,7 +231,9 @@
 - name: Data
   tags: [data]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   vars:
     tests_dir: /molecule/mysql/data
   tasks:
@@ -263,7 +273,9 @@
 - name: Users
   tags: [users]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   tasks:
     - name: Role - Default
       ansible.builtin.import_role:
@@ -351,7 +363,9 @@
 - name: Databases
   tags: [databases]
   hosts:
-    - debian.trixie
+    - debian
+    - "!debian.bullseye"
+    - "!debian.bookworm"
   tasks:
     - name: Role - Default
       ansible.builtin.import_role:
