@@ -2,7 +2,9 @@
 
 - name: Prepare
   tags: [always]
-  hosts: debian
+  hosts:
+    - debian
+    - "!debian.bullseye"
   tasks:
     - name: Packages
       ansible.builtin.apt:

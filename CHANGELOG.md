@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Apt] Add HAProxy 3.2 repository
 
+### Removed
+- [Promtail] Debian Bullseye support
+
 ## [5.0.0] - 2025-09-22
 Added support for Debian Trixie 13 and deprecated Debian Buster 10 across all manala roles.
 
