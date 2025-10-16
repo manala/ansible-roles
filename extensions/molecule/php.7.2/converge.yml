@@ -58,6 +58,9 @@
                   state: absent
                 - extension: bcmath  # Native extension
                   state: ignore
+            manala_php_fpm_pools:
+              - file: www.conf
+                template: fpm_pools/sury/pools.conf.j2
             manala_php_applications:
               - phpcs
               # Flatten

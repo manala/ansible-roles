@@ -13,6 +13,7 @@
           ansible.builtin.import_role:
             name: manala.roles.telegraf
           vars:
+            manala_telegraf_config_template: config/telegraf/base/telegraf.conf.j2
             manala_telegraf_configs:
               - file: outputs.conf
                 config:

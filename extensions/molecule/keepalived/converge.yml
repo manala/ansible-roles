@@ -13,6 +13,7 @@
           ansible.builtin.import_role:
             name: manala.roles.keepalived
           vars:
+            manala_keepalived_environment_template: environment/debian/keepalived.j2
             manala_keepalived_config: |
               global_defs {
                   router_id LVS_DEVEL
