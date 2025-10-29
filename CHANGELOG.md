@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - [Apt] Add `trusted` parameter for repositories
+- [Apt] Add `default_src`, `backports_src`, and `backports_sloppy_src` repositories
+
+### Fixed
+- [Apt] Handle repository types properly
+- [Apt] Fix signatures for `default`, `security`, `security_src`, `updates`, `updates_src`, `backports`, and `backports_sloppy` repositories
 
 ## [5.1.0] - 2025-10-15
 ### Added
