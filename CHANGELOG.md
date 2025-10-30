@@ -13,7 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - [Apt] Handle repository types properly
 - [Apt] Fix signatures for `default`, `security`, `security_src`, `updates`, `updates_src`, `backports`, and `backports_sloppy` repositories
+- [InfluxDB] Update influxdata config template
 - [Keepalived] Fix debian environment template
+
+### Removed
+- [Redis] Remove no more supported 5.0 config template
 
 ## [5.1.0] - 2025-10-15
 ### Added

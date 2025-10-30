@@ -85,6 +85,16 @@
   # log any sensitive data contained within a query.
   {{ config.data | manala.roles.toml_parameter('query-log-enabled', default=True, comment=True) }}
 
+  # It is possible to collect statistics of points written per-measurement and/or per-login.
+  # These can be accessed via the monitoring subsystem.
+  {{ config.data | manala.roles.toml_parameter('ingress-metric-by-measurement-enabled', default=False, comment=True) }}
+  {{ config.data | manala.roles.toml_parameter('ingress-metric-by-login-enabled', default=False, comment=True) }}
+
+
+  # Provides more error checking. For example, SELECT INTO will err out inserting an +/-Inf value
+  # rather than silently failing.
+  {{ config.data | manala.roles.toml_parameter('strict-error-handling', default=False, comment=True) }}
+
   # Validates incoming writes to ensure keys only have valid unicode characters.
   # This setting will incur a small overhead because every key must be checked.
   {{ config.data | manala.roles.toml_parameter('validate-keys', default=False, comment=True) }}
@@ -119,6 +129,10 @@
   # to cache snapshotting.
   {{ config.data | manala.roles.toml_parameter('max-concurrent-compactions', default=0, comment=True) }}
 
+  # MaxConcurrentDeletes is the maximum number of simultaneous DELETE calls on a shard
+  # The default is 1, and should be left unchanged for most users
+  {{ config.data | manala.roles.toml_parameter('max-concurrent-deletes', default=1, comment=True) }}
+
   # CompactThroughput is the rate limit in bytes per second that we
   # will allow TSM compactions to write to disk. Note that short bursts are allowed
   # to happen at a possibly larger value, set by CompactThroughputBurst
@@ -127,6 +141,11 @@
   # CompactThroughputBurst is the rate limit in bytes per second that we
   # will allow TSM compactions to write to disk.
   {{ config.data | manala.roles.toml_parameter('compact-throughput-burst', default='48m', comment=True) }}
+
+  # AggressivePointsPerBlock is the points per block to be used when aggressive
+  # compaction is used. There are certain cases where TSM files do not get
+  # fully compacted. This adjusts an internal parameter that alleviates that.
+  {{ config.data | manala.roles.toml_parameter('aggressive-points-per-block', default=10000, comment=True) }}
 
   # If true, then the mmap advise value MADV_WILLNEED will be provided to the kernel with respect to
   # TSM files. This setting has been found to be problematic on some kernels, and defaults to off.
@@ -189,6 +208,9 @@
   # discover slow or resource intensive queries.  Setting the value to 0 disables the slow query logging.
   {{ config.coordinator | manala.roles.toml_parameter('log-queries-after', default='0s', comment=True) }}
 
+  # Enables the logging of queries that are killed as a result of exceeding `query-timeout`
+  {{ config.retention | manala.roles.toml_parameter('log-timedout-queries', default=False, comment=True) }}
+
   # The maximum number of points a SELECT can process.  A value of 0 will make
   # the maximum point count unlimited.  This will only be checked every second so queries will not
   # be aborted immediately when hitting the limit.
@@ -201,6 +223,10 @@
   # The maximum number of group by time bucket a SELECT can create.  A value of zero will max the maximum
   # number of buckets unlimited.
   {{ config.coordinator | manala.roles.toml_parameter('max-select-buckets', default=0, comment=True) }}
+
+  # Whether to print a list of running queries when a data node receives a SIGTERM (sent when a process
+  # exceeds a container memory limit, or by the kill command.
+  {{ config.retention | manala.roles.toml_parameter('termination-query-log', default=False, comment=True) }}
 
 ###
 ### [retention]
@@ -319,6 +345,10 @@
   # endpoints. This setting has no effect if auth-enabled is set to false.
   {{ config.http | manala.roles.toml_parameter('ping-auth-enabled', default=False, comment=True) }}
 
+  # Enables authentication on prometheus remote read api. This setting has no
+  # effect if auth-enabled is set to false.
+  {{ config.http | manala.roles.toml_parameter('prom-read-auth-enabled', default=False, comment=True) }}
+
   # Determines whether HTTPS is enabled.
   {{ config.http | manala.roles.toml_parameter('https-enabled', default=False, comment=True) }}
 
@@ -377,7 +407,7 @@
 
 [logging]
   # Determines which log encoder to use for logs. Available options
-  # are auto, logfmt, and json. auto will use a more a more user-friendly
+  # are auto, logfmt, and json. auto will use a more user-friendly
   # output format if the output terminal is a TTY, but the format is not as
   # easily machine-readable. When the output is a non-TTY, auto will use
   # logfmt.
@@ -576,6 +606,9 @@
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
   {{ udp | manala.roles.toml_parameter('read-buffer', default=0, comment=True) }}
+
+  # Number of parallel writers that will be started.
+  {{ udp | manala.roles.toml_parameter('writers', default=1, comment=True) }}
 {% endfor %}
 
 ###

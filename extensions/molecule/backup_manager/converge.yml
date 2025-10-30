@@ -12,6 +12,10 @@
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.backup_manager
+          vars:
+            manala_backup_manager_configs:
+              - file: backup-manager.conf
+                template: configs/debian/backup-manager.conf.j2
       always:
         - name: Goss
           ansible.builtin.command:
