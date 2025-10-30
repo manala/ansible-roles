@@ -10,6 +10,12 @@ file:
     contents: |
       Components: main
       X-Repolib-Name: default
+{% if ansible_facts.distribution_release in ['bullseye'] %}
+{% elif ansible_facts.distribution_release in ['bookworm'] %}
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+{% else %}
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
+{% endif %}
       Suites: {{ ansible_facts.distribution_release }}
       Types: deb
       URIs: http://deb.debian.org/debian
@@ -22,6 +28,12 @@ file:
     contents: |
       Components: main
       X-Repolib-Name: security
+{% if ansible_facts.distribution_release in ['bullseye'] %}
+{% elif ansible_facts.distribution_release in ['bookworm'] %}
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+{% else %}
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
+{% endif %}
       Suites: {{ ansible_facts.distribution_release }}-security
       Types: deb
       URIs: http://deb.debian.org/debian-security
@@ -34,6 +46,12 @@ file:
     contents: |
       Components: main
       X-Repolib-Name: updates
+{% if ansible_facts.distribution_release in ['bullseye'] %}
+{% elif ansible_facts.distribution_release in ['bookworm'] %}
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+{% else %}
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
+{% endif %}
       Suites: {{ ansible_facts.distribution_release }}-updates
       Types: deb
       URIs: http://deb.debian.org/debian

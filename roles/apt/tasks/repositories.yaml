@@ -14,6 +14,7 @@
     - name: Repositories > Repositories
       ansible.builtin.deb822_repository:
         name: "{{ item.name }}"
+        types: "{{ item.types | default(omit) }}"
         uris: "{{ item.uris | default(omit) }}"
         suites: "{{ item.suites | default(omit) }}"
         components: "{{ item.components | default(omit) }}"
