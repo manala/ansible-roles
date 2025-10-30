@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Keepalived] Fix debian environment template
 - [Nginx] Update nginx config templates
 - [Oh My Zsh] Update manala users template
+- [Php] Update sury fpm pools templates
 
 ### Removed
 - [Redis] Remove no more supported 5.0 config template

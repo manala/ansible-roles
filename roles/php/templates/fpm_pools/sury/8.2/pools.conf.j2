@@ -20,9 +20,14 @@
 ; Default Value: none
 {{ config | manala.roles.php_fpm_pools_parameter('prefix', default='/path/to/pools/$pool', comment=True) }}
 
-; Unix user/group of processes
-; Note: The user is mandatory. If the group is not set, the default user's group
-;       will be used.
+; Unix user/group of the child processes. This can be used only if the master
+; process running user is root. It is set after the child process is created.
+; The user and group can be specified either by their name or by their numeric
+; IDs.
+; Note: If the user is root, the executable needs to be started with
+;       --allow-to-run-as-root option to work.
+; Default Values: The user is set to master process running user by default.
+;                 If the group is not set, the user's group is used.
 {{ config | manala.roles.php_fpm_pools_parameter('user', default='www-data') }}
 {{ config | manala.roles.php_fpm_pools_parameter('group', default='www-data') }}
 
@@ -46,11 +51,12 @@
 ; permissions must be set in order to allow connections from a web server. Many
 ; BSD-derived systems allow connections regardless of permissions. The owner
 ; and group can be specified either by name or by their numeric IDs.
-; Default Values: user and group are set as the running user
-;                 mode is set to 0660
+; Default Values: Owner is set to the master process running user. If the group
+;                 is not set, the owner's group is used. Mode is set to 0660.
 {{ config | manala.roles.php_fpm_pools_parameter('listen.owner', default='www-data') }}
 {{ config | manala.roles.php_fpm_pools_parameter('listen.group', default='www-data') }}
 {{ config | manala.roles.php_fpm_pools_parameter('listen.mode', default='0660', comment=True) }}
+
 ; When POSIX Access Control Lists are supported you can set them using
 ; these options, value is a comma separated list of user/group names.
 ; When set, listen.owner and listen.group are ignored
