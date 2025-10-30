@@ -82,13 +82,16 @@
   ## Log only error level messages.
   {{ config.agent | manala.roles.toml_parameter('quiet', default=false, comment=true) }}
 
-  ## Log target controls the destination for logs and can be one of "file",
-  ## "stderr" or, on Windows, "eventlog".  When set to "file", the output file
-  ## is determined by the "logfile" setting.
-  {{ config.agent | manala.roles.toml_parameter('logtarget', default='file', comment=true) }}
+  ## Log format controls the way messages are logged and can be one of "text",
+  ## "structured" or, on Windows, "eventlog".
+  {{ config.agent | manala.roles.toml_parameter('logformat', default='text', comment=true) }}
 
-  ## Name of the file to be logged to when using the "file" logtarget.  If set to
-  ## the empty string then logs are written to stderr.
+  ## Message key for structured logs, to override the default of "msg".
+  ## Ignored if `logformat` is not "structured".
+  {{ config.agent | manala.roles.toml_parameter('structured_log_message_key', default='message', comment=true) }}
+
+  ## Name of the file to be logged to or stderr if unset or empty. This
+  ## setting is ignored for the "eventlog" format.
   {{ config.agent | manala.roles.toml_parameter('logfile', default='', comment=true) }}
 
   ## The logfile will be rotated after the time interval specified.  When set
@@ -109,9 +112,9 @@
   {{ config.agent | manala.roles.toml_parameter('log_with_timezone', default='', comment=true) }}
 
   ## Override default hostname, if empty use os.Hostname()
-  {{ config.agent | manala.roles.toml_parameter('hostname', default='') }}
+  {{ config.agent | manala.roles.toml_parameter('hostname', default='', comment=true) }}
   ## If set to true, do no set the "host" tag in the telegraf agent.
-  {{ config.agent | manala.roles.toml_parameter('omit_hostname', default=false) }}
+  {{ config.agent | manala.roles.toml_parameter('omit_hostname', default=false, comment=true) }}
 
   ## Method of translating SNMP objects. Can be "netsnmp" (deprecated) which
   ## translates by calling external programs snmptranslate and snmptable,
@@ -123,3 +126,8 @@
   ## stateful plugins on termination of Telegraf. If the file exists on start,
   ## the state in the file will be restored for the plugins.
   {{ config.agent | manala.roles.toml_parameter('statefile', default='', comment=true) }}
+
+  ## Flag to skip running processors after aggregators
+  ## By default, processors are run a second time after aggregators. Changing
+  ## this setting to true will skip the second run of processors.
+  {{ config.agent | manala.roles.toml_parameter('skip_processors_after_aggregators', default=false, comment=true) }}  
