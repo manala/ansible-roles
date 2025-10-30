@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Apt] Handle repository types properly
 - [Apt] Fix signatures for `default`, `security`, `security_src`, `updates`, `updates_src`, `backports`, and `backports_sloppy` repositories
 
+### Removed
+- [Redis] Remove no more supported 5.0 config template
+
 ## [5.1.0] - 2025-10-15
 ### Added
 - [Apt] Add HAProxy 3.2 repository
