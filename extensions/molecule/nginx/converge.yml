@@ -12,6 +12,11 @@
         - name: Role
           ansible.builtin.import_role:
             name: manala.roles.nginx
+          vars:
+            manala_nginx_config_template: config/nginx/nginx.conf.j2
+            manala_nginx_configs:
+              - file: default.conf
+                template: configs/nginx/default.conf.j2
       always:
         - name: Goss
           ansible.builtin.command:

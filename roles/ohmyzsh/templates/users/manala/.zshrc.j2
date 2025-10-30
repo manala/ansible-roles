@@ -1,20 +1,13 @@
 {%- set config = item.config | default({}) -%}
 
 # If you come from bash you might have to change your $PATH.
-{{ config | manala.roles.zsh_config_parameter('export PATH', comment='# export PATH=$HOME/bin:/usr/local/bin:$PATH') }}
+{{ config | manala.roles.zsh_config_parameter('export PATH', comment='# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH') }}
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 {{ config | manala.roles.zsh_config_parameter('export ZSH', default=manala_ohmyzsh_dir) }}
 
-# Ensure per-user cache
-{{ config | manala.roles.zsh_config_parameter('ZSH_CACHE_DIR', default='$HOME/.oh-my-zsh/cache') }}
-
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir -p $ZSH_CACHE_DIR
-fi
-
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 {{ config | manala.roles.zsh_config_parameter('ZSH_THEME', default='robbyrussell') }}
@@ -32,14 +25,13 @@ fi
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 {{ config | manala.roles.zsh_config_parameter('HYPHEN_INSENSITIVE', default=true, comment=true) }}
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-{{ config | manala.roles.zsh_config_parameter('DISABLE_AUTO_UPDATE', default=true, comment=true) }}
-
-# Uncomment the following line to automatically update without prompting.
-{{ config | manala.roles.zsh_config_parameter('DISABLE_UPDATE_PROMPT', default=true, comment=true) }}
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-{{ config | manala.roles.zsh_config_parameter('export UPDATE_ZSH_DAYS', default=13, comment=true) }}
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 {{ config | manala.roles.zsh_config_parameter('DISABLE_MAGIC_FUNCTIONS', default=true, comment=true) }}
@@ -95,29 +87,28 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-{{ config | manala.roles.zsh_config_parameter('export ARCHFLAGS', default='-arch x86_64', comment=true) }}
+{{ config | manala.roles.zsh_config_parameter('export ARCHFLAGS', default='-arch $(uname -m)', comment=true) }}
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 {{ config | manala.roles.zsh_config_parameter('alias', comment='#\n# Example aliases\n# alias zshconfig="mate ~/.zshrc"\n# alias ohmyzsh="mate ~/.oh-my-zsh"') }}
 
 {{ config | manala.roles.zsh_config(exclude=[
   'export PATH',
   'export ZSH',
-  'ZSH_CACHE_DIR',
   'ZSH_THEME',
   'ZSH_THEME_RANDOM_CANDIDATES',
   'CASE_SENSITIVE',
   'HYPHEN_INSENSITIVE',
-  'DISABLE_AUTO_UPDATE',
-  'DISABLE_UPDATE_PROMPT',
-  'UPDATE ZSH_DAYS',
   'DISABLE_MAGIC_FUNCTIONS',
   'DISABLE_LS_COLORS',
   'DISABLE_AUTO_TITLE',
