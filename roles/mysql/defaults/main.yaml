@@ -17,6 +17,9 @@ manala_mysql_install_python_packages: |
     )
   }}
 
+# Holds
+manala_mysql_holds: []
+
 # Server
 manala_mysql_server: true
 

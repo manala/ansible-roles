@@ -6,6 +6,18 @@
     - manala_mysql
     - manala_mysql.install
 
+- name: Holds
+  ansible.builtin.import_role:
+    name: manala.roles.apt
+    tasks_from: holds
+  vars:
+    manala_apt_holds: "{{ manala_mysql_holds }}"
+    manala_apt_holds_exclusive: false
+  tags:
+    - manala_mysql
+    - manala_mysql.holds
+    - manala.holds
+
 - name: Config
   ansible.builtin.import_tasks: config.yaml
   tags:
