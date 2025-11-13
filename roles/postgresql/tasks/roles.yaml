@@ -3,8 +3,13 @@
 - name: Roles > Handle
   community.postgresql.postgresql_user:
     name: "{{ item.role }}"
-    state: "{{ item.state | default('present') }}"
     password: "{{ item.password | default(omit) }}"
     role_attr_flags: "{{ (omit) if (item.attributes is not defined) else item.attributes | join(',') }}"
-    login_host: "{{ manala_postgresql_login_host }}"
+    state: "{{ item.state | default('present') }}"
+    # Login
+    login_host: "{{ item.login_host | default(manala_postgresql_login_host | default(omit, True), True) }}"
+    login_port: "{{ item.login_port | default(manala_postgresql_login_port | default(omit, True), True) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default(manala_postgresql_login_unix_socket | default(omit, True), True) }}"
+    login_user: "{{ item.login_user | default(manala_postgresql_login_user | default(omit, True), True) }}"
+    login_password: "{{ item.login_password | default(manala_postgresql_login_password | default(omit, True), True) }}"
   loop: "{{ manala_postgresql_roles }}"

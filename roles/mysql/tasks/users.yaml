@@ -8,13 +8,14 @@
     priv: "{{ item.priv | default(omit) }}"
     append_privs: "{{ item.append_privs | default(omit) }}"
     sql_log_bin: "{{ item.sql_log_bin | default(omit) }}"
-    login_host: "{{ item.login_host | default(omit) }}"
-    login_port: "{{ item.login_port | default(omit) }}"
-    login_unix_socket: "{{ item.login_unix_socket | default(omit) }}"
-    login_user: "{{ item.login_user | default(omit) }}"
-    login_password: "{{ item.login_password | default(omit) }}"
     tls_requires: "{{ item.tls_requires | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
+    # Login
+    login_host: "{{ item.login_host | default(manala_mysql_login_host | default(omit, True), True) }}"
+    login_port: "{{ item.login_port | default(manala_mysql_login_port | default(omit, True), True) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default(manala_mysql_login_unix_socket | default(omit, True), True) }}"
+    login_user: "{{ item.login_user | default(manala_mysql_login_user | default(omit, True), True) }}"
+    login_password: "{{ item.login_password | default(manala_mysql_login_password | default(omit, True), True) }}"
   loop: "{{
     manala_mysql_users
       | flatten

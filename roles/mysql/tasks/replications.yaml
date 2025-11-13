@@ -18,5 +18,11 @@
     master_ssl_cipher: "{{ item.master_ssl_cipher | default(omit) }}"
     master_ssl_key: "{{ item.master_ssl_key | default(omit) }}"
     master_user: "{{ item.master_user | default(omit) }}"
+    # Login
+    login_host: "{{ item.login_host | default(manala_mysql_login_host | default(omit, True), True) }}"
+    login_port: "{{ item.login_port | default(manala_mysql_login_port | default(omit, True), True) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default(manala_mysql_login_unix_socket | default(omit, True), True) }}"
+    login_user: "{{ item.login_user | default(manala_mysql_login_user | default(omit, True), True) }}"
+    login_password: "{{ item.login_password | default(manala_mysql_login_password | default(omit, True), True) }}"
   loop: "{{ manala_mysql_replications }}"
   when: manala_mysql_server

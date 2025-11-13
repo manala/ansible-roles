@@ -39,6 +39,13 @@ manala_mysql_data_dir_group: mysql
 manala_mysql_data_dir_mode: "0750"
 manala_mysql_data_dir_initialize: false
 
+# Login
+manala_mysql_login_host: ~
+manala_mysql_login_port: ~
+manala_mysql_login_unix_socket: ~
+manala_mysql_login_user: ~
+manala_mysql_login_password: ~
+
 # Users
 manala_mysql_users: []
 

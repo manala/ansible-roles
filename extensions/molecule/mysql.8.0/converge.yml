@@ -21,15 +21,14 @@
                 config:
                   mysqld:
                     default-authentication-plugin: mysql_native_password
+            manala_mysql_login_unix_socket: /var/run/mysqld/mysqld.sock
             manala_mysql_users:
               - name: foo
                 password: foo
                 host: localhost
                 priv: "*.*:ALL,GRANT"
-                login_unix_socket: /var/run/mysqld/mysqld.sock
             manala_mysql_databases:
               - name: foo
-                login_unix_socket: /var/run/mysqld/mysqld.sock
       always:
         - name: Goss
           ansible.builtin.command:
