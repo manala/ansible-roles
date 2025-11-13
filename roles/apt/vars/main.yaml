@@ -17,13 +17,14 @@ manala_apt_repositories_patterns:
     uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}
     legacy_file: deb_debian_org_debian.list
   default_src:
@@ -31,25 +32,27 @@ manala_apt_repositories_patterns:
     uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}
   security:
     uris: http://deb.debian.org/debian-security
     suites: "{{ ansible_facts.distribution_release }}-security"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-security
     legacy_file: security_debian_org_debian_security.list
   security_src:
@@ -57,26 +60,28 @@ manala_apt_repositories_patterns:
     uris: http://deb.debian.org/debian-security
     suites: "{{ ansible_facts.distribution_release }}-security"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-security
     legacy_file: security_debian_org_debian_security.list
   updates:
     uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}-updates"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-updates
     legacy_file: deb_debian_org_debian.list
   updates_src:
@@ -84,26 +89,28 @@ manala_apt_repositories_patterns:
     uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}-updates"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-updates
     legacy_file: deb_debian_org_debian.list
   backports:
     uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports
     legacy_file: deb_debian_org_debian.list
   backports_src:
@@ -111,25 +118,27 @@ manala_apt_repositories_patterns:
     uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports
   backports_sloppy:
     uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports-sloppy"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports-sloppy
     legacy_file: deb_debian_org_debian.list
   backports_sloppy_src:
@@ -137,13 +146,14 @@ manala_apt_repositories_patterns:
     uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
     suites: "{{ ansible_facts.distribution_release }}-backports-sloppy"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
-    signed_by: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-      (ansible_facts.distribution_release in ['bullseye']) | ternary(
+    signed_by: |-
+      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
+        (ansible_facts.distribution_release in ['bullseye']) | ternary(
           omit,
           '/usr/share/keyrings/debian-archive-keyring.gpg',
-      ),
-      '/usr/share/keyrings/debian-archive-keyring.pgp',
-    ) }}"
+        ),
+        '/usr/share/keyrings/debian-archive-keyring.pgp',
+      ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports-sloppy
   multimedia:
     uris: http://www.deb-multimedia.org
