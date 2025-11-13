@@ -3,6 +3,7 @@
 - name: Replications > Create mysql replications
   community.mysql.mysql_replication:
     mode: "{{ item.mode }}"
+    # Legacy: "master" should be renamed to "primary"
     master_auto_position: "{{ item.master_auto_position | default(omit) }}"
     master_connect_retry: "{{ item.master_connect_retry | default(omit) }}"
     master_host: "{{ item.master_host | default(omit) }}"
