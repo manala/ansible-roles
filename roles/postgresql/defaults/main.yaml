@@ -19,6 +19,10 @@ manala_postgresql_config_hba: ~
 
 # Login
 manala_postgresql_login_host: localhost
+manala_postgresql_login_port: ~
+manala_postgresql_login_unix_socket: ~
+manala_postgresql_login_user: ~
+manala_postgresql_login_password: ~
 
 # Roles
 manala_postgresql_roles: []
