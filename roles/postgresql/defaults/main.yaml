@@ -18,7 +18,7 @@ manala_postgresql_config_hba_template: ~
 manala_postgresql_config_hba: ~
 
 # Login
-manala_postgresql_login_host: localhost
+manala_postgresql_login_host: localhost  # Legacy: should be set to None by default
 
 # Roles
 manala_postgresql_roles: []
