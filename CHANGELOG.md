@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Oh My Zsh] Update manala users template
 - [Php] Update sury fpm pools templates
 - [Telegraf] Update base telegraf config template
+- [Apt] Fix Mysql key
 
 ### Removed
 - [Redis] Remove no more supported 5.0 config template
