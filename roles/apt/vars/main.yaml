@@ -392,6 +392,7 @@ manala_apt_repositories_patterns:
     suites: stable
     components: main
     key: elasticsearch
+    trusted: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(omit, True) }}"
     legacy_file: artifacts_elastic_co_packages_6_x_apt.list
   elasticsearch_7:
     uris: https://artifacts.elastic.co/packages/7.x/apt
