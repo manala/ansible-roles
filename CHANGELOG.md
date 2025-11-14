@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Php] Update sury fpm pools templates
 - [Telegraf] Update base telegraf config template
 - [Apt] Fix Mysql key
+- [Apt] Fix Mysql 8.4 repository
 
 ### Removed
 - [Redis] Remove no more supported 5.0 config template
