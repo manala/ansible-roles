@@ -41,6 +41,7 @@
   tags:
     - manala_apt
     - manala_apt.holds
+    - manala.holds
 
 - name: Update
   ansible.builtin.import_tasks: update.yaml
