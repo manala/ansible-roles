@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Apt] Add `trusted` parameter for repositories
 - [Apt] Add `default_src`, `backports_src`, and `backports_sloppy_src` repositories
+- [PostgreSQL] Add more global default login options (`manala_postgresql_login_port`, `manala_postgresql_login_unix_socket`, `manala_postgresql_login_user` and `manala_postgresql_login_password`)
+- [MySQL] Add global default login options (`manala_mysql_login_host`, `manala_mysql_login_port`, `manala_mysql_login_unix_socket`, `manala_mysql_login_user` and `manala_mysql_login_password`)
+- [MySQL] Support replications login options
 
 ### Fixed
 - [Apt] Handle repository types properly

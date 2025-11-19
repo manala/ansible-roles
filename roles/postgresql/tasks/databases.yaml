@@ -3,7 +3,12 @@
 - name: Databases > Create postgresql databases
   community.postgresql.postgresql_db:
     name: "{{ (item) if (item is string) else (item.database) }}"
-    state: "{{ item.state | default('present') }}"
     owner: "{{ item.role | default(omit) }}"
-    login_host: "{{ manala_postgresql_login_host }}"
+    state: "{{ item.state | default('present') }}"
+    # Login
+    login_host: "{{ item.login_host | default(manala_postgresql_login_host | default(omit, True), True) }}"
+    login_port: "{{ item.login_port | default(manala_postgresql_login_port | default(omit, True), True) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default(manala_postgresql_login_unix_socket | default(omit, True), True) }}"
+    login_user: "{{ item.login_user | default(manala_postgresql_login_user | default(omit, True), True) }}"
+    login_password: "{{ item.login_password | default(manala_postgresql_login_password | default(omit, True), True) }}"
   loop: "{{ manala_postgresql_databases }}"
