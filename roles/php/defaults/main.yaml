@@ -42,3 +42,6 @@ manala_php_blackfire_client_config: ~
 # Applications
 manala_php_applications_dir: /usr/local/bin
 manala_php_applications: []
+
+# Holds
+manala_php_holds: []

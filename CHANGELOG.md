@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Apt] Add `trusted` parameter for repositories
 - [Apt] Add `default_src`, `backports_src`, and `backports_sloppy_src` repositories
 - [MySQL] Add support for MySQL package holds
+- [Php] Add support for PHP package holds
 
 ### Fixed
 - [Apt] Handle repository types properly

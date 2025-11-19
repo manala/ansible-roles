@@ -6,6 +6,18 @@
     - manala_php
     - manala_php.install
 
+- name: Holds
+  ansible.builtin.import_role:
+    name: manala.roles.apt
+    tasks_from: holds
+  vars:
+    manala_apt_holds: "{{ manala_php_holds }}"
+    manala_apt_holds_exclusive: false
+  tags:
+    - manala_php
+    - manala_php.holds
+    - manala.holds
+
 - name: Extensions
   ansible.builtin.import_tasks: extensions.yaml
   tags:
