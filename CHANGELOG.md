@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [5.2.0] - 2025-11-22
 ### Added
 - [Apt] Add `trusted` parameter for repositories
 - [Apt] Add `default_src`, `backports_src`, and `backports_sloppy_src` repositories
