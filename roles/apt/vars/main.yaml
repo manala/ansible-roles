@@ -199,21 +199,21 @@ manala_apt_repositories_patterns:
     legacy_file: deb_nodesource_com_node_14_x.list
   nodesource_16:
     uris: https://deb.nodesource.com/node_16.x
-    suites: "{{ ansible_facts.distribution_release }}"
+    suites: nodistro
     components: main
-    key: nodesource_legacy
+    key: nodesource
     legacy_file: deb_nodesource_com_node_16_x.list
   nodesource_18:
     uris: https://deb.nodesource.com/node_18.x
-    suites: "{{ ansible_facts.distribution_release }}"
+    suites: nodistro
     components: main
-    key: nodesource_legacy
+    key: nodesource
     legacy_file: deb_nodesource_com_node_18_x.list
   nodesource_20:
     uris: https://deb.nodesource.com/node_20.x
-    suites: "{{ ansible_facts.distribution_release }}"
+    suites: nodistro
     components: main
-    key: nodesource_legacy
+    key: nodesource
     legacy_file: deb_nodesource_com_node_20_x.list
   nodesource_22:
     uris: https://deb.nodesource.com/node_22.x
