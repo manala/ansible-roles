@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- [Apt] Update nodesource 16/18/20 repository
+
 ## [5.2.0] - 2025-11-22
 ### Added
 - [Apt] Add `trusted` parameter for repositories
