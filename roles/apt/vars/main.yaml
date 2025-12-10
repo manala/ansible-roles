@@ -617,7 +617,7 @@ manala_apt_keys_patterns:
   mariadb:
     signed_by: https://mariadb.org/mariadb_release_signing_key.asc
   mariadb_enterprise:
-    signed_by: https://keys.openpgp.org/vks/v1/by-fingerprint/4C470FFFEFC4D3DC59778655CE1A3DD5E3C94F49
+    signed_by: https://supplychain.mariadb.com/MariaDB-Enterprise-GPG-KEY-2025
   postgresql:
     signed_by: https://www.postgresql.org/media/keys/ACCC4CF8.asc
   jenkins:
