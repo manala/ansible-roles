@@ -1,5 +1,5 @@
 ---
-title: Lazy - Ansible
+title: Lazy - Ops
 tableOfContent: 3
 ---
 
@@ -41,6 +41,7 @@ make sh DIR=/etc <<< pwd
 Expose a container port 4321 on localhost:1234
 ```shell
 make sh PORT=1234:4321
+kubectl --namespace [namespace] port-forward --address 0.0.0.0 svc/[service] 4321:[port]
 ```
 
 ### Makefile
@@ -157,4 +158,14 @@ Commands:
 
 Bar:
   bar.baz Use the "Bar" help section
+```
+
+### Kubectl
+
+Alias `k`
+```shell
+kubectl version
+Client Version: ...
+k version
+Client Version: ...
 ```

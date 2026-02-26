@@ -2,7 +2,7 @@
 # Don't edit this file directly. Instead, set config in project .manala.yaml, and run `manala up`.
 
 format = """
-[╭─](cyan)$username$hostname$directory$direnv$env_var$custom
+[╭─](cyan)$username$hostname$directory$direnv$kubernetes$env_var$custom
 [╰](cyan) $cmd_duration$character"""
 
 [username]
@@ -19,3 +19,8 @@ truncation_length = 1
 truncation_symbol = '…/'
 read_only = ''
 style = 'cyan'
+
+[kubernetes]
+disabled = false
+format = '$symbol[$context( \($namespace\))]($style)'
+style = 'purple'
