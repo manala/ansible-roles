@@ -22,7 +22,7 @@ DOCUMENTATION = '''
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.six import string_types
 from ansible.errors import AnsibleError
-from ansible.module_utils._text import to_text
+from ansible.module_utils.common.text.converters import to_text
 
 
 class LookupModule(LookupBase):

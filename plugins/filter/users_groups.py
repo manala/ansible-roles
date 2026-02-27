@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
 from ansible.errors import AnsibleFilterError
-from ansible.module_utils.common._collections_compat import Iterable
+from collections.abc import Iterable
 
 
 def users_groups(users, groups=None):
