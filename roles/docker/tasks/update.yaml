@@ -3,7 +3,7 @@
 - name: Update > Pull
   ansible.builtin.shell:  # noqa: risky-shell-pipe
     cmd: |
-      docker images \
-        | awk '/^REPOSITORY|\<none\>/ {next} {print $1":"$2}' \
-        | xargs --max-args=1 --max-lines=1 --no-run-if-empty docker pull
+      docker image ls --format {% raw %}'{{.Repository}}:{{.Tag}}'{% endraw %} \
+        | grep -v '<none>' \
+        | xargs --max-lines=1 --no-run-if-empty docker pull
   changed_when: false
