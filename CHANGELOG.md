@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- [Apt] Update nodejs legacy repo signing key (nodejs 10, 12 and 14)
 - [Apt] Update jenkins repo signing key
 - [Apt] Update influxdata repo signing key
 
