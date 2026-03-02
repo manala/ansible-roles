@@ -621,7 +621,7 @@ manala_apt_keys_patterns:
   postgresql:
     signed_by: https://www.postgresql.org/media/keys/ACCC4CF8.asc
   jenkins:
-    signed_by: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+    signed_by: https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
   sensu-go:
     signed_by: https://packagecloud.io/sensu/stable/gpgkey
   rabbitmq:
