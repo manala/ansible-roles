@@ -656,7 +656,7 @@ manala_apt_keys_patterns:
   newrelic-infra:
     signed_by: https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg
   influxdata:
-    signed_by: https://repos.influxdata.com/influxdata-archive_compat.key
+    signed_by: https://repos.influxdata.com/influxdata-archive_compat-exp2029.key
   yarn:
     signed_by: https://dl.yarnpkg.com/debian/pubkey.gpg
   sury_php:
