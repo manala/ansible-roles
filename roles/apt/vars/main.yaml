@@ -599,6 +599,11 @@ manala_apt_repositories_patterns:
     components: main
     key: redirectionio
     legacy_file: packages_redirection_io_deb_stable_2.list
+  wazuh_4:
+    uris: https://packages.wazuh.com/4.x/apt
+    suites: stable
+    components: main
+    key: wazuh
 
 # Keys
 manala_apt_keys_patterns:
@@ -691,6 +696,8 @@ manala_apt_keys_patterns:
     signed_by: https://dl.cloudsmith.io/public/symfony/stable/gpg.99CEF8A62216B73D.key
   redirectionio:
     signed_by: https://packages.redirection.io/gpg.key
+  wazuh:
+    signed_by: https://packages.wazuh.com/key/GPG-KEY-WAZUH
 
 # Preferences
 manala_apt_preferences_patterns:
@@ -744,3 +751,4 @@ manala_apt_preferences_patterns:
   newrelic-infra: newrelic-infra
   filebeat: filebeat*
   kopia: kopia*
+  wazuh: wazuh*

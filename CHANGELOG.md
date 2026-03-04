@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- [Apt] Add Wazuh 4.x repository, signing key and preference
+
 ## [5.2.3] - 2026-03-02
 
 ### Fixed
