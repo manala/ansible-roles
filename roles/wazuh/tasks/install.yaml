@@ -1,0 +1,16 @@
+---
+
+- name: Install > Packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    install_recommends: false
+    update_cache: true
+    cache_valid_time: 3600
+  loop:
+    - "{{ manala_wazuh_install_packages | default(manala_wazuh_install_packages_default, True) }}"
+  environment:
+    WAZUH_MANAGER: "{{ manala_wazuh_agent_server | default('') }}"
+    WAZUH_AGENT_NAME: "{{ inventory_hostname }}"
+    WAZUH_REGISTRATION_PASSWORD: "{{ manala_wazuh_agent_authd_password | default('') }}"
+    WAZUH_AGENT_GROUP: "{{ manala_wazuh_agent_groups | join(',') }}"
+  when: manala_wazuh_agent

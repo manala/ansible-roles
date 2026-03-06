@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - [Apt] Add Wazuh 4.x repository, signing key and preference
+- [Wazuh] Add wazuh role with multi-mode support (agent by default, manager planned)
 
 ## [5.2.3] - 2026-03-02
 

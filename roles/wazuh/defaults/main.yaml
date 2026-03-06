@@ -1,0 +1,15 @@
+---
+
+# Mode
+manala_wazuh_agent: true
+
+# Install
+manala_wazuh_install_packages: ~
+manala_wazuh_install_packages_default:
+  - wazuh-agent
+
+# Agent
+manala_wazuh_agent_server: ~
+manala_wazuh_agent_authd_password: ~
+manala_wazuh_agent_groups: []
+manala_wazuh_agent_force_enrollment: false

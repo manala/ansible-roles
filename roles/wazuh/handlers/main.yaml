@@ -1,0 +1,8 @@
+---
+
+- name: Restart wazuh-agent
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+  loop:
+    - wazuh-agent

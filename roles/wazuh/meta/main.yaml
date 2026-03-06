@@ -1,0 +1,22 @@
+---
+
+dependencies: []
+
+galaxy_info:
+
+  role_name: wazuh
+  author: Manala
+  company: Manala
+  description: Handle wazuh
+  license: MIT
+  min_ansible_version: 2.15.0
+  issue_tracker_url: https://github.com/manala/ansible-roles/issues
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+        - bookworm
+        - trixie
+  galaxy_tags:
+    - security
+    - wazuh
