@@ -1,0 +1,18 @@
+---
+
+package:
+  wazuh-agent:
+    installed: true
+
+service:
+  wazuh-agent:
+    enabled: true
+    running: true
+
+file:
+  /var/ossec/etc/authd.pass:
+    exists: true
+    filetype: file
+    owner: root
+    group: wazuh
+    mode: "0640"
