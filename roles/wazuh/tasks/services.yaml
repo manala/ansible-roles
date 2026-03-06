@@ -1,0 +1,10 @@
+---
+
+- name: Services > Agent
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - wazuh-agent
+  when: manala_wazuh_agent
