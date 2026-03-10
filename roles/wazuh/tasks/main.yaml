@@ -1,0 +1,20 @@
+---
+
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - manala_wazuh
+    - manala_wazuh.install
+
+- name: Agent enrollment
+  ansible.builtin.import_tasks: agent_enrollment.yaml
+  tags:
+    - manala_wazuh
+    - manala_wazuh.agent_enrollment
+
+- name: Services
+  ansible.builtin.import_tasks: services.yaml
+  tags:
+    - manala_wazuh
+    - manala_wazuh.services
+    - manala.services
