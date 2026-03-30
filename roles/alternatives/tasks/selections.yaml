@@ -4,6 +4,7 @@
   community.general.alternatives:
     name: "{{ item.selection }}"
     path: "{{ item.path }}"
+    link: "{{ item.link | default(omit) }}"
   loop: "{{
     manala_alternatives_selections
       | flatten
