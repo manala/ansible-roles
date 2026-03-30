@@ -6,11 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [5.4.0] - 2026-03-30
+
 ### Added
 - [Alternatives] Add `link` to `selections` task
-
-
-### Added
 - [Apt] Add Wazuh 4.x repository, signing key and preference
 - [Wazuh] Add wazuh role with multi-mode support (agent by default, manager planned)
 
