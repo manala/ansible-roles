@@ -14,3 +14,7 @@ command:
     exit-status: 0
     stdout:
       - "Value: /bin/more"
+  update-alternatives --query test-alternative:
+    exit-status: 0
+    stdout:
+      - "Value: /usr/bin/free"

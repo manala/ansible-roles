@@ -31,6 +31,10 @@
               -
                 - selection: pico
                   path: /bin/ed
+              # Create alternative
+              - selection: test-alternative
+                path: /usr/bin/free
+                link: /usr/bin/test-alternative
               # State
               - selection: pager
                 path: /bin/less
