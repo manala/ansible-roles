@@ -1,0 +1,29 @@
+---
+
+- name: Agent enrollment > Authd password
+  ansible.builtin.copy:
+    content: "{{ manala_wazuh_agent_authd_password }}"
+    dest: /var/ossec/etc/authd.pass
+    owner: root
+    group: wazuh
+    mode: "0640"
+  when:
+    - manala_wazuh_agent
+    - manala_wazuh_agent_authd_password
+  no_log: true
+
+- name: Agent enrollment > Force enrollment
+  ansible.builtin.command:
+    cmd: >-
+      /var/ossec/bin/agent-auth
+      -m {{ manala_wazuh_agent_server }}
+      -A {{ inventory_hostname }}
+      -P /var/ossec/etc/authd.pass
+      {{ '-G ' ~ (manala_wazuh_agent_groups | join(',')) if manala_wazuh_agent_groups else '' }}
+  when:
+    - manala_wazuh_agent
+    - manala_wazuh_agent_force_enrollment
+    - manala_wazuh_agent_server
+  changed_when: true
+  no_log: true
+  notify: Restart wazuh-agent
