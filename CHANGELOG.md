@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- [Files] Avoid `KeyError: 'diff'` in `files_attributes` action plugin when wrapped modules do not return a `diff` key (Ansible core 2.20+)
+
 ## [5.5.0] - 2026-04-10
 
 ### Added
