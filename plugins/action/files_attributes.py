@@ -82,7 +82,7 @@ class ActionModule(ActionBase):
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
                 result['changed'] |= parents_result['changed']
-                result['diff'] += [parents_result['diff']]
+                result['diff'] += [parents_result.get('diff', {})]
 
             ############
             # Template #
@@ -97,7 +97,7 @@ class ActionModule(ActionBase):
                     task_args=['force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
                 result['changed'] |= template_result['changed']
-                result['diff'] += template_result['diff']
+                result['diff'] += template_result.get('diff', [])
 
             ###########
             # Content #
@@ -112,7 +112,7 @@ class ActionModule(ActionBase):
                     task_args=['force', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
                 result['changed'] |= content_result['changed']
-                result['diff'] += content_result['diff']
+                result['diff'] += content_result.get('diff', [])
 
             ########
             # Copy #
@@ -164,7 +164,7 @@ class ActionModule(ActionBase):
                             {'path': path, 'state': 'absent'},
                             task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
-                        result['diff'] += [absent_result['diff']]
+                        result['diff'] += [absent_result.get('diff', {})]
 
                 # Link
                 link_result = self._run_module(
@@ -173,7 +173,7 @@ class ActionModule(ActionBase):
                     task_args=['owner', 'group'],
                     task_vars=task_vars)
                 result['changed'] |= link_result['changed']
-                result['diff'] += link_result['diff']
+                result['diff'] += link_result.get('diff', [])
 
             #############
             # Directory #
@@ -191,7 +191,7 @@ class ActionModule(ActionBase):
                             {'path': path, 'state': 'absent'},
                             task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
-                        result['diff'] += [absent_result['diff']]
+                        result['diff'] += [absent_result.get('diff', {})]
 
                 # Directory
                 directory_result = self._run_module(
@@ -200,7 +200,7 @@ class ActionModule(ActionBase):
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
                 result['changed'] |= directory_result['changed']
-                result['diff'] += directory_result['diff']
+                result['diff'] += directory_result.get('diff', [])
 
             ########
             # File #
@@ -218,7 +218,7 @@ class ActionModule(ActionBase):
                             {'path': path, 'state': 'absent'},
                             task_vars=task_vars)
                         result['changed'] |= absent_result['changed']
-                        result['diff'] += [absent_result['diff']]
+                        result['diff'] += [absent_result.get('diff', {})]
 
                 # Create
                 create_result = self._run_module(
@@ -235,7 +235,7 @@ class ActionModule(ActionBase):
                     task_args=['owner', 'group', 'mode'],
                     task_vars=task_vars)
                 result['changed'] |= file_result['changed']
-                result['diff'] += file_result['diff']
+                result['diff'] += file_result.get('diff', [])
 
             # Other...
             else:
