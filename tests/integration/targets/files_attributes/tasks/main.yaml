@@ -32,3 +32,39 @@
           - stat.stat.gr_name == 'lazy'
           - stat.stat.pw_name == 'lazy'
           - stat.stat.size == 0
+
+#####################
+# Directory recurse #
+#####################
+
+- vars:
+    tests_dir: /tmp/integration/files_attributes/directory_recurse
+  block:  # noqa: name[missing]
+    - name: Clean tests dir
+      ansible.builtin.file:  # noqa: risky-file-permissions
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: Nested file with restrictive mode
+      ansible.builtin.file:
+        path: "{{ tests_dir }}/file"
+        state: touch
+        mode: '0600'
+    - name: Module
+      manala.roles.files_attributes:
+        path: "{{ tests_dir }}"
+        state: directory
+        mode: 'u=rwX,g=rX,o=rX'
+        recurse: true
+  always:
+    - name: Stat
+      ansible.builtin.stat:
+        path: "{{ tests_dir }}/file"
+      register: stat
+    - name: Assert
+      ansible.builtin.assert:
+        that:
+          - stat is not failed
+          - stat.stat.exists
+          - stat.stat.isreg
+          - stat.stat.mode == '0644'
