@@ -1,0 +1,10 @@
+---
+
+file:
+  {{ tests_dir }}/custom_args:
+    exists: true
+    filetype: file
+    contents:
+      - CONFIG_FILE="/etc/alloy/config.alloy"
+      - CUSTOM_ARGS="--disable-reporting"
+      - RESTART_ON_UPGRADE=true

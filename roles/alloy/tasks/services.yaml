@@ -8,6 +8,7 @@
         'restarted'
           if (
             __manala_alloy_config_template_result | default({}) is changed
+            or __manala_alloy_environment_result | default({}) is changed
           ) else
         'started'
       }}

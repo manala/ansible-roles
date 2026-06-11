@@ -9,3 +9,7 @@ manala_alloy_install_packages_default:
 manala_alloy_config_file: /etc/alloy/config.alloy
 manala_alloy_config_template: ~
 manala_alloy_config: ~
+
+# Environment
+manala_alloy_environment_file: /etc/default/alloy
+manala_alloy_environment: {}
