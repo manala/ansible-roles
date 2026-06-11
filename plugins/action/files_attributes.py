@@ -197,7 +197,7 @@ class ActionModule(ActionBase):
                 directory_result = self._run_module(
                     'ansible.builtin.file',
                     {'path': path, 'state': 'directory'},
-                    task_args=['owner', 'group', 'mode'],
+                    task_args=['recurse', 'owner', 'group', 'mode'],
                     task_vars=task_vars)
                 result['changed'] |= directory_result['changed']
                 result['diff'] += directory_result.get('diff', [])
