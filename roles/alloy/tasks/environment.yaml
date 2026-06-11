@@ -1,0 +1,9 @@
+---
+
+- name: Environment > CUSTOM_ARGS
+  ansible.builtin.lineinfile:
+    path: "{{ manala_alloy_environment_file }}"
+    regexp: ^CUSTOM_ARGS=
+    line: CUSTOM_ARGS="{{ manala_alloy_environment.CUSTOM_ARGS | default('') }}"
+  register: __manala_alloy_environment_result
+  when: manala_alloy_environment.CUSTOM_ARGS is defined

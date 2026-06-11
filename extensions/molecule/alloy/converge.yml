@@ -19,6 +19,45 @@
             stdin: "{{ lookup('ansible.builtin.template', 'goss/default.yaml.j2') }}"
           changed_when: false
 
+###############
+# Environment #
+###############
+
+- name: Environment
+  tags: [environment]
+  hosts: debian
+  vars:
+    tests_dir: /molecule/alloy/environment
+  tasks:
+    - name: Clean tests dir  # noqa: risky-file-permissions
+      ansible.builtin.file:
+        path: "{{ tests_dir }}"
+        state: "{{ item }}"
+      loop: [absent, directory]
+    - name: Prepare test file
+      ansible.builtin.copy:
+        dest: "{{ tests_dir }}/custom_args"
+        mode: "0644"
+        content: |
+          CONFIG_FILE="/etc/alloy/config.alloy"
+          CUSTOM_ARGS=""
+          RESTART_ON_UPGRADE=true
+    - block:  # noqa: name[missing]
+        - name: Role - CUSTOM_ARGS
+          ansible.builtin.import_role:
+            name: manala.roles.alloy
+            tasks_from: environment
+          vars:
+            manala_alloy_environment_file: "{{ tests_dir }}/custom_args"
+            manala_alloy_environment:
+              CUSTOM_ARGS: --disable-reporting
+      always:
+        - name: Goss
+          ansible.builtin.command:
+            cmd: goss --gossfile - validate
+            stdin: "{{ lookup('ansible.builtin.template', 'goss/environment.yaml.j2') }}"
+          changed_when: false
+
 ##########
 # Config #
 ##########

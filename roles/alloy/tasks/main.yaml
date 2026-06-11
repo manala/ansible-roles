@@ -12,6 +12,12 @@
     - manala_alloy
     - manala_alloy.config
 
+- name: Environment
+  ansible.builtin.import_tasks: environment.yaml
+  tags:
+    - manala_alloy
+    - manala_alloy.environment
+
 - name: Services
   ansible.builtin.import_tasks: services.yaml
   tags:
