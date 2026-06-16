@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.5.2] - 2026-06-16
+
 ### Added
 - [Alloy] Add environment support (`manala_alloy_environment`) for managing `/etc/default/alloy` via lineinfile
+
+### Fixed
+- [Files] Forward recurse to file module for directory state
 
 ## [5.5.1] - 2026-05-22
 
