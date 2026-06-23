@@ -76,9 +76,8 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   fzf
-  ansible
   docker
-  terraform
+  ansible
 )
 
 source $ZSH/oh-my-zsh.sh
