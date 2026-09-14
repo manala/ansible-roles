@@ -26,6 +26,12 @@ You can find all variables and default values used by this role in the [defaults
 manala_kernel_parameters:
   - parameter: net.ipv4.ip_nonlocal_bind
     value: 1
+  # Parameters are written to the sysctl module default file, unless a "file"
+  # is given. Note that on Debian 13 and later, /etc/sysctl.conf is not read at
+  # boot anymore, a file below /etc/sysctl.d has to be used instead.
+  - parameter: net.ipv4.ip_forward
+    value: 1
+    file: /etc/sysctl.d/90-forward.conf
 
 manala_kernel_modules:
   - ip_vs

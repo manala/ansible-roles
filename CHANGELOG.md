@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- [Kernel] Add parameters `file` key, to write a parameter into a dedicated sysctl file
+
 ## [5.5.2] - 2026-06-16
 
 ### Added

@@ -6,4 +6,5 @@
     value: "{{ item.value | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
     reload: "{{ item.reload | default(omit) }}"
+    sysctl_file: "{{ item.file | default(omit) }}"
   loop: "{{ manala_kernel_parameters }}"
