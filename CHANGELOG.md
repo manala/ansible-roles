@@ -23,6 +23,9 @@ Deprecated Debian Bullseye 11 across all manala roles.
 - [All] Nodejs 10 support
 - [All] Redis 6.0 support
 
+### Fixed
+- [Composer] Anchor version detection on the version line, so that php deprecation notices no longer trigger a needless re-download
+
 ## [5.5.2] - 2026-06-16
 
 ### Added
