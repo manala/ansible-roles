@@ -2,7 +2,9 @@
 
 - name: Prepare
   tags: [always]
-  hosts: debian
+  ## 17/09/2026 - Exclude trixie, upstream repo serves a gitlab-ce package whose size mismatches its index
+  hosts:
+    - debian.bookworm
   tasks:
     - name: Apt
       ansible.builtin.import_role:
