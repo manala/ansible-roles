@@ -15,4 +15,4 @@ file:
     exists: true
     filetype: directory
     owner: games
-    mode: "{{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary('0755', '0775') }}"
+    mode: "{{ (ansible_facts.distribution_release in ['bookworm']) | ternary('0755', '0775') }}"

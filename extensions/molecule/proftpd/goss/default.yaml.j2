@@ -2,7 +2,7 @@
 
 package:
   proftpd-basic:
-    installed: {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary('true', 'false') }}
+    installed: {{ (ansible_facts.distribution_release in ['bookworm']) | ternary('true', 'false') }}
 
   proftpd-core:
     installed: true

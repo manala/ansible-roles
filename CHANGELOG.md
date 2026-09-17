@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.0-RC] - 2026-09-16
+Deprecated Debian Bullseye 11 across all manala roles.
+
+### Removed
+- [All] Debian Bullseye support
+- [All] Elasticsearch 5 support
+- [All] GlusterFS 10.2 support
+- [All] Galera 4.10 and MySQL wsrep 8.0.26 support
+- [All] MariaDB 10.5 support
+- [All] MariaDB 10.6 support
+- [All] Nodejs 10 support
+- [All] Redis 6.0 support
+
 ## [5.5.2] - 2026-06-16
 
 ### Added

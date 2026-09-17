@@ -121,7 +121,6 @@ manala_apt_repositories:
   - backports_sloppy
   - nginx
   - bearstech
-  - nodesource_10
   - nodesource_12
   - nodesource_14
   - nodesource_16
@@ -136,7 +135,6 @@ manala_apt_repositories:
   - proxmox_enterprise
   - logentries
   - grafana
-  - elasticsearch_5
   - elasticsearch_6
   - elasticsearch_7
   - ppa_ansible
@@ -190,7 +188,7 @@ manala_apt_repositories:
   - updates
 ```
 
-You can of course use the same repositories definition on Debian 10 Buster and Debian 11 Bullseye, but since this two distros comes with a default `/etc/apt/source.list` file, it will conflict when using apt command. To solve this, set the following variable to `false` to delete `/etc/apt/source.list`
+You can of course use the same repositories definition on Debian 12 Bookworm, but since this distro comes with a default `/etc/apt/source.list` file, it will conflict when using apt command. To solve this, set the following variable to `false` to delete `/etc/apt/source.list`
 
 ```yaml
 manala_apt_sources_list: false

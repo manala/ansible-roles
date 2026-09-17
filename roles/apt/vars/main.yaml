@@ -18,11 +18,8 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}
@@ -33,11 +30,8 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}
@@ -46,11 +40,8 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}-security"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-security
@@ -61,11 +52,8 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}-security"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-security
@@ -75,11 +63,8 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}-updates"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-updates
@@ -90,68 +75,53 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}-updates"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-updates
     legacy_file: deb_debian_org_debian.list
   backports:
-    uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
+    uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}-backports"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports
     legacy_file: deb_debian_org_debian.list
   backports_src:
     types: deb-src
-    uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
+    uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}-backports"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports
   backports_sloppy:
-    uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
+    uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}-backports-sloppy"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports-sloppy
     legacy_file: deb_debian_org_debian.list
   backports_sloppy_src:
     types: deb-src
-    uris: "{{ (ansible_facts.distribution_release in ['bullseye']) | ternary('http://archive.debian.org/debian', 'http://deb.debian.org/debian') }}"
+    uris: http://deb.debian.org/debian
     suites: "{{ ansible_facts.distribution_release }}-backports-sloppy"
     components: "{{ manala_apt_components | flatten | join(' ') }}"
     signed_by: |-
-      {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary(
-        (ansible_facts.distribution_release in ['bullseye']) | ternary(
-          omit,
-          '/usr/share/keyrings/debian-archive-keyring.gpg',
-        ),
+      {{ (ansible_facts.distribution_release in ['bookworm']) | ternary(
+        '/usr/share/keyrings/debian-archive-keyring.gpg',
         '/usr/share/keyrings/debian-archive-keyring.pgp',
       ) }}
     pin: release n={{ ansible_facts.distribution_release }}-backports-sloppy
@@ -179,12 +149,6 @@ manala_apt_repositories_patterns:
     components: main
     key: bearstech
     legacy_file: deb_bearstech_com_debian.list
-  nodesource_10:
-    uris: https://deb.nodesource.com/node_10.x
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: nodesource_legacy
-    legacy_file: deb_nodesource_com_node_10_x.list
   nodesource_12:
     uris: https://deb.nodesource.com/node_12.x
     suites: "{{ ansible_facts.distribution_release }}"
@@ -236,18 +200,6 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}"
     components: mysql-8.4-lts
     key: mysql
-  mariadb_10_5:
-    uris: https://dlm.mariadb.com/repo/mariadb-server/10.5/repo/debian
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb
-    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_5_repo_debian.list
-  mariadb_10_6:
-    uris: https://dlm.mariadb.com/repo/mariadb-server/10.6/repo/debian
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: mariadb
-    legacy_file: downloads_mariadb_com_MariaDB_mariadb_10_6_repo_debian.list
   mariadb_10_11:
     uris: https://dlm.mariadb.com/repo/mariadb-server/10.11/repo/debian
     suites: "{{ ansible_facts.distribution_release }}"
@@ -335,12 +287,6 @@ manala_apt_repositories_patterns:
     components: main
     key: galera_legacy
     legacy_file: releases_galeracluster_com_galera_4_8_{{ ansible_facts.distribution | lower }}.list
-  galera_4_10:
-    uris: https://releases.galeracluster.com/galera-4.10/{{ ansible_facts.distribution | lower }}
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: galera_legacy
-    legacy_file: releases_galeracluster_com_galera_4_10_{{ ansible_facts.distribution | lower }}.list
   galera_4_23:
     uris: https://releases.galeracluster.com/galera-4.23/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
@@ -364,12 +310,6 @@ manala_apt_repositories_patterns:
     components: main
     key: galera_legacy
     legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_23_26_6_{{ ansible_facts.distribution | lower }}.list
-  mysql_wsrep_8_0_26:
-    uris: https://releases.galeracluster.com/mysql-wsrep-8.0.26-26.8/{{ ansible_facts.distribution | lower }}
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: galera_legacy
-    legacy_file: releases_galeracluster_com_mysql_wsrep_8_0_26_26_8_{{ ansible_facts.distribution | lower }}.list
   mysql_wsrep_8_4_5:
     uris: https://releases.galeracluster.com/mysql-wsrep-8.4.5-26.23/{{ ansible_facts.distribution | lower }}
     suites: "{{ ansible_facts.distribution_release }}"
@@ -381,12 +321,6 @@ manala_apt_repositories_patterns:
     components: main
     key: grafana
     legacy_file: apt_grafana_com.list
-  elasticsearch_5:
-    uris: https://artifacts.elastic.co/packages/5.x/apt
-    suites: stable
-    components: main
-    key: elasticsearch
-    legacy_file: artifacts_elastic_co_packages_5_x_apt.list
   elasticsearch_6:
     uris: https://artifacts.elastic.co/packages/6.x/apt
     suites: stable
@@ -411,7 +345,7 @@ manala_apt_repositories_patterns:
     key: elasticsearch
   ansible:
     uris: http://ppa.launchpad.net/ansible/ansible/ubuntu
-    suites: "{{ {'bullseye': 'focal', 'bookworm': 'jammy', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
+    suites: "{{ {'bookworm': 'jammy', 'trixie': 'noble'}[ansible_facts.distribution_release] }}"
     components: main
     key: ansible
     legacy_file: ppa_launchpad_net_ansible_ansible_ubuntu.list
@@ -498,18 +432,6 @@ manala_apt_repositories_patterns:
     components: main
     key: mica
     legacy_file: obiba_jfrog_io_artifactory_debian_local.list
-  glusterfs_10_2:
-    uris: >-
-      https://download.gluster.org/pub/gluster/glusterfs/10/10.2/Debian/{{ ansible_facts.distribution_release }}/{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: glusterfs_10
-    legacy_file: >-
-      download_gluster_org_pub_gluster_glusterfs_10_10_2_Debian_{{ ansible_facts.distribution_release }}_{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}_apt.list
   glusterfs_10_4:
     uris: >-
       https://download.gluster.org/pub/gluster/glusterfs/10/10.4/Debian/{{ ansible_facts.distribution_release }}/{{
@@ -635,7 +557,6 @@ manala_apt_keys_patterns:
     signed_by: |-
       {{
         {
-          'bullseye': 'http://download.proxmox.com/debian/proxmox-release-bullseye.gpg',
           'bookworm': 'http://download.proxmox.com/debian/proxmox-release-bookworm.gpg',
           'trixie': 'https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg',
         }[ansible_facts.distribution_release]
@@ -742,7 +663,6 @@ manala_apt_preferences_patterns:
   ffmpeg: |-
     ffmpeg {{
       {
-        'bullseye': 'libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libpostproc55 libswresample3 libswscale5',
         'bookworm': 'libavcodec59 libavdevice59 libavfilter8 libavformat59 libavutil57 libpostproc56 libswresample4 libswscale6',
         'trixie': 'libavcodec61 libavdevice61 libavfilter10 libavformat59 libavutil61 libpostproc58 libswresample5 libswscale8',
       }[ansible_facts.distribution_release]
