@@ -14,6 +14,9 @@ Deprecated Debian Bullseye 11 across all manala roles.
 
 ### Removed
 - [All] Debian Bullseye support
+- [AppArmor] Remove apparmor role, only ever supported on Bullseye
+- [Ntp] Remove ntp role, only ever supported on Bullseye
+- [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
 - [All] Elasticsearch 5 support
 - [All] GlusterFS 10.2 support
 - [All] Galera 4.10 and MySQL wsrep 8.0.26 support
