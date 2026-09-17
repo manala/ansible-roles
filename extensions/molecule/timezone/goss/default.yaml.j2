@@ -2,7 +2,7 @@
 
 file:
   /etc/timezone:
-    exists: {{ (ansible_facts.distribution_release in ['bullseye', 'bookworm']) | ternary('true', 'false') }}
+    exists: {{ (ansible_facts.distribution_release in ['bookworm']) | ternary('true', 'false') }}
     filetype: file
     owner: root
     group: root

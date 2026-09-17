@@ -162,7 +162,7 @@ If you are using the apt role, define the wanted MariaDB version:
 
 ```yaml
 manala_apt_preferences:
- - mariadb@mariadb_10_5
+ - mariadb@mariadb_10_11
 ```
 
 You will also need to override default packages:
