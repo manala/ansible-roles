@@ -3,7 +3,6 @@
 - name: Prepare
   tags: [always]
   hosts:
-    - debian.bullseye
     - debian.bookworm
   tasks:
     - name: Apt

@@ -8,7 +8,6 @@
   tags: [default]
   hosts:
     - debian
-    - "!debian.bullseye"
     - "!debian.bookworm"
   tasks:
     - block:  # noqa: name[missing]
@@ -33,7 +32,6 @@
   tags: [config]
   hosts:
     - debian
-    - "!debian.bullseye"
     - "!debian.bookworm"
   vars:
     tests_dir: /molecule/redis/config

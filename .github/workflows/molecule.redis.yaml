@@ -25,4 +25,4 @@ jobs:
     with:
       debug: ${{ inputs.debug == true }}
       scenario: redis
-      versions: '["6.0", "7.0", "8.0"]'
+      versions: '["7.0", "8.0"]'
