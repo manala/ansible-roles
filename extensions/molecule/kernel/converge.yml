@@ -16,6 +16,9 @@
             manala_kernel_parameters:
               - parameter: net.ipv4.ip_nonlocal_bind
                 value: 3
+              - parameter: net.ipv4.ip_forward
+                value: 1
+                file: /etc/sysctl.d/90-molecule.conf
       always:
         - name: Goss
           ansible.builtin.command:

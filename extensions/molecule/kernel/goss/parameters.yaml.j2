@@ -3,3 +3,19 @@
 kernel-param:
   net.ipv4.ip_nonlocal_bind:
     value: "3"
+  net.ipv4.ip_forward:
+    value: "1"
+
+file:
+  # Without a file, parameters land in the module's default sysctl file
+  /etc/sysctl.conf:
+    exists: true
+    filetype: file
+    contains:
+      - "net.ipv4.ip_nonlocal_bind=3"
+  # With a file, they land there instead
+  /etc/sysctl.d/90-molecule.conf:
+    exists: true
+    filetype: file
+    contains:
+      - "net.ipv4.ip_forward=1"
