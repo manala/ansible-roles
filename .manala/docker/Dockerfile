@@ -11,12 +11,12 @@ ARG DEBIAN_FRONTEND="noninteractive"
 ARG MANALA_USER_ID="1000"
 ARG MANALA_GROUP_ID="1000"
 
-ARG GOMPLATE_VERSION="4.3.3"
+ARG GOMPLATE_VERSION="5.0.0"
 ARG DIRENV_VERSION="2.37.1"
 ARG JQ_VERSION="1.7.1"
-ARG YQ_VERSION="4.47.2"
-ARG STARSHIP_VERSION="1.23.0"
-ARG FZF_VERSION="0.65.2"
+ARG YQ_VERSION="4.52.4"
+ARG STARSHIP_VERSION="1.24.2"
+ARG FZF_VERSION="0.68.0"
 
 # The 'container' environment variable tells systemd that it's running inside a
 # Docker container environment.
@@ -46,6 +46,7 @@ apt-get --quiet --yes --no-install-recommends --verbose-versions install \
     s6 \
     socat \
     sudo \
+    telnet \
     vim \
     zsh
 # Locale
@@ -102,6 +103,8 @@ ENV LANG="en_US.UTF-8"
 ENV PIPX_HOME="/usr/local/pipx"
 ENV PIPX_BIN_DIR="/usr/local/bin"
 
+ARG VIM_GNUPG_VERSION="2.7.1"
+
 RUN <<EOF
 apt-get --quiet update
 apt-get --quiet --yes --no-install-recommends --verbose-versions install \
@@ -113,6 +116,11 @@ apt-get --quiet --yes --no-install-recommends --verbose-versions install \
     goss
 # Sudo
 echo "Defaults env_keep += \"PIPX_*\"" > /etc/sudoers.d/pipx
+# Vim Gnupg
+install --verbose --mode 0755 --directory /usr/share/vim/vimfiles/pack/plugins/start/vim-gnupg
+curl -sSLf https://github.com/jamessan/vim-gnupg/releases/download/v${VIM_GNUPG_VERSION}/vim-gnupg-v${VIM_GNUPG_VERSION}.tar.gz \
+    | bsdtar -xvf - -C /usr/share/vim/vimfiles/pack/plugins/start/vim-gnupg --strip-components=1 vim-gnupg-${VIM_GNUPG_VERSION}
+echo "let g:GPGPreferSymmetric = 1" >> /etc/vim/vimrc
 # Clean
 rm -rf /var/lib/apt/lists/*
 EOF
