@@ -1,9 +1,0 @@
----
-
-- name: Plugins > Install
-  community.general.elasticsearch_plugin:
-    name: "{{ (item) if (item is string) else (item.name) }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ manala_elasticsearch_plugins }}"
-  notify:
-    - Restart elasticsearch
