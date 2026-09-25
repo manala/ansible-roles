@@ -29,18 +29,26 @@
     group: root
     mode: "0755"
     force: true
+  vars:
+    # Anchor on the version line, as php may prepend deprecation notices to the output
+    __manala_composer_bin_check_version: "{{
+      __manala_composer_bin_check_result.stdout
+        | regex_search('Composer version \\d+\\.\\d+\\.\\d+')
+        | default('', true)
+        | regex_replace('^Composer version ', '')
+    }}"
   when: |
     (__manala_composer_bin_check_result.rc == 2)
     or (
       manala_composer_version | string is match('^\\d+\\.\\d+\\.\\d+$')
       and (
-        manala_composer_version | string != __manala_composer_bin_check_result.stdout | regex_replace('(.*)(\\d+\\.\\d+\\.\\d+)(.*)', '\\2')
+        manala_composer_version | string != __manala_composer_bin_check_version
       )
     )
     or (
       manala_composer_version | string is match('^\\d+$')
       and (
-        manala_composer_version | string != __manala_composer_bin_check_result.stdout | regex_replace('(.*)(\\d+)(\\.\\d+\\.\\d+.*)', '\\2')
+        manala_composer_version | string != __manala_composer_bin_check_version | regex_replace('^(\\d+)\\..*$', '\\1')
       )
     )
     or (

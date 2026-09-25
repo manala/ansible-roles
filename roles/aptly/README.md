@@ -59,17 +59,17 @@ Repositories:
 
 ```yaml
 manala_aptly_repositories:
-  - name: bullseye
-    comment: Bullseye
-    component: main
-    distribution: bullseye
-    origin: Foo
-    label: Bar
-    architectures: amd64
   - name: bookworm
     comment: Bookworm
     component: main
     distribution: bookworm
+    origin: Foo
+    label: Bar
+    architectures: amd64
+  - name: trixie
+    comment: Trixie
+    component: main
+    distribution: trixie
     origin: Foo
     label: Bar
     architectures: amd64,arm64

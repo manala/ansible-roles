@@ -3,7 +3,6 @@
 - name: Prepare
   tags: [always]
   hosts:
-    - debian.bullseye
     - debian.bookworm
   tasks:
     - name: Apt
@@ -13,3 +12,22 @@
         manala_apt_preferences:
           - galera@galera_4_23
           - mysql@mysql_wsrep_8_4_5
+    # The mysql-wsrep package ships a mysql.service unit switching upstream
+    # "Type=notify" to "Type=exec", with a "mysql-systemd-start post" hook not
+    # waiting for anything. Systemd then reports the service as started before
+    # mysqld listens on its socket, making users and databases tasks fail.
+    - name: Mysql service drop-in directory
+      ansible.builtin.file:
+        path: /etc/systemd/system/mysql.service.d
+        state: directory
+        mode: "0755"
+    - name: Mysql service socket drop-in
+      ansible.builtin.copy:
+        content: |
+          [Service]
+          ExecStartPost=/usr/bin/timeout 60 /bin/sh -c 'until test -S /var/run/mysqld/mysqld.sock; do sleep 1; done'
+        dest: /etc/systemd/system/mysql.service.d/socket.conf
+        mode: "0644"
+    - name: Systemd daemon reload
+      ansible.builtin.systemd_service:
+        daemon_reload: true

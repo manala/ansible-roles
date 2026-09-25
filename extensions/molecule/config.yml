@@ -4,16 +4,6 @@ driver:
   name: docker
 
 platforms:
-  - name: debian.bullseye
-    groups: [debian]
-    image: jrei/systemd-debian:bullseye
-    platform: linux/amd64
-    dockerfile: ../Dockerfile.debian.bullseye.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    override_command: false
   - name: debian.bookworm
     groups: [debian]
     image: jrei/systemd-debian:bookworm

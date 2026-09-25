@@ -10,8 +10,7 @@ file:
     contents: |
       Components: main
       X-Repolib-Name: default
-{% if ansible_facts.distribution_release in ['bullseye'] %}
-{% elif ansible_facts.distribution_release in ['bookworm'] %}
+{% if ansible_facts.distribution_release in ['bookworm'] %}
       Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 {% else %}
       Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
@@ -28,8 +27,7 @@ file:
     contents: |
       Components: main
       X-Repolib-Name: security
-{% if ansible_facts.distribution_release in ['bullseye'] %}
-{% elif ansible_facts.distribution_release in ['bookworm'] %}
+{% if ansible_facts.distribution_release in ['bookworm'] %}
       Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 {% else %}
       Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
@@ -46,8 +44,7 @@ file:
     contents: |
       Components: main
       X-Repolib-Name: updates
-{% if ansible_facts.distribution_release in ['bullseye'] %}
-{% elif ansible_facts.distribution_release in ['bookworm'] %}
+{% if ansible_facts.distribution_release in ['bookworm'] %}
       Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 {% else %}
       Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp

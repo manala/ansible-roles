@@ -1,6 +1,6 @@
 ---
 
-# Available values: '~' (autodetect), 5, 6, 7, ...
+# Available values: '~' (autodetect), 6, 7, 8, 9, ...
 manala_elasticsearch_version: ~
 
 # Install

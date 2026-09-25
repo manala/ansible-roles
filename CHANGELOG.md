@@ -10,6 +10,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Kernel] Add parameters `file` key, to write a parameter into a dedicated sysctl file
 
+### Removed
+- [All] Debian Bullseye support
+- [AppArmor] Remove apparmor role, only ever supported on Bullseye
+- [Ntp] Remove ntp role, only ever supported on Bullseye
+- [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
+- [All] Elasticsearch 5 support
+- [All] GlusterFS 10.2 support
+- [All] Galera 4.10 and MySQL wsrep 8.0.26 support
+- [All] MariaDB 10.5 support
+- [All] MariaDB 10.6 support
+- [All] Nodejs 10 support
+- [All] Redis 6.0 support
+- [Ssh] Remove no more supported 7.9 and 8.4 config templates
+
+### Fixed
+- [Composer] Anchor version detection on the version line, so that php deprecation notices no longer trigger a needless re-download
+
 ## [5.5.2] - 2026-06-16
 
 ### Added
