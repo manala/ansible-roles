@@ -1,8 +1,0 @@
----
-
-- name: Restart grafana
-  ansible.builtin.service:
-    name: "{{ item }}"
-    state: restarted
-  loop:
-    - grafana-server
