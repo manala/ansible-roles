@@ -11,5 +11,3 @@ collections:
     version: 4.0.0
   - name: community.postgresql
     version: 4.1.0
-  - name: gluster.gluster
-    version: 1.0.2
