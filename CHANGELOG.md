@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [All] MariaDB 10.6 support
 - [All] Nodejs 10 support
 - [All] Redis 6.0 support
+- [Ssh] Remove no more supported 7.9 and 8.4 config templates
 
 ### Fixed
 - [Composer] Anchor version detection on the version line, so that php deprecation notices no longer trigger a needless re-download
