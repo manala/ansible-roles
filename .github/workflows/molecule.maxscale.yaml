@@ -25,4 +25,4 @@ jobs:
     with:
       debug: ${{ inputs.debug == true }}
       scenario: maxscale
-      versions: '[23.02, 23.08, 24.02]'
+      versions: '[23.08, 24.02]'
