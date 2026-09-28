@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [AppArmor] Remove apparmor role, only ever supported on Bullseye
 - [Ntp] Remove ntp role, only ever supported on Bullseye
 - [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
+- [Dnsmasq] Remove dnsmasq role
 - [Vault Cli] Remove vault_cli role, along with its dedicated `vault_cli_architecture` filter plugin
 - [Grafana] Remove grafana role
 - [Rsyslog] Remove rsyslog role, along with its dedicated `rsyslog_config` filter plugin
