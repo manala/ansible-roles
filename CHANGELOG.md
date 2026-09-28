@@ -17,6 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
 - [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
 - [Ansible] Remove ansible role
+- [Telegraf] Remove telegraf role
+- [InfluxDB] Remove influxdb role, along with the `toml` filter plugin, now unused
+- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
+- [Telegraf] Remove telegraf role
+- [Prometheus] Remove prometheus role, along with its dedicated `prometheus_architecture` filter plugin
+- [Grafana Agent] Remove grafana_agent role
+- [SQLite] Remove sqlite role
 - [All] Elasticsearch 5 support
 - [All] GlusterFS 10.2 support
 - [All] Galera 4.10 and MySQL wsrep 8.0.26 support
