@@ -1,8 +1,0 @@
----
-
-- name: Restart dnsmasq
-  ansible.builtin.service:
-    name: "{{ item }}"
-    state: restarted
-  loop:
-    - dnsmasq
