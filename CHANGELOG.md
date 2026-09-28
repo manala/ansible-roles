@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [AppArmor] Remove apparmor role, only ever supported on Bullseye
 - [Ntp] Remove ntp role, only ever supported on Bullseye
 - [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
+- [Promtail] Remove the leftover `promtail_architecture` filter plugin
 - [Elasticsearch] Remove elasticsearch role
 - [Cloud Init] Remove cloud_init role
 - [Dnsmasq] Remove dnsmasq role
