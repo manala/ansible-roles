@@ -39,7 +39,6 @@ class LookupModule(LookupBase):
         keysPatterns = terms[2]
         preferences = terms[3]
         exclusives = self._flatten(terms[4])
-        dir = terms[5]
 
         itemDefault = {
             'state': 'present'
@@ -93,10 +92,6 @@ class LookupModule(LookupBase):
                     **item,
                 }
 
-            # Legacy
-            if 'source' in item:
-                raise AnsibleError('Using a "source" repository key is deprecated, please use deb822 notation. See manala.roles.apt README.md')
-
             # Check index key
             if 'name' not in item:
                 raise AnsibleError('Missing "name" key')
@@ -120,24 +115,13 @@ class LookupModule(LookupBase):
                     **item,
                 }
 
-            if 'legacy_file' in item:
-                itemLegacy = itemDefault.copy()
-                itemLegacy.update({
-                    'file': os.path.join(
-                        dir,
-                        item['legacy_file']
-                    ),
-                    'state': 'absent',
-                })
-                results.append(itemLegacy)
-
             items.append(item)
 
             # Merge by index key
             for item in items:
                 itemFound = False
                 for i, result in enumerate(results):
-                    # Comes from exclusives or legacy_files
+                    # Comes from exclusives
                     if 'file' in result:
                         file_basename = os.path.basename(result['file'])
                         file_name = os.path.splitext(file_basename)[0]

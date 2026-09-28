@@ -39,7 +39,6 @@
               wantstate='present'
           ),
           __manala_apt_repositories_exclusive_find.files | default([]),
-          manala_apt_repositories_dir,
           wanttype='name'
         ) }}
       loop_control:
@@ -71,7 +70,6 @@
           wantstate='present'
       ),
       __manala_apt_repositories_exclusive_find.files | default([]),
-      manala_apt_repositories_dir,
       wanttype='file'
     ) }}
   loop_control:
