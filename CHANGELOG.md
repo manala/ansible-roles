@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [AppArmor] Remove apparmor role, only ever supported on Bullseye
 - [Ntp] Remove ntp role, only ever supported on Bullseye
 - [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
+- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
 - [Telegraf] Remove telegraf role
 - [Prometheus] Remove prometheus role, along with its dedicated `prometheus_architecture` filter plugin
 - [Grafana Agent] Remove grafana_agent role
