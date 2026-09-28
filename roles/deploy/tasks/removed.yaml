@@ -1,7 +1,0 @@
----
-
-- name: Removed > Files
-  ansible.builtin.file:
-    path: "{{ ansible_facts.deploy_helper.new_release_path ~ '/' ~ item }}"
-    state: absent
-  loop: "{{ manala_deploy_removed }}"
