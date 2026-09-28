@@ -12,39 +12,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - [All] Debian Bullseye support
+- [All] Elasticsearch 5 support
+- [All] Galera 4.10 and MySQL wsrep 8.0.26 support
+- [All] GlusterFS 10.2 support
+- [All] MariaDB 10.5 support
+- [All] MariaDB 10.6 support
+- [All] MaxScale 23.02 support, reached end of life
+- [All] Nodejs 10 support
+- [All] Redis 6.0 support
+- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
+- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
+- [Ansible] Remove ansible role
+- [AppArmor] Remove apparmor role, only ever supported on Bullseye
 - [Apt] Remove the `legacy_file` repositories pattern key, and the cleanup of pre-deb822 `.list` files it performed
 - [Apt] Remove the guard raising on the pre-deb822 `source` repository key
 - [Apt] Remove the now unused directory argument from the `apt_repositories` lookup
-- [All] MaxScale 23.02 support, reached end of life
-- [AppArmor] Remove apparmor role, only ever supported on Bullseye
-- [Ntp] Remove ntp role, only ever supported on Bullseye
-- [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
-- [Deploy] Remove deploy role, along with its dedicated `deploy_log` callback and `deploy_tasks` / `deploy_writable_dirs` lookup plugins
-- [Ngrok] Remove ngrok role, along with its dedicated `ngrok_architecture` filter plugin
-- [Promtail] Remove the leftover `promtail_architecture` filter plugin
-- [Elasticsearch] Remove elasticsearch role
 - [Cloud Init] Remove cloud_init role
+- [Deploy] Remove deploy role, along with its dedicated `deploy_log` callback and `deploy_tasks` / `deploy_writable_dirs` lookup plugins
 - [Dnsmasq] Remove dnsmasq role
-- [Vault Cli] Remove vault_cli role, along with its dedicated `vault_cli_architecture` filter plugin
-- [Grafana] Remove grafana role
-- [Rsyslog] Remove rsyslog role, along with its dedicated `rsyslog_config` filter plugin
-- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
-- [Ansible] Remove ansible role
-- [Telegraf] Remove telegraf role
-- [InfluxDB] Remove influxdb role, along with the `toml` filter plugin, now unused
-- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
-- [Telegraf] Remove telegraf role
-- [Prometheus] Remove prometheus role, along with its dedicated `prometheus_architecture` filter plugin
+- [Elasticsearch] Remove elasticsearch role
 - [Grafana Agent] Remove grafana_agent role
+- [Grafana] Remove grafana role
+- [InfluxDB] Remove influxdb role, along with the `toml` filter plugin, now unused
+- [Ngrok] Remove ngrok role, along with its dedicated `ngrok_architecture` filter plugin
+- [Nodejs] Debian Trixie support on version 16, 18 and 20
+- [Ntp] Remove ntp role, only ever supported on Bullseye
+- [Prometheus] Remove prometheus role, along with its dedicated `prometheus_architecture` filter plugin
+- [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
+- [Promtail] Remove the leftover `promtail_architecture` filter plugin
+- [Rsyslog] Remove rsyslog role, along with its dedicated `rsyslog_config` filter plugin
 - [SQLite] Remove sqlite role
-- [All] Elasticsearch 5 support
-- [All] GlusterFS 10.2 support
-- [All] Galera 4.10 and MySQL wsrep 8.0.26 support
-- [All] MariaDB 10.5 support
-- [All] MariaDB 10.6 support
-- [All] Nodejs 10 support
-- [All] Redis 6.0 support
 - [Ssh] Remove no more supported 7.9 and 8.4 config templates
+- [Telegraf] Remove telegraf role
+- [Telegraf] Remove telegraf role
+- [Vault Cli] Remove vault_cli role, along with its dedicated `vault_cli_architecture` filter plugin
 
 ### Fixed
 - [Composer] Anchor version detection on the version line, so that php deprecation notices no longer trigger a needless re-download
