@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Ntp] Remove ntp role, only ever supported on Bullseye
 - [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
 - [Telegraf] Remove telegraf role
+- [Prometheus] Remove prometheus role, along with its dedicated `prometheus_architecture` filter plugin
+- [Grafana Agent] Remove grafana_agent role
+- [SQLite] Remove sqlite role
 - [All] Elasticsearch 5 support
 - [All] GlusterFS 10.2 support
 - [All] Galera 4.10 and MySQL wsrep 8.0.26 support
