@@ -7,15 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Removed
-- [GlusterFS] Remove glusterfs role, its `gluster.gluster` collection dependency having been dropped in 6.0.0
 ### Added
 - [All] MariaDB 12.3 support
+
+### Removed
+- [GlusterFS] Remove glusterfs role, its `gluster.gluster` collection dependency having been dropped in 6.0.0
 
 ## [6.0.0] - 2026-09-29
 
 ### Added
 - [Kernel] Add parameters `file` key, to write a parameter into a dedicated sysctl file
+- [Nodejs] Debian Trixie support on version 16, 18 and 20
 
 ### Removed
 - [All] Debian Bullseye support
@@ -27,7 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [All] MaxScale 23.02 support, reached end of life
 - [All] Nodejs 10 support
 - [All] Redis 6.0 support
-- [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
 - [Ansible Galaxy] Remove ansible_galaxy role, along with its dedicated `ansible_galaxy_roles` lookup plugin
 - [Ansible] Remove ansible role
 - [AppArmor] Remove apparmor role, only ever supported on Bullseye
@@ -42,7 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Grafana] Remove grafana role
 - [InfluxDB] Remove influxdb role, along with the `toml` filter plugin, now unused
 - [Ngrok] Remove ngrok role, along with its dedicated `ngrok_architecture` filter plugin
-- [Nodejs] Debian Trixie support on version 16, 18 and 20
 - [Ntp] Remove ntp role, only ever supported on Bullseye
 - [Prometheus] Remove prometheus role, along with its dedicated `prometheus_architecture` filter plugin
 - [Promtail] Remove promtail role, upstream no longer publishes promtail binaries (deprecated by Grafana in favor of Alloy)
@@ -50,7 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Rsyslog] Remove rsyslog role, along with its dedicated `rsyslog_config` filter plugin
 - [SQLite] Remove sqlite role
 - [Ssh] Remove no more supported 7.9 and 8.4 config templates
-- [Telegraf] Remove telegraf role
 - [Telegraf] Remove telegraf role
 - [Vault Cli] Remove vault_cli role, along with its dedicated `vault_cli_architecture` filter plugin
 
