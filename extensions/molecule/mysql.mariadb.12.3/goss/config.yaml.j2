@@ -1,0 +1,29 @@
+---
+
+file:
+  {{ tests_dir }}/dict:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      [mysqld]
+      bind-address = 1.2.3.4
+      pid-file = /var/run/mysqld/mysqld.pid
+  {{ tests_dir }}/content:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Content
+  {{ tests_dir }}/template:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contents: |
+      Template

@@ -1,0 +1,22 @@
+---
+
+command:
+  mariadb -u root --execute "select user from mysql.user":
+    exit-status: 0
+    stdout:
+      - foo
+      - baz
+      - state_present
+      - state_present_implicit
+      - "!state_absent"
+      - "!state_absent_existing"
+      - "!state_ignored"
+      - state_ignore_existing
+  mariadb-admin --user=foo --password=foo ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
+  mariadb-admin --user=baz --password=baz ping:
+    exit-status: 0
+    stdout:
+      - "mysqld is alive"
