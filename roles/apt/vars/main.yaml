@@ -378,14 +378,6 @@ manala_apt_repositories_patterns:
     suites: all
     components: main
     key: mica
-  glusterfs_10_4:
-    uris: >-
-      https://download.gluster.org/pub/gluster/glusterfs/10/10.4/Debian/{{ ansible_facts.distribution_release }}/{{
-        ansible_facts.architecture | manala.roles.apt_architecture
-      }}/apt
-    suites: "{{ ansible_facts.distribution_release }}"
-    components: main
-    key: glusterfs_10
   haproxy_1_8:
     uris: http://haproxy.debian.net
     suites: "{{ ansible_facts.distribution_release }}-backports-1.8"
@@ -529,10 +521,6 @@ manala_apt_keys_patterns:
     signed_by: https://packages.blackfire.io/gpg.key
   mica:
     signed_by: https://www.obiba.org/assets/obiba-pub.pem
-  glusterfs_6:
-    signed_by: https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
-  glusterfs_10:
-    signed_by: https://download.gluster.org/pub/gluster/glusterfs/10/rsa.pub
   ansible:
     signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
   haproxy:
@@ -597,7 +585,6 @@ manala_apt_preferences_patterns:
         'trixie': 'libavcodec61 libavdevice61 libavfilter10 libavformat59 libavutil61 libpostproc58 libswresample5 libswscale8',
       }[ansible_facts.distribution_release]
     }}
-  glusterfs: glusterfs-*
   newrelic-infra: newrelic-infra
   filebeat: filebeat*
   kopia: kopia*
