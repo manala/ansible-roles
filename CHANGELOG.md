@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+- [GlusterFS] Remove glusterfs role, its `gluster.gluster` collection dependency having been dropped in 6.0.0
+
 ## [6.0.0] - 2026-09-29
 
 ### Added
