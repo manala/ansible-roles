@@ -198,6 +198,11 @@ manala_apt_repositories_patterns:
     suites: "{{ ansible_facts.distribution_release }}"
     components: main
     key: mariadb
+  mariadb_12_3:
+    uris: https://dlm.mariadb.com/repo/mariadb-server/12.3/repo/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: main
+    key: mariadb
   maxscale_23_08:
     uris: https://dlm.mariadb.com/repo/maxscale/23.08/apt
     suites: "{{ ansible_facts.distribution_release }}"

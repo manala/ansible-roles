@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - [GlusterFS] Remove glusterfs role, its `gluster.gluster` collection dependency having been dropped in 6.0.0
+### Added
+- [All] MariaDB 12.3 support
 
 ## [6.0.0] - 2026-09-29
 
