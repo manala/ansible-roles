@@ -173,6 +173,11 @@ manala_apt_repositories_patterns:
     suites: nodistro
     components: main
     key: nodesource
+  nodesource_26:
+    uris: https://deb.nodesource.com/node_26.x
+    suites: nodistro
+    components: main
+    key: nodesource
   mysql_8_0:
     uris: http://repo.mysql.com/apt/{{ ansible_facts.distribution | lower }}/
     suites: "{{ ansible_facts.distribution_release }}"
